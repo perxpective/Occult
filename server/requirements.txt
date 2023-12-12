@@ -1,0 +1,5 @@
+FastAPI
+pydantic
+uvicorn[standard]
+python-multipart
+langchain

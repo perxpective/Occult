@@ -23,7 +23,12 @@ with st.sidebar:
 
     # Clear chat history button
     def clear_chat(): 
-        st.session_state.messages = [{"role": "assistant", "content": "Ask away and let Occult help you!"}]
+        st.session_state.messages = [
+            {
+                "role": "assistant", 
+                "content": "Ask away and let Occult help you!"
+            }
+        ]
     st.button(label="Clear Chat! 🗑️", on_click=clear_chat)
 
 # Instructions
@@ -39,7 +44,10 @@ uploaded_file = st.file_uploader("Upload your PCAP files here...", type=["pcap",
 # Chat (Starting message)
 # Store LLM generated responses in session state
 if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "Ask away and let Occult help you!"}]
+    st.session_state.messages = [{
+        "role": "assistant", 
+        "content": "Ask away and let Occult help you!"
+    }]
 
 # Display or clear chat messages
 for message in st.session_state.messages:
@@ -51,7 +59,13 @@ prompt = st.chat_input("Ask away! 🤓")
 
 # Accpeting user inputs when API key is provided
 if prompt := st.chat_input():
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    # Append user input to chat history
+    st.session_state.messages.append({
+        "role": "user", 
+        "content": prompt
+    })
+
+    # Display user input
     with st.chat_message("user"):
         st.write(prompt)
 
@@ -62,6 +76,8 @@ if st.session_state.messages[-1]["role"] != "assistant":
             if not uploaded_file:
                 response = "Please upload your PCAP files first!"
                 st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
-
-
+                
+    st.session_state.messages.append({
+        "role": "assistant", 
+        "content": response
+    })
