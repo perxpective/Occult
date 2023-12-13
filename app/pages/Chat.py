@@ -16,7 +16,7 @@ st.set_page_config(
 # Page title
 st.title("Chat with Occult! 🕵️")
 
-# Sidebar
+# Sidebar menu
 with st.sidebar:
     st.header("Chat with Occult! 🕵️‍♂️")
 
@@ -26,7 +26,27 @@ with st.sidebar:
         st.success("API key accepted! 🎉")
 
     # Model settings
-    temperature = st.slider(label="Temperature (Higher = More Creative, Lower = More Factual)", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+    temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+    top_p = st.slider(label="Top P", min_value=0.0, max_value=1.0, value=0.9, step=0.01)
+
+    # Update settings button
+    if st.button(label="Update Settings!"):
+        # Initialise settings JSON for API request
+        settings = {
+            "temperature": temperature,
+            "top_p": top_p
+        }
+
+        # Send settings to FastAPI server
+        try:
+            response = requests.post(BASE_URL + "chat/settings", json=settings)
+            if response.status_code == 200:
+                st.toast("Settings updated! 🎉")
+            else:
+                st.toast("Failed to send settings to Occult! 😢")
+        except requests.exceptions.RequestException as e:
+            st.toast("Failed to send settings to Occult! 😢")
+            st.toast(e)
 
     # Clear chat history button
     def clear_chat(): 
@@ -46,7 +66,7 @@ st.markdown("""
 """)
 
 # File upload
-uploaded_files  = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
+uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
 
 # Upload file to the server
 if uploaded_files is not None:
@@ -69,7 +89,6 @@ else:
     st.warning("Please upload your PCAP files! 📁")
 
 # Chat (Starting message)
-# Store LLM generated responses in session state
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{
         "role": "assistant", 
@@ -85,6 +104,7 @@ for message in st.session_state.messages:
 prompt = st.chat_input("Ask away! 🤓")
 
 # Accpeting user inputs when API key is provided
+# if prompt := st.chat_input(disabled=not api_key):
 if prompt := st.chat_input():
     # Append user input to chat history
     st.session_state.messages.append({
@@ -96,7 +116,7 @@ if prompt := st.chat_input():
     with st.chat_message("user"):
         st.write(prompt)
 
-# Generate LLM response
+# Generate LLM response by checking if last message was sent by AI
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Let Occult Cook..."):
