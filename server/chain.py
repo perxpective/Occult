@@ -1,14 +1,14 @@
 """
 Important Libraries to install before working on
-!pip install langchain
-!pip install faiss-gpu
-!pip install faiss-cpu
-!pip install transformers
-!pip install pandas
-!pip install CSV
-!pip install scapy
-!pip install numpy
-!pip install sentence-transformers
+! pip install langchain
+! pip install faiss-gpu
+! pip install faiss-cpu
+! pip install transformers
+! pip install pandas
+! pip install CSV
+! pip install scapy
+! pip install numpy
+! pip install sentence-transformers
 """
 import csv
 import os
@@ -41,7 +41,6 @@ def extract_pcap_fields(pcap_file):
         extracted_fields.append(entry)
     return extracted_fields
 
-
 # Writing all the extracted fields above to a csv file 
 def write_to_csv(extracted_fields, csv_file):
     # Check if the CSV file exists, and create it if not
@@ -56,7 +55,6 @@ def write_to_csv(extracted_fields, csv_file):
 
         # Write the data rows
         writer.writerows(extracted_fields)
-
 
 import faiss
 from langchain.document_loaders.csv_loader import CSVLoader
@@ -94,7 +92,7 @@ if __name__ == "__main__":
     # Split the CSV docs according to its header
     csv_docs = split_csv(output_csv_file)
 
-    #Split context files
+    # Split context files
     
 
     # Embedding the csv chunks into local vector store
@@ -117,11 +115,7 @@ if __name__ == "__main__":
         retriever=vectorStore.as_retriever()
     )
 
-
-
-
 # Prompt Template (If needed pls modify the template below)
-
 from langchain import PromptTemplate
 template = """
 You are an AI network security pcap analyzer. You will be given a network capture(pcap) in CSV format.

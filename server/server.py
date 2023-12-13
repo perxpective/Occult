@@ -20,10 +20,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Declare chat prompt model
+# Declare classes for API request and response
 class ChatPrompt(BaseModel):
     role: str
     message: str
+
+class LLMSettings(BaseModel):
+    temperature: float
+    top_p: float
 
 # API for PCAP file upload
 @app.post("/uploads/pcap")
@@ -54,7 +58,7 @@ async def upload_pcap(file: UploadFile = File(...)):
         "filepath": str(file_path)
     }
 
-# API to receive chat prompt
+# API to receive chat prompt and return a LLM generated response
 @app.post("/chat/prompt/receive")
 async def receive_prompt(chat_prompt: ChatPrompt):
     # Process chat message with LLM
@@ -62,9 +66,21 @@ async def receive_prompt(chat_prompt: ChatPrompt):
     received_message = chat_prompt.message
     processed_message = received_message
 
+    # Process chat message with LLM
+    # ...
+
     # Return chat prompt
     reply = {
-        "prompt": chat_prompt.role,
+        "role": chat_prompt.role,
         "message": processed_message
     }
     return reply
+
+# API to configure LLM settings
+@app.put("/chat/settings")
+async def configure_llm(settings: LLMSettings):
+    return {
+        "message": "Updated LLM settings successfully!",
+        "temperature": settings.temperature,
+        "top_p": settings.top_p
+    }
