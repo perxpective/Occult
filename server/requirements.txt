@@ -3,3 +3,11 @@ pydantic
 uvicorn[standard]
 python-multipart
 langchain
+transformers
+pandas
+scapy
+numpy
+sentence-transformers
+CSV
+faiss-gpu
+faiss-cpu

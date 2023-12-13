@@ -1,4 +1,11 @@
 import streamlit as st
+import os 
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_URL = os.getenv("BASE_URL")
 
 # Page configurations
 st.set_page_config(
@@ -39,7 +46,27 @@ st.markdown("""
 """)
 
 # File upload
-uploaded_file = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"])
+uploaded_files  = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
+
+# Upload file to the server
+if uploaded_files is not None:
+    for uploaded_file in uploaded_files:
+        # Verbose file information
+        print(uploaded_file)
+        with st.spinner("Uploading your PCAP files..."):
+            file= {"file": uploaded_file}
+            try:
+                response = requests.post(BASE_URL + "uploads/pcap", files=file)
+                if response.status_code == 200:
+                    filename = response.json()["filename"]
+                    st.toast(f"File {filename} uploaded successfully! 🎉")
+                else:
+                    st.toast(f"File {filename} failed to upload! 😢")
+            except requests.exceptions.RequestException as e:
+                st.toast(f"File {filename} failed to upload! 😢")
+                st.toast(e)
+else:
+    st.warning("Please upload your PCAP files! 📁")
 
 # Chat (Starting message)
 # Store LLM generated responses in session state
