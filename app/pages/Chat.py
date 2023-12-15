@@ -2,7 +2,7 @@ import streamlit as st
 import os 
 import requests
 from dotenv import load_dotenv
-
+import time
 load_dotenv()
 
 BASE_URL = os.getenv("BASE_URL")
@@ -26,11 +26,11 @@ with st.sidebar:
         st.success("API key accepted! 🎉")
 
     # Model settings
-    temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
-    top_p = st.slider(label="Top P", min_value=0.0, max_value=1.0, value=0.9, step=0.01)
+    temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5, step=0.01, key="temperature")
+    top_p = st.slider(label="Top P", min_value=0.0, max_value=1.0, value=0.9, step=0.01, key="top_p")
 
-    # Update settings button
-    if st.button(label="Update Settings!"):
+    # Send API requests to FastAPI server
+    if temperature or top_p:
         # Initialise settings JSON for API request
         settings = {
             "temperature": temperature,
@@ -56,23 +56,36 @@ with st.sidebar:
                 "message": "Ask away and let Occult help you!"
             }
         ]
-    st.button(label="Clear Chat! 🗑️", on_click=clear_chat)
+        # Display "Reset" toast message
+        st.toast("Chat history has been cleared! 🗑️")
+    st.button(label="Clear my chat history! 🗑️", on_click=clear_chat)
+
+    # Reset Occult button
+    def reset_occult():
+        # Clear uploads and data folder
+        for file in os.listdir("../server/uploads"):
+            os.remove(os.path.join("../server/uploads", file))
+        for file in os.listdir("../server/data"):
+            os.remove(os.path.join("../server/data", file))
+    st.markdown("> To clear Occult's memory, click the button below. This will clear all the files in the uploads and data folder.")
+    st.button(label="Reset Occult! 🔄", on_click=reset_occult)
 
 # Instructions
-st.markdown("""
-    #### Before you start:
-    - Upload your PCAP files to the conversation. 📁
-    - Occult will then process your PCAP files and start asking you questions about your network logs. 🤔
-""")
+with st.expander("Instructions 📜"):
+    st.markdown("""
+        - Upload your PCAP files to the conversation. 📁
+        - Occult will then process your PCAP files and start asking you questions about your network logs. 🤔
+        - Chat history becoming too long? Click the "Clear my chat history!" button to clear your chat history. 🗑️
+        - If you want to upload new PCAP files or give Occult some new context, click the "Reset Occult!" button to clear Occult's memory. 🔄
+    """)
 
 # File upload
 uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
 
+
 # Upload file to the server
 if uploaded_files:
     for uploaded_file in uploaded_files:
-        # Verbose file information
-        print(uploaded_file)
         with st.spinner("Occult is cooking your PCAP files now... (This may take a while!)"):
             file= {"file": uploaded_file}
             try:
@@ -134,7 +147,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
                         st.toast("Occult failed to respond! 😢")
                 except requests.exceptions.RequestException as e:
                     st.toast(e)
-    st.session_state.messages.append({
-        "role": "assistant", 
-        "message": response
-    })
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "message": response
+            })
