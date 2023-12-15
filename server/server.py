@@ -20,7 +20,6 @@ load_dotenv()
 # Embeddings
 embeddings = HuggingFaceEmbeddings()
 
-
 # Import environment variables
 DEEP_INFRA_API_TOKEN = os.getenv("DEEP_INFRA_API_TOKEN")
 HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")

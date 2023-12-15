@@ -1,12 +1,17 @@
 import streamlit as st
+from PIL import Image
+
+# Load favicon
+favicon = Image.open("assets/Occult.png")
 
 # Page configurations
 st.set_page_config(
     page_title="Occult",
-    page_icon="🕵️‍♂️",
+    page_icon=favicon,
 )
 
-# Page title
+# Page icon and title
+st.image("assets/Occult.png", output_format="png", width=140)
 st.title("Welcome to Occult! 🕵️")
 
 

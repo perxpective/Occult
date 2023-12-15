@@ -3,14 +3,18 @@ import os
 import requests
 from dotenv import load_dotenv
 import time
+from PIL import Image
 load_dotenv()
 
 BASE_URL = os.getenv("BASE_URL")
 
+# Load favicon
+favicon = Image.open("assets/Occult.png")
+
 # Page configurations
 st.set_page_config(
-    page_title="Chat with Occult!",
-    page_icon="🕵️‍♂️",
+    page_title="Occult",
+    page_icon=favicon,
 )
 
 # Page title
