@@ -3,14 +3,53 @@ from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
-import json
+from langchain.prompts   import PromptTemplate
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.llms import DeepInfra
+from langchain.chains import RetrievalQA
+from dotenv import load_dotenv
+import os
 
-# Import functions from chain.py (to process user prompt with LLM)
-# import chain
+# Import functions from chain.py
+import chain
+
+# Load environment variables
+load_dotenv()
+
+# Embeddings
+embeddings = HuggingFaceEmbeddings()
+
+
+# Import environment variables
+DEEP_INFRA_API_TOKEN = os.getenv("DEEP_INFRA_API_TOKEN")
+HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 # Initialize FastAPI
 app = FastAPI(title="Occult", version="0.1.0")
 
+# LLM configurations
+llm = DeepInfra(model_id="meta-llama/Llama-2-70b-chat-hf")
+llm.model_kwargs = {
+    "temperature": 0.5,
+    "repetition_penalty": 1.2,
+    "max_new_tokens": 250,
+    "top_p": 0.9,
+}
+
+
+# Prompt Template
+template = """
+You are an AI network security pcap analyzer. You will be given a network capture (pcap) in CSV format.
+Your tasks will be to analyse the CSV and answer user questions and do not answer any question twice.
+Question: {query}
+Answer: 
+"""
+
+prompt_template = PromptTemplate(
+    input_variables=["query"],
+    template=template
+)
 
 # Allow CORS
 app.add_middleware(
@@ -51,34 +90,72 @@ async def upload_pcap(file: UploadFile = File(...)):
     file_path = upload_folder / file.filename
     with file_path.open("wb") as buffer:
         buffer.write(file.file.read())
+
+    # Process PCAP file
+    extracted_fields = chain.extract_pcap_fields(str(file_path))
+
+    # Convert PCAP to CSV file in data folder
+    csv_filename = str(Path("data") / str(file.filename).replace(".pcap", ".csv").replace(".pcapng", ".csv"))
+    print("Created new CSV file:", csv_filename)
+    # Write the extracted data to the CSV file
+    chain.write_to_csv(extracted_fields, csv_filename)
+    
     return {
-        "message": "File uploaded successfully!",
+        "message": "File uploaded and processed successfully!",
         "filename": file.filename,
         "filetype": file.content_type,
-        "filepath": str(file_path)
+        "filepath": str(file_path),
     }
 
+
+
 # API to receive chat prompt and return a LLM generated response
-@app.post("/chat/prompt/receive")
+@app.post("/chat/prompt/send")
 async def receive_prompt(chat_prompt: ChatPrompt):
     # Process chat message with LLM
-    chat_prompt.role = "Assistant"
     received_message = chat_prompt.message
-    processed_message = received_message
+    print(f"User Message Received: {received_message}")
+
+    # Iterate through all CSV files in data folder
+    csv_files = Path("data").glob("*.csv")
+    print(f"CSV files found in data folder: {csv_files}")
+
+    for csv_file in csv_files:
+        print(csv_file)
+        # Embed CSV chunks to local vector store
+        print("Storing CSV chunks to local vector store...")
+        vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
+    
+    # Initialize chain
+    print("Initializing chain...")
+    lang_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=vector_store.as_retriever()
+    )
 
     # Process chat message with LLM
-    # ...
+    response_message = lang_chain.run(prompt_template.format(query=received_message))
+    print("Response Messsage Sent:", response_message)
 
     # Return chat prompt
     reply = {
-        "role": chat_prompt.role,
-        "message": processed_message
+        "role": "assistant",
+        "message": response_message
     }
     return reply
 
 # API to configure LLM settings
 @app.put("/chat/settings")
 async def configure_llm(settings: LLMSettings):
+    # Update LLM settings
+    llm.model_kwargs = {
+        "temperature": settings.temperature,
+        "top_p": settings.top_p,
+        "repetition_penalty": 1.2,
+        "max_new_tokens": 250,
+    }
+
     return {
         "message": "Updated LLM settings successfully!",
         "temperature": settings.temperature,

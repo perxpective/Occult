@@ -53,7 +53,7 @@ with st.sidebar:
         st.session_state.messages = [
             {
                 "role": "assistant", 
-                "content": "Ask away and let Occult help you!"
+                "message": "Ask away and let Occult help you!"
             }
         ]
     st.button(label="Clear Chat! 🗑️", on_click=clear_chat)
@@ -69,36 +69,33 @@ st.markdown("""
 uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
 
 # Upload file to the server
-if uploaded_files is not None:
+if uploaded_files:
     for uploaded_file in uploaded_files:
         # Verbose file information
         print(uploaded_file)
-        with st.spinner("Uploading your PCAP files..."):
+        with st.spinner("Occult is cooking your PCAP files now... (This may take a while!)"):
             file= {"file": uploaded_file}
             try:
                 response = requests.post(BASE_URL + "uploads/pcap", files=file)
+                filename = response.json()["filename"]
                 if response.status_code == 200:
-                    filename = response.json()["filename"]
                     st.toast(f"File {filename} uploaded successfully! 🎉")
                 else:
                     st.toast(f"File {filename} failed to upload! 😢")
             except requests.exceptions.RequestException as e:
-                st.toast(f"File {filename} failed to upload! 😢")
                 st.toast(e)
-else:
-    st.warning("Please upload your PCAP files! 📁")
 
 # Chat (Starting message)
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{
         "role": "assistant", 
-        "content": "Ask away and let Occult help you!"
+        "message": "Ask away and let Occult help you!"
     }]
 
 # Display or clear chat messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        st.markdown(message["message"])
 
 # Chat input
 prompt = st.chat_input("Ask away! 🤓")
@@ -109,7 +106,7 @@ if prompt := st.chat_input():
     # Append user input to chat history
     st.session_state.messages.append({
         "role": "user", 
-        "content": prompt
+        "message": prompt
     })
 
     # Display user input
@@ -120,11 +117,24 @@ if prompt := st.chat_input():
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Let Occult Cook..."):
-            if not uploaded_file:
+            if not uploaded_files:
                 response = "Please upload your PCAP files first!"
                 st.markdown(response)
-                
+            else:
+                try:    
+                    response = requests.post(BASE_URL + "chat/prompt/send", json={
+                        "role": "user", 
+                        "message": prompt
+                    })
+                    
+                    if response.status_code == 200:
+                        response = response.json()["message"]
+                        st.markdown(response)
+                    else:
+                        st.toast("Occult failed to respond! 😢")
+                except requests.exceptions.RequestException as e:
+                    st.toast(e)
     st.session_state.messages.append({
         "role": "assistant", 
-        "content": response
+        "message": response
     })
