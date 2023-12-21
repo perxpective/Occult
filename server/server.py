@@ -106,8 +106,6 @@ async def upload_pcap(file: UploadFile = File(...)):
         "filepath": str(file_path),
     }
 
-
-
 # API to receive chat prompt and return a LLM generated response
 @app.post("/chat/prompt/send")
 async def receive_prompt(chat_prompt: ChatPrompt):
@@ -159,4 +157,17 @@ async def configure_llm(settings: LLMSettings):
         "message": "Updated LLM settings successfully!",
         "temperature": settings.temperature,
         "top_p": settings.top_p
+    }
+
+# API to clear uploads and data folder
+@app.delete("/uploads/clear")
+async def clear_uploads():
+    # Clear uploads and data folder
+    for file in os.listdir("uploads"):
+        os.remove(os.path.join("uploads", file))
+    for file in os.listdir("data"):
+        os.remove(os.path.join("data", file))
+
+    return {
+        "message": "Cleared uploads and data folder successfully!"
     }

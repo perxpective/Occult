@@ -66,11 +66,14 @@ with st.sidebar:
 
     # Reset Occult button
     def reset_occult():
-        # Clear uploads and data folder
-        for file in os.listdir("../server/uploads"):
-            os.remove(os.path.join("../server/uploads", file))
-        for file in os.listdir("../server/data"):
-            os.remove(os.path.join("../server/data", file))
+        try:    
+            response = requests.delete(BASE_URL + "/uploads/clear")
+            if response.status_code == 200:
+                st.toast("Occult has been reset! 🔄")
+        except requests.exceptions.RequestException as e:
+            st.toast("Failed to delete uploads to Occult! 😢")
+            st.toast(e)
+
     st.markdown("> To clear Occult's memory, click the button below. This will clear all the files in the uploads and data folder.")
     st.button(label="Reset Occult! 🔄", on_click=reset_occult)
 
@@ -85,7 +88,6 @@ with st.expander("Instructions 📜"):
 
 # File upload
 uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
-
 
 # Upload file to the server
 if uploaded_files:
