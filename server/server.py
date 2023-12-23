@@ -39,7 +39,7 @@ llm.model_kwargs = {
 
 # Prompt Template
 template = """
-You are an AI network security pcap analyzer. You will be given a network capture (pcap) in CSV format.
+You are an AI network security pcap analyzer named Occult. You will be given a network capture (pcap) in CSV format.
 Your tasks will be to analyse the CSV and answer user questions and do not answer any question twice.
 Question: {query}
 Answer: 
@@ -66,6 +66,19 @@ class ChatPrompt(BaseModel):
 class LLMSettings(BaseModel):
     temperature: float
     top_p: float
+
+# API for retrieving file uploads
+@app.get("/uploads")
+async def get_uploads():
+    # Get all files in uploads folder
+    uploads = []
+    for file in os.listdir("uploads"):
+        uploads.append(file)
+
+    return {
+        "message": "Retrieved uploads successfully!",
+        "uploads": uploads
+    }
 
 # API for PCAP file upload
 @app.post("/uploads/pcap")
