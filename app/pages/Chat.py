@@ -29,7 +29,6 @@ with st.expander("Instructions 📜"):
         - If you want to upload new PCAP files or give Occult some new context, click the "Reset Occult!" button to clear Occult's memory. 🔄
     """)
 
-
 with st.expander("PCAP Files in Memory 🧠"):
     # Iterate through all CSV files in uploads folder
     response = requests.get(BASE_URL + "uploads")
@@ -61,11 +60,11 @@ prompt = st.chat_input("Ask away!")
 with st.expander("Upload PCAP Files 📁"):
     with st.form("FileUpload"):
         uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
-        submit_button = st.form_submit_button(label="Upload files! 📁", help="This is where you can upload your PCAP files. You can upload multiple files at once!")
+        submit_button = st.form_submit_button(label="Submit files to Occult! 📁", help="This is where you can upload your PCAP files. You can upload multiple files at once!")
 
 # Upload file to the server
 if submit_button:
-    if not uploaded_files:
+    if len(uploaded_files) == 0:
         st.error("Please upload your PCAP files first!")
     else:
         for uploaded_file in uploaded_files:
@@ -110,8 +109,8 @@ with st.sidebar:
             response = requests.put(BASE_URL + "chat/settings", json=settings)
             if response.status_code == 200:
                 st.toast("Settings updated! 🎉")
-                init_temperature = response.json()["temperature"]
-                init_top_p = response.json()["top_p"]
+                temperature = response.json()["temperature"]
+                top_p = response.json()["top_p"]
             else:
                 st.toast("Failed to send settings to Occult! 😢")
         except requests.exceptions.RequestException as e:

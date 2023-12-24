@@ -36,6 +36,9 @@ llm.model_kwargs = {
     "top_p": 0.9,
 }
 
+# Initialize chain and vector store
+vector_store = None
+lang_chain = None
 
 # Prompt Template
 template = """
@@ -109,8 +112,25 @@ async def upload_pcap(file: UploadFile = File(...)):
     # Convert PCAP to CSV file in data folder
     csv_filename = str(Path("data") / str(file.filename).replace(".pcap", ".csv").replace(".pcapng", ".csv"))
     print("Created new CSV file:", csv_filename)
+
     # Write the extracted data to the CSV file
     chain.write_to_csv(extracted_fields, csv_filename)
+
+    # Iterate through all CSV files in data folder
+    csv_files = Path("data").glob("*.csv")
+    print(f"CSV files found in data folder: {csv_files}")
+
+    global vector_store
+    
+    for csv_file in csv_files:
+        vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
+
+    global lang_chain
+    lang_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=vector_store.as_retriever()
+    )
     
     return {
         "message": "File uploaded and processed successfully!",
@@ -125,26 +145,11 @@ async def receive_prompt(chat_prompt: ChatPrompt):
     # Process chat message with LLM
     received_message = chat_prompt.message
     print(f"User Message Received: {received_message}")
-
-    # Iterate through all CSV files in data folder
-    csv_files = Path("data").glob("*.csv")
-    print(f"CSV files found in data folder: {csv_files}")
-
-    for csv_file in csv_files:
-        print(csv_file)
-        # Embed CSV chunks to local vector store
-        print("Storing CSV chunks to local vector store...")
-        vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
-    
-    # Initialize chain
+    global vector_store
     print("Initializing chain...")
-    lang_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=vector_store.as_retriever()
-    )
 
     # Process chat message with LLM
+    global lang_chain
     response_message = lang_chain.run(prompt_template.format(query=received_message))
     print("Response Messsage Sent:", response_message)
 
