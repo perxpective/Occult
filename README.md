@@ -3,7 +3,32 @@
 ## Table of Contents
 - [Occult Development Notes](#occult-development-notes)
   - [Table of Contents](#table-of-contents)
+  - [App Setup](#app-setup)
   - [Development Instructions](#development-instructions)
+
+## App Setup
+Occult is developed using the following tech stack:
+- Front-End - [Streamlit](https://streamlit.io/)
+- Back-End - [FastAPI](https://fastapi.tiangolo.com/)
+- Model - [Llama-70B](https://huggingface.co/meta-llama/Llama-2-70b-hf)
+- Model Integration - [LangChain](https://langchain.com/)
+
+**Starting the App**
+To start the app, create two terminal windows and navigate to the respective directories:
+```bash
+cd app      # Streamlit app directory
+cd server   # FastAPI backend directory
+```
+
+In the first terminal window, run the following command to start the Streamlit app:
+```bash
+streamlit run Occult.py
+```
+
+In the second terminal window, run the following command to start the FastAPI backend:
+```bash
+uvicorn main:app --reload
+```
 
 ## Development Instructions
 **Cloning the Repository**
