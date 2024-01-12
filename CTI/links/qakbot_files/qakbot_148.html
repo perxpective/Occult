@@ -1,0 +1,1103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app223.us.archive.org';v.server_ms=234;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/bundle-playback.js?v=t1Bf4PY_" charset="utf-8"></script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/ruffle.js"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i","20110909041410","https://web.archive.org/","web","https://web-static.archive.org/_static/",
+	      "1315541650");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Qakbot, Data Thief Unmasked: Part I | Symantec Connect Community</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="canonical" href="https://web.archive.org/web/20110909041410/http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i"/>
+<meta name="keywords" content="Symantec, Endpoint Protection (AntiVirus)"/>
+<meta name="copyright" content="Copyright 2011 Symantec Corporation"/>
+<meta name="description" content="Motive We recently had the opportunity to revisit a threat that first appeared on our radar back in May of this year."/>
+<meta name="abstract" content="Symantec Connect -- the peer-to-peer community site for Symantec business customers and partners."/>
+<meta name="revisit-after" content="1 day"/>
+<meta name="connect_context_js" content="871851_14113_0_0_0_0_0_0_0_2261"/>
+<meta name="nid" content="1133541"/>
+<meta name="lang" content="English"/>
+<meta name="generator" content="Lithium"/>
+<meta name="doctype" content="forum"/>
+<meta name="PRODUCT_ENTITY" content="56176, 54626, 54619"/>
+<meta name="om.blog_id" content="2261"/>
+<meta name="om.blog_name" content="Security Response"/>
+<meta name="om.environment" content="prod"/>
+<meta name="om.site_country" content="us"/>
+<meta name="om.site_language" content="en"/>
+<meta name="om.visitor_segment" content="Business"/>
+<meta name="om.site_section_us" content="Connect"/>
+<meta name="om.site_section" content="Connect"/>
+<meta name="om.site_sub_section_us" content="Security"/>
+<meta name="om.site_sub_section" content="Security"/>
+<meta name="om.content_format" content="html"/>
+<meta name="om.content_title" content="Qakbot, Data Thief Unmasked: Part I"/>
+<meta name="om.content_type" content="page"/>
+<meta name="om.product_name" content="Endpoint Protection (AntiVirus)"/>
+<meta name="om.product_id" content="workflow_sol"/>
+<meta name="om.page_name" content="en/us: biz: connect: security: blogs: qakbot, data thief unmasked: part i"/>
+<meta name="om.connect_community" content="Security"/>
+<meta name="om.connect_utility" content="connect_utility: blogs"/>
+<meta name="om.connect_product" content="Endpoint Protection (AntiVirus)"/>
+<meta name="om.author_id" content="1014031"/>
+<meta name="om.user_id" content="0"/>
+<script type="text/javascript">
+  var symaccount_target_url = 'https://web.archive.org/web/20110909041410/https://www-secure.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i';
+  var symaccount_base_url = 'https://web.archive.org/web/20110909041410/https://symaccount.symantec.com/';
+  var symaccount_li_cookie = 'lifb1d8525d94d660bc8f92b8419fd5ae1';
+</script>
+
+<link rel="shortcut icon" href="/web/20110909041410im_/http://www.symantec.com/connect/sites/default/themes/connect2/images/favicon.ico" type="image/x-icon"/>
+  <link type="text/css" rel="stylesheet" media="all" href="/web/20110909041410cs_/http://www.symantec.com/connect/sites/default/files/advagg_css/css_d127c55a1a76c9cb95d796f3d124431d_15.css"/>
+<link type="text/css" rel="stylesheet" media="all" href="/web/20110909041410cs_/http://www.symantec.com/connect/sites/default/files/advagg_css/css_da9d0ea0cfce13a8f7165164c00d49d2_6.css"/>
+<link type="text/css" rel="stylesheet" media="all" href="/web/20110909041410cs_/http://www.symantec.com/connect/sites/default/files/advagg_css/css_f6eb5bfa392b7154a91c1485f470ee04_12.css"/>
+<link type="text/css" rel="stylesheet" media="print" href="/web/20110909041410cs_/http://www.symantec.com/connect/sites/default/files/advagg_css/css_5c1401e1310d22430aa66a0d163acd4e_9.css"/>
+
+
+  <!--[if lt IE 7]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie6.css" /><![endif]--><!--[if IE 7]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie7.css"><![endif]--><!--[if gte IE 8]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie8.css"><![endif]-->  <script type="text/javascript" src="https://web.archive.org/web/20110909041410js_/http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="/web/20110909041410js_/http://www.symantec.com/connect/sites/default/files/advagg_js/js_59fce0f0c399326e18fa2680e5752f88_12.js"></script>
+<script type="text/javascript" src="/web/20110909041410js_/http://www.symantec.com/connect/sites/default/files/advagg_js/js_08b8d2b2ff0923a052e6795476620697_28.js"></script>
+<script type="text/javascript" src="/web/20110909041410js_/http://www.symantec.com/connect/sites/default/files/advagg_js/js_9794ff7f9c6e4cf24d631755b1c090f5_12.js"></script>
+<script type="text/javascript" src="/web/20110909041410js_/http://www.symantec.com/connect/sites/default/files/advagg_js/js_c5f5836adc2394ac4b28c7b083a13a57_9.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/connect\/","languagePrefix":"","symantec":{"context_content_type":"blog","context_community_tid":"691","search_type":"general","search_data":{"profile":{"default_text":"Enter a full or partial username...","href":"\/connect\/search\/user"},"general":{"default_text":"Enter keywords to search...","href":"\/connect\/search"}}},"symantec_omniture_page_name_stub":"en\/us: biz: connect"});
+//--><!]]>
+</script>
+  <script src="https://web.archive.org/web/20110909041410js_/http://www.symantec.com/script/omniture/om_code.js" type="text/javascript"></script>
+<script src="https://web.archive.org/web/20110909041410js_/http://www.symantec.com/script/omniture/s_code.js" type="text/javascript"></script></head>
+
+<body id="symantec" class="not-front not-logged-in page-node node-type-blog no-sidebars i18n-en language-dir-ltr layout-main-last sidebar-last clearfix" dir="ltr"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display:none;direction:ltr;">
+<div id="wm-ipp" style="position:fixed;left:0;top:0;right:0;">
+<div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="https://archive.org/includes/donate.php?as_page=1&amp;platform=wb&amp;referer=https%3A//web.archive.org/web/20110909041410/http%3A//www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i"
+	    scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><div id="wm-ipp-inside">
+  <div id="wm-toolbar" style="position:relative;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+    <div id="wm-logo" style="/*width:110px;*/padding-top:12px;">
+      <a href="/web/" title="Wayback Machine home page"><img src="https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png" srcset="https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-100.png, https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-150.png 1.5x, https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png 2x" alt="Wayback Machine" style="width:100px" border="0" /></a>
+    </div>
+    <div class="c" style="display:flex;flex-flow:column nowrap;justify-content:space-between;flex:1;">
+      <form class="u" style="display:flex;flex-direction:row;flex-wrap:nowrap;" target="_top" method="get" action="/web/submit" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i" onfocus="this.focus();this.select();" style="flex:1;"/><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110909041410" /><input type="submit" value="Go" />
+      </form>
+      <div style="display:flex;flex-flow:row nowrap;align-items:flex-end;">
+                <div class="s" id="wm-nav-captures" style="flex:1;">
+                    <a class="t" href="/web/20110909041410*/http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i" title="See a list of every capture for this URL">18 captures</a>
+          <div class="r" title="Timespan for captures of this URL">27 Dec 2009 - 16 Jul 2021</div>
+          </div>
+        <div class="k">
+          <a href="" id="wm-graph-anchor">
+            <div id="wm-ipp-sparkline" title="Explore captures for this URL" style="position: relative">
+              <canvas id="wm-sparkline-canvas" width="725" height="27" border="0"></canvas>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="n">
+      <table>
+        <tbody>
+          <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+          <tr class="m">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20110508143619/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="08 May 2011"><strong>May</strong></a></td>
+            <td class="c" id="displayMonthEl" title="You are here: 04:14:10 Sep 09, 2011">SEP</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160204063432/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="04 Feb 2016"><strong>Feb</strong></a></td>
+          </tr>
+          <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+          <tr class="d">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20110508143619/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="14:36:19 May 08, 2011"><img src="https://web-static.archive.org/_static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a></td>
+            <td class="c" id="displayDayEl" style="width:34px;font-size:22px;white-space:nowrap;" title="You are here: 04:14:10 Sep 09, 2011">09</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160204063432/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="06:34:32 Feb 04, 2016"><img src="https://web-static.archive.org/_static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0" /></a></td>
+          </tr>
+          <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+          <tr class="y">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20100124101815/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="24 Jan 2010"><strong>2010</strong></a></td>
+            <td class="c" id="displayYearEl" title="You are here: 04:14:10 Sep 09, 2011">2011</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160204063432/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="04 Feb 2016"><strong>2016</strong></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="r" style="display:flex;flex-flow:column nowrap;align-items:flex-end;justify-content:space-between;">
+      <div id="wm-btns" style="text-align:right;height:23px;">
+                <span class="xxs">
+          <div id="wm-save-snapshot-success">success</div>
+          <div id="wm-save-snapshot-fail">fail</div>
+          <a id="wm-save-snapshot-open" href="#" title="Share via My Web Archive" >
+            <span class="iconochive-web"></span>
+          </a>
+          <a href="https://archive.org/account/login.php" title="Sign In" id="wm-sign-in">
+            <span class="iconochive-person"></span>
+          </a>
+          <span id="wm-save-snapshot-in-progress" class="iconochive-web"></span>
+        </span>
+                <a class="xxs" href="http://faq.web.archive.org/" title="Get some help using the Wayback Machine" style="top:-6px;"><span class="iconochive-question" style="color:rgb(87,186,244);font-size:160%;"></span></a>
+        <a id="wm-tb-close" href="#close" style="top:-2px;" title="Close the toolbar"><span class="iconochive-remove-circle" style="color:#888888;font-size:240%;"></span></a>
+      </div>
+      <div id="wm-share" class="xxs">
+        <a href="/web/20110909041410/http://web.archive.org/screenshot/http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i"
+           id="wm-screenshot"
+           title="screenshot">
+          <span class="wm-icon-screen-shot"></span>
+        </a>
+        <a href="#" id="wm-video" title="video">
+          <span class="iconochive-movies"></span>
+        </a>
+        <a id="wm-share-facebook" href="#" data-url="https://web.archive.org/web/20110909041410/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="Share on Facebook" style="margin-right:5px;" target="_blank"><span class="iconochive-facebook" style="color:#3b5998;font-size:160%;"></span></a>
+        <a id="wm-share-twitter" href="#" data-url="https://web.archive.org/web/20110909041410/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i" title="Share on Twitter" style="margin-right:5px;" target="_blank"><span class="iconochive-twitter" style="color:#1dcaff;font-size:160%;"></span></a>
+      </div>
+      <div style="padding-right:2px;text-align:right;white-space:nowrap;">
+        <a id="wm-expand" class="wm-btn wm-closed" href="#expand" onclick="__wm.ex(event);return false;"><span id="wm-expand-icon" class="iconochive-down-solid"></span> <span class="xxs" style="font-size:80%;">About this capture</span></a>
+      </div>
+    </div>
+  </div>
+    <div id="wm-capinfo" style="border-top:1px solid #777;display:none; overflow: hidden">
+        <div id="wm-capinfo-notice" source="api"></div>
+                <div id="wm-capinfo-collected-by">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center">COLLECTED BY</div>
+    <div style="padding:3px;position:relative" id="wm-collected-by-content">
+            <div style="display:inline-block;vertical-align:top;width:50%;">
+			<span class="c-logo" style="background-image:url(https://archive.org/services/img/alexacrawls);"></span>
+		Organization: <a style="color:#33f;" href="https://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+      <div style="display:inline-block;vertical-align:top;width:49%;">
+			<span class="c-logo" style="background-image:url(https://archive.org/services/img/alexacrawls)"></span>
+		<div>Collection: <a style="color:#33f;" href="https://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a></div>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+    </div>
+    </div>
+    <div id="wm-capinfo-timestamps">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center" title="Timestamps for the elements of this page">TIMESTAMPS</div>
+    <div>
+      <div id="wm-capresources" style="margin:0 5px 5px 5px;max-height:250px;overflow-y:scroll !important"></div>
+      <div id="wm-capresources-loading" style="text-align:left;margin:0 20px 5px 5px;display:none"><img src="https://web-static.archive.org/_static/images/loading.gif" alt="loading" /></div>
+    </div>
+    </div>
+  </div></div></div></div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20110909041410/http://www.symantec.com:80/connect/blogs/qakbot-data-thief-unmasked-part-i</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(725,27,25,2,"web","http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i","20110909041410",1996,"https://web-static.archive.org/_static/",["https://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt","https://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+ 
+  <div id="preload-1"><div id="preload-2"><div id="preload-3"><div id="preload-4"><div id="preload-5"><div id="preload-6"></div></div></div></div></div></div>
+
+  <div id="header-flex">
+<script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>    <div id="search-border"></div>
+    <div id="header" class="fixed-width">
+      <a href="/web/20110909041410/http://www.symantec.com/connect/" title="Home" id="logo"><span>Symantec Connect</span></a>      <div id="search-box">
+  <ul id="menu-search" class="clearfix">
+          
+      <li class="search-tab first"><a class="active" href="#1">Blogs &gt; Security Response</a></li>
+            
+    <li class="search-tab last"><a class="" href="#2">Entire Site</a></li>
+  </ul><!-- /#menu-search -->
+  
+  <form action="/web/20110909041410/http://www.symantec.com/connect/search?filters=tid%3A2261%20type%3Ablog" method="post" id="custom-search">
+    <div id="search-input">
+      <div id="search-input-corner">
+        <input id="search-header-terms" name="keys" class="form-text" value="Enter keywords to search..."/>
+      </div>
+    </div>
+    
+    <div id="search-button">
+      <input id="search-submit" type="submit" name="op" value="Search"/>
+    </div>
+  
+  </form>
+</div>    </div>
+  </div><!-- /#header-flex -->  
+  
+  <div id="nav-flex">
+    <div id="nav-container" class="fixed-width">
+        <ul id="menu-global" class="clearfix">
+    <li class="top-leaf menu-top-home"><a href="/web/20110909041410/http://www.symantec.com/connect/"><span>Home</span></a></li>
+    
+    <li class="top-expanded menu-top-community">
+      <a href="/web/20110909041410/http://www.symantec.com/connect/security"><span class="menu-top-community-label">Community:</span>Security</a>      <div class="item-list"><ul class="drop-menu menu-community"><li class="drop-leaf first"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Backup and Archiving</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/ideas">Ideas</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/issues">Known Issues</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/backup-and-archiving/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Endpoint Management</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-management/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Endpoint Virtualization</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/endpoint-virtualization/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Storage and Clustering</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/storage-management/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Security</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/security">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/security/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Inside Symantec</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/inside-symantec/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Vision User Conference</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/vision">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/vision/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Partners</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/partners">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/events">Events</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/partners/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf last"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Developers</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/developers">Overview</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/forums">Forums</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/articles">Articles</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/groups">Groups</a></li>
+<li class="sub-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/developers/videos">Videos</a></li>
+</ul></div></div></li>
+</ul></div>    </li>
+    
+        <li class="top-expanded menu-top-utility">
+      <a href="/web/20110909041410/http://www.symantec.com/connect/security/blogs">Blogs</a>      <div class="item-list"><ul class="drop-menu menu-utility"><li class="drop-leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/security">Overview</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/forums">Forums</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/articles">Articles</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/blogs">Blogs</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/downloads">Downloads</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/events">Events</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/groups">Groups</a></li>
+<li class="drop-leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/security/ideas">Ideas</a></li>
+<li class="drop-leaf last"><a href="/web/20110909041410/http://www.symantec.com/connect/security/videos">Videos</a></li>
+</ul></div>      
+    </li>
+    
+          <li class="top-leaf menu-top-path"><a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/sr">Security Response</a></li>
+        
+          <li class="top-leaf menu-top-rss"><a href="/web/20110909041410/http://www.symantec.com/connect/item-feeds/blog/691%2C2261/feed/all/all" class="menu-global-rss"><span>RSS</span></a></li>
+    
+      </ul><!-- /#global-menu -->
+    </div>
+  </div><!-- /#nav-flex --> 
+      
+  <div id="menu-user-flex" class="clearfix">
+    <div id="menu-user-container" class="fixed-width">
+      
+  
+<ul id="menu-user">
+  
+    <li class="menu-top-anonymous">
+    <div class="anonymous-wrapper">
+            <a href="/web/20110909041410/http://www.symantec.com/connect/user/login?destination=blogs%2Fqakbot-data-thief-unmasked-part-i">Login</a> or <a href="/web/20110909041410/http://www.symantec.com/connect/user/register?destination=blogs%2Fqakbot-data-thief-unmasked-part-i">Register</a> to participate</a>
+    </div>
+  </li>
+  
+  
+    
+      <li class="expanded menu-top-language menu-narrow">
+      <a href="/web/20110909041410/http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i" class="active">English</a><div class="item-list"><ul class="drop-menu menu-language"><li class="first">  <a href="/web/20110909041410/http://www.symantec.com/connect/blogs/qakbot-data-thief-unmasked-part-i" class="link-type test dir-ltr language-en">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">English</span>
+      </a>
+</li>
+<li>  <a href="/web/20110909041410/http://www.symantec.com/connect/fr/blogs/qakbot-data-thief-unmasked-part-i" class="link-type test dir-ltr language-fr">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Français</span>
+      </a>
+</li>
+<li>  <a href="/web/20110909041410/http://www.symantec.com/connect/de/blogs/qakbot-data-thief-unmasked-part-i" class="link-type test dir-ltr language-de">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Deutsch</span>
+      </a>
+</li>
+<li class="last">  <a href="/web/20110909041410/http://www.symantec.com/connect/es/blogs/qakbot-data-thief-unmasked-part-i" class="link-type test dir-ltr language-es">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Español</span>
+      </a>
+</li>
+</ul></div>    </li>
+    
+  
+  <li class="expanded top-menu-share">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/">Share</a>    <div class="item-list"><ul class="drop-menu menu-share"><li class="first">  <a href="/web/20110909041410/http://www.symantec.com/connect/forward?path=node%2F1197971" class="link-type test email">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Email</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://twitter.com/home?status=TITLE+URL" class="link-type test twitter">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Twitter</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://www.facebook.com/share.php?t=TITLE&amp;u=URL" class="link-type test facebook">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Facebook</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://www.google.com/reader/link?url=URL&amp;title=TITLE" class="link-type test google-buzz">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Google Buzz</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://digg.com/submit?url=URL&amp;title=TITLE" class="link-type test digg">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Digg</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://del.icio.us/post?url=URL&amp;title=TITLE" class="link-type test delicious">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Delicious</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://reddit.com/submit?url=URL&amp;title=TITLE" class="link-type test reddit">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Reddit</span>
+      </a>
+</li>
+<li>  <a href="https://web.archive.org/web/20110909041410/http://www.stumbleupon.com/submit?url=URL&amp;title=TITLE" class="link-type test stumbleupon">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">StumbleUpon</span>
+      </a>
+</li>
+<li class="last">  <a href="https://web.archive.org/web/20110909041410/http://www.live.com/?add=URL" class="link-type test windows-live">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Windows Live</span>
+      </a>
+</li>
+</ul></div>    
+  </li>
+  <li class="leaf last top-menu-help">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/" class="js-help-link">Screencast Help</a>  </li>
+</ul>
+    </div>  
+  </div><!-- /#menu-user-flex -->
+  
+  <div id="help-region" class="fixed-width js-help-region">
+    <div id="help-region-inner">
+      <div id="help-player-toolbar" class="clearfix">
+        <div class="help-title">Video Screencast Help</div>
+								<a href="/web/20110909041410/http://www.symantec.com/connect/search?filters=tid%3A12491%20type%3Avideo" class="bt-search-help bt-help">Search Video Help</a>								<a href="/web/20110909041410/http://www.symantec.com/connect/" class="js-video-help-close bt-close-help bt-help"><span>Close</span></a>								<a href="/web/20110909041410/http://www.symantec.com/connect/" class="js-video-help-player-close bt-back-help bt-help"><span class="bt-help-large">Back</span><br/><span class="bt-help-small">to help</span></a>						</div>
+      <div id="help-player">
+      </div>
+      <div id="help-content">
+        <div class="view view-videos view-id-videos view-display-id-block_4 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+      <table class="views-view-grid">
+  <tbody>
+                <tr class="row-1 row-first">
+                  <td class="col-1">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1446811" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1446811" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/Screen shot 2010-08-31 at 4.31.40 PM.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1446811" class="js-help-video-launch">Introduction to Connect</a>  </div>
+</div>
+          </td>
+                  <td class="col-2">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1578251" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1578251" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/vlcsnap-2010-12-03-12h45m47s87_0.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1578251" class="js-help-video-launch">Create A Poll</a>  </div>
+</div>
+          </td>
+                  <td class="col-3">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1602431" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1602431" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/vlcsnap-2010-12-27-10h36m34s32.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1602431" class="js-help-video-launch">The Connect Rewards Program</a>  </div>
+</div>
+          </td>
+                  <td class="col-4">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1612801" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1612801" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/vlcsnap-2011-01-07-13h57m00s119.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1612801" class="js-help-video-launch">Ways to Participate</a>  </div>
+</div>
+          </td>
+              </tr>
+                <tr class="row-2 row-last">
+                  <td class="col-1">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1611301" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1611301" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/vlcsnap-2011-01-06-08h20m37s236.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1611301" class="js-help-video-launch">Register for Symantec Connect</a>  </div>
+</div>
+          </td>
+                  <td class="col-2">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1601751" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1601751" class="js-help-video-launch"><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/help-video-thumb/video_thumbnails/vlcsnap-2010-12-24-10h53m21s133.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"/></a>  </div>
+  <div class="help-video-title">
+    <a href="/web/20110909041410/http://www.symantec.com/connect/help/item/1601751" class="js-help-video-launch">Create Content Pages</a>  </div>
+</div>
+          </td>
+                  <td class="col-3">
+                      </td>
+                  <td class="col-4">
+                      </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>       </div>
+    </div>
+  </div>
+						
+  		
+		 
+      
+	<div class="page fixed-width clearfix">
+		<div id="main" class="clearfix">
+
+			<div id="fluid-content">
+				<div id="content-wrapper" class="clearfix">
+					<div id="content-inner" class="clearfix">
+
+						
+												
+												
+																								
+						<div id="content-content"><!-- node-blog.tpl.php -->
+
+
+
+<div id="node-1133541" class="clearfix node node-container node-type-blog">
+  <h1 class="node-title">Qakbot, Data Thief Unmasked: Part I</h1>
+  
+  <div class="node-posted">
+     <span class="highlight">Updated: 11 May 2010</span>    </div>
+
+  <div class="node-meta clearfix">
+    <div class="picture">
+  <a href="/web/20110909041410/http://www.symantec.com/connect/user/shunichi-imano" title="View user profile."><img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/32x32/default_user_new.png" alt="Shunichi Imano's picture" title="View user profile." class="imagecache imagecache-32x32" width="32" height="32"/></a></div>
+    <div class="submitted">
+      <a href="/web/20110909041410/http://www.symantec.com/connect/user/shunichi-imano" class="user-level user-level-2">Shunichi Imano</a>      <div class="user-badge user-role-symantec-employee">Symantec Employee</div>    </div>
+    <div class="voting-box">
+      
+<span id="votes-node-1133541" class="total-votes-thumbs-large">
+  <span class="positive total">+2</span>
+  <span class="total-votes-count">2 Votes  </span>
+</span>
+      
+<div class="vud-widget vud-widget-thumbs-large" id="widget-node-1133541">
+  <div class="vud-widget-disabled clearfix">
+    <div class="vote-tooltip hide-me">
+      <span>Login to vote</span>
+      <div class="vote-tooltip-arrow"></div>
+    </div>
+    <span class="up-inactive"></span>
+    <span class="down-inactive"></span>      
+  </div>
+</div>
+    </div>      
+  </div>
+
+      <div class="blog-meta"></div>  
+  
+  <div class="node-content-pad">     
+    <div class="content clearfix">
+            <p><strong>Motive</strong><br/>
+We recently had the opportunity to revisit a threat that first appeared on our radar back in May of this year. <a href="https://web.archive.org/web/20110909041410/http://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99">W32.Qakbot</a> (hereafter referred to as Qakbot) is a somewhat benign worm that is capable of spreading through network shares, downloading additional files and opening a back door on the compromised computer, all in aid of its ultimate goal. Benign not because it is harmless - stealing login details, reporting keystrokes and uploading system certificates is malicious behavior indeed - but as will become obvious as we describe it in more detail below, because it moves slowly and with caution, trying not to bring attention to its presence.</p>
+<p>The motive of Qakbot is quite clear, to steal information. Taking a peak under the proverbial covers, we see that it&nbsp; uses several components to accomplish the task, including the following:</p>
+<ul>
+<li>
+		<br/>
+		_qbot.dll</li>
+<li>
+		_qbotinj.exe</li>
+<li>
+		msadvapi32.dll</li>
+<li>
+		_qbot.cb</li>
+<li>
+		seclog.txt</li>
+<li>
+		_qbotnti.exe</li>
+<li>
+		sconnect.js</li>
+<li>
+		webfix.txt</li>
+</ul>
+<p>
+We will discuss each of these components briefly as we walk through the various functionality contained within and methods employed by this nefarious data thief.</p>
+<p><strong>Infection</strong><br/>
+Qakbot initially spreads via web pages containing Javascript which attempts to exploit certain vulnerabilities, including Microsoft Internet Explorer ADODB.Stream Object File Installation Weakness and Apple QuickTime RTSP URI Remote Buffer Overflow (Symantec IPS detection details <a href="https://web.archive.org/web/20110909041410/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=50031">here</a> and <a href="https://web.archive.org/web/20110909041410/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=50155">here</a>) and where those exploits are successful, downloads its malicious files on to the compromised computer. Once a machine is infected with Qakbot, all Qakbot-related files are stored in the user profile data directory, which typically is C:\Documents and Settings\[USERNAME]\_qbothome. The first two components the threat downloads are _qbot.dll and _qbotinj.exe.</p>
+<p>The downloaded file _qbot.dll is the main component of the Qakbot worm and is responsible for collecting certain information from the infected machine and uploading that stolen data to FTP servers under the control of the creator, the locations of which are frequently changed. We will talk more about this file later in the article.</p>
+<p><strong>Injection</strong><br/>
+The _qbotinj.exe file acts as a kind of servant to the _qbot.dll file.&nbsp; The file explorer.exe, a core Windows process and one of the few that runs in memory constantly on Windows operating systems, is compromised by _qbotinj.exe injecting _qbot.dll into it &ndash; that is, into the instance of explorer.exe running in memory. Similarly, the iexplore.exe process, which many readers will recognize as the process responsible for operating the Internet Explorer browser, is also injected.</p>
+<p>This creates the illusion that all subsequent actions undertaken by the threat appear to be the work of these otherwise legitimate Windows processes. This is in fact a trick often used by many types of threats, as antivirus products, firewalls and other security safeguards are generally programmed to allow such common Windows processes full access to both the Internet and other applications on the infected computer.</p>
+<p><img alt="status_info_edited2.JPG" class="ibimage" src="/web/20110909041410im_/http://www.symantec.com/connect/imagebrowser/view/image/1133521/_original"/>&nbsp;</p>
+<p>The above image represents the worm communicating with its command center via the compromised Internet Explorer process. For all intents and purposes, this simply appears to be a legitimate browsing instance.</p>
+<p>Interestingly however, _qbotinj.exe avoids injecting _qbot.dll into certain processes, presumably in an attempt to avoid being detected (or in some cases to avoid being debugged which would likely result in detection so in essence is the same thing), including the following:</p>
+<ul>
+<li>
+		<br/>
+		msdev.exe&nbsp;</li>
+<li>
+		dbgview.exe&nbsp;</li>
+<li>
+		mirc.exe</li>
+<li>
+		ollydbg.exe</li>
+<li>
+		ccApp.exe</li>
+<li>
+		R&amp;Q.exe</li>
+<li>
+		photoed</li>
+<li>
+		outlook.exe</li>
+<li>
+		mmc.exe</li>
+<li>
+		ctfmon.exe</li>
+</ul>
+<p>
+<strong>Survival</strong><br/>
+_qbot.dll also runs two additional threads: &ldquo;Watchdog&rdquo; and &ldquo;Swatcher&rdquo;. The Watchdog thread monitors for instances of Dr. Watson running in memory and&nbsp; terminates any it finds . The other thread, Swatcher, checks the registry subkeys &ldquo;Run&rdquo; and &ldquo;RunOnce&rdquo; every 30 seconds and updates them if necessary. Qakbot does not add a registry value under the &ldquo;Run&rdquo; or &ldquo;RunOnce&rdquo; subkeys itself, but instead updates the last entry under those keys to include its own EXE file, followed by Qakbot&rsquo;s parameter and &ldquo;/c&rdquo; with the original registry value, which is legitimate.</p>
+<p>For example, the last (legitimate) Run key entry might be:<br/>
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\&quot;Test Program&quot; = &quot;C:\Program Files\Test Program\testprogram.exe&quot;</p>
+<p>Qakbot will modify it to read:<br/>
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\&quot;C:\Documents and Settings\All Users\_qbothome\_qbotinj.exe&quot; &quot; C:\Documents and Settings\All Users\_qbothome\_qbot.dll&quot; /C &quot;C:\Program Files\Test Program\testprogram.exe&quot;</p>
+<p>Qakbot contains several internal commands it uses to do its dirty work. One of them, &ldquo;getip&rdquo;, checks the registry to see if a Citrix product, Microsoft Office or Microsoft Project is installed, by reading the registry key HKEY_CLASSES_ROOT\Installer\Products. If installed, this command does nothing further. If none of those products are found, it continues, checking if it is running on a Virtual Machine. If a VM is discovered, Qakbot sends the VM information to [http://]hostrmeter.com/cgi-bin/exha[REMOVED] using the POST method, and checks for the existence of the file c:\irclog.txt. If c:\irclog.txt is found on the compromised computer, Qakbot uninstalls itself using its own &quot;uninstall&quot; command. We&#39;ll touch on this again in Part II.</p>
+<p><strong>Spread</strong><br/>
+Another of Qakbot&rsquo;s internal commands, &ldquo;nbscan&rdquo;, is responsible for its attempts to spread over network shares. It enumerates network share folders, checking if the share name and user name are contained in the file &quot;% CurrentFolder%\nbl_[USERNAME].txt&quot;. If they are listed in the file, Qakbot skips that network share. If they are not listed - and before copying any files to the remote share - Qakbot checks if the files &quot;% CurrentFolder%\_qbot[RANDOM CHARACTERS]&quot; and &quot;%CurrentFolder%\q1.dll&quot; exist on the remote machine. If not, it downloads them. It then copies &quot;q1.dll&quot; to either [REMOTE COMPUTER]\C$\windows\q1.dll or [REMOTE COMPUTER]\ADMIN$\q1.dll, and &quot;_qbot[RANDOM CHARACTERS]&quot; to either &quot;[ REMOTE COMPUTER]\C$\windows\_qbot[RANDOM CHARACTERS].exe&quot; or &quot;[ REMOTE COMPUTER]\ADMIN$\_qbot [RANDOM CHARACTERS].exe&quot;.&nbsp; After copying the files, it writes the share name and user name to the file &quot;%CurrentFolder%\nbl_[USERNAME].txt&quot; stored on the local machine. This of course is the list Qakbot checked at the very beginning of the network share routine, the logic being that it if the names are in the list, that machine has already been processed (read infected).</p>
+<p>The file _qbotnti.exe is used to load the file msadvapi.dll into memory. msadvapi.dll is then used to hook APIs in every running process. This serves two purposes. Firstly, as a cloaking mechanism. msadvapi.dll hides file names and registry entries containing &ldquo;_qbot&rdquo;, and also hides Internet connections to destination ports between 16666 and 16669. Secondly, it enables the threat to capture sockets where the destination port is 21 (FTP), 110 (POP3) or 143 (IMAP), as well as capturing login credentials to predefined web sites contained in the configuration file named webfix.txt. Qakbot attempts to steal login credentials when the user visits one of the hard-coded URLs listed in webfix.txt.</p>
+<p>We&rsquo;ll finish this two-part series in a subsequent posting where we&rsquo;ll look briefly at the information Qakbot steals and how it goes about updating itself. Stay tuned.</p>
+<p>
+	<br/>
+	<em>A big thanks to Masaki&nbsp;Suenaga and Takayoshi Nakayama for their analysis.</em></p>
+    </div>
+  </div><!-- /node-content-pad -->
+  
+  <div class="terms clearfix">
+        <div class="terms-column-1">
+      <div class="filed-under item-blog">
+        <div class="terms-label">blog entry Filed Under:</div>
+        <div class="terms-comma"><a href="/web/20110909041410/http://www.symantec.com/connect/communities/security" rel="tag" title="">Security</a>, <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response" rel="tag" title="">Security Response</a>, <a href="/web/20110909041410/http://www.symantec.com/connect/products/endpoint-protection" rel="tag" title="">Endpoint Protection (AntiVirus)</a>, <a href="/web/20110909041410/http://www.symantec.com/connect/blog-tags/w32qakbot" rel="tag" title="">W32.Qakbot</a></div>
+      </div>
+    </div>
+          </div>
+      
+  
+
+  <div class="links-bar clearfix">
+    <ul class="links"><li class="blog_usernames_blog first"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/shunichi-imano" title="Read Shunichi Imano's latest blog entries."><span>Shunichi Imano's blog</span></a></li>
+<li class="0 last"><a href="/web/20110909041410/http://www.symantec.com/connect/comments-rss/1133541" class="links-rss-icon"><span>Comments RSS Feed</span></a></li>
+</ul>  </div>
+</div><!-- /node-container -->
+
+</div>						
+					</div><!-- /content-inner -->
+
+				</div><!-- /content-wrapper -->
+			</div><!-- fluid-content -->
+
+			<div id="sidebar">			 
+								
+									<div id="sidebar-last" class="sidebar clearfix">
+						 <div id="sidebar-last-inner">
+							 <!-- start block.tpl.php -->
+
+  <div id="block-symantec_blogs-blog_about" class="block block-wrapper block-symantec_blogs block-order-1 odd clearfix">
+    <div class="block-inner">
+            <h2 class="title block-title"><span>About Security Response Blog</span></h2>
+            <div class="content clearfix">
+          <img src="https://web.archive.org/web/20110909041410im_/http://www.symantec.com/connect/sites/default/files/imagecache/about-blog-block/blog_images/symantec_soc.jpg" alt="" title="" class="imagecache imagecache-about-blog-block" width="76" height="60"/>  
+  <p>Our security research centers around the world provide unparalleled analysis of and protection from malware, security risks, vulnerabilities, and spam.</p>
+      </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php --><!-- start block.tpl.php -->
+
+  <div id="block-symantec_blogs-detail_page_facets" class="block block-wrapper block-symantec_blogs block-order-2 even clearfix">
+    <div class="block-inner">
+            <h2 class="title block-title"><span>Filter by:</span></h2>
+            <div class="content clearfix">
+            
+          <div class="blog-detail-facet">
+        <select class="blog-detail-facet-select">
+          <option value="">Author</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Aaron%20%20Adams/all">Aaron  Adams</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Amado%20Hidalgo/all">Amado Hidalgo</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Amanda%20Grady/all">Amanda Grady</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Andrea%20DelMiglio/all">Andrea DelMiglio</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Andrea%20Lelli/all">Andrea Lelli</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Andy%20Cianciotto/all">Andy Cianciotto</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Ben%20Greenbaum/all">Ben Greenbaum</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Ben%20Nahorney/all">Ben Nahorney</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Brian%20Ewell/all">Brian Ewell</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Brian%20Hernacki/all">Brian Hernacki</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Candid%20Wueest/all">Candid Wueest</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Carey%20Nachenberg/all">Carey Nachenberg</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Cathal%20Mullaney/all">Cathal Mullaney</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Chen%20Yu/all">Chen Yu</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Dave%20Cole/all">Dave Cole</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Davide%20Veneziano/all">Davide Veneziano</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/David%20McKinney/all">David McKinney</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Dean%20%20Turner/all">Dean  Turner</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Dermot%20Harnett/all">Dermot Harnett</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Dylan%20Morss/all">Dylan Morss</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Elia%20Florio/all">Elia Florio</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Eoin%20Ward/all">Eoin Ward</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Eric%20Chien/all">Eric Chien</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Eric%20Park/all">Eric Park</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Erik%20Kamerling/all">Erik Kamerling</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Fred%20Gutierrez/all">Fred Gutierrez</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Gavin%20O%20Gorman/all">Gavin O Gorman</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Gilou%20Tenebro/all">Gilou Tenebro</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Grant%20Geyer/all">Grant Geyer</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Greg%20Ahmad/all">Greg Ahmad</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Hardik%20Suri/all">Hardik Suri</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Henry%20Bell/all">Henry Bell</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Hon%20Lau/all">Hon Lau</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Irfan%20Asrar/all">Irfan Asrar</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/James%20O%27Connor/all">James O'Connor</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/JasonFisher/all">JasonFisher</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Jeet%20Morparia/all">Jeet Morparia</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Jeremy%20%20Ward/all">Jeremy  Ward</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Jim%20Hoagland/all">Jim Hoagland</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Jitender%20Sarda/all">Jitender Sarda</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/John%20Canavan/all">John Canavan</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/John%20McDonald/all">John McDonald</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/John%20%20McDonald/all">John  McDonald</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/John%20Park/all">John Park</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Joji%20Hamada/all">Joji Hamada</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Joseph%20Blackbird/all">Joseph Blackbird</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Josh%20Harriman/all">Josh Harriman</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Kaoru%20Hayashi/all">Kaoru Hayashi</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Karthik%20Selvaraj/all">Karthik Selvaraj</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Kazumasa%20Itabashi/all">Kazumasa Itabashi</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Kelly%20Conley/all">Kelly Conley</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Kevin%20Haley/all">Kevin Haley</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Liam%20O%20Murchu/all">Liam O Murchu</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Livian%20Ge/all">Livian Ge</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/M.K.%20Low/all">M.K. Low</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Marc%20Fossi/all">Marc Fossi</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Mario%20Ballano/all">Mario Ballano</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Masaki%20Suenaga/all">Masaki Suenaga</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Mathew%20Maniyara/all">Mathew Maniyara</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Mayur%20Kulkarni/all">Mayur Kulkarni</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Mimi%20Hoang/all">Mimi Hoang</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Mircea%20Ciubotariu/all">Mircea Ciubotariu</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Nicolas%20Falliere/all">Nicolas Falliere</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Nishant%20Doshi/all">Nishant Doshi</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Oliver%20%20Friedrichs/all">Oliver  Friedrichs</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Ollie%20%20Whitehouse/all">Ollie  Whitehouse</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Orla%20Cox/all">Orla Cox</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Orlando%20Padilla/all">Orlando Padilla</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Parveen%20Vashishtha/all">Parveen Vashishtha</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Patrick%20Fitzgerald/all">Patrick Fitzgerald</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Peter%20Coogan/all">Peter Coogan</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Peter%20Ferrie/all">Peter Ferrie</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Poul%20Jensen/all">Poul Jensen</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Robert%20Keith/all">Robert Keith</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Ron%20Bowes/all">Ron Bowes</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Sai%20Narayan%20Nambiar/all">Sai Narayan Nambiar</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Samir%20Patil/all">Samir Patil</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Sammy%20Chu/all">Sammy Chu</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Sarah%20Gordon/all">Sarah Gordon</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Sean%20Hittel/all">Sean Hittel</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Security%20Intel%20Analysis%20Team/all">Security Intel Analysis Team</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Security%20Response%20China/all">Security Response China</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Shravan%20Shashikant/all">Shravan Shashikant</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Shunichi%20Imano/all">Shunichi Imano</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Silas%20Barnes/all">Silas Barnes</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Stephen%20Doherty/all">Stephen Doherty</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Stuart%20%20Smith/all">Stuart  Smith</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Suyog%20Sainkar/all">Suyog Sainkar</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Symantec%20Security%20Response/all">Symantec Security Response</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Takako%20Yoshida/all">Takako Yoshida</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Takashi%20Katsuki/all">Takashi Katsuki</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Takayoshi%20Nakayama/all">Takayoshi Nakayama</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Thomas%20Parsons/all">Thomas Parsons</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/T%C3%A9o%20Adams/all">Téo Adams</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Vikram%20Thakur/all">Vikram Thakur</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Vikram%20%20Thakur/all">Vikram  Thakur</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Vincent%20Weafer/all">Vincent Weafer</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Vivian%20Ho/all">Vivian Ho</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Yazan%20Gable/all">Yazan Gable</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/Zulfikar%20Ramzan/all">Zulfikar Ramzan</option>
+                  </select>
+      </div>
+        
+          <div class="blog-detail-facet facet-spacer">
+        <select class="blog-detail-facet-select">
+          <option value="">Language</option>    
+                                  <option value="/connect/symantec-blogs/sr">English</option>
+                                  <option value="/connect/security-response/japanese">Japanese</option>
+                                  <option value="/connect/security-response/chinese">Chinese, Simplified</option>
+                                  <option value="/connect/symantec-blogs/security-response/all/all/all/all/zh-hant">Chinese, Traditional</option>
+                  </select>
+      </div>
+     
+      </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php --><!-- start block.tpl.php -->
+
+  <div id="block-symantec_blogs-blog_latest_sidebar" class="block block-wrapper block-symantec_blogs block-order-3 odd clearfix">
+    <div class="block-inner">
+            <h2 class="title block-title"><span>Recent Blog Posts</span></h2>
+            <div class="content clearfix">
+        <div class="view view-blogs view-id-blogs view-display-id-block_3 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+      <div class="item-list">
+    <ul>
+                <li class="views-row views-row-1 views-row-odd views-row-first ">  
+  <div class="views-field-title">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/decade-review-cybercriminal-motivations-behind-malware">A Decade in Review: Cybercriminal Motivations behind Malware</a></span>
+  </div>
+  
+  <span class="views-field-name">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/user/kevin-haley" title="View user profile.">Kevin Haley</a></span>
+  </span>
+      -  
+  <span class="views-field-created">
+                <span class="field-content">
+19 hours 23 min ago</span>
+  </span>
+</li>
+                <li class="views-row views-row-2 views-row-even ">  
+  <div class="views-field-title">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/be-first-snatch-coveted-iphone-5">Be the First to Snatch the Coveted iPhone 5</a></span>
+  </div>
+  
+  <span class="views-field-name">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/user/samir-patil" title="View user profile.">Samir Patil</a></span>
+  </span>
+      -  
+  <span class="views-field-created">
+                <span class="field-content">
+06 Sep 2011</span>
+  </span>
+</li>
+                <li class="views-row views-row-3 views-row-odd ">  
+  <div class="views-field-title">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/fake-offers-fake-trust-seals">Fake Offers with Fake Trust Seals</a></span>
+  </div>
+  
+  <span class="views-field-name">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/user/mathew-maniyara" title="View user profile.">Mathew Maniyara</a></span>
+  </span>
+      -  
+  <span class="views-field-created">
+                <span class="field-content">
+05 Sep 2011</span>
+  </span>
+</li>
+                <li class="views-row views-row-4 views-row-even ">  
+  <div class="views-field-title">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/steganography">Steganography</a></span>
+  </div>
+  
+  <span class="views-field-name">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/user/maren-peasley" title="View user profile.">Maren Peasley</a></span>
+  </span>
+      -  
+  <span class="views-field-created">
+                <span class="field-content">
+01 Sep 2011</span>
+  </span>
+</li>
+                <li class="views-row views-row-5 views-row-odd views-row-last ">  
+  <div class="views-field-title">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/blogs/morto-worm-sets-dns-record">Morto worm sets a (DNS) record</a></span>
+  </div>
+  
+  <span class="views-field-name">
+                <span class="field-content"><a href="/web/20110909041410/http://www.symantec.com/connect/user/cathal-mullaney" title="View user profile.">Cathal Mullaney</a></span>
+  </span>
+      -  
+  <span class="views-field-created">
+                <span class="field-content">
+31 Aug 2011</span>
+  </span>
+</li>
+      <ul>
+</div>    </div>
+  
+  
+  
+  
+  
+  
+</div>       </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php --><!-- start block.tpl.php -->
+
+  <div id="block-symantec_blogs-blog_twitter_feed" class="block block-wrapper block-symantec_blogs block-order-4 even clearfix">
+    <div class="block-inner">
+            <h2 class="title block-title"><span>Recently on Twitter</span></h2>
+            <div class="content clearfix">
+          <a href="https://web.archive.org/web/20110909041410/http://www.twitter.com/threatintel" class="twitter-bird">threatintel</a>  <div class="item-list">
+    <ul>
+              <li><div class="twitter-post">From fame and glory in 2001, to more recently making money, attacker motivation is evolving yet again http://t.co/2RKTbU7</div><div class="twitter-time">12 hours 36 min ago</div></li>
+              <li><div class="twitter-post">RT @briankrebs: Who is behind the TDSS botnet? I follow a few tantalizing clues. http://t.co/fCzmSwf</div><div class="twitter-time">07 Sep 2011</div></li>
+              <li><div class="twitter-post">Read about the potential rise of steganography as a malicious obfuscation technique! http://t.co/P1Ic7UJ</div><div class="twitter-time">01 Sep 2011</div></li>
+              <li><div class="twitter-post">#Morto #RDP #worm uses a novel #DNS based method to receive commands from the controller. bit.ly/p9cRHS</div><div class="twitter-time">31 Aug 2011</div></li>
+              <li><div class="twitter-post">Sir Francis Drake captured scammers’ imaginations for hundreds of years. Is it someone else’s turn? http://t.co/AYpesY7</div><div class="twitter-time">31 Aug 2011</div></li>
+          </ul>
+  </div>
+      </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php --><!-- start block.tpl.php -->
+
+  <div id="block-symantec_blogs-blog_tagcloud" class="block block-wrapper block-symantec_blogs block-order-5 odd clearfix">
+    <div class="block-inner">
+            <h2 class="title block-title"><span>Blog Tags</span></h2>
+            <div class="content clearfix">
+        <!--googleoff: anchor-->
+<div class="tagcloud-wrapper">
+  <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1881/all/all/all/all" class="blog-tags-cloud-size-3">10.x</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1871/all/all/all/all" class="blog-tags-cloud-size-3">11.x</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/31541/all/all/all/all" class="blog-tags-cloud-size-3">12.x</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8001/all/all/all/all" class="blog-tags-cloud-size-3">419 scam</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1891/all/all/all/all" class="blog-tags-cloud-size-3">9.x and Earlier</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9721/all/all/all/all" class="blog-tags-cloud-size-2">Adobe Reader</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11001/all/all/all/all" class="blog-tags-cloud-size-2">Advanced Persistent Threats</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/36971/all/all/all/all" class="blog-tags-cloud-size-2">Android</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7071/all/all/all/all" class="blog-tags-cloud-size-2">Android mobile applications</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/29761/all/all/all/all" class="blog-tags-cloud-size-2">Android.Bgserv</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/28851/all/all/all/all" class="blog-tags-cloud-size-2">Android.Geinimi</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/29611/all/all/all/all" class="blog-tags-cloud-size-2">Android.Rootcager</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/27481/all/all/all/all" class="blog-tags-cloud-size-2">Attack Kits</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/30011/all/all/all/all" class="blog-tags-cloud-size-2">Backdoor.Cycbot</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/4721/all/all/all/all" class="blog-tags-cloud-size-3">Backdoor.Tidserv</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/10681/all/all/all/all" class="blog-tags-cloud-size-2">Backdoor.Trojan</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/29251/all/all/all/all" class="blog-tags-cloud-size-2">BlackHole</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1611/all/all/all/all" class="blog-tags-cloud-size-4">Brightmail Gateway</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2711/all/all/all/all" class="blog-tags-cloud-size-4">Brightmail Message Filter</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11041/all/all/all/all" class="blog-tags-cloud-size-2">Clickjacking</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9381/all/all/all/all" class="blog-tags-cloud-size-2">Downloader</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8881/all/all/all/all" class="blog-tags-cloud-size-3">Email</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/18751/all/all/all/all" class="blog-tags-cloud-size-3">Email Encryption</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/16121/all/all/all/all" class="blog-tags-cloud-size-3">Email Spam</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3241/all/all/all/all" class="blog-tags-cloud-size-5">Emerging Threats</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2271/all/all/all/all" class="blog-tags-cloud-size-1">Endpoint Encryption</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1403/all/all/all/all" class="blog-tags-cloud-size-6">Endpoint Protection (AntiVirus)</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2041/all/all/all/all" class="blog-tags-cloud-size-3">Endpoint Protection Small Business</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1691/all/all/all/all" class="blog-tags-cloud-size-3">Enterprise Security Manager</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3351/all/all/all/all" class="blog-tags-cloud-size-4">Evolution of Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11031/all/all/all/all" class="blog-tags-cloud-size-2">Father&#039;s Day</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1531/all/all/all/all" class="blog-tags-cloud-size-1">General Symantec</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8571/all/all/all/all" class="blog-tags-cloud-size-2">Google</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1711/all/all/all/all" class="blog-tags-cloud-size-4">Hosted Mail Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/30591/all/all/all/all" class="blog-tags-cloud-size-2">ISTR</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8191/all/all/all/all" class="blog-tags-cloud-size-2">ISTR XV</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/30581/all/all/all/all" class="blog-tags-cloud-size-2">ISTR XVI</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3201/all/all/all/all" class="blog-tags-cloud-size-4">IT Risk Management</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/27371/all/all/all/all" class="blog-tags-cloud-size-2">Infostealer</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11241/all/all/all/all" class="blog-tags-cloud-size-2">Infostealer.Bancos</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/18391/all/all/all/all" class="blog-tags-cloud-size-2">Internet Security Predictions 2011</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3261/all/all/all/all" class="blog-tags-cloud-size-3">Internet Security Threat Report</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2281/all/all/all/all" class="blog-tags-cloud-size-4">Mail Security for Exchange/Domino</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/17181/all/all/all/all" class="blog-tags-cloud-size-2">Malcode</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3251/all/all/all/all" class="blog-tags-cloud-size-5">Malicious Code</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8691/all/all/all/all" class="blog-tags-cloud-size-2">Malware</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12731/all/all/all/all" class="blog-tags-cloud-size-2">Master Boot Record</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7421/all/all/all/all" class="blog-tags-cloud-size-3">Microsoft Patch Tuesday</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3481/all/all/all/all" class="blog-tags-cloud-size-4">Mobile &amp; Wireless</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1731/all/all/all/all" class="blog-tags-cloud-size-3">Mobile Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3461/all/all/all/all" class="blog-tags-cloud-size-5">Online Fraud</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9731/all/all/all/all" class="blog-tags-cloud-size-3">PDF</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11521/all/all/all/all" class="blog-tags-cloud-size-2">PDF spam</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3061/all/all/all/all" class="blog-tags-cloud-size-2">Restore</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12201/all/all/all/all" class="blog-tags-cloud-size-2">SCADA</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/6531/all/all/all/all" class="blog-tags-cloud-size-2">SEO Poisoning</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/763/all/all/all/all" class="blog-tags-cloud-size-1">Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/691/all/all/all/all" class="blog-tags-cloud-size-7">Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/5111/all/all/all/all" class="blog-tags-cloud-size-2">Security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/17061/all/all/all/all" class="blog-tags-cloud-size-2">Security Response</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3231/all/all/all/all" class="blog-tags-cloud-size-5">Security Risks</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/10901/all/all/all/all" class="blog-tags-cloud-size-3">Social networking</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/3441/all/all/all/all" class="blog-tags-cloud-size-5">Spam</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/1253/all/all/all/all" class="blog-tags-cloud-size-1">Spam</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/26731/all/all/all/all" class="blog-tags-cloud-size-2">Spear Phishing</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11561/all/all/all/all" class="blog-tags-cloud-size-4">Symantec Protection Suites (SPS)</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9741/all/all/all/all" class="blog-tags-cloud-size-3">Symantec State of Spam &amp; Phishing Report</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11981/all/all/all/all" class="blog-tags-cloud-size-2">Tracking Cookie</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/14501/all/all/all/all" class="blog-tags-cloud-size-2">Trojan Horse</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/19281/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Bamital</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/27401/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Bootlock</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12181/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Clampi</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/4391/all/all/all/all" class="blog-tags-cloud-size-3">Trojan.FakeAV</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/14901/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Hydraq</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/17521/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Jnanabot</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/29811/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Koredos</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8771/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Mebratix</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8931/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Mebroot</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11551/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Pidief</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/28241/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Sasfis</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8531/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Spyeye</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/19291/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Webkit!html</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/4681/all/all/all/all" class="blog-tags-cloud-size-3">Trojan.Zbot</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/17421/all/all/all/all" class="blog-tags-cloud-size-2">Trojan.Zbot.B</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/28981/all/all/all/all" class="blog-tags-cloud-size-2">URL shortening</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2981/all/all/all/all" class="blog-tags-cloud-size-5">Vulnerabilities &amp; Exploits</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12061/all/all/all/all" class="blog-tags-cloud-size-2">W32.Ackantta</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11921/all/all/all/all" class="blog-tags-cloud-size-2">W32.Changeup</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11511/all/all/all/all" class="blog-tags-cloud-size-3">W32.Downadup</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9351/all/all/all/all" class="blog-tags-cloud-size-2">W32.Koobface</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/18801/all/all/all/all" class="blog-tags-cloud-size-2">W32.Pilleuz</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9371/all/all/all/all" class="blog-tags-cloud-size-2">W32.Qakbot</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9231/all/all/all/all" class="blog-tags-cloud-size-2">W32.Sality</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11761/all/all/all/all" class="blog-tags-cloud-size-4">W32.Stuxnet</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/9421/all/all/all/all" class="blog-tags-cloud-size-2">W32.Virut</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12381/all/all/all/all" class="blog-tags-cloud-size-2">W32.Waledac</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/27061/all/all/all/all" class="blog-tags-cloud-size-2">W32.Waledac.B</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8841/all/all/all/all" class="blog-tags-cloud-size-2">W32.Yimfoca</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/15481/all/all/all/all" class="blog-tags-cloud-size-2">Whitepaper</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/2791/all/all/all/all" class="blog-tags-cloud-size-3">Windows</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8941/all/all/all/all" class="blog-tags-cloud-size-2">World Cup 2010</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8851/all/all/all/all" class="blog-tags-cloud-size-2">Worm</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/4671/all/all/all/all" class="blog-tags-cloud-size-3">Zeus</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11611/all/all/all/all" class="blog-tags-cloud-size-2">backdoor</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8461/all/all/all/all" class="blog-tags-cloud-size-2">botnet</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/6691/all/all/all/all" class="blog-tags-cloud-size-2">conficker</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/10821/all/all/all/all" class="blog-tags-cloud-size-2">email security</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/19751/all/all/all/all" class="blog-tags-cloud-size-2">encryption</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7351/all/all/all/all" class="blog-tags-cloud-size-3">facebook</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/6521/all/all/all/all" class="blog-tags-cloud-size-2">fakeav</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/28951/all/all/all/all" class="blog-tags-cloud-size-2">neosploit</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/8031/all/all/all/all" class="blog-tags-cloud-size-5">phishing</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7171/all/all/all/all" class="blog-tags-cloud-size-2">rogue antivirus</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7181/all/all/all/all" class="blog-tags-cloud-size-2">rogue apps</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11721/all/all/all/all" class="blog-tags-cloud-size-2">rootkit</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/12291/all/all/all/all" class="blog-tags-cloud-size-2">social engineering</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/29071/all/all/all/all" class="blog-tags-cloud-size-2">targeted attacks</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/7361/all/all/all/all" class="blog-tags-cloud-size-3">twitter</a> <a href="/web/20110909041410/http://www.symantec.com/connect/symantec-blogs/security-response/11711/all/all/all/all" class="blog-tags-cloud-size-2">zero-day vulnerability</a></div>
+<!--googleon: anchor-->      </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php -->						 </div>
+					 </div><!-- /#sidebar-last -->
+				 
+							 
+			</div><!-- /sidebar -->
+		</div><!-- /main -->
+
+	</div><!-- /page -->
+
+  <div class="fixed-width">
+    <div id="footer-menu" class="clearfix">
+                    <div id="footer-menu-container"><ul class="menu"><li class="leaf first"><a href="/web/20110909041410/http://www.symantec.com/connect/legal" title="">Symantec Corporation</a></li>
+<li class="leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/contact" title="">Contact Us</a></li>
+<li class="leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/faq" title="">FAQ</a></li>
+<li class="leaf"><a href="/web/20110909041410/http://www.symantec.com/connect/pages/get-4-1-1-rss" title="">Get RSS</a></li>
+<li class="leaf"><a href="https://web.archive.org/web/20110909041410/http://www.symantec.com/about/profile/policies/privacy.jsp" title="">Privacy Policy</a></li>
+<li class="leaf last"><a href="https://web.archive.org/web/20110909041410/http://www.symantec.com/" title="">Symantec.com</a></li>
+</ul></div>
+          </div>
+<script type="text/javascript">(function(){var d=document;var e=d.createElement("script");e.async=true;e.src="https://web.archive.org/web/20110909041410/https://d1ros97qkrwjf5.cloudfront.net/16/eum/rum.js";e.type="text/javascript";var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(e,s);})();NREUMQ.push(["nrf2","beacon-1.newrelic.com","d64731b77f",116132,"MgAGbUVZWREHAERdCgtKJVpDUVgMSQ1fUAA6FQVeUmdBCwMU",0,248,new Date().getTime()])</script>            <div id="footer" class="clearfix">
+        <div id="footer-wrapper" class="clearfix">
+          <div id="closure"><script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"CToolsAJAX":{"scripts":{"\/connect\/sites\/default\/modules\/contrib\/jquery_update\/replace\/jquery.min.js":true,"\/connect\/misc\/drupal.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/fixselect.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/main.js":true,"\/connect\/sites\/default\/modules\/contrib\/mollom\/mollom.js":true,"\/connect\/sites\/default\/modules\/contrib\/og\/og.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_help\/js\/symantec_help.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_help\/js\/BrightcoveExperiences.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_navigation\/symantec_navigation.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_symaccount\/symantec_symaccount.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/jquery.tooltip.sticky.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/node-details.js":true,"\/connect\/sites\/default\/modules\/contrib\/ctools\/js\/ajax-responder.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_blogs\/symantec_blogs.js":true},"css":{"\/connect\/modules\/node\/node.css":true,"\/connect\/modules\/poll\/poll.css":true,"\/connect\/modules\/system\/defaults.css":true,"\/connect\/modules\/system\/system.css":true,"\/connect\/modules\/system\/system-menus.css":true,"\/connect\/modules\/user\/user.css":true,"\/connect\/sites\/default\/modules\/contrib\/cck\/theme\/content-module.css":true,"\/connect\/sites\/default\/modules\/contrib\/ckeditor\/ckeditor.css":true,"\/connect\/sites\/default\/modules\/contrib\/ctools\/css\/ctools.css":true,"\/connect\/sites\/default\/modules\/contrib\/date\/date.css":true,"\/connect\/sites\/default\/modules\/contrib\/date\/date_popup\/themes\/datepicker.css":true,"\/connect\/sites\/default\/modules\/contrib\/date\/date_popup\/themes\/jquery.timeentry.css":true,"\/connect\/sites\/default\/modules\/contrib\/filefield\/filefield.css":true,"\/connect\/sites\/default\/modules\/contrib\/mollom\/mollom.css":true,"\/connect\/sites\/default\/modules\/contrib\/og\/theme\/og.css":true,"\/connect\/misc\/farbtastic\/farbtastic.css":true,"\/connect\/sites\/default\/modules\/contrib\/calendar\/calendar.css":true,"\/connect\/sites\/default\/modules\/contrib\/views\/css\/views.css":true,"\/connect\/sites\/default\/themes\/connect2\/widgets\/thumb_large\/thumbs_large.css":true,"\/connect\/sites\/default\/modules\/custom\/symantec_blogs\/symantec_blogs.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-reset.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-menus.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-tooltip.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-profile.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-solrsearch.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-fonts.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-tabs.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-csharp.css":true,"\/connect\/sites\/default\/themes\/connect2\/css\/style-print.css":true}}});
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"CToolsAJAX":{"scripts":{"\/connect\/sites\/default\/modules\/contrib\/jquery_update\/replace\/jquery.min.js":true,"\/connect\/misc\/drupal.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/fixselect.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/main.js":true,"\/connect\/sites\/default\/modules\/contrib\/mollom\/mollom.js":true,"\/connect\/sites\/default\/modules\/contrib\/og\/og.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_help\/js\/symantec_help.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_help\/js\/BrightcoveExperiences.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_navigation\/symantec_navigation.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_symaccount\/symantec_symaccount.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/jquery.tooltip.sticky.js":true,"\/connect\/sites\/default\/themes\/connect2\/js\/node-details.js":true,"\/connect\/sites\/default\/modules\/contrib\/ctools\/js\/ajax-responder.js":true,"\/connect\/sites\/default\/modules\/custom\/symantec_blogs\/symantec_blogs.js":true}}});
+//--><!]]>
+</script>
+</div>        </div><!-- /footer-wrapper -->
+      </div><!-- /footer -->
+        </div><!-- /.fixed-width footer -->
+
+	<!-- SiteCatalyst code. Copyright 1997-2008 Omniture, Inc. More info available at http://www.omniture.com -->
+    <script type="text/javascript"><!--
+    /* You may give each page an identifying name, server, and channel on the next lines. */
+    if (typeof(s) != 'undefined') {
+      s.pageName=metaData['page_name'];
+      s.server="symantec"
+      s.channel=metaData['visitor_segment'] + ': ' + metaData['site_section']
+      s.pageType=metaData['page_type']
+      s.prop2=metaData['site_country']
+      s.prop3=metaData['site_language']
+      s.prop7=metaData['author_id']
+      s.prop18=metaData['connect_utility']
+      s.prop25=metaData['error_url']
+      s.prop27=metaData['visitor_segment']
+      s.prop30=metaData['user_id']
+      s.prop33=metaData['page_url']
+      s.prop36=metaData['connect_product']
+      s.prop39=metaData['blog_name']
+      s.prop41=metaData['site_section']
+      s.prop42=metaData['product_name']
+      s.prop43=metaData['product_category_name']
+      s.prop44=metaData['product_sub_category_name']
+      s.prop45=metaData['product_version_name']
+      s.prop46=metaData['content_format']
+      s.prop47=metaData['content_type'];
+      s.prop48=metaData['content_title']
+      s.prop49=metaData['site_sub_section']
+      s.prop50=metaData['connect_topic_selected']
+      s.prop54=metaData['site_section_us']
+      
+      /* Conversion Variables */
+      s.products=metaData['products']
+      s.eVar7=metaData['author_id']
+      s.eVar27=metaData['site_country']
+      s.eVar28=metaData['site_language']
+      s.eVar29=metaData['visitor_segment'] + ': ' + metaData['site_section']
+      s.eVar32=metaData['user_id']
+      s.eVar33=metaData['connect_utility']
+      s.eVar37=metaData['connect_product']
+      s.eVar38=metaData['blog_name']
+      s.eVar41=metaData['site_section']
+      s.eVar42=metaData['product_name']
+      s.eVar43=metaData['product_category_name']
+      s.eVar48=metaData['site_sub_section']
+      s.eVar49=metaData['content_title']
+      s.eVar50=metaData['visitor_segment']
+      s.eVar54=metaData['site_section_us']
+			
+            /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+      var s_code=s.t();if(s_code)document.write(s_code)//-->
+    }
+    </script>
+      <script type="text/javascript"><!--
+      if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+      //--></script>
+    <!--/DO NOT REMOVE/-->
+    <!-- End SiteCatalyst code. -->
+  
+</body>
+</html>
+<!--
+     FILE ARCHIVED ON 04:14:10 Sep 09, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 12:07:49 Jan 01, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 139.658 (11)
+  exclusion.robots: 0.153
+  exclusion.robots.policy: 0.143
+  cdx.remote: 0.056
+  esindex: 0.009
+  LoadShardBlock: 114.216 (3)
+  PetaboxLoader3.datanode: 71.597 (4)
+  load_resource: 80.282
+  PetaboxLoader3.resolve: 33.837
+-->

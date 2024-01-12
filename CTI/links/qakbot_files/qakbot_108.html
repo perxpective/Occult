@@ -1,0 +1,1644 @@
+<!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" > <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en" >        <![endif]--><!--[if IE 8]>    <html class="no-js lt-ie9" lang="en" >               <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Karlo Zanki">
+    <meta name="description" content="Relying on legacy functionalities comes with inherent security risks">
+    <meta name="generator" content="HubSpot">
+    <title>Spotting malicious Excel4 macros</title>
+    <link rel="shortcut icon" href="https://www.reversinglabs.com/hubfs/favicons/RL.svg">
+    
+
+    
+    <meta property="og:description" content="Relying on legacy functionalities comes with inherent security risks">
+    <meta property="og:title" content="Spotting malicious Excel4 macros">
+    <meta name="twitter:description" content="Relying on legacy functionalities comes with inherent security risks">
+    <meta name="twitter:title" content="Spotting malicious Excel4 macros">
+
+    
+
+    
+
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/144306795402/1704023438293/Redesign_2023/css/globals/header-transition.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/103636562700/1694185982219/module_103636562700_Footer_Categories_Text_-_global_-_p1129.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/87757605656/1700047379193/module_87757605656_Footer_Categories_Blog_Listing_-_global_-_p1299.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/36845096476/1694005994176/module_36845096476_Blog_listing_card_grid_-_p1131.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/80864562095/1699699918041/module_80864562095_Sidebar_Categories_Blog_-_global.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/80868056874/1694187419582/module_80868056874_Sidebar_Social_-_global.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/1704108894607/module_80857835930_Sidebar_Blog_Subscribe_-_global.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/80864563080/1699700043367/module_80864563080_Sidebar_Blog_Favorite_Post_-_global.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/114796045952/1700491114558/module_114796045952_Sidebar_ConversingLabs_Latest_Post_Block_-_global.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/115016303498/1699700315479/module_115016303498_Sidebar_ReversingGlass_Latest_Post_Block_-_global.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/115021731904/1699700391059/module_115021731904_Sidebar_SPD_Latest_Post_Block_-_global.min.css">
+
+    
+
+
+    
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="s4v_9FTp-yOMSOIG-AncB-m4uIke9tNd3uRdYtnJlic">
+<link rel="shortcut icon" href="https://www.reversinglabs.com/hubfs/favicons/favicon.ico?v=XBJLaGAQax">
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.reversinglabs.com/hubfs/favicons/apple-touch-icon.png?v=XBJLaGAQax">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.reversinglabs.com/hubfs/favicons/favicon-32x32.png?v=XBJLaGAQax">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.reversinglabs.com/hubfs/favicons/favicon-16x16.png?v=XBJLaGAQax">
+<link rel="manifest" href="https://www.reversinglabs.com/hubfs/favicons/site.webmanifest?v=XBJLaGAQax">
+<link rel="mask-icon" href="https://www.reversinglabs.com/hubfs/favicons/safari-pinned-tab.svg?v=XBJLaGAQax" color="#f6143f">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:site_name" content="ReversingLabs">
+<meta property="og:url" content="https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros">
+<meta name="twitter:site" content="@ReversingLabs">
+<meta name="twitter:creator" content="@ReversingLabs">
+
+
+<script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+
+
+
+<script type="text/javascript">
+function launchLightbox(val) {
+   var players = VidyardV4.api.getPlayersByUUID(val);
+   var player = players[0];
+   player.showLightbox();
+  }
+</script>
+<!-- Hotjar Tracking Code for Reversinglabs.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3176008,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MKL9P8B');</script>
+<!-- End Google Tag Manager -->
+<!-- Facebook Pixel Code --> <script nonce="NbVPjUme"> !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n; n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1076912843267184'); fbq('track', "Lead");</script> <noscript>&lt;img  height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1076912843267184&amp;amp;ev=PageView&amp;amp;noscript=1"&gt;</noscript> <!-- End Facebook Pixel Code -->
+<meta property="og:image" content="https://www.reversinglabs.com/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg#keepProtocol">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="732">
+<meta property="og:image:alt" content="Spotting malicious Excel4 macros">
+<meta name="twitter:image" content="https://www.reversinglabs.com/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg#keepProtocol">
+<meta name="twitter:image:alt" content="Spotting malicious Excel4 macros">
+
+<meta property="og:url" content="https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros">
+<!-- blog settings header -->
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://www.reversinglabs.com/blog/rss.xml">
+<meta name="twitter:domain" content="www.reversinglabs.com">
+<meta name="twitter:site" content="@ReversingLabs">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/7052064/hub_generated/template_assets/1703783682053/hubspot/hubspot_default/shared/responsive/layout.min.css">
+
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/5951651806/1699711648432/Reversinglabs_July2018_Theme/Coded_Files/RL-custom.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/6519964395/1701691743766/Reversing_Labs_November2018_Theme/Coded_Files/Reversing_Labs_November2018-style.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/10528761402/1701700496840/Redesign_june_2019/Coded_Files/CSS/Modules/site-redesign-june-2019.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/23712622487/1699699392559/Coded_files/Modules/blog.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/70521421874/1699699461441/Redesign_june_2019/Coded_Files/CSS/Modules/conversing.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/6021532803/1569840493756/Reversinglabs_July2018_Theme/Coded_Files/simplelightbox.min.css">
+<link rel="stylesheet" href="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/11708570900/1699699414815/Modules/Tag_list_-_inline/tag-list.min.css">
+
+
+
+
+</head>
+<body class="blog wide-layout rd-2019   hs-content-id-45964042507 hs-blog-post hs-blog-id-5901382633" style="">
+    <div class="header-container-wrapper">
+    <div class="header-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-global_group " style="" data-widget-type="global_group" data-x="0" data-w="12">
+<div class="" data-global-widget-path="generated_global_groups/11118979719.html"><div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_169969769349457" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell header" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_169969779301479" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+
+
+
+  <div class="stickybar" style="opacity: 0;" data-slider-speed="9000" data-cookie-exp="" data-init-slider="true">
+    <div class="stickybar__inner-container">
+      
+      <div class="stickybar__item" style="background-color: #BCBAFF">
+        <div class="stickybar__text" style="color: #000000"><strong>New Gartner<span style="font-size: 8px; position: relative; top: -8px;">®</span> Report: Mitigate Enterprise Software Supply Chain Security Risks</strong></div>
+        <a class="cta cta--gradient cta--small" style="background-color: #ffffff; color: #ffffff" href="https://www.reversinglabs.com/gartner-report-mitigate-enterprise-software-supply-chain-security-risks">
+          Read it Now
+        </a>
+      </div>
+      
+      <div class="stickybar__item" style="background-color: #BCBAFF">
+        <div class="stickybar__text" style="color: #000000"><strong><strong>1/10 Webinar | Our Key Takeaways from Gartner® Software Supply Chain Risk Report</strong></strong></div>
+        <a class="cta cta--gradient cta--small" href="https://www.reversinglabs.com/webinar/takeaways-from-gartner-software-supply-chain-report" target="_blank">
+          Register Now
+        </a>
+      </div>
+      
+      <div class="stickybar__item" style="background-color: #BCBAFF">
+        <div class="stickybar__text" style="color: #000000"><strong>ReversingLabs is the #1 Alternative to VirusTotal</strong></div>
+        <a class="cta cta--gradient cta--small" style="background-color: #ffffff; color: #ffffff" href="https://www.reversinglabs.com/reversinglabs-vs-virustotal" target="_blank">
+          Learn Why
+        </a>
+      </div>
+      
+    </div>
+    
+      <div class="stickybar__close-btn"><span class="ico close"></span></div>
+    
+  </div>
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_169969780385981" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="main-menu">
+  <div class="main-menu__container main-menu__container-wide">
+  <div class="main-menu__logo">
+    <a href="https://www.reversinglabs.com">
+      <img src="https://www.reversinglabs.com/hubfs/RL%20Logo/rl-logo-long.svg" alt="rl-logo-long">
+    </a>
+  </div>
+  <nav class="main-menu__inner">
+    <div class="main-menu__controls">
+      <span class="ico menu-burger"></span>
+      <span class="ico close"></span>
+    </div>
+    <div class="main-menu__items-container">
+      <div class="main-menu__items main-menu__items--main">
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Solutions</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">Software Supply Chain Security</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/protect-against-software-supply-chain-attacks" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Software Supply Chain Security</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/software-bill-of-materials-sbom" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Software Bill of Materials</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/manage-3rd-party-software-risks" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Verify Third Party Software</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/secure-software-release-processes" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Verify Software Build &amp; Release</span>
+                </a>
+                
+                
+            
+              
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">AUTOMATE SOC SUPPORT</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/triage-alerts-faster" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Triage</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/automate-incident-response" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Incident Response</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/siem-soar-automated-static-analysis" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">SIEM/SOAR</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/cloud-file-share-protection" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Protect Cloud File Shares</span>
+                </a>
+                
+                
+            
+              
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">OPTIMIZE THREAT HUNTING</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/ransomware-feed" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Ransomware Feed</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/advance-your-malware-lab" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Malware Lab</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/hunt-threats-continuously" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Threat Hunting</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/sandbox-malware-analysis" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Sandbox</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/phishing-attack-prevention" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Email</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/edr-malware-detection-integration" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">EDR</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/threat-intelligence-integration" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Threat Intelligence Platforms</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/solutions/reversinglabs-threat-intelligence-for-microsoft-sentinel" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Threat Intelligence for Microsoft Sentinel</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Platform &amp; Technology</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <a href="https://www.reversinglabs.com/products/malware-analysis-platform" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Titanium Platform</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/products/software-supply-chain-security" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingLabs Software Supply Chain Security (SSCS)</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/products/file-reputation-service" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingLabs Threat Intelligence</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/products/enterprise-scale-file-anlaysis-software" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingLabs Elastic Threat Infrastructure</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/products/malware-threat-hunting-and-investigations" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingLabs Threat Analysis &amp; Hunting</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/products/open-source-yara-rules" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Free: Open Source YARA Rules</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Why Us</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <a href="https://www.reversinglabs.com/why-choose-reversinglabs" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Why Choose ReversingLabs</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Partners</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <a href="https://www.reversinglabs.com/reseller-partners" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">GSI &amp; Reseller Partners</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/integration-partners" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Integration Partners</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/security-vendors" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Security Partners</span>
+                </a>
+                
+                
+            
+              
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">ALLIANCES</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/alliances/synopsys" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingLabs and Synopsys</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Resources</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <a href="https://www.reversinglabs.com/blog" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Blog</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/resources" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Content Library</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/webinars" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Webinars</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/software-package-deconstruction-series" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Software Deconstruction Demo Series</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/reversingglass" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ReversingGlass: Concepts Explained</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/conversinglabs" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">ConversingLabs Podcast</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/from-the-labs" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">From the Labs: YARA Rules</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/demo-videos" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Demo Videos</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/learning-with-reversinglabs" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Learning with ReversingLabs</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <span class="main-menu__item 
+            
+            ">
+            <span class="main-menu__item-inner-container">
+              <span class="main-menu__item-text">Company</span>
+              <span class="main-menu__item-chevron"></span>
+            </span>  
+            
+              
+              <div class="main-menu__sub-items-container">
+                <div class="main-menu__sub-items">
+                
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">Company</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/company/about-us" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">About Us</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/company/leadership" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Leadership</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/company/careers" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Careers</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/crosspoint-capital-leads-investment-in-software-security-pioneer-reversinglabs" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Series B Investment</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/blog/tag/company-events" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Company News</span>
+                </a>
+                
+                
+            
+              
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">Events</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/events" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Events</span>
+                </a>
+                
+                
+            
+              
+                
+                <span class="main-menu__sub-item main-menu__sub-item--no-link">
+                  <span class="main-menu__item-text">Press</span>
+                </span>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/newsroom/press-releases" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">Press Releases</span>
+                </a>
+                
+                
+            
+              
+                
+                <a href="https://www.reversinglabs.com/newsroom/news" class="main-menu__sub-item">
+                  <span class="main-menu__item-text">In the News</span>
+                </a>
+                
+                
+                </div>
+              </div>
+              
+            
+        </span>
+        
+      
+        
+        <a href="https://register.reversinglabs.com/demo" class="main-menu__item 
+            cta cta--small cta--green
+            main-menu__item--highlight-green">
+          <span class="main-menu__item-text">Demo</span>
+        </a>
+        
+      
+      </div>
+      <div class="main-menu__items main-menu__items--top">
+        
+        
+        <a href="https://www.reversinglabs.com/contact-us" class="main-menu__item 
+            
+            ">
+          <span class="main-menu__item-text">Contact Us</span>
+        </a>
+        
+        
+        
+        <a href="https://support.reversinglabs.com/hc/en-us/restricted" class="main-menu__item 
+            
+            ">
+          <span class="main-menu__item-text">Support</span>
+        </a>
+        
+        
+        
+        <a href="https://rli.reversinglabs.com/accounts/login/" class="main-menu__item 
+            
+            ">
+          <span class="main-menu__item-text">Login</span>
+        </a>
+        
+        
+        
+        <a href="https://www.reversinglabs.com/blog" class="main-menu__item 
+            
+            ">
+          <span class="main-menu__item-text">Blog</span>
+        </a>
+        
+        
+        
+        <a href="https://www.secure.software/" class="main-menu__item 
+            
+            ">
+          <span class="main-menu__item-text">Developer Portal</span>
+        </a>
+        
+        
+        
+        <span class="main-menu__item 
+            main-menu__item--search ico search">
+          <span class="main-menu__item-text">Search</span>
+        </span>
+        
+        
+      </div>
+    </div>
+  </nav>
+</div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-5 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1699697869460113" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+<div class="modal modal--search-only micromodal-slide" id="modal-site-search" aria-hidden="true">
+  <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+      <span class="modal__close" aria-label="Close modal" data-micromodal-close><span class="ico close"></span></span>    
+      <main class="modal__content" id="modal-1-content">
+        <form action="/hs-search-results" class="modal__form">
+          <input type="text" class="hs-search-field__input hs-search-field__input--modal" name="term" autocomplete="off" aria-label="Search" placeholder="Search">
+          
+          
+            <input type="hidden" name="type" value="SITE_PAGE">
+          
+          
+          
+            <input type="hidden" name="type" value="BLOG_POST">
+            <input type="hidden" name="type" value="LISTING_PAGE">
+          
+          
+
+          
+        </form>
+      </main>
+    </div>
+  </div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+</div>
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end header -->
+</div><!--end header wrapper -->
+
+<div class="body-container-wrapper">
+    <div class="body-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_169971693721085" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="title-banner module background-color--blue" ">
+   <div class="title-banner__container module__container">
+     
+  		  <h2><a href="https://www.reversinglabs.com/blog">ReversingLabs Blog</a></h2>
+     
+  </div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell page-center content-wrapper conversing__wrapper" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span8 widget-span widget-type-cell blog-content" style="" data-widget-type="cell" data-x="0" data-w="8">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1523032069834331" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-blog_content" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+    <div class="blog-section">
+<div class="blog-post-wrapper cell-wrapper">
+<div class="blog-section">
+<div class="blog-post-wrapper cell-wrapper">
+<div class="custom-blog-date post">  
+<span class="custom-topic">
+<div id="hs_cos_wrapper_module_165901111278147" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<!--Threat Research sorted tags -->
+<a class="topic-link" href="https://www.reversinglabs.com/blog/tag/threat-research">Threat Research</a>
+<!--Research sorted tags -->
+</div>
+</span>
+| 
+<span class="custom-post-date">
+April 28, 2021
+</span>
+</div>
+<div class="section post-header">
+<h1><span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">Spotting malicious Excel4 macros</span></h1>
+<div id="hs_cos_wrapper_module_1577203992502740" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<h2 class="post-header__secondary-head blog__post-secondary-h2">Relying on legacy functionalities comes with inherent security risks</h2>
+</div>
+</div>
+<div class="author-short-info__container">
+<div class="author-short-info">
+<div class="author-short-info__image-container">
+<img class="author-short-info__image" src="https://www.reversinglabs.com/hubfs/Imported_Blog_Media/authors/karlo_zanki.jpg" alt="Karlo Zanki">
+</div>
+<div class="author-short-info__text-container">
+<span class="author-short-info__text-label">Blog Author</span>
+<p class="author-short-info__name-bio">
+Karlo Zanki, Reverse Engineer at ReversingLabs.&nbsp;<a href="https://www.reversinglabs.com/blog/author/karlo-zanki">Read More...</a>
+</p>
+</div>
+</div>
+</div>
+<ul class="blog-post__social-list">
+<li>
+<a class="share_facebook" href="javascript:;" title="Facebook" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros','Facebook Share','width=600,height=600')">
+<span class="icon-facebook"></span>
+</a>
+</li>
+<li>
+<a class="share_twitter" href="javascript:;" title="Twitter" onclick="window.open('https://twitter.com/intent/tweet?url=https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros&amp;text=Spotting malicious Excel4 macros','Twitter Share','width=600,height=600')">
+<span class="icon-twitter"></span>
+</a>
+</li>
+<li>
+<a class="share_linkedin" href="javascript:;" title="Linkedin" target="popup" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros','LinkedIn Share','width=600,height=600')">
+<span class="icon-linkedin"></span>
+</a>
+</li>
+<li>
+<a class="share_email" href="mailto:?body=https://www.reversinglabs.com/blog/spotting-malicious-excel4-macros" title="Email">
+<span class="icon-envelope-o"></span>
+</a>
+</li>
+</ul>   
+<div id="hs_cos_wrapper_module_1577204345802754" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"></div>
+<div class="section post-body">
+<span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><h2><img src="https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=1400&amp;name=Spotting-malicious-Excel4-macros.jpg" alt="Spotting malicious Excel4 macros" style="width: 1400px;" width="1400" srcset="https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=700&amp;name=Spotting-malicious-Excel4-macros.jpg 700w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=1400&amp;name=Spotting-malicious-Excel4-macros.jpg 1400w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=2100&amp;name=Spotting-malicious-Excel4-macros.jpg 2100w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=2800&amp;name=Spotting-malicious-Excel4-macros.jpg 2800w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=3500&amp;name=Spotting-malicious-Excel4-macros.jpg 3500w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/Spotting-malicious-Excel4-macros.jpg?width=4200&amp;name=Spotting-malicious-Excel4-macros.jpg 4200w" sizes="(max-width: 1400px) 100vw, 1400px"><br>Introduction</h2>
+<p>Excel4 (XLM) macros are a legacy scripting language introduced in 1992. They are a predecessor to the more advanced VBA scripting language introduced the following year. Because of the backward compatibility issues, modern Microsoft Office versions kept the support for this type of macros. <br><br>The reason why this old and rudimentary technology is interesting to malicious actors is because it still provides ways to access powerful functionalities such as interaction with the operating system. Additionally, security solutions have a lot of problems detecting threats that use this almost forgotten technology and, since a lot of companies still have some procedures depending on such XLM macro documents, blocking them completely isn’t an option. <br><br>Due to recent spikes in malicious Excel 4.0 macro use, security research has become focused on the detection of such threats. <a href="/blog/excel-4.0-macros" rel="noopener" target="_blank">One of our previous blog posts</a> goes to describe how to recognize the presence of these macros in Excel documents by using YARA rules. Since that blog was published, we’ve made a lot of improvements to our Titanium Platform that enable automated identification and extraction of Excel 4.0 macros. The latest static analysis engine also defines 327 new human-readable static behavior indicators focused on these macros. They help describe the intent behind the code of the analyzed document, and serve as a base for the improvements in our Explainable Machine Learning detection capabilities. The goal of this blog is to showcase the benefits of these improvements with respect to detecting the latest Excel malware macro threats.</p>
+<!--more-->
+<h2>Statistical data</h2>
+<p>For the purposes of this blog, we collected all Excel documents that appeared for the first time in our TitaniumCloud since November 2020. These documents were then processed with our static analysis engine which identified that almost 160,000 of them use Excel 4.0 (XLM) macros. <br><br>Among these 160,000 Excel 4.0 documents, more than 90% were classified by TitaniumCloud as malicious or suspicious. Staggering numbers that show that, if you encounter a document that contains XLM macros, it is almost certain that its macro will be malicious. It makes sense given that XLM macros are a legacy Office option at this point, and there is just a small chance that new documents would use them instead of more “modern” VBA macros.</p>
+<p style="text-align: center;"><img src="https://www.reversinglabs.com/hubfs/Blog/documents%20containing%20XLM%20macros.svg" alt="documents containing XLM macros" loading="lazy" style="width: 1400px;" width="1400"><br><span style="font-weight: bold; font-size: 16px;">Classification distribution of documents containing XLM macros</span></p>
+<p>We also looked at the distribution of malicious documents over time to determine if malicious activities spike during some certain dates. For this research, we only count unique samples to prevent mass malware mailing campaigns from tilting the scales too much. That gives us a more realistic view of malicious actor activities during this period.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Time-distribution-of-documents-containing-XLM-macros.png" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Time-distribution-of-documents-containing-XLM-macros.png" alt="Time distribution of documents containing XLM macros" style="width: 1100px;"></a>
+<p style="font-weight: bold; font-size: 16px; text-align: center;">Time distribution of documents containing XLM macros</p>
+<p>The graph shows that there was a significant increase in the number of encountered malicious samples at the end of November 2020. The largest peak on the graph is just around November 27th, and coincides with last year's Black Friday event. This is somewhat expected, as such events are a good opportunity for malicious actors to lure their targets into opening malicious content.<br><br>One, perhaps unexpected, anomaly is that there was next to no activity around Christmas and New Year. Perhaps malicious actors took some time off during the holidays, as the volume of malicious Excel 4.0 macros picked up in January, just in time for Valentine's day shopping spike. Malware, as most human activity, appears to be seasonal.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Top-10-Malware-Families.png" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Top-10-Malware-Families.png" alt="Malware family distribution" style="width: 1100px;"></a>
+<p style="font-weight: bold; font-size: 16px; text-align: center;">Malware family distribution</p>
+<p>Looking at the malware families detected in the sample set shows that ZLoader and Quakbot are the dominant malware families in the Excel 4.0 malware ecosystem, as they comprise more than half of our dataset. Next, we will cover how new Titanium Platform features can help you recognize these threats.</p>
+<h2>Quakbot sample</h2>
+<p>Sample with the c1977f91f6b30995432bc2f757934ba6bfab5438 SHA1 hash was analyzed using Titanium Platform. The analysis report shows that we are dealing with a malicious sample from the Quakbot family.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Samples-classification-summary.png" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Samples-classification-summary.png" alt="Sample’s classification summary" style="width: 1056px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Sample’s classification summary</span></p>
+<p>Actors behind Quakbot often distribute their payloads in the form of an Excel document. They try to mask these documents to look like they are encrypted using the DocuSign software, and they try to convince their targets to enable macros in order to decrypt the content. Such messages can look quite convincing. This is the image that Titanium Platform extracted from the analyzed sample during static analysis.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/docu-sign.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/docu-sign.jpg" alt="Message used to lure targets into enabling macros" style="width: 1400px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Message used to lure targets into enabling macros</span></p>
+<p>The Titanium Platform’s report shows that 5 embedded files with indicators have been extracted from this document. Even by just looking at this short summary, it is evident that this document calls a procedure from another DLL, or a similar code resource, and that it executes another application. Such behaviour can often be quite dangerous, and should immediately attract analyst attention.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Embedded-files-with-indicators.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Embedded-files-with-indicators.jpg" alt="Embedded files with indicators" style="width: 1100px;"></a>
+<p style="text-align: center;"><span style="font-weight: bold; font-size: 16px;">Embedded files with indicators</span></p>
+<p>The detailed list of the extracted files shows that 3 files with Excel 4.0 macros in them have been extracted from this sample. And, as our statistics show, there is a great chance that these are used for malicious purposes. That warrants a deeper look.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Extracted-files.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Extracted-files.jpg" alt="Extracted files" style="width: 930px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Extracted files</span></p>
+<p>The metadata extracted from the document shows where to start looking. This document has a cell defined as <em>Auto_Open</em>. This is a typical way for documents with Excel 4.0 macros to automatically start their execution from a specific cell upon opening, and is similar to an entry point in PE executables. So, the execution starts in the extracted file <em>Files1</em>, from cell <em>A40</em>.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Document-metadata-with-Auto_Open-cell.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Document-metadata-with-Auto_Open-cell.jpg" alt="Document metadata with Auto_Open cell" style="width: 880px;"></a>
+<p style="font-weight: bold; font-size: 16px; text-align: center;">Document metadata with Auto_Open cell</p>
+<p>When using Titanium Platform to check if some file is malicious, usually the first thing to check are indicators extracted during static analysis. Indicators represent a human-readable summary of interesting capabilities discovered in the analyzed sample. In order to provide threat analysts with explainable detection, each indicator includes a textual description and pinpoints the part of the file that triggered it. In this case, looking at the indicators for the extracted file, <em>Files1</em> suggests that it runs another macro using the <em>RUN XLM</em> macro function.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/files1_indicators.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/files1_indicators.jpg" alt="Files1 indicators" style="width: 820px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Files1 indicators</span></p>
+<p>Excel files are usually displayed like tables, and malware authors use that to visually hide some content by placing it into cells outside the default screen view. These can only be found with a lot of scrolling. Titanium Platform has a preview feature that, in the case of Excel documents, shows only the textual content of the file. It enables quick access to the interesting bits of content.<br><br>Cell <em>A40</em> was defined as the <em>Auto_Open</em> cell, but there is no macro content in that cell. This is because Excel 4.0 macros, when executed, automatically skip empty cells and proceed the execution to the first following cell which has actual content. Which is in this case found at <em>A51</em>. That cell redirects to another, <em>R59</em>, inside the same sheet, which in turn references the <em>“Files3”</em> sheet and redirects execution to it. Below these two cells is another one containing a suspicious looking URL. Performing this quick analysis already revealed behaviour that can’t be expected from any legitimate document.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Preview-of-the-Files1-extracted-file-contents.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Preview-of-the-Files1-extracted-file-contents.jpg" alt="Preview of the “Files1” extracted file contents" style="width: 1400px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Preview of the “Files1” extracted file contents</span></p>
+<p>Since the execution is now redirected to the <em>"Files3"</em> sheet, the next step is to look at its static behavior indicators. Besides executing other macros, this sheet also uses the CALL function, which is often used to call Windows APIs. Such powerful features are one of the reasons malicious actors like XLM macros. Indicators also show that the CONCATENATE function is used, which is often weaponized by some obfuscation techniques.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Files3-indicators.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Files3-indicators.jpg" alt="Files3 indicators" style="width: 700px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Files3 indicators</span></p>
+<p>Looking at the preview shows the raw content, revealing that the data inside this sheet is obfuscated. CALL functions parameters are concatenated from letters and cell values from a different sheet named <em>lbuyf</em>, which serves as some kind of a dictionary.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Preview-of-the-Files3-extracted-file-contents.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Preview-of-the-Files3-extracted-file-contents.jpg" alt="Preview of the “Files3” extracted file contents" style="width: 920px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Preview of the “Files3” extracted file contents</span></p>
+<p>Values in the <em>lbuyf</em> sheet are calculated at runtime using basic mathematical functions to get ASCII values of characters, and then concatenated into literals used from other XLM macro functions.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Part-of-the-lbuyf-extracted-file-contents.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Part-of-the-lbuyf-extracted-file-contents.jpg" alt="Part of the lbuyf extracted file contents" style="width: 840px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Part of the lbuyf extracted file contents</span></p>
+<p>After deobfuscating the <em>Files3</em> sheet, it becomes visible that it calls the <em>CreateDirectoryA</em> function from <em>kernel32.dll</em>, and then redirects execution to the <em>Files2</em> sheet. Again, going back to its indicators, besides the already seen CALL and RUN functions, it also executes another application using the EXEC macro.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Files2_indicators.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Files2_indicators.jpg" alt="Files2 indicators" style="width: 700px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Files2 indicators</span></p>
+<p>File preview shows code sequences similar to the ones seen in the <em>Files2</em> sheet. Deobfuscating the strings shows that, after calling the function <em>URLDownloadToFileA</em> from <em>URLMon library</em> and downloading the file from the suspicious URL seen in the <em>Files1</em> sheet, it finally executes that second stage payload. Not something uncommon for these malicious XLM documents.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/Preview-of-file-contents-extracted-from-Files2.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/Preview-of-file-contents-extracted-from-Files2.jpg" alt="Preview of file contents extracted from Files2" style="width: 800px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Preview of file contents extracted from Files2 </span></p>
+<p>But what to do when a larger file is encountered and when manual inspection is impractical? Going back through the process, it is obvious that all these major steps in file behaviour are visible by merely looking at the indicators and without going into detailed inspection. This is where our <a href="https://www.reversinglabs.com/products/explainable-machine-learning" rel="noopener" target="_blank">Explainable Machine Learning</a> comes to aid.</p>
+<h2>Explainable Machine Learning</h2>
+<p>Titanium Platform’s machine learning classification is based entirely on human readable indicators. Created to identify which of these static behavior indicators contribute to the final threat detection verdict. Furthermore, each of these indicators is also linked to a MITRE ATT&amp;CK framework category, thus helping SOC analysts understand the type of threat they are dealing with and its impact on the organization. As mentioned earlier, the latest Titanium Platform update defined 327 new human-readable Excel 4.0 static behavior indicators. They describe various categories of behaviour. Including defense evasion, network communication, execution and file manipulation.<br><br>The capabilities of Titanium Platform’s machine learning classification will be demonstrated on a real-world sample with the bbcd9e57ef75c56ea57ba6f3b83a7f82128dff8e SHA1 hash. None of Titanium Platform’s cloud scanners classified this sample as malicious during the analysis, but our new machine learning model did.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/ML-classification-of-the-sample.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/ML-classification-of-the-sample.jpg" alt="ML classification of the bbcd9e57ef75c56ea57ba6f3b83a7f82128dff8e sample" style="width: 1400px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">ML classification of the bbcd9e57ef75c56ea57ba6f3b83a7f82128dff8e sample</span></p>
+<p>As visible from the above image, the classification was based on propagation from an extracted file with the 5fe7587cebbd400dbb8e05501987784d4ea3028e SHA1 hash. Looking at the list of the extracted files shows that this file, named <em>Sheet6</em>, contains Excel 4.0 macros. The <em>Auto_Open</em> cell in the container document also points to this file <span style="font-weight: bold;">(Auto_Open: Sheet6!A2)</span>.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/extracted_files.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/extracted_files.jpg" alt="Extracted files" style="width: 1000px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Extracted files</span></p>
+<p>Even though there aren’t many extracted indicators in this relatively small file, there were enough of them for the machine learning model to classify it as malicious. The file obviously calls procedures from some library and delays the macro execution. These two indicators combined should always attract threat analyst attention.</p>
+<a href="https://blog.reversinglabs.com/hubfs/Blog/extracted-indicators.jpg" class="lightbox-image" data-mce-disabled-user-modify="true"><img src="https://www.reversinglabs.com/hubfs/Blog/extracted-indicators.jpg" alt="Extracted indicators" style="width: 1050px;"></a>
+<p style="text-align: center;"><br><span style="font-weight: bold; font-size: 16px;">Indicators extracted from the 5fe7587cebbd400dbb8e05501987784d4ea3028e sample</span></p>
+<p>Still, to fully understand the malicious functionality, file contents need to be previewed and macro logic needs to be followed through documents. To achieve all of its capabilities, <em>Sheet6</em> references other sheets in the document.</p>
+<p style="text-align: center;"><img src="https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=524&amp;name=sheet6.jpg" alt="sheet6" loading="lazy" style="width: 524px; margin-left: auto; margin-right: auto; display: block;" width="524" srcset="https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=262&amp;name=sheet6.jpg 262w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=524&amp;name=sheet6.jpg 524w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=786&amp;name=sheet6.jpg 786w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=1048&amp;name=sheet6.jpg 1048w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=1310&amp;name=sheet6.jpg 1310w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet6.jpg?width=1572&amp;name=sheet6.jpg 1572w" sizes="(max-width: 524px) 100vw, 524px"><span style="font-weight: bold; font-size: 16px;">Preview of the Sheet6 content</span></p>
+<p>For example, <em>Sheet3</em> contains the Base64-encoded payload. <em>Sheet2</em> serves as a dictionary and contains obfuscated string literals used to construct the CALL functions. The following image shows some of the obfuscated string literals, most of which can be recognized with little effort.</p>
+<p style="text-align: center;"><img src="https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=524&amp;name=sheet2.jpg" alt="sheet2" loading="lazy" style="width: 524px; margin-left: auto; margin-right: auto; display: block;" width="524" srcset="https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=262&amp;name=sheet2.jpg 262w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=524&amp;name=sheet2.jpg 524w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=786&amp;name=sheet2.jpg 786w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=1048&amp;name=sheet2.jpg 1048w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=1310&amp;name=sheet2.jpg 1310w, https://www.reversinglabs.com/hs-fs/hubfs/Blog/sheet2.jpg?width=1572&amp;name=sheet2.jpg 1572w" sizes="(max-width: 524px) 100vw, 524px"><span style="font-weight: bold; font-size: 16px;">Part of the Sheet2 content</span></p>
+<p>This dropper lives off the land by using the certutil binary to decode its Base64-encoded payload, and to convert it from HEX to binary representation. Finally, it executes the payload using<em> rundll32</em>. The binary payload is a <em>DLL</em> file with the 78c01aa4f88d35acfbc3d7142232cd1aa7682a6e SHA1 hash. It exports a function named <span style="font-weight: bold;">D</span>, which tries to download the next payload stage from the following location: <em>“hxxp://207[.]154.235[.]218/campo/z/z”</em>. Unfortunately, this second layer payload can no longer be downloaded from this URL for a more detailed analysis.</p>
+<h2>Conclusion</h2>
+<p>Statistics show that the malicious actors have adopted Excel 4.0 documents as a way of distributing their malware. This method has been here for more than a year and the number of newly seen samples isn’t dropping. The share of malicious samples in the total number of Excel 4.0 documents exceeds 90%, and, since a lot of well known malware families like Quakbot, ZLoader and Trickbot have been seen using them, we can expect these numbers to keep growing as more malware families pivot to this initial stage vector. The biggest risk for the targeted companies and individuals is the fact that security solutions still have a lot of problems with detecting malicious Excel 4.0 documents, making most of these slip by conventional signature based detections and analyst written YARA rules. <br><br>ReversingLabs continuously improves its detection mechanisms to keep up to date with malware trends. Latest improvements to Titanium Platform tackled the threats related to XLM macros and provided a way to reliably identify and extract such content. With the upcoming additions to our Explainable Machine Learning models based on the extracted Excel 4.0 indicators, Titanium Platform is now fully capable to successfully detect such threats in a quick and scalable way with static analysis. This can help block malicious documents before they enter your organizational network. <br><br>As a final thought regarding Excel 4.0 threats, even though backward compatibility is very important, some things should have a life expectancy and, from a security perspective, it would probably be best if they were deprecated at some point in time. Cost of maintaining 30 year old macros should be weighed against the security risks using such outdated technology brings.</p>
+<h2>IOC list</h2>
+<p>c1977f91f6b30995432bc2f757934ba6bfab5438<br>bbcd9e57ef75c56ea57ba6f3b83a7f82128dff8e<br>78c01aa4f88d35acfbc3d7142232cd1aa7682a6e</p>
+<h6>Read other Related Blogs:</h6>
+<ul>
+<li><a href="/blog/excel-4.0-macros" rel="noopener">Excel 4.0 Macros</a></li>
+</ul></span>
+<div id="hs_cos_wrapper_module_16770726333806" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<p style="font-size: 18px;"><span style="font-family: Helvetica, Arial, sans-serif;"><em>See Gartner's <a href="https://www.reversinglabs.com/gartner-report-mitigate-enterprise-software-supply-chain-security-risks" rel="noopener">guidance on software supply chain security</a>. Learn about <a href="https://www.reversinglabs.com/products/software-supply-chain-security" rel="noopener">ReversingLabs Software Supply Chain Security</a>. Who is ReversingLabs? <a href="https://www.reversinglabs.com/company/who-is-reversinglabs" rel="noopener">Matt Rose explains</a>.</em></span></p> 
+</div>
+<div id="hs_cos_wrapper_module_1665507034702351" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<h2 class="keep-learning-heading">Keep learning</h2>
+<ul class="keep-learning-list">
+<li><a href="https://www.reversinglabs.com/webinar/secure-by-design">See Webinar: Secure by Design: Why Trust Matters for Risk Management</a></li>
+<li><a href="https://www.reversinglabs.com/blog/tools-gap-leaves-the-software-supply-chain-exposed-why-you-need-to-upgrade-your-application-security">Supply Chain Risk Report: Learn why you need to upgrade your AppSec</a></li>
+<li><a href="https://www.reversinglabs.com/the-evolution-of-application-security">Learn more: SCA tools and how app sec is evolving to tackle supply chain security</a></li>
+<li><a href="https://www.reversinglabs.com/blog/how-to-harden-ml-models-against-adversarial-attacks">How to to harden machine learning models against attacks</a></li>
+<li><a href="https://www.reversinglabs.com/the-state-of-software-supply-chain-security">Track key trends: The State of Supply Chain Security 2022-23</a></li>
+</ul>
+</div>
+<ul class="tag-list-inline">
+<li class="tag-list-inline__item--text">Tags: </li>  
+<li class="tag-list-inline__item"><a class="tag-list-inline__item-link" href="https://www.reversinglabs.com/blog/tag/research">Research</a></li>
+<li class="tag-list-inline__item"><a class="tag-list-inline__item-link" href="https://www.reversinglabs.com/blog/tag/threat-research">Threat Research</a></li>
+</ul>
+</div>
+<div class="custom-related-post-wrapper">
+<div class="custom-blog-related-post">
+<h3 class="hs-related-title">
+<span>
+More Blog Posts
+</span>
+</h3>
+<div class="related-post-item-wrapper">
+<!-- Set the max number of posts to be output to the page here -->
+<div class="related-post-item">
+<div class="related-post-item-inner">
+<div class="related-image">
+<a href="https://www.reversinglabs.com/blog/jetbrains-teamcity-software-supply-chain-attack-a-sunburt-redux">
+<img src="https://3375217.fs1.hubspotusercontent-na1.net/hub/3375217/hubfs/pipeline-jetbrains-teamcity-breach.jpg?width=480&amp;name=pipeline-jetbrains-teamcity-breach.jpg" alt="The JetBrains TeamCity software supply chain attack: Lessons learned">
+</a>
+</div>
+<div class="related-content-wapper">
+<div class="custom-blog-date">
+<span class="custom-topic">
+<a class="topic-link" href="https://www.reversinglabs.com/blog/tag/appsec-supply-chain-security">AppSec &amp; Supply Chain Security</a>
+</span>  |                         
+<span class="custom-date">
+December 21, 2023
+</span>
+</div>
+<div class="related-title"><a href="https://www.reversinglabs.com/blog/jetbrains-teamcity-software-supply-chain-attack-a-sunburt-redux">The JetBrains TeamCity software supply chain attack: Lessons learned</a></div>
+<div class="post-body clearfix">
+The TeamCity incident is similar to SunBurst, which was behind the attack on SolarWinds. But there are differences. Here are lessons learned, to help secure your pipeline.
+</div>
+<a class="rel-more-link" href="https://www.reversinglabs.com/blog/jetbrains-teamcity-software-supply-chain-attack-a-sunburt-redux">Read More</a>
+</div>
+</div>
+</div>
+<div class="related-post-item">
+<div class="related-post-item-inner">
+<div class="related-image">
+<a href="https://www.reversinglabs.com/blog/esf-steps-up-guidance-with-call-for-binary-analysis-reproducible-builds">
+<img src="https://3375217.fs1.hubspotusercontent-na1.net/hub/3375217/hubfs/gartner-mitigate-software-supply-chain-risk-malware.jpg?width=480&amp;name=gartner-mitigate-software-supply-chain-risk-malware.jpg" alt="ESF steps up supply chain security guidance with call for binary analysis">
+</a>
+</div>
+<div class="related-content-wapper">
+<div class="custom-blog-date">
+<span class="custom-topic">
+<a class="topic-link" href="https://www.reversinglabs.com/blog/tag/appsec-supply-chain-security">AppSec &amp; Supply Chain Security</a>
+</span>  |                         
+<span class="custom-date">
+December 20, 2023
+</span>
+</div>
+<div class="related-title"><a href="https://www.reversinglabs.com/blog/esf-steps-up-guidance-with-call-for-binary-analysis-reproducible-builds">ESF steps up supply chain security guidance with call for binary analysis</a></div>
+<div class="post-body clearfix">
+To advance the state of software supply chain security, the ESF has called for going beyond legacy testing with binary analysis and reproducible builds.
+</div>
+<a class="rel-more-link" href="https://www.reversinglabs.com/blog/esf-steps-up-guidance-with-call-for-binary-analysis-reproducible-builds">Read More</a>
+</div>
+</div>
+</div>
+<div class="related-post-item">
+<div class="related-post-item-inner">
+<div class="related-image">
+<a href="https://www.reversinglabs.com/blog/malware-leveraging-public-infrastructure-like-github-on-the-rise">
+<img src="https://3375217.fs1.hubspotusercontent-na1.net/hub/3375217/hubfs/Blog/Blog-Malware-leveraging-public-infrastructure-like-GitHub-on-the-rise.webp?width=480&amp;name=Blog-Malware-leveraging-public-infrastructure-like-GitHub-on-the-rise.webp" alt="Malware leveraging public infrastructure like GitHub on the rise">
+</a>
+</div>
+<div class="related-content-wapper">
+<div class="custom-blog-date">
+<span class="custom-topic">
+<a class="topic-link" href="https://www.reversinglabs.com/blog/tag/threat-research">Threat Research</a>
+</span>  |                         
+<span class="custom-date">
+December 19, 2023
+</span>
+</div>
+<div class="related-title"><a href="https://www.reversinglabs.com/blog/malware-leveraging-public-infrastructure-like-github-on-the-rise">Malware leveraging public infrastructure like GitHub on the rise</a></div>
+<div class="post-body clearfix">
+RL researchers have uncovered two novel techniques running on GitHub — one abusing GitHub Gists, another issuing commands through git commit messages.
+</div>
+<a class="rel-more-link" href="https://www.reversinglabs.com/blog/malware-leveraging-public-infrastructure-like-github-on-the-rise">Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-5 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget conversing__listing" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1659699938367157" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+<!--  -->
+
+
+<div class="blog-listing-cards blog-section--resources blog-section--redesign-2019 ">
+  <div class="blog-listing-wrapper cell-wrapper">
+    <div class="blog-section">
+      <div class="blog-listing-wrapper cell-wrapper">
+        <div class="post-listing">
+        
+          
+        </div>
+      </div>
+    </div>
+    <!-- load more btn -->
+   
+    
+    
+ 
+  </div>
+</div>
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span4 widget-span widget-type-cell right-side conversing--right-side" style="" data-widget-type="cell" data-x="8" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-6 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_165969979273087" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="side-categories">
+<h2>Topics</h2>
+<ul>
+  
+    <li><a href="https://www.reversinglabs.com/blog"><img alt="" src="https://www.reversinglabs.com/hubfs/tag.svg" width="24">All Blog Posts</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/software-supply-chain-security"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=24&amp;name=puzzle.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=12&amp;name=puzzle.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=24&amp;name=puzzle.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=36&amp;name=puzzle.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=48&amp;name=puzzle.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=60&amp;name=puzzle.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/puzzle.png?width=72&amp;name=puzzle.png 72w" sizes="(max-width: 24px) 100vw, 24px">AppSec &amp; Supply Chain Security</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/dev-devsecops"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=24&amp;name=tag-dev-devsec-ops.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=12&amp;name=tag-dev-devsec-ops.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=24&amp;name=tag-dev-devsec-ops.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=36&amp;name=tag-dev-devsec-ops.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=48&amp;name=tag-dev-devsec-ops.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=60&amp;name=tag-dev-devsec-ops.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/tag-dev-devsec-ops.png?width=72&amp;name=tag-dev-devsec-ops.png 72w" sizes="(max-width: 24px) 100vw, 24px">Dev &amp; DevSecOps</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/threat-research"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=24&amp;name=ico-threat-research.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=12&amp;name=ico-threat-research.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=24&amp;name=ico-threat-research.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=36&amp;name=ico-threat-research.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=48&amp;name=ico-threat-research.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=60&amp;name=ico-threat-research.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/ico-threat-research.png?width=72&amp;name=ico-threat-research.png 72w" sizes="(max-width: 24px) 100vw, 24px">Threat Research</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/security-operations"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=24&amp;name=alarm.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=12&amp;name=alarm.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=24&amp;name=alarm.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=36&amp;name=alarm.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=48&amp;name=alarm.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=60&amp;name=alarm.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/alarm.png?width=72&amp;name=alarm.png 72w" sizes="(max-width: 24px) 100vw, 24px">Security Operations</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/products-technology"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=24&amp;name=terminal.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=12&amp;name=terminal.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=24&amp;name=terminal.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=36&amp;name=terminal.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=48&amp;name=terminal.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=60&amp;name=terminal.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/terminal.png?width=72&amp;name=terminal.png 72w" sizes="(max-width: 24px) 100vw, 24px">Products &amp; Technology</a></li>
+  
+    <li><a href="https://www.reversinglabs.com/blog/tag/company-events"><img alt="" src="https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=24&amp;name=calendar-three.png" width="24" srcset="https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=12&amp;name=calendar-three.png 12w, https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=24&amp;name=calendar-three.png 24w, https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=36&amp;name=calendar-three.png 36w, https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=48&amp;name=calendar-three.png 48w, https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=60&amp;name=calendar-three.png 60w, https://www.reversinglabs.com/hs-fs/hubfs/images/calendar-three.png?width=72&amp;name=calendar-three.png 72w" sizes="(max-width: 24px) 100vw, 24px">Company &amp; Events</a></li>
+  
+  </ul>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-7 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_165969981197093" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="sidebar-social">
+  <h2>Follow us</h2>
+  <ul>
+    
+      <li><a class="icon-twitter" href="https://twitter.com/reversinglabs" target="_blank" rel="nofollow"><span>Twitter</span></a></li>
+    
+      <li><a class="icon-linkedin" href="https://www.linkedin.com/company/reversinglabs" target="_blank" rel="nofollow"><span>Linkedin</span></a></li>
+    
+      <li><a class="icon-youtube-play" href="https://www.youtube.com/user/reversinglabs" target="_blank" rel="nofollow"><span>Youtube play</span></a></li>
+    
+  </ul>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-8 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_165969980154689" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="side-subscribe" style="border: 1px solid #f6143f;  border-radius: 10px; box-shadow: 11px 11px 0px 0px #f6143f;">
+  <h2>SUBSCRIBE</h2>
+  <span>Get our blog delivered to your in-box weekly to stay up to date on key trends, analysis and best practices across threat intelligence and software supply chain security.</span>
+   <div class="side-subscribe__form">
+      <span id="hs_cos_wrapper_module_165969980154689_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_form" style="" data-hs-cos-general-type="widget" data-hs-cos-type="form"><h3 id="hs_cos_wrapper_form_306996060_title" class="hs_cos_wrapper form-title" data-hs-cos-general-type="widget_field" data-hs-cos-type="text"></h3>
+
+<div id="hs_form_target_form_306996060"></div>
+
+
+
+
+
+
+
+
+
+</span>
+    </div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-9 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_165969980500891" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="featured-articles">
+  
+  <h2>Special Reports</h2>
+  <ul>
+    
+    
+     
+    <li>
+          <a href="https://www.reversinglabs.com/software-supply-chain-security-risk-report">Software Supply Chain Risk Report: Tooling Gap Leaves Orgs Exposed</a> <br>
+          <span class="featured-articles__date">July 26, 2023</span>
+    </li>
+    
+    
+     
+    <li>
+          <a href="https://www.reversinglabs.com/the-evolution-of-application-security">The Evolution of Application Security | Special Report</a> <br>
+          <span class="featured-articles__date">February 14, 2023</span>
+    </li>
+    
+    
+     
+    <li>
+          <a href="https://www.reversinglabs.com/the-state-of-software-supply-chain-security">The State of Software Supply Chain Security | Special Report</a> <br>
+          <span class="featured-articles__date">June 27, 2023</span>
+    </li>
+    
+    
+     
+    <li>
+          <a href="https://www.reversinglabs.com/secrets-exposed">An Essential Guide to Securing Secrets in Software | Special Report</a> <br>
+          <span class="featured-articles__date">March 21, 2023</span>
+    </li>
+    
+  </ul>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-10 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1683729058464128" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="latest-article">
+
+  
+  
+     <div>
+        <a href="https://www.reversinglabs.com/conversinglabs/the-state-of-open-source-software-security"><img src="https://www.reversinglabs.com/hubfs/ConversingLabs/ConversingLabs%20S5E5.jpg" alt="ConversingLabs: The State of Open Source Software Security"></a>
+        <a href="https://www.reversinglabs.com/conversinglabs/the-state-of-open-source-software-security" class="latest-article__post-link">ConversingLabs: The State of Open Source Software Security</a>
+        <div class="latest-article__post-text"> Conversations About Threat Hunting and Software Supply Chain Security</div>
+     </div>
+  
+  
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-11 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1683729076482137" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="latest-article">
+
+  
+
+  
+     <div>
+        <a href="https://www.reversinglabs.com/reversingglass/binary-analysis-and-software-supply-chain-security"><img src="https://www.reversinglabs.com/hubfs/ReversingGlass---WEB-1400x732-1.jpg" alt="ReversingGlass: Binary Analysis"></a>
+        <a href="https://www.reversinglabs.com/reversingglass/binary-analysis-and-software-supply-chain-security" class="latest-article__post-link">ReversingGlass: Binary Analysis</a>
+        <div class="latest-article__post-text"> Glassboard conversations with ReversingLabs Field CISO Matt Rose</div>
+     </div>
+  
+  
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-12 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1683729083116139" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="latest-article">
+
+   
+
+
+  
+     <div>
+        <a href="https://www.reversinglabs.com/software-package-deconstruction-series/video-conferencing-software-deconstruction"><img src="https://www.reversinglabs.com/hubfs/Software-Package-Deconstruction-Zoom-1400x732%20%282%29.jpg" alt="Software Package Deconstruction: Video Conferencing Software"></a>
+        <a href="https://www.reversinglabs.com/software-package-deconstruction-series/video-conferencing-software-deconstruction" class="latest-article__post-link">Software Package Deconstruction: Video Conferencing Software</a>
+        <div class="latest-article__post-text"> Analyzing Risks To Your Software Supply Chain</div>
+     </div>
+  
+  
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end body -->
+</div><!--end body wrapper -->
+
+<div class="footer-container-wrapper">
+    <div class="footer-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1564575137111154" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><footer class="footer">
+
+  <div class="footer__container footer__container-wide">
+    <span class="footer__to-top-button"><span class="ico arrow-up-bold"></span></span>
+    <div class="footer__content-container">
+     
+      <div class="footer__article">
+        <h2><a href="https://www.reversinglabs.com/software-supply-chain-incident-response-assistance">Software Supply Chain Security Hotline</a></h2>
+        <p>If you need immediate assistance with a software supply chain security issue, you can contact us here.</p>
+        <a class="footer-cta cta cta--lg cta--gradient" href="https://www.reversinglabs.com/software-supply-chain-incident-response-assistance">sscs incident response</a>
+      </div>
+        
+          <div class="footer__links-container">
+            
+            <ul class="footer__links">
+              
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/blog">Blog</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/webinars">Webinars</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/demo-videos">Demo Videos</a></li>
+            
+            </ul>
+            
+            <ul class="footer__links">
+              
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/events">Events</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/newsroom/news">In the News</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/glossary">Glossary</a></li>
+            
+            </ul>
+            
+            <ul class="footer__links">
+              
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/company/about-us">About Us</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/company/careers">Careers</a></li>
+            
+              <li class="footer__links-item"><a href="https://www.reversinglabs.com/contact-us">Contact Us</a></li>
+            
+            </ul>
+            
+          </div>
+        </div>
+    </div> 
+
+  
+  <div class="footer__bottom">
+    <div class="footer__bottom-container footer__container-wide">
+      <div class="footer__copy">
+         <div class="footer__copy-logo">
+           <svg xmlns="http://www.w3.org/2000/svg" width="45" height="46" viewbox="0 0 45 46" fill="none">
+            <path d="M45 0H0V46H45V0Z" fill="white" />
+            <path d="M27 33V15H30.2263V30.1406H38V33H27Z" fill="black" />
+            <path d="M8 32.9994L12.5123 25.7081C10.474 24.8923 9.21087 23.4713 9.21087 20.7523V20.5832C9.21087 15.8657 13.0251 15 17.6389 15C19.5722 15 21.3018 15.0488 23 15.1203V32.9994H19.4956V26.407H17.7173C17.1225 26.407 16.5563 26.407 16.0428 26.3826L11.8178 33H8V32.9994ZM12.7426 20.7755C12.7426 23.085 14.2111 23.7356 17.5101 23.7356C18.1802 23.7356 18.8249 23.7356 19.4956 23.7101V17.8387C14.8034 17.8387 12.7426 17.8642 12.7426 20.6309V20.7755Z" fill="black" />
+          </svg>
+        </div>
+         <div class="footer__copy-text">
+          <a href="https://www.reversinglabs.com/privacy-policy">Privacy Policy</a> | 
+          <a href="https://www.reversinglabs.com/cookie-policy">Cookies</a>
+          <div>All rights reserved ReversingLabs © 2024</div>
+        </div>  
+      </div>
+      <ul class="footer__social">    
+          <li><a href="https://twitter.com/reversinglabs"><span class="ico x"></span></a></li>
+          <li><a href="https://www.linkedin.com/company/reversinglabs"><span class="ico linkedin"></span></a></li>       
+          <li><a href="https://www.facebook.com/reversinglabs"><span class="ico facebook"></span></a></li>
+          <li><a href="https://www.instagram.com/reversinglabs"><span class="ico instagram"></span></a></li>        
+          <li><a href="https://www.youtube.com/user/reversinglabs"><span class="ico youtube"></span></a></li>
+          <li><a href="https://blog.reversinglabs.com/blog/rss.xml"><span class="ico rss"></span></a></li>
+      </ul> 
+    </div>  
+  </div>
+</footer>
+
+<!-- jQuery -->
+
+
+
+
+
+
+      
+
+
+
+  
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css" integrity="sha512-eMxdaSf5XW3ZW1wZCrWItO2jZ7A9FhuZfjVdztr7ZsKNOmt6TUMTQgfpNoVRyfPE5S9BC0A4suXzsGSrAOWcoQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.js" integrity="sha512-j+F4W//4Pu39at5I8HC8q2l1BNz4OF3ju39HyWeqKQagW6ww3ZF9gFcu8rzUbyTDY7gEo/vqqzGte0UPpo65QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.2/simple-lightbox.jquery.min.js" integrity="sha512-xhM9zDEG1U2/XOmfyPkyZnvvztrpgV4SVflYGGSXQwQ9BeXxYgRIPhzrd6lPp33cNQWZJlbvIKlwkFjry/8GhQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.2/simple-lightbox.min.css" integrity="sha512-FaAQujRxLMvw+BkmGN3w7u9EdQQr1t0vQoY8KDh09+6SFaWSTe+KrT8oCWg25X91hytm5c5BTmiSGQejkraaZg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<script type="text/javascript" async="true" src="//play.vidyard.com/embed/v4.js"></script>
+<script type="text/javascript" src="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/139051314810/1703860197313/Redesign_2023/js/functions.min.js"></script></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end footer -->
+</div><!--end footer wrapper -->
+
+    
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/6021916068/1569840500063/Reversinglabs_July2018_Theme/Coded_Files/simple-lightbox-min.js"></script>
+<script src="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/template_assets/11190015046/1639664698263/Redesign_june_2019/Coded_Files/JS/rd-2019-main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://www.reversinglabs.com/hs-fs/hub/3375217/hub_generated/module_assets/36845096476/1694005993526/module_36845096476_Blog_listing_card_grid_-_p1131.min.js"></script>
+
+    <!--[if lte IE 8]>
+    <script charset="utf-8" src="https://js.hsforms.net/forms/v2-legacy.js"></script>
+    <![endif]-->
+
+<script data-hs-allowed="true" src="/_hcms/forms/v2.js"></script>
+
+    <script data-hs-allowed="true">
+        var options = {
+            portalId: '3375217',
+            formId: '24abef2a-a2f4-4889-8899-dd4026584fa9',
+            formInstanceId: '976',
+            pageId: '45964042507',
+            region: 'na1',
+            
+            
+            
+            
+            pageName: "Spotting malicious Excel4 macros",
+            
+            
+            
+            inlineMessage: "<p>Thanks for your interest in our blog.&nbsp; You will receive an email when new blogs are published!</p>",
+            
+            
+            rawInlineMessage: "<p>Thanks for your interest in our blog.&nbsp; You will receive an email when new blogs are published!</p>",
+            
+            
+            hsFormKey: "a84b1ee0e91b0684153cf0be45aa2fd3",
+            
+            
+            css: '',
+            target: '#hs_form_target_form_306996060',
+            
+            
+            
+            
+            
+            contentType: "blog-post",
+            
+            
+            
+            formsBaseUrl: '/_hcms/forms/',
+            
+            
+            
+            formData: {
+                cssClass: 'hs-form stacked hs-custom-form'
+            }
+        };
+
+        options.getExtraMetaDataBeforeSubmit = function() {
+            var metadata = {};
+            
+
+            if (hbspt.targetedContentMetadata) {
+                var count = hbspt.targetedContentMetadata.length;
+                var targetedContentData = [];
+                for (var i = 0; i < count; i++) {
+                    var tc = hbspt.targetedContentMetadata[i];
+                     if ( tc.length !== 3) {
+                        continue;
+                     }
+                     targetedContentData.push({
+                        definitionId: tc[0],
+                        criterionId: tc[1],
+                        smartTypeId: tc[2]
+                     });
+                }
+                metadata["targetedContentMetadata"] = JSON.stringify(targetedContentData);
+            }
+
+            return metadata;
+        };
+
+        hbspt.forms.create(options);
+    </script>
+
+
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.reversinglabs.com\/blog\/spotting-malicious-excel4-macros"]);
+_hsq.push(["setPageId", "45964042507"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 45964042507,
+    "legacyPageId": "45964042507",
+    "contentFolderId": null,
+    "contentGroupId": 5901382633,
+    "abTestId": null,
+    "languageVariantId": 45964042507,
+    "languageCode": "en",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/3375217.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "c100fbbb-20e0-42e9-9648-97f0853c0d09",
+    ticks: 1704108911536,
+    page_id: 45964042507,
+    
+    content_group_id: 5901382633,
+    portal_id: 3375217,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "45964042507",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKL9P8B" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script type="text/javascript" id="cookieinfo" src="https://cookieinfoscript.com/js/cookieinfo.min.js" data-message="This website uses cookies to ensure the best website experience. By continuing to use this website you are giving your consent to cookies being used. Detailed information about our use of cookies is " data-linkmsg="here." data-moreinfo="https://www.reversinglabs.com/cookie-policy">
+</script>
+
+<script src="https://js.adsrvr.org/up_loader.1.1.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+  ttd_dom_ready( function() {
+    if (typeof TTDUniversalPixelApi === 'function') {
+      var universalPixelApi = new TTDUniversalPixelApi();
+      universalPixelApi.init("7qhctws", ["8t4axvj"], "https://insight.adsrvr.org/track/up");
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    var zi = document.createElement('script');
+    zi.type = 'text/javascript';
+    zi.async = true;
+    zi.src = 'https://ws.zoominfo.com/pixel/JrRu3vUM8j33QSR7Bwxw';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(zi, s);
+  })();
+</script>
+<noscript>
+  <img src="https://ws.zoominfo.com/pixel/JrRu3vUM8j33QSR7Bwxw" width="1" height="1" style="display: none;">
+</noscript>
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+    <script>
+$(document).ready(function(){
+  var lightbox = $('.lightbox-image').simpleLightbox();
+});
+</script>
+    <!-- Generated by the HubSpot Template Builder - template version 1.03 -->
+
+</body></html>

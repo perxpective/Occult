@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!--[if lt IE 9]>
+<script src="https://krebsonsecurity.com/wp-content/themes/kos-mar2021/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<title>U.S. Hacks QakBot, Quietly Removes Botnet Infections &#8211; Krebs on Security</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Krebs on Security &raquo; Feed" href="https://krebsonsecurity.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Krebs on Security &raquo; Comments Feed" href="https://krebsonsecurity.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Krebs on Security &raquo; U.S. Hacks QakBot, Quietly Removes Botnet Infections Comments Feed" href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/krebsonsecurity.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.2.2"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='colorbox-theme1-css' href='https://krebsonsecurity.com/wp-content/plugins/jquery-lightbox-for-native-galleries/colorbox/theme1/colorbox.css?ver=1.3.14' type='text/css' media='screen' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://krebsonsecurity.com/wp-includes/css/dist/block-library/style.min.css?ver=6.2.2' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://krebsonsecurity.com/wp-includes/css/classic-themes.min.css?ver=6.2.2' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='contact-form-7-css' href='https://krebsonsecurity.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='publisho-style-css' href='https://krebsonsecurity.com/wp-content/themes/kos-mar2021/style.css?subver=1.2&#038;ver=6.2.2' type='text/css' media='all' />
+<style id='publisho-style-inline-css' type='text/css'>
+
+	.themonic-nav .current-menu-item > a, .themonic-nav .current-menu-ancestor > a, .themonic-nav .current_page_item > a, .themonic-nav .current_page_ancestor > a {
+		background: #cc6600;
+	}
+	.themonic-nav ul.nav-menu, .themonic-nav div.nav-menu > ul {
+		border-bottom: 5px solid #cc6600;
+	}
+	#site-navigation .topheadmenu a {
+    background: rgba(0, 0, 0, 0);
+	}
+	.themonic-nav li a:hover {
+		background: #cc6600;
+	}
+	.themonic-nav li:hover {
+		background: #cc6600;
+	}.wrapper .flexslider {margin: 0 0 30px;}.frontp .btm-wrap {
+    border-top: 1px solid #e9e9e9;
+	}
+	.entry-summary {
+    border-top: none;
+	}.frontp .btm-wrap { margin-bottom: 30px;}.site { font-size:14px;}.site { font-family:'Roboto', arial ;}
+</style>
+<link rel='stylesheet' id='publisho-custom-style-css' href='https://krebsonsecurity.com/wp-content/themes/kos-mar2021/custom.css?subver=1.2&#038;ver=6.2.2' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='publisho-ie-css' href='https://krebsonsecurity.com/wp-content/themes/kos-mar2021/css/ie.css?ver=20160606' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='fontawesome-css-css' href='https://krebsonsecurity.com/wp-content/themes/kos-mar2021/fonts/font-awesome.min.css?ver=6.2.2' type='text/css' media='all' />
+<link rel='stylesheet' id='publisho_custom_fonts-css' href='//fonts.googleapis.com/css?family=Roboto%3Aregular%2Citalic%2C500%26subset%3Dlatin%2C' type='text/css' media='screen' />
+<script type='text/javascript' src='https://krebsonsecurity.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.4' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://krebsonsecurity.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.0' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://krebsonsecurity.com/wp-content/plugins/jquery-lightbox-for-native-galleries/colorbox/jquery.colorbox-min.js?ver=1.3.14' id='colorbox-js'></script>
+<link rel="https://api.w.org/" href="https://krebsonsecurity.com/wp-json/" /><link rel="alternate" type="application/json" href="https://krebsonsecurity.com/wp-json/wp/v2/posts/64706" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://krebsonsecurity.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://krebsonsecurity.com/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 6.2.2" />
+<link rel="canonical" href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/" />
+<link rel='shortlink' href='https://krebsonsecurity.com/?p=64706' />
+<link rel="alternate" type="application/json+oembed" href="https://krebsonsecurity.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fkrebsonsecurity.com%2F2023%2F08%2Fu-s-hacks-qakbot-quietly-removes-botnet-infections%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://krebsonsecurity.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fkrebsonsecurity.com%2F2023%2F08%2Fu-s-hacks-qakbot-quietly-removes-botnet-infections%2F&#038;format=xml" />
+<!-- JavaScript Pull-Quotes plugin v2.2 -->
+	<link rel="stylesheet" href="https://krebsonsecurity.com/wp-content/plugins/jspullquotes/resources/jspullquotes-core.css" type="text/css" />
+	<link rel="stylesheet" href="https://krebsonsecurity.com/wp-content/plugins/jspullquotes/resources/jspullquotes-default.css" type="text/css" />
+	<script type="text/javascript" src="https://krebsonsecurity.com/wp-content/plugins/jspullquotes/resources/jspullquotes.js"></script>
+	<script type="text/javascript">
+		var arrOptions = new Array("1", "1", "right", "1", "1", "blockquote", "pullquote", "pullquote pqRight");
+		pullQuoteOpts(arrOptions);
+	</script>
+<!-- end pull-quote additions -->
+<!-- jQuery Lightbox For Native Galleries v3.1.3 | http://www.viper007bond.com/wordpress-plugins/jquery-lightbox-for-native-galleries/ -->
+<script type="text/javascript">
+// <![CDATA[
+	jQuery(document).ready(function($){
+		$(".gallery").each(function(index, obj){
+			var galleryid = Math.floor(Math.random()*10000);
+			$(obj).find("a").colorbox({rel:galleryid, maxWidth:"95%", maxHeight:"95%"});
+		});
+		$("a.lightbox").colorbox({maxWidth:"95%", maxHeight:"95%"});
+	});
+// ]]>
+</script>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+	<meta name="twitter:widgets:link-color" content="#000000" /><meta name="twitter:widgets:border-color" content="#000000" /><meta name="twitter:partner" content="tfwp" />
+<meta name="twitter:card" content="summary" /><meta name="twitter:title" content="U.S. Hacks QakBot, Quietly Removes Botnet Infections" /><meta name="twitter:site" content="@briankrebs" /><meta name="twitter:description" content="The U.S. government today announced a coordinated crackdown against QakBot, a complex malware family used by multiple cybercrime groups to lay the groundwork for ransomware infections. The international law enforcement operation involved seizing control over the botnet&#039;s online infrastructure, and&hellip;" /><meta name="twitter:image" content="https://krebsonsecurity.com/wp-content/uploads/2023/08/qakbot.png" />
+</head>
+<body class="post-template-default single single-post postid-64706 single-format-standard custom-background custom-background-white single-author">
+<div id="page" class="site">
+	<!-- <div class="publisho-top-mobile-nav clear"></div> -->
+	<div class="themonic-logo themonic-ad3"><div class="a-statement">Advertisement</div><a href="https://www.wiz.io/lp/aws-security-best-practices-cheat-sheet?utm_source=krebsonsecurity&amp;utm_medium=display&amp;utm_campaign=FY24Q3_INB_FORM_AWS-Security-Best-Practices&amp;sfcid=701Py000002vvmnIAA&amp;utm_term=FY24H2-krebsonsecurity-display&amp;utm_content=AWSBestPractices-1240x110">
+<img src="/b-wiz/17.png">
+</a></div>
+	<div class="themonic-logo themonic-ad6"><div class="a-statement">Advertisement</div><a href="https://www.wiz.io/lp/aws-security-best-practices-cheat-sheet?utm_source=krebsonsecurity&amp;utm_medium=display&amp;utm_campaign=FY24Q3_INB_FORM_AWS-Security-Best-Practices&amp;sfcid=701Py000002vvmnIAA&amp;utm_term=FY24H2-krebsonsecurity-display&amp;utm_content=AWSBestPractices-1240x160">
+<img src="/b-wiz/18.png">
+</a></div>
+	<nav id="site-navigation" class="themonic-nav" role="navigation">
+	</nav><!-- #site-navigation -->
+	<div class="clear"></div>
+	<header id="masthead" class="site-header" role="banner">
+ 					<div class="desktop-social">
+						<div class="socialmedia">
+							<a href="http://twitter.com/briankrebs" target="_blank"><i class="fa fa-twitter"></i></a> 
+															<a class="rss" href="https://krebsonsecurity.com/feed/" target="_blank"><i class="fa fa-rss"></i></a>	
+									<a class="rss" href="https://www.linkedin.com/in/bkrebs/" target="_blank"><i class="fa fa-linkedin"></i></a>	
+								</div>
+				 	</div>
+																						   
+		
+		<div class="themonic-logo responsive-img-container">
+			<a href="https://krebsonsecurity.com/" title="Krebs on Security" rel="home"><img src="https://krebsonsecurity.com/wp-content/uploads/2021/03/kos-27-03-2021.jpg" alt="Krebs on Security"></a>
+		</div>
+
+					<div class="mobile-social">
+						<div class="socialmedia">
+							<a href="http://twitter.com/briankrebs" target="_blank"><i class="fa fa-twitter"></i></a> 
+															<a class="rss" href="https://krebsonsecurity.com/feed/" target="_blank"><i class="fa fa-rss"></i></a>	
+									<a class="rss" href="https://www.linkedin.com/in/bkrebs/" target="_blank"><i class="fa fa-linkedin"></i></a>	
+								</div>
+					</div>
+		
+				<!-- <div class="publisho-mobile-nav clear"></div> -->
+		<nav id="site-navigation" class="themonic-nav" role="navigation">
+			<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
+			<div id="menu-top" class="nav-menu"><ul>
+<li ><a href="https://krebsonsecurity.com/">Home</a></li><li class="page_item page-item-2"><a href="https://krebsonsecurity.com/about/">About the Author</a></li>
+<li class="page_item page-item-645"><a href="https://krebsonsecurity.com/cpm/">Advertising/Speaking</a></li>
+</ul></div>
+		</nav><!-- #site-navigation -->
+		<div class="clear"></div>
+	</header><!-- #masthead -->
+	<div id="main" class="wrapper">
+	<header class="entry-header">
+							<div class="singleentry">
+					<h1 class="entry-title">U.S. Hacks QakBot, Quietly Removes Botnet Infections</h1>
+				</div>
+							
+			
+			</header><!-- .entry-header -->
+
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+					<article id="post-64706" class="post-64706 post type-post status-publish format-standard has-post-thumbnail hentry category-latest-warnings category-ransomware category-comingstorm tag-doj tag-don-alway tag-fbi tag-federal-bureau-of-investigation tag-martin-estrada tag-qakbot tag-qbot tag-u-s-department-of-justice">
+				<header class="entry-header">
+					<div class="clear"></div>
+	<div class="btm-wrap">
+	<div class="below-title-meta">
+		<div class="adt">
+			
+			
+				
+				<span class="date updated">August 29, 2023</span>
+					
+        </div>
+		<div class="adt-comment">
+		<span><a class="link-comments" href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comments">22 Comments</a></span> 
+        </div>    <div class="clear"></div>	   
+    </div><!-- below title meta end -->
+	</div>
+		
+						</header><!-- .entry-header -->
+		
+		
+							<div class="entry-content">
+												<p>The U.S. government today announced a coordinated crackdown against <strong>QakBot</strong>, a complex malware family used by multiple cybercrime groups to lay the groundwork for ransomware infections. The international law enforcement operation involved seizing control over the botnet&#8217;s online infrastructure, and quietly removing the Qakbot malware from tens of thousands of infected Microsoft Windows computers.</p>
+<div id="attachment_64731" style="width: 758px" class="wp-caption aligncenter"><img aria-describedby="caption-attachment-64731" decoding="async" class=" wp-image-64731" src="https://krebsonsecurity.com/wp-content/uploads/2023/08/dutch-qbot.png" alt="" width="748" height="416" srcset="https://krebsonsecurity.com/wp-content/uploads/2023/08/dutch-qbot.png 950w, https://krebsonsecurity.com/wp-content/uploads/2023/08/dutch-qbot-768x427.png 768w, https://krebsonsecurity.com/wp-content/uploads/2023/08/dutch-qbot-782x435.png 782w" sizes="(max-width: 748px) 100vw, 748px" /><p id="caption-attachment-64731" class="wp-caption-text">Dutch authorities inside a data center with servers tied to the botnet. Image: Dutch National Police.</p></div>
+<p>In an international operation announced today dubbed &#8220;<strong>Duck Hunt</strong>,&#8221; the <strong>U.S. Department of Justice</strong> (DOJ) and <strong>Federal Bureau of Investigation</strong> (FBI) said they obtained court orders to remove Qakbot from infected devices, and to seize servers used to control the botnet.</p>
+<p>&#8220;This is the most significant technological and financial operation ever led by the Department of Justice against a botnet,&#8221; said <strong>Martin Estrada</strong>, the U.S. attorney for the Southern District of California, at a press conference this morning in Los Angeles.</p>
+<p>Estrada said Qakbot has been implicated in 40 different ransomware attacks over the past 18 months, intrusions that collectively cost victims more than $58 million in losses.</p>
+<p>Emerging in 2007 as a banking trojan, QakBot (a.k.a. <strong>Qbot</strong> and <strong>Pinkslipbot</strong>) has morphed into an advanced malware strain now used by multiple cybercriminal groups to prepare newly compromised networks for ransomware infestations. QakBot is most commonly delivered via email phishing lures disguised as something legitimate and time-sensitive, such as invoices or work orders.</p>
+<p><strong>Don Alway</strong>, assistant director in charge of the FBI&#8217;s Los Angeles field office, said federal investigators gained access to an online panel that allowed cybercrooks to monitor and control the actions of the botnet. From there, investigators obtained court-ordered approval to instruct all infected systems to uninstall Qakbot and to disconnect themselves from the botnet, Alway said.</p>
+<p>The DOJ says their access to the botnet&#8217;s control panel revealed that Qakbot had been used to infect more than 700,000 machines in the past year alone, including 200,000 systems in the United States.</p>
+<p>Working with law enforcement partners in France, Germany, Latvia, the Netherlands, Romania and the United Kingdom, the DOJ said it was able to seize more than 50 Internet servers tied to the malware network, and nearly $9 million in ill-gotten cryptocurrency from QakBot&#8217;s cybercriminal overlords. The DOJ declined to say whether any suspects were questioned or arrested in connection with Qakbot, citing an ongoing investigation.</p>
+<p>According to <a href="https://www.reliaquest.com/blog/3-malware-loaders-you-cant-shouldnt-iognore/" target="_blank" rel="noopener">recent figures</a> from the managed security firm <strong>Reliaquest</strong>, QakBot is by far the most prevalent malware &#8220;loader&#8221; &#8212; malicious software used to secure access to a hacked network and help drop additional malware payloads. Reliaquest says QakBot infections accounted for nearly one-third of all loaders observed in the wild during the first six months of this year.</p>
+<div id="attachment_64715" style="width: 750px" class="wp-caption aligncenter"><img aria-describedby="caption-attachment-64715" decoding="async" loading="lazy" class="size-full wp-image-64715" src="https://krebsonsecurity.com/wp-content/uploads/2023/08/qakbot.png" alt="" width="740" height="402" srcset="https://krebsonsecurity.com/wp-content/uploads/2023/08/qakbot.png 740w, https://krebsonsecurity.com/wp-content/uploads/2023/08/qakbot-370x200.png 370w" sizes="(max-width: 740px) 100vw, 740px" /><p id="caption-attachment-64715" class="wp-caption-text">Qakbot/Qbot was once again the top malware loader observed in the wild in the first six months of 2023. Source: Reliaquest.com.</p></div>
+<p><span id="more-64706"></span></p>
+<p>Researchers at<strong> AT&amp;T Alien Labs</strong> <a href="https://cybersecurity.att.com/blogs/labs-research/the-rise-of-qakbot" target="_blank" rel="noopener">say</a> the crooks responsible for maintaining the QakBot botnet have rented their creation to various cybercrime groups over the years. More recently, however, QakBot has been closely associated with ransomware attacks from <strong>Black Basta</strong>, a <a href="https://www.blackberry.com/us/en/solutions/endpoint-security/ransomware-protection/black-basta" target="_blank" rel="noopener">prolific</a> Russian-language criminal group that was thought to have spun off from <a href="https://krebsonsecurity.com/2022/03/conti-ransomware-group-diaries-part-i-evasion/" target="_blank" rel="noopener">the Conti ransomware gang in early 2022</a>.</p>
+<p>Today&#8217;s operation is not the first time the U.S. government has used court orders to remotely disinfect systems compromised with malware. In May 2023, the DOJ quietly removed malware from computers around the world <a href="https://www.justice.gov/opa/pr/justice-department-announces-court-authorized-disruption-snake-malware-network-controlled" target="_blank" rel="noopener">infected by the &#8220;Snake&#8221; malware</a>, an even older malware family that has been tied to Russian intelligence agencies.</p>
+<p>Documents published by the DOJ in support of today&#8217;s takedown state that beginning on Aug. 25, 2023, law enforcement gained access to the Qakbot botnet, redirected botnet traffic to and through servers controlled by law enforcement, and instructed Qakbot-infected computers to download a Qakbot Uninstall file that uninstalled Qakbot malware from the infected computer.</p>
+<p>&#8220;The Qakbot Uninstall file did not remediate other malware that was already installed on infected computers,&#8221; the government explained. &#8220;Instead, it was designed to prevent additional Qakbot malware from being installed on the infected computer by untethering the victim computer from the Qakbot botnet.&#8221;</p>
+<p>The DOJ said it also recovered more than 6.5 million stolen passwords and other credentials, and that it has shared this information with two websites that let users check to see if their credentials were exposed: <a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Have I Been Pwned</a>, and a <a href="https://politie.nl/checkyourhack" target="_blank" rel="noopener">&#8220;Check Your Hack&#8221; website</a> erected by the <strong>Dutch National Police</strong>.</p>
+<p>Further reading:</p>
+<p>&#8211;<a href="https://www.justice.gov/d9/2023-08/23mj4244_application_redacted.pdf" target="_blank" rel="noopener">The DOJ&#8217;s application for a search warrant application tied to Qakbot uninstall file (PDF)</a><br />
+&#8211;<a href="https://www.justice.gov/d9/2023-08/23mj4248_application_redacted.pdf" target="_blank" rel="noopener">The search warrant application connected to QakBot server infrastructure in the United States (PDF)</a><br />
+&#8211;<a href="https://www.justice.gov/d9/2023-08/23mj4251_application_redacted.pdf" target="_blank" rel="noopener">The government&#8217;s application for a warrant to seize virtual currency from the QakBot operators (PDF)</a><br />
+&#8211;<a href="https://www.secureworks.com/blog/law-enforcement-takes-down-qakbot" rel="noopener" target="_blank">A technical breakdown from SecureWorks</a></p>
+											</div><!-- .entry-content -->
+		
+			
+	
+	<footer class="entry-meta">
+			
+		<p><i>
+         This entry was posted on Tuesday 29th of August 2023 02:35 PM 
+         </i></p>
+		 
+					<div class="categories"><a href="https://krebsonsecurity.com/category/latest-warnings/" rel="category tag">Latest Warnings</a> <a href="https://krebsonsecurity.com/category/ransomware/" rel="category tag">Ransomware</a> <a href="https://krebsonsecurity.com/category/comingstorm/" rel="category tag">The Coming Storm</a></div>
+								<div class="tags"><a href="https://krebsonsecurity.com/tag/doj/" rel="tag">DOJ</a> <a href="https://krebsonsecurity.com/tag/don-alway/" rel="tag">Don Alway</a> <a href="https://krebsonsecurity.com/tag/fbi/" rel="tag">fbi</a> <a href="https://krebsonsecurity.com/tag/federal-bureau-of-investigation/" rel="tag">Federal Bureau of Investigation</a> <a href="https://krebsonsecurity.com/tag/martin-estrada/" rel="tag">Martin Estrada</a> <a href="https://krebsonsecurity.com/tag/qakbot/" rel="tag">Qakbot</a> <a href="https://krebsonsecurity.com/tag/qbot/" rel="tag">Qbot</a> <a href="https://krebsonsecurity.com/tag/u-s-department-of-justice/" rel="tag">U.S. Department of Justice</a></div>
+			
+	</footer>
+
+	</article><!-- #post -->
+		
+			<br><div class="themonic-ad4"></div>
+					<nav class="nav-single">
+					<div class="assistive-text">Post navigation</div>
+					<span class="nav-previous"><a href="https://krebsonsecurity.com/2023/08/kroll-employee-sim-swapped-for-crypto-investor-data/" rel="prev"><span class="meta-nav">&larr;</span> Kroll Employee SIM-Swapped for Crypto Investor Data</a></span>
+					<span class="nav-next"><a href="https://krebsonsecurity.com/2023/09/why-is-us-being-used-to-phish-so-many-of-us/" rel="next">Why is .US Being Used to Phish So Many of Us? <span class="meta-nav">&rarr;</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			22 thoughts on &ldquo;<span>U.S. Hacks QakBot, Quietly Removes Botnet Infections</span>&rdquo;		</h2>
+
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1" id="li-comment-590836">
+		<article id="comment-590836" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Steve </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590836"><time datetime="2023-08-29T16:01:44-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>* They removed the bot from tens of thousands of computers.<br />
+* In the past year alone, QakBot infected over 700,000 computers.<br />
+It is possible that malicious effects of QakBot will significantly diminish, but from those numbers I wouldn&#8217;t count on it.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment odd alt depth-2" id="li-comment-590931">
+		<article id="comment-590931" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Howard </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590931"><time datetime="2023-08-30T17:38:30-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>One source I&#8217;ve seen says 700k bots were disconnected.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even depth-2" id="li-comment-591891">
+		<article id="comment-591891" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Marlin Wilkes </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-591891"><time datetime="2023-09-10T18:44:01-04:00">September 10, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>The FBI&#8217;s dismantling of the QakBot botnet this week was a major victory against the cybercriminals who have leveraged this insidious malware to enable ransomware attacks. By collaborating with international law enforcement and the private sector, the FBI has delivered a real blow to these digital extortion rings and made the internet safer for us all. Their efforts should be applauded, for once. It seems he malware&#8217;s code has be modified to get rid of itself so as it moves across the planet, all instances of QakBot should disappear.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-590839">
+		<article id="comment-590839" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Randy </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590839"><time datetime="2023-08-29T16:44:07-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>The DOJ press release said that they uninstalled Qakbot from 700k computers including over 200k in the US. If the operators of the botnet are still free, after they collect their wits they may or may not decide to rebuild from scratch. It’ll be a lot of work and they are 9 million dollars poorer to start but they could try.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-590843">
+		<article id="comment-590843" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">KFritz </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590843"><time datetime="2023-08-29T18:30:14-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>&#8220;Have I Been Pwned&#8221; comes up with one red flag @ VirusTotal.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment odd alt depth-2" id="li-comment-590869">
+		<article id="comment-590869" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Fr00tL00ps </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590869"><time datetime="2023-08-29T22:48:19-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>And your point is exactly? &#8230; I think you need to do a bit more research and not jump to conclusions. Ever heard of a false positive?</p>
+<p>If you dump the haveibeenpwned[dot]com[colon]443 url into the scanners on Quttera&#8217;s own website, the entity at VirusTotal that &#8220;red flags&#8221; said url, guess what it results in? Nada, zip, zilch. Minimal security risk, no malicious content detected!</p>
+<p>If you access the community/comments section of VirusTotal regarding said url, you will see the same conclusion.</p>
+<p>Security consultant Troy Hunt has been running the “Have I Been Pwned” website for over 10 years and it is recognised as a highly regarded data breach utility by security professionals and the general public globally.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment even depth-3" id="li-comment-590894">
+		<article id="comment-590894" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">KFritz </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590894"><time datetime="2023-08-30T07:17:20-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Hello. I only pointed out what turned up with a VirusTotal scan&#8211;nothing more. Do you see any conclusions in my one line post? You seem to have drawn conclusions about what I intended. For the record, I visualize the Internet as &#8220;The Wild West,&#8221; exercise an abundance of caution, and avoid websites that come up with any red ink @ VirusTotal. But I don&#8217;t know enough to recommend my method to anyone.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment odd alt depth-4" id="li-comment-590951">
+		<article id="comment-590951" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">KING OF NOTHING </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590951"><time datetime="2023-08-31T00:25:52-04:00">August 31, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>So you spew absolute window-licking ignorance in public and the immediately back away when called on it.</p>
+<p> What&#8217;s your end game here? </p>
+<p>Because if you&#8217;re trying to look utterly regarded you nailed it.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment even depth-5" id="li-comment-590965">
+		<article id="comment-590965" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Regard </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590965"><time datetime="2023-08-31T05:51:55-04:00">August 31, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Actual reptile behaviour, unalive yourself</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment odd alt depth-6" id="li-comment-591030">
+		<article id="comment-591030" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn"><a href="http://somthing.com" class="url" rel="ugc external nofollow">Not Regard</a> </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-591030"><time datetime="2023-09-01T03:19:06-04:00">September 1, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>wayooo chill bwo</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment even depth-7" id="li-comment-591179">
+		<article id="comment-591179" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">mealy </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-591179"><time datetime="2023-09-02T23:43:57-04:00">September 2, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>&#8220;utterly regarded&#8221;  </p>
+<p>Oh snap.  Utterly.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-590857">
+		<article id="comment-590857" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Ludovic Lalo </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590857"><time datetime="2023-08-29T20:36:03-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Thanks for the story, but look most other stories like this, information about how to recognize or determine whether an individual’s system is infected is nowhere to be found.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment byuser comment-author-briankrebs bypostauthor even depth-2" id="li-comment-590858">
+		<article id="comment-590858" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn"><a href="http://www.krebsonsecurity.com" class="url" rel="ugc external nofollow">BrianKrebs</a> <span> Post author</span></cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590858"><time datetime="2023-08-29T20:48:20-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Nowhere? Did you get to the bottom? </p>
+<p>The DOJ said it also recovered more than 6.5 million stolen passwords and other credentials, and that it has shared this information with two websites that let users check to see if their credentials were exposed: Have I Been Pwned, and a “Check Your Hack” website erected by the Dutch National Police.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment odd alt depth-2" id="li-comment-590874">
+		<article id="comment-590874" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Fr00tL00ps </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590874"><time datetime="2023-08-30T00:30:32-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Brian&#8217;s site is recognised as a source of security news, investigations and general mitigation, not technical remediation.</p>
+<p>As he stated, if you &#8216;suspect&#8217; some sort of infection/breach, enter your email address and/or phone number into the breach database websites noted above and if you are not listed as a Qakbot victim, great, your anti virus solution is doing it&#8217;s job.</p>
+<p>If, however, you are one of the 6.5 million unlucky ones, you only have 2 choices; clean or rebuild.  For the average home user (corporate remediation will be up to the assessment of internal security teams) on a Windows PC&#8217;s that you used these credentials on, I could only recommend a backup and a fresh bare metal install of your OS. Qakbot is a highly sophisticated piece of malware that possesses multiple attack vectors that has enabled it to evolve into a highly persistent threat and cleaning may prove fruitless. New build, no threat.</p>
+<p>For credentials, you will also need to change passwords and, I&#8217;d suggest, even email addresses.</p>
+<p>Microsoft Threat Intelligence Blog;<br />
+<a href="https://www.microsoft.com/en-us/security/blog/2021/12/09/a-closer-look-at-qakbots-latest-building-blocks-and-how-to-knock-them-down/" rel="nofollow ugc">https://www.microsoft.com/en-us/security/blog/2021/12/09/a-closer-look-at-qakbots-latest-building-blocks-and-how-to-knock-them-down/</a></p>
+<p>You can attempt a clean up here, if you know what you are doing, but a rebuild would be quicker and safer;<br />
+<a href="https://www.pcrisk.com/removal-guides/14443-qakbot-trojan" rel="nofollow ugc">https://www.pcrisk.com/removal-guides/14443-qakbot-trojan</a></p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even depth-2" id="li-comment-590879">
+		<article id="comment-590879" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Fr00tL00ps </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590879"><time datetime="2023-08-30T02:45:29-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Now that more information is being revealed regarding this operation, as part of the take down and take over of Qbot servers, the FBI has issued uninstall commands across the botnet. Effectively meaning if your PC was infected with the strain, it has now been rendered inert. Huntress Labs have a vaccine file that is currently being rolled out to antivirus providers, to provide for future protection, as we speak.</p>
+<p>As stated by Brian previously, check you credentials against the breach databases and change passwords/email if you are listed.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="li-comment-590862">
+		<article id="comment-590862" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Kurt </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590862"><time datetime="2023-08-29T21:48:10-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>I am just curious how many of these are being monitored on by large corporations and acted upon. Bots are in use on a wide variety of platforms that i have seen. Will be interesting to see more about this and see what kind of popular response begins to take form.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-590863">
+		<article id="comment-590863" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Kurt </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590863"><time datetime="2023-08-29T21:58:13-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Interesting read. just curious to see if large companies will begin to follow suite and attempt to defend themselves against OakBots or report them to the US Government. Currently learning about this in my security class.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="li-comment-590867">
+		<article id="comment-590867" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn"><a href="https://www.linkedin.com/in/blessing-ngozi-agbor-14a92720a/" class="url" rel="ugc external nofollow">Blessing</a> </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590867"><time datetime="2023-08-29T22:35:22-04:00">August 29, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>I love the outcome of events here but it got me thinking, can this action not also be taken for other kinds of malware as well? Especially where critical infrastructure is concerned.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment even depth-2" id="li-comment-590949">
+		<article id="comment-590949" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">mealy </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590949"><time datetime="2023-08-30T23:58:21-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>If it&#8217;s de-hacked by ABC agency and they get a court order then yeah.  This isn&#8217;t the first time.<br />
+They do all kinds of mitigations for different types of malware, but not all threats are equal.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-590880">
+		<article id="comment-590880" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">Jeremy </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590880"><time datetime="2023-08-30T02:55:21-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>The neutralization of Snake malware through Operation Medusa was carried out in May 2023.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-590892">
+		<article id="comment-590892" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">John Doe </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-590892"><time datetime="2023-08-30T06:43:42-04:00">August 30, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Doubt.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment odd alt depth-2" id="li-comment-591029">
+		<article id="comment-591029" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<cite class="fn">an_n </cite><a href="https://krebsonsecurity.com/2023/08/u-s-hacks-qakbot-quietly-removes-botnet-infections/#comment-591029"><time datetime="2023-09-01T03:10:20-04:00">September 1, 2023</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Derp?</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+				<p class="nocomments">Comments are closed.</p>
+		
+	
+	
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+
+        <div id="sidebar_ad" class="widget themonic-ad5"><div class="a-statement">Advertisement</div><a href="https://ninjio.com/lp46d-krebs/">
+<img src="/b-ninjio/12.png">
+</a></div>
+
+                        <br><div class="widget themonic-ad1"><div class="a-statement">Advertisement</div></div><br>
+
+			<aside id="custom_html-2" class="widget_text widget widget_custom_html"><p class="widget-title">Mailing List</p><div class="textwidget custom-html-widget"><a href="/subscribe/">Subscribe here</a></div></aside><aside id="search-2" class="widget widget_search"><p class="widget-title">Search KrebsOnSecurity</p><form role="search" method="get" id="searchform" class="searchform" action="https://krebsonsecurity.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></aside>
+		<aside id="recent-posts-3" class="widget widget_recent_entries">
+		<p class="widget-title">Recent Posts</p>
+		<ul>
+											<li>
+					<a href="https://krebsonsecurity.com/2023/12/happy-14th-birthday-krebsonsecurity/">Happy 14th Birthday, KrebsOnSecurity!</a>
+									</li>
+											<li>
+					<a href="https://krebsonsecurity.com/2023/12/blackcat-ransomware-raises-ante-after-fbi-disruption/">BlackCat Ransomware Raises Ante After FBI Disruption</a>
+									</li>
+											<li>
+					<a href="https://krebsonsecurity.com/2023/12/ten-years-later-new-clues-in-the-target-breach/">Ten Years Later, New Clues in the Target Breach</a>
+									</li>
+											<li>
+					<a href="https://krebsonsecurity.com/2023/12/microsoft-patch-tuesday-december-2023-edition/">Microsoft Patch Tuesday, December 2023 Edition</a>
+									</li>
+											<li>
+					<a href="https://krebsonsecurity.com/2023/12/icann-launches-service-to-help-with-whois-lookups/">ICANN Launches Service to Help With WHOIS Lookups</a>
+									</li>
+					</ul>
+
+		</aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><a name="subscribe2"></a></div>
+		</aside><aside id="categories-2" class="widget widget_categories"><p class="widget-title">Story Categories</p>
+			<ul>
+					<li class="cat-item cat-item-5"><a href="https://krebsonsecurity.com/category/sunshine/">A Little Sunshine</a>
+</li>
+	<li class="cat-item cat-item-2240"><a href="https://krebsonsecurity.com/category/all-about-skimmers/">All About Skimmers</a>
+</li>
+	<li class="cat-item cat-item-9085"><a href="https://krebsonsecurity.com/category/ashley-madison-breach/">Ashley Madison breach</a>
+</li>
+	<li class="cat-item cat-item-3191"><a href="https://krebsonsecurity.com/category/breadcrumbs/">Breadcrumbs</a>
+</li>
+	<li class="cat-item cat-item-3771"><a href="https://krebsonsecurity.com/category/data-breaches/">Data Breaches</a>
+</li>
+	<li class="cat-item cat-item-4624"><a href="https://krebsonsecurity.com/category/ddos-for-hire/">DDoS-for-Hire</a>
+</li>
+	<li class="cat-item cat-item-9173"><a href="https://krebsonsecurity.com/category/employment-fraud/">Employment Fraud</a>
+</li>
+	<li class="cat-item cat-item-2151"><a href="https://krebsonsecurity.com/category/how-to-break-into-security/">How to Break Into Security</a>
+</li>
+	<li class="cat-item cat-item-10357"><a href="https://krebsonsecurity.com/category/internet-of-things-iot/">Internet of Things (IoT)</a>
+</li>
+	<li class="cat-item cat-item-87"><a href="https://krebsonsecurity.com/category/latest-warnings/">Latest Warnings</a>
+</li>
+	<li class="cat-item cat-item-4071"><a href="https://krebsonsecurity.com/category/neer-do-well-news/">Ne&#039;er-Do-Well News</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="https://krebsonsecurity.com/category/other/">Other</a>
+</li>
+	<li class="cat-item cat-item-1306"><a href="https://krebsonsecurity.com/category/pharma-wars/">Pharma Wars</a>
+</li>
+	<li class="cat-item cat-item-8240"><a href="https://krebsonsecurity.com/category/ransomware/">Ransomware</a>
+</li>
+	<li class="cat-item cat-item-9635"><a href="https://krebsonsecurity.com/category/russias-war-on-ukraine/">Russia&#039;s War on Ukraine</a>
+</li>
+	<li class="cat-item cat-item-599"><a href="https://krebsonsecurity.com/category/security-tools/">Security Tools</a>
+</li>
+	<li class="cat-item cat-item-8298"><a href="https://krebsonsecurity.com/category/sim-swapping/">SIM Swapping</a>
+</li>
+	<li class="cat-item cat-item-4079"><a href="https://krebsonsecurity.com/category/spam-nation/">Spam Nation</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://krebsonsecurity.com/category/smallbizvictims/">Target: Small Businesses</a>
+</li>
+	<li class="cat-item cat-item-5167"><a href="https://krebsonsecurity.com/category/tax-refund-fraud/">Tax Refund Fraud</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://krebsonsecurity.com/category/comingstorm/">The Coming Storm</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://krebsonsecurity.com/category/patches/">Time to Patch</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="https://krebsonsecurity.com/category/web-fraud-2-0/">Web Fraud 2.0</a>
+</li>
+			</ul>
+
+			</aside><aside id="media_image-2" class="widget widget_media_image"><p class="widget-title">Why So Many Top Hackers Hail from Russia</p><a href="https://krebsonsecurity.com/2017/06/why-so-many-top-hackers-hail-from-russia/"><img width="580" height="389" src="https://krebsonsecurity.com/wp-content/uploads/2017/06/computered-580x389.png" class="image wp-image-39684  attachment-medium size-medium" alt="" decoding="async" loading="lazy" style="max-width: 100%; height: auto;" srcset="https://krebsonsecurity.com/wp-content/uploads/2017/06/computered-580x389.png 580w, https://krebsonsecurity.com/wp-content/uploads/2017/06/computered-768x514.png 768w, https://krebsonsecurity.com/wp-content/uploads/2017/06/computered-940x630.png 940w, https://krebsonsecurity.com/wp-content/uploads/2017/06/computered.png 1551w" sizes="(max-width: 580px) 100vw, 580px" /></a></aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	
+	<div id="publisho-footer" class="widget-area">
+				<div class="footer-widget">
+                				</div>
+				<div class="footer-widget">
+								</div>
+				<div class="footer-widget">
+								</div>
+	</div>
+
+	<div class="site-wordpress">
+					&copy; Krebs on Security - <a rel="me" href="https://infosec.exchange/@briankrebs">Mastodon</a> <br />
+  </div>
+	<!-- .site-info --><div class="clear"></div>
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://krebsonsecurity.com/wp-content/themes/kos-mar2021/js/slicknav.js?ver=6.2.2' id='publisho-mobile-navigation-js'></script>
+</body>
+</html>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Object Caching 118/165 objects using memcached
+Page Caching using memcached 
+Database Caching using memcached
+
+Served from: krebsonsecurity.com @ 2024-01-01 06:35:33 by W3 Total Cache
+-->

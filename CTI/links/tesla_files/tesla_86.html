@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="og:type" content="article">
+<meta property="og:title" content="How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I">
+<meta property="og:url" content="https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/index.html">
+<meta property="og:site_name" content="mrT4ntr4&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/thumb1.png">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/die_basic.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/die_entropy.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/die_strings1.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/die_strings2.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/die_hex.PNG">
+<meta property="og:image" content="https://media.giphy.com/media/tova1OG4DBgD6/giphy.gif">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/anyrun_mitre.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/anyrun_creds.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/anyrun_smtp.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e1.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e2.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e3.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e4.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e5.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e6.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e7.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e8.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/defprotectdll.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e9.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e10.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e11.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e12.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e13.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/det.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e14.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e15.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/3rd.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e16.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e17.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e26.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e18.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e19.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e20.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e21.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e22.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e23.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e24.PNG">
+<meta property="og:image" content="https://mrt4ntr4.github.io/img/MA/sample1/e25.PNG">
+<meta property="og:image" content="https://media.giphy.com/media/FA77mwaxV74SA/giphy-downsized.gif">
+<meta property="article:published_time" content="2020-04-13T21:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-11T08:25:14.956Z">
+<meta property="article:author" content="Suraj Malhotra">
+<meta property="article:tag" content="AgentTesla">
+<meta property="article:tag" content="Malware">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mrt4ntr4.github.io/img/MA/sample1/thumb1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/feed.xml" title="mrT4ntr4&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<div class="background">
+    <div class="banner">
+<div id="blogtitle" class="blogtitle">mrT4ntr4&#39;s Blog</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-2/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/EXTORY-Crackme/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&text=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&is_video=false&description=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I&body=Check out this article: https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&name=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&t=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Static-Properties-Analysis"><span class="toc-number">2.</span> <span class="toc-text">Static Properties Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Behavioral-Analysis"><span class="toc-number">3.</span> <span class="toc-text">Behavioral Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dynamic-Analysis"><span class="toc-number">4.</span> <span class="toc-text">Dynamic Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unpacking-Methods"><span class="toc-number">4.0.1.</span> <span class="toc-text">Unpacking Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decrypting-Strings"><span class="toc-number">4.1.</span> <span class="toc-text">Decrypting Strings</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Suraj Malhotra</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-13T21:00:00.000Z" itemprop="datePublished">2020-04-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/MalwareAnalysis/">MalwareAnalysis</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Net/" rel="tag">.Net</a>, <a class="tag-link-link" href="/tags/AgentTesla/" rel="tag">AgentTesla</a>, <a class="tag-link-link" href="/tags/Malware/" rel="tag">Malware</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p><a href="/img/MA/sample1/thumb1.png" title="banner" class="gallery-item"><img src="/img/MA/sample1/thumb1.png" alt="banner"></a></p>
+<p>If you’d read my previous articles I assured that I’ll be releasing some article every week but now that seems nearly impossible due to some time constraints. I would have shared some things from my real life and new interesting security related things I come across but I don’t think that will happen too coz I think it will decrease the quality of the blog somehow If i begin to post my random findings which may seem boring to some other readers.  </p>
+<p>What is the thing I love most about Security in general is the research part.. How we can get to real low level to find vulns. And this can happen only if we spend weeks.. maybe months reading and testing it out to give a detailed explanation.<br>Anyways if you have any suggestion/advice regarding this you can always comment and let me know.  </p>
+<hr>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>So as I promised <a href="/EXTORY-Crackme/">previously</a> this one is going to be .NET.<br>PS This is my first post on analysing a live malware sample and I’m not experienced in this field.  </p>
+<p>I know there are other blogposts on AgentTesla online but I didn’t find them as detailed as this one’s going to be.<br>And Yeah I also know the title seems to be a clickbait but its true XD<br>I have divided it into 2 parts and they have around 70+ screenshots as I believe in the fact that <em>Pictures are louder than words</em> :)   </p>
+<blockquote>
+<p>This is a live malware and I don’t want anyone to maliciously use the attacker’s credentials, so obviously I would not give out this sample’s hash and will be redacting a few things as well.  </p>
+</blockquote>
+<p>To start with, I found this sample on <a target="_blank" rel="noopener" href="https://bazaar.abuse.ch/">Malware Bazaar</a> and it is tagged as a <strong>COVID19</strong> malware spead through spearphishing.<br>Luckily this sample doesn’t have any anti-debug/vm techniques implemented. Also I’ve not setup my Sniffer VM with inetsim etc. I found it to be fileless. It has a Virustotal Score of 22/71 at time of writing this.  </p>
+<hr>
+<h1 id="Static-Properties-Analysis"><a href="#Static-Properties-Analysis" class="headerlink" title="Static Properties Analysis"></a>Static Properties Analysis</h1><p>I started off with DIE and observed that its .NET based.  </p>
+<p><a href="/img/MA/sample1/die_basic.PNG"><a href="/img/MA/sample1/die_basic.PNG" title="die_basic" class="gallery-item"><img src="/img/MA/sample1/die_basic.PNG" alt="die_basic"></a></a>  </p>
+<p>Also DIE shows that its Packed as its entropy is basically greater than 7.  </p>
+<p><a href="/img/MA/sample1/die_entropy.PNG"><a href="/img/MA/sample1/die_entropy.PNG" title="die_entropy" class="gallery-item"><img src="/img/MA/sample1/die_entropy.PNG" alt="die_entropy"></a></a>  </p>
+<p>Next we can check for some strings in the binary, ANSI doesn’t show anything usually and its same in this case too. Observing the UNICODE strings it looks like this was basically based on a photo manager or something.  </p>
+<p><a href="/img/MA/sample1/die_strings1.PNG"><a href="/img/MA/sample1/die_strings1.PNG" title="die_strings1" class="gallery-item"><img src="/img/MA/sample1/die_strings1.PNG" alt="die_strings1"></a></a>  </p>
+<p>But wait if we scroll down we find something interesting…<br>Yeah It looks similar to base32 encoded string and below it we can see some Game related strings such as <em>frmGameOver</em>, <em>You win!</em>, etc.</p>
+<p><a href="/img/MA/sample1/die_strings2.PNG"><a href="/img/MA/sample1/die_strings2.PNG" title="die_strings2" class="gallery-item"><img src="/img/MA/sample1/die_strings2.PNG" alt="die_strings2"></a></a>  </p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo JVNJAA | base32 -d</span><br><span class="line">MZ▒base32: invalid input</span><br></pre></td></tr></table></figure>
+<p>Cool It starts with the <strong>MZ</strong> Header and this confirms that its base32 encoded.<br>Unfortunately we can’t copy the whole string here but we can just view it in hexdump by right clicking it in DIE.  </p>
+<p><a href="/img/MA/sample1/die_hex.PNG"><a href="/img/MA/sample1/die_hex.PNG" title="die_hex" class="gallery-item"><img src="/img/MA/sample1/die_hex.PNG" alt="die_hex"></a></a>  </p>
+<hr>
+<h1 id="Behavioral-Analysis"><a href="#Behavioral-Analysis" class="headerlink" title="Behavioral Analysis"></a>Behavioral Analysis</h1><a target="_blank" rel="noopener" href="https://media.giphy.com/media/tova1OG4DBgD6/giphy.gif" title="drawing" class="gallery-item"><img src="https://media.giphy.com/media/tova1OG4DBgD6/giphy.gif" alt="drawing" width="300"/></a>   
+
+<p>Now we have the coolest part of running it in a sandbox environment.  </p>
+<p>I used <a target="_blank" rel="noopener" href="https://any.run/">any.run</a> and selected a Win7 32 bit VM (Basic plan) and noticed its execution.<br>Hmmm.. So Its silent and doesn’t do any activity on the screen.  </p>
+<p>So, Any.run has this feature of mapping <a href="https://attack.mitre.org/techniques/enterprise/" target="_blank">MITRE Techniques</a> it notices through the malware activity.  </p>
+<p><a href="/img/MA/sample1/anyrun_mitre.PNG"><a href="/img/MA/sample1/anyrun_mitre.PNG" title="anyrun_mitre" class="gallery-item"><img src="/img/MA/sample1/anyrun_mitre.PNG" alt="anyrun_mitre"></a></a>  </p>
+<p>We observe that its basically a credential stealer and tries to communicate with a C&amp;C server.  </p>
+<p><a href="/img/MA/sample1/anyrun_creds.PNG"><a href="/img/MA/sample1/anyrun_creds.PNG" title="anyrun_creds" class="gallery-item"><img src="/img/MA/sample1/anyrun_creds.PNG" alt="anyrun_creds"></a></a>  </p>
+<p>Woah!! It accesses over 72 files and is basically looking for browsers, ftp clients etc. So Any.run has 2 additional browsers I know of ie. Firefox &amp; Opera. And Firefox for instance requires logins.json and key4.db for the passwords which it accesses obviously. <sup><a target="_blank" rel="noopener" href="https://support.mozilla.org/en-US/questions/1236145">[1]</a></sup>  </p>
+<p>We can also view the connection requests and looks like its sending data over smtp with <em>smtp.yandex.com</em> and sends some data which includes <em>User-PC</em>.</p>
+<p><a href="/img/MA/sample1/anyrun_smtp.PNG"><a href="/img/MA/sample1/anyrun_smtp.PNG" title="anyrun_smtp" class="gallery-item"><img src="/img/MA/sample1/anyrun_smtp.PNG" alt="anyrun_smtp"></a></a>  </p>
+<p>I also downloaded and analysed the pcap file from any.run but it doesn’t look suspicious as I don’t think the browsers in any.run had some saved passwords.  </p>
+<hr>
+<h1 id="Dynamic-Analysis"><a href="#Dynamic-Analysis" class="headerlink" title="Dynamic Analysis"></a>Dynamic Analysis</h1><p>So to check what it does under the hood we can use dnspy and get on with debugging stuff.<br>I moved over to my setup of Victim VM for which I use Win7 x64.   </p>
+<h3 id="Unpacking-Methods"><a href="#Unpacking-Methods" class="headerlink" title="Unpacking Methods"></a>Unpacking Methods</h3><p>PS I also tried <a target="_blank" rel="noopener" href="https://unpac.me/">unpac.me</a> for the first time and I am very much impressed with it. For this sample it resulted in 3 children.  </p>
+<p>Lets see how far can we make it manually.<br>Hmm.. It doesn’t look quite obfuscated right now.  </p>
+<p><a href="/img/MA/sample1/e1.PNG"><a href="/img/MA/sample1/e1.PNG" title="e1" class="gallery-item"><img src="/img/MA/sample1/e1.PNG" alt="e1"></a></a>  </p>
+<p>Also It doesn’t have any constructor, So we just place a breakpoint on its Entrypoint and run it.  </p>
+<p><a href="/img/MA/sample1/e2.PNG"><a href="/img/MA/sample1/e2.PNG" title="e2" class="gallery-item"><img src="/img/MA/sample1/e2.PNG" alt="e2"></a></a>  </p>
+<p>Nice, We end up in <strong>frmMain</strong> and then we can just step in <strong>InitializeComponent</strong>. I noticed that class2 looked suspicious and setup a breakpoint there.  </p>
+<p><a href="/img/MA/sample1/e3.PNG"><a href="/img/MA/sample1/e3.PNG" title="e3" class="gallery-item"><img src="/img/MA/sample1/e3.PNG" alt="e3"></a></a>  </p>
+<p>Ahh actually the base32 encoded payload was used here.  </p>
+<p><a href="/img/MA/sample1/e4.PNG"><a href="/img/MA/sample1/e4.PNG" title="e4" class="gallery-item"><img src="/img/MA/sample1/e4.PNG" alt="e4"></a></a>  </p>
+<p>So this is the first level of unpacking where it simply invokes a function named <em>f20</em>  with arguments as <em>Class1.Myproperty</em> &amp; <em>_2048</em>.  <sup><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.type.invokemember?view=netframework-4.8#System_Type_InvokeMember_System_String_System_Reflection_BindingFlags_System_Reflection_Binder_System_Object_System_Object___">[2]</a></sup> </p>
+<p><a href="/img/MA/sample1/e5.PNG"><a href="/img/MA/sample1/e5.PNG" title="e5" class="gallery-item"><img src="/img/MA/sample1/e5.PNG" alt="e5"></a></a><br>Now I place a breakpoint on return in InvokeMember and just continue.  </p>
+<p><a href="/img/MA/sample1/e6.PNG"><a href="/img/MA/sample1/e6.PNG" title="e6" class="gallery-item"><img src="/img/MA/sample1/e6.PNG" alt="e6"></a></a></p>
+<p>Now stepping in we find some interesting locals and the payload file is a dll named <strong>DefenderProtect.dll</strong>.  </p>
+<p><a href="/img/MA/sample1/e7.PNG"><a href="/img/MA/sample1/e7.PNG" title="e7" class="gallery-item"><img src="/img/MA/sample1/e7.PNG" alt="e7"></a></a>  </p>
+<p><a href="/img/MA/sample1/e8.PNG"><a href="/img/MA/sample1/e8.PNG" title="e8" class="gallery-item"><img src="/img/MA/sample1/e8.PNG" alt="e8"></a></a>  </p>
+<p>Also It has another methods as well which are used in <em>f20</em>.  </p>
+<p><a href="/img/MA/sample1/defprotectdll.PNG"><a href="/img/MA/sample1/defprotectdll.PNG" title="defprotect" class="gallery-item"><img src="/img/MA/sample1/defprotectdll.PNG" alt="defprotect"></a></a>  </p>
+<p>So <em>f20</em> is basically used to unpack another file</p>
+<p><a href="/img/MA/sample1/e9.PNG"><a href="/img/MA/sample1/e9.PNG" title="e9" class="gallery-item"><img src="/img/MA/sample1/e9.PNG" alt="e9"></a></a>  </p>
+<p>The <em>array</em> has the final decrypted 2nd payload file so we can dump it using Memory Window too.  </p>
+<p><a href="/img/MA/sample1/e10.PNG"><a href="/img/MA/sample1/e10.PNG" title="e10" class="gallery-item"><img src="/img/MA/sample1/e10.PNG" alt="e10"></a></a>  </p>
+<p>But whats the fun in doing that, instead we can try to understand the unpacking algo. Hmm.. the resource from <em>_2048</em> named <em>ABHqTRJFnsWBEzLtXeCZ</em> is used in this process.    </p>
+<p><a href="/img/MA/sample1/e11.PNG"><a href="/img/MA/sample1/e11.PNG" title="e11" class="gallery-item"><img src="/img/MA/sample1/e11.PNG" alt="e11"></a></a>  </p>
+<p>fcn. <em>detroit1</em> just returns that resource as a handle to a bitmap image.  </p>
+<p><a href="/img/MA/sample1/e12.PNG"><a href="/img/MA/sample1/e12.PNG" title="e12" class="gallery-item"><img src="/img/MA/sample1/e12.PNG" alt="e12"></a></a>  </p>
+<p>The main algo resides in fcn <em>detroit1</em> and <em>detroit</em><br><em>detroit1</em> adds a pixel’s rgb value to a list when it is non-black.   </p>
+<p><a href="/img/MA/sample1/e13.PNG"><a href="/img/MA/sample1/e13.PNG" title="e13" class="gallery-item"><img src="/img/MA/sample1/e13.PNG" alt="e13"></a></a>  </p>
+<p>Then <em>detroit</em> does a repeating key xor on the list returned by <em>detroit0</em><br>where the key is first 16 bytes of the list.  </p>
+<p><a href="/img/MA/sample1/det.PNG"><a href="/img/MA/sample1/det.PNG" title="det" class="gallery-item"><img src="/img/MA/sample1/det.PNG" alt="det"></a></a>  </p>
+<p>So I just saved the bitmap image and wrote a python script to test the algo as well.  </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> hexdump <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&quot;ABHqTRJFnsWBEzLtXeCZ&quot;</span>)</span><br><span class="line"></span><br><span class="line">pixels = img.load()</span><br><span class="line">pixList = []</span><br><span class="line">width, height = img.size</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(width):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(height):</span><br><span class="line">        cpixel = pixels[x, y]</span><br><span class="line">        <span class="keyword">if</span>(cpixel != (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)):</span><br><span class="line">            <span class="keyword">for</span> value <span class="keyword">in</span> cpixel[:<span class="number">3</span>]:</span><br><span class="line">        		pixList.append(value)</span><br><span class="line"></span><br><span class="line">xorkey = pixList[:<span class="number">16</span>]</span><br><span class="line">encPayload = pixList[<span class="number">16</span>:]</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(i &lt; <span class="built_in">len</span>(encPayload)):</span><br><span class="line">    encPayload[i] ^= xorkey[i%<span class="number">16</span>]</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">dec = <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(d) <span class="keyword">for</span> d <span class="keyword">in</span> encPayload[:<span class="number">9200</span>]])</span><br><span class="line"><span class="built_in">print</span> hexdump(dec)</span><br><span class="line"></span><br><span class="line">payload = <span class="built_in">open</span>(<span class="string">&#x27;dontopen.gg&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> lol <span class="keyword">in</span> dec:</span><br><span class="line">    payload.write(<span class="built_in">chr</span>(lol))</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">00000000: 4D 5A 90 00 03 00 00 00  04 00 00 00 FF FF 00 00  MZ..............</span><br><span class="line">00000010: B8 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  ........@.......</span><br><span class="line">00000020: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  ................</span><br><span class="line">00000030: 00 00 00 00 00 00 00 00  00 00 00 00 80 00 00 00  ................</span><br><span class="line">00000040: 0E 1F BA 0E 00 B4 09 CD  21 B8 01 4C CD 21 54 68  ........!..L.!Th</span><br><span class="line">00000050: 69 73 20 70 72 6F 67 72  61 6D 20 63 61 6E 6E 6F  is program canno</span><br><span class="line">00000060: 74 20 62 65 20 72 75 6E  20 69 6E 20 44 4F 53 20  t be run in DOS </span><br><span class="line">00000070: 6D 6F 64 65 2E 0D 0D 0A  24 00 00 00 00 00 00 00  mode....$.......</span><br><span class="line">00000080: 50 45 00 00 4C 01 03 00  0D C8 84 5E 00 00 00 00  PE..L......^....</span><br></pre></td></tr></table></figure>
+<p>Now this boy looks obfuscated.</p>
+<p><a href="/img/MA/sample1/e14.PNG"><a href="/img/MA/sample1/e14.PNG" title="e14" class="gallery-item"><img src="/img/MA/sample1/e14.PNG" alt="e14"></a></a>  </p>
+<p>But it just starts a thread and I was unable to debug it.<br>Also that isn’t a big deal as this was mainly invoking a method from another file it just unpacked.. <strong>¯\_(ツ)_/¯</strong>  </p>
+<p><a href="/img/MA/sample1/e15.PNG"><a href="/img/MA/sample1/e15.PNG" title="e15" class="gallery-item"><img src="/img/MA/sample1/e15.PNG" alt="e15"></a></a>  </p>
+<p>Now finally we will be analysing the last and third file which resulted in unpacme.  </p>
+<p><a href="/img/MA/sample1/3rd.PNG"><a href="/img/MA/sample1/3rd.PNG" title="3rd" class="gallery-item"><img src="/img/MA/sample1/3rd.PNG" alt="3rd"></a></a>  </p>
+<p>We step in and are currently in <em>zdb</em> method.  </p>
+<p><a href="/img/MA/sample1/e16.PNG"><a href="/img/MA/sample1/e16.PNG" title="e16" class="gallery-item"><img src="/img/MA/sample1/e16.PNG" alt="e16"></a></a>  </p>
+<p>Now when I stepped in the above line to get value for text I observed that a function is called repeatedly. Hmm.. Maybe It is used for some deobfuscation or decryption of suspicious.  </p>
+<p><a href="/img/MA/sample1/e17.PNG"><a href="/img/MA/sample1/e17.PNG" title="e17" class="gallery-item"><img src="/img/MA/sample1/e17.PNG" alt="e17"></a></a><br><a href="/img/MA/sample1/e26.PNG"><a href="/img/MA/sample1/e26.PNG" title="e26" class="gallery-item"><img src="/img/MA/sample1/e26.PNG" alt="e26"></a></a>  </p>
+<hr>
+<h2 id="Decrypting-Strings"><a href="#Decrypting-Strings" class="headerlink" title="Decrypting Strings"></a>Decrypting Strings</h2><p>We step into that suspicious function obfuscated as <em>\u206E</em> and at first It looks like assigning a list of objects from <em>\uFEFF</em></p>
+<p><a href="/img/MA/sample1/e18.PNG"><a href="/img/MA/sample1/e18.PNG" title="e18" class="gallery-item"><img src="/img/MA/sample1/e18.PNG" alt="e18"></a></a>  </p>
+<p>The object array looks like the following in the locals window and contains integer arrays.  </p>
+<p><a href="/img/MA/sample1/e19.PNG"><a href="/img/MA/sample1/e19.PNG" title="e19" class="gallery-item"><img src="/img/MA/sample1/e19.PNG" alt="e19"></a></a>  </p>
+<p>So we setup a normal breakpoint at the function return. It passes the beginning 32 bytes of the string as key and the next 16 bytes as the IV to the Decryption function.     </p>
+<p><a href="/img/MA/sample1/e20.PNG"><a href="/img/MA/sample1/e20.PNG" title="e20" class="gallery-item"><img src="/img/MA/sample1/e20.PNG" alt="e20"></a></a>  </p>
+<p>And Now execution is passed over to Rijndael(AES) decryption function and we can clearly see that it isn’t obfuscated and has variable names as key &amp; IV, and looks like CBC mode ezpz :)</p>
+<p><a href="/img/MA/sample1/e21.PNG"><a href="/img/MA/sample1/e21.PNG" title="e21" class="gallery-item"><img src="/img/MA/sample1/e21.PNG" alt="e21"></a></a>  </p>
+<p>We can just place a Breakpoint at <em>return text</em>  in <em>CreateStringFromEncoding</em> and we will get the decoded string in the locals window and we’d get to know whenever this decryption func is invoked as well.    </p>
+<p><a href="/img/MA/sample1/e22.PNG"><a href="/img/MA/sample1/e22.PNG" title="e22" class="gallery-item"><img src="/img/MA/sample1/e22.PNG" alt="e22"></a></a>  </p>
+<p>So this time it returns “None” due to exception but sometimes the same gives “WinMgmt:”. Also we can now rename it to <strong>decStr()</strong> for our ease.  </p>
+<p><a href="/img/MA/sample1/e23.PNG"><a href="/img/MA/sample1/e23.PNG" title="e23" class="gallery-item"><img src="/img/MA/sample1/e23.PNG" alt="e23"></a></a>  </p>
+<p>Moving on.. It access/creates some environment variables.  </p>
+<p><a href="/img/MA/sample1/e24.PNG"><a href="/img/MA/sample1/e24.PNG" title="e24" class="gallery-item"><img src="/img/MA/sample1/e24.PNG" alt="e24"></a></a>  </p>
+<p><a href="/img/MA/sample1/e25.PNG"><a href="/img/MA/sample1/e25.PNG" title="e25" class="gallery-item"><img src="/img/MA/sample1/e25.PNG" alt="e25"></a></a>  </p>
+<p>Now I thought of decrypting all of the strings with python.  </p>
+<p>Unfortunately I was not able to copy the content of the encrypted int array from the locals and copying it from the declaration was not efficient.<br>The problem with dumping a array local from the memory window (in this case) in dnspy is it just shows it in reverse (maybe coz of little endian).<br>But the array starts below what it refers to there and I was somehow able to select it manually and dumped it finally.  </p>
+<p>Then I tried to implement the algo in python and coz of my weird workaround for dumping it, the script resulted in some errors. But I noticed that the error arised due to the values in list strEnds(below) and they were pretty common at the string end and I used them to split the dump and get a single string.  I think this was because of the uint[] initialization in the object array.<br>Anyways It finally worked and there were around 865 enc strings.  </p>
+<a target="_blank" rel="noopener" href="https://media.giphy.com/media/FA77mwaxV74SA/giphy-downsized.gif" title="drawing" class="gallery-item"><img src="https://media.giphy.com/media/FA77mwaxV74SA/giphy-downsized.gif" alt="drawing" width="300"/></a>   
+
+<p>PS The Key and IV for every cipher is different and is taken from the encoded string as well.  </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decipher</span>(<span class="params">dd</span>):</span></span><br><span class="line">    key = dd[<span class="number">0</span>:<span class="number">0x20</span>]</span><br><span class="line">    iv = dd[<span class="number">0x20</span>:<span class="number">0x30</span>]</span><br><span class="line">    cipher = dd[<span class="number">0x30</span>:]</span><br><span class="line">    rijn = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    decipher = rijn.decrypt(cipher).strip()</span><br><span class="line">    plain = <span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x <span class="keyword">in</span> string.printable, decipher)</span><br><span class="line">    <span class="built_in">print</span> plain</span><br><span class="line"></span><br><span class="line">dmp = <span class="built_in">open</span>(<span class="string">&#x27;dump.txt&#x27;</span>).read()</span><br><span class="line"></span><br><span class="line">strEnds = [<span class="string">&quot;0000000048191F0110000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F0114000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F0118000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F011C000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F0124000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F0120000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F012C000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;0000000048191F0128000000&quot;</span>,</span><br><span class="line"><span class="string">&quot;000000004819C4001C000000&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> end <span class="keyword">in</span> strEnds:</span><br><span class="line">    dmp = dmp.replace(end, <span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line">lol = dmp.split()</span><br><span class="line">c = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> lol:</span><br><span class="line">    <span class="built_in">print</span> c,</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        decipher(x.decode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;[!] ERROR :&quot;</span>, x , <span class="string">&quot;Length :&quot;</span>, <span class="built_in">len</span>(x.decode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line">    c+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Full Results : <a href="/files/MA/sample1/dec.txt">dec.txt</a></p>
+</blockquote>
+<p>Some of the decrypted strings are as follows :</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">WScript.Shell</span><br><span class="line">Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run</span><br><span class="line">SELECT * FROM Win32_Processor</span><br><span class="line">Opera Software\Opera Stable</span><br><span class="line">Yandex\YandexBrowser\User Data</span><br><span class="line">Chrome\Chrome\User Data</span><br><span class="line">\FTP Navigator\Ftplist.txt</span><br><span class="line">HKEY_CURRENT_USER\Software\FTPWare\COREFTP\Sites</span><br></pre></td></tr></table></figure>
+<p>Hmm so it also uses <a target="_blank" rel="noopener" href="https://ss64.com/vb/shell.html">WScript.Shell</a>, maybe for executing some system commands.<br>Also it uses some registry keys for persistence and adding itself to the startup.<br>And Gets some info about our system using <a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/scripting/use-powershell-and-wmi-to-get-processor-information/">Win32_Processor</a><br>Access locations associated with browsers mainly “User Data” and looks for some FTP credentails too.  </p>
+<blockquote>
+<p>So Now I guess Its enough for Part-1, Head over <a href="/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-2/">here</a> for the 2nd Part.  </p>
+</blockquote>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Static-Properties-Analysis"><span class="toc-number">2.</span> <span class="toc-text">Static Properties Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Behavioral-Analysis"><span class="toc-number">3.</span> <span class="toc-text">Behavioral Analysis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dynamic-Analysis"><span class="toc-number">4.</span> <span class="toc-text">Dynamic Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unpacking-Methods"><span class="toc-number">4.0.1.</span> <span class="toc-text">Unpacking Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decrypting-Strings"><span class="toc-number">4.1.</span> <span class="toc-text">Decrypting Strings</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&text=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&is_video=false&description=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I&body=Check out this article: https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&title=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&name=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mrt4ntr4.github.io/How-Analysing-an-AgentTesla-Could-Lead-To-Attackers-Inbox-1/&t=How Analysing an AgentTesla Could Lead To Attackers Inbox - Part I"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2023
+    Suraj Malhotra
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"CTRL+C\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+      setTimeout(function() {
+        e.trigger.setAttribute('aria-label', "CTRL+C");
+      }, 2000);
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132815766-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132815766-1');
+    </script>
+
+
+
+
+
+
+
+
+</body>
+</html>

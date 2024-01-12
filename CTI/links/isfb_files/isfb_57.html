@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/bootstrap.min.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/navigation.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/pagination.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/banners.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/style.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-vsc-dark-plus.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-talos.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/landing-page.css?v=a225f65a71">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/css/style.min.css" rel="stylesheet">
+
+
+    <link rel="icon" href="https://blog.talosintelligence.com/content/images/size/w256h256/2022/07/talos_o_square.png" type="image/png">
+    <link rel="canonical" href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Cisco Talos Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution">
+    <meta property="og:description" content="This blog post was authored by Edmund Brumaghin and Holger Unterbrink, with contributions from Adam Weller.
+
+
+Executive Summary
+
+
+Gozi ISFB is a well-known and widely distributed banking trojan, and has been in the threat landscape for the past several years. Banking trojans are a type of malware that attackers leverage">
+    <meta property="og:url" content="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/">
+    <meta property="og:image" content="https://blog.talosintelligence.com/content/images/-3e3iyXkmG3c/Wp5NkY_U93I/AAAAAAAAA80/jdP6uj6KiXIf22f3Ar1y6dYaFtfzvjKWgCLcBGAs/w1200-h630-p-k-no-nu/image19.jpg">
+    <meta property="article:published_time" content="2018-03-06T15:59:00.000Z">
+    <meta property="article:modified_time" content="2022-12-02T17:42:58.000Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution">
+    <meta name="twitter:description" content="This blog post was authored by Edmund Brumaghin and Holger Unterbrink, with contributions from Adam Weller.
+
+
+Executive Summary
+
+
+Gozi ISFB is a well-known and widely distributed banking trojan, and has been in the threat landscape for the past several years. Banking trojans are a type of malware that attackers leverage">
+    <meta name="twitter:url" content="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/">
+    <meta name="twitter:image" content="https://blog.talosintelligence.com/content/images/-3e3iyXkmG3c/Wp5NkY_U93I/AAAAAAAAA80/jdP6uj6KiXIf22f3Ar1y6dYaFtfzvjKWgCLcBGAs/w1200-h630-p-k-no-nu/image19.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Edmund Brumaghin">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="">
+    <meta name="twitter:site" content="@TalosSecurity">
+    <meta property="og:image:width" content="783">
+    <meta property="og:image:height" content="411">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Cisco Talos Blog",
+        "url": "https://blog.talosintelligence.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.talosintelligence.com/content/images/2022/11/TalosBrand_ukraine.svg"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Edmund Brumaghin",
+        "url": "https://blog.talosintelligence.com/author/edmund-brumaghin/",
+        "sameAs": []
+    },
+    "headline": "Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution",
+    "url": "https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/",
+    "datePublished": "2018-03-06T15:59:00.000Z",
+    "dateModified": "2022-12-02T17:42:58.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.talosintelligence.com/content/images/-3e3iyXkmG3c/Wp5NkY_U93I/AAAAAAAAA80/jdP6uj6KiXIf22f3Ar1y6dYaFtfzvjKWgCLcBGAs/w1200-h630-p-k-no-nu/image19.jpg",
+        "width": 783,
+        "height": 411
+    },
+    "description": "This blog post was authored by Edmund Brumaghin and Holger Unterbrink, with contributions from Adam Weller.\n\n\nExecutive Summary\n\n\nGozi ISFB is a well-known and widely distributed banking trojan, and has been in the threat landscape for the past several years. Banking trojans are a type of malware that attackers leverage in an attempt to obtain banking credentials from customers of various financial institutions. The source code associated with Gozi ISFB has been leaked several times over the yea",
+    "mainEntityOfPage": "https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.75">
+    <link rel="alternate" type="application/rss+xml" title="Cisco Talos Blog" href="https://blog.talosintelligence.com/rss/">
+    
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="4ffb0139d74ada998f4b141e4d" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://cisco-talos-blog.ghost.io/" crossorigin="anonymous"></script>
+    
+    <link href="https://blog.talosintelligence.com/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=a225f65a71"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=a225f65a71">
+    <style type='text/css'>
+    img[src*="icon_check_white.svg"] { width: 20px; margin-left: 0px; margin-right: auto; }
+    
+    #ghost-portal-root { display: none; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F45RVJG3BK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F45RVJG3BK');
+</script>
+<style>:root {--ghost-accent-color: #006db6;}</style>
+</head>
+
+<body class="post-template tag-hash-blogger">
+
+    <div id="mobile-page-header" class="desktop-hide">
+    <h1>Cisco Talos Blog</h1>
+</div>
+<input id="nav-trigger" class="nav-trigger" type="checkbox"/>
+<label for="nav-trigger">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="16px" viewBox="0 0 22 16">
+        <g id="menu-icon">
+            <path fill="#FFFFFF" d="M20.5,3h-19C0.672,3,0,2.329,0,1.5S0.672,0,1.5,0h19C21.328,0,22,0.671,22,1.5S21.328,3,20.5,3z"></path>
+            <path fill="#FFFFFF" d="M20.5,9.5h-19C0.672,9.5,0,8.828,0,8c0-0.829,0.672-1.5,1.5-1.5h19C21.328,6.5,22,7.171,22,8   C22,8.828,21.328,9.5,20.5,9.5z"></path>
+            <path fill="#FFFFFF" d="M20.5,16h-19C0.672,16,0,15.328,0,14.5S0.672,13,1.5,13h19c0.828,0,1.5,0.672,1.5,1.5S21.328,16,20.5,16z"></path>
+        </g>
+    </svg>
+</label>
+<nav id="nav">
+    <div id="top-nav-bar">
+    </div>
+
+    <div id="navigation">
+        <div class="navigation-logos-wrapper">
+            <div id="talos-logo-wrapper">
+                <a class="navbar-brand" href="https://talosintelligence.com">
+                </a>
+            </div>
+        </div>
+        <div class="navigation-links-wrapper">
+            <ul class="main-nav-list">
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/software">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <path class="white" d="M19.4,17.1c0,0.1-0.1,0-0.2,0c0,0-1.3-0.9-2-1.4c-0.2-0.1-0.5-0.1-0.6,0.1c-0.3,0.3-0.6,0.8-0.9,1.3  c-0.1,0.2-0.1,0.5,0.1,0.6l2,1.5c0.1,0,0,0.1,0.1,0.2c0,0.1,0,0.1-0.1,0.2c-1.2,0.5-2.6,0.2-3.5-0.7c-0.8-0.9-1-2-0.7-3.1L4.5,6.5  c-1,0.3-2.3,0-3-0.9c-0.8-0.9-1.1-1.7-1-2.7c0-0.1,0-0.1,0.1-0.2c0.1,0,0.2,0.1,0.2,0.1l2,1.5C3,4.4,3.3,4.5,3.4,4.2  c0,0,0.5-0.8,0.9-1.3c0.1-0.2,0.1-0.5-0.1-0.6L2.3,0.9c-0.1,0,0-0.1-0.1-0.3c0-0.1,0-0.1,0.1-0.2C3.5-0.1,5,0.2,5.8,1.1  c0.8,0.9,1,2,0.7,3.1l9.1,9.3c1-0.3,2.3,0,3,0.9c0.7,0.7,0.9,1.5,0.9,2.5C19.5,16.9,19.5,17,19.4,17.1z"></path>
+                        </svg>
+                        <span>Software</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/vulnerability_info">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                                <g id="vuln-icon" class="nav-icon">
+                                    <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                                </g>
+                            </svg>
+                            <span>Vulnerability Information</span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="vuln-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="vuln-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/vulnerability_info">
+                                <h4>Vulnerability Information</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="vuln-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/vulnerability_reports">Vulnerability Reports</a></li>
+                        <li><a href="https://talosintelligence.com/ms_advisories">Microsoft Advisories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                            <g id="vuln-icon" class="nav-icon">
+                                <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/reputation">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                                <style type="text/css">
+                                    .white{fill:#FFFFFF;}
+                                </style>
+                                <g>
+                                <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                    <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                                </g>
+                            </svg>
+                            <span>
+                                Reputation Center
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="reputation-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="reputation-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/reputation">
+                                <h4>Reputation Center</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="reputation-sub-trigger">BACK</label>
+                        </li>
+                        <li><a data-method="get" href="https://talosintelligence.com/reputation_center">IP &amp; Domain Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a></li>
+                        <li><a href="https://talosintelligence.com/categories">Intelligence Categories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <g>
+                            <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://support.talosintelligence.com/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26px" height="20px" viewBox="0 0 123.17 159.292">
+                            <path d="M61.59,0,0,17.069v85.32c0,23.472,61.59,56.9,61.59,56.9s61.58-36.288,61.58-56.9V17.069Zm-.433,149.746C38.314,136.662,8.128,114.3,8.128,102.389V23.239l53.029-14.7Z" fill="#fff"></path>
+                        </svg>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/incident_response">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="111.588" height="148.311" viewBox="0 0 111.588 148.311">
+                            <path d="M1.181,128.446v15.7a4.167,4.167,0,0,0,4.167,4.167h100.9a4.167,4.167,0,0,0,4.167-4.167v-15.7a4.167,4.167,0,0,0-4.167-4.167H5.348a4.167,4.167,0,0,0-4.167,4.166M55.8,63.109a3.277,3.277,0,1,1,0,6.553c-10.344,0-20.755,8.578-20.755,18.57a3.277,3.277,0,1,1-6.554,0C28.489,73.947,41.93,63.109,55.8,63.109Zm0-12.016c-21.787,0-39.325,17.81-39.325,39.937v26.7H95.122V91.03c0-22.128-17.537-39.937-39.324-39.937m52.365-38.3a3.291,3.291,0,0,0-2.254,1.024L88.432,31.294a3.283,3.283,0,0,0,4.642,4.644l17.478-17.479a3.278,3.278,0,0,0-2.389-5.666m-105.138,0a3.276,3.276,0,0,0-1.98,5.666L18.522,35.938a3.283,3.283,0,0,0,4.643-4.644L5.687,13.817A3.255,3.255,0,0,0,3.025,12.793ZM55.389.026a3.276,3.276,0,0,0-2.867,3.345V19.642a3.277,3.277,0,1,0,6.554,0V3.371A3.283,3.283,0,0,0,55.389.026Z" fill="#fff"></path>
+                        </svg>
+                        <span>Incident Response</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/careers">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="153.816" height="90" viewBox="0 0 153.816 90">
+                            <g>
+                                <path d="M56.336,47.451a31.328,31.328,0,0,0-17.1-10.872A19.564,19.564,0,0,0,50.91,19.1C50.91,8.868,42.008,0,31.735,0S12.559,8.868,12.559,19.1A19.564,19.564,0,0,0,24.22,36.574,31.239,31.239,0,0,0,0,66.717c0,2.343,12.671,10.9,31.883,10.9a63.142,63.142,0,0,0,6.536-.341,37,37,0,0,1,8.222-21.367,38.039,38.039,0,0,1,9.7-8.456" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M106.731,70.729a32.386,32.386,0,0,0-1.889-4.815c-.014-.029-.028-.058-.043-.087a32.308,32.308,0,0,0-2.568-4.335c-.033-.047-.066-.095-.1-.142-.312-.436-.631-.866-.964-1.287l-.015-.02a32.215,32.215,0,0,0-2.185-2.483l-.166-.168c-.369-.372-.745-.737-1.131-1.09l-.025-.024c-.415-.379-.838-.744-1.272-1.1l-.081-.064q-.582-.474-1.189-.92l-.217-.159c-.43-.312-.866-.616-1.313-.9h0a31.084,31.084,0,0,0-9.679-4.164A19.564,19.564,0,0,0,95.566,31.488c0-10.234-8.9-19.1-19.175-19.1s-19.176,8.868-19.176,19.1A19.564,19.564,0,0,0,68.876,48.96a31.828,31.828,0,0,0-9.109,3.733h0a31.8,31.8,0,0,0-6.941,5.668l-.045.05a31.3,31.3,0,0,0-2.243,2.738l-.024.034q-.5.693-.969,1.415c-.014.023-.03.047-.046.07a31.053,31.053,0,0,0-1.7,3.019c-.028.059-.057.117-.085.175a30.16,30.16,0,0,0-1.33,3.185c-.02.056-.038.112-.058.169q-.255.741-.474,1.5c-.019.065-.039.13-.057.2a30.092,30.092,0,0,0-.741,3.374c-.015.094-.03.188-.044.282-.084.56-.158,1.123-.211,1.693v.007c-.087.935-.135,1.88-.135,2.834,0,2.343,12.671,10.9,31.883,10.9s31.583-8.555,31.583-10.9a32.8,32.8,0,0,0-1.384-8.35l-.007-.023" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M129.588,36.579A19.564,19.564,0,0,0,141.261,19.1c0-10.234-8.9-19.1-19.175-19.1S102.91,8.868,102.91,19.1a19.562,19.562,0,0,0,11.66,17.472A31.817,31.817,0,0,0,96.916,47.859a38.586,38.586,0,0,1,17.373,29.253,63.062,63.062,0,0,0,7.945.5c19.212,0,31.582-8.554,31.582-10.9a31.947,31.947,0,0,0-24.228-30.138" fill="#fff" fill-rule="evenodd"></path>
+                            </g>
+                        </svg>
+                        <span>Careers</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a id="link_blog" class="primary_nav_link" href="https://blog.talosintelligence.com">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="260px" height="296.5px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                                <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                            </svg>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+                    <input id="blog-sub-trigger" class="sub-nav-trigger" type="checkbox"/>
+                    <label class="sub-nav-trigger-label" for="blog-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://blog.talosintelligence.com">
+                                <h4>Blog</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="blog-sub-trigger">BACK</label>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com/category/threat-source-newsletter/">Talos Threat Source Newsletter</a>
+                        </li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                            <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                        </svg>
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/podcasts">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                                <style type="text/css">
+                                    .podcast-fill{fill:#fff;}
+                                </style>
+                                <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                            </svg>
+
+                            <span>
+                                Podcasts
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="podcast-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="podcast-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/podcasts">
+                                <h4>Podcasts</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="podcast-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos</a></li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                            <style type="text/css">
+                                .podcast-fill{fill:#fff;}
+                            </style>
+                            <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/about">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55px" height="55px" viewBox="0 0 55 55">
+                            <g>
+                                <g class="mobile-nav-home">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M45.201,12.343c0.378,0.48,0.758,0.925,1.096,1.401    c2.975,4.207,4.543,8.876,4.494,14.044c-0.05,5.452-1.643,10.386-5.186,14.593c-3.484,4.133-7.929,6.73-13.182,7.895    c-6.313,1.398-12.216,0.275-17.695-3.131c-0.441-0.273-0.847-0.6-1.266-0.904c-0.11-0.078-0.208-0.174-0.337-0.287    c0.127-0.141,0.246-0.27,0.366-0.398c0.887-0.949,1.765-1.904,2.663-2.844c0.114-0.119,0.321-0.217,0.485-0.217    c3.658-0.006,7.318,0,10.975,0.008c3.458,0.006,6.913,0.02,10.369,0.02c0.957,0,1.871-0.193,2.62-0.844    c0.797-0.693,1.157-1.596,1.157-2.643c0.001-7.533,0.003-15.067-0.005-22.601c-0.002-0.309,0.088-0.524,0.3-0.743    C43.098,14.598,44.127,13.49,45.201,12.343"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M41.402,8.822c-0.99,1.027-1.994,2.021-2.935,3.072    c-0.312,0.35-0.616,0.416-1.036,0.415c-6.98-0.009-13.957-0.007-20.938-0.007c-2.039,0-3.561,1.514-3.561,3.557    c0,6.504,0.002,13.008,0.006,19.512c0.002,0.973,0.011,1.943,0.004,2.914c0,0.133-0.04,0.301-0.127,0.393    c-1.069,1.162-2.15,2.314-3.229,3.469c-0.021,0.023-0.052,0.039-0.109,0.08c-0.159-0.188-0.323-0.369-0.471-0.562    c-2.535-3.348-4.119-7.102-4.605-11.268c-0.61-5.229,0.194-10.229,2.835-14.839c2.669-4.664,6.655-7.805,11.618-9.75    c3.205-1.257,6.533-1.852,9.977-1.621c4.478,0.298,8.553,1.754,12.227,4.325c0.101,0.072,0.197,0.151,0.291,0.229    C41.364,8.755,41.374,8.778,41.402,8.822"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M39.799,12.47c0.873-0.911,1.749-1.829,2.676-2.797    c0.605,0.564,1.195,1.112,1.816,1.691c-0.941,0.985-1.817,1.903-2.703,2.83c-0.276-0.339-0.511-0.688-0.807-0.975    C40.492,12.941,40.145,12.728,39.799,12.47"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M10.35,43.279c0.969-1.016,1.885-1.977,2.76-2.893    c0.213,0.369,0.376,0.762,0.639,1.072c0.265,0.312,0.627,0.539,0.98,0.832c-0.853,0.891-1.713,1.791-2.624,2.746    C11.513,44.445,10.939,43.869,10.35,43.279"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item desktop-hide">
+                    <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> <span>Search Blog</span></button>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-search-wrapper">
+            <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+        </div>
+    </div>
+</nav>
+    
+
+    <main id="site-main">
+        <div class="container-fluid">
+            <div class="row main-content-row">
+                <div class="col post-full-content">
+                    
+<article class="post tag-hash-blogger ">
+        <div class="feature-image-wrapper my-5">
+            <figure>
+                <img src="/content/images/-3e3iyXkmG3c/Wp5NkY_U93I/AAAAAAAAA80/jdP6uj6KiXIf22f3Ar1y6dYaFtfzvjKWgCLcBGAs/w1200-h630-p-k-no-nu/image19.jpg" alt="" class="img-fluid" />
+            </figure>
+        </div>
+
+    <h1 class="text-center">Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution</h1>
+
+    <div class="text-center m-1">
+        <div class="post-author">
+            <span>By </span>
+                <a href="https://blog.talosintelligence.com/author/edmund-brumaghin/">Edmund Brumaghin</a>, 
+                <a href="https://blog.talosintelligence.com/author/holger-unterbrink/">Holger Unterbrink</a>
+        </div>
+
+        <br/>
+        <time class="post-datetime" datetime="March 6, 2018 10:59">
+            Tuesday, March 6, 2018 10:59
+        </time>
+
+        <div class="m-3">
+        </div>
+    </div>
+
+    <section class="post-content-wrapper mt-5">
+        <div class="post-content">
+            <p>This blog post was authored by <a href="https://www.blogger.com/profile/10442669663667294759">Edmund Brumaghin</a> and <a href="http://blogs.cisco.com/author/holgerunterbrink">Holger Unterbrink</a>, with contributions from <a href="https://blogs.cisco.com/author/adamweller">Adam Weller</a>.</p><h2 id="executive-summary">Executive Summary</h2><p><br>Gozi ISFB is a well-known and widely distributed banking trojan, and has been in the threat landscape for the past several years. Banking trojans are a type of malware that attackers leverage in an attempt to obtain banking credentials from customers of various financial institutions. The source code associated with Gozi ISFB has been leaked several times over the years, and the robust features available within the Gozi ISFB code base have since been integrated into additional malware, such as GozNym. Talos published detailed research about GozNym in a September 2016 blog <a href="https://blog.talosintelligence.com/2016/09/goznym.html">post</a>. Since then, Talos has been monitoring Gozi ISFB activity, and has discovered a series of campaigns over the past six month that have been making use of the elusive "Dark Cloud" botnet for distribution. In investigating the infrastructure associated with Dark Cloud, we identified a significant amount of malicious activity making use of this same infrastructure, including Gozi ISFB distribution, Nymaim command and control, and a variety of different spam campaigns and scam activity. Talos is publishing details related to ongoing Gozi ISFB activity, the Dark Cloud botnet, as well as the additional threats we have observed using this infrastructure over the past couple of years. </p><h2 id="campaign-details">Campaign Details</h2><p><br>Talos has observed several distribution campaigns over the past few months that exhibit unusual characteristics. These campaigns appear to be relatively low-volume, with the attackers choosing to target specific organizations. They do not appear to send large amounts of spam messages to the organizations being targeted, instead choosing to stay under the radar while putting extra effort into the creation of convincing emails, in an attempt to evade detection while maximizing the likelihood that the victim will open the attached files.<br><br>Our engineers have discovered that while the Gozi ISFB campaigns are ongoing, the distribution and C2 infrastructure does not appear to stay active for extended periods, making analysis of older campaigns and samples more difficult. The attackers appear to be very quickly moving to new domains and IP addresses, not only for each campaign, but also for individual emails that are part of the same campaign. The campaigns that Talos analyzed took place during the fourth quarter of 2017, and have continued into 2018, with new campaigns being launched every week in an attempt to ensnare more victims and generate revenue for the attackers.</p><h2 id="malicious-spam-campaigns">Malicious Spam Campaigns</h2><p><br>This malware is distributed using malicious spam email campaigns, which feature Microsoft Word file attachments that function as malware downloaders. The emails appear targeted in nature, an example of which is shown below.<br><br>Interestingly, the attackers chose to create emails that appear to be part of an existing email thread, likely in an attempt to convince the victim of their legitimacy. In addition to crafting the email delivering the malicious Word document, they also create additional email subjects and accompanying bodies, which were included with the malicious email. This is not something that is typically seen in most malicious email campaigns, and shows the level of effort the attackers put into making the emails seem legitimate to maximize the likelihood that the victim would open the attached file.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image19.jpg" class="kg-image" alt loading="lazy" width="783" height="875" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image19.jpg 600w, https://blog.talosintelligence.com/content/images/2022/12/image19.jpg 783w" sizes="(min-width: 720px) 720px"><figcaption>Figure 1: Example Email Message</figcaption></figure><p>When opened, the attached Word document displays the following decoy image that makes it appear as if the attachment is a document that was created using Office 365. It instructs the user to "Enable Editing" and then "Enable Content."</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image17.jpg" class="kg-image" alt loading="lazy" width="1999" height="1416" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image17.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image17.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image17.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image17.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 2: Malicious Word Document</figcaption></figure><p>In the case that the victim follows the instructions, macros embedded within the Word document will execute, facilitating the download and executing the malware from an attacker-controlled server. The infection process associated with these emails is described in the following section.</p><h2 id="infection-process">Infection Process</h2><p><br>As mentioned above, the Word documents come with an embedded, obfuscated visual basic for applications, or VBA, macro, which in most cases, is executed when the document is closed by the victim, as shown in the following screenshot. Executing the macro when the document is closed is a clever trick to bypass some sandbox systems, which only open the documents, but never close them during analysis.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image18.jpg" class="kg-image" alt loading="lazy" width="1567" height="206" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image18.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image18.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image18.jpg 1567w" sizes="(min-width: 720px) 720px"><figcaption>Figure 3: Obfuscated VBA Macro</figcaption></figure><p>Once deobfuscated, the macro does nothing more than simply download an HTA file from a web server. Figure 4 shows the deobfuscated final call from the script above. In other documents, they are using different or slightly modified VBA macros, but deobfuscated, they all do a similar final call, similar to what is shown in Figures 4 and 5. </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image6.jpg" class="kg-image" alt loading="lazy" width="1055" height="66" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image6.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image6.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image6.jpg 1055w" sizes="(min-width: 720px) 720px"><figcaption>Figure 4: Final Macro Call</figcaption></figure><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image13-2.jpg" class="kg-image" alt loading="lazy" width="865" height="70" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image13-2.jpg 600w, https://blog.talosintelligence.com/content/images/2022/12/image13-2.jpg 865w" sizes="(min-width: 720px) 720px"><figcaption>Figure 5: Alternate Macro Call</figcaption></figure><p>Due to the fact that HTA files are seen as local applications, the content is executed as a fully trusted application. Therefore, no security-related questions are asked to the user. The content that is downloaded from qdijqwdunqwiqhwew[.]com is an obfuscated JavaScript script (see Figure 6)</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image1.jpg" class="kg-image" alt loading="lazy" width="1147" height="208" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image1.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image1.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image1.jpg 1147w" sizes="(min-width: 720px) 720px"><figcaption>Figure 6: Obfuscated JavaScript</figcaption></figure><p>The lopomeriara variable is a very long obfuscated string which we have shortened (...) in the screenshot. Deobfuscated, it resolves to:</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image9-1.jpg" class="kg-image" alt loading="lazy" width="1459" height="159" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image9-1.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image9-1.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image9-1.jpg 1459w" sizes="(min-width: 720px) 720px"><figcaption>Figure 7: Deobfuscated Javascript</figcaption></figure><p>In other words, it is using ActiveX to execute a PowerShell script, which downloads and executes the malware to be installed on the victim's machine. In this case the filename was 84218218.exe.<br><br>We have analyzed more than 100 malicious Word documents from this campaign, and it appears that the vast majority of them are individualized. The individualized ones all appear similar, but all their hashes are different, and their VBA code is either completely different or at least slightly modified. Even the image that the adversaries are using in these documents (see Figure 8) is not the same — it differs by slightly changed color values and pixels as you can see in Figure 9. </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image16.jpg" class="kg-image" alt loading="lazy" width="1298" height="400" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image16.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image16.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image16.jpg 1298w" sizes="(min-width: 720px) 720px"><figcaption>Figure 8: Document Image</figcaption></figure><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image15.jpg" class="kg-image" alt loading="lazy" width="1999" height="878" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image15.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image15.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image15.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image15.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 9: Image Comparison</figcaption></figure><p>An example of the slightly changed VBA code skeleton can be seen in Figure 10. The adversaries are changing variables, function names, arrays, etc. for more or less every single Word document. Nevertheless, in the majority of documents, the basic code structure stays the same. Sometimes they are re-ordering the functions, or they add or remove a few lines of code. But as shown in Figures 10 and 11, the main algorithms stay the same.  </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image7.jpg" class="kg-image" alt loading="lazy" width="1999" height="955" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image7.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image7.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image7.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image7.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 10: VBA Skeleton Comparison</figcaption></figure><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image3-1.jpg" class="kg-image" alt loading="lazy" width="1999" height="982" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image3-1.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image3-1.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image3-1.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image3-1.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 11: Additional Comparison</figcaption></figure><p>As mentioned above, there are some documents where the VBA script is completely different. The rightmost image in Figure 12 is an example of this. Deobfuscated, it is doing the same known "http://&lt;some server&gt;/...php?utma=...." HTTP request which we have seen before.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image4.jpg" class="kg-image" alt loading="lazy" width="1999" height="1061" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image4.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image4.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image4.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image4.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 12: VBA Code Differences</figcaption></figure><p>We focused the majority of our investigation on campaigns between the fourth quarter of 2017 until the present, but based on other reports and our telemetry data, they have likely been going on for a couple of years. Within the data that we collected, the adversaries have changed the images within the Word documents from time to time (Figures 13 and 14) and used different VBA code in their malicious macros. The schema stays the same, the pixels and color values of the pictures inside the different campaigns are slightly changed, but the message stays the same.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image14.jpg" class="kg-image" alt loading="lazy" width="833" height="270" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image14.jpg 600w, https://blog.talosintelligence.com/content/images/2022/12/image14.jpg 833w" sizes="(min-width: 720px) 720px"><figcaption>Figure 13: Earlier Document Image</figcaption></figure><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image10-1.jpg" class="kg-image" alt loading="lazy" width="778" height="325" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image10-1.jpg 600w, https://blog.talosintelligence.com/content/images/2022/12/image10-1.jpg 778w" sizes="(min-width: 720px) 720px"><figcaption>Figure 14: Document Image Font Differences</figcaption></figure><p>An interesting point is that some of them are even localized, as you can see below in Figure 15. This matches the corresponding phishing emails we talked about before. The separate attacks are highly customized and targeted. <br></p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image11.jpg" class="kg-image" alt loading="lazy" width="886" height="253" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image11.jpg 600w, https://blog.talosintelligence.com/content/images/2022/12/image11.jpg 886w" sizes="(min-width: 720px) 720px"><figcaption>Figure 15: Document Image Localization</figcaption></figure><h2 id="payload">Payload</h2><p><br>The payload (e.g. 84218218.exe as described above), is different depending on the specific  campaign. The vast majority of payloads are banking trojans based on the Gozi ISFB code base, but we have also seen executables identified by AV products as belonging to other malware families, such as CryptoShuffler, Sennoma and SpyEye. We have looked closer into the payload mentioned above, and we can clearly identify it as ISFB. Its functionality is very similar to the one described in this <a href="https://journal.cecyf.fr/ojs/index.php/cybin/article/view/15/19">report</a> by the Polish Computer Emergency Response Team (CERT). For example, the sample is using the same rolling XOR algorithm to protect its strings.<br><br>The anti-VM methods used within this sample are also identical — the BSS section encryption and the dropper payload setup are very similar. The dropper is also obfuscated with useless strings. It is interesting to note that in the sample we analyzed, the DGA code mentioned in the paper above is included, but it is never used due to its configuration. The sample we analyzed was using a hardcoded domain to communicate with the C2 server. This domain is tmeansmderivinclusionent[.]net. The sample was not configured to use TOR. <br><br>Regarding the decryption of the BSS section, this sample presents a particularity. It has a loop, which creates small temporary files with a random file name. After creating the files, it queries their creation file time. Then, it applies some transformations to the four least significant bytes of this timestamp to generate a one-byte value. Due to the transformation algorithm, this will result in a value between 0x00000008 and 0x000000FF. See the pseudocode below:<br><br>t = t &gt;&gt; 16<br>t = t &amp; 0x000000F7<br>t = t + 8<br><br>This one-byte value is then added to the decryption key. With this key, the malware tries to decrypt the BSS section. If the decryption fails, it starts the loop again, and creates the next file until the section has been properly decoded. This technique seems to replace  the anti-sandbox technique based on mouse movement mentioned in previous reports. Although this approach would not hinder dynamic analysis in a full-system VM, we believe it could  be an attempt to bypass simpler application-level emulators that may not properly implement the Windows API (e.g., those which might return a fixed timestamp).<br><br>The malware loader contains two versions of the same DLL. One is a 32-bit DLL, and the other is a 64-bit DLL, both of which contain the malware's hardcoded configuration. The way they store the DLLs and configuration values is by leveraging a set of structures indexed in an array located right after the section table (referred to as FJ-struct in the report mentioned above). After the decryption, depending on the victim machine, either the 32-bit or the 64-bit DLL is injected into the explorer.exe process running on the victim machine.<br></p><h2 id="the-dark-cloud-botnet">The Dark Cloud Botnet</h2><p><br>In analyzing the domains and associated infrastructure used to distribute this malware, as well as the associated C2 domains, Talos identified significant overlap between the infrastructure used in these campaigns and what has been described as being associated with a botnet referred to as "Dark Cloud." This botnet was initially described in 2016 in a blog post <a href="https://krebsonsecurity.com/2016/05/carding-sites-turn-to-the-dark-cloud/">here</a>. This botnet is interesting, as it was reportedly initially created to provide a "bulletproof" way to host several carding sites. It has since expanded, and is also being used for the distribution and administration of various malware families. During our analysis of the infrastructure being used, we identified significant Gozi ISFB and Nymaim distribution and C2, adult dating spam, various carding resources and other malicious activities from this infrastructure.<br><br>There are several interesting characteristics associated with this particular botnet. One of the most prominent is the use of fast flux techniques, which makes tracking the backend infrastructure more difficult. By frequently changing the DNS records associated with the malicious domains, attackers can make use of an extensive network of proxies, continuously changing the address of the IP being used to handle communications to the web servers the attacker controls.<br><br>Talos observed that the time-to-live (TTL) value for DNS records associated with domains used in these malware campaigns were typically set to 150, allowing the attackers to issue DNS record updates every three minutes.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image2.jpg" class="kg-image" alt loading="lazy" width="1999" height="510" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image2.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image2.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image2.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image2.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 16: Sample DNS TTL Values</figcaption></figure><p>As we began investigating the domains and IP addresses associated with the distribution and post-infection C2 of Gozi ISFB, we noticed that in most of the cases the same infrastructure was being used by the various carding forums referenced in the KrebsOnSecurity article mentioned above. Using passive DNS data, we collected every IP address that the domains under investigation had been seen resolving to. We also performed the reverse operation, collecting every domain that had ever been seen resolving to the IP addresses we previously collected in an attempt to get the most complete picture of the infrastructure. <br><br>Once we had this information collected, we began to investigate all of the activity that had been observed associated with this infrastructure. What we discovered was a laundry list of cybercriminal activities, all being conducted using this same infrastructure over the past couple of years. <br><br>One of the most notable carding forums leveraging this fast flux botnet is known as Uncle Sam. </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image8.jpg" class="kg-image" alt loading="lazy" width="1999" height="1325" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image8.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image8.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/12/image8.jpg 1600w, https://blog.talosintelligence.com/content/images/2022/12/image8.jpg 1999w" sizes="(min-width: 720px) 720px"><figcaption>Figure 17: Uncle Sam Website</figcaption></figure><p>In addition to Uncle Sam, we also observed the following carding sites and forums also making use of this infrastructure:</p><ul><li>Paysell</li><li>Try2Swipe</li><li>CVVShop</li><li>Csh0p</li><li>RoyalDumps</li><li>McDuck</li><li>Prvtzone</li><li>Verified</li></ul><p>Note that in several cases, the site owners had registered their domains using multiple TLDs (such as .BZ, .WS and .LV TLDs, for example).<br><br>We wrote a script that captured all of the IP addresses that the Uncle Sam website resolved to over a 24-hour period. We determined that over this period, the website had resolved to 287 unique IP addresses. This equates to an IP rotation of approximately 12 times per hour, or every five minutes. This demonstrates just how fluid the DNS configuration associated with these domains is and how much infrastructure is being used by these attackers.<br><br>In addition to various carding websites, we also identified a significant number of Nymaim samples which were beaconing out to IP addresses within this botnet. Nymaim is a malware family that functions as a downloader for additional malware, most commonly seen associated with the delivery of ransomware.<br><br>Talos also observed that over the past couple of years, several of the domains we investigated were hosting fake mail generator applications, primarily used to generate spam messages associated with various adult dating websites. </p><h2 id="geographic-distribution">Geographic Distribution</h2><p><br>In analyzing all of the infrastructure associated with this botnet, we identified that the attackers appear to be actively avoiding using proxies and hosts located in Western Europe, Central Europe and North America. The majority of the systems we analyzed were located in Eastern Europe, Asia, and the Middle East. Below is a graphic showing where the largest number of systems were located globally.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image20.jpg" class="kg-image" alt loading="lazy" width="1459" height="1150" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image20.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image20.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image20.jpg 1459w" sizes="(min-width: 720px) 720px"><figcaption>Figure 18: Geographic Heat Map</figcaption></figure><p>Additionally, the following bar graph shows the hosting providers around the world that were most heavily used for hosting the systems used by this botnet.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://blog.talosintelligence.com/content/images/2022/12/image5.jpg" class="kg-image" alt loading="lazy" width="1459" height="1171" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/12/image5.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/12/image5.jpg 1000w, https://blog.talosintelligence.com/content/images/2022/12/image5.jpg 1459w" sizes="(min-width: 720px) 720px"><figcaption>Figure 19: Most Impacted ASNs</figcaption></figure><p>Talos is continuing to investigate and track the operations of this botnet to ensure customers remain protected from the various threats that are associated with it.</p><h2 id="conclusion">Conclusion</h2><p><br>Gozi ISFB is a banking trojan that has been used extensively by attackers who are targeting organizations around the world. It has been around for the past several years, and ongoing campaigns indicate that it will not be going away any time soon. Attackers are continuing to modify their techniques and finding effective new ways to obfuscate their malicious server infrastructure in an attempt to make analysis and tracking more difficult. Talos has identified the Dark Cloud botnet being used for a multitude of malicious purposes. We will continue to monitor these threats as they continue to evolve over time to ensure that customers remain protected and the public is informed with regards to continued use of threats such as Gozi ISFB, Nymaim and others. </p><h2 id="coverage">Coverage</h2><p><br>Additional ways our customers can detect and block this threat are listed below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/12/image12-1.png" class="kg-image" alt loading="lazy" width="320" height="268"></figure><p><br>Advanced Malware Protection (<a href="https://www.cisco.com/c/en/us/products/security/advanced-malware-protection">AMP</a>) is ideally suited to prevent the execution of the malware used by these threat actors.<br><br><a href="https://www.cisco.com/c/en/us/products/security/cloud-web-security/index.html">CWS</a> or<a href="https://www.cisco.com/c/en/us/products/security/web-security-appliance/index.html"> WSA</a> web scanning prevents access to malicious websites and detects malware used in these attacks.<br><br><a href="https://www.cisco.com/c/en/us/products/security/email-security-appliance/index.html">Email Security</a> can block malicious emails sent by threat actors as part of their campaign.<br><br>Network Security appliances such as<a href="https://www.cisco.com/c/en/us/products/security/firewalls/index.html"> NGFW</a>,<a href="https://www.cisco.com/c/en/us/products/security/intrusion-prevention-system-ips/index.html"> NGIPS</a>, and<a href="https://meraki.cisco.com/products/appliances"> Meraki MX</a> can detect malicious activity associated with this threat.<br><br><a href="https://www.cisco.com/c/en/us/solutions/enterprise-networks/amp-threat-grid/index.html">AMP Threat Grid</a> helps identify malicious binaries and build protection into all Cisco Security products.<br><br><a href="https://umbrella.cisco.com/">Umbrella</a>, our secure internet gateway (SIG), blocks users from connecting to malicious domains, IPs, and URLs, whether users are on or off the corporate network.<br><br>Open Source Snort Subscriber Rule Set customers can stay up to date by downloading the latest rule pack available for purchase on<a href="https://www.snort.org/products">Snort.org</a>.<br><br>SNORT IDs: 39686, 42894</p><h2 id="indicators-of-compromise-ioc-">Indicators of Compromise (IOC)</h2><h3 id="malicious-document-hashes">Malicious Document Hashes</h3><p>A full list of malicious documents associated with these campaigns can be found <a href="https://alln-extcloud-storage.cisco.com/ciscoblogs/5a9d1f4c49487.txt">here</a>.</p><h3 id="domains">Domains</h3><p>A full list of domains associated with these campaigns can be found <a href="https://alln-extcloud-storage.cisco.com/ciscoblogs/5a9d21419c1e0.txt">here</a>.</p><h3 id="ip-addresses">IP Addresses</h3><p>A full list of IP addresses associated with these campaigns can be found <a href="https://alln-extcloud-storage.cisco.com/ciscoblogs/5a9d21a8d2607.txt">here</a>.</p><h3 id="executable-file-hashes">Executable File Hashes</h3><p>A full list of executable hashes associated with these campaigns can be found <a href="https://alln-extcloud-storage.cisco.com/ciscoblogs/5a9d21f9c03d0.txt">here</a>.</p>
+        </div>
+    </section>
+    <div class="social-media-wrapper">
+    <h5>Share this post</h5>
+    <ul class="social-media-share-list">
+        <li>
+            <a class="share-facebook" title="Share this on Facebook" data-text="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution" data-href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/" rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"></a>
+        </li>
+        <li>
+            <a class="share-twitter" title="Tweet This" data-text="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution" data-href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/" rel="nofollow" target="_blank" href="https://twitter.com/share?url=https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"></a>
+        </li>
+        <li>
+            <a class="share-linkedin" title="Share this on LinkedIn" data-text="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution" data-href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/" rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"></a>
+        </li>
+        <li>
+            <a class="share-reddit" title="Reddit This" data-text="Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distribution" data-href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/" rel="nofollow" target="_blank" href="https://www.reddit/submit?url=https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"></a>
+        </li>
+        <li>
+            <a class="share-email" title="Email This" href="mailto:?body=Gozi ISFB Remains Active in 2018, Leverages &quot;Dark Cloud&quot; Botnet For Distributionhttps://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018/"></a>
+        </li>
+    </ul>
+</div></article>
+                </div>
+                <div class="col-lg alt-layout-row-dk sidebar" id="side-bar">
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer id="footer">
+    <div class="container-fluid">
+        <div class="row footer_nav_wrapper">
+            <div class="col-lg-10 col-md-9 col-sm-12">
+                <div class="multi-col-list-wrapper">
+                    <ul>
+                        <li>
+                            <a href="https://talosintelligence.com/software">Software</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/reputation_center">Reputation Center</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/vulnerability_info">Vulnerability Information</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/ms_advisories">Microsoft Advisory Snort Rules</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/incident_response">Incident Response</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/community">Support Communities</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/careers">Careers</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/newsletters">Threat Source Newsletter</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos Podcast</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes Podcast</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 connect_social">
+                <h5>Connect with us</h5>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://twitter.com/talossecurity" rel="nofollow">
+                            <img alt="Follow us on Twitter" src="https://blog.talosintelligence.com/assets/images/footer_icon_tw.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCPZ1DtzQkStYBSG3GTNoyfg/featured" rel="nofollow">
+                            <img alt="Watch our informational videos on YouTube" src="https://blog.talosintelligence.com/assets/images/footer_icon_yt.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/company/cisco-talos-intelligence-group/" rel="nofollow">
+                            <img alt="Connect with us on LinkedIn" src="https://blog.talosintelligence.com/assets/images/footer_icon_li.svg?v=a225f65a71">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 footer_corporate">
+                <a href="http://tools.cisco.com/security/center/home.x" target="_blank">
+                    <img src="https://blog.talosintelligence.com/assets/images/logo_cisco_white.svg?v=a225f65a71" alt="Cisco Security"/>
+                </a>
+
+                <p class="copyright">
+                    &copy; <span id="current-year"></span> Cisco Systems, Inc. and/or its affiliates. All rights reserved. View our <a href="https://www.cisco.com/web/siteassets/legal/privacy_full.html" class="underline" target="_blank">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://blog.talosintelligence.com/assets/js/jquery-3.6.0.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/popper.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/bootstrap.bundle.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/date.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/prism.js?v=a225f65a71"></script>
+<script src="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/js/ghost-theme-utils.min.js" async defer></script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"83eaa08faeea9fcd","b":1,"version":"2023.10.0","token":"35f8ae698f9d471b83b846a751388737"}' crossorigin="anonymous"></script>
+</body>
+
+</html>

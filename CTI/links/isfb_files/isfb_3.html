@@ -1,0 +1,892 @@
+ <!DOCTYPE html> <html lang="en"> <head> <!-- Google Tag Manager --> <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })
+            (window, document, 'script', 'dataLayer', 'GTM-TGJCR96');
+    </script> <!-- End Google Tag Manager --> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,IE=11" /> <meta name="format-detection" content="telephone=no"> <title>
+	Hunting for Ursnif
+</title> <link rel="icon" type="image/svg+xml" href="/ResourcePackages/BridewellConsulting/assets/dist/img/favicon.svg"> <link rel="icon" type="image/png" href="/ResourcePackages/BridewellConsulting/assets/dist/img/favicon.png">  <link href="/ResourcePackages/BridewellConsulting/assets/bundles/main.css?v=tK1EX7CIraH0ltkc6Hq-Dr4G3CJmZsVdXfVFMappyq01" rel="stylesheet" type="text/css" /> <script>
+        (function preloadFonts() {
+            var fontsToPreload = [
+                'inter-v11-latin-100.woff2',
+                'inter-v11-latin-200.woff2',
+                'inter-v11-latin-300.woff2',
+                'inter-v11-latin-500.woff2',
+                'inter-v11-latin-600.woff2',
+                'inter-v11-latin-700.woff2',
+                'inter-v11-latin-800.woff2',
+                'inter-v11-latin-900.woff2',
+                'inter-v11-latin-regular.woff2'
+            ];
+            var fragment = document.createDocumentFragment();
+            for (var i = 0, l = fontsToPreload.length; i < l; i++) {
+                var preload = document.createElement('link');
+                preload.rel = 'preload';
+                preload.href = '/ResourcePackages/BridewellConsulting/assets/dist/fonts/' + fontsToPreload[i];
+                preload.type = 'font/woff2';
+                preload.as = 'font';
+                preload.crossOrigin = 'anonymous';
+                fragment.appendChild(preload)
+            }
+            document.head.appendChild(fragment);
+        })();
+    </script> <script type="text/javascript">
+_linkedin_partner_id = "4499777";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id); </script><script type="text/javascript">
+  (function(l) {
+    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+            window.lintrk.q=[]} 
+    var s = document.getElementsByTagName("script")[0]; 
+    var b = document.createElement("script"); 
+    b.type = "text/javascript";b.async = true; 
+    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    s.parentNode.insertBefore(b, s);})(window.lintrk); 
+</script>
+  <noscript>
+  <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=4499777&fmt=gif" /></noscript>
+</script><meta property="og:title" content="Hunting for Ursnif" /><meta property="og:description" content="Bridewell’s Cyber Threat Intelligence (CTI) team have uncovered Ursnif infrastructure that has been used in campaigns during 2023, infrastructure which has seen extremely low detection, or no detection, by security vendors. " /><meta property="og:type" content="website" /><meta property="og:url" content="https://www.bridewell.com/insights/blogs/detail/hunting-for-ursnif" /><meta property="og:image" content="https://media.bridewell.com/web/images/default-source/default-album/ursinf.jpg?sfvrsn=64e792a7_3" /><meta property="og:site_name" content="Bridewell" /><meta name="Generator" content="Sitefinity 14.2.7921.0 DX" /><link rel="canonical" href="https://www.bridewell.com/insights/blogs/detail/hunting-for-ursnif" /><meta name="description" content="Bridewell’s Cyber Threat Intelligence (CTI) team have uncovered Ursnif infrastructure that has been used in campaigns during 2023, infrastructure which has seen extremely low detection, or no detection, by security vendors. " /></head> <body class="theme-default"> <!-- Google Tag Manager (noscript) --> <noscript> <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGJCR96"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe> </noscript> <!-- End Google Tag Manager (noscript) -->  <header class="header header--blue-background"> 
+
+
+
+<!-- Hotjar Tracking Code for https://www.bridewell.com/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3339532,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<script type="text/javascript"> 
+function wc_track() {
+var els = document.querySelectorAll('iframe[src*="https://insights.bridewell.com"]')
+Array.prototype.forEach.call(els, function(el) {
+el.classList.add("wc_track");
+});
+wc_frame_target = '.wc_track';
+}
+setTimeout(function(){ wc_track(); }, 2000);
+</script>
+<script src="//scripts.iconnode.com/118800.js"></script><div class="container">
+    <div class="header__container">
+        <div class="header__navbar">
+            <div class="header__logo">
+                <div id="Header_TECEFA862029_Col00" class="sf_colsIn" data-placeholder-label="Logo Placeholder" data-sf-element="Logo Placeholder">
+    <a href="/">
+                <img loading="lazy" src="https://media.bridewell.com/web/images/default-source/logos/bridewell.svg?sfvrsn=18fdfb6b_13" title="Bridewell" alt="Bridewell Logo"
+             
+              />
+
+    </a>
+
+                </div>
+            </div>
+            <div id="Header_TECEFA862029_Col01" class="sf_colsIn header__callUs" data-placeholder-label="Call US CTA Placeholder" data-sf-element="Call US CTA Placeholder">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><a href="tel:03303110940" data-sf-ec-immutable=""><span class="sr-only">Call us</span></a></div>    
+</div>
+            </div>
+            <div class="hamburgerToggle flyout__visible" style="display: none;">
+                <div class="hamburgerToggle__icon mobileNav__toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <em class="sr-only">Toggle navigation</em>
+                </div>
+            </div>
+        </div>
+        <div class="header__menu-container navigation__outerContainer">
+            <div class="header__menu-container-inner">
+                <div id="Header_TECEFA862029_Col02" class="sf_colsIn header__main-nav" data-placeholder-label="Main Site Navigation Placeholder" data-sf-element="Main Site Navigation Placeholder">
+<nav class="primary-nav desktop" role="navigation" aria-label="Main navigation">
+    <ul class="primary-nav__list primary-nav__list--1">
+        <li class="primary-nav__item is-dropdown  is-mega">
+            <span class='primary-nav__link primary-nav__link--1 flyout__visible primary-nav__item--top'>Services</span>
+            <a href="/services" class="primary-nav__link flyout__hide primary-nav__item--top" tabindex="0">Services</a>
+    <ul class="dropdown is-mega__dropdown">
+
+                <li class="primary-nav__item is-dropdown is-mega__panel cyber-security is-mega--5-col">
+                    <a href="/cyber-security-consultancy" class="primary-nav__link flyout__hide" tabindex="0">Cyber SecurityConsultancy</a>
+    <ul class="dropdown dropdown--lower is-mega__columns">
+
+                <li class="primary-nav__item is-dropdown is-mega__columns-dropdown">
+                    <a href="/cyber-security" class="primary-nav__link flyout__hide is-mega__columns-first-item" tabindex="0">Cyber Security Services</a>
+                        <ul class="dropdown dropdown--lower is-mega__columns-item">
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/cyber-security-audit" target="_self">Cyber Security Audit</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/ncsc-certified-services" target="_self">NCSC Certified Services</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/cyber-security-risk-assessments" target="_self">Risk Assessments</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/cyber-security-risk-management" target="_self">Risk Management</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/cyber-security-architecture" target="_self">Cyber Security Architecture</a>
+            </li>
+    </ul>
+
+                    <span class="divider"></span>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__columns-dropdown">
+                    <a href="/cyber-security-frameworks" class="primary-nav__link flyout__hide is-mega__columns-first-item" tabindex="0">Cyber SecurityFrameworks</a>
+                        <ul class="dropdown dropdown--lower is-mega__columns-item">
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/iso-27001-consultancy" target="_self">ISO 27001 Consultancy</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/iso-22301-consultancy" target="_self">ISO 22301 Consultancy</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/ncsc-cyber-assessment-framework" target="_self">NCSC Cyber Assessment Framework (CAF)</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/pci-dss-consultancy" target="_self">PCI DSS Consultancy</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/iso-9001-consultancy" target="_self">ISO 9001 Consultancy</a>
+            </li>
+    </ul>
+
+                    <span class="divider"></span>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__columns-dropdown">
+                    <a href="/cyber-security-leadership" class="primary-nav__link flyout__hide is-mega__columns-first-item" tabindex="0">Cyber SecurityLeadership</a>
+                        <ul class="dropdown dropdown--lower is-mega__columns-item">
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/information-security-officer-as-a-service" target="_self">Information Security Office as a Service (ISOS)</a>
+            </li>
+    </ul>
+
+                    <span class="divider"></span>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__columns-dropdown">
+                    <a href="/cloud-security" class="primary-nav__link flyout__hide is-mega__columns-first-item" tabindex="0">Cloud Security</a>
+                        <ul class="dropdown dropdown--lower is-mega__columns-item">
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/cloud-security-posture-management" target="_self">Cloud Security Posture Assessment/Management</a>
+            </li>
+            <li class="primary-nav__item is-mega__item ">
+                <a class="primary-nav__link" href="/microsoft-cloud-security-services" target="_self">Microsoft Cloud Security Services</a>
+            </li>
+    </ul>
+
+                    <span class="divider"></span>
+                </li>
+    </ul>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__panel default is-mega--3-col">
+                    <a href="/managed-security" class="primary-nav__link flyout__hide" tabindex="0">Managed Security</a>
+    <div class="dropdown dropdown--lower is-mega__list">
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/managed-detection-and-response" target="_self">Managed Detection &amp; Response</a>              
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/cyber-threat-intelligence" target="_self">Cyber Threat Intelligence</a>              
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/security-operations-centre" target="_self">Security Operations Centre</a>
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/vulnerability-management-services" target="_self">Vulnerability Management Services</a>
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/managed-siem" target="_self">Security Information and Event Management (SIEM)</a>
+
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/digital-forensics-and-incident-response" target="_self">Digital Forensics &amp; Incident Response</a>
+
+                </li>
+        </ul>
+    </div>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__panel penetration-testing is-mega--3-col">
+                    <a href="/penetration-testing" class="primary-nav__link flyout__hide" tabindex="0">Penetration Testing</a>
+    <div class="dropdown dropdown--lower is-mega__list">
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/web-application-testing" target="_self">Web Application Testing</a>              
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/wireless-penetration-testing" target="_self">Wireless Penetration Testing</a>              
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/open-source-intelligence-osint" target="_self">Open Source Intelligence (OSINT)</a>              
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/infrastructure-penetration-testing" target="_self">Infrastructure Penetration Testing</a>
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/social-engineering-testing" target="_self">Social Engineering Testing</a>
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/red-team-assessment" target="_self">Red Team Assessment</a>
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/mobile-application-penetration-testing" target="_self">Mobile Application Penetration Testing</a>
+
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/phishing-assessments" target="_self">Phishing Assessments</a>
+
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/cloud-infrastructure-assessments" target="_self">Cloud Infrastructure Assessments</a>
+
+                </li>
+        </ul>
+    </div>
+                </li>
+                <li class="primary-nav__item is-dropdown is-mega__panel data-privacy is-mega--3-col">
+                    <a href="/data-privacy" class="primary-nav__link flyout__hide" tabindex="0">Data Privacy</a>
+    <div class="dropdown dropdown--lower is-mega__list">
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/data-privacy-consultancy" target="_self">Data Privacy Consultancy</a>              
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/gdpr-gap-analysis" target="_self">GDPR Gap Analysis&#160;</a>              
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/iso-27018-consultancy" target="_self">ISO 27018 Consultancy</a>              
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/data-privacy-audit" target="_self">Data Privacy Audit</a>
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/gdpr-data-mapping" target="_self">GDPR Data Mapping</a>
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/iso-27701-consultancy" target="_self">ISO 27701 Consultancy</a>
+                </li>
+        </ul>
+
+        <ul class="is-mega__list-column">
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/data-privacy-maturity-framework" target="_self">Data Privacy Maturity Framework</a>
+
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/dpo-as-a-service" target="_self">Data Privacy Officer as a Service&#160;</a>
+
+                </li>
+                <li class="primary-nav__item is-mega__list-item ">
+                    <a class="primary-nav__link is-mega__list-item-link" href="/cookie-consent-manager" target="_self">Cookie Consent Manager</a>
+
+                </li>
+        </ul>
+    </div>
+                </li>
+    </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown  default">
+            <span class='primary-nav__link primary-nav__link--1 flyout__visible primary-nav__item--top'>Why Bridewell?</span>
+            <a href="/why-bridewell" class="primary-nav__link flyout__hide primary-nav__item--top" tabindex="0">Why Bridewell?</a>
+    <ul class="dropdown">
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/about-us" target="_self">About Us</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/why-bridewell/case-studies" target="_self">Case Studies</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/careers" target="_self">Careers</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/why-bridewell/armed-forces-community" target="_self">Armed Forces Community</a>
+            </li>
+    </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown active default">
+            <span class='primary-nav__link primary-nav__link--1 flyout__visible primary-nav__item--top'>Insights</span>
+            <a href="/insights" class="primary-nav__link flyout__hide primary-nav__item--top" tabindex="0">Insights</a>
+    <ul class="dropdown">
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/insights/blogs" target="_self">Blogs</a>
+            </li>
+            <li class="primary-nav__item active">
+                <a class="primary-nav__link" href="/insights/news" target="_self">News</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/caf-connect-series" target="_self">CAF Connect&#160;</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/insights/webinars" target="_self">Webinars</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/insights/white-papers" target="_self">Whitepapers</a>
+            </li>
+    </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown  default">
+            <span class='primary-nav__link primary-nav__link--1 flyout__visible primary-nav__item--top'>Events</span>
+            <a href="/events-hub" class="primary-nav__link flyout__hide primary-nav__item--top" tabindex="0">Events</a>
+    <ul class="dropdown">
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/events-hub/webinars" target="_self">Webinars</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/events" target="_self">In Person Events</a>
+            </li>
+            <li class="primary-nav__item ">
+                <a class="primary-nav__link" href="/cni-summit" target="_self">CNI Cyber Security Summit 2024</a>
+            </li>
+    </ul>
+        </li>
+    </ul>
+</nav>
+
+<nav class="primary-nav mobile" role="navigation" aria-label="Main navigation">
+    <ul class="primary-nav__list primary-nav__list--1">
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Services</span>
+            <a href="/services" class="primary-nav__link flyout__hide" tabindex="0">Services</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Cyber SecurityConsultancy</span>
+            <a href="/cyber-security-consultancy" class="primary-nav__link flyout__hide" tabindex="0">Cyber SecurityConsultancy</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Cyber Security Services</span>
+            <a href="/cyber-security" class="primary-nav__link flyout__hide" tabindex="0">Cyber Security Services</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cyber-security-audit">Cyber Security Audit</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/ncsc-certified-services">NCSC Certified Services</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cyber-security-risk-assessments">Risk Assessments</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cyber-security-risk-management">Risk Management</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cyber-security-architecture">Cyber Security Architecture</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Cyber SecurityFrameworks</span>
+            <a href="/cyber-security-frameworks" class="primary-nav__link flyout__hide" tabindex="0">Cyber SecurityFrameworks</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/iso-27001-consultancy">ISO 27001 Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/iso-22301-consultancy">ISO 22301 Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/ncsc-cyber-assessment-framework">NCSC Cyber Assessment Framework (CAF)</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/pci-dss-consultancy">PCI DSS Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/iso-9001-consultancy">ISO 9001 Consultancy</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Cyber SecurityLeadership</span>
+            <a href="/cyber-security-leadership" class="primary-nav__link flyout__hide" tabindex="0">Cyber SecurityLeadership</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/information-security-officer-as-a-service">Information Security Office as a Service (ISOS)</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Cloud Security</span>
+            <a href="/cloud-security" class="primary-nav__link flyout__hide" tabindex="0">Cloud Security</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cloud-security-posture-management">Cloud Security Posture Assessment/Management</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/microsoft-cloud-security-services">Microsoft Cloud Security Services</a>
+        </li>
+            </ul>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Managed Security</span>
+            <a href="/managed-security" class="primary-nav__link flyout__hide" tabindex="0">Managed Security</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/managed-detection-and-response">Managed Detection &amp; Response</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/security-operations-centre">Security Operations Centre</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/managed-siem">Security Information and Event Management (SIEM)</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cyber-threat-intelligence">Cyber Threat Intelligence</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/vulnerability-management-services">Vulnerability Management Services</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/digital-forensics-and-incident-response">Digital Forensics &amp; Incident Response</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Penetration Testing</span>
+            <a href="/penetration-testing" class="primary-nav__link flyout__hide" tabindex="0">Penetration Testing</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/web-application-testing">Web Application Testing</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/infrastructure-penetration-testing">Infrastructure Penetration Testing</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/mobile-application-penetration-testing">Mobile Application Penetration Testing</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/wireless-penetration-testing">Wireless Penetration Testing</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/social-engineering-testing">Social Engineering Testing</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/phishing-assessments">Phishing Assessments</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/open-source-intelligence-osint">Open Source Intelligence (OSINT)</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/red-team-assessment">Red Team Assessment</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cloud-infrastructure-assessments">Cloud Infrastructure Assessments</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Data Privacy</span>
+            <a href="/data-privacy" class="primary-nav__link flyout__hide" tabindex="0">Data Privacy</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/data-privacy-consultancy">Data Privacy Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/data-privacy-audit">Data Privacy Audit</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/data-privacy-maturity-framework">Data Privacy Maturity Framework</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/gdpr-gap-analysis">GDPR Gap Analysis&#160;</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/gdpr-data-mapping">GDPR Data Mapping</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/dpo-as-a-service">Data Privacy Officer as a Service&#160;</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/iso-27018-consultancy">ISO 27018 Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/iso-27701-consultancy">ISO 27701 Consultancy</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cookie-consent-manager">Cookie Consent Manager</a>
+        </li>
+            </ul>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Why Bridewell?</span>
+            <a href="/why-bridewell" class="primary-nav__link flyout__hide" tabindex="0">Why Bridewell?</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/about-us">About Us</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/why-bridewell/case-studies">Case Studies</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/careers">Careers</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/why-bridewell/armed-forces-community">Armed Forces Community</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Insights</span>
+            <a href="/insights" class="primary-nav__link flyout__hide" tabindex="0">Insights</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/insights/blogs">Blogs</a>
+        </li>
+        <li class="primary-nav__item active">
+            <a class="primary-nav__link" href="/insights/news">News</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/caf-connect-series">CAF Connect&#160;</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/insights/webinars">Webinars</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/insights/white-papers">Whitepapers</a>
+        </li>
+            </ul>
+        </li>
+        <li class="primary-nav__item is-dropdown">
+            <span class='primary-nav__link flyout__visible primary-nav__item--top'>Events</span>
+            <a href="/events-hub" class="primary-nav__link flyout__hide" tabindex="0">Events</a>
+            <ul class="dropdown dropdown--lower">
+
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/events-hub/webinars">Webinars</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/events">In Person Events</a>
+        </li>
+        <li class="primary-nav__item ">
+            <a class="primary-nav__link" href="/cni-summit">CNI Cyber Security Summit 2024</a>
+        </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+       
+                <div class="faded-line__container">
+                    <hr class="faded-line" />
+                </div>
+                <div class="header__top-row-grid-wrapper">
+                    <div id="Header_TECEFA862029_Col03" class="header__secondary-links sf_colsIn" data-placeholder-label="Secondary Links Placeholder" data-sf-element="Secondary Links Placeholder">
+                    </div>
+                    <div id="Header_TECEFA862029_Col04" class="header__incident sf_colsIn" data-placeholder-label="Incident Response Placeholder" data-sf-element="Incident Response Placeholder">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><a href="/24x7-incident-response">24/7 Incident Response</a></div>    
+</div>
+                    </div>
+                    <div id="Header_TECEFA862029_Col05" class="header__language-selector sf_colsIn" data-placeholder-label="Language Selector Placeholder" data-sf-element="Language Selector Placeholder">
+                    </div>
+                </div>
+                <div id="Header_TECEFA862029_Col06" class="sf_colsIn header__contact" data-placeholder-label="Contact CTA Placeholder" data-sf-element="Contact CTA Placeholder">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><a class="btn btn-primary btn-small" href="/contact-us">Contact Us</a><a data-sf-ec-immutable=""></a></div>    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ </header> <div class="sfPublicWrapper main-content" id="PublicWrapper"> 
+
+
+<div class="hero-banner hero-banner--small article-detail">
+
+    
+        <img class="hero-banner__image img-fluid" src='https://media.bridewell.com/web/images/default-source/default-album/cti-bannerf1abe133-2cfc-41be-b4a1-93742d30d6c7.jpg?sfvrsn=ca1c1981_1' alt='CTI Banner' title='CTI Banner' />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-10 col-lg-9 hero-banner__overlay">
+                <div class="hero-banner__heading-container">
+                        <h1 class="hero-banner__heading" >
+                            Hunting for Ursnif
+                        </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<div class="breadcrumb__container" data-sf-element="Row">
+    <div id="Body_C017_Col00" class="sf_colsIn" data-sf-element="Column 1" data-placeholder-label="Column 1"><div id="Body_C006_Col00" class="sf_colsIn container article-banner" data-sf-element="Container" data-placeholder-label="Container"><div class="row" data-sf-element="Row">
+    <div id="Body_C011_Col00" class="sf_colsIn col-lg-7" data-sf-element="Column 1" data-placeholder-label="Column 1">
+<div class="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" class="breadcrumb__link" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="/" ><span itemprop="name">Home</span></a><meta itemprop="position" content="0"/></li>
+                    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/insights" class="breadcrumb__link" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="/insights" ><span itemprop="name">Insights</span></a><meta itemprop="position" content="1"/></li>
+                    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/insights/news" class="breadcrumb__link" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="/insights/news" ><span itemprop="name">News</span></a><meta itemprop="position" content="2"/></li>
+                    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="" class="breadcrumb__link" itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="" ><span itemprop="name">Hunting for Ursnif</span></a><meta itemprop="position" content="3"/></li>
+        </ol>
+    </div>
+</div>
+    </div>
+    <div id="Body_C011_Col01" class="sf_colsIn col-lg-5" data-sf-element="Column 2" data-placeholder-label="Column 2">
+
+<div class="insights-detail__social-share">
+    <span class="socialShare__title">Share this insight:</span>
+    <ul>
+        <li>
+            <a class="socialShare__link icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_blank" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-twitter" href="https://twitter.com/share?u=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_blank" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-mail" href="mailto:?subject=Bridewell - Hunting for Ursnif&amp;body=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_self" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_self" rel="external"></a>
+        </li>
+    </ul>
+</div>
+
+
+    </div>
+</div>
+
+</div>
+
+    </div>
+</div>
+<section class="section section--primary" data-sf-element="Section" data-placeholder-label="Section Primary">
+        <div id="Body_C010_Col00" class="sf_colsIn container"><div class="row" data-sf-element="Row">
+    <div id="Body_C002_Col00" class="sf_colsIn col-lg-9" data-sf-element="Column 1" data-placeholder-label="Column 1">
+
+<div class="insights-detail">
+    <h2 class="insights-detail__summary">
+        
+    </h2>
+    <div class="insights-detail__content">
+        <p>Bridewell’s Cyber Threat Intelligence (CTI) team have uncovered Ursnif infrastructure that has been used in campaigns during 2023, infrastructure which has seen extremely low detection, or no detection, by security vendors. Our team believe that this infrastructure has yet to be used by the operators of the Ursnif malware. This infrastructure can be linked together by the unique attributes of the C2 servers used by the operators, predominantly the SSL certificates. This report details the hunting process conducted by Bridewell CTI to uncover the Ursnif infrastructure.</p><p><a href="#form" data-sf-ec-immutable="" class="btn-primary">Sign up to get instant Threat Intelligence Alerts</a></p><p>&nbsp;</p><h3>What is Ursnif? </h3><p>Ursnif, or also known as Gozi, is a backdoor that was previously developed as a banking trojan which has had many forks and variants released over the years but now, following suit with other malware such as Emotet and Trickbot, focuses on facilitating ransomware and data exfiltration. The latest variant of Ursnif, known as LDR4, was first observed in June 2022 by Mandiant[1].</p><p>Recent Campaigns In January 2023, the DFIR report  [2] documented an intrusion into an environment that begun with Urnsnif as the backdoor, that lead to the deployment of Cobalt Strike and ended with Data Exfiltration. Additionally, the threat actor used the legitimate RMM tools Atera and Splashtop. Ursnif was delivered in this instance via a malicious ISO file in a phishing email to an end user. In March 2023, esentire reported on BatLoader dropping various second-stage payloads as part of a Google Ads campaign masquerading as popular tools such as Adobe Reader, Zoom and ChatGPT. The dropper would pull down payloads such as Redline information stealer as well as Ursnif. This activity was also followed up with Cobalt Strike in enterprise environments to facilitate further intrusion activity.</p><p>During 2023, there have been different documented initial access methods used to deploy Ursnif in to victim environments, such as through target phishing or malicious advertisements. Customers should be aware of this threat currently being used by threat groups to collate and exfiltrate data and support further payload delivery such as Cobalt Strike. Royal ransomware group, first observed in June 2022, have made frequent use of Ursnif to support data aggregation activities during their intrusions. This ransomware group is a financially motivated criminal group that has compromised multiple industry sectors including Critical National Infrastructure.</p><p>&nbsp;</p><h3>Executive Summary </h3><p>As a result of our intelligence collection and analysis we identified 72 command and control servers associated with Ursnif malware, from our threat research the following points can be made: </p><ul><li>23 of the 72 servers contained evidence of the Ursnif malware connecting to them. </li><li>6 are yet to be identified as Ursnif C2 servers. </li><li>Detection remains extremely low with an average of 4.78 vendors detecting the C2 servers. </li><li>49 servers remain without any communicating files but match the Bridewell hunt rule. </li></ul><div><br clear="all"><div id="ftn1"><p><a href="https://bridewellconsulting-my.sharepoint.com/personal/joshua_penny_bridewell_com/Documents/Microsoft%20Teams%20Chat%20Files/20230509-Ursnif_blog.docx#_ftnref1" name="_ftn1" title="" data-sf-ec-immutable=""></a>[1] https://www.mandiant.com/resources/blog/rm3-ldr4-ursnif-banking-fraud&nbsp;</p></div><div id="ftn2"><p>[2] https://thedfirreport.com/2023/01/09/unwrapping-ursnifs-gifts/</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/royal-ransomware.jpg?sfvrsn=e577dd6a_1" alt="Royal ransomware"></p><h3>Key Takeaways</h3><p>In March 2023, America’s Cybersecurity &amp; Infrastructure Security Agency published as report on the Royal Ransomware group stating that Royal uses: </p><p>“…malware tools and derivatives, such as Ursnif/Gozi, for data aggregation and exfiltration.”</p><p>Royal Ransomware has been a prominent ransomware threat against global organisations since September 2022, regularly posting victims across multiple sector verticals to their leak site each month. Below is a graph detailing the total number per month. Ursnif is a tool utilised by the group during their intrusions and provided Cyber Threat Intelligence teams an opportunity to identify and track command and control infrastructure linked to this malware.</p><p>The use of Ursnif in their attack chain makes Ursnif a malware family worth hunting for, as such this report details the findings of the hunting activity conducted by Bridewell CTI.</p><p>&nbsp;</p><h3>Ursnif Hunt Process</h3><p>Our research began when analysing some relatively new Ursnif IP addresses published by other security researchers. After conducting analysis, we observed notable features that could be leveraged to hunt for new IP addresses in the wild. The Ursnif IP addresses in question were communicating with C2 servers which had an SSL certificate with the following noticeable attributes: the issuer and subject fields. </p><p>SSL Certificate Issuer: C=XX, ST=1, L=1, O=1, OU=1, CN=* </p><p>SSL Certificate Subject: C=XX, ST=1, L=1, O=1, OU=1, CN=*&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/ssl-certificate.png?sfvrsn=388a7d14_3" alt="SSL Certificate"></p><p>&nbsp;</p><p>Figure 1. Example Ursnif SSL certificate</p><p>Working with this and other features that can be fingerprinted, we were able to identify 72 further servers of interest which matched our new Ursnif hunt rule.&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/total-results.png?sfvrsn=8bf030d9_2" alt="Total Results"></p><p>&nbsp;</p><p>Figure 2. Shodan Results for the Bridewell Ursnif Hunt Rule</p><p>&nbsp;</p><h3>Hosting Infrastructure </h3><p>Looking at the 72 servers, we can identify where they are geographically hosted and by which hosting providers: </p><p>Geographical Distribution - Top 3: Germany, Netherlands, Russia&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/geo-distrution.jpg?sfvrsn=aa91b18a_2" alt="Geo distrution"></p><p>Figure 3. Geographical distribution of Ursnif C2 servers</p><p>Hosting Provider - Top 3: servinga GmbH, Datasource AG, GleSYS AB.</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/hosting-provider-distribution.jpg?sfvrsn=fc589d06_2" alt="Hosting provider distribution"></p><p>Figure 4. Hosting provider distribution of Ursnif C2 servers</p><p>In a report by Mandiant last year, they provided indicators of Ursnif C2’s hosted on the ISP Stark Industries Solutions Limited, however it would appear now that the operators of Ursnif have completely migrated from this ISP and diversified amongst many ISPs, who have been associated with many other malware C2s.&nbsp;</p><p>&nbsp;</p><h3>Analysing the C2s</h3><p>After analysing the 23 Ursnif C2 servers that have Ursnif communicating files, 6 have Ursnif files communicating but remain unreported and undetected as Ursnif C2’s by Security vendors (at the time of writing this report): </p><p>95[.]46[.]8[.]157 </p><p>193[.]164[.]149[.]143 </p><p>79[.]133[.]124[.]62 </p><p>45[.]11[.]181[.]117 </p><p>92[.]38[.]169[.]142 </p><p>31[.]214[.]157[.]31 </p><p>---</p><p>We decided to investigate the IP addresses to understand whether the hunt rule was capturing Ursnif C2s and identifying other pivoting opportunities to enhance our hunt rules by looking at associated domains and hardcoded IPs communicating samples. </p><p>The most recently scanned IP in Shodan: 31.214.157[.]31 - Scanned 2023-04-30. </p><p style="margin-left: 30px">Virus Total Detections: 2/87 </p><p>Analysing this IP in Virus Total, we can see two communicating files of Interest: </p><p>2023-04-12 - 112b84b09d2051376879f697f03190240132b87bbac0d069175bd3039d492f56</p><p>&nbsp;</p><p>2023-03-18 - 282856a51245496390e8c06ed9fa3dff6171aabffa6132dec93a9b4a30b1e524 - MSICBE.tmp </p><p>Looking at MSICBE.tmp: </p><p style="margin-left: 30px">Virus Total Detections: 21/69 </p><p>After pivoting around in VT, we can see the file’s execution parent looks to be a malicious version of LibreOffice, 6ae710.msi. </p><p style="margin-left: 30px">Virus Total Detections: 3/41 </p><p>The sample is configured to also beacon to IP 185.189.151[.]38 (tagged as ISFB by ThreatFox). This IP does not appear to be active anymore (not captured by our hunt rule), however by inspecting the scan history in Shodan we can see that the SSL cert with the same attributes matches our hunt rule in Jan 2023. </p><p>MSICBE.tmp also pulls down a DLL file: </p><p>(c.dll - 2d0f416aa030af708506fea815d4b268ba5a3bdd4680485a65c4cb112bc2ba7d) from 146.70.158[.]105. </p><p style="margin-left: 30px">Virus Total Detections: 1/88 </p><p>Sample “92f56” also communicates with the same IP addresses.&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/graph.jpg?sfvrsn=28c44a24_1" alt="Graph"></p><p>Figure 5. Relationship graph of Ursnif samples communicating with 185.189.151[.]38</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/internet-wizard-installation-7.3.7.2.jpg?sfvrsn=7752dc47_1" alt="Internet Wizard Installation 7.3.7.2"></p><p>&nbsp;</p><p>Figure 6. Installation of malicious LibreOffice file</p><p>&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/malicious-sandboxes.jpg?sfvrsn=a9e9c1bc_1" alt="Malicious sandboxes"></p><p>&nbsp;</p><p>Figure 7. Virus Total Results for LibreOffice file.</p><p>Next on our result list was 31.214.157[.]160 - hosted on servinga GmbH, which was identified by Virus Total as Ursnif. From this we were able to pivot to a new hunt rule to identify additional unreported Ursnif C2 servers. This IP has a single .dll file called fxplugins.dll, communicating with it. </p><p style="margin-left: 30px">Virus Total Detections: 5/89</p><p><strong>This file has connection attempts to the following IP addresses:</strong> </p><p>176.10.111[.]111 </p><p>176.10.111[.]167 </p><p>176.10.111[.]173 </p><p>176.10.111[.]233 </p><p>31.214.157[.]160</p><p>&nbsp;</p><p>Several of these IP addresses are not captured by our current rule and to understand why, we built another hunt rule, this time pivoting from 176.10.111[.]167 using additional HTTP header information: </p><p>The results of this hunt: 55 servers </p><p>After deduplicating results against our first hunt rule, we are left with 7 servers that were not caught by the initial SSL hunt rule. This new rule also captures 176.10.111[.]111, one of the C2s used by the fxplugins.dll. </p><p><strong>The new IP addresses:</strong> </p><p>176[.]10[.]111[.]111 </p><p>91[.]241[.]93[.]152 </p><p>77[.]91[.]86[.]116 </p><p>45[.]147[.]200[.]47 </p><p>62[.]3[.]58[.]57 </p><p>45[.]155[.]250[.]55 </p><p>92[.]38[.]169[.]142 </p><p>&nbsp;</p><p><strong>Looking at these results further:</strong> </p><p>45.147.200[.]47 ← resolved from domains www.gameindikdowd[.]ru and jhgfdlkjhaoiu[.]su</p><p style="margin-left: 30px">Virus Total Detections: 1/87 </p><p>The first domain has been tagged as ISFB.</p><p>Pivoting off the domain, gameindikdowd[.]ru we can see numerous files that have recently used it for C2 traffic.&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/communicating-files.jpg?sfvrsn=75e61269_1" alt="Communicating files"></p><p>&nbsp;</p><p>Figure 8. Ursnif communicating files</p><p>Looking at two recent files, control.exe (2023-04-04) and BethesdaNetHelper.exe (2023-03-07), we can identify additional domains used for C2 communications, including any active IP addresses that may not be detected by our hunt rules. </p><p>control.exe </p><p>gameindikdowd[.]ru </p><p>jhgfdlkjhaoiu[.]su </p><p>reggy505[.]ru - 109.94.209[.]203 </p><p>Part of malicious AnyDesk campaign:</p><p>uelcoskdi[.]ru - 45.130.147[.]89 - caught by hunt rule</p><p>BethesdaNetHelper.exe</p><p>gameindikdowd.ru </p><p>iujdhsndjfks[.]ru - 45.130.147[.]89 - caught by hunt rule</p><p>reggy505[.]ru - 109.94.209[.]203</p><p>jhgfdlkjhaoiu[.]su, iujdhsndjfks[.]ru, gameindikdowd.ru domains are all referenced by esentire in their report. Additionally, the above screenshot aligns to the reference of a control.exe that is downloaded and decrypted by the BATLOADER malware in recent campaigns. </p><p>Apart from a single IP address, we were able to verify that we are capturing all the IP addresses resolved by these domains and can link these back to activity reported in open source. </p><p>Another example of an Ursnif C2 yet to be detected by most antivirus providers is 92.38.169[.]142: </p><p style="margin-left: 30px">Virus Total Detection: 1/87</p><p>A single communicating file called glcheck.exe has been detected as Ursnif on 2023-02-13 and 2023-04-04 - detected as Ursnif. </p><p style="margin-left: 30px">Virus Total Detection: 38/70</p><p>The file also communicates with 185.186.245[.]42 (captured by our hunt rule):</p><p style="margin-left: 30px">Virus Total Detection: 1/87</p><p>Which has the following domains resolving to it: </p><p>s28bxcw[.]xyz </p><p>8hak4j[.]xyz </p><p>dc3txd[.]xyz </p><p>2hrbjc[.]xyz </p><p>5icvzwz[.]xyz </p><p>These domains also have other IP addresses used for redundancy which are also captured by our hunt rule. 95.46.8[.]157 resolved by dantedbkoosov[.]site (3/87 VT) ← 361E.exe (58/70 VT, 2023-04-04) Detected as Ursnif (Product: Letasoft Sound Booster):</p><p style="margin-left: 30px">Virus Total Detection: 1/87</p><p>&nbsp;</p><h3>Findings</h3><p>Results After conducting our analysis, just under 30% of the infrastructure detected our two hunt rules have files communicating with them that have been detected as Ursnif. Of the infrastructure identified as Ursnif C2’s due to the communicating files, the average detection rate by security vendors in Virus Total is just 4.78. 71.3% of the IP addresses currently have no communicating files. Based on the similarities in shared attributes and hosting providers, we believe there is high likelihood that these IP addresses will be used in the future by Ursnif operators.&nbsp;</p><p><img src="https://media.bridewell.com/web/images/default-source/default-album/count-of-c2s-detected.jpg?sfvrsn=30e23844_1" height="266" width="424" alt="Count of C2s detected"></p><p>Figure 9. Proportion of identified servers having Ursnif-detected communicating files</p><p>&nbsp;</p><img src="https://media.bridewell.com/web/images/default-source/default-album/vt-detections.jpg?sfvrsn=f8125f85_1" height="312" width="508" alt="VT Detections"><p>&nbsp;</p><div><p>Figure 10. AV Detection rates of Ursnif C2 servers in Virus Total</p><p>&nbsp;</p><h3>Conclusion </h3><p>Ursnif is a backdoor that is used by threat actors in campaigns that lead to ransomware and data exfiltration, posing a viable risk to organisations. The malware is delivered via malicious documents such as macro-enabled office docs or via malicious installers downloaded via Google Ad campaigns. </p><p>Bridewell proactively searches for Ursnif C2 infrastructure to protect their customer environments from threats by using a proactive research driven threat intelligence approach to security. As a result, Bridewell CTI provides valuable insight in to our SOC service whilst improving customer’s security postures at both a strategic, operational and tactical level.</p><p>Ursnif is a longstanding malware that has pivoted from banking trojan to facilitating ransomware intrusions, particular for the Royal ransomware group. This malware communicates to C2 infrastructure, allowing CTI teams to track the operators usage, allowing defenders to respond in a timely manner to any detections within customer environments. Detecting these C2’s provides an opportunity to mitigate the impact of ransomware intrusions before its too late.</p><p>&nbsp;</p><h3>Mitigation Strategies</h3><p>To safeguard your organisation against Ursnif and similar threats, it is essential to: </p><p>Educate employees about the risks of opening attachments from unknown or suspicious senders. <br></p><p>Ensure that you have a robust application control policy that limits the execution of unauthorised applications from untrusted sources. <br></p><p>Ensure that your organisation uses updated antivirus software and firewalls to detect and prevent Ursnif infections. <br></p><p>Search for the Indicators of Compromise (IoCs) listed in the appendix and set up reference sets for detection within your organisation's security tools. <br></p><p>Implement a Managed Detection and Response (MDR) service to proactively monitor, detect, and respond to threats targeting your organisation. <br></p><p>Leverage a Vulnerability Management service to identify and support remediation of security weaknesses within your organisation's network and systems. <br></p><p>Incorporate a Cyber Threat Intelligence (CTI) services to stay informed of emerging threats and obtain tailored intelligence to enhance your organisation's cybersecurity posture. </p><p>&nbsp;</p></div><br clear="all"><h3>Appendix 1 – References</h3><p>https://www.blackberry.com/us/en/solutions/endpoint-security/ransomware-protection/ursnif </p><p>https://www.mandiant.com/resources/blog/rm3-ldr4-ursnif-banking-fraud </p><p>https://thedfirreport.com/2023/01/09/unwrapping-ursnifs-gifts/ </p><p>https://www.esentire.com/blog/batloader-continues-to-abuse-google-search-ads-to-deliver-vidar-stealer-and-ursnif </p><p>&nbsp;</p><h2>Appendix 2 – Indicators</h2><h3>C2 IPs</h3><p>176[.]10[.]111[.]111</p><p>79[.]132[.]132[.]216</p><p>185[.]212[.]44[.]83</p><p>95[.]46[.]8[.]157</p><p>45[.]155[.]249[.]200</p><p>77[.]73[.]131[.]105</p><p>176[.]10[.]111[.]112</p><p>185[.]212[.]47[.]59</p><p>185[.]212[.]44[.]146</p><p>45[.]155[.]250[.]217</p><p>37[.]10[.]71[.]114</p><p>91[.]242[.]217[.]113</p><p>176[.]10[.]111[.]119</p><p>91[.]241[.]93[.]152</p><p>45[.]11[.]183[.]24</p><p>94[.]247[.]42[.]238</p><p>185[.]186[.]244[.]168</p><p>77[.]91[.]86[.]116</p><p>31[.]214[.]157[.]160</p><p>79[.]133[.]180[.]95</p><p>185[.]18[.]55[.]106</p><p>109[.]230[.]199[.]174</p><p>91[.]242[.]219[.]237</p><p>45[.]147[.]200[.]47</p><p>45[.]155[.]249[.]47</p><p>45[.]155[.]249[.]49</p><p>176[.]10[.]125[.]84</p><p>194[.]58[.]97[.]42</p><p>194[.]76[.]224[.]223</p><p>185[.]212[.]44[.]76</p><p>91[.]242[.]217[.]71</p><p>185[.]158[.]248[.]100</p><p>109[.]230[.]199[.]110</p><p>170[.]130[.]55[.]65</p><p>79[.]132[.]134[.]158</p><p>79[.]132[.]135[.]249</p><p>194[.]76[.]225[.]141</p><p>194[.]76[.]224[.]95</p><p>91[.]242[.]217[.]120</p><p>91[.]242[.]219[.]235</p><p>176[.]10[.]111[.]160</p><p>62[.]3[.]58[.]57</p><p>185[.]186[.]245[.]42</p><p>45[.]155[.]250[.]55</p><p>176[.]10[.]118[.]153</p><p>176[.]10[.]119[.]217</p><p>79[.]133[.]124[.]62</p><p>45[.]130[.]147[.]89</p><p>194[.]76[.]225[.]88</p><p>185[.]90[.]162[.]33</p><p>185[.]186[.]244[.]108</p><p>92[.]38[.]169[.]142</p><p>31[.]214[.]157[.]31</p><p>109[.]230[.]199[.]248</p><p>109.94.209[.]203</p><p>176[.]10[.]111[.]111</p><p>91[.]241[.]93[.]152</p><p>77[.]91[.]86[.]116</p><p>45[.]147[.]200[.]47</p><p>62[.]3[.]58[.]57</p><p>45[.]155[.]250[.]55</p><p>92[.]38[.]169[.]142</p><p>&nbsp;</p><h3>Domains</h3><p>s28bxcw[.]xyz</p><p>8hak4j[.]xyz</p><p>dc3txd[.]xyz</p><p>2hrbjc[.]xyz</p><p>5icvzwz[.]xyz</p><p>gameindikdowd[.]ru</p><p>jhgfdlkjhaoiu[.]su</p><p>reggy505[.]ru</p><p>iujdhsndjfks[.]ru</p><p>reggy505[.]ru</p><p>jhzzj3[.]xyz</p><p>&nbsp;</p></div><a id="form" data-sf-ec-immutable=""><h3 style="text-align: left">Register for instant alerts to Bridewell threat advisories or to speak with a member of our Cyber Threat Intelligence team.</h3></a><iframe src="https://go.insight.bridewellconsulting.com/l/838563/2023-03-02/8g9kv" width="100%" height="800px" type="text/html" sandbox="allow-forms allow-scripts allow-same-origin"></iframe><p>&nbsp;</p></div>
+    </div>
+        <div class="insights-sales-cta">
+            <p><strong>Author </strong></p><p>Joshua Penny<strong></strong></p><p>Senior Threat Intelligence Analyst<br></p><a href="https://www.linkedin.com/in/joshua-penny-50578b105/" data-sf-ec-immutable="" data-sf-marked="">Linkedin</a>
+        </div>
+
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Article",
+  "name": "Hunting for Ursnif",
+  "headline": "Hunting for Ursnif",
+  "description": "",
+    "datePublished": "18 December 2023",
+    "author":"Joshua Penny"
+}
+</script>
+
+<div class="insights-detail__social-share">
+    <span class="socialShare__title">Share this insight:</span>
+    <ul>
+        <li>
+            <a class="socialShare__link icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_blank" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-twitter" href="https://twitter.com/share?u=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_blank" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-mail" href="mailto:?subject=Bridewell - Hunting for Ursnif&amp;body=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_self" rel="external"></a>
+        </li>
+        <li>
+            <a class="socialShare__link icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.bridewell.com/insights/news/detail/hunting-for-ursnif" target="_self" rel="external"></a>
+        </li>
+    </ul>
+</div>
+
+
+    </div>
+    <div id="Body_C002_Col01" class="sf_colsIn col-lg-3" data-sf-element="Column 2" data-placeholder-label="Column 2">
+    <div class="article-author-card">
+        <div class="card">
+                <img class="card-img-top" src="https://media.bridewell.com/web/images/default-source/default-album/joshua-penny-(2).jpg?sfvrsn=4c6fcb96_1" alt='Joshua-Penny (2)' title='Joshua-Penny (2)' />
+            <div class="card-body">
+                <h5 class="card-title">Author</h5>
+                <h5 class="card-subtitle">Joshua Penny</h5>
+                <h5 class="card-jobtitle">Senior Threat Intelligence Analyst</h5>
+                <p class="card-text">Joshua Penny is a Senior Threat Intelligence Analyst with 5 years’ experience working within CTI at Bridewell and previously within the education and research Sector.</p>
+            </div>
+        </div>
+    </div>
+
+<div >
+    <div class="sfContentBlock sf-Long-text" ><div class="accordion accordion--article" id="accordionExample"><div class="card"><div class="card-header" id="headingOne"><h5 class="mb-0"><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">Content Types
+                </button></h5></div><div id="collapseOne" class="collapse show" data-parent="#accordionExample"><div class="card-body"><a href="/insights/news">News</a>
+ <a href="/insights/blogs">Blogs</a>
+ <a href="/insights/press">Press Release</a>
+ <a href="/insights/webinars">Webinars</a>
+ <a href="/insights/white-papers">Whitepapers</a>
+ </div></div></div></div></div>    
+</div>
+<div >
+    <div class="sfContentBlock sf-Long-text" ><div class="accordion accordion--article" id="accordion-contentTopics"><div class="card"><div class="card-header" id="accordion-contentTopicsHeading"><h5 class="mb-0"><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordion-contentTopicsBody">Topics
+ </button></h5></div><div id="accordion-contentTopicsBody" class="collapse show" data-parent="#accordion-contentTopics"><div class="card-body"><a href="/insights?filterby-insightstopics=ai">AI</a>
+ <a href="/insights?filterby-insightstopics=awards">Awards</a>
+ <a href="/insights?filterby-insightstopics=malware">Malware</a>
+ <a href="/insights?filterby-insightstopics=phishing">Phishing</a>
+ </div></div></div></div></div>    
+</div>
+    </div>
+</div>
+</div>
+</section>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGJCR96"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --> </div> <footer class="footer"> 
+<div class="container">
+    <div class="row justify-content-md-between">
+        <div id="Footer_T1E463583001_Col00" class="footer__logo col-xs-12 col-sm-6 col-md-3 sf_colsIn" data-sf-element="Footer Primary Logo" data-placeholder-label="Footer Primary Logo">
+
+        <img loading="lazy" src="https://media.bridewell.com/web/images/default-source/logos/investors-in-people-silver.svg?sfvrsn=a5ea5710_5" title="secondary-footer-logo" alt=""
+         
+          />
+</div>
+        <div id="Footer_T1E463583001_Col01" class="footer__logo col-xs-12 col-sm-6 col-md-3 sf_colsIn" data-sf-element="Footer Secondary Logo" data-placeholder-label="Footer Secondary Logo">
+
+        <img loading="lazy" src="https://media.bridewell.com/web/images/default-source/logos/bridewell.svg?sfvrsn=18fdfb6b_13" title="logo" alt=""
+         
+          />
+</div>
+    </div>
+    <div id="Footer_T1E463583001_Col02" class="footer__links sf_colsIn" data-sf-element="Footer Links" data-placeholder-label="Footer Links"><div class="row" data-sf-element="Row">
+    <div id="Footer_T1E463583004_Col00" class="sf_colsIn col-lg-3" data-sf-element="Column 1" data-placeholder-label="Column 1">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><h2 class="h4">Services</h2></div>    
+</div><nav class="footer__nav" role="navigation" aria-label="Main navigation">
+    <ul class="footer__nav-list">
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/cyber-security" target="_self">Cyber Security Services</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/managed-security" target="_self">Managed Security</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/penetration-testing" target="_self">Penetration Testing</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/data-privacy" target="_self">Data Privacy</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+    </div>
+     <div id="Footer_T1E463583004_Col01" class="sf_colsIn col-lg-3" data-sf-element="Column 2" data-placeholder-label="Column 2">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><h2>About Us</h2></div>    
+</div><nav class="footer__nav" role="navigation" aria-label="Main navigation">
+    <ul class="footer__nav-list">
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/services" target="_self">Services</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/why-bridewell" target="_self">Why Bridewell?</a>
+        </li>
+        <li class="footer__nav-item active">
+            <a class="footer__nav-link" href="/insights" target="_self">Insights</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/careers" target="_self">Careers</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+    </div>
+     <div id="Footer_T1E463583004_Col02" class="sf_colsIn col-lg-3" data-sf-element="Column 3" data-placeholder-label="Column 3">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><h2>Legal</h2></div>    
+</div><nav class="footer__nav" role="navigation" aria-label="Main navigation">
+    <ul class="footer__nav-list">
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/privacy-policy" target="_self">Privacy Policy</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/cookie-policy" target="_self">Cookie Policy</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/terms-of-use" target="_self">Terms of Use</a>
+        </li>
+        <li class="footer__nav-item ">
+            <a class="footer__nav-link" href="/sitemap" target="_self">Sitemap</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+    </div>
+     <div id="Footer_T1E463583004_Col03" class="sf_colsIn col-lg-3" data-sf-element="Column 4" data-placeholder-label="Column 4">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><h2>Contact Us</h2></div>    
+</div>
+<div >
+    <div class="sfContentBlock sf-Long-text" ><div class="footer__social-links"><p><a href="tel:+44 (0)3303 110 940" class="footer__social-links--phone" data-sf-ec-immutable="">+44 (0)3303 110 940</a></p><p><a class="footer__social-links--mail" href="mailto:hello@bridewell.com">hello@bridewell.com</a></p><div class="d-flex justify-content-start align-items-center"><a href="https://uk.linkedin.com/company/bridewellsec" class="footer__social-links--linkedin" data-sf-ec-immutable="" title="linkedin" target="_blank"></a><a href="https://twitter.com/bridewellsec" class="footer__social-links--twitter" data-sf-ec-immutable="" title="twitter" target="_blank" data-sf-marked="">.</a> <a href="https://www.facebook.com/BridewellSec/" class="footer__social-links--facebook" data-sf-ec-immutable="" title="facebook" target="_blank" data-sf-marked="">.</a> <a href="https://www.instagram.com/lifeatbridewell/" class="footer__social-links--instagram" data-sf-ec-immutable="" title="instagram" target="_blank" data-sf-marked="">.</a></div></div></div>    
+</div>
+    </div>
+</div>
+</div>
+    <div id="Footer_T1E463583001_Col03" class="footer__copyright sf_colsIn" data-sf-element="Footer Copyright" data-placeholder-label="Footer Copyright">
+<div >
+    <div class="sfContentBlock sf-Long-text" ><p style="color: rgba(66, 189, 209, 1)">Copyright 2023 – Bridewell</p>Bridewell is the trading name of Bridewell Consulting Limited, a company registered in England and Wales.<br>VAT Registration No: 386809347 | Company Registration No: 11101195.<br>Registered Office: 40 Caversham Road, Reading, RG1 7EB<br><p>&nbsp;</p></div>    
+</div></div>
+</div>
+ </footer> <button class="back-to-top" id="back-to-top" role="button" aria-label="Back to top of the page"></button>  <script src="/ResourcePackages/BridewellConsulting/assets/bundles/main.js?v=6ks_N_GPcVq2BOVxVq9l9ojmaJkiCwAYyOc0PejSe381"></script> </body> </html>

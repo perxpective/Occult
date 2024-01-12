@@ -1,0 +1,1200 @@
+<!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" > <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en" >        <![endif]--><!--[if IE 8]>    <html class="no-js lt-ie9" lang="en" >               <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Cybereason Nocturnus">
+    <meta name="description" content="In this research we dissect a new Ursnif Variant using language checks and steganography to evade detection. It features a stealthy persistence mechanism, revamped information-stealing modules focusing on mail clients and cryptocurrency.">
+    <meta name="generator" content="HubSpot">
+    <title>New Ursnif Variant Targets Japan Packed with New Features</title>
+    <link rel="shortcut icon" href="https://www.cybereason.com/hubfs/cr-favicon-1.png">
+    
+
+    
+    <meta property="og:description" content="In this research we dissect a new Ursnif Variant using language checks and steganography to evade detection. It features a stealthy persistence mechanism, revamped information-stealing modules focusing on mail clients and cryptocurrency.">
+    <meta property="og:title" content="New Ursnif Variant Targets Japan Packed with New Features">
+    <meta name="twitter:description" content="In this research we dissect a new Ursnif Variant using language checks and steganography to evade detection. It features a stealthy persistence mechanism, revamped information-stealing modules focusing on mail clients and cryptocurrency.">
+    <meta name="twitter:title" content="New Ursnif Variant Targets Japan Packed with New Features">
+
+    
+
+    
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41681847227/1644941386203/module_41681847227_CR_-_Malicious_Life_Network_--_Tier_One_Header.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41682410610/1644941443237/module_41682410610_CR_-_Malicious_Life_Network_--_Main_Hero.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/43300360745/1649424828375/module_43300360745_CR_-_Malicious_Life_Network_--_Related_Posts.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/1669911113479/module_86933076631_CR_-_Sticky_CTA_Bar.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/34473990280/1681829697586/module_34473990280_CR_-_Footer_Full__en_US.min.css">
+    
+
+    
+<!--  Added by GoogleAnalytics integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+_hsp.push(['addPrivacyConsentListener', function(consent) { if (consent.allowed || (consent.categories && consent.categories.analytics)) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create','UA-56367941-1','auto');
+  ga('send','pageview');
+}}]);
+</script>
+
+<!-- /Added by GoogleAnalytics integration -->
+
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-PZ3FE06790');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PZ3FE06790"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TJVVB7C');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://use.typekit.net/vyv2ljd.js"></script>
+<script>try{Typekit.load({ async: false });}catch(e){}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preload" href="/hubfs/__dam/fonts/ionicons.eot" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/criteria/Criteria-CF-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/criteria/Criteria-CF-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/peristyle/Peristyle-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="amphtml" href="https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features?hs_amp=true">
+
+<meta property="og:image" content="https://www.cybereason.com/hubfs/pasted%20image%200%20%281%29-1.png#keepProtocol">
+<meta property="og:image:width" content="626">
+<meta property="og:image:height" content="198">
+<meta property="og:image:alt" content="pasted image 0 (1)-1">
+<meta name="twitter:image" content="https://www.cybereason.com/hubfs/pasted%20image%200%20%281%29-1.png#keepProtocol">
+<meta name="twitter:image:alt" content="pasted image 0 (1)-1">
+
+<meta property="og:url" content="https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@cr_nocturnus">
+
+<link rel="canonical" href="https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features">
+
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://www.cybereason.com/blog/rss.xml">
+<meta name="twitter:domain" content="www.cybereason.com">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/7052064/hub_generated/template_assets/1703783682053/hubspot/hubspot_default/shared/responsive/layout.min.css">
+
+
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470223313/1696396395659/__CR_Web_Platform/CSS/cr-master__cta.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470477360/1691993938188/__CR_Web_Platform/CSS/cr-master__main.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/35275979682/1642096258129/__CR_Web_Platform/CSS/ionicons.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42760289143/1663004429410/__CR_Web_Platform/CSS/cr-mln__build.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470224480/1635957556830/__CR_Web_Platform/CSS/bulma/cr-framework__bulma-columns.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/35291999472/1696396871390/__CR_Web_Platform/CSS/bulma/cr-framework__bulma.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42363645447/1635957556555/__CR_Web_Platform/CSS/hamburger-animation.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42507091846/1635957557027/__CR_Web_Platform/CSS/animate.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="/hubfs/dam/plugins/marker-animation.js"></script>
+<script>
+$(document).ready(function() {
+  $('.highlight').markerAnimation({
+    "color":'var(--cr-yellow)',
+    "font_weight":'normal',
+    "background-size": '200% 1.2em'
+  });
+});
+</script>
+
+    <style>
+.cr-mln__blog-post .container-is-blog.cr-mln__blog-post--body .column:nth-of-type(2) img {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px;
+} 
+</style>
+
+</head>
+<body class="   hs-content-id-8059968616 hs-blog-post hs-blog-id-5272851739" style="">
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJVVB7C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <div class="header-container-wrapper">
+    <div class="header-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1615433790649568" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><section id="cr-malicious-life-network__tier-one-header" class="position-flex">
+  <div class="#">
+    <div id="logo"><a href="https://www.cybereason.com"><img src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-logo-inline--primary-black.png"></a></div>
+    <div id="back-to">
+      <a href="https://www.cybereason.com">Back to <span>Cybereason.com</span></a>
+    </div>
+    <!-- Hamburger Menu -->
+    <button class="hamburger hamburger--collapse" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="cr-mln__hamburger-menu--overlay">
+      <ul>
+        <li><a href="https://www.cybereason.com/blog/all"><span class="underline">All Posts</span></a></li>
+        <li><a href="/blog/category/research"><span class="underline">Research</span></a></li>
+        <li><a href="/blog/category/podcasts"><span class="underline">Podcasts</span></a></li>
+        <li><a href="/blog/category/webinars"><span class="underline">Webinars</span></a></li>
+        <li><a href="/blog/category/resources"><span class="underline">Resources</span></a></li>
+        <li><a href="/blog/category/videos"><span class="underline">Videos</span></a></li>
+        <li><a href="/blog/category/news"><span class="underline">News</span></a></li>
+      </ul>
+      <div class="subscribe">
+        <a href="#blog-subscribe">Subscribe</a>
+      </div>
+    </div>
+    <!-- -->
+  </div>
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget mln-homepage" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1615433785464566" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><section class="cr-malicious-life-network__hero-main base">
+  <div class="container-is-blog columns hero-content page-center">
+    <div class="column is-5-fullhd is-5-desktop is-12-touch">
+      <a href="/blog"><img class="cr-mln-logo" src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-malicious-life-logo-v2.png"></a>
+    </div>
+    <div class="column is-7-fullhd is-7-desktop is-hidden-mobile is-hidden-tablet-only">
+      <div class="cr-mln__search-subscribe">
+        <div class="cr-mln__search">
+          <a href="#cr-search-modal" class="search-btn"><img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/cr-blog-icon--search-dark-gray.png" alt="Search"></a>
+        </div>
+        <div class="cr-mln__subscribe">
+          <a class="btn-subscribe" href="#blog-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <div class="cr-mln__category-nav">
+        <ul>
+          <li><a href="/blog/category/all"><span class="underline">All</span></a></li>
+          <li><a href="/blog/category/research"><span class="underline">Research</span></a></li>
+          <li><a href="/blog/category/podcasts"><span class="underline">Podcasts</span></a></li>
+          <li><a href="/blog/category/webinars"><span class="underline">Webinars</span></a></li>
+          <li><a href="/blog/category/resources"><span class="underline">Resources</span></a></li>
+          <li><a href="/blog/category/videos"><span class="underline">Videos</span></a></li>
+          <li><a href="/blog/category/news"><span class="underline">News</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+      <!-- MOBILE Search and Subscribe -->
+      <div class="container-is-blog columns is-gapless is-hidden-desktop cr-mln__search-subscribe--mobile">
+        <div class="column">
+          <a class="search-btn">Search</a>
+        </div>
+        <div class="column">
+          <a class="#" href="#blog-subscribe">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- END MOBILE Search and Subscribe -->
+  
+  <!-- SEARCH Modal Wrap -->
+
+  <div id="cr-search-modal">
+        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
+        <div id="btn-close-modal" class="close-cr-search-modal"> 
+            X
+        </div>
+
+        <div class="modal-content">
+            <div class="container columns">
+              <div class="column">
+                <div class="cr-search-modal__search-bar">
+                  <h3>Search</h3>
+                  <form action="/hs-search-results">
+                    <input type="search" class="hs-search-field__input" name="term" autocomplete="on" placeholder="Search...">
+                    <input type="hidden" name="type" value="BLOG_POST">
+                    <input type="hidden" name="type" value="LISTING_PAGE">
+                    <button type="submit" class="arrow"></button>
+                  </form>
+                  
+                </div>
+
+              </div>
+          </div>
+        </div>
+    </div>
+  <!-- END Search Modal Wrap -->
+
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end header -->
+</div><!--end header wrapper -->
+
+<div class="body-container-wrapper">
+    <div class="body-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-blog_content " style="" data-widget-type="blog_content" data-x="0" data-w="12">
+
+
+
+
+
+
+
+<div class="cr-mln__blog-post">
+  <div class="container-is-blog columns is-multiline page-center">
+
+    <div class="column is-8-fullhd is-8-desktop is-offset-2-fullhd is-offset-2-desktop is-10-tablet is-offset-1-tablet">
+      <div class="featured-image"><img src="https://www.cybereason.com/hubfs/pasted%20image%200%20%281%29-1.png" alt=""></div>
+      <h1><span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">New Ursnif Variant Targets Japan Packed with New Features</span></h1>
+      <div class="cr-mln__post-author-share">
+      <div id="hubspot-author_data" class="hubspot-editable cr-mln__post-meta" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+        
+          <span class="descriptor">Written By</span>
+          <p><span class="author">Cybereason Nocturnus</span></p>
+         
+      </div>
+    </div>
+     
+    </div>
+    
+    <!-- Sticky Author and Social Box -->
+    
+    <!-- END Sticky Author and Social Box -->
+      <div class="container-is-blog columns is-multiline page-center cr-mln__blog-post--body">
+        
+        <div class="column is-7-fullhd is-7-desktop is-10-tablet is-10-mobile is-offset-1-fullhd is-offset-1-desktop is-offset-1-tablet is-offset-1-mobile">
+          <span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><h4>Research by: Assaf Dahan&nbsp;</h4>
+<p style="text-align: justify;">The Ursnif trojan (<a href="/blog/labs-using-behavioral-analysis-to-detect-the-ursnif-banking-trojan" rel=" noopener">also known as </a><a href="/blog/labs-using-behavioral-analysis-to-detect-the-ursnif-banking-trojan" rel=" noopener">Gozi ISFB</a>) is one of the most prolific information stealing Trojans in the cybercrime landscape. Since its <a href="https://journal.cecyf.fr/ojs/index.php/cybin/article/view/15" rel=" noopener">reappearance in early 2013</a>, it has been constantly evolving. In 2015, its source code was leaked and <a href="https://github.com/gbrindisi/malware/tree/master/windows/gozi-isfb" rel=" noopener">made publicly available on Github</a>, which led to further development of the code by different threat actors who improved it and added new features.&nbsp;</p>
+<!--more-->
+<p style="text-align: justify;">Over the past few years, Japan has been among the <a href="https://unit42.paloaltonetworks.com/unit42-banking-trojans-ursnif-global-distribution-networks-identified/" rel=" noopener">top countries</a> targeted by Ursnif’s operators. In 2018, <a href="https://twitter.com/CybereasonJPSOC/status/971063140497604609" rel=" noopener">Cybereason</a> as well as <a href="https://www.trendmicro.com/vinfo/nz/security/news/cybercrime-and-digital-threats/spam-campaign-targets-japan-uses-steganography-to-deliver-the-bebloh-banking-trojan" rel=" noopener">other security companies</a> reported about attacks where Ursnif (mainly the <a href="https://www.fortinet.com/blog/threat-research/dreambot-2017-vs-isfb-2013.html" rel=" noopener">Dreambot variant</a>) and Bebloh (also known as URLZone and Shiotob) were operating in conjunction. In these joint campaigns, Bebloh is used as a downloader that runs a series of tests to evaluate whether it is running in a hostile environment (for example, it checks to see if it is running on a research VM). Once the coast is clear, it downloads Ursnif, which carries out its core information stealing functions.</p>
+<p style="text-align: justify;">The newly discovered Ursnif variant comes with enhanced stealing modules focused on stealing data from mail clients and email credentials stored in browsers. The revamping and introduction of new mail stealer modules puts an emphasis on the risk that trojans can pose to enterprises if corporate accounts are compromised. With more and more banking customers shifting to mobile banking and the continuous hardening of financial systems, it is not surprising that trojans are focusing&nbsp;more than ever before on harvesting other types of data that can also be monetized and exploited by the threat actors, including mail user accounts, contents of email inboxes and digital wallets.</p>
+<h2 style="line-height: 1.75;">Contents of this Research:&nbsp;</h2>
+<ol style="font-size: 18px;">
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#old-new-tricks" rel=" noopener">OLD -NEW TRICKS, NEW VARIANT</a></li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#stage-one" rel=" noopener">STAGE ONE: PHISHING VIA OFFICE DOCUMENTS</a>
+<ul>
+<li>MODIFIED VBA MACRO TARGETS JAPANESE USERS<br>
+<ul>
+<li>OLD VBA COUNTRY CHECK</li>
+<li>NEW VBA COUNTRY CHECKS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#stage-two" rel=" noopener">STAGE TWO: PARANOID POWERSHELL DOWNLOADER</a>
+<ul>
+<li>NEW LANGUAGE SETTING TEST</li>
+<li>GEO-IP LOCATION CHECK</li>
+<li>USAGE OF STEGANOGRAPHY TO HIDE THE PAYLOAD IN PLAIN SIGHT</li>
+<li>POWERSPLOIT REFLECTIVELY LOADS BEBLOH</li>
+</ul>
+</li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#stage-three" rel=" noopener">STAGE THREE: URSNIF'S LOADER</a></li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#stage-four" rel=" noopener">STAGE FOUR: URSNIF CORE PAYLOAD CLIENT.DLL</a></li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#notable-changes" rel=" noopener">NOTABLE CHANGES IN CORE FUNCTIONALITY</a>
+<ul>
+<li>NEW STEALTHY PERSISTENCE MECHANISM</li>
+<li>DETAILED PERSISTENCE CREATION LOGIC</li>
+<li>DETAILED PERSISTENCE REMOVAL LOGIC</li>
+<li>CHANGES IN THE INFORMATION STEALING MODULES</li>
+<li>CHANGES IN THE MAIL STEALER FUNCTIONS</li>
+<li>CRYPTOCURRENCY AND ENCRYPTED DRIVES STEALER</li>
+</ul>
+</li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#thwarting" rel=" noopener">THWARTING SECURITY PRODUCTS MODULES</a><br>
+<ul>
+<li>ANTI-PHISHWALL MODULE</li>
+<li>ANTI-RAPPORT MODULE</li>
+</ul>
+</li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#conclusion" rel=" noopener">CONCLUSION</a></li>
+<li><a href="/blog/new-ursnif-variant-targets-japan-packed-with-new-features#indicators-of-compromise" rel=" noopener">INDICATORS OF COMPROMISE</a><br><br></li>
+</ol>
+<a id="old-new-tricks" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Old-New Tricks, New Variant</h2>
+<p style="text-align: justify;">Since the beginning of 2019, Cybereason researchers have observed a campaign that specifically targets Japanese users across multiple customer environments. This campaign introduced a new Ursnif variant as well as improved targeted delivery methods through Bebloh.</p>
+<p>Ursnif’s new variant main changes:</p>
+<ol style="font-size: 18px;">
+<li>A new, stealthy persistence mechanism (“last minute persistence”).</li>
+<li>New, revamped stealing modules (“<em>#IESTEALER#”, “#OLSTEALER#”, “#TBSTEALER#”</em>).</li>
+<li>Cryptocurrency and disk encryption software module (e.g <a href="/blog/blog-bitcoin-exchanges-in-south-korea-hacked-and-north-korea-is-prime-suspect" rel=" noopener">Bitcoin</a>, TrueCrypt).</li>
+<li>An Anti-PhishWall module to counteract PhishWall, a Japanese security product.<br><br></li>
+</ol>
+<p>Enhanced country-targeted delivery methods to ensure the delivery of Bebloh include:</p>
+<ol>
+<li><span style="font-size: 18px;">Modified VBA code that specifically checks Japanese settings on the infected machine.</span></li>
+<li><span style="font-size: 18px;">PowerShell that compiles a .NET DLL to check language settings (Japanese).</span></li>
+<li><span style="font-size: 18px;">An added IP geolocation check to determine whether the infected machine is in Japan.</span><br><br></li>
+</ol>
+<p>The following chart demonstrates the infection chain observed in the latest campaign:</p>
+<p style="text-align: center;"><img src="https://www.cybereason.com/hs-fs/hubfs/image52.png?width=685&amp;name=image52.png" alt="image52" width="685" loading="lazy" style="width: 685px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image52.png?width=343&amp;name=image52.png 343w, https://www.cybereason.com/hs-fs/hubfs/image52.png?width=685&amp;name=image52.png 685w, https://www.cybereason.com/hs-fs/hubfs/image52.png?width=1028&amp;name=image52.png 1028w, https://www.cybereason.com/hs-fs/hubfs/image52.png?width=1370&amp;name=image52.png 1370w, https://www.cybereason.com/hs-fs/hubfs/image52.png?width=1713&amp;name=image52.png 1713w, https://www.cybereason.com/hs-fs/hubfs/image52.png?width=2055&amp;name=image52.png 2055w" sizes="(max-width: 685px) 100vw, 685px"><em>Infection chain as seen in the Cybereason Defense Platform.</em></p>
+<a id="stage-one" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Stage One: Phishing via Office Documents</h2>
+<p>The first stage of the attack starts with a weaponized Microsoft Office document attached to a phishing email:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=1158&amp;name=image48-1.png" alt="image48-1" width="1158" loading="lazy" style="width: 1158px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=579&amp;name=image48-1.png 579w, https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=1158&amp;name=image48-1.png 1158w, https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=1737&amp;name=image48-1.png 1737w, https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=2316&amp;name=image48-1.png 2316w, https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=2895&amp;name=image48-1.png 2895w, https://www.cybereason.com/hs-fs/hubfs/image48-1.png?width=3474&amp;name=image48-1.png 3474w" sizes="(max-width: 1158px) 100vw, 1158px"></div>
+<p style="text-align: justify;">When the user opens the document, the Japanese text instructs the unsuspecting user to click on the <em>Enable Content</em> button. They expect to see a preview of a document, but instead it will execute the embedded macro code:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=626&amp;name=image29-2.png" alt="image29-2" width="626" loading="lazy" style="width: 626px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=313&amp;name=image29-2.png 313w, https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=626&amp;name=image29-2.png 626w, https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=939&amp;name=image29-2.png 939w, https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=1252&amp;name=image29-2.png 1252w, https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=1565&amp;name=image29-2.png 1565w, https://www.cybereason.com/hs-fs/hubfs/image29-2.png?width=1878&amp;name=image29-2.png 1878w" sizes="(max-width: 626px) 100vw, 626px"></div>
+<p style="text-align: center;"><em>Weaponized Excel document that encourages the user to click on </em><strong>Enable Content</strong><em>.</em></p>
+<h3>Modified VBA Macro Targets Japanese Users</h3>
+<p style="text-align: justify;">The macro code is obfuscated and results in the execution of several PowerShell commands. However, before the PowerShell commands are decrypted and executed, the VBA macro checks if the victim machine has Japanese country settings. This technique was previously seen in 2018, but the attackers modified the code in this version to make it less obvious and harder to detect.</p>
+<h4>Old VBA Country Check&nbsp;</h4>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=794&amp;name=image40-2.png" alt="image40-2" width="794" loading="lazy" style="width: 794px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=397&amp;name=image40-2.png 397w, https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=794&amp;name=image40-2.png 794w, https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=1191&amp;name=image40-2.png 1191w, https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=1588&amp;name=image40-2.png 1588w, https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=1985&amp;name=image40-2.png 1985w, https://www.cybereason.com/hs-fs/hubfs/image40-2.png?width=2382&amp;name=image40-2.png 2382w" sizes="(max-width: 794px) 100vw, 794px"></div>
+<div>&nbsp;</div>
+<p style="text-align: justify;">The previous check, documented by <a href="https://gist.github.com/koike/692fb8a20c8aa3b77246be3497355670#file-1-vb" rel=" noopener">Nao_Sec</a>, consisted of comparing the country setting to the value of ‘81’ for Japan, using the function <a href="https://docs.microsoft.com/en-us/office/vba/api/excel.application.international" rel=" noopener">xlCountrySetting</a>. If the machine doesn’t have Japanese settings, the macro code exits.</p>
+<h4>New VBA Country Checks</h4>
+<p style="text-align: justify;">The new country check function in this variant makes it less obvious to understand which country is being targeted, however it can still be easily inferred with a bit of basic calculation. The new code checks the country setting, adds ‘960’ to it, and stores the new value in a parameter. In this case, the parameter is <em>opa</em> (81 + 960 = 1041):</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=687&amp;name=image26-3.png" alt="image26-3" width="687" loading="lazy" style="width: 687px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=344&amp;name=image26-3.png 344w, https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=687&amp;name=image26-3.png 687w, https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=1031&amp;name=image26-3.png 1031w, https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=1374&amp;name=image26-3.png 1374w, https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=1718&amp;name=image26-3.png 1718w, https://www.cybereason.com/hs-fs/hubfs/image26-3.png?width=2061&amp;name=image26-3.png 2061w" sizes="(max-width: 687px) 100vw, 687px"></div>
+<div>&nbsp;</div>
+<p style="text-align: justify;">The <em>SensitiveLine()</em> function checks if the value of “<em>opa</em>” is greater than ‘1039.93’, in which case, the macro code will continue. If not, the code will exit. The calculation is the following:</p>
+<p>The value of <a href="https://docs.microsoft.com/en-us/office/vba/api/Excel.xlbinstype" rel=" noopener">xlBinsTypeBinSize</a> (‘3’) * 347 - 1.07 = 1,039.93&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image51.png?width=721&amp;name=image51.png" alt="image51" width="721" loading="lazy" style="width: 721px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image51.png?width=361&amp;name=image51.png 361w, https://www.cybereason.com/hs-fs/hubfs/image51.png?width=721&amp;name=image51.png 721w, https://www.cybereason.com/hs-fs/hubfs/image51.png?width=1082&amp;name=image51.png 1082w, https://www.cybereason.com/hs-fs/hubfs/image51.png?width=1442&amp;name=image51.png 1442w, https://www.cybereason.com/hs-fs/hubfs/image51.png?width=1803&amp;name=image51.png 1803w, https://www.cybereason.com/hs-fs/hubfs/image51.png?width=2163&amp;name=image51.png 2163w" sizes="(max-width: 721px) 100vw, 721px"></div>
+<div>&nbsp;</div>
+<p>Note: Similar techniques were implemented in a <a href="https://www.tfun.org/2019/02/11/ursnif-long-live-the-steganography/" rel=" noopener">campaign that targeted Italian users</a>, which delivered a different Ursnif variant.</p>
+<a id="stage-two" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Stage Two: Paranoid PowerShell Downloader&nbsp;</h2>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=620&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png" alt="image17-Dec-06-2021-04-58-17-01-PM" width="620" loading="lazy" style="width: 620px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=310&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 310w, https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=620&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 620w, https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=930&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 930w, https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=1240&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 1240w, https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=1550&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 1550w, https://www.cybereason.com/hs-fs/hubfs/image17-Dec-06-2021-04-58-17-01-PM.png?width=1860&amp;name=image17-Dec-06-2021-04-58-17-01-PM.png 1860w" sizes="(max-width: 620px) 100vw, 620px"></div>
+<div style="text-align: center;"><em>The malicious cmd.exe&nbsp;spawned from an excel process and seen&nbsp;executing two children processes depicted within the&nbsp;Cybereason Defense Platform.</em></div>
+<div style="text-align: center;">&nbsp;</div>
+<p style="text-align: justify;">Once the macro code ensures that the machine is Japanese, it decrypts the PowerShell payload, sets it as environment variables, and executes the code:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=676&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png" alt="image13-Dec-06-2021-04-59-05-14-PM" width="676" loading="lazy" style="width: 676px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=338&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 338w, https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=676&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 676w, https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=1014&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 1014w, https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=1352&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 1352w, https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=1690&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 1690w, https://www.cybereason.com/hs-fs/hubfs/image13-Dec-06-2021-04-59-05-14-PM.png?width=2028&amp;name=image13-Dec-06-2021-04-59-05-14-PM.png 2028w" sizes="(max-width: 676px) 100vw, 676px"></div>
+<p style="text-align: center;"><em>PowerShell code hidden in environment variables.</em></p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=722&amp;name=image46-1.png" alt="image46-1" width="722" loading="lazy" style="width: 722px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=361&amp;name=image46-1.png 361w, https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=722&amp;name=image46-1.png 722w, https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=1083&amp;name=image46-1.png 1083w, https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=1444&amp;name=image46-1.png 1444w, https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=1805&amp;name=image46-1.png 1805w, https://www.cybereason.com/hs-fs/hubfs/image46-1.png?width=2166&amp;name=image46-1.png 2166w" sizes="(max-width: 722px) 100vw, 722px"></div>
+<p style="text-align: center;"><em>Snipped PowerShell code.</em>&nbsp;</p>
+<p style="text-align: justify;">The code is heavily obfuscated and contains a set of additional tests to ensure that the targeted machine not only has Japanese settings, but is also physically located in Japan prior to downloading Bebloh’s payload.</p>
+<h3>New Language Setting Test&nbsp;</h3>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=603&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png" alt="image1-Dec-06-2021-05-03-19-99-PM" width="603" loading="lazy" style="width: 603px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=302&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 302w, https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=603&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 603w, https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=905&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 905w, https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=1206&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 1206w, https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=1508&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 1508w, https://www.cybereason.com/hs-fs/hubfs/image1-Dec-06-2021-05-03-19-99-PM.png?width=1809&amp;name=image1-Dec-06-2021-05-03-19-99-PM.png 1809w" sizes="(max-width: 603px) 100vw, 603px"></div>
+<div style="text-align: center;"><em>The malicious&nbsp;PowerShell process&nbsp;is identified within the Cybereason Defense Platform with parent and child processes.&nbsp;</em></div>
+<p style="text-align: justify;">Before downloading the payload, the PowerShell code runs a final language check to ensure the target is indeed Japanese. It matches the result of the Omk() function against ‘j’, for Japanese:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=1192&amp;name=image44-1.png" alt="image44-1" width="1192" loading="lazy" style="width: 1192px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=596&amp;name=image44-1.png 596w, https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=1192&amp;name=image44-1.png 1192w, https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=1788&amp;name=image44-1.png 1788w, https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=2384&amp;name=image44-1.png 2384w, https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=2980&amp;name=image44-1.png 2980w, https://www.cybereason.com/hs-fs/hubfs/image44-1.png?width=3576&amp;name=image44-1.png 3576w" sizes="(max-width: 1192px) 100vw, 1192px"></div>
+<p>The file is compiled and dropped in the %temp% folder:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=711&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png" alt="image16-Dec-06-2021-05-05-27-44-PM" width="711" loading="lazy" style="width: 711px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=356&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 356w, https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=711&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 711w, https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=1067&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 1067w, https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=1422&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 1422w, https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=1778&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 1778w, https://www.cybereason.com/hs-fs/hubfs/image16-Dec-06-2021-05-05-27-44-PM.png?width=2133&amp;name=image16-Dec-06-2021-05-05-27-44-PM.png 2133w" sizes="(max-width: 711px) 100vw, 711px">&nbsp;</div>
+<p>The decompiled code shows the Omk() function that checks the <a href="https://www.google.com/url?q=https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.currentculture?view%3Dnetframework-4.7.2%23System_Globalization_CultureInfo_CurrentCulture&amp;sa=D&amp;ust=1552313856031000">CultureInfo.CurrentCulture</a> property:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=637&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png" alt="image14-Dec-06-2021-05-06-03-71-PM" width="637" loading="lazy" style="width: 637px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=319&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 319w, https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=637&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 637w, https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=956&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 956w, https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=1274&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 1274w, https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=1593&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 1593w, https://www.cybereason.com/hs-fs/hubfs/image14-Dec-06-2021-05-06-03-71-PM.png?width=1911&amp;name=image14-Dec-06-2021-05-06-03-71-PM.png 1911w" sizes="(max-width: 637px) 100vw, 637px"></div>
+<h3>Geo-IP Location Check</h3>
+<p style="text-align: justify;">&nbsp;The downloader’s last test is a geolocation test using the <a href="https://ipinfo.io/" rel=" noopener">ipinfo.io</a> API to verify that the IP address is Japanese:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=1430&amp;name=image43-2.png" alt="image43-2" width="1430" loading="lazy" style="width: 1430px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=715&amp;name=image43-2.png 715w, https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=1430&amp;name=image43-2.png 1430w, https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=2145&amp;name=image43-2.png 2145w, https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=2860&amp;name=image43-2.png 2860w, https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=3575&amp;name=image43-2.png 3575w, https://www.cybereason.com/hs-fs/hubfs/image43-2.png?width=4290&amp;name=image43-2.png 4290w" sizes="(max-width: 1430px) 100vw, 1430px"></div>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=738&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png" alt="image6-Dec-06-2021-05-08-25-85-PM" width="738" loading="lazy" style="width: 738px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=369&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 369w, https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=738&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 738w, https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=1107&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 1107w, https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=1476&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 1476w, https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=1845&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 1845w, https://www.cybereason.com/hs-fs/hubfs/image6-Dec-06-2021-05-08-25-85-PM.png?width=2214&amp;name=image6-Dec-06-2021-05-08-25-85-PM.png 2214w" sizes="(max-width: 738px) 100vw, 738px"></div>
+<p style="text-align: center;">&nbsp;<em>Detecting country by IP geolocation.</em></p>
+<h3>Usage of Steganography to Hide the Payload in Plain Sight</h3>
+<p style="text-align: justify;">Once all the checks are done, the PowerShell code downloads an image file hosted on an image sharing websites such as <a href="https://imgur.com/" rel=" noopener">Imgur</a> or <a href="https://postimages.org/" rel=" noopener">postimage.cc</a>: hxxps://i.imgur[.]com/96vV0YR[.]png</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=484&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png" alt="image5-Dec-06-2021-05-09-07-18-PM" width="484" loading="lazy" style="width: 484px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=242&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 242w, https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=484&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 484w, https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=726&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 726w, https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=968&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 968w, https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=1210&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 1210w, https://www.cybereason.com/hs-fs/hubfs/image5-Dec-06-2021-05-09-07-18-PM.png?width=1452&amp;name=image5-Dec-06-2021-05-09-07-18-PM.png 1452w" sizes="(max-width: 484px) 100vw, 484px"></div>
+<p style="text-align: center;"><em>Even the images have Japanese theme. ^_^</em></p>
+<p style="text-align: justify;">The embedded content is decrypted by the following PowerShell code, which is based on the <a href="https://github.com/peewpw/Invoke-PSImage" rel=" noopener">Invoke-PSImage</a> steganography project:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=650&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png" alt="image10-Dec-06-2021-05-10-01-18-PM" width="650" loading="lazy" style="width: 650px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=325&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 325w, https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=650&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 650w, https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=975&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 975w, https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=1300&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 1300w, https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=1625&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 1625w, https://www.cybereason.com/hs-fs/hubfs/image10-Dec-06-2021-05-10-01-18-PM.png?width=1950&amp;name=image10-Dec-06-2021-05-10-01-18-PM.png 1950w" sizes="(max-width: 650px) 100vw, 650px"></div>
+<h3>PowerSploit Reflectively Loads Bebloh</h3>
+<p style="text-align: justify;">The decrypted PowerShell code embedded in the image is based on the <a href="https://github.com/PowerShellMafia/PowerSploit" rel=" noopener">PowerSploit</a> framework that uses the reflective PE injection module <a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-ReflectivePEInjection.ps1" rel=" noopener">Invoke-ReflectivePEInjection</a> to load and execute Bebloh’s code to memory:</p>
+<p style="text-align: center;"><img src="https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=727&amp;name=image34-3.png" alt="image34-3" width="727" loading="lazy" style="width: 727px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=364&amp;name=image34-3.png 364w, https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=727&amp;name=image34-3.png 727w, https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=1091&amp;name=image34-3.png 1091w, https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=1454&amp;name=image34-3.png 1454w, https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=1818&amp;name=image34-3.png 1818w, https://www.cybereason.com/hs-fs/hubfs/image34-3.png?width=2181&amp;name=image34-3.png 2181w" sizes="(max-width: 727px) 100vw, 727px"></p>
+<p style="text-align: center;"><em>Excerpt from decrypted content hidden in the downloaded image.</em></p>
+<p style="text-align: justify;">The unpacked payload dumped from the injected explorer.exe <a href="https://webcache.googleusercontent.com/search?q=cache:GZss7aPxSqgJ:https://asert.arbornetworks.com/an-update-on-the-urlzone-banker/+&amp;cd=1&amp;hl=en&amp;ct=clnk&amp;gl=jp" rel=" noopener">indicates that the payload</a> is in fact Bebloh:</p>
+<p style="text-align: center;">&nbsp;<img src="https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=896&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png" alt="image19-Dec-06-2021-05-11-55-09-PM" width="896" loading="lazy" style="width: 896px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=448&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 448w, https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=896&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 896w, https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=1344&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 1344w, https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=1792&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 1792w, https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=2240&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 2240w, https://www.cybereason.com/hs-fs/hubfs/image19-Dec-06-2021-05-11-55-09-PM.png?width=2688&amp;name=image19-Dec-06-2021-05-11-55-09-PM.png 2688w" sizes="(max-width: 896px) 100vw, 896px"></p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=1028&amp;name=image35-4.png" alt="image35-4" width="1028" loading="lazy" style="width: 1028px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=514&amp;name=image35-4.png 514w, https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=1028&amp;name=image35-4.png 1028w, https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=1542&amp;name=image35-4.png 1542w, https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=2056&amp;name=image35-4.png 2056w, https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=2570&amp;name=image35-4.png 2570w, https://www.cybereason.com/hs-fs/hubfs/image35-4.png?width=3084&amp;name=image35-4.png 3084w" sizes="(max-width: 1028px) 100vw, 1028px"></div>
+<div>&nbsp;</div>
+<p>Once Bebloh is injected to explorer.exe, it downloads Ursnif’s loader payload from the C2 server:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image55.png?width=955&amp;name=image55.png" alt="image55" width="955" loading="lazy" style="width: 955px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image55.png?width=478&amp;name=image55.png 478w, https://www.cybereason.com/hs-fs/hubfs/image55.png?width=955&amp;name=image55.png 955w, https://www.cybereason.com/hs-fs/hubfs/image55.png?width=1433&amp;name=image55.png 1433w, https://www.cybereason.com/hs-fs/hubfs/image55.png?width=1910&amp;name=image55.png 1910w, https://www.cybereason.com/hs-fs/hubfs/image55.png?width=2388&amp;name=image55.png 2388w, https://www.cybereason.com/hs-fs/hubfs/image55.png?width=2865&amp;name=image55.png 2865w" sizes="(max-width: 955px) 100vw, 955px"></div>
+<p style="text-align: center;"><em>Bebloh drops Ursnif depicted through&nbsp;a malicious&nbsp;PowerShell process and child processes shown in the Cybereason Defense Platform.</em></p>
+<a id="stage-three" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Stage Three: Ursnif’s Loader&nbsp;</h2>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=678&amp;name=image32-3.png" alt="image32-3" width="678" loading="lazy" style="width: 678px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=339&amp;name=image32-3.png 339w, https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=678&amp;name=image32-3.png 678w, https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=1017&amp;name=image32-3.png 1017w, https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=1356&amp;name=image32-3.png 1356w, https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=1695&amp;name=image32-3.png 1695w, https://www.cybereason.com/hs-fs/hubfs/image32-3.png?width=2034&amp;name=image32-3.png 2034w" sizes="(max-width: 678px) 100vw, 678px"></div>
+<div style="text-align: center;"><em>The malicious gyehtuegg.exe (Ursnif Loader) spawns an instance of explorer.exe,&nbsp;depicted&nbsp;in the Cybereason Defense Platform.</em></div>
+<p style="text-align: justify;">&nbsp;Ursnif’s loader unpacks the main payload (client.dll / client64.dll), which is embedded in the loader’s PE resource section (RT_RCDATA):</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=540&amp;name=image41-2.png" alt="image41-2" width="540" loading="lazy" style="width: 540px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=270&amp;name=image41-2.png 270w, https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=540&amp;name=image41-2.png 540w, https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=810&amp;name=image41-2.png 810w, https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=1080&amp;name=image41-2.png 1080w, https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=1350&amp;name=image41-2.png 1350w, https://www.cybereason.com/hs-fs/hubfs/image41-2.png?width=1620&amp;name=image41-2.png 1620w" sizes="(max-width: 540px) 100vw, 540px"></div>
+<p style="text-align: center;"><em>32-bit and 64-bit version of client.dll.</em></p>
+<p style="text-align: justify;">Prior to its decryption, the loader conducts a series of tests to determine whether the loader is running in a hostile environment, namely, whether it is being debugged or run in a sandbox or virtual machine. For example, Bebloh runs the following checks:</p>
+<ul>
+<li style="text-align: justify;"><span style="font-size: 18px;">A Xeon CPU check to determine whether it is running on a server, laptop, or PC.</span></li>
+<li style="text-align: justify;"><span style="font-size: 18px;">A virtualization vendor check to determine whether it is running in vbox, qemu, vmware or on a virtual hd.</span></li>
+<li style="text-align: justify;"><span style="font-size: 18px;">A timing check (RDTSC with CPUID to force a VM exit and to thwart debuggers and sandboxes).</span><br><br><img src="https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=663&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png" alt="image15-Dec-06-2021-05-17-01-59-PM" width="663" loading="lazy" style="width: 663px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=332&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 332w, https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=663&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 663w, https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=995&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 995w, https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=1326&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 1326w, https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=1658&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 1658w, https://www.cybereason.com/hs-fs/hubfs/image15-Dec-06-2021-05-17-01-59-PM.png?width=1989&amp;name=image15-Dec-06-2021-05-17-01-59-PM.png 1989w" sizes="(max-width: 663px) 100vw, 663px"></li>
+</ul>
+<p style="text-align: justify;">The following is an example of virtualization checks using the <a href="https://docs.microsoft.com/en-us/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassdevsw" rel=" noopener">SetupDiGetClassDevsA</a>() and <a href="https://docs.microsoft.com/en-us/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceregistrypropertya" rel=" noopener">SetupDiGetDeviceRegistryPropertyA</a>() APIs to query hardware information stored in the Windows registry:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=1074&amp;name=image47-1.png" alt="image47-1" width="1074" loading="lazy" style="width: 1074px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=537&amp;name=image47-1.png 537w, https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=1074&amp;name=image47-1.png 1074w, https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=1611&amp;name=image47-1.png 1611w, https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=2148&amp;name=image47-1.png 2148w, https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=2685&amp;name=image47-1.png 2685w, https://www.cybereason.com/hs-fs/hubfs/image47-1.png?width=3222&amp;name=image47-1.png 3222w" sizes="(max-width: 1074px) 100vw, 1074px"></div>
+<div>&nbsp;</div>
+<p style="text-align: justify;">If any of the above tests returns positive, the loader displays an error message and terminate the process:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=808&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png" alt="image24-Dec-06-2021-05-18-50-79-PM" width="808" loading="lazy" style="width: 808px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=404&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 404w, https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=808&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 808w, https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=1212&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 1212w, https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=1616&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 1616w, https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=2020&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 2020w, https://www.cybereason.com/hs-fs/hubfs/image24-Dec-06-2021-05-18-50-79-PM.png?width=2424&amp;name=image24-Dec-06-2021-05-18-50-79-PM.png 2424w" sizes="(max-width: 808px) 100vw, 808px">&nbsp;</div>
+<p style="text-align: center;"><em>Error message displayed upon VM detection.</em></p>
+<p>If all the tests check out, it will proceed and inject Ursnif’s core DLL to the main explorer.exe process.</p>
+<a id="stage-four" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Stage Four: Ursnif Core Payload client.dll</h2>
+<p style="text-align: justify;">The injected DLL payload includes an interesting PDB path of client64.dll, suggesting that it is <a href="https://github.com/gbrindisi/malware/tree/667b44f64edcd1c5e8c42489b8e767813a589158/windows/gozi-isfb" rel=" noopener">Gozi ISFB</a> version 3:</p>
+<div>&nbsp;</div>
+<p style="text-align: center;"><em>PDB path: c:\isfb3\x64\Release\client.pdb.</em></p>
+<p style="text-align: justify;">&nbsp;Its build number (version number) extracted from memory indicates that its version “300035”:&nbsp;</p>
+<div style="text-align: justify;"><img src="https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=856&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png" alt="image9-Dec-06-2021-05-19-33-96-PM" width="856" loading="lazy" style="width: 856px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=428&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 428w, https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=856&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 856w, https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=1284&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 1284w, https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=1712&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 1712w, https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=2140&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 2140w, https://www.cybereason.com/hs-fs/hubfs/image9-Dec-06-2021-05-19-33-96-PM.png?width=2568&amp;name=image9-Dec-06-2021-05-19-33-96-PM.png 2568w" sizes="(max-width: 856px) 100vw, 856px"></div>
+<p style="text-align: justify;">The compilation date is 22/02/2019, which also suggests that it was compiled recently:</p>
+<div style="text-align: justify;"><img src="https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=763&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png" alt="image12-Dec-06-2021-05-20-10-22-PM" width="763" loading="lazy" style="width: 763px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=382&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 382w, https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=763&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 763w, https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=1145&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 1145w, https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=1526&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 1526w, https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=1908&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 1908w, https://www.cybereason.com/hs-fs/hubfs/image12-Dec-06-2021-05-20-10-22-PM.png?width=2289&amp;name=image12-Dec-06-2021-05-20-10-22-PM.png 2289w" sizes="(max-width: 763px) 100vw, 763px"></div>
+<p style="text-align: justify;">We have found an earlier sample of the same variant in the wild with a compilation timestamp that dates to July 2018, suggesting that the variant first emerged in 2018:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=638&amp;name=image49-1.png" alt="image49-1" width="638" loading="lazy" style="width: 638px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=319&amp;name=image49-1.png 319w, https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=638&amp;name=image49-1.png 638w, https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=957&amp;name=image49-1.png 957w, https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=1276&amp;name=image49-1.png 1276w, https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=1595&amp;name=image49-1.png 1595w, https://www.cybereason.com/hs-fs/hubfs/image49-1.png?width=1914&amp;name=image49-1.png 1914w" sizes="(max-width: 638px) 100vw, 638px"></div>
+<div>&nbsp;</div>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=626&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png" alt="image2-Dec-06-2021-05-22-19-53-PM" width="626" loading="lazy" style="width: 626px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=313&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 313w, https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=626&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 626w, https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=939&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 939w, https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=1252&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 1252w, https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=1565&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 1565w, https://www.cybereason.com/hs-fs/hubfs/image2-Dec-06-2021-05-22-19-53-PM.png?width=1878&amp;name=image2-Dec-06-2021-05-22-19-53-PM.png 1878w" sizes="(max-width: 626px) 100vw, 626px"></div>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=610&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png" alt="image27-Dec-06-2021-05-22-52-94-PM" width="610" loading="lazy" style="width: 610px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=305&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 305w, https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=610&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 610w, https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=915&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 915w, https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=1220&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 1220w, https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=1525&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 1525w, https://www.cybereason.com/hs-fs/hubfs/image27-Dec-06-2021-05-22-52-94-PM.png?width=1830&amp;name=image27-Dec-06-2021-05-22-52-94-PM.png 1830w" sizes="(max-width: 610px) 100vw, 610px"></div>
+<a id="notable-changes" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Notable Changes in Core Functionality</h2>
+<p style="text-align: justify;">Throughout the years, Ursnif’s code original code has changed to introduce different strains and new features. For a detailed analysis of Ursnif’s previous versions and functionality, please see the following write-ups by <a href="https://www.vkremez.com/2018/08/lets-learn-in-depth-reversing-of-recent.html" rel=" noopener">Vitali Kremez</a>, <a href="https://www.iij.ad.jp/en/dev/iir/pdf/iir_vol34_EN.pdf" rel=" noopener">Mamoru Saito</a> and <a href="https://journal.cecyf.fr/ojs/index.php/cybin/article/view/15" rel=" noopener">Maciej Kotowicz</a>.</p>
+<p style="text-align: justify;">Based on our code analysis, the newly observed variant bears great resemblance to the <a href="https://www.proofpoint.com/us/threat-insight/post/ursnif-variant-dreambot-adds-tor-functionality" rel=" noopener">Dreambot variant</a>. However, it lacks some commonly observed built-in features like the Tor client and VNC module. The new variant exhibits several new or revamped features, such as:&nbsp;</p>
+<ul style="font-size: 18px;">
+<li style="text-align: justify;">A new persistence mechanism (last minute persistence that resembles Dridex’s persistence).</li>
+<li style="text-align: justify;">Revamped and new stealer modules (IE Stealer, Outlook Stealer, Thunderbird Stealer).</li>
+<li style="text-align: justify;">A cryptocurrency and disk encryption software module.</li>
+<li style="text-align: justify;">An Anti-PhishWall module to counteract PhishWall, a Japanese security product.</li>
+</ul>
+<h3>New Stealthy Persistence Mechanism</h3>
+<p style="text-align: justify;">One of the most noticeable changes observed in this new variant is the implementation of a new persistence mechanism designed to evade detection.</p>
+<p style="text-align: justify;">The newly observed persistence mechanism is based on the "<strong>last minute persistence</strong>" model. This model creates its persistence at the very last moment before the system shuts down. Once the system is rebooted and the loader injects the core DLL to explorer.exe, it immediately deletes its registry autorun key along with the files stored in %appdata%. Similar implementations have been used by <a href="https://www.cyberbit.com/wp-content/uploads/2016/09/Analysis-of-Dridex-AnD-for-IT.pdf" rel=" noopener">Dridex</a> and <a href="https://www.fireeye.com/blog/threat-research/2016/01/urlzone_zones_inon.html" rel=" noopener">Bebloh</a> banking trojans in the past.&nbsp;</p>
+<p style="text-align: justify;">it is interesting to mention that the above mention persistence is different than the <a href="https://blog.talosintelligence.com/2019/01/amp-tracks-ursnif.html" rel=" noopener">fileless persistence mechanism</a> reported by Cisco and <a href="https://blog.yoroi.company/research/dissecting-the-latest-ursnif-dhl-themed-campaign/" rel=" noopener">other researchers</a> between December 2018 and February 2019. The previous technique relied on a PowerShell script stored in the registry. Upon boot, it dynamically loads and injects the core DLL to explorer.exe using the <a href="https://resources.infosecinstitute.com/code-injection-techniques/#gref" rel=" noopener">QueueUserAPC injection technique</a>.&nbsp;</p>
+<p style="text-align: justify;">The following is a chart that demonstrates the “last minute persistence” creation and removal logic on an infected machine:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=1255&amp;name=image38-2.png" alt="image38-2" width="1255" loading="lazy" style="width: 1255px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=628&amp;name=image38-2.png 628w, https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=1255&amp;name=image38-2.png 1255w, https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=1883&amp;name=image38-2.png 1883w, https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=2510&amp;name=image38-2.png 2510w, https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=3138&amp;name=image38-2.png 3138w, https://www.cybereason.com/hs-fs/hubfs/image38-2.png?width=3765&amp;name=image38-2.png 3765w" sizes="(max-width: 1255px) 100vw, 1255px"></div>
+<div>&nbsp;</div>
+<h4>Detailed Persistence Creation Logic</h4>
+<ul>
+<li style="text-align: justify;">The malware creates an invisible window used for internal communication between the trojan’s different components:</li>
+</ul>
+<img src="https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=671&amp;name=pasted%20image%200%20(2)-1.png" alt="pasted image 0 (2)-1" width="671" style="display: block; margin-left: auto; margin-right: auto;" srcset="https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=336&amp;name=pasted%20image%200%20(2)-1.png 336w, https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=671&amp;name=pasted%20image%200%20(2)-1.png 671w, https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=1007&amp;name=pasted%20image%200%20(2)-1.png 1007w, https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=1342&amp;name=pasted%20image%200%20(2)-1.png 1342w, https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=1678&amp;name=pasted%20image%200%20(2)-1.png 1678w, https://www.cybereason.com/hs-fs/hubfs/pasted%20image%200%20(2)-1.png?width=2013&amp;name=pasted%20image%200%20(2)-1.png 2013w" sizes="(max-width: 671px) 100vw, 671px"><br>
+<ul style="font-size: 18px;">
+<li>Ursnif uses this window among other things in order to catch the <a href="https://docs.microsoft.com/en-us/windows/desktop/shutdown/wm-queryendsession" rel=" noopener">WM_QUERYENDSESSION</a> message. This message is typically sent when the system is about to shut down, thus alerting the malware of an imminent shutdown:</li>
+</ul>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=1196&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png" alt="image8-Dec-06-2021-05-26-28-05-PM" width="1196" loading="lazy" style="width: 1196px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=598&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 598w, https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=1196&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 1196w, https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=1794&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 1794w, https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=2392&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 2392w, https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=2990&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 2990w, https://www.cybereason.com/hs-fs/hubfs/image8-Dec-06-2021-05-26-28-05-PM.png?width=3588&amp;name=image8-Dec-06-2021-05-26-28-05-PM.png 3588w" sizes="(max-width: 1196px) 100vw, 1196px"></div>
+<ul>
+<li style="text-align: justify;"><span style="font-size: 18px;">Once Ursnif is made aware of the shutdown message, it creates an autorun registry key along with files in the %appdata% folder, based on information found in the Install key found in - HKCU\Software\AppDataLow\Software\Microsoft\{GUID}\Install&nbsp;</span><br><br></li>
+</ul>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=671&amp;name=image28-4.png" alt="image28-4" width="671" loading="lazy" style="width: 671px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=336&amp;name=image28-4.png 336w, https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=671&amp;name=image28-4.png 671w, https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=1007&amp;name=image28-4.png 1007w, https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=1342&amp;name=image28-4.png 1342w, https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=1678&amp;name=image28-4.png 1678w, https://www.cybereason.com/hs-fs/hubfs/image28-4.png?width=2013&amp;name=image28-4.png 2013w" sizes="(max-width: 671px) 100vw, 671px"></div>
+<p style="text-align: justify;">Booting the machine in Safe Mode, can reveal the created persistence, as it prevents any program from running automatically when the user logs on:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=555&amp;name=image31-4.png" alt="image31-4" width="555" loading="lazy" style="width: 555px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=278&amp;name=image31-4.png 278w, https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=555&amp;name=image31-4.png 555w, https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=833&amp;name=image31-4.png 833w, https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=1110&amp;name=image31-4.png 1110w, https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=1388&amp;name=image31-4.png 1388w, https://www.cybereason.com/hs-fs/hubfs/image31-4.png?width=1665&amp;name=image31-4.png 1665w" sizes="(max-width: 555px) 100vw, 555px"></div>
+<p style="text-align: center;">&nbsp;<em>.lnk and .exe file in %appdata% created before the system shuts down.</em></p>
+<p style="text-align: center;"><img src="https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=652&amp;name=image30-3.png" alt="image30-3" width="652" loading="lazy" style="width: 652px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=326&amp;name=image30-3.png 326w, https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=652&amp;name=image30-3.png 652w, https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=978&amp;name=image30-3.png 978w, https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=1304&amp;name=image30-3.png 1304w, https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=1630&amp;name=image30-3.png 1630w, https://www.cybereason.com/hs-fs/hubfs/image30-3.png?width=1956&amp;name=image30-3.png 1956w" sizes="(max-width: 652px) 100vw, 652px"></p>
+<p style="text-align: center;"><em>Registry Autorun key created before the system shuts down.</em></p>
+<h4>Detailed Persistence Removal Logic&nbsp;</h4>
+<p style="text-align: justify;">Once the system boots and the user is logged on, the loader runs and injects the core DLL to explorer.exe. Once the trojan’s code runs:</p>
+<ul>
+<li style="text-align: justify;">It checks for the existence of the “ProgMan” window, indicating that the explorer.exe process is running:&nbsp;</li>
+</ul>
+<img src="https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=594&amp;name=image25-4.png" alt="image25-4" width="594" loading="lazy" style="width: 594px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=297&amp;name=image25-4.png 297w, https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=594&amp;name=image25-4.png 594w, https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=891&amp;name=image25-4.png 891w, https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=1188&amp;name=image25-4.png 1188w, https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=1485&amp;name=image25-4.png 1485w, https://www.cybereason.com/hs-fs/hubfs/image25-4.png?width=1782&amp;name=image25-4.png 1782w" sizes="(max-width: 594px) 100vw, 594px"><br><br>
+<ul>
+<li style="text-align: justify;">It checks whether the malware code is running from the same process (explorer.exe), likely as an anti-debugging measure:&nbsp;</li>
+</ul>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=572&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png" alt="image3-Dec-06-2021-05-32-35-33-PM" width="572" loading="lazy" style="width: 572px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=286&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 286w, https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=572&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 572w, https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=858&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 858w, https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=1144&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 1144w, https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=1430&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 1430w, https://www.cybereason.com/hs-fs/hubfs/image3-Dec-06-2021-05-32-35-33-PM.png?width=1716&amp;name=image3-Dec-06-2021-05-32-35-33-PM.png 1716w" sizes="(max-width: 572px) 100vw, 572px">&nbsp;</p>
+<ul>
+<li style="text-align: justify;">It deletes registry keys and the %appdata% folder where the .lnk and .exe files exist based on the on the Install key in HKCU\Software\AppDataLow\Software\Microsoft\{GUID}.</li>
+</ul>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=903&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png" alt="image20-Dec-06-2021-05-34-04-48-PM" width="903" loading="lazy" style="width: 903px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=452&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 452w, https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=903&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 903w, https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=1355&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 1355w, https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=1806&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 1806w, https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=2258&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 2258w, https://www.cybereason.com/hs-fs/hubfs/image20-Dec-06-2021-05-34-04-48-PM.png?width=2709&amp;name=image20-Dec-06-2021-05-34-04-48-PM.png 2709w" sizes="(max-width: 903px) 100vw, 903px"></div>
+<h3>Changes in the Information Stealing Modules</h3>
+<p>The new variant (V3) exhibits changes in the code of its stealer modules in comparison with:</p>
+<ul>
+<li><span style="font-size: 18px;">Dreambot (unpacked client.dll - 2bcb80182ed4ca4701ab0bcd750d5aacac83d77)</span></li>
+<li><span style="font-size: 18px;">Gozi ISFB 2.16 / 2.17 (unpacked client.dll - 74e7453b33119de1862294e03bf86cc7623d558b)</span><br><br></li>
+</ul>
+<h4>Changes in the Mail Stealer Functions</h4>
+<p style="text-align: justify;">The new variant’s mail stealing functionality seems to have undergone a major update that includes enhancements and some new functionality, like: a Microsoft Outlook stealer, an Internet Explorer stealer, and a Mozilla ThunderBird stealer.</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=998&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png" alt="image4-Dec-06-2021-05-36-33-28-PM" width="998" loading="lazy" style="width: 998px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=499&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 499w, https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=998&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 998w, https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=1497&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 1497w, https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=1996&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 1996w, https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=2495&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 2495w, https://www.cybereason.com/hs-fs/hubfs/image4-Dec-06-2021-05-36-33-28-PM.png?width=2994&amp;name=image4-Dec-06-2021-05-36-33-28-PM.png 2994w" sizes="(max-width: 998px) 100vw, 998px"></div>
+<p style="text-align: center;"><em>Excerpt of the mail stealer’s main function.</em></p>
+<p style="text-align: justify;">The following comparative chart demonstrates the changes to the main mail stealing functions between recent variants:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=688&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png" alt="image33-Dec-06-2021-05-37-16-00-PM" width="688" loading="lazy" style="width: 688px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=344&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 344w, https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=688&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 688w, https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=1032&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 1032w, https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=1376&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 1376w, https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=1720&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 1720w, https://www.cybereason.com/hs-fs/hubfs/image33-Dec-06-2021-05-37-16-00-PM.png?width=2064&amp;name=image33-Dec-06-2021-05-37-16-00-PM.png 2064w" sizes="(max-width: 688px) 100vw, 688px">&nbsp;</div>
+<p><strong><u>#OLSTEALER# - the Revamped Outlook Stealer</u></strong></p>
+<p>The new OLSTEALER module enumerates stored Microsoft Outlook accounts on the infected machine:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=829&amp;name=image45-1.png" alt="image45-1" width="829" loading="lazy" style="width: 829px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=415&amp;name=image45-1.png 415w, https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=829&amp;name=image45-1.png 829w, https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=1244&amp;name=image45-1.png 1244w, https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=1658&amp;name=image45-1.png 1658w, https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=2073&amp;name=image45-1.png 2073w, https://www.cybereason.com/hs-fs/hubfs/image45-1.png?width=2487&amp;name=image45-1.png 2487w" sizes="(max-width: 829px) 100vw, 829px"></div>
+<p style="text-align: justify;">This new variant adds support for multiple Microsoft Outlook versions, as opposed to previous versions that typically support one or two versions:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=1097&amp;name=image39-1.png" alt="image39-1" width="1097" loading="lazy" style="width: 1097px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=549&amp;name=image39-1.png 549w, https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=1097&amp;name=image39-1.png 1097w, https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=1646&amp;name=image39-1.png 1646w, https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=2194&amp;name=image39-1.png 2194w, https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=2743&amp;name=image39-1.png 2743w, https://www.cybereason.com/hs-fs/hubfs/image39-1.png?width=3291&amp;name=image39-1.png 3291w" sizes="(max-width: 1097px) 100vw, 1097px"></div>
+<p>&nbsp;In addition, it adds the capability to locate Microsoft Outlook’s .PST and .OST file extensions:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=601&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png" alt="image23-Dec-06-2021-05-40-51-17-PM" width="601" loading="lazy" style="width: 601px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=301&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 301w, https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=601&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 601w, https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=902&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 902w, https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=1202&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 1202w, https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=1503&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 1503w, https://www.cybereason.com/hs-fs/hubfs/image23-Dec-06-2021-05-40-51-17-PM.png?width=1803&amp;name=image23-Dec-06-2021-05-40-51-17-PM.png 1803w" sizes="(max-width: 601px) 100vw, 601px">&nbsp;</div>
+<p><strong><u>#TBSTEALER# - Mozilla ThunderBird Stealer</u></strong></p>
+<p>This variant adds the capability to steal data from the Mozilla ThunderBird mail client, stored in:</p>
+<ul>
+<li>Thunderbird Stored Credentials (logins.json)</li>
+<li>ThunderBird Personal Address Book (abook.mab)&nbsp;</li>
+</ul>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=887&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png" alt="image21-Dec-06-2021-05-41-39-84-PM" width="887" loading="lazy" style="width: 887px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=444&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 444w, https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=887&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 887w, https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=1331&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 1331w, https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=1774&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 1774w, https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=2218&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 2218w, https://www.cybereason.com/hs-fs/hubfs/image21-Dec-06-2021-05-41-39-84-PM.png?width=2661&amp;name=image21-Dec-06-2021-05-41-39-84-PM.png 2661w" sizes="(max-width: 887px) 100vw, 887px"></div>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=680&amp;name=image36-3.png" alt="image36-3" width="680" loading="lazy" style="width: 680px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=340&amp;name=image36-3.png 340w, https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=680&amp;name=image36-3.png 680w, https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=1020&amp;name=image36-3.png 1020w, https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=1360&amp;name=image36-3.png 1360w, https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=1700&amp;name=image36-3.png 1700w, https://www.cybereason.com/hs-fs/hubfs/image36-3.png?width=2040&amp;name=image36-3.png 2040w" sizes="(max-width: 680px) 100vw, 680px"></div>
+<p style="text-align: center;"><em>Extracting ThunderBird user credentials.</em>&nbsp;</p>
+<p><u><strong>#IESTEALER# - Internet Explorer Stealer</strong> </u></p>
+<p>The newly added, built-in module steals data stored in Internet Explorer, such as:</p>
+<ul style="font-size: 18px;">
+<li>HKCU\Software\Microsoft\Internet Explorer\TypedURLs (Autocomplete typed URLs)</li>
+<li>HKCU\Software\Microsoft\Internet Explorer\IntelliForms\Storage2 (AutoComplete Data, including stored credentials)</li>
+<li>CLSID_CUrlHistory (Browsing History)</li>
+</ul>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=943&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png" alt="image7-Dec-06-2021-05-44-50-59-PM" width="943" loading="lazy" style="width: 943px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=472&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 472w, https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=943&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 943w, https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=1415&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 1415w, https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=1886&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 1886w, https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=2358&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 2358w, https://www.cybereason.com/hs-fs/hubfs/image7-Dec-06-2021-05-44-50-59-PM.png?width=2829&amp;name=image7-Dec-06-2021-05-44-50-59-PM.png 2829w" sizes="(max-width: 943px) 100vw, 943px">&nbsp;</div>
+<h3>CryptoCurrency and Encrypted Drives Stealer</h3>
+<p style="text-align: justify;">The new variants seems to add the ability to steal data from cryptocurrency wallets as well as disk encryption software:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=665&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png" alt="image22-Dec-06-2021-05-45-27-68-PM" width="665" loading="lazy" style="width: 665px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=333&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 333w, https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=665&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 665w, https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=998&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 998w, https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=1330&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 1330w, https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=1663&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 1663w, https://www.cybereason.com/hs-fs/hubfs/image22-Dec-06-2021-05-45-27-68-PM.png?width=1995&amp;name=image22-Dec-06-2021-05-45-27-68-PM.png 1995w" sizes="(max-width: 665px) 100vw, 665px"></div>
+<p>Digital currency wallets:</p>
+<ul>
+<li><a href="https://electrum.org/#home" rel=" noopener">Electrum</a> Bitcoin wallet, <a href="https://bitcoin.org/en/download" rel=" noopener">Bitcoin</a> wallet, <a href="https://multibit.org/" rel=" noopener">Multibit-hd</a> (a deprecated Bitcoin wallet), <a href="https://bither.net/" rel=" noopener">Bither</a> Bitcoin wallet, <a href="https://ciphrex.com/products/" rel=" noopener">mSigna</a> Bitcoin wallet, <a href="https://jaxx.io/" rel=" noopener">Jaxx</a> multi-currency digital wallet, and <a href="https://www.bitcoinarmory.com/" rel=" noopener">Bitcoin Armory</a> wallet.</li>
+</ul>
+<p>Disk Encryption Tools:</p>
+<ul>
+<li><a href="https://www.veracrypt.fr/en/Home.html" rel=" noopener">VeraCrypt</a> disk encryption software, <a href="https://en.wikipedia.org/wiki/TrueCrypt" rel=" noopener">TrueCrypt</a> disk encryption utility (a discontinued utility)<br><br></li>
+</ul>
+<a id="thwarting" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Thwarting Security Products Modules</h2>
+<h4 style="line-height: 1.75;">Anti-PhishWall Module</h4>
+<p style="text-align: justify;">The new variant adds a built-in anti-PhishWall module to its capabilities. PhishWall is an anti-phishing and anti-MITB (Man-in-the-Browser) product created by Japanese cybersecurity company <a href="https://www.securebrain.co.jp/" rel=" noopener">Securebrain</a>. The product is quite popular in Japan and is even recommended by <a href="https://www.chibabank.co.jp/safety/prevention/netbank/netbank02/" rel=" noopener">several banks and financial institutions</a> as a protection against <a href="https://kimishin.jp/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88%E3%83%90%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E3%80%8Cgozi%E3%80%8D%E3%81%AB%E3%82%88/" rel=" noopener">banking trojans, and more specifically, Gozi</a>.&nbsp;</p>
+<p style="text-align: justify;">In light of the product’s popularity in Japan, it is not surprising that the new Ursnif variant added an Anti-PhishWall module similar to other trojans in the past such as <a href="https://www.virusbulletin.com/virusbulletin/2015/11/shifu-rise-self-destructive-banking-trojan" rel=" noopener">Shifu</a> and <a href="https://www.hybrid-analysis.com/sample/a91cc0ef59dee1229644bd70f7744bd94d2af6dae19a1cbae685ed06fce707ea?environmentId=1" rel=" noopener">Bebloh</a>.</p>
+<p>This module runs extensive tests to detect and disable the PhishWall product and browser plugin:</p>
+<p>1. It checks the registry for if the PhishWall key is present. If it is present, it locates the sbpwu.exe process and terminates it.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/image54.png?width=710&amp;name=image54.png" alt="image54" width="710" loading="lazy" style="width: 710px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image54.png?width=355&amp;name=image54.png 355w, https://www.cybereason.com/hs-fs/hubfs/image54.png?width=710&amp;name=image54.png 710w, https://www.cybereason.com/hs-fs/hubfs/image54.png?width=1065&amp;name=image54.png 1065w, https://www.cybereason.com/hs-fs/hubfs/image54.png?width=1420&amp;name=image54.png 1420w, https://www.cybereason.com/hs-fs/hubfs/image54.png?width=1775&amp;name=image54.png 1775w, https://www.cybereason.com/hs-fs/hubfs/image54.png?width=2130&amp;name=image54.png 2130w" sizes="(max-width: 710px) 100vw, 710px"></p>
+<p>2. It checks for a second process (“PhishWall5.1.exe”) and attempts to terminate it.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=594&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png" alt="image11-Dec-06-2021-05-47-54-89-PM" width="594" loading="lazy" style="width: 594px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=297&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 297w, https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=594&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 594w, https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=891&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 891w, https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=1188&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 1188w, https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=1485&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 1485w, https://www.cybereason.com/hs-fs/hubfs/image11-Dec-06-2021-05-47-54-89-PM.png?width=1782&amp;name=image11-Dec-06-2021-05-47-54-89-PM.png 1782w" sizes="(max-width: 594px) 100vw, 594px"></p>
+<p>3. It enumerates Firefox’s browser extensions for the PhishWall extension “\extensions\info.asia@securebrain.co.jp.xpi”. If it finds it, it will attempt to terminate Firefox.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=740&amp;name=image42-1.png" alt="image42-1" width="740" loading="lazy" style="width: 740px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=370&amp;name=image42-1.png 370w, https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=740&amp;name=image42-1.png 740w, https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=1110&amp;name=image42-1.png 1110w, https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=1480&amp;name=image42-1.png 1480w, https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=1850&amp;name=image42-1.png 1850w, https://www.cybereason.com/hs-fs/hubfs/image42-1.png?width=2220&amp;name=image42-1.png 2220w" sizes="(max-width: 740px) 100vw, 740px"></p>
+<p>4. Lastly, it attempts to locate the following CLSID in the registry, which are associated with PhishWall:</p>
+<ul>
+<li><span style="font-size: 18px;"><a href="https://www.systemlookup.com/CLSID/34080-sbpw32_dll.html" rel=" noopener">8CA7E745-EF75-4E7B-BB86-8065C0CE29CA</a></span></li>
+<li><span style="font-size: 18px;"><a href="http://toolbarcollection.com/toolbar_detail.php?toolbar_id=8101&amp;name=PhishWall" rel=" noopener">BB62FFF4-41CB-4AFC-BB8C-2A4D4B42BBDC</a></span><br><br></li>
+</ul>
+<p>Important note: The author of this article did not test the Anti-PhishWall code and cannot attest to its validity or quality.</p>
+<h4>Anti-Rapport Module</h4>
+<p style="text-align: justify;">While Ursnif’s alleged <a href="https://www.vkremez.com/2018/08/lets-learn-in-depth-reversing-of-recent.html" rel=" noopener">Anti-Rapport module</a> is not new, it is quite rare to see this module among the variants that hit Japan recently. <a href="https://www.ibm.com/us-en/marketplace/phishing-and-malware-protection" rel=" noopener">Rapport</a> is an endpoint protection product by <a href="https://www.ibm.com/security/fraud-protection/trusteer" rel=" noopener">IBM’s Trusteer</a>. Over the years, there have been several&nbsp;types of malware that claimed to bypass or disable Rapport.</p>
+<p style="text-align: justify;">This Ursnif variant comes with an Anti-Rapport module which seems heavily based, on <a href="https://krebsonsecurity.com/2013/06/carberp-code-leak-stokes-copycat-fears/" rel=" noopener">Carberp</a>’s Anti-Rapport code. This code was leaked in 2013 and is <a href="https://github.com/hzeroo/Carberp/blob/master/source%20-%20absource/pro/all%20source/anti_rapport/antirapport.cpp" rel=" noopener">publicly available on Github</a>.</p>
+<div>&nbsp;<img src="https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=488&amp;name=image50-1.png" alt="image50-1" width="488" loading="lazy" style="width: 488px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=244&amp;name=image50-1.png 244w, https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=488&amp;name=image50-1.png 488w, https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=732&amp;name=image50-1.png 732w, https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=976&amp;name=image50-1.png 976w, https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=1220&amp;name=image50-1.png 1220w, https://www.cybereason.com/hs-fs/hubfs/image50-1.png?width=1464&amp;name=image50-1.png 1464w" sizes="(max-width: 488px) 100vw, 488px"></div>
+<div>&nbsp;</div>
+<p>Excerpt from the Anti-Rapport code found in the new variant:</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image53.png?width=852&amp;name=image53.png" alt="image53" width="852" loading="lazy" style="width: 852px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image53.png?width=426&amp;name=image53.png 426w, https://www.cybereason.com/hs-fs/hubfs/image53.png?width=852&amp;name=image53.png 852w, https://www.cybereason.com/hs-fs/hubfs/image53.png?width=1278&amp;name=image53.png 1278w, https://www.cybereason.com/hs-fs/hubfs/image53.png?width=1704&amp;name=image53.png 1704w, https://www.cybereason.com/hs-fs/hubfs/image53.png?width=2130&amp;name=image53.png 2130w, https://www.cybereason.com/hs-fs/hubfs/image53.png?width=2556&amp;name=image53.png 2556w" sizes="(max-width: 852px) 100vw, 852px">&nbsp;</div>
+<p>The variant’s code shows great resemblance to Carberp’s <a href="https://github.com/hzeroo/Carberp/blob/master/source%20-%20absource/pro/all%20source/anti_rapport/antirapport.cpp" rel=" noopener">code on Github</a>:&nbsp;</p>
+<div><img src="https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=1030&amp;name=image37-2.png" alt="image37-2" width="1030" loading="lazy" style="width: 1030px;" srcset="https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=515&amp;name=image37-2.png 515w, https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=1030&amp;name=image37-2.png 1030w, https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=1545&amp;name=image37-2.png 1545w, https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=2060&amp;name=image37-2.png 2060w, https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=2575&amp;name=image37-2.png 2575w, https://www.cybereason.com/hs-fs/hubfs/image37-2.png?width=3090&amp;name=image37-2.png 3090w" sizes="(max-width: 1030px) 100vw, 1030px"></div>
+<p style="text-align: justify;">Important note: The author of this article did not test the Anti-Rapport code and cannot attest to its validity or quality.</p>
+<a id="conclusion" data-hs-anchor="true"></a>
+<h2 style="line-height: 1.75;">Conclusion</h2>
+<p style="text-align: justify;">Ursnif and Bebloh continue to be among the most common information stealing trojans that target Japanese users. The development cycle and the introduction of targeted delivery techniques and variants observed in Japan is quite frequent. It changes tactics every one to two months,&nbsp;in an attempt to&nbsp;&nbsp;evade detection by traditional security products and some sandbox solutions.&nbsp;</p>
+<p style="text-align: justify;">What stands out in these campaigns is the great effort made by threat actors to target Japanese users, using multiple checks to verify that the targeted users are Japanese. These multiple tests prove to be quite effective not only in targeting the right crowd, but also in evading security products such as sandboxes, since the malicious code will not run unless the country/language settings are properly configured.&nbsp;We assess that this&nbsp;new wave of country-based targeted delivery&nbsp;is&nbsp;likely to become more and more popular in future campaigns.&nbsp;</p>
+<p style="text-align: justify;">Lastly, our research demonstrates that the new variant seems to be quite unique and customized for Japan. It comes with robust information stealing features that focus on mail data, new evasive persistence mechanism and a module to bypass a Japanese security product.&nbsp;Some of the new features of this&nbsp;variant&nbsp;seem to draw inspiration from other trojans that are popular in Japan, such as Bebloh and Shifu. According to Cybereason's telemetry, this variant has been spotted only in Japan so far.&nbsp; It&nbsp;is&nbsp;interesting to see whether this new strain of Ursnif will&nbsp;emerge in other geographical regions.&nbsp;</p>
+<p style="text-align: justify;">We have an on-demand webinar all about this research online.&nbsp;<!--HubSpot Call-to-Action Code --><span class="hs-cta-wrapper" id="hs-cta-wrapper-f59fa111-6767-4233-8800-a7a39c31e0af"><span class="hs-cta-node hs-cta-f59fa111-6767-4233-8800-a7a39c31e0af" id="hs-cta-f59fa111-6767-4233-8800-a7a39c31e0af"><!--[if lte IE 8]><div id="hs-cta-ie-element"></div><![endif]--><a href="https://cta-redirect.hubspot.com/cta/redirect/3354902/f59fa111-6767-4233-8800-a7a39c31e0af"><img class="hs-cta-img" id="hs-cta-img-f59fa111-6767-4233-8800-a7a39c31e0af" style="border-width:0px;" src="https://no-cache.hubspot.com/cta/default/3354902/f59fa111-6767-4233-8800-a7a39c31e0af.png" alt="Check out our live webinar on the discovery."></a></span><script charset="utf-8" src="/hs/cta/cta/current.js"></script><script type="text/javascript"> hbspt.cta._relativeUrls=true;hbspt.cta.load(3354902, 'f59fa111-6767-4233-8800-a7a39c31e0af', {"useNewLoader":"true","region":"na1"}); </script></span><!-- end HubSpot Call-to-Action Code --></p>
+<a id="indicators-of-compromise" data-hs-anchor="true"></a>
+<h2>Indicators of Compromise</h2>
+<p>Excel Document (Macro)</p>
+<p>DA85A7DE0B48881EF09179B800D033F27E8F6A01</p>
+<p>6BEF7B72A0D314393FAE5F7915A5440DF2ABCF5F</p>
+<p>A1CC4B824A35B5E1A016AA9AC0FAC0866C66BFFC</p>
+<p>12E6EEA2EC60AC530CB6F683619ED4F571558C3F</p>
+<p>F23EDE071D9F0274430D06E2C6E33FF1B1803C5F</p>
+<p>B4707DA9396F1BBD3179A10F58815F1E58AC02FA</p>
+<p>&nbsp;</p>
+<p>.NET language checker</p>
+<p>Ettivyph.dll - 14181A8F9ACF8B3C55076BEF21217EAF83062B5A</p>
+<p>Ursnif Loader (1st Stage):</p>
+<p>gyehtuegg.exe - 2B21C3237105DEE871C252633AE65125E78AC23E</p>
+<p>Ewwhuptgfq.exe - 99882D848ADF3818AD758B951303F12649967247</p>
+<p>Ehuwowstsg.exe - 6EABB986CBA048EE1B81BD884F6ABDD38B7CB5DA</p>
+<p>Iiwrghesya.exe - F1F6E136EEAC66278359EB6DAF406FD8504107DB</p>
+<p>Bthcan32.exe - C8488A58B5ECE9104AEFBBBB0334199E2E3C3D56</p>
+<p>Awerwyae.exe - 610B9128E56D488C7C2C700BD6C45A0250312129</p>
+<p>Winklogon.exe - 1D78AA605450C5C02D23BD065996A028A59DE365</p>
+<p>FEWPSQUUST.EXE - 8BB7240A38534881FDE3ADD2179EF9E908A09BE8</p>
+<p>1770BE655DB3AC9B6561F2CC91DD9CD5DEA3D69B</p>
+<p>0147FCC93C78A823BE94191FAE8A105549390C03</p>
+<p>Unpacked Loader (dumped from memory)</p>
+<p>1BB1BDA50D3C7BAD92872C4FE334203FB706E7C3</p>
+<p>Client64.dll (dumped from memory)</p>
+<p>8F6536397DC5E0D7699A1B2FDE87220C5D364A20</p>
+<p>B6CB96E57951C123B9A5F5D6E75455AFF9648BCB</p>
+<p>Client.dll (dumped from memory)</p>
+<p>35F7AD2300690E0EB95F6F327ACA57354D8103FF</p>
+<p>&nbsp;</p>
+<p>Domains</p>
+<p>baderson[.]com</p>
+<p>Mopscat[.]com</p>
+<p>Gorsedog[.]com</p>
+<p>Pintodoc[.]com</p>
+<p>Ropitana[.]com</p>
+<p>Pirenaso[.]com</p>
+<p>Papirosn[.]com</p>
+<p>delcapen[.]com</p>
+<p>&nbsp;</p>
+<p>Steganography URLs</p>
+<p>hxxps://i.imgur[.]com/96vV0YR[.]png</p>
+<p>hxxp://oi65[.]tinypic[.]com/2z8thcz[.]jp</p></span>
+          
+          <!-- IOC PopUp Modal -->
+          
+          
+          
+          <!-- -->
+          
+          <!-- Social Share -->
+          <div class="cr-blog-post__social-sharing">
+            <span>Share</span>
+            <div id="hs_cos_wrapper_module_161724375084957" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-social_sharing" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_social_sharing" data-hs-cos-general-type="widget" data-hs-cos-type="social_sharing">
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="https://twitter.com/intent/tweet?original_referer=https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features&amp;utm_medium=social&amp;utm_source=twitter&amp;url=https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features&amp;utm_medium=social&amp;utm_source=twitter&amp;source=tweetbutton&amp;text=" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/twitter-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on twitter">
+    </a>
+	
+
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="http://www.facebook.com/share.php?u=https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features&amp;utm_medium=social&amp;utm_source=facebook" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/facebook-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on facebook">
+    </a>
+	
+
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.cybereason.com/blog/research/new-ursnif-variant-targets-japan-packed-with-new-features&amp;utm_medium=social&amp;utm_source=linkedin" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/linkedin-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on linkedin">
+    </a>
+	
+
+</div></div>
+          </div> 
+          
+          
+          <!-- CONDITIONAL Author Box Display -->
+            <div class="container columns cr-mln__author-listing-single">
+              
+                <div class="column headshot is-3-full-hd is-3-desktop is-3-tablet is-12-mobile">
+                  <img class="cr-speaker-headshot" src="https://www.cybereason.com/hubfs/CR_Owl_Web_Mono@3x%202.png" alt="Cybereason Nocturnus">
+                </div>
+              
+              <div class="column is-9-full-hd is-9-desktop is-12-mobile">
+                <span class="descriptor">About the Author</span>
+                <h4>Cybereason Nocturnus</h4>
+                
+                  <a class="social" href="https://www.linkedin.com/company/cybereason" target="_blank">
+                    <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/icon-social-gray-linkedin.png">
+                  </a>
+                
+                
+                  <a class="social" href="https://twitter.com/cr_nocturnus" target="_blank">
+                    <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/icon-social-gray-twitter.svg">
+                  </a>
+                
+                
+                  <p>The Cybereason Nocturnus Team has brought the world’s brightest minds from the military, government intelligence, and enterprise security to uncover emerging threats across the globe. They specialize in analyzing new attack methodologies, reverse-engineering malware, and exposing unknown system vulnerabilities. The Cybereason Nocturnus Team was the first to release a vaccination for the 2017 NotPetya and Bad Rabbit cyberattacks.</p>
+                
+                
+                  <a class="cr-button cr-button__min" href="https://www.cybereason.com/blog/authors/cybereason-nocturnus">All Posts by Cybereason Nocturnus</a>
+                
+              </div>            
+            </div>
+          
+        <!-- CONDITIONAL Post Type Choices -->
+        
+        <!-- Malicious Life Post -->
+        
+        
+        <!-- CISO Stories -->
+        
+        <!-- Webinar -->
+        
+          
+        <!-- CONDITIONAL Transcript -->
+          
+        
+         <!-- Related Posts -->
+        <div id="hs_cos_wrapper_module_1649342860525315" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<section class="cr-section related-posts__wrapper">
+  <div class="container container-is-blog page-center">
+     <h3>Related Posts</h3>
+     <div class="columns is-multiline">
+       
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/research/powerless-trojan-iranian-apt-phosphorus-adds-new-powershell-backdoor-for-espionage"><img src="https://www.cybereason.com/hubfs/powerless.png" alt="PowerLess Trojan: Iranian APT Phosphorus Adds New PowerShell Backdoor for Espionage"></a>
+    <h4><a href="https://www.cybereason.com/blog/research/powerless-trojan-iranian-apt-phosphorus-adds-new-powershell-backdoor-for-espionage"><span class="underline">PowerLess Trojan: Iranian APT Phosphorus Adds New PowerShell Backdoor for Espionage</span></a></h4>
+     <p>Cybereason discovered a new toolset developed by Iranian APT Phosphorus which revealed a connection to Memento ransomware and includes the newly discovered PowerLess Backdoor that evades detection by running PowerShell in a .NET context...</p>
+   </div>
+ </div>
+
+
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive"><img src="https://www.cybereason.com/hubfs/blog-post-text%20%2888%29.png" alt="Operation CuckooBees: A Winnti Malware Arsenal Deep-Dive"></a>
+    <h4><a href="https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive"><span class="underline">Operation CuckooBees: A Winnti Malware Arsenal Deep-Dive</span></a></h4>
+     <p>This research zeroes in on the Winnti malware arsenal and includes analysis of the observed malware and the complex Winnti infection chain, including evasive maneuvers and stealth techniques that are baked-in to the malware code...</p>
+   </div>
+ </div>
+
+
+
+    </div>
+  </div>
+</section></div>
+          
+          
+      </div>
+        
+        <!-- Sidebar -->
+
+      <div class="column is-3-fullhd is-3-desktop is-12-mobile cr-malicious-life-network__sidebar">
+        <div class="cr-ml-sidebar--group">
+        <div class="top-stripe"></div>
+        <div class="sidebar-block search-section">
+          <form action="/hs-search-results">
+            <input type="search" class="hs-search-field__input" name="term" autocomplete="on" placeholder="Search">
+            <input type="hidden" name="type" value="BLOG_POST">
+            <input type="hidden" name="type" value="LISTING_PAGE">
+            <button type="submit" class="arrow"></button>
+          </form>
+        </div>
+        <div class="sidebar-block subscribe">
+          <a href="#blog-subscribe">
+            <h4>Subscribe</h4>
+            <span>Never miss a blog.</span>
+          </a>
+        </div>
+
+        <div class="sidebar-block recent-posts">
+          <h4>Recent Posts</h4>
+          
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/threat-alert-citrixbleed-cve-2023-4966" class="post-name"><span class="underline">THREAT ALERT: CITRIXBLEED (CVE-2023-4966)</span></a>
+                       
+                    </div>
+                </div>
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/threat-alert-djvu-variant-delivered-by-loader-masquerading-as-freeware" class="post-name"><span class="underline">THREAT ALERT: DJvu Variant Delivered by Loader Masquerading as Freeware</span></a>
+                       
+                    </div>
+                </div>
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/2024-cybersecurity-predictions-generative-ai-reshapes-cybersecurity" class="post-name"><span class="underline">2024 Cybersecurity Predictions - Generative AI Reshapes Cybersecurity</span></a>
+                       
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class="sidebar-block category-listing">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="https://www.cybereason.com/blog/category/research">Research</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/podcasts">Podcasts</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/webinars">Webinars</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/resources">Resources</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/videos">Videos</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/news">News</a></li>
+          </ul>
+
+          <a class="rec-category__single--view-all" href="/blog/category/research">All Posts</a>
+        </div>
+
+        
+      </div><!-- END .rec-categories__all -->
+      
+      
+      
+    </div>
+       
+    </div>
+  </div>
+</div></div>
+
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="display: none;" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1616011887658867" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<section class="cr-section related-posts__wrapper">
+  <div class="container container-is-blog page-center">
+     <h3>Related Posts</h3>
+     <div class="columns is-multiline">
+       
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/research/powerless-trojan-iranian-apt-phosphorus-adds-new-powershell-backdoor-for-espionage"><img src="https://www.cybereason.com/hubfs/powerless.png" alt="PowerLess Trojan: Iranian APT Phosphorus Adds New PowerShell Backdoor for Espionage"></a>
+    <h4><a href="https://www.cybereason.com/blog/research/powerless-trojan-iranian-apt-phosphorus-adds-new-powershell-backdoor-for-espionage"><span class="underline">PowerLess Trojan: Iranian APT Phosphorus Adds New PowerShell Backdoor for Espionage</span></a></h4>
+     <p>Cybereason discovered a new toolset developed by Iranian APT Phosphorus which revealed a connection to Memento ransomware and includes the newly discovered PowerLess Backdoor that evades detection by running PowerShell in a .NET context...</p>
+   </div>
+ </div>
+
+
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive"><img src="https://www.cybereason.com/hubfs/blog-post-text%20%2888%29.png" alt="Operation CuckooBees: A Winnti Malware Arsenal Deep-Dive"></a>
+    <h4><a href="https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive"><span class="underline">Operation CuckooBees: A Winnti Malware Arsenal Deep-Dive</span></a></h4>
+     <p>This research zeroes in on the Winnti malware arsenal and includes analysis of the observed malware and the complex Winnti infection chain, including evasive maneuvers and stealth techniques that are baked-in to the malware code...</p>
+   </div>
+ </div>
+
+
+
+    </div>
+  </div>
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_161767462015235" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-blog_subscribe" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="cr-mln__blog-listing-page__subscribe-footer">
+  <div class="container container-is-blog columns page-center">
+    <div class="column is-8-fullhd is-8-desktop is-10-tablet is-12-mobile">
+      <span class="tag">NEWSLETTER</span>
+      <h3>Never miss a blog</h3>
+      <p>Get the latest research, expert insights, and security industry news.</p>
+      <a class="cr-button cr-mln__subscribe" href="#blog-subscribe">Subscribe</a>
+    </div>
+    <!--<div class="column is-5-fullhd is-5-desktop is-half-tablet is-12-mobile is-offset-1-fullhd is-offset-1-desktop">
+      <div class="inputs-wrapper">
+        
+        
+      </div>
+    </div>-->
+  </div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_166508001252918" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="cr-sticky-cta-bar bg-black" id="sticky-bar">
+  <div class="content">
+    <span>Want to see the Cybereason Defense Platform in action?</span>
+    <a class="cr-button cr-button__fill-yellow" href="https://www.cybereason.com/request-a-demo" target="_blank">Schedule a Demo</a>
+  </div>
+  <div class="close">X</div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end body -->
+</div><!--end body wrapper -->
+
+<div class="footer-container-wrapper">
+    <div class="footer-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_16036762394194314" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><!-- FOOTER -->
+
+<footer class="cr-section cr-footer cr-footer__full">
+    <div class="container page-center">
+      <div class="columns">
+          <div class="column is-6-fullhd is-5-desktop cr-footer__col cr-footer__left">
+            <div class="cr-footer__Left-logo">
+              
+                <a href="https://www.cybereason.com">
+                  
+                <img src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-logo-inline--primary-white.png">
+              </a>
+            </div>
+          </div>
+          <div class="columns column is-6-fullhd is-6-desktop cr-footer__col cr-footer__right">
+            <div class="cr-footer__links-list column">
+              <h4>About</h4>
+              <ul>
+                <li><a href="https://www.cybereason.com/company/who-we-are">Who We Are</a>
+                </li><li><a href="https://www.cybereason.com/company/careers">Careers</a>
+          <!-- </li><li><a href="https://www.cybereason.com/company/leadership">Leadership</a> --->
+                </li><li><a href="https://www.cybereason.com/company/contact-us">Contact</a>
+              </li></ul>
+            </div>
+            <div class="cr-footer__links-list column">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="https://www.cybereason.com/blog">Blog</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/case-study">Case Studies</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/webinars">Webinars</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/white-papers">White Papers</a></li>
+             </ul>
+            </div>
+            <div class="cr-footer__links-list column">
+              <h4>Platform</h4>
+              <ul>
+                
+                <li><a href="https://www.cybereason.com/platform">Overview</a></li>
+                <li><a href="https://www.cybereason.com/platform/endpoint-prevention">Endpoint Protection</a></li>
+                <li><a href="https://www.cybereason.com/platform/endpoint-detection-response-edr">EDR</a></li>
+                <li><a href="https://www.cybereason.com/platform/managed-detection-response-mdr">MDR</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+    </div>
+  
+    <div class="container page-center">
+      <div class="columns cr-footer__bottom-bar">
+        <div class="column">
+          <p>©Cybereason 2023. All Rights Reserved.</p>
+        </div>
+        <div class="column bottom-bar__links">
+          <ul>
+            <li><a href="https://www.cybereason.com/terms-of-use">Terms of Use</a></li>
+            <li><a href="https://www.cybereason.com/privacy-notice">Privacy Notice</a></li>
+            <li><a href="https://www.cybereason.com/ccpa-privacy-request">Do Not Sell</a></li>
+            <li><a href="https://www.cybereason.com/security">Security</a></li>
+            <!--<li><a href="#">Cookie Policy</a></li>-->
+          </ul>
+        </div>
+
+        <div class="column bottom-bar__social">
+          <ul>
+            <li><a class="facebook" href="https://www.facebook.com/Cybereason/"></a></li>
+            <li><a class="twitter" href="https://twitter.com/cybereason"></a></li>
+            <li><a class="youtube" href="https://www.youtube.com/channel/UCOm7AaB0HiNH4Phe66sK0Ew"></a></li>
+            <li><a class="linkedin" href="https://www.linkedin.com/company/cybereason"></a></li>
+            <li><a class="instagram" href="https://www.instagram.com/cybereason"></a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+
+</footer></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end footer -->
+</div><!--end footer wrapper -->
+
+    
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42507089303/1644440411417/__CR_Web_Platform/JS/animatedModal/animatedModal.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41681847227/1644941386128/module_41681847227_CR_-_Malicious_Life_Network_--_Tier_One_Header.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41682410610/1644941443113/module_41682410610_CR_-_Malicious_Life_Network_--_Main_Hero.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/43300360745/1649424828285/module_43300360745_CR_-_Malicious_Life_Network_--_Related_Posts.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/86933076631/1669911113440/module_86933076631_CR_-_Sticky_CTA_Bar.min.js"></script>
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.cybereason.com\/blog\/research\/new-ursnif-variant-targets-japan-packed-with-new-features"]);
+_hsq.push(["setPageId", "8059968616"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 8059968616,
+    "legacyPageId": "8059968616",
+    "contentFolderId": null,
+    "contentGroupId": 5272851739,
+    "abTestId": null,
+    "languageVariantId": 8059968616,
+    "languageCode": "en",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/3354902.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "d23b7273-1e7d-4456-a7a6-6a3ef81cc047",
+    ticks: 1704071755588,
+    page_id: 8059968616,
+    
+    content_group_id: 5272851739,
+    portal_id: 3354902,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "8059968616",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+<script>if ($('[id^="hs_form"]').length > 0) {
+  var myInterval = setInterval(
+  function() {
+    var myFields = document.getElementsByClassName('hs-input');
+    if (myFields.length > 0) {
+      clearInterval(myInterval);
+      for (var i = 0; i < myFields.length; i++) {
+        var myField = myFields[i];
+		var myTagName = myField.tagName.toLowerCase();
+        if (myTagName == 'input' || myTagName == 'textarea') {
+          if (myField.placeholder != null) {
+            myField.placeholder = myField.placeholder.replace('*', '');
+          }
+        } else if (myTagName == 'select') {
+          myField.options[0].innerHTML = myField.options[0].innerHTML.replace('*', '');
+        }
+      }
+    }
+  }, 100);
+}
+</script>
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+    <script>
+function sticky_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('#sticky-anchor').offset().top;
+  if (window_top > div_top) {
+    $('#sticky').addClass('stick');
+  } else {
+    $('#sticky').removeClass('stick');
+  }
+}
+
+$(function() {
+  $(window).scroll(sticky_relocate);
+  sticky_relocate();
+});
+</script>
+    <!-- Generated by the HubSpot Template Builder - template version 1.03 -->
+
+</body></html>

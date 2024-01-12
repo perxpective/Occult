@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+	<!--[if lt IE 7]><html lang="fr" dir="ltr" class="fr ltr no-js lt-ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 7]><html lang="fr" dir="ltr" class="fr ltr no-js ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]><html lang="fr" dir="ltr" class="fr ltr no-js ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]><html lang="fr" dir="ltr" class="fr ltr no-js ie9 lt-ie10"><![endif]-->
+<!--[if gt IE 9]><!--><html lang="fr" dir="ltr" class="fr ltr no-js"><!--<![endif]-->
+
+<head>
+<meta charset="utf-8">
+<meta name="google-site-verification" content="dF3LI7BiwXxvJ2ubTJYmt4kTOCJUMRMQ6Mv2y3uLBQc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<meta property="fb:admins" content="1427563059"/>
+<meta property="og:title" content="Comment Qbot revient en force avec OneNote ?" />
+<meta property="og:url" content="https://www.dsih.fr/article/5020/comment-qbot-revient-en-force-avec-onenote.html" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="DSIH" />
+<meta property="og:image" content="https://www.dsih.fr/images/art/5000-5999/5020/5020_8871__w800_00_illustration_qbot_onenote.jpg"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@DSIH_esante">
+<meta name="twitter:creator" content="Charles Blanc-Rolin">
+<meta name="twitter:title" content="Comment Qbot revient en force avec OneNote ?">
+<meta name="twitter:description" content="Les attaquants derrière le cheval de Troie Qbot (aussi connu sous le nom de Quakbot) utilisent depuis longtemps des fichiers Word ou Excel avec des macros servant à télécharger et exécuter la charge malveillante.">
+<meta name="twitter:image" content="https://www.dsih.fr/images/art/5000-5999/5020/5020_8871__w800_00_illustration_qbot_onenote.jpg">
+<link rel='icon' href='/favicon.ico' /> 
+
+<link rel='stylesheet' href='/css/jqueryui.css?ver=20220404'/>
+
+<link rel='stylesheet' href='/css/bootstrap/boots.css?ver=20220404'/>
+
+<link rel='stylesheet' href='/css/css2022.css?ver=202220220404'/>
+
+<title>Comment Qbot revient en force avec OneNote ?</title>
+<meta name="description" content="Les attaquants derrière le cheval de Troie Qbot (aussi connu sous le nom de Quakbot) utilisent depuis longtemps des fichiers Word ou Excel avec des macros servant à télécharger et exécuter la charge malveillante."/>
+<meta name="keywords" content=""/>
+<link rel="canonical" href="https://www.dsih.fr/article/5020/comment-qbot-revient-en-force-avec-onenote.html" />
+
+  <style type='text/css'>
+<!-- 
+figure {margin : 0; position : relative; max-width:100%;padding:0}
+
+#ml a {text-decoration:underline;color:#0000FF}
+h1 span{font-size:11px;color:black;font-weight:normal}
+#g1 {display:inline;position:relative;top:5px}
+#tool {text-align:center;width:300px;margin : 20px auto;}
+.tags span {    font-size: 15px;
+    color: #fff;
+    display: inline-block;
+    background: #7f7f7f;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 0 5px 5px 0;
+}
+
+.tags a {
+    color: #fff !important;
+
+}
+
+a.admin {
+    color: #000;
+
+}
+--></style>
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setCookieDomain", "*.dsih.fr"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  _paq.push(['trackAllContentImpressions']);
+    // Add this code below within the Matomo JavaScript tracker code
+    // Important: the tracker url includes the /matomo.php
+    var secondaryTrackerUrl = 'https://stats.caducee.net/matomo.php';
+    var secondaryWebsiteId = 8;
+    // Also send all of the tracking data to this other Matomo server, in website ID 77
+    _paq.push(['addTracker', secondaryTrackerUrl, secondaryWebsiteId]);
+    // That's it!
+  (function() {
+    var u="https://dsih.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/dsih.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+
+
+</head>
+<body>
+<header>
+<div id='top_c1'>
+<div class='content'>
+  <a class="logo" href="/" title="dsih, le magazine de l\'hôpital orienté systèmes d\'informations"><img src="/img/2022/logo-dsih.png" alt="dsih, le magazine de l\'hôpital orienté systèmes d\'informations"/></a>
+
+
+  <ul id="user_tool">
+    <li><a href='mailto:contact@dsih.fr'><span>CONTACT</span> <img src="/img/2022/picto_contact.png" alt="contact"/></a></li>
+
+<li><a href="/user/connexion.php" title="Identifiez-vous"><span>ME CONNECTER</span> <img src="/img/2022/picto_connect.png" alt="contact"/></a></li>
+  <li><a href="/user/inscription.php" title="Incription"><span>INSCRIPTION</span> <img src="/img/2022/account.png" alt="Inscription"/></a></li>
+    </ul>
+  <div id="pub1" class="autofit"></div>
+
+
+
+
+</div>
+</div>
+
+
+
+<div id='top_c2'>
+<div class='content'>
+
+<nav>
+   <p class='baseline'>L’actualité des systèmes d’information hospitaliers et de la e-santé</p>
+   <a class="logo" href="/" title="dsih, le magazine de l\'hôpital orienté systèmes d\'informations"><img src="/img/2022/logo-dsih.png" alt="dsih, le magazine de l\'hôpital orienté systèmes d\'informations"/></a>
+<div class="bb0 for320">
+        <a href="#" class="bb0a bb1" title="Afficher le menu" style="background:url('/img/2022/burger.png') center center no-repeat;"> </a>
+        <a class='bb0a' href="/recherche.html?raz=1"  title="Recherche par mots clés" style="background:url('/img/2022/picto_loupe.png') center center no-repeat;"> </a>
+        <a class='ucb m-top-20' href='mailto:contact@dsih.fr'><span>CONTACT</span> <img src="/img/2022/picto_contact.png" alt="contact"/></a>
+
+        <a class="ucb" href="/user/connexion.php" title="Identifiez-vous">ME CONNECTER <img src="/img/2022/picto_connect.png" alt="contact"/></a></div>
+   <div class="bb for320">
+        <a href="mailto:contact@dsih.fr"  title="Contactez-nous" style="background:url('/img/2022/picto_contact.png') center center no-repeat;"> </a>
+
+        <a href="/user/connexion.php"  title="Me connecter" style="background:url('/img/2022/picto_connect.png') center center no-repeat;"> </a>        <a href="/recherche.html"  title="Recherche par mots clés" style="background:url('/img/2022/picto_loupe.png') center center no-repeat;"> </a>
+        <a href="#" class="bb1" title="Afficher le menu" style="background:url('/img/2022/burger.png') center center no-repeat;"> </a>
+
+
+
+   </div>
+<div id="nmenu">
+  <div class="nmc nmc1">
+  <div class="circle">
+    <a id="nm1" title="Actualités e-Santé" href="/actualites/" style="background:url('/img/2022/picto_actu.png') center center no-repeat;"></a>
+    </div>
+<a href="/actualites/" class='ib'><span class='st'>Tribunes &</span> ACTUS</a>
+  
+
+<div class='sm2' id='tb1' style='display:none'>
+
+<div class='rounded' id='r1'>
+</div>
+<div class='row'>
+  <div class='col-md-4'>
+    <h2>Actualités</h2>
+    <p><a href="/article/5362/sylvain-groseil-directeur-general-du-ch-victor-dupouy-d-argenteuil-devient-president-du-resah.html"><img src=/images/art/5000-5999/5362/5362_9019__w800_Sylvain-Groseil-.png alt=''/>20/12/2023 - Sylvain GROSEIL, Directeur général du CH Victor Dupouy d’Argenteuil, devient Président du Resah</a></p><p><a href="/article/5348/le-sib-au-coeur-des-enjeux-de-l-intelligence-artificielle-en-sante.html"><img src=/images/art/5000-5999/5348/5348_9013__h270_Claudie-David.png alt=''/>12/12/2023 - Le SIB au coeur des enjeux de l’intelligence artificielle en santé</a></p><p><a href="/article/5346/les-webinaires-des-mardis-de-la-donnee-de-sante-du-hdh.html">12/12/2023 - Les webinaires des Mardis de la donnée de santé du HDH</a></p>
+
+  </div>
+  <div class='col-md-4'>
+    <h2>Tribunes</h2>
+    <p><a href="/article/5363/2023-bilan-de-l-annee.html">28/12/2023 - 2023, bilan de l’année</a></p><p><a href="/article/5359/responsabilite-a-l-ere-du-numerique-un-nouvel-accord-historique.html">19/12/2023 - Responsabilité à l&#39;ère du numérique, un nouvel accord historique !</a></p><p><a href="/article/5358/regards-croises-sur-des-schemas-directeurs-des-systemes-d-informations-les-12-tendances-2024.html">19/12/2023 - Regards croisés sur des schémas directeurs des systèmes d’informations : les 12 tendances 2024</a></p>
+
+  </div>
+  <div class='col-md-4'>
+    <h2>Entretiens DSIH</h2>
+    <p><a href="/article/4849/entretien-avec-frederic-serein-directeur-business-developpement-chez-dedalus.html">28/09/2022 - Entretien avec Frédéric Serein, Directeur Business Développement chez Dedalus</a></p><p><a href="/article/4781/entretien-avec-christian-fillatreau-president-d-alliance-pour-l-innovation-en-sante-allis-na-et-coordonnateur-innovation-sante-du-resah.html"><img src=/images/art/4000-4999/4781/4781_8731__w1200_entretien-fillatreau.jpg alt=''/>05/07/2022 - Entretien avec Christian Fillatreau, Président d’Alliance pour l’Innovation en Santé (ALLIS - NA) et coordonnateur innovation santé du Resah</a></p><p><a href="/article/4768/entretien-avec-francis-mambrini-president-de-la-federation-des-editeurs-d-informatique-medicale-paramedicale-ambulatoire-feima.html"><img src=/images/art/4000-4999/4768/4768_8721__w1200_entretien-f-mabrini.jpg alt=''/>27/06/2022 - Entretien avec Francis Mambrini, Président de la Fédération des Editeurs d&#39;Informatique Médicale & Paramédicale Ambulatoire (FEIMA)</a></p>
+
+  </div>
+</div>
+<div class='row  text-center'>
+  <div class='col-md-4'>
+
+    <a class='btn btn-secondary' href='/actualites/'>Toutes les actus</a>
+  </div>
+  <div class='col-md-4'>
+
+    <a class='btn btn-secondary' href='/tribunes/'>Toutes les tribunes</a>
+  </div>
+  <div class='col-md-4'>
+
+    <a class='btn btn-secondary' href='/actualites/index.php?type=5'>Tous les entretiens</a>
+  </div>
+</div>
+</div>
+
+  </div>
+
+  
+
+  <div class="nmc nmc2">
+    <div class="circle">
+    <a href="/magazine/" style="background:url('/img/2022/picto_mag.png') center center no-repeat;"></a>
+</div>
+    <a href="/magazine/" class='ib'><span class='st'>Lire le</span> MAGAZINE</a>
+        
+<div class='sm2' id='tb2' style='display:none'>
+<div class='rounded' id='r2'>
+</div>
+<div class='row'>
+<div class='col-md-12 m0'>
+<h2>Les magazines DSIH en version papier et numérique</h2>
+</div>
+  <div class='col-md-4'>
+
+
+    <p class='mo'><a href='/magazine/40/dsih-40-intelligence-artificielle-a-l-hopital-la-grande-transformation.html'><img class="border-primary" src="http://www.dsih.fr/images/mag/couv40.jpg" alt="" width="210" height="297" /> DSIH 40 Intelligence artificielle à l’hôpital : la grande transformation</a></p><p class='clear'></p><p class='mo'><a href='/magazine/39/dsih-39-la-cybersecurite-en-mode-task-force.html'><img class="border-primary" src="http://www.dsih.fr/images/mag/couv39.jpg" alt="" width="210" height="297" /> DSIH 39 : La cybersécurité en mode Task Force</a></p><p class='clear'></p>
+  </div>
+  <div class='col-md-4'>
+
+    <p class='mo'><a href='/magazine/38/dsih-n-38-responsabilite-populationnelle-a-l-aire-du-territoire.html'><img class="border-primary" src="http://www.dsih.fr/images/mag/couv38.jpg" alt="" width="210" height="297" /> DSIH N°38 | Responsabilité populationnelle à l'aire du territoire</a></p><p class='clear'></p><p class='mo'><a href='/magazine/37/dsih-37-smart-hopital-l-adaptabilite-en-temps-reel.html'><img class="border-primary" src="http://www.dsih.fr/images/mag/couv37.jpg" alt="" width="210" height="269" /> DSIH 37 Smart hôpital : l’adaptabilité en temps réel</a></p><p class='clear'></p>
+  </div>
+
+<div class='col-md-4'>
+    <p class='mo'><a href='/magazine/36/dsih-36-quand-l-hopital-se-penche-sur-la-sobriete-numerique.html'><img class="border-primary" src="https://www.dsih.fr/images/mag/couv36.jpg" alt="" width="210" height="288" /> DSIH 36 Quand l’hôpital se penche sur la sobriété numérique</a></p><p class='clear'></p><p class='mo'><a href='/magazine/35/dsih-35-ght-convergence-a-l-approche.html'><img class="border-primary" src="/images/mag/couv35.jpg" alt="" width="210" height="285" /> DSIH 35 : GHT, convergence à l’approche</a></p><p class='clear'></p>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-6 text-center'>
+  <a class='btn btn-secondary' href='/magazine/'>Tous les numéros</a>
+  </div>
+  <div class='col-md-6 text-center'>
+  <a class='btn btn-secondary' href='/Formulaire_Abonnement.pdf'>Bulletin d'abonnement</a>
+  </div>
+</div>
+</div>
+</div>
+<div class="nmc nmc3">
+    <div class="circle">
+    <a href="/webinaires/" style="background:url('/img/2022/picto_webi.png') center center no-repeat;">
+
+  </div>
+  <a href="/webinaires/" class='ib'><span class='st'>Agenda & replays</span> WEBINAIRES</a>
+  
+
+<div class='sm2' id='tb3' style='display:none'>
+<div class='rounded' id='r3'>
+</div>
+<div class='row m-top-5'>
+<div class='col-md-12 m0'>
+<h2>Les webinaires</h2>
+</div>
+  <div class='col-md-12 m0'>
+
+
+    <p><a href="/webinaire/31/l-intelligence-artificielle-accelerateur-de-la-feuille-de-route-du-numerique-en-sante.html"><img alt="" src="/webinaire/img/webi-31-600-3.jpg"/>14/12/2023 : L’intelligence artificielle, accélérateur de la feuille de route du numérique en santé</a></p><p><a href="/webinaire/30/la-poste-sante-autonomie-donnees-de-sante-quelle-strategie-proposer-aux-dsi-des-hopitaux-francais.html"><img alt="" src="/webinaire/img/webi-30-600-4.jpg"/>23/11/2023 : La Poste Santé & Autonomie : données de santé, quelle stratégie proposer aux DSI des hôpitaux français ?</a></p><p><a href="/webinaire/29/cyberattaques-comment-l-efs-et-la-c-a-i-h-protegent-leur-reseau-et-celui-de-leurs-adherents.html"><img alt="" src="/webinaire/img/webi-29-600-2.jpg"/>28/09/2023 : Cyberattaques : comment l’EFS et la C.A.I.H protègent leur réseau et celui de leurs adhérents ?</a></p><p><a href="/webinaire/28/cybersecurite-pourquoi-migrer-vers-microsoft-365-comment-assurer-la-restauration-de-vos-donnees-en-cas-d-attaque.html"><img alt="" src="/webinaire/img/webi-28-600.jpg"/>06/07/2023 : Cybersécurité : pourquoi migrer vers Microsoft 365 & comment assurer la restauration de vos données en cas d’attaque ?</a></p><p><a href="/webinaire/27/veille-cybersecurite-comment-se-premunir-contre-les-menaces-actuelles-dans-le-secteur-de-la-sante.html"><img alt="" src="/webinaire/img/webi-27-600-2.jpg"/>29/06/2023 : Veille cybersécurité : comment se prémunir contre les menaces actuelles dans le secteur de la santé&nbsp;?</a></p><p><a href="/webinaire/26/comment-exploiter-la-puissance-de-vos-gpu-pour-developper-l-ia-au-sein-de-votre-etablissement.html"><img alt="" src="/webinaire/img/webi-26-600.jpg"/>27/04/2023 : Comment exploiter la puissance de vos GPU pour développer l'IA au sein de votre établissement ?</a></p>
+  </div>
+
+   <div class='col-md-12 text-center'>
+  <p style='width:100%;font-size:13px;height:auto'>Vous souhaitez en savoir plus sur l'organisation des webinaires ? <a class='btn btn-secondary' href='mailto:contact@dsih.fr'>Contactez -nous</a> </p>
+  </div>
+
+</div>
+
+</div>  </div>
+  <div class="nmc nmc4">
+    <div class="circle">
+    <a href="/actualites/" style="background:url('/img/2022/picto_ressource.png') center center no-repeat;">
+      </div>
+<a href="/webinaires/" class='ib'> <span class='st'>Toutes nos</span> RESSOURCES</a>
+    
+
+<div class='sm2' id='tb4' style='display:none'>
+<div class='rounded' id='r4'>
+</div>
+<div class='row m-top-5'>
+<div class='col-md-6 m0'>
+<h2><a href='https://www.dsih-metiers.fr/formations-dsih.html' title='formation dsih'>Les Formations DSIH</a></h2>
+</div>
+<div class='col-md-6 m0'>
+<h2><a href='/annuaire/'>L'annuaire SIH</a></h2>
+</div>
+
+  <div class='col-md-6 m0'>
+
+<p><a href='https://www.dsih-metiers.fr/formations/formation-enjeux-et-methodes-du-schema-directeur-systeme-d-information.html' target='_blank'><img src='/img/2022/Visuel_Formation_Enjeux_SDSI_300x200.jpg' alt='Formation Enjeux et Méthodes du Schéma Directeur Système d’Information'/><b>Formation Enjeux et Méthodes du Schéma Directeur Système d’Information</b></a></p>
+<p class='clear'></p>
+<p><a href='https://www.dsih-metiers.fr/e-learning/e-learning-iso-cei-27001-lead-auditor.html' target='_blank'><img src='/img/2022/auditor-elearning-300.jpg' alt=''/><b>Formation e-Learning ISO/CEI 27001 Lead Auditor</b></a></p>
+<p class='clear'></p>
+<p><a href='https://www.dsih-metiers.fr/formations/formation-iso-27001-lead-implementer.html' target='_blank'><img src='https://www.dsih-metiers.fr/upld/2022/formation-lead-implementer-300x200.jpg' alt='' /><b>Formation ISO/IEC 27001 Lead Implementer</b></a></p>
+</div>
+
+  <div class='col-md-6 m0'>
+
+<p><a title='resip' href='/resip'><img src='/images/annuaire/resip-50-160x120.jpg' alt='BASE CLAUDE BERNARD'/>BASE CLAUDE BERNARD</a></p><p class='clear'></p><p><a title='intersystems' href='/intersystems'><img src='/images/annuaire/intersystems-39-160x120.jpg' alt='InterSystems éditeur de logiciels novateurs dans le domaine de la Santé pour le développement rapide les bases de données et l’intégration d’applications'/>InterSystems éditeur de logiciels novateurs dans le domaine de la Santé pour le développement rapide les bases de données et l’intégration d’applications</a></p><p class='clear'></p><p><a title='canyon technologies' href='/canyon-technologies'><img src='/images/annuaire/canyon-technologies-83-160x120.jpg' alt='TimeWise'/>TimeWise</a></p><p class='clear'></p>
+</div>
+</div>
+<div class='row'>
+   <div class='col-md-6 text-center'>
+  <p><a class='btn btn-secondary' href='https://www.dsih-metiers.fr/formations-dsih.html'>Toutes les formations</a> <a class='btn btn-secondary' href='mailto:formations@dsih-metiers.fr'>Contactez-nous</a> </p>
+  </div>
+   <div class='col-md-6 text-center'>
+  <p><a class='btn btn-secondary' href='/annuaire/'>Voir l'annuaire DSIH</a> <a class='btn btn-secondary' href='/annuaire/add.php'>Ajoutez votre site</a> </p>
+  </div>
+</div>
+</div>
+
+  </div>
+
+
+<div class="nmc nmc5">
+    <div class="circle">
+    <a href="/actualites/" style="background:url('/img/2022/picto_loupe.png') center center no-repeat;">
+      </a>
+
+  </div>
+  </div>
+<span class='close for320'>X</span>
+</div>
+<div id="sbox" style="display:none">
+      <form class="searchbox" action="/recherche.html" method="POST" autocomplete="off">
+        <input type="search" placeholder="Recherchez par mots clés" name="mots" id="search" class="searchbox-input" required>
+        <input type="hidden" name="usf" value="hjh"/>
+       <div class="circle">
+          <input type="submit" class="searchbox-submit" style="background:url('/img/2022/picto_loupe.png') center center no-repeat;" value="">
+          </div>
+
+    </form>
+
+</div>
+</nav>
+</div>
+</div>
+</header>
+
+
+
+
+
+<div id='top_c5'>
+
+<div class='content'>
+<section id='left'>
+<div id="pub2" class="autofit"></div><p id='fil_ariane'>Vous êtes dans : <a href='/'>Accueil</a> &gt; <a href='/tribunes/'>Tribunes libres</a> &gt;</p><div id='ml'>
+
+
+<h1 class='titre'>Comment Qbot revient en force avec OneNote ?</h1><b>Charles Blanc-Rolin</b>, <span class='date'>MARDI 14 FéVRIER 2023 </span><p>Les attaquants derrière le cheval de Troie Qbot (aussi connu sous le nom de Quakbot) utilisent depuis longtemps des fichiers Word ou Excel avec des macros servant à télécharger et exécuter la charge malveillante.</p><figure><img class="img-responsive" src="/images/art/5000-5999/5020/5020_8871__w800_00_illustration_qbot_onenote.jpg" alt=""/></figure><p>Il y a tout juste un an, Microsoft nous annonçait une nouvelle mesure visant à éviter que les utilisateurs de sa suite Office continuent de se faire piéger par des documents avec des macros [1]. Dans ce but Microsoft a décidé pour tout fichier dont le dernier enregistrement a été fait à partir d’une autre machine que celle sur lequel il est ouvert, de faire disparaître son petit bandeau jaune avec un message d’avertissement et un bouton « Activer le contenu » sur lequel les victimes étaient bien évidemment invitées à cliquer via une notice au format image incluse dans le fichier par les attaquants :</p>
+<p><img src="/images/2023-02/01_excel_qbot.jpg" alt="" width="653" height="594" /></p>
+<p>Au profit d’un nouveau bandeau, rouge cette fois-ci indiquant que les macros sont bloquées car le fichier provient d’une source non approuvée :</p>
+<p><img src="/images/2023-02/02_excel_macro_locked.jpg" alt="" width="560" height="132" /></p>
+<p>Pour approuver le fichier, l’utilisateur est dans l’obligation de fermer le document, de se rendre dans les propriétés de ce dernier et de cocher la case « Débloquer » :</p>
+<p><img src="/images/2023-02/03_excel_security_properties.jpg" alt="" width="472" height="509" /></p>
+<p>La manipulation est déjà plus complexe à faire réaliser aux victimes d’un message de phishing, ce qui semble pénaliser les attaquants qui, vous vous en doutez, on trouvé un moyen de rentrer par la fenêtre après s’être fait sortir par la porte, le comble dans un système Windows.</p>
+<p>D’après un récent article publié sur le site de Sophos [2], une nouvelle campagne de distribution de Qbot s’appuyant sur des fichiers OneNote (avec une extension .one) aurait démarrée le 31 janvier dernier.</p>
+<p>À partir d’un échantillon ressemblant à celui qui est présenté dans l’article, même s’il présente quelques différences, il est assez intéressant d’observer la façon de procéder, qui est au final, encore plus simpliste que celle consistant à intégrer des macros dans un fichier Word ou Excel.</p>
+<p><img src="/images/2023-02/04_onenote_qbot.jpg" alt="" width="680" height="359" /></p>
+<p>En regardant de plus près, le « bouton Open » qui n’en est pas un, ne pointe pas vers un lien hypertexte, mais est juste un fichier GIF superposé à un script directement intégré au document lui-même :</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/images/2023-02/05_onenote_script.jpg" alt="" width="515" height="245" /></p>
+<p>Il est assez rigolo de voir comment il est simple de déplacer les éléments intégrés au fichier et de voir apparaître le script caché derrière cette image :</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/images/2023-02/06_script_moved.jpg" alt="" width="524" height="272" /></p>
+<p>En enregistrant les éléments graphiques présents dans le fichier, on constate que les noms proposés par défaut sont en cyrillique :</p>
+<p><img src="/images/2023-02/07_file_downloading.jpg" alt="" width="624" height="371" /></p>
+<p>En faisant appel à un traducteur en ligne, on n’apprend pas grand-chose du contenu traduit, mais la langue utilisée est confirmée :</p>
+<p><img src="/images/2023-02/traduction.jpg" alt="" width="692" height="191" /></p>
+<p>En extrayant le script du fichier, on constate qu’il utilise Powershell pour créer un nouveau script dans le répertoire C:\programdata\ à partir d’un contenu encodé en base 64 et l’exécuter dans la foulée :</p>
+<p><img src="/images/2023-02/08_first_script.jpg" alt="" width="698" height="70" /></p>
+<p>En décodant le contenu, cela nous permet de connaître l’étape suivante :</p>
+<p><img src="/images/2023-02/09_base64_decoded.jpg" alt="" width="686" height="304" /></p>
+<p>Le nouveau script va donc télécharger à l’aide de Powershell là encore, un fichier avec une extension GIF qu’il enregistre sur la machine avec une extension JPG, mais qui semble être en réalité une DLL qu’il va exécuter.</p>
+<p>La suite vous la connaissez, connexion à un serveur de commande et de contrôle et les attaquants ont un pied dans le système d’information.</p>
+<p>La méthode est simple, rapide et efficace. C’est bien pensé, c’est propre et c’est un joli pied de nez aux contre-mesures mises en place par Microsoft. J’attends avec impatience la solution d’atténuation proposée. Si c’est pour nous dire : « dites à vos collaborateurs de ne pas ouvrir les pièces jointes ou fichiers à télécharger via un lien en provenance d’un message dont l’expéditeur n’est pas connu », comment dire, on fait déjà…</p>
+<p>Elle remonte à quand votre dernière campagne de sensibilisation des utilisateurs ?</p>
+<hr />
+<p>[1] <a href="/article/4581/que-nous-annonce-microsoft-en-2022-pour-securiser-ses-produits.html" target="_blank">https://www.dsih.fr/article/4581/que-nous-annonce-microsoft-en-2022-pour-securiser-ses-produits.html</a> </p>
+<p>[2] <a href="https://news.sophos.com/en-us/2023/02/06/qakbot-onenote-attacks/" target="_blank">https://news.sophos.com/en-us/2023/02/06/qakbot-onenote-attacks/</a> </p>
+<hr />
+<p><b>L&#39;auteur</b></p>
+<p><img style="float: left; margin: 0px 10px 0px 0px;" src="/images/2022-04/L100_Charles_blanc-rolin.jpg" alt="" width="58" height="62" /><img src="/images/2022-04/xL100_Charles_blanc-rolin.jpg.pagespeed.ic.lVCQzm99kW.jpg" alt="" width="100" height="107" data-pagespeed-url-hash="3981384187" />Chef de projet sécurité numérique en santé - GCS e-santé Pays de la Loire <b>Charles Blanc-Rolin</b> est également vice-président de l’APSSIS (Association pour la promotion de la Sécurité des Systèmes d&#39;Information de Santé)</p><p class="tags"><span>#<a title="microsoft" href='/microsoft'>microsoft</a></span><span>#<a title="sécurité" href='/securite'>sécurité</a></span></p><div id='tool'>
+<span class='st_facebook_large' displayText='Facebook'></span>
+<span class='st_twitter_large' displayText='Tweet'></span>
+<span class='st_linkedin_large' displayText='LinkedIn'></span>
+<span class='st_email_large' displayText='Email'></span>
+</div>
+
+
+
+<script type='text/javascript'>var switchTo5x=true;</script><script type='text/javascript' src='/script/sharethis.js'></script><script type='text/javascript'>stLight.options({publisher:'9ae158cd-6cee-481d-b4ca-50b3ebd94867'});</script><br style='clear:both'/></div></section>
+</section>
+
+
+<section id='middle'>
+
+
+
+<div id="lc">
+<div id='pub3' class='autofit'></div>
+
+<div id='pub4' class='autofit m-top-20'></div>
+<div class="tabs_art small"><p class="head_3">Les plus lus </p>
+<ul class="text-center">
+<li><a href="#small1">1 <span class="for1024">semaine</span><span class="for768">sem</span></a></li>
+<li><a href="#small2">1 mois</a></li>
+<li><a href="#small3">1 an</a></li>
+
+
+
+</ul>
+
+<div id="small1"><div class="filinfo"><div class="carre_small"></div><a title="2023, bilan de l&rsquo;ann&eacute;e" class="fla" href="/article/5363/2023-bilan-de-l-annee.html">2023, bilan de l’année</a></div><div class="filinfo"><div class="carre_small"></div><a title="L&rsquo;Agence de l&#039;innovation en sant&eacute; rejoint le Conseil d&rsquo;administration de la Fili&egrave;re intelligence artificielle et cancers" class="fla" href="/article/5361/l-agence-de-l-innovation-en-sante-rejoint-le-conseil-d-administration-de-la-filiere-intelligence-artificielle-et-cancers.html">L’Agence de l'innovation en santé rejoint le Conseil d’administration de la Filière intelligence artificielle et cancers</a></div><div class="filinfo"><div class="carre_small"></div><a title="Regards crois&eacute;s sur des sch&eacute;mas directeurs des syst&egrave;mes d&rsquo;informations : les 12 tendances 2024" class="fla" href="/article/5358/regards-croises-sur-des-schemas-directeurs-des-systemes-d-informations-les-12-tendances-2024.html">Regards croisés sur des schémas directeurs des systèmes d’informations : les 12 tendances 2024</a></div><div class="filinfo"><div class="carre_small"></div><a title="Ma lettre au P&egrave;re No&euml;l 2023" class="fla" href="/article/5357/ma-lettre-au-pere-noel-2023.html">Ma lettre au Père Noël 2023</a></div><div class="filinfo"><div class="carre_small"></div><a title="Les syst&egrave;mes d&#039;IA d&eacute;sormais r&eacute;gul&eacute;s !" class="fla" href="/article/5350/les-systemes-d-ia-desormais-regules.html">Les systèmes d'IA désormais régulés !</a></div><br style='clear:both'/></div><div id='small2'><div class="filinfo"><div class="carre_small"></div><a title="Droit d&rsquo;acc&egrave;s gratuitement &agrave; son dossier m&eacute;dical : la CJUE se prononce" class="fla" href="/article/5308/droit-d-acces-gratuitement-a-son-dossier-medical-la-cjue-se-prononce.html">Droit d’accès gratuitement à son dossier médical : la CJUE se prononce</a></div><div class="filinfo"><div class="carre_small"></div><a title="Les syst&egrave;mes d&#039;IA d&eacute;sormais r&eacute;gul&eacute;s !" class="fla" href="/article/5350/les-systemes-d-ia-desormais-regules.html">Les systèmes d'IA désormais régulés !</a></div><div class="filinfo"><div class="carre_small"></div><a title="#Webinaire DSIH | Jeudi 14/12 &laquo; L&rsquo;intelligence artificielle, acc&eacute;l&eacute;rateur de la feuille de route du num&eacute;rique en sant&eacute; &raquo;" class="fla" href="/article/5344/webinaire-dsih-jeudi-14-12-l-intelligence-artificielle-accelerateur-de-la-feuille-de-route-du-numerique-en-sante.html">#Webinaire DSIH | Jeudi 14/12 « L’intelligence artificielle, accélérateur de la feuille de route du numérique en santé »</a></div><div class="filinfo"><div class="carre_small"></div><a title="Tous sur Olvid, mais pour qui, pour quand et surtout pourquoi ?" class="fla" href="/article/5349/tous-sur-olvid-mais-pour-qui-pour-quand-et-surtout-pourquoi.html">Tous sur Olvid, mais pour qui, pour quand et surtout pourquoi ?</a></div><div class="filinfo"><div class="carre_small"></div><a title="La 12&egrave;me &eacute;dition du Congr&egrave;s de l&rsquo;APSSIS se tiendra les 18, 19 et 20 juin 2024 au Mans" class="fla" href="/article/5340/la-12eme-edition-du-congres-de-l-apssis-se-tiendra-les-18-19-et-20-juin-2024-au-mans.html">La 12ème édition du Congrès de l’APSSIS se tiendra les 18, 19 et 20 juin 2024 au Mans</a></div><br style='clear:both'/></div><div id='small3'><div class="filinfo"><div class="carre_small"></div><a title="Alerte - fuite de donn&eacute;es : 16 000 adresses mails de professionnels de sant&eacute; fran&ccedil;ais concern&eacute;es" class="fla" href="/article/3225/alerte-fuite-de-donnees-16-000-adresses-mails-de-professionnels-de-sante-francais-concernees.html">Alerte - fuite de données : 16 000 adresses mails de professionnels de santé français concernées</a></div><div class="filinfo"><div class="carre_small"></div><a title="Surveillance &eacute;pid&eacute;miologique : un d&eacute;cret acte la cr&eacute;ation de LABO&eacute;-SI" class="fla" href="/article/5221/surveillance-epidemiologique-un-decret-acte-la-creation-de-laboe-si.html">Surveillance épidémiologique : un décret acte la création de LABOé-SI</a></div><div class="filinfo"><div class="carre_small"></div><a title="&laquo; Les patients s&rsquo;engagent &raquo;, une plateforme pour valoriser l&rsquo;engagement des patients dans sa diversit&eacute; et sa richesse " class="fla" href="/article/4668/les-patients-s-engagent-une-plateforme-pour-valoriser-l-engagement-des-patients-dans-sa-diversite-et-sa-richesse.html">« Les patients s’engagent », une plateforme pour valoriser l’engagement des patients dans sa diversité et sa richesse </a></div><div class="filinfo"><div class="carre_small"></div><a title="Alimentation du DMP : un arr&ecirc;t&eacute; pr&eacute;cise les obligations des m&eacute;decins et des biologistes" class="fla" href="/article/4686/alimentation-du-dmp-un-arrete-precise-les-obligations-des-medecins-et-des-biologistes.html">Alimentation du DMP : un arrêté précise les obligations des médecins et des biologistes</a></div><div class="filinfo"><div class="carre_small"></div><a title="Droit d&rsquo;acc&egrave;s gratuitement &agrave; son dossier m&eacute;dical : la CJUE se prononce" class="fla" href="/article/5308/droit-d-acces-gratuitement-a-son-dossier-medical-la-cjue-se-prononce.html">Droit d’accès gratuitement à son dossier médical : la CJUE se prononce</a></div><br style='clear:both'/></div></div>
+
+
+
+</div>
+</section>
+<section id="right">
+<div id='rc'>
+
+<div class='ctar'>
+<a href='https://www.dsih-metiers.fr/formations-dsih.html' target='_blank'>
+<img src='/pub/test/dsih-formation-w240.png' alt='cta'/></a>
+</div>
+<div class='ctar m-top-20'>
+<a href='/magazine/'>
+<img src='/pub/test/dsih-cta-abo-w240.png' alt='cta'/></a>
+</div>
+<span class='head_1'>Lettre d'information</span>
+<div id='nl'>Inscription gratuite
+<form class='form-horizontal' action='/inscriptionnl.php' method='post'>
+<div class='row'>
+<div class='col-md-9'><input class='form-control' type='text' placeholder='Votre email' id='emailnl' name='emailnl'></div>
+<div class='col-md-3 no-pad'><input class='btn btn-secondary' type='submit' value='OK' name='sn1' id='snl'></div>
+</div>
+<input type='hidden' name='fcv' value='66b84bd66fe017c461bad175a0b935ce'/><input type='hidden' name='grecaptcha-token'></form></div>
+
+<span class='head_1'><a target='_blank' href='https://www.dsih-metiers.fr/offres-emploi-e-sante/'>Offres d'emploi <br/>e-santé</a>  </span>
+
+<ul id='emploi'>
+
+<li class="list">11/10/2022  - GIP Centre-Val de Loire e-Santé - (45)<h2><a class="elip" target="_blank" href="https://www.dsih-metiers.fr/voir_annonce.php?id=306">Chargé(e) déploiement des usages</a></h2></li><li class="list">11/10/2022  - GIP Centre Val de Loire e-santé - (45)<h2><a class="elip" target="_blank" href="https://www.dsih-metiers.fr/voir_annonce.php?id=305">Référent en Identitovigilance</a></h2></li><li class="list">11/10/2022  - GIP Centre Val de Loire e-Santé - (45)<h2><a class="elip" target="_blank" href="https://www.dsih-metiers.fr/voir_annonce.php?id=304">Ingénieur de production </a></h2></li><li class="list">19/09/2022  - GIP Centre-Val de Loire e-Santé - (45)<h2><a class="elip" target="_blank" href="https://www.dsih-metiers.fr/voir_annonce.php?id=303">Chargé(e) d’accompagnement Ségur/ SI ESMS</a></h2></li>
+</ul>
+</div>
+</section>
+<div style="clear:both"></div>
+<div id="pub6" class="center-block"></div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<footer id="footer">
+
+<div id="top_c6">
+<div class="content">
+<div class="row">
+<div class="col-md-3">
+<h4><span>■</span>Contact</h4>
+<p>
+<b>Special Partner </b><br/>
+84 Avenue de la République <br/>
+75011 Paris <br/>
++33 (0) 299 462 443</p>
+
+<p><b>Publicité </b><br/>
+<a href="mailto:contact@dsih.fr">contact@dsih.fr</a> </p>
+
+<p><b>Rédaction</b><br/>
+<a href="mailto:redaction@dsih.fr">redaction@dsih.fr</a></p>
+
+
+
+
+</div>
+<div class="col-md-3">
+<h4><span>■</span>À propos</h4>
+
+<ul>
+<li>
+<a href="/qui.php">Qui sommes-nous ?</a></li>
+<li><a  href="/mentions.php">Mentions légales</a></li>
+<li><a  href="/rgpd.php">DSIH et vos données</a></li>
+<li><a href="http://www.rb2conseil.fr/" rel="nofollow" target="_blank">Design : RB2 conseil</a></li>
+<li><a href="https://www.caducee.net/"  target="_blank">Réalisation : Caducee.net</a></li>
+</ul>
+<h4><span>■</span>Nous suivre</h4>
+<a target="_blank" href="https://www.facebook.com/dsih.sih" title="suivez nous sur Facebook"><img src="/css/images/2019-03/fb-64.png" alt=""/></a>
+<a  target="_blank" href="https://twitter.com/DSIH_esante" title="suivez nous sur twitter"><img src="/css/images/2019-03/tw-64.png" alt=""/></a>
+<a title="Abonnez vous au flux rss" target="_blank" href="/rss.xml"><img src="/css/images/2019-03/rss-64.png" alt=""/></a>
+
+</div>
+<div class="col-md-3 for768a">
+<h4><span>■</span>Abonnement </h4>
+<div class="row">
+<div class="col-md-12 text-center">
+<a href="/magazine/"><img src="/images/mag/abonnement_210.gif" style="height:125px" alt="" title="Cliquez pour vous abonner en ligne"></a>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6">
+<a class="btn btn-secondary" href="/Formulaire_Abonnement.pdf">Bulletin PDF</a>
+</div>
+<div class="col-md-6"> <a class="btn btn-secondary" href="/magazine/"> En ligne </a></div>
+</div>
+
+<form action="/inscriptionnl.php" method="post" class="form-horizontal for1024"><p><input type="email" class="form-control" placeholder="Votre adresse email" name="emailnl" required></p><input class="btn btn-secondary mb-xl " type="submit" value="Inscription Newsletter" >
+<input type="hidden" name="fcv" value="66b84bd66fe017c461bad175a0b935ce"/><input type="hidden"  name="grecaptcha-token">
+</form>
+</div>
+
+<div class="col-md-3 for768a tmc">
+
+<h4><span>■</span>Nos marques</h4>
+<div class="row">
+<div class="col-md-12"> <img src="/img/2022/logo-dsih-xs.png" class="center-block" alt="DSIH"/></div>
+<div class="col-md-12 m-top-20">
+<a href="https://www.thema-radiologie.fr" target="_blank"><img class="img-responsive center-block"  src="/img/2022/thema-radiologie.png" alt="Théma Radiologie"> </a>
+</div>
+<div class="col-md-12 m-top-20">
+<a href="https://www.dsih-metiers.fr/" target="_blank"> <img class="img-responsive center-block" src="/css/images/2019-03/Logo_DSIH_Formations_2019-250.png" alt="DSIH Formation"></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="top_c4">
+<div class="content">
+<div class="row">
+<div class="col-md-4 for1024">
+<h4>Actualités</h4>
+<a href="/t/circuit-du-medicament/9/">Circuit du médicament</a><a href="/t/competence/4/">Compétence</a><a href="/t/decryptages/11/">Décryptages</a><a href="/t/dossier-patient/2/">Dossier patient</a><a href="/t/e-sante/13/">E-Santé</a><a href="/t/entretien-dsih/42/">Entretien DSIH</a><a href="/t/equipements/5/">Equipements</a><a href="/t/esms-numerique/40/">ESMS Numérique</a><a href="/t/gestion-administrative-du-patient/43/">Gestion Administrative du Patient</a><a href="/t/gestion-et-finance/7/">Gestion et Finance</a><a href="/t/intelligence-artificielle/41/">Intelligence Artificielle </a><a href="/t/international/3/">International</a><a href="/t/parcours-de-soins/39/">Parcours de soins</a><a href="/t/plateaux-techniques/8/">Plateaux techniques</a><a href="/t/portrait/36/">Portrait</a><a href="/t/securite/6/">Sécurité</a><a href="/t/segur/37/">Ségur</a><a href="/t/systemes-d-information/38/">Systèmes d'Information</a> </div>
+<div class="col-md-4 for1024">
+<h4>Magazine</h4>
+<ul class="bxmag"><li><a href="/magazine/40/dsih-40-intelligence-artificielle-a-l-hopital-la-grande-transformation.html"><img class="border-primary" src="http://www.dsih.fr/images/mag/couv40.jpg" alt="" width="210" height="297" />DSIH 40 Intelligence artificielle à l’hôpital : la grande transformation</a><li><a href="/magazine/39/dsih-39-la-cybersecurite-en-mode-task-force.html"><img class="border-primary" src="http://www.dsih.fr/images/mag/couv39.jpg" alt="" width="210" height="297" />DSIH 39 : La cybersécurité en mode Task Force</a><li><a href="/magazine/38/dsih-n-38-responsabilite-populationnelle-a-l-aire-du-territoire.html"><img class="border-primary" src="http://www.dsih.fr/images/mag/couv38.jpg" alt="" width="210" height="297" />DSIH N°38 | Responsabilité populationnelle à l'aire du territoire</a><li><a href="/magazine/37/dsih-37-smart-hopital-l-adaptabilite-en-temps-reel.html"><img class="border-primary" src="http://www.dsih.fr/images/mag/couv37.jpg" alt="" width="210" height="269" />DSIH 37 Smart hôpital : l’adaptabilité en temps réel</a><li><a href="/magazine/36/dsih-36-quand-l-hopital-se-penche-sur-la-sobriete-numerique.html"><img class="border-primary" src="https://www.dsih.fr/images/mag/couv36.jpg" alt="" width="210" height="288" />DSIH 36 Quand l’hôpital se penche sur la sobriété numérique</a><li><a href="/magazine/35/dsih-35-ght-convergence-a-l-approche.html"><img class="border-primary" src="/images/mag/couv35.jpg" alt="" width="210" height="285" />DSIH 35 : GHT, convergence à l’approche</a></ul>
+</div>
+<div class="col-md-4 for768a">
+<h4>Mon compte</h4>
+<a href="/inscription.php">Inscription</a>
+<a href="/user/">Mon compte</a>
+<a href="/user/mdp_change.php">Mot de passe oublié ?</a>
+<h4>Documentation</h4>
+<a href="/tribunes/">Tribunes d'experts</a>
+<a href="/agenda/">Agenda</a>
+<a href="/video/">Vidéothèque</a>
+<a href="/livres-blancs-sih/">Livres blancs</a>
+<a href="/annuaire/">Annuaire</a>
+</div>
+<div class="col-md-12 for320">
+<h4>Mon compte</h4>
+<a href="/inscription.php">Inscription</a>
+<a href="/user/">Mon compte</a>
+<a href="/user/mdp_change.php">Mot de passe oublié ?</a>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<script type="text/javascript" src="/script/jqui.js">
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+<!--
+//[CDATA[
+
+
+(function($) {
+    $.fn.delayedAction = function(options)
+    {
+        var settings = $.extend(
+            {},
+            {
+                delayedAction : function(){},
+                cancelledAction: function(){},
+                hoverTime: 1000
+            },
+            options);
+
+        return this.each(function(){
+           var $this = $(this);
+            $this.hover(function(){
+               $this.data('timerId',
+                          setTimeout(function(){
+                                      $this.data('hover',false);
+                                      settings.delayedAction($this);
+                                      },settings.hoverTime));
+                $this.data('hover',true);
+            },
+            function(){
+                if($this.data('hover')){
+                    clearTimeout($this.data('timerId'));
+                    settings.cancelledAction($this);
+                }
+                $this.data('hover',false);
+            } );
+        });
+    }
+})(jQuery);
+
+
+
+
+/**
+ * BxSlider v4.1.1 - Fully loaded, responsive content slider
+ * http://bxslider.com
+ *
+ * Copyright 2013, Steven Wanderski - http://stevenwanderski.com - http://bxcreative.com
+ * Written while drinking Belgian ales and listening to jazz
+ *
+ * Released under the MIT license - http://opensource.org/licenses/MIT
+ */
+!function(t){var e={},s={mode:"horizontal",slideSelector:"",infiniteLoop:!0,hideControlOnEnd:!1,speed:500,easing:null,slideMargin:0,startSlide:0,randomStart:!1,captions:!1,ticker:!1,tickerHover:!1,adaptiveHeight:!1,adaptiveHeightSpeed:500,video:!1,useCSS:!0,preloadImages:"visible",responsive:!0,touchEnabled:!0,swipeThreshold:50,oneToOneTouch:!0,preventDefaultSwipeX:!0,preventDefaultSwipeY:!1,pager:!0,pagerType:"full",pagerShortSeparator:" / ",pagerSelector:null,buildPager:null,pagerCustom:null,controls:!0,nextText:"Next",prevText:"Prev",nextSelector:null,prevSelector:null,autoControls:!1,startText:"Start",stopText:"Stop",autoControlsCombine:!1,autoControlsSelector:null,auto:!1,pause:4e3,autoStart:!0,autoDirection:"next",autoHover:!1,autoDelay:0,minSlides:1,maxSlides:1,moveSlides:0,slideWidth:0,onSliderLoad:function(){},onSlideBefore:function(){},onSlideAfter:function(){},onSlideNext:function(){},onSlidePrev:function(){}};t.fn.bxSlider=function(n){if(0==this.length)return this;if(this.length>1)return this.each(function(){t(this).bxSlider(n)}),this;var o={},r=this;e.el=this;var a=t(window).width(),l=t(window).height(),d=function(){o.settings=t.extend({},s,n),o.settings.slideWidth=parseInt(o.settings.slideWidth),o.children=r.children(o.settings.slideSelector),o.children.length<o.settings.minSlides&&(o.settings.minSlides=o.children.length),o.children.length<o.settings.maxSlides&&(o.settings.maxSlides=o.children.length),o.settings.randomStart&&(o.settings.startSlide=Math.floor(Math.random()*o.children.length)),o.active={index:o.settings.startSlide},o.carousel=o.settings.minSlides>1||o.settings.maxSlides>1,o.carousel&&(o.settings.preloadImages="all"),o.minThreshold=o.settings.minSlides*o.settings.slideWidth+(o.settings.minSlides-1)*o.settings.slideMargin,o.maxThreshold=o.settings.maxSlides*o.settings.slideWidth+(o.settings.maxSlides-1)*o.settings.slideMargin,o.working=!1,o.controls={},o.interval=null,o.animProp="vertical"==o.settings.mode?"top":"left",o.usingCSS=o.settings.useCSS&&"fade"!=o.settings.mode&&function(){var t=document.createElement("div"),e=["WebkitPerspective","MozPerspective","OPerspective","msPerspective"];for(var i in e)if(void 0!==t.style[e[i]])return o.cssPrefix=e[i].replace("Perspective","").toLowerCase(),o.animProp="-"+o.cssPrefix+"-transform",!0;return!1}(),"vertical"==o.settings.mode&&(o.settings.maxSlides=o.settings.minSlides),r.data("origStyle",r.attr("style")),r.children(o.settings.slideSelector).each(function(){t(this).data("origStyle",t(this).attr("style"))}),c()},c=function(){r.wrap('<div class="bx-wrapper"><div class="bx-viewport"></div></div>'),o.viewport=r.parent(),o.loader=t('<div class="bx-loading" />'),o.viewport.prepend(o.loader),r.css({width:"horizontal"==o.settings.mode?100*o.children.length+215+"%":"auto",position:"relative"}),o.usingCSS&&o.settings.easing?r.css("-"+o.cssPrefix+"-transition-timing-function",o.settings.easing):o.settings.easing||(o.settings.easing="swing"),f(),o.viewport.css({width:"100%",overflow:"hidden",position:"relative"}),o.viewport.parent().css({maxWidth:v()}),o.settings.pager||o.viewport.parent().css({margin:"0 auto 0px"}),o.children.css({"float":"horizontal"==o.settings.mode?"left":"none",listStyle:"none",position:"relative"}),o.children.css("width",u()),"horizontal"==o.settings.mode&&o.settings.slideMargin>0&&o.children.css("marginRight",o.settings.slideMargin),"vertical"==o.settings.mode&&o.settings.slideMargin>0&&o.children.css("marginBottom",o.settings.slideMargin),"fade"==o.settings.mode&&(o.children.css({position:"absolute",zIndex:0,display:"none"}),o.children.eq(o.settings.startSlide).css({zIndex:50,display:"block"})),o.controls.el=t('<div class="bx-controls" />'),o.settings.captions&&P(),o.active.last=o.settings.startSlide==x()-1,o.settings.video&&r.fitVids();var e=o.children.eq(o.settings.startSlide);"all"==o.settings.preloadImages&&(e=o.children),o.settings.ticker?o.settings.pager=!1:(o.settings.pager&&T(),o.settings.controls&&C(),o.settings.auto&&o.settings.autoControls&&E(),(o.settings.controls||o.settings.autoControls||o.settings.pager)&&o.viewport.after(o.controls.el)),g(e,h)},g=function(e,i){var s=e.find("img, iframe").length;if(0==s)return i(),void 0;var n=0;e.find("img, iframe").each(function(){t(this).one("load",function(){++n==s&&i()}).each(function(){this.complete&&t(this).load()})})},h=function(){if(o.settings.infiniteLoop&&"fade"!=o.settings.mode&&!o.settings.ticker){var e="vertical"==o.settings.mode?o.settings.minSlides:o.settings.maxSlides,i=o.children.slice(0,e).clone().addClass("bx-clone"),s=o.children.slice(-e).clone().addClass("bx-clone");r.append(i).prepend(s)}o.loader.remove(),S(),"vertical"==o.settings.mode&&(o.settings.adaptiveHeight=!0),o.viewport.height(p()),r.redrawSlider(),o.settings.onSliderLoad(o.active.index),o.initialized=!0,o.settings.responsive&&t(window).bind("resize",B),o.settings.auto&&o.settings.autoStart&&H(),o.settings.ticker&&L(),o.settings.pager&&I(o.settings.startSlide),o.settings.controls&&W(),o.settings.touchEnabled&&!o.settings.ticker&&O()},p=function(){var e=0,s=t();if("vertical"==o.settings.mode||o.settings.adaptiveHeight)if(o.carousel){var n=1==o.settings.moveSlides?o.active.index:o.active.index*m();for(s=o.children.eq(n),i=1;i<=o.settings.maxSlides-1;i++)s=n+i>=o.children.length?s.add(o.children.eq(i-1)):s.add(o.children.eq(n+i))}else s=o.children.eq(o.active.index);else s=o.children;return"vertical"==o.settings.mode?(s.each(function(){e+=t(this).outerHeight()}),o.settings.slideMargin>0&&(e+=o.settings.slideMargin*(o.settings.minSlides-1))):e=Math.max.apply(Math,s.map(function(){return t(this).outerHeight(!1)}).get()),e},v=function(){var t="100%";return o.settings.slideWidth>0&&(t="horizontal"==o.settings.mode?o.settings.maxSlides*o.settings.slideWidth+(o.settings.maxSlides-1)*o.settings.slideMargin:o.settings.slideWidth),t},u=function(){var t=o.settings.slideWidth,e=o.viewport.width();return 0==o.settings.slideWidth||o.settings.slideWidth>e&&!o.carousel||"vertical"==o.settings.mode?t=e:o.settings.maxSlides>1&&"horizontal"==o.settings.mode&&(e>o.maxThreshold||e<o.minThreshold&&(t=(e-o.settings.slideMargin*(o.settings.minSlides-1))/o.settings.minSlides)),t},f=function(){var t=1;if("horizontal"==o.settings.mode&&o.settings.slideWidth>0)if(o.viewport.width()<o.minThreshold)t=o.settings.minSlides;else if(o.viewport.width()>o.maxThreshold)t=o.settings.maxSlides;else{var e=o.children.first().width();t=Math.floor(o.viewport.width()/e)}else"vertical"==o.settings.mode&&(t=o.settings.minSlides);return t},x=function(){var t=0;if(o.settings.moveSlides>0)if(o.settings.infiniteLoop)t=o.children.length/m();else for(var e=0,i=0;e<o.children.length;)++t,e=i+f(),i+=o.settings.moveSlides<=f()?o.settings.moveSlides:f();else t=Math.ceil(o.children.length/f());return t},m=function(){return o.settings.moveSlides>0&&o.settings.moveSlides<=f()?o.settings.moveSlides:f()},S=function(){if(o.children.length>o.settings.maxSlides&&o.active.last&&!o.settings.infiniteLoop){if("horizontal"==o.settings.mode){var t=o.children.last(),e=t.position();b(-(e.left-(o.viewport.width()-t.width())),"reset",0)}else if("vertical"==o.settings.mode){var i=o.children.length-o.settings.minSlides,e=o.children.eq(i).position();b(-e.top,"reset",0)}}else{var e=o.children.eq(o.active.index*m()).position();o.active.index==x()-1&&(o.active.last=!0),void 0!=e&&("horizontal"==o.settings.mode?b(-e.left,"reset",0):"vertical"==o.settings.mode&&b(-e.top,"reset",0))}},b=function(t,e,i,s){if(o.usingCSS){var n="vertical"==o.settings.mode?"translate3d(0, "+t+"px, 0)":"translate3d("+t+"px, 0, 0)";r.css("-"+o.cssPrefix+"-transition-duration",i/1e3+"s"),"slide"==e?(r.css(o.animProp,n),r.bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",function(){r.unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"),D()})):"reset"==e?r.css(o.animProp,n):"ticker"==e&&(r.css("-"+o.cssPrefix+"-transition-timing-function","linear"),r.css(o.animProp,n),r.bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",function(){r.unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"),b(s.resetValue,"reset",0),N()}))}else{var a={};a[o.animProp]=t,"slide"==e?r.animate(a,i,o.settings.easing,function(){D()}):"reset"==e?r.css(o.animProp,t):"ticker"==e&&r.animate(a,speed,"linear",function(){b(s.resetValue,"reset",0),N()})}},w=function(){for(var e="",i=x(),s=0;i>s;s++){var n="";o.settings.buildPager&&t.isFunction(o.settings.buildPager)?(n=o.settings.buildPager(s),o.pagerEl.addClass("bx-custom-pager")):(n=s+1,o.pagerEl.addClass("bx-default-pager")),e+='<div class="bx-pager-item"><a href="" data-slide-index="'+s+'" class="bx-pager-link">'+n+"</a></div>"}o.pagerEl.html(e)},T=function(){o.settings.pagerCustom?o.pagerEl=t(o.settings.pagerCustom):(o.pagerEl=t('<div class="bx-pager" />'),o.settings.pagerSelector?t(o.settings.pagerSelector).html(o.pagerEl):o.controls.el.addClass("bx-has-pager").append(o.pagerEl),w()),o.pagerEl.delegate("a","click",q)},C=function(){o.controls.next=t('<a class="bx-next" href="">'+o.settings.nextText+"</a>"),o.controls.prev=t('<a class="bx-prev" href="">'+o.settings.prevText+"</a>"),o.controls.next.bind("click",y),o.controls.prev.bind("click",z),o.settings.nextSelector&&t(o.settings.nextSelector).append(o.controls.next),o.settings.prevSelector&&t(o.settings.prevSelector).append(o.controls.prev),o.settings.nextSelector||o.settings.prevSelector||(o.controls.directionEl=t('<div class="bx-controls-direction" />'),o.controls.directionEl.append(o.controls.prev).append(o.controls.next),o.controls.el.addClass("bx-has-controls-direction").append(o.controls.directionEl))},E=function(){o.controls.start=t('<div class="bx-controls-auto-item"><a class="bx-start" href="">'+o.settings.startText+"</a></div>"),o.controls.stop=t('<div class="bx-controls-auto-item"><a class="bx-stop" href="">'+o.settings.stopText+"</a></div>"),o.controls.autoEl=t('<div class="bx-controls-auto" />'),o.controls.autoEl.delegate(".bx-start","click",k),o.controls.autoEl.delegate(".bx-stop","click",M),o.settings.autoControlsCombine?o.controls.autoEl.append(o.controls.start):o.controls.autoEl.append(o.controls.start).append(o.controls.stop),o.settings.autoControlsSelector?t(o.settings.autoControlsSelector).html(o.controls.autoEl):o.controls.el.addClass("bx-has-controls-auto").append(o.controls.autoEl),A(o.settings.autoStart?"stop":"start")},P=function(){o.children.each(function(){var e=t(this).find("img:first").attr("title");void 0!=e&&(""+e).length&&t(this).append('<div class="bx-caption"><span>'+e+"</span></div>")})},y=function(t){o.settings.auto&&r.stopAuto(),r.goToNextSlide(),t.preventDefault()},z=function(t){o.settings.auto&&r.stopAuto(),r.goToPrevSlide(),t.preventDefault()},k=function(t){r.startAuto(),t.preventDefault()},M=function(t){r.stopAuto(),t.preventDefault()},q=function(e){o.settings.auto&&r.stopAuto();var i=t(e.currentTarget),s=parseInt(i.attr("data-slide-index"));s!=o.active.index&&r.goToSlide(s),e.preventDefault()},I=function(e){var i=o.children.length;return"short"==o.settings.pagerType?(o.settings.maxSlides>1&&(i=Math.ceil(o.children.length/o.settings.maxSlides)),o.pagerEl.html(e+1+o.settings.pagerShortSeparator+i),void 0):(o.pagerEl.find("a").removeClass("active"),o.pagerEl.each(function(i,s){t(s).find("a").eq(e).addClass("active")}),void 0)},D=function(){if(o.settings.infiniteLoop){var t="";0==o.active.index?t=o.children.eq(0).position():o.active.index==x()-1&&o.carousel?t=o.children.eq((x()-1)*m()).position():o.active.index==o.children.length-1&&(t=o.children.eq(o.children.length-1).position()),"horizontal"==o.settings.mode?b(-t.left,"reset",0):"vertical"==o.settings.mode&&b(-t.top,"reset",0)}o.working=!1,o.settings.onSlideAfter(o.children.eq(o.active.index),o.oldIndex,o.active.index)},A=function(t){o.settings.autoControlsCombine?o.controls.autoEl.html(o.controls[t]):(o.controls.autoEl.find("a").removeClass("active"),o.controls.autoEl.find("a:not(.bx-"+t+")").addClass("active"))},W=function(){1==x()?(o.controls.prev.addClass("disabled"),o.controls.next.addClass("disabled")):!o.settings.infiniteLoop&&o.settings.hideControlOnEnd&&(0==o.active.index?(o.controls.prev.addClass("disabled"),o.controls.next.removeClass("disabled")):o.active.index==x()-1?(o.controls.next.addClass("disabled"),o.controls.prev.removeClass("disabled")):(o.controls.prev.removeClass("disabled"),o.controls.next.removeClass("disabled")))},H=function(){o.settings.autoDelay>0?setTimeout(r.startAuto,o.settings.autoDelay):r.startAuto(),o.settings.autoHover&&r.hover(function(){o.interval&&(r.stopAuto(!0),o.autoPaused=!0)},function(){o.autoPaused&&(r.startAuto(!0),o.autoPaused=null)})},L=function(){var e=0;if("next"==o.settings.autoDirection)r.append(o.children.clone().addClass("bx-clone"));else{r.prepend(o.children.clone().addClass("bx-clone"));var i=o.children.first().position();e="horizontal"==o.settings.mode?-i.left:-i.top}b(e,"reset",0),o.settings.pager=!1,o.settings.controls=!1,o.settings.autoControls=!1,o.settings.tickerHover&&!o.usingCSS&&o.viewport.hover(function(){r.stop()},function(){var e=0;o.children.each(function(){e+="horizontal"==o.settings.mode?t(this).outerWidth(!0):t(this).outerHeight(!0)});var i=o.settings.speed/e,s="horizontal"==o.settings.mode?"left":"top",n=i*(e-Math.abs(parseInt(r.css(s))));N(n)}),N()},N=function(t){speed=t?t:o.settings.speed;var e={left:0,top:0},i={left:0,top:0};"next"==o.settings.autoDirection?e=r.find(".bx-clone").first().position():i=o.children.first().position();var s="horizontal"==o.settings.mode?-e.left:-e.top,n="horizontal"==o.settings.mode?-i.left:-i.top,a={resetValue:n};b(s,"ticker",speed,a)},O=function(){o.touch={start:{x:0,y:0},end:{x:0,y:0}},o.viewport.bind("touchstart",X)},X=function(t){if(o.working)t.preventDefault();else{o.touch.originalPos=r.position();var e=t.originalEvent;o.touch.start.x=e.changedTouches[0].pageX,o.touch.start.y=e.changedTouches[0].pageY,o.viewport.bind("touchmove",Y),o.viewport.bind("touchend",V)}},Y=function(t){var e=t.originalEvent,i=Math.abs(e.changedTouches[0].pageX-o.touch.start.x),s=Math.abs(e.changedTouches[0].pageY-o.touch.start.y);if(3*i>s&&o.settings.preventDefaultSwipeX?t.preventDefault():3*s>i&&o.settings.preventDefaultSwipeY&&t.preventDefault(),"fade"!=o.settings.mode&&o.settings.oneToOneTouch){var n=0;if("horizontal"==o.settings.mode){var r=e.changedTouches[0].pageX-o.touch.start.x;n=o.touch.originalPos.left+r}else{var r=e.changedTouches[0].pageY-o.touch.start.y;n=o.touch.originalPos.top+r}b(n,"reset",0)}},V=function(t){o.viewport.unbind("touchmove",Y);var e=t.originalEvent,i=0;if(o.touch.end.x=e.changedTouches[0].pageX,o.touch.end.y=e.changedTouches[0].pageY,"fade"==o.settings.mode){var s=Math.abs(o.touch.start.x-o.touch.end.x);s>=o.settings.swipeThreshold&&(o.touch.start.x>o.touch.end.x?r.goToNextSlide():r.goToPrevSlide(),r.stopAuto())}else{var s=0;"horizontal"==o.settings.mode?(s=o.touch.end.x-o.touch.start.x,i=o.touch.originalPos.left):(s=o.touch.end.y-o.touch.start.y,i=o.touch.originalPos.top),!o.settings.infiniteLoop&&(0==o.active.index&&s>0||o.active.last&&0>s)?b(i,"reset",200):Math.abs(s)>=o.settings.swipeThreshold?(0>s?r.goToNextSlide():r.goToPrevSlide(),r.stopAuto()):b(i,"reset",200)}o.viewport.unbind("touchend",V)},B=function(){var e=t(window).width(),i=t(window).height();(a!=e||l!=i)&&(a=e,l=i,r.redrawSlider())};return r.goToSlide=function(e,i){if(!o.working&&o.active.index!=e)if(o.working=!0,o.oldIndex=o.active.index,o.active.index=0>e?x()-1:e>=x()?0:e,o.settings.onSlideBefore(o.children.eq(o.active.index),o.oldIndex,o.active.index),"next"==i?o.settings.onSlideNext(o.children.eq(o.active.index),o.oldIndex,o.active.index):"prev"==i&&o.settings.onSlidePrev(o.children.eq(o.active.index),o.oldIndex,o.active.index),o.active.last=o.active.index>=x()-1,o.settings.pager&&I(o.active.index),o.settings.controls&&W(),"fade"==o.settings.mode)o.settings.adaptiveHeight&&o.viewport.height()!=p()&&o.viewport.animate({height:p()},o.settings.adaptiveHeightSpeed),o.children.filter(":visible").fadeOut(o.settings.speed).css({zIndex:0}),o.children.eq(o.active.index).css("zIndex",51).fadeIn(o.settings.speed,function(){t(this).css("zIndex",50),D()});else{o.settings.adaptiveHeight&&o.viewport.height()!=p()&&o.viewport.animate({height:p()},o.settings.adaptiveHeightSpeed);var s=0,n={left:0,top:0};if(!o.settings.infiniteLoop&&o.carousel&&o.active.last)if("horizontal"==o.settings.mode){var a=o.children.eq(o.children.length-1);n=a.position(),s=o.viewport.width()-a.outerWidth()}else{var l=o.children.length-o.settings.minSlides;n=o.children.eq(l).position()}else if(o.carousel&&o.active.last&&"prev"==i){var d=1==o.settings.moveSlides?o.settings.maxSlides-m():(x()-1)*m()-(o.children.length-o.settings.maxSlides),a=r.children(".bx-clone").eq(d);n=a.position()}else if("next"==i&&0==o.active.index)n=r.find("> .bx-clone").eq(o.settings.maxSlides).position(),o.active.last=!1;else if(e>=0){var c=e*m();n=o.children.eq(c).position()}if("undefined"!=typeof n){var g="horizontal"==o.settings.mode?-(n.left-s):-n.top;b(g,"slide",o.settings.speed)}}},r.goToNextSlide=function(){if(o.settings.infiniteLoop||!o.active.last){var t=parseInt(o.active.index)+1;r.goToSlide(t,"next")}},r.goToPrevSlide=function(){if(o.settings.infiniteLoop||0!=o.active.index){var t=parseInt(o.active.index)-1;r.goToSlide(t,"prev")}},r.startAuto=function(t){o.interval||(o.interval=setInterval(function(){"next"==o.settings.autoDirection?r.goToNextSlide():r.goToPrevSlide()},o.settings.pause),o.settings.autoControls&&1!=t&&A("stop"))},r.stopAuto=function(t){o.interval&&(clearInterval(o.interval),o.interval=null,o.settings.autoControls&&1!=t&&A("start"))},r.getCurrentSlide=function(){return o.active.index},r.getSlideCount=function(){return o.children.length},r.redrawSlider=function(){o.children.add(r.find(".bx-clone")).outerWidth(u()),o.viewport.css("height",p()),o.settings.ticker||S(),o.active.last&&(o.active.index=x()-1),o.active.index>=x()&&(o.active.last=!0),o.settings.pager&&!o.settings.pagerCustom&&(w(),I(o.active.index))},r.destroySlider=function(){o.initialized&&(o.initialized=!1,t(".bx-clone",this).remove(),o.children.each(function(){void 0!=t(this).data("origStyle")?t(this).attr("style",t(this).data("origStyle")):t(this).removeAttr("style")}),void 0!=t(this).data("origStyle")?this.attr("style",t(this).data("origStyle")):t(this).removeAttr("style"),t(this).unwrap().unwrap(),o.controls.el&&o.controls.el.remove(),o.controls.next&&o.controls.next.remove(),o.controls.prev&&o.controls.prev.remove(),o.pagerEl&&o.pagerEl.remove(),t(".bx-caption",this).remove(),o.controls.autoEl&&o.controls.autoEl.remove(),clearInterval(o.interval),o.settings.responsive&&t(window).unbind("resize",B))},r.reloadSlider=function(t){void 0!=t&&(n=t),r.destroySlider(),d()},d(),this}}(jQuery);
+
+
+// Sticky Plugin v1.0.4 for jQuery
+// =============
+// Author: Anthony Garand
+// Improvements by German M. Bravo (Kronuz) and Ruud Kamphuis (ruudk)
+// Improvements by Leonardo C. Daronco (daronco)
+// Created: 02/14/2011
+// Date: 07/20/2015
+// Website: http://stickyjs.com/
+// Description: Makes an element on the page stick on the screen as you scroll
+//              It will only set the 'top' and 'position' of your element, you
+//              might need to adjust the width in some cases.
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+    var slice = Array.prototype.slice; // save ref to original slice()
+    var splice = Array.prototype.splice; // save ref to original slice()
+
+  var defaults = {
+      topSpacing: 0,
+      bottomSpacing: 0,
+      className: 'is-sticky',
+      wrapperClassName: 'sticky-wrapper',
+      center: false,
+      getWidthFrom: '',
+      widthFromWrapper: true, // works only when .getWidthFrom is empty
+      responsiveWidth: false,
+      zIndex: 'inherit'
+    },
+    $window = $(window),
+    $document = $(document),
+    sticked = [],
+    windowHeight = $window.height(),
+    scroller = function() {
+      var scrollTop = $window.scrollTop(),
+        documentHeight = $document.height(),
+        dwh = documentHeight - windowHeight,
+        extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
+
+      for (var i = 0, l = sticked.length; i < l; i++) {
+        var s = sticked[i],
+          elementTop = s.stickyWrapper.offset().top,
+          etse = elementTop - s.topSpacing - extra;
+
+        //update height in case of dynamic content
+        s.stickyWrapper.css('height', s.stickyElement.outerHeight());
+
+        if (scrollTop <= etse) {
+          if (s.currentTop !== null) {
+            s.stickyElement
+              .css({
+                'width': '',
+                'position': '',
+                'top': '',
+                'z-index': ''
+              });
+            s.stickyElement.parent().removeClass(s.className);
+            s.stickyElement.trigger('sticky-end', [s]);
+            s.currentTop = null;
+          }
+        }
+        else {
+          var newTop = documentHeight - s.stickyElement.outerHeight()
+            - s.topSpacing - s.bottomSpacing - scrollTop - extra;
+          if (newTop < 0) {
+            newTop = newTop + s.topSpacing;
+          } else {
+            newTop = s.topSpacing;
+          }
+          if (s.currentTop !== newTop) {
+            var newWidth;
+            if (s.getWidthFrom) {
+                padding =  s.stickyElement.innerWidth() - s.stickyElement.width();
+                newWidth = $(s.getWidthFrom).width() - padding || null;
+            } else if (s.widthFromWrapper) {
+                newWidth = s.stickyWrapper.width();
+            }
+            if (newWidth == null) {
+                newWidth = s.stickyElement.width();
+            }
+            s.stickyElement
+              .css('width', newWidth)
+              .css('position', 'fixed')
+              .css('top', newTop)
+              .css('z-index', s.zIndex);
+
+            s.stickyElement.parent().addClass(s.className);
+
+            if (s.currentTop === null) {
+              s.stickyElement.trigger('sticky-start', [s]);
+            } else {
+              // sticky is started but it have to be repositioned
+              s.stickyElement.trigger('sticky-update', [s]);
+            }
+
+            if (s.currentTop === s.topSpacing && s.currentTop > newTop || s.currentTop === null && newTop < s.topSpacing) {
+              // just reached bottom || just started to stick but bottom is already reached
+              s.stickyElement.trigger('sticky-bottom-reached', [s]);
+            } else if(s.currentTop !== null && newTop === s.topSpacing && s.currentTop < newTop) {
+              // sticky is started && sticked at topSpacing && overflowing from top just finished
+              s.stickyElement.trigger('sticky-bottom-unreached', [s]);
+            }
+
+            s.currentTop = newTop;
+          }
+
+          // Check if sticky has reached end of container and stop sticking
+          var stickyWrapperContainer = s.stickyWrapper.parent();
+          var unstick = (s.stickyElement.offset().top + s.stickyElement.outerHeight() >= stickyWrapperContainer.offset().top + stickyWrapperContainer.outerHeight()) && (s.stickyElement.offset().top <= s.topSpacing);
+
+          if( unstick ) {
+            s.stickyElement
+              .css('position', 'absolute')
+              .css('top', '')
+              .css('bottom', 0)
+              .css('z-index', '');
+          } else {
+            s.stickyElement
+              .css('position', 'fixed')
+              .css('top', newTop)
+              .css('bottom', '')
+              .css('z-index', s.zIndex);
+          }
+        }
+      }
+    },
+    resizer = function() {
+      windowHeight = $window.height();
+
+      for (var i = 0, l = sticked.length; i < l; i++) {
+        var s = sticked[i];
+        var newWidth = null;
+        if (s.getWidthFrom) {
+            if (s.responsiveWidth) {
+                newWidth = $(s.getWidthFrom).width();
+            }
+        } else if(s.widthFromWrapper) {
+            newWidth = s.stickyWrapper.width();
+        }
+        if (newWidth != null) {
+            s.stickyElement.css('width', newWidth);
+        }
+      }
+    },
+    methods = {
+      init: function(options) {
+        return this.each(function() {
+          var o = $.extend({}, defaults, options);
+          var stickyElement = $(this);
+
+          var stickyId = stickyElement.attr('id');
+          var wrapperId = stickyId ? stickyId + '-' + defaults.wrapperClassName : defaults.wrapperClassName;
+          var wrapper = $('<div></div>')
+            .attr('id', wrapperId)
+            .addClass(o.wrapperClassName);
+
+          stickyElement.wrapAll(function() {
+            if ($(this).parent("#" + wrapperId).length == 0) {
+                    return wrapper;
+            }
+});
+
+          var stickyWrapper = stickyElement.parent();
+
+          if (o.center) {
+            stickyWrapper.css({width:stickyElement.outerWidth(),marginLeft:"auto",marginRight:"auto"});
+          }
+
+          if (stickyElement.css("float") === "right") {
+            stickyElement.css({"float":"none"}).parent().css({"float":"right"});
+          }
+
+          o.stickyElement = stickyElement;
+          o.stickyWrapper = stickyWrapper;
+          o.currentTop    = null;
+
+          sticked.push(o);
+
+          methods.setWrapperHeight(this);
+          methods.setupChangeListeners(this);
+        });
+      },
+
+      setWrapperHeight: function(stickyElement) {
+        var element = $(stickyElement);
+        var stickyWrapper = element.parent();
+        if (stickyWrapper) {
+          stickyWrapper.css('height', element.outerHeight());
+        }
+      },
+
+      setupChangeListeners: function(stickyElement) {
+        if (window.MutationObserver) {
+          var mutationObserver = new window.MutationObserver(function(mutations) {
+            if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+              methods.setWrapperHeight(stickyElement);
+            }
+          });
+          mutationObserver.observe(stickyElement, {subtree: true, childList: true});
+        } else {
+          if (window.addEventListener) {
+            stickyElement.addEventListener('DOMNodeInserted', function() {
+              methods.setWrapperHeight(stickyElement);
+            }, false);
+            stickyElement.addEventListener('DOMNodeRemoved', function() {
+              methods.setWrapperHeight(stickyElement);
+            }, false);
+          } else if (window.attachEvent) {
+            stickyElement.attachEvent('onDOMNodeInserted', function() {
+              methods.setWrapperHeight(stickyElement);
+            });
+            stickyElement.attachEvent('onDOMNodeRemoved', function() {
+              methods.setWrapperHeight(stickyElement);
+            });
+          }
+        }
+      },
+      update: scroller,
+      unstick: function(options) {
+        return this.each(function() {
+          var that = this;
+          var unstickyElement = $(that);
+
+          var removeIdx = -1;
+          var i = sticked.length;
+          while (i-- > 0) {
+            if (sticked[i].stickyElement.get(0) === that) {
+                splice.call(sticked,i,1);
+                removeIdx = i;
+            }
+          }
+          if(removeIdx !== -1) {
+            unstickyElement.unwrap();
+            unstickyElement
+              .css({
+                'width': '',
+                'position': '',
+                'top': '',
+                'float': '',
+                'z-index': ''
+              })
+            ;
+          }
+        });
+      }
+    };
+
+  // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
+  if (window.addEventListener) {
+    window.addEventListener('scroll', scroller, false);
+    window.addEventListener('resize', resizer, false);
+  } else if (window.attachEvent) {
+    window.attachEvent('onscroll', scroller);
+    window.attachEvent('onresize', resizer);
+  }
+
+  $.fn.sticky = function(method) {
+    if (methods[method]) {
+      return methods[method].apply(this, slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method ) {
+      return methods.init.apply( this, arguments );
+    } else {
+      $.error('Method ' + method + ' does not exist on jQuery.sticky');
+    }
+  };
+
+  $.fn.unstick = function(method) {
+    if (methods[method]) {
+      return methods[method].apply(this, slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method ) {
+      return methods.unstick.apply( this, arguments );
+    } else {
+      $.error('Method ' + method + ' does not exist on jQuery.sticky');
+    }
+  };
+  $(function() {
+    setTimeout(scroller, 0);
+  });
+}));
+
+/*!
+imgLiquid v0.9.944 / 03-05-2013
+jQuery plugin to resize images to fit in a container.
+Copyright (c) 2012 Alejandro Emparan (karacas) @krc_ale
+Dual licensed under the MIT and GPL licenses
+https://github.com/karacas/imgLiquid
+**/
+
+var imgLiquid=imgLiquid||{VER:"0.9.944"};imgLiquid.bgs_Available=!1,imgLiquid.bgs_CheckRunned=!1,imgLiquid.injectCss=".imgLiquid img {visibility:hidden}",function(i){function t(){if(!imgLiquid.bgs_CheckRunned){imgLiquid.bgs_CheckRunned=!0;var t=i('<span style="background-size:cover" />');i("body").append(t),!function(){var i=t[0];if(i&&window.getComputedStyle){var e=window.getComputedStyle(i,null);e&&e.backgroundSize&&(imgLiquid.bgs_Available="cover"===e.backgroundSize)}}(),t.remove()}}i.fn.extend({imgLiquid:function(e){this.defaults={fill:!0,verticalAlign:"center",horizontalAlign:"center",useBackgroundSize:!0,useDataHtmlAttr:!0,responsive:!0,delay:0,fadeInTime:0,removeBoxBackground:!0,hardPixels:!0,responsiveCheckTime:500,timecheckvisibility:500,onStart:null,onFinish:null,onItemStart:null,onItemFinish:null,onItemError:null},t();var a=this;return this.options=e,this.settings=i.extend({},this.defaults,this.options),this.settings.onStart&&this.settings.onStart(),this.each(function(t){function e(){-1===u.css("background-image").indexOf(encodeURI(c.attr("src")))&&u.css({"background-image":'url("'+encodeURI(c.attr("src"))+'")'}),u.css({"background-size":g.fill?"cover":"contain","background-position":(g.horizontalAlign+" "+g.verticalAlign).toLowerCase(),"background-repeat":"no-repeat"}),i("a:first",u).css({display:"block",width:"100%",height:"100%"}),i("img",u).css({display:"none"}),g.onItemFinish&&g.onItemFinish(t,u,c),u.addClass("imgLiquid_bgSize"),u.addClass("imgLiquid_ready"),l()}function d(){function e(){c.data("imgLiquid_error")||c.data("imgLiquid_loaded")||c.data("imgLiquid_oldProcessed")||(u.is(":visible")&&c[0].complete&&c[0].width>0&&c[0].height>0?(c.data("imgLiquid_loaded",!0),setTimeout(r,t*g.delay)):setTimeout(e,g.timecheckvisibility))}if(c.data("oldSrc")&&c.data("oldSrc")!==c.attr("src")){var a=c.clone().removeAttr("style");return a.data("imgLiquid_settings",c.data("imgLiquid_settings")),c.parent().prepend(a),c.remove(),c=a,c[0].width=0,setTimeout(d,10),void 0}return c.data("imgLiquid_oldProcessed")?(r(),void 0):(c.data("imgLiquid_oldProcessed",!1),c.data("oldSrc",c.attr("src")),i("img:not(:first)",u).css("display","none"),u.css({overflow:"hidden"}),c.fadeTo(0,0).removeAttr("width").removeAttr("height").css({visibility:"visible","max-width":"none","max-height":"none",width:"auto",height:"auto",display:"block"}),c.on("error",n),c[0].onerror=n,e(),o(),void 0)}function o(){(g.responsive||c.data("imgLiquid_oldProcessed"))&&c.data("imgLiquid_settings")&&(g=c.data("imgLiquid_settings"),u.actualSize=u.get(0).offsetWidth+u.get(0).offsetHeight/1e4,u.sizeOld&&u.actualSize!==u.sizeOld&&r(),u.sizeOld=u.actualSize,setTimeout(o,g.responsiveCheckTime))}function n(){c.data("imgLiquid_error",!0),u.addClass("imgLiquid_error"),g.onItemError&&g.onItemError(t,u,c),l()}function s(){var i={};if(a.settings.useDataHtmlAttr){var t=u.attr("data-imgLiquid-fill"),e=u.attr("data-imgLiquid-horizontalAlign"),d=u.attr("data-imgLiquid-verticalAlign");("true"===t||"false"===t)&&(i.fill=Boolean("true"===t)),void 0===e||"left"!==e&&"center"!==e&&"right"!==e&&-1===e.indexOf("%")||(i.horizontalAlign=e),void 0===d||"top"!==d&&"bottom"!==d&&"center"!==d&&-1===d.indexOf("%")||(i.verticalAlign=d)}return imgLiquid.isIE&&a.settings.ieFadeInDisabled&&(i.fadeInTime=0),i}function r(){var i,e,a,d,o,n,s,r,m=0,h=0,f=u.width(),v=u.height();void 0===c.data("owidth")&&c.data("owidth",c[0].width),void 0===c.data("oheight")&&c.data("oheight",c[0].height),g.fill===f/v>=c.data("owidth")/c.data("oheight")?(i="100%",e="auto",a=Math.floor(f),d=Math.floor(f*(c.data("oheight")/c.data("owidth")))):(i="auto",e="100%",a=Math.floor(v*(c.data("owidth")/c.data("oheight"))),d=Math.floor(v)),o=g.horizontalAlign.toLowerCase(),s=f-a,"left"===o&&(h=0),"center"===o&&(h=.5*s),"right"===o&&(h=s),-1!==o.indexOf("%")&&(o=parseInt(o.replace("%",""),10),o>0&&(h=.01*s*o)),n=g.verticalAlign.toLowerCase(),r=v-d,"left"===n&&(m=0),"center"===n&&(m=.5*r),"bottom"===n&&(m=r),-1!==n.indexOf("%")&&(n=parseInt(n.replace("%",""),10),n>0&&(m=.01*r*n)),g.hardPixels&&(i=a,e=d),c.css({width:i,height:e,"margin-left":Math.floor(h),"margin-top":Math.floor(m)}),c.data("imgLiquid_oldProcessed")||(c.fadeTo(g.fadeInTime,1),c.data("imgLiquid_oldProcessed",!0),g.removeBoxBackground&&u.css("background-image","none"),u.addClass("imgLiquid_nobgSize"),u.addClass("imgLiquid_ready")),g.onItemFinish&&g.onItemFinish(t,u,c),l()}function l(){t===a.length-1&&a.settings.onFinish&&a.settings.onFinish()}var g=a.settings,u=i(this),c=i("img:first",u);return c.length?(c.data("imgLiquid_settings")?(u.removeClass("imgLiquid_error").removeClass("imgLiquid_ready"),g=i.extend({},c.data("imgLiquid_settings"),a.options)):g=i.extend({},a.settings,s()),c.data("imgLiquid_settings",g),g.onItemStart&&g.onItemStart(t,u,c),imgLiquid.bgs_Available&&g.useBackgroundSize?e():d(),void 0):(n(),void 0)})}})}(jQuery),!function(){var i=imgLiquid.injectCss,t=document.getElementsByTagName("head")[0],e=document.createElement("style");e.type="text/css",e.styleSheet?e.styleSheet.cssText=i:e.appendChild(document.createTextNode(i)),t.appendChild(e)}();
+
+
+$(document).ready(function() {
+    $(".imgLiquidFill").imgLiquid();
+});
+
+/*!
+ * Expander - v1.4.7 - 2013-08-30
+ * http://plugins.learningjquery.com/expander/
+ * Copyright (c) 2013 Karl Swedberg
+ * Licensed MIT (http://www.opensource.org/licenses/mit-license.php)
+ */
+(function(a){a.expander={version:"1.4.7",defaults:{slicePoint:100,preserveWords:true,widow:4,expandText:"read more",expandPrefix:"&hellip; ",expandAfterSummary:false,summaryClass:"summary",detailClass:"details",moreClass:"read-more",lessClass:"read-less",collapseTimer:0,expandEffect:"slideDown",expandSpeed:250,collapseEffect:"slideUp",collapseSpeed:200,userCollapse:true,userCollapseText:"read less",userCollapsePrefix:" ",onSlice:null,beforeExpand:null,afterExpand:null,onCollapse:null,afterCollapse:null}};a.fn.expander=function(r){var n="init";if(typeof r==="string"){n=r;r={}}var b=a.extend({},a.expander.defaults,r),e=/^<(?:area|br|col|embed|hr|img|input|link|meta|param).*>$/i,l=b.wordEnd||/(&(?:[^;]+;)?|[a-zA-Z\u00C0-\u0100]+)$/,k=/<\/?(\w+)[^>]*>/g,h=/<(\w+)[^>]*>/g,m=/<\/(\w+)>/g,d=/(<\/[^>]+>)\s*$/,o=/^(<[^>]+>)+.?/,p;var g={init:function(){this.each(function(){var P,O,V,C,U,T,K,u,W,z,L,v,M,Q,x=[],J=[],y={},S=this,E=a(this),B=a([]),N=a.extend({},b,E.data("expander")||a.meta&&E.data()||{}),t=!!E.find("."+N.detailClass).length,F=!!E.find("*").filter(function(){var X=a(this).css("display");return(/^block|table|list/).test(X)}).length,w=F?"div":"span",H=w+"."+N.detailClass,A=N.moreClass+"",R=N.lessClass+"",s=N.expandSpeed||0,D=a.trim(E.html()),G=a.trim(E.text()),I=D.slice(0,N.slicePoint);N.moreSelector="span."+A.split(" ").join(".");N.lessSelector="span."+R.split(" ").join(".");if(a.data(this,"expanderInit")){return}a.data(this,"expanderInit",true);a.data(this,"expander",N);a.each(["onSlice","beforeExpand","afterExpand","onCollapse","afterCollapse"],function(X,Y){y[Y]=a.isFunction(N[Y])});I=j(I);U=I.replace(k,"").length;while(U<N.slicePoint){C=D.charAt(I.length);if(C==="<"){C=D.slice(I.length).match(o)[0]}I+=C;U++}I=j(I,N.preserveWords);T=I.match(h)||[];K=I.match(m)||[];V=[];a.each(T,function(X,Y){if(!e.test(Y)){V.push(Y)}});T=V;O=K.length;for(P=0;P<O;P++){K[P]=K[P].replace(m,"$1")}a.each(T,function(X,aa){var Y=aa.replace(h,"$1");var Z=a.inArray(Y,K);if(Z===-1){x.push(aa);J.push("</"+Y+">")}else{K.splice(Z,1)}});J.reverse();if(!t){W=D.slice(I.length);z=a.trim(W.replace(k,""));if(z===""||z.split(/\s+/).length<N.widow){return}u=J.pop()||"";I+=J.join("");W=x.join("")+W}else{W=E.find(H).remove().html();I=E.html();D=I+W;u=""}N.moreLabel=E.find(N.moreSelector).length?"":q(N);if(F){W=D}I+=u;N.summary=I;N.details=W;N.lastCloseTag=u;if(y.onSlice){V=N.onSlice.call(S,N);N=V&&V.details?V:N}L=f(N,F);E.html(L);M=E.find(H);Q=E.find(N.moreSelector);if(N.collapseEffect==="slideUp"&&N.expandEffect!=="slideDown"||E.is(":hidden")){M.css({display:"none"})}else{M[N.collapseEffect](0)}B=E.find("div."+N.summaryClass);v=function(X){X.preventDefault();Q.hide();B.hide();if(y.beforeExpand){N.beforeExpand.call(S)}M.stop(false,true)[N.expandEffect](s,function(){M.css({zoom:""});if(y.afterExpand){N.afterExpand.call(S)}i(N,M,S)})};Q.find("a").unbind("click.expander").bind("click.expander",v);if(N.userCollapse&&!E.find(N.lessSelector).length){E.find(H).append('<span class="'+N.lessClass+'">'+N.userCollapsePrefix+'<a href="#">'+N.userCollapseText+"</a></span>")}E.find(N.lessSelector+" a").unbind("click.expander").bind("click.expander",function(X){X.preventDefault();clearTimeout(p);var Y=a(this).closest(H);c(N,Y);if(y.onCollapse){N.onCollapse.call(S,true)}})})},destroy:function(){this.each(function(){var u,s,t=a(this);if(!t.data("expanderInit")){return}u=a.extend({},t.data("expander")||{},b);s=t.find("."+u.detailClass).contents();t.removeData("expanderInit");t.removeData("expander");t.find(u.moreSelector).remove();t.find("."+u.summaryClass).remove();t.find("."+u.detailClass).after(s).remove();t.find(u.lessSelector).remove()})}};if(g[n]){g[n].call(this)}function f(v,u){var t="span",s=v.summary;if(u){t="div";if(d.test(s)&&!v.expandAfterSummary){s=s.replace(d,v.moreLabel+"$1")}else{s+=v.moreLabel}s='<div class="'+v.summaryClass+'">'+s+"</div>"}else{s+=v.moreLabel}return[s," <",t+' class="'+v.detailClass+'"',">",v.details,"</"+t+">"].join("")}function q(t){var s='<span class="'+t.moreClass+'">'+t.expandPrefix;s+='<a href="#">'+t.expandText+"</a></span>";return s}function j(s,t){if(s.lastIndexOf("<")>s.lastIndexOf(">")){s=s.slice(0,s.lastIndexOf("<"))}if(t){s=s.replace(l,"")}return a.trim(s)}function c(t,s){s.stop(true,true)[t.collapseEffect](t.collapseSpeed,function(){var u=s.prev("span."+t.moreClass).show();if(!u.length){s.parent().children("div."+t.summaryClass).show().find("span."+t.moreClass).show()}if(t.afterCollapse){t.afterCollapse.call(s)}})}function i(t,s,u){if(t.collapseTimer){p=setTimeout(function(){c(t,s);if(a.isFunction(t.onCollapse)){t.onCollapse.call(u,false)}},t.collapseTimer)}}return this};a.fn.expander.defaults=a.expander.defaults})(jQuery);
+
+
+
+/*
+ * jQuery UI dialogOptions v1.0
+ * @desc extending jQuery Ui Dialog - Responsive, click outside, class handling
+ * @author Jason Day
+ *
+ * Dependencies:
+ *		jQuery: http://jquery.com/
+ *		jQuery UI: http://jqueryui.com/
+ *		Modernizr: http://modernizr.com/
+ *
+ * MIT license:
+ *              http://www.opensource.org/licenses/mit-license.php
+ *
+ * (c) Jason Day 2014
+ *
+ * New Options:
+ *  clickOut: true          // closes dialog when clicked outside
+ *  responsive: true        // fluid width & height based on viewport
+ *                          // true: always responsive
+ *                          // false: never responsive
+ *                          // "touch": only responsive on touch device
+ *  scaleH: 0.8             // responsive scale height percentage, 0.8 = 80% of viewport
+ *  scaleW: 0.8             // responsive scale width percentage, 0.8 = 80% of viewport
+ *  showTitleBar: true      // false: hide titlebar
+ *  showCloseButton: true   // false: hide close button
+ *
+ * Added functionality:
+ *  add & remove dialogClass to .ui-widget-overlay for scoping styles
+ *	patch for: http://bugs.jqueryui.com/ticket/4671
+ *	recenter dialog - ajax loaded content
+ */
+
+// add new options with default values
+$.ui.dialog.prototype.options.clickOut = true;
+$.ui.dialog.prototype.options.responsive = true;
+$.ui.dialog.prototype.options.scaleH = 0.8;
+$.ui.dialog.prototype.options.scaleW = 0.8;
+$.ui.dialog.prototype.options.showTitleBar = true;
+$.ui.dialog.prototype.options.showCloseButton = true;
+
+
+// extend _init
+var _init = $.ui.dialog.prototype._init;
+$.ui.dialog.prototype._init = function () {
+    var self = this;
+
+    // apply original arguments
+    _init.apply(this, arguments);
+
+    //patch
+    if ($.ui && $.ui.dialog && $.ui.dialog.overlay) {
+        $.ui.dialog.overlay.events = $.map('focus,keydown,keypress'.split(','), function (event) {
+           return event + '.dialog-overlay';
+       }).join(' ');
+    }
+};
+// end _init
+
+
+// extend open function
+var _open = $.ui.dialog.prototype.open;
+$.ui.dialog.prototype.open = function () {
+    var self = this;
+
+    // apply original arguments
+    _open.apply(this, arguments);
+
+    // get dialog original size on open
+    var oHeight = self.element.parent().outerHeight(),
+        oWidth = self.element.parent().outerWidth(),
+        isTouch = $("html").hasClass("touch");
+
+    // responsive width & height
+    var resize = function () {
+
+        // check if responsive
+        // dependent on modernizr for device detection / html.touch
+        if (self.options.responsive === true || (self.options.responsive === "touch" && isTouch)) {
+            var elem = self.element,
+                wHeight = $(window).height(),
+                wWidth = $(window).width(),
+                dHeight = elem.parent().outerHeight(),
+                dWidth = elem.parent().outerWidth(),
+                setHeight = Math.min(wHeight * self.options.scaleH, oHeight),
+                setWidth = Math.min(wWidth * self.options.scaleW, oWidth);
+
+            // check & set height
+            if ((oHeight + 100) > wHeight || elem.hasClass("resizedH")) {
+                elem.dialog("option", "height", setHeight).parent().css("max-height", setHeight);
+                elem.addClass("resizedH");
+            }
+
+            // check & set width
+            if ((oWidth + 100) > wWidth || elem.hasClass("resizedW")) {
+                elem.dialog("option", "width", setWidth).parent().css("max-width", setWidth);
+                elem.addClass("resizedW");
+            }
+
+            // only recenter & add overflow if dialog has been resized
+            if (elem.hasClass("resizedH") || elem.hasClass("resizedW")) {
+                elem.dialog("option", "position", "center");
+                elem.css("overflow", "auto");
+            }
+        }
+
+        // add webkit scrolling to all dialogs for touch devices
+        if (isTouch) {
+            elem.css("-webkit-overflow-scrolling", "touch");
+        }
+    };
+
+    // call resize()
+    resize();
+
+    // resize on window resize
+    $(window).on("resize", function () {
+        resize();
+    });
+
+    // resize on orientation change
+     if (window.addEventListener) {  // Add extra condition because IE8 doesn't support addEventListener (or orientationchange)
+        window.addEventListener("orientationchange", function () {
+            resize();
+        });
+    }
+
+    // hide titlebar
+    if (!self.options.showTitleBar) {
+        self.uiDialogTitlebar.css({
+            "height": 0,
+            "padding": 0,
+            "background": "none",
+            "border": 0
+        });
+        self.uiDialogTitlebar.find(".ui-dialog-title").css("display", "none");
+    }
+
+    //hide close button
+    if (!self.options.showCloseButton) {
+        self.uiDialogTitlebar.find(".ui-dialog-titlebar-close").css("display", "none");
+    }
+
+    // close on clickOut
+    if (self.options.clickOut && !self.options.modal) {
+        // use transparent div - simplest approach (rework)
+        $('<div id="dialog-overlay"></div>').insertBefore(self.element.parent());
+        $('#dialog-overlay').css({
+            "position": "fixed",
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0,
+            "background-color": "transparent"
+        });
+        $('#dialog-overlay').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            self.close();
+        });
+        // else close on modal click
+    } else if (self.options.clickOut && self.options.modal) {
+        $('.ui-widget-overlay').click(function (e) {
+            self.close();
+        });
+    }
+
+    // add dialogClass to overlay
+    if (self.options.dialogClass) {
+        $('.ui-widget-overlay').addClass(self.options.dialogClass);
+    }
+};
+//end open
+
+
+// extend close function
+var _close = $.ui.dialog.prototype.close;
+$.ui.dialog.prototype.close = function () {
+    var self = this;
+    // apply original arguments
+    _close.apply(this, arguments);
+
+    // remove dialogClass to overlay
+    if (self.options.dialogClass) {
+        $('.ui-widget-overlay').removeClass(self.options.dialogClass);
+    }
+    //remove clickOut overlay
+    if ($("#dialog-overlay").length) {
+        $("#dialog-overlay").remove();
+    }
+};
+//end close
+
+/* 		  $(document).ready(function() {
+
+		    $('span.expandable').expander({
+    slicePoint:       170,  // default is 100
+    expandPrefix:     ' ', // default is '... '
+    expandText:       '[...]', // default is 'read more'
+    collapseTimer:    5000, // re-collapses after 5 seconds; default is 0, so no re-collapsing
+    userCollapseText: '[^]'  // default is 'read less'
+  });
+  		    $('#last_dep h2 a').expander({
+    slicePoint:       80,  // default is 100
+    expandPrefix:     ' ', // default is '... '
+    expandText:       '[...]', // default is 'read more'
+    collapseTimer:    5000, // re-collapses after 5 seconds; default is 0, so no re-collapsing
+    userCollapseText: '[^]'  // default is 'read less'
+  });
+
+										}) */
+
+
+
+/**
+ * jQuery.browser.mobile (http://detectmobilebrowser.com/)
+ *
+ * jQuery.browser.mobile will be true if the browser is a mobile device
+ *
+ **/
+(function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
+
+
+
+
+
+
+function connect(email, password)
+{
+  password=encodeURIComponent(password);
+  email=encodeURIComponent(email);
+$.ajax({
+   type: "POST",
+   url: "/connect2.php",
+   data: "email="+email+"&password="+password,
+   success: function(msg){
+
+       	var loginc = msg.getElementsByTagName("loginc")[0].firstChild.nodeValue;
+    	var msg1 = msg.getElementsByTagName("msg1")[0].firstChild.nodeValue;
+
+		if (loginc=="0"){
+$("#msg_error2").html(msg1);
+$("#msg_error").html(msg1);
+}
+		  else
+		  {
+
+
+
+$("#msg_error").html(msg1);
+window.setTimeout(function(){
+
+        window.location.href = loginc;
+
+    }, 2000);
+
+		  	//	window.location.href = "https://www.dsih.fr/article/5020/comment-qbot-revient-en-force-avec-onenote.html";
+		  }
+}});   }
+function deconnect()
+{
+
+$.ajax({
+   type: "POST",
+   url: "/deconnect.php",
+   data: 'username=visiteur',
+   success: function(msg){
+       	var loginc = msg.getElementsByTagName('loginc')[0].firstChild.nodeValue;
+    	var msg1 = msg.getElementsByTagName('msg1')[0].firstChild.nodeValue;
+
+
+	window.location.href = "https://www.dsih.fr/article/5020/comment-qbot-revient-en-force-avec-onenote.html";
+
+   }
+ });   }
+
+
+
+  function oubli()
+{
+var username;
+username=document.login.username.value;
+$.ajax({
+   type: "POST",
+   url: "/oubli.php",
+   data: 'username='+username,
+   success: function(msg){
+$('#msg_error').html(msg);
+
+
+   }
+ });   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//]]>
+//-->
+</script>
+
+<script type="text/javascript">
+<!--
+//[CDATA[
+
+
+
+function update_tag(idann,valid)
+{
+var nom = encodeURIComponent($('#n'+idann).val());
+var alias = encodeURIComponent($('#a'+idann).val());
+
+$.ajax({
+   type: 'POST',
+   url: '/admin2/update_tag.php',
+   data: 'nom='+nom+'&tag_id='+idann+'&alias='+alias+'&valid='+valid,
+   success: function(msg){
+   var result = msg.getElementsByTagName('result')[0].firstChild.nodeValue;
+   if (result=='ok') {
+   	$('#tr'+idann).addClass( 'success' );
+   	}
+   else
+   {
+   	$('#tr'+idann).addClass( 'error' );}
+
+		    }})
+
+			}	
+
+//]]>
+//-->
+</script>
+
+
+<script type="text/javascript">
+<!--
+//[CDATA[
+
+
+
+$(document).ready(function(){
+
+
+
+
+var w=$(window).width();
+
+
+
+$('.bxslider').bxSlider({
+  auto: true,
+pager:false,
+  captions: true,
+speed:1000,
+pause:6000});
+
+$('#ok').click(function() {connect($('#username').val(),$('#password').val()); });
+
+$('#username').focus(function() {if ($(this).val()==='Identifiant'){$(this).val(''); }});
+$('#password').focus(function() {if ($(this).val()==='Mot de passe'){$(this).val(''); }});
+$('#mots').focus(function() {if ($(this).val()==='Rechercher'){$(this).val(''); }});
+// $('#unes').cycle({
+  // fx: 'custom',
+  // cssBefore: { top: 355 },
+  // animIn:  { top: 0 },
+  // animOut: { top: -355 }
+// });
+
+// $('.une').mouseenter(function(){$('#unes').cycle('pause');});
+// $('.une').mouseleave(function(){$('#unes').cycle('resume');});
+if (('a.ca').length) {	$('a.ca').button();	}
+
+
+
+
+
+
+
+
+
+
+
+if (w>768) {
+$('.nmc').hover(function() {
+	$(this).find(".sm2").stop(true, false, true).slideToggle(300);
+});
+
+
+$('#tb3 p:nth-child(odd) a').hover(function() {
+
+	$(this).find('img').toggleClass('magnify2');
+
+
+
+
+});
+
+
+
+$('#tb3 p:nth-child(even) a').hover(function() {
+
+	$(this).find('img').toggleClass('magnify');
+
+
+
+
+});
+
+$('.nmc5 a').mouseenter(function() {
+
+	$('#nmenu').stop(true, false, true).hide();
+$('#sbox').stop(true, false, true).slideToggle(300);
+
+
+
+});
+
+$('#sbox').mouseleave(function() {
+$('#sbox').stop(true, false, true).hide();
+	$('#nmenu').stop(true, false, true).slideToggle(300);
+
+
+
+
+});
+}
+
+(function scan(){
+
+
+if($(".nmc:hover").length == 0 && ($(".sm2").is(":visible")))
+{
+  $(".sm2").hide();
+
+}
+
+if ($('#sbox').is(":hidden") && $('#nmenu').is(":hidden") && w>768) {	$('#nmenu').stop(true, false, true).slideToggle(300);}
+
+  setTimeout(scan,1000);
+
+})();
+
+function callback1(){$("div.mact").toggle( 'blind', 500);}
+// $("div.sm1 a").mouseover(function(){
+// $(this).effect("pulsate", { times:1 }, 700);
+// });
+
+$("div.sm1 a").click(function(){
+
+$("div.sm1").effect("clip", 100);
+});
+
+
+
+$(".bb1").click(function(){
+
+$("#nmenu").stop(true, false, true).slideToggle(300);
+return false;
+});
+
+$("#nmenu .close").click(function(){
+
+$("#nmenu").stop(true, false, true).slideToggle(300);
+return false;
+});
+
+
+
+
+
+
+
+});
+
+
+
+
+
+$('.sfc').click(function() {
+
+
+  $(function() {
+
+	$('#contactForm').dialog({show:'blind',hide:'fade',minWidth: 600,modal:true,position: "center middle", closeText: "Fermer" ,open: function() {
+
+	$('button.ui-dialog-titlebar-close').html("×");
+	$('button.ui-dialog-titlebar-close').attr("title","Fermer");
+	$('button.ui-dialog-titlebar-close').addClass("close");
+	$('button.ui-dialog-titlebar-close').removeClass("ui-dialog-titlebar-close");
+	$('.ui-dialog-titlebar').css ('background', '#306aa3');$('.ui-dialog-titlebar, button.close').css ('color', '#ffffff');$(' button.close').css ('opacity', '1');
+
+	}
+	} );
+conn=true;
+
+
+
+});
+return false;
+});
+
+
+	jQuery('.nav-toggle a').click(function(){
+		jQuery('.mobile-menu,.mobile-menu-inner').toggle();
+		return false;
+	});
+	jQuery('.mobile-menu ul li a').prepend('<i class="icon-right-dir"></i>');
+
+
+
+//]]>
+//-->
+</script>
+
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=6Lfd8XkUAAAAAGRSQzKKf2o3XgPOK1i9fEXY4V0v" async defer>
+</script>
+<script type="text/javascript">
+    var onloadCallback = function() {
+        grecaptcha.ready(function() {
+            grecaptcha.execute("6Lfd8XkUAAAAAGRSQzKKf2o3XgPOK1i9fEXY4V0v", {
+                    action: "actu"
+                })
+                .then(function(token) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/functions/bot_score.php",
+                        data: "grecaptcha-token=" + token + "&mode=0",
+                        success: function(msg) {
+                           // console.log(msg);
+                        }
+                    })
+
+
+
+                });
+        });
+grecaptcha.ready(function() {
+    grecaptcha.execute("6Lfd8XkUAAAAAGRSQzKKf2o3XgPOK1i9fEXY4V0v", {action: "form"})
+        .then(function(token) {
+        //console.log("ttt"+token)
+
+            $('input[name ="grecaptcha-token"]').val(token);
+        });
+});
+   };
+</script>
+<script type='text/javascript'>var pub1 = [{"type":1,"name":"Computer Engeneering","url":"https:\/\/www.computer-engineering.fr\/applications\/retro\/","src":"\/pub\/ce\/2023\/2023-02-15-MySIH-banniere-RETRO-728x90px-FLASH.gif","delay":16000}];
+ var pub2 = [{"type":1,"name":"nuance replay","url":"https:\/\/www.dsih.fr\/webinaire\/L\/25\/strategies-numeriques-et-projets-consolidants-retour-d-experience-avec-le-ght-broceliande-atlantique.html","src":"\/pub\/nuance\/Nuance_CAIH_Habillage_Site Mobile replay.png","delay":15000}];
+ var pub3 = [{"type":1,"name":"vidal","url":"https:\/\/www.vidalfrance.com\/solutions\/vidal-sentinel","src":"\/pub\/VIDAL-Sentinel-dsih-320x320.gif","delay":20200}];
+ var pub4 = [{"type":1,"name":"canyon","url":"\/pub\/go.php?idl=237&idc=25","src":"\/pub\/canyon\/canyon-2022-320x320.gif","delay":10000}];
+ var pub5 = [{"type":1,"name":"Computer Engeneering","url":"https:\/\/www.computer-engineering.fr\/applications\/retro\/","src":"\/pub\/ce\/2023\/2023-02-15-MySIH-banniere-RETRO-728x90px-FLASH.gif","delay":16000}];
+ var pub6 = [{"type":1,"name":"apssis 2024","url":"\/pub\/go.php?idl=267&idc=47","src":"\/pub\/apssis\/2024\/apssis-1920x240-congres.jpeg","src2":"\/pub\/apssis\/2024\/apssis-1920x240-congres.jpeg","src3":"\/pub\/apssis\/2024\/apssis-1920x240-congres.jpeg","delay":12000}];
+ var pub3201 = [{"type":1,"name":"vidal","url":"https:\/\/www.vidalfrance.com\/solutions\/vidal-sentinel","src":"\/pub\/VIDAL-Sentinel-dsih-320x320.gif","delay":20200}];
+ var pub3202 = [{"type":1,"name":"canyon","url":"\/pub\/go.php?idl=237&idc=25","src":"\/pub\/canyon\/canyon-2022-320x320.gif","delay":10000}]
+ 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+function loadpub(pubc,pubdata){
+$(pubc).empty();
+$(pubc).append(pubdata);
+
+
+}
+
+
+
+
+
+function showpub(arr,nbpub)
+{
+var nb=0;
+
+var arl=arr.length;
+var pubcontainer='#pub'+nbpub;
+var idpubcontainer='pub'+nbpub;
+
+//console.log(arr);
+
+// foreach with 1 sec delay
+(function showMessage(i) {
+
+ if (arr[i]['type']==2)
+    {
+   return false;
+	}
+
+
+	else if (arr[i]['type']==1)  {
+
+	if(window.matchMedia("(min-width:768px) and (max-width:1024px)").matches) {
+
+	}
+
+
+	if (arr[i]['name']=='osoft'){
+
+	if(window.matchMedia("(min-width:768px) and (max-width:1024px)").matches) {
+	var styleimg=" style='width:175px;height:124px;margin-top:25px' ";
+	}
+
+	else if(window.matchMedia("(min-width:320px) and (max-width:768px)").matches) {
+	var styleimg=" style='width:250px;height:177px' ";
+	}
+
+	else if (window.matchMedia("(min-width:1024px)").matches) {
+	var styleimg=" style='margin-top:36px' ";}
+	}
+	else {styleimg="";}
+
+		if (nbpub==6){
+
+	if(window.matchMedia("(min-width:768px) and (max-width:1024px)").matches) {
+	var imgsrc=arr[i]['src2'];
+	}
+
+	else if(window.matchMedia("(min-width:320px) and (max-width:768px)").matches) {
+	var imgsrc=arr[i]['src3'];
+	}
+
+	else if (window.matchMedia("(min-width:1024px)").matches) {
+	var imgsrc=arr[i]['src'];
+	}
+	}
+	else {imgsrc=arr[i]['src'];}
+
+	if (nbpub==1 || nbpub==6) {var classimg=styleimg+" class='pubh' ";} else {var classimg=styleimg+" class='pubc' ";}
+     var pub="<a href='"+arr[i]['url']+"' target='_blank' onclick='_paq.push([\"trackEvent\", \"banner\", \"clickout\", \"pub"+nbpub+"-"+arr[i]['name']+"\",0])'><img data-track-content data-content-name='pub"+nbpub+"' data-content-piece='"+arr[i]['name']+"' border='0' "+classimg+" src='"+imgsrc+"' alt='Pub "+arr[i]['name']+"'/>	 </a>";
+     }
+
+ else if (arr[i]['type']==3)  {
+     var pub=arr[i]['src'];
+     }
+
+  loadpub(pubcontainer,pub);
+  if (i>0){j=i-1;}else (j=i)
+   if (arr[i]['name']=='Nuance'){slidepub('.pub-nuance');}
+  setTimeout(function() { ++i < arr.length && showMessage(i); }, arr[j]['delay']);
+})(0);
+
+
+}
+
+
+
+
+
+function rotate(arr,nb,refresh) {
+var n=0;
+showpub(arr,nb);
+//if (arr['name']=='nuance'){slidepub('.pub-nuance');}
+if (arr.length>1) {
+    setInterval(function(){
+    n=n+1;
+
+     showpub(arr,nb);
+
+    }, refresh);
+}
+}
+
+function slidepub(id)
+
+{
+
+$(id).bxSlider({
+  auto: true,
+pager:false,
+  captions: false,
+  controls:false,
+speed:1000,
+pause:5500,
+touchEnabled:true,
+mode:'vertical',
+easing:'swing'
+});
+}
+
+
+
+function push_pub5()
+{
+
+if ($('#ml').length>0){
+
+
+console.log('#m1 scanning');
+var pub5c='<div id="pub5" class="autofit"></div>';
+
+var done=0;
+var nbc=0;
+var w=jQuery(window).width();
+
+
+
+$( "#ml > p" ).each(function( index )
+{
+ console.log(index);
+console.log ($("#ml > p").eq(index).text().length);
+if ($( this).offset().top > $(window).height() && done==0 && (index>=3) && $("#ml > p").eq(index).text().length>120 ){
+$("#ml > p").eq(index).after(pub5c);
+done=1;
+nbc++;
+console.log(index+'cp'+nbc);
+}
+});
+
+
+
+
+
+}
+
+else {console.log('no m1');}
+
+}
+
+
+
+
+
+$(document).ready(function() {
+
+
+rotate(pub1,1,16000);
+rotate(pub2,2,15000);
+rotate(pub3,3,20200);
+rotate(pub4,4,10000);
+rotate(pub5,5,15000);
+rotate(pub6,6,12000);
+rotate(pub3201,3201,20200);
+rotate(pub3202,3202,10000);
+
+
+slidepub('.pub-dsih-formation');
+
+
+});
+</script>
+<script>
+
+$(document).ready(function() {
+$('.bxmag').bxSlider({
+  auto: true,
+pager:false,
+  captions: true,
+speed:1000,
+controls:false,
+     onSliderLoad: function(){
+   $('.bx-viewport').css('height','154px') ;
+     }
+
+});
+$('.bxmag')
+var bottom=502+190+60;
+var bottom2=$('#footer').outerHeight()+240;
+var h = document.getElementById('nmenu').height;
+var i = document.getElementById('top_c6').offsetHeight;
+var j = document.getElementById('top_c6').scrollHeight;
+var w=$(window).width();
+			console.log(bottom+'|'+bottom2+'|'+h+'|'+i+'|'+j);
+												 // jQuery("#top_c2").sticky({ topSpacing: -16});
+												 //jQuery("#top_c3").sticky({ topSpacing: 0,bottomSpacing:141});
+jQuery("nav").sticky({ topSpacing: 0,bottomSpacing:141});
+
+if (w>1279) {
+	jQuery("#lc").sticky({ topSpacing: 95,bottomSpacing:bottom2});
+jQuery("#rc").sticky({ topSpacing: 95,bottomSpacing:bottom2});
+}
+
+
+
+$('div.lb img').removeAttr( "width");
+$('div.lb img').removeAttr( "height");
+if ($("div.tabs_art" ).length){$( "div.tabs_art" ).tabs(); }
+										});
+
+
+
+
+var cachedWidth = $(window).width();
+
+$(window).resize(function() {
+var newWidth = $(window).width();
+        if(newWidth !== cachedWidth){
+setTimeout(function() {
+location.reload();
+}, 500);
+            cachedWidth = newWidth;
+        }
+
+});
+
+$(document).scroll(function () {
+    var y = $(this).scrollTop()+ $(window).height();
+
+	var h=$(document).height()-$('footer').height()+30;
+
+
+});
+
+$('#nmenu-sticky-wrapper').css('height','75px');
+</script>
+
+</body>
+</html>
+
+

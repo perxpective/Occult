@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="google-site-verification" content="jcMvdOvQfQ99HQ10eHZuCLjYYCNXAUeKiuankpyqiCY" />
+    <meta name="yandex-verification" content="eb1f41d1dceb159c" />
+    <meta name="robots" content="noyaca" />
+    <link rel="stylesheet" media="screen" href="/local/templates/pt_corp2017/build/styles/main.css?1703745774">
+
+
+    <title>PaaS, or how hackers evade antivirus software</title>
+    <meta name="description" content="PaaS, or how hackers evade antivirus software"/>
+            
+    <link rel="icon" href="/local/templates/pt_corp2017/build/img/favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/local/templates/pt_corp2017/build/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/local/templates/pt_corp2017/build/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/local/templates/pt_corp2017/build/img/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="/local/templates/pt_corp2017/build/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="PaaS, or how hackers evade antivirus software" />
+    <meta property="og:description" content="PaaS, or how hackers evade antivirus software" />
+    <meta property="og:image" content="https://www.ptsecurity.com/upload/corporate/opengraph.png" />
+    <meta property="og:site_name" content="ptsecurity.com" />
+
+    <link rel="canonical" href="https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/paas-or-how-hackers-evade-antivirus-software/" />
+    <link rel="alternate" hreflang="en" href="https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/paas-or-how-hackers-evade-antivirus-software/" />
+    
+    
+    <!-- Varioqub experiments -->
+
+<script charset="utf-8" src="/62347e4907da2123c325753d.js?1600776379225"></script>
+<script type="text/javascript">
+
+     (function(e, x, pe, r, i, me, nt){
+
+         e[i]=e[i]||function(){(e[i].a=e[i].a||[]).push(arguments)},
+
+             me=x.createElement(pe),me.async=1,me.src=r,nt=x.getElementsByTagName(pe)[0],nt.parentNode.insertBefore(me,nt)})
+
+     (window, document, 'script', 'https://abt.s3.yandex.net/expjs/latest/exp.js', 'ymab');
+
+     ymab('metrika.34351730', 'init'/*, {clientFeatures}, {callback}*/);
+ </script>
+
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(34351730, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/34351730" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WHH9JTS');</script>
+<!-- End Google Tag Manager -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-235986173-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235986173-1');
+</script>
+    <!-- Hotjar Tracking Code for https://ptsecurity.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function()
+        {(h.hj.q=h.hj.q||[]).push(arguments)}
+        ;
+        h._hjSettings=
+            {hjid:1095096,hjsv:6}
+        ;
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(47600023, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        trackHash:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/47600023" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/paas-or-how-hackers-evade-antivirus-software/" },
+    "headline": "PaaS, or how hackers evade antivirus software",
+    "image": ["https://www.ptsecurity.com/upload/corporate/opengraph.png"],
+    "datePublished": "2021-04-12T10:00:00+03:00",
+    "dateModified": "2021-04-12T10:31:45+03:00",
+    "speakable": { "@type": "SpeakableSpecification", "xpath": [ "/html/head/title", "/html/head/meta[@name='description']/@content" ] },
+    "author": {
+        "@type": "Organization",
+        "name": "Positive Technologies",
+        "logo": { "@type": "ImageObject", "url": "https://www.ptsecurity.com/upload/corporate/json_logo.png" }
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Positive Technologies",
+        "logo": { "@type": "ImageObject", "url": "https://www.ptsecurity.com/upload/corporate/json_logo.png" }
+    },
+    "description": "PaaS, or how hackers evade antivirus software"
+}
+</script>
+</head>
+<body><noscript><img src="/475e815d1647b1af36d4b2e8e4c7f1fd.gif" width="0" height="0" alt="" /></noscript>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHH9JTS"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    
+    <header class="js-header" id="header">
+        <header-component
+            locale="p9"
+            :menu='[{"sectionName":"Solutions","sectionLink":"\/ww-en\/solutions\/","sectionText":"View all","sectionFilterAll":"","isTarget":false,"subMenu":[{"title":"ICS\/SCADA","link":"\/ww-en\/solutions\/ics\/","description":"Critical infrastructure on the frontline"},{"title":"Vulnerability Management","link":"\/ww-en\/solutions\/vulnerability\/","description":"Stop being an easy target"},{"title":"Financial Services","link":"\/ww-en\/solutions\/financial\/","description":"Can your security keep up with you?"},{"title":" Protection from targeted attacks (anti-apt)","link":"\/ww-en\/solutions\/anti-apt\/","description":"Early detection, rapid investigation"},{"title":"PT Industrial Cybersecurity Suite","link":"\/ww-en\/solutions\/pt-ics\/","description":"PT ICS is an integrated platform for cyberthreat detection and response in industrial systems"},{"title":"Utilities","link":"\/ww-en\/solutions\/utilities\/","description":"Your all-in-one AppSec solution"},{"title":"ERP Security","link":"\/ww-en\/solutions\/erp\/","description":"Take control of your ERP security"},{"title":"Security Compliance","link":"\/ww-en\/solutions\/compliance\/","description":"Turn policies into protection"}],"subMenuFilters":null},{"sectionName":"Products","sectionLink":"\/ww-en\/products\/","sectionText":"View all","sectionFilterAll":"","isTarget":false,"subMenu":[{"title":" MaxPatrol 8","link":"\/ww-en\/products\/maxpatrol\/","description":"Vulnerability and\u00a0compliance management system"},{"title":"MaxPatrol SIEM","link":"\/ww-en\/products\/mpsiem\/","description":"Knows your infrastructure, delivers pinpoint detection"},{"title":" PT Application Firewall","link":"\/ww-en\/products\/af\/","description":"Intelligent protection of business applications."},{"title":"PT Application Inspector","link":"\/ww-en\/products\/ai\/","description":"Source code analysis tool."},{"title":" PT ISIM","link":"\/ww-en\/products\/isim\/","description":"Cyberthreat detection and incident response in ICS."},{"title":"PT BlackBox","link":"\/ww-en\/products\/blackbox\/","description":"Dynamic application security testing tool"},{"title":"PT Network Attack Discovery","link":"\/ww-en\/products\/network-attack-discovery\/","description":"NDR system to detect attacks on the perimeter and inside the network."},{"title":"PT Sandbox","link":"\/ww-en\/products\/sandbox\/","description":"Advanced sandbox with customizable virtual environments"},{"title":"XSpider","link":"\/ww-en\/products\/xspider\/","description":"Vulnerability scanner."},{"title":" MaxPatrol VM","link":"\/ww-en\/products\/mp-vm\/","description":"Next-generation vulnerability management system."},{"title":"MaxPatrol SIEM All-in-One","link":"\/ww-en\/products\/mpsiem-all-in-one\/","description":"Full-featured SIEM for mid-sized IT infrastructures."},{"title":"PT MultiScanner","link":"\/ww-en\/products\/multiscanner\/","description":"Multilayered protection against malware attacks."}],"subMenuFilters":null},{"sectionName":"Services","sectionLink":"\/ww-en\/services\/","sectionText":"View all","sectionFilterAll":"","isTarget":false,"subMenu":[{"title":"ICS\/SCADA Security Assessment","link":"\/ww-en\/services\/ics\/","description":"Full Range of ICS-specific Security Services"},{"title":"ATM Security Assessments","link":"\/ww-en\/services\/banking\/","description":"Uncover Your Weaknesses"},{"title":"Web Application Security Services","link":"\/ww-en\/services\/webapp\/","description":"Black Box and White Box Analysis"},{"title":"Mobile Application Security Services","link":"\/ww-en\/services\/mobapp\/","description":"Security Analysis and Compliance Audit"},{"title":"Custom Application Security Services","link":"\/ww-en\/services\/custom\/","description":"Independent Expert Analysis of Your Source Code "},{"title":"Penetration Testing","link":"\/ww-en\/services\/pentest\/","description":"A Comprehensive Approach"},{"title":"Forensic Services","link":"\/ww-en\/services\/forensic\/","description":"Prevent Future Incidents"},{"title":"Advanced Border Control","link":"\/ww-en\/services\/control\/","description":"Upgrade Your View of Perimeter Security"}],"subMenuFilters":null},{"sectionName":"Analytics","sectionLink":"\/ww-en\/analytics\/","sectionText":"View all","sectionFilterAll":"","isTarget":false,"subMenu":[{"title":"Threatscape","link":"\/ww-en\/analytics\/threatscape\/","description":null},{"title":"PT ESC Threat Intelligence","link":"\/ww-en\/analytics\/pt-esc-threat-intelligence\/","description":null},{"title":"Cybersecurity glossary","link":"\/ww-en\/analytics\/glossary\/en\/a\/","description":null},{"title":"Knowledge base","link":"\/ww-en\/analytics\/knowledge-base\/","description":null},{"title":"Hacker groups","link":"\/ww-en\/analytics\/hacker-groups\/","description":null}],"subMenuFilters":null},{"sectionName":"About","sectionLink":"\/ww-en\/about\/","sectionText":"View all","sectionFilterAll":"","isTarget":false,"subMenu":[{"title":"Clients","link":"\/ww-en\/about\/clients\/","description":null},{"title":"Press","link":"\/ww-en\/about\/press\/","description":null},{"title":"News","link":"\/ww-en\/about\/news\/","description":null},{"title":"Events","link":"\/ww-en\/about\/events\/","description":null},{"title":"Contacts","link":"\/ww-en\/about\/contacts\/","description":null},{"title":"Documents and\u00a0Materials","link":"\/ww-en\/about\/docs\/","description":null}],"subMenuFilters":null},{"sectionName":"Partners","sectionLink":"\/ww-en\/partners\/","sectionText":null,"sectionFilterAll":"","isTarget":true,"subMenu":null,"subMenuFilters":null},{"sectionName":"PT Global","sectionLink":"https:\/\/global.ptsecurity.com\/?utm_source=pt&utm_medium=referal&utm_campaign=banner_main_page","sectionText":"PT Global","sectionFilterAll":"","isTarget":true,"subMenu":null,"subMenuFilters":null}]'
+        ></header-component>
+        <div class="header__progressbar header__row js-product-header js-progress-bar js-fixed-header"></div>
+                    <div class="header__container">
+                <ul class="header__breadcrumbs">
+    <li class="header__breadcrumbs-item">
+        <a class="header__breadcrumbs-link" href="/ww-en/">Home</a>
+    </li><li class="header__breadcrumbs-item"><a class="header__breadcrumbs-link" href="/ww-en/analytics/">Analytics</a></li><li class="header__breadcrumbs-item"><a class="header__breadcrumbs-link" href="/ww-en/analytics/pt-esc-threat-intelligence/">PT ESC Threat Intelligence</a></li><li class="header__breadcrumbs-item"><span>PaaS, or how hackers evade antivirus software</span></li></ul>            </div>
+                </header>
+    <div class="page-wrapper ">
+        <div class="main-content">
+        <div class="main-content__row">
+        <div class="container">
+            <div class="article article_sidebar-visible content-wrapper">
+                <div class="article__head">
+                    <div class="headline">
+                            <div class="title">
+        <h1>PaaS, or how hackers evade antivirus software</h1>
+    </div>
+                            <div class="headline__info">
+                            <time class="time">Published on 12 April 2021</time>
+                                                    </div>
+                    </div>
+                </div>
+                <div class="article__body">
+                    
+<div class="article__content">
+    <article>
+        <article>
+<p>
+	Malware is one of the main tools of any hacking group. Depending on the level of qualification and the specifics of operation, hackers can use both publicly available tools (such as the Cobalt Strike framework) and their own developments.
+</p>
+<p>
+	Creating a unique set of tools for each attack requires huge resources; therefore, hackers tend to reuse malware in different operations and also share it with other groups. The mass use of the same tool inevitably leads to its getting on the radar of antivirus companies, which, as a result, reduces its efficiency.
+</p>
+<p>
+	To prevent it from happening, hackers use code packing, encryption, and mutation techniques. Such techniques can often be handled by separate tools called crypters or sometimes simply packers. In this article, we will use the example of the <a href="https://www.ptsecurity.com/ru-ru/research/hacker-groups/rtm/" target="_blank">RTM</a> banking trojan to discuss which packers attackers can use, how they complicate detection of the malware, and what other malware they can pack.
+</p>
+<h2>Packer-as-a-service</h2>
+<p>
+	A hacker group responsible for RTM distribution regularly sent mass phishing emails with malicious attachments until the end of 2020. Apparently, the attacks were automated.
+</p>
+ <figure> <img alt="RTM phishing email, December 2020" src="/upload/corporate/ww-en/images/esc/article_319382/image1.png"> <figcaption>Figure 1. RTM phishing email, December 2020</figcaption> </figure>
+<p>
+	Each attachment contained files that significantly differed from each other, but the final payload remained almost the same.
+</p>
+ <figure> <img alt="Example of RTM archive" src="/upload/corporate/ww-en/images/esc/article_319382/image2.png"> <figcaption>Figure 2. Example of RTM archive</figcaption> </figure>
+<p>
+	Such feature is a natural consequence of using crypters. Initially, the group behind RTM used its own unique crypter. In 2020, however, the group changed it twice.
+</p>
+<p>
+	When analyzing samples packed in a new way, we detected numerous other malware protected by similar method. Taking into account the fact that packing process is automated, such overlapping with other malware allows us to assume that attackers use the packer-as-a-service model. In this model, packing of malicious files is delegated to a special service managed by a third party.
+</p>
+ <figure> <img alt="Website of a crypt service" src="/upload/corporate/ww-en/images/esc/article_319382/image3.png"> <figcaption>Figure 3. Website of a crypt service</figcaption> </figure>
+<p>
+	Access to such services can often be found on sale on hacker forums.
+</p>
+ <figure> <img alt="Advertisement of file packing as a service" src="/upload/corporate/ww-en/images/esc/article_319382/image4.png"> <figcaption>Figure 4. Advertisement of file packing as a service</figcaption> </figure>
+<p>
+	Later in this article, we will discuss specific examples of crypters used by the RTM group.
+</p>
+<h2>Rex3Packer</h2>
+<p>
+	The first use of this packer by the RTM group that we detected dates back to November 2019. The group started actively using the packer in April–May 2020. Rare uses of the packer for distributing old versions of the RTM trojan were also observed in late January 2021.
+</p>
+ <figure> <img alt="Phishing email by RTM, January 2021" src="/upload/corporate/ww-en/images/esc/article_319382/image5.png"> <figcaption>Figure 5. Phishing email by RTM, January 2021</figcaption> </figure>
+<p>
+	We couldn't associate this packer with any of the publicly described ones, so we named it according to three specifics of its working: <b>re</b>cursion, bit <b>re</b>verse, and reflective loading of PE files (<b>re</b>flection), hence the name <b>Re</b>x<b>3</b>Packer.
+</p>
+<h3>Unpacking algorithm</h3>
+<p>
+	The overall algorithm for extracting the payload is as follows:
+</p>
+<ol>
+	<li>A predetermined amount of memory is allocated with read, write, and execute rights using VirtualAlloc.</li>
+	<li>The content of the current process image in the memory is copied to the allocated buffer (in particular, section .text).</li>
+	<li>Control passes to the function inside the buffer.</li>
+	<li>The difference is calculated between the location of data in the buffer and in the PE file image (difference between the addresses in the buffer and virtual addresses in the image). This difference is written to the ebx register. All references to virtual addresses in code are indexed by the content of this register. As a result, wherever necessary, a correction is added to the PE image addresses that allows obtaining the corresponding address in the buffer. <figure> <img alt="Calls to functions and variables taking into account the correction in the ebx register" src="/upload/corporate/ww-en/images/esc/article_319382/image6.png"> <figcaption>Figure 6. Calls to functions and variables taking into account the correction in the ebx register</figcaption> </figure> </li>
+	<li>Another buffer is allocated for packed data.</li>
+	<li>By calling VirtualProtect, RWX rights are assigned to the entire memory region with the PE file image.</li>
+	<li>The packed data is copied to the buffer.</li>
+	<li>The packed data is decoded.</li>
+	<li>The memory region with the PE image is filled with null bytes.</li>
+	<li>The decoded data represents an executable file—the PE payload. This payload is reflectively loaded to where the initial PE image was, and control passes to its entry point.</li>
+</ol>
+<p>
+	A specific algorithm for decoding packed data is of special interest to us. In this case, it would be incorrect to compare packing with compression, as the algorithm is such that the size of packed data is always bigger than that of the initial data.
+</p>
+<p>
+	The packed data is preceded by a 16-byte header that contains four 4-byte fields:
+</p>
+<ul>
+	<li>Size of the header</li>
+	<li>Size of initial data (PE payload)</li>
+	<li>Position in initial data (*) at which they are divided (more details below)</li>
+	<li>Encoding mode (1, 2, or 4)</li>
+</ul>
+<p>
+	The decoding looks as follows:
+</p>
+<ol>
+	<li>Inside each byte, bit order is reversed (for example, 10011000 becomes 00011001).</li>
+	<li>Depending on encoding mode (1, 2, 4), data is divided into blocks with N size of 9, 5, or 3 bytes, respectively. The result of the block decoding is N-1 byte (8, 4, or 2).</li>
+	<li>In the first N-1 bytes of the block, some bits are missing: their values always equal zero. To restore the original bytes, the missing bits are extracted from the last byte of the block by using 00000001, 00010001, or 01010101 masks. The mask is shifted for each subsequent byte. As a result, the last byte of the block is composed of the bits extracted from previous bytes and united by the logical operation OR.
+	<p>
+		For example, in mode 4, the last byte is composed of even bits of the block's first byte and odd bits of the block's second byte. As a result of "returning" these bits to the first and second bytes, an original sequence of two bytes is composed.
+	</p>
+ <figure> <img alt="Scheme of obtaining initial bytes in mode 4" src="/upload/corporate/ww-en/images/esc/article_319382/image7.png"> <figcaption>Figure 7. Scheme of obtaining initial bytes in mode 4</figcaption> </figure></li>
+	<li>When bits are restored in all blocks, the obtained data represents the initial PE file divided by two parts at position (*). These parts, in turn, were swapped. The second rearrangement (taking into account the (*) value) allows obtaining the original file.</li>
+</ol>
+<h3>Obfuscation</h3>
+<p>
+	To complicate code analysis, various obfuscation techniques are used in the packer:
+</p>
+<ul>
+	<li>
+	<p>
+		In between the execution of significant code, various WinAPI functions are called. Their results are saved but not used, and the functions are selected so that not to affect the program operation.
+	</p>
+	<figure> <img alt="Calling WinAPI functions" src="/upload/corporate/ww-en/images/esc/article_319382/image8.png"> <figcaption>Figure 8. Calling WinAPI functions</figcaption> </figure></li>
+</ul>
+<ul>
+	<li>
+	<p>
+		A typical feature of this packer is the presence of cycles (not performing useful operations) implemented via a recursive function.
+	</p>
+	<figure> <img alt="Recursive function (sample without junk code)" src="/upload/corporate/ww-en/images/esc/article_319382/image9.png"> <figcaption>Figure 9. Recursive function (sample without junk code)</figcaption> </figure></li>
+</ul>
+<ul>
+	<li>
+	<p>
+		For further obfuscation, several dozens of randomly generated functions are added to executable file. They may call each other, but none of them obtains control ever.
+	</p>
+	<figure> <img alt="Example of generated function" src="/upload/corporate/ww-en/images/esc/article_319382/image10.png"> <figcaption>Figure 10. Example of generated function</figcaption> </figure></li>
+</ul>
+<h3>Usage</h3>
+<p>
+	In addition to RTM samples, we detected the use of Rex3Packer for packing various malware, mainly originating from the CIS countries. Below is the list with examples of such malware:
+</p>
+<div class="table-container">
+	<table class="table-article">
+	<thead>
+	<tr>
+		<th>
+			Malware family
+		</th>
+		<th>
+			SHA256
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.phobos" target="_blank">Phobos Ransomware</a>
+		</td>
+		<td>
+			6e9c9b72d1bdb993184c7aa05d961e706a57b3becf151ca4f883a80a07fdd955
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.zeppelin_ransomware" target="_blank">Zeppelin Ransomware</a>
+		</td>
+		<td>
+			8d44fdbedd0ec9ae59fad78bdb12d15d6903470eb1046b45c227193b233adda6
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.raccoon" target="_blank">Raccoon Stealer</a>
+		</td>
+		<td>
+			3be91458baa365febafb6b33283b9e1d7e53291de9fec9d3050cd32d98b7a039
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.kpot_stealer" target="_blank">KPOT Stealer</a>
+		</td>
+		<td>
+			9b6af2502547bbf9a64ccfb8889ee25566322da38e9e0ccb86b0e6131a67df1e
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.predator" target="_blank">Predator The Thief</a>
+		</td>
+		<td>
+			d1060835793f01d1e137ad92e4e38ef2596f20b26da3d12abcc8372158764a8f
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.qakbot" target="_blank">QakBot</a>
+		</td>
+		<td>
+			18cc92453936d1267e790c489c419802403bb9544275b4a18f3472d2fe6f5dea
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<p>
+	We also detected the use of this packer for packing malware samples of the <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.nemty" target="_blank">Nemty</a>, <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.pony" target="_blank">Pony</a>, and <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.amadey" target="_blank">Amadey</a> families. This is, of course, not an exhaustive list of all cases of using Rex3Packer.
+</p>
+<h2>HellowinPacker</h2>
+<p>
+	In May 2020, RTM started using a new packer and went on using it until the beginning of 2021. We called it HellowinPacker because of the file name "hellowin.wav" we spotted in strings of some samples.
+</p>
+<p>
+	The packer's key feature is two levels of code mutation. The first one significantly changes the unpacking code structure, making samples look different from each other.
+</p>
+ <figure> <img alt="Comparison of code in two samples of different structure" src="/upload/corporate/ww-en/images/esc/article_319382/image11.png"> <figcaption>Figure 11. Comparison of code in two samples of different structure</figcaption> </figure>
+<p>
+	The example above shows the comparison of samples 5b5f30f7cbd6343efd409f727e656a7039bff007be73a04827cce2277d873aa0 (on the left) and 1f9a8b3c060c2940a81442c9d9c9e36c31ad37aaa7cd61e1d7aec2d86fe1c585 (on the right).
+</p>
+<p>
+	The second level only changes some details, and the code structure remains in general the same. The changes mainly affect assembler instructions and constants that do not impact the program operation. As a result, the code looks almost identical when decompiled.
+</p>
+ <figure> <img alt="Comparison of code in two samples of the same structure" src="/upload/corporate/ww-en/images/esc/article_319382/image12.png"> <figcaption>Figure 12. Comparison of code in two samples of the same structure</figcaption> </figure>
+<p>
+	Just like Rex3Packer, HellowinPacker is actively used by attackers to pack various malware. Note that malware from the same family has the same structure when packed. This lasts for at least some time, after which the structure can change.
+</p>
+<p>
+	All these features coincide with the description of a packing service the access to which is sold on hacker forums:
+</p>
+<div class="code">[Uniqueness] A customer is given a unique crypter that does not depend on other customers. If your files were spotted, your uploads are to blame. We're not looking for 10,000+ customers, we provide correct Premium support and have a very limited number of clients. We make only unique stubs for a customer.</div>
+<br>
+<p>
+	Apparently, each unique crypter has its own structure of generated code. The crypter itself can also mutate code but at a lower level, without changing the program structure. In any case, the significant executable code remains the same.
+</p>
+<h3>Unpacking algorithm</h3>
+<p>
+	One of the first actions in all packed files is an attempt to open the registry key HKEY_CLASSES_ROOT\Interface\{b196b287-bab4-101a-b69c-00aa00341d07} (character case may differ in each particular case) and request a default value. Correct program operation in some modifications of generated code depends on whether these operations are successful.
+</p>
+<p>
+	Interface GUIDs may also differ. Here are some of the possible options:
+</p>
+<ul>
+	<li>{3050f1dd-98b5-11cf-bb82-00aa00bdce0b}</li>
+	<li>{aa5b6a80-b834-11d0-932f-00a0c90dcaa9}</li>
+	<li>{683130a6-2e50-11d2-98a5-00c04f8ee1c4}</li>
+	<li>{c7c3f5a1-88a3-11d0-abcb-00a0c90fffc0}</li>
+	<li>{b8da6310-e19b-11d0-933c-00a0c90dcaa9}</li>
+</ul>
+<p>
+	The subsequent code obtains the address at which a block of encrypted data is located.
+</p>
+<p>
+	This block starts with a 4-byte number, which stores the size of <b>initial</b> data (those that will be obtained after decoding). By calling VirtualAlloc, a memory block of required size with RWX rights is allocated for decrypted data. Encrypted data is copied to the allocated memory by blocks of X bytes each. In the original file, "spaces" of Y byte length are located between these blocks.
+</p>
+ <figure> <img alt="Scheme of data copying in HellowinPacker" src="/upload/corporate/ww-en/images/esc/article_319382/image13.png"> <figcaption>Figure 13. Scheme of data copying in HellowinPacker</figcaption> </figure>
+<p>
+	Data is then decrypted by 4-byte blocks:
+</p>
+<ul>
+	<li>Each next block is interpreted as an integer (DWORD).</li>
+	<li>Index of the first byte in the block is added to the integer.</li>
+	<li>An xor operation is executed between the obtained value and the sum of the index and a fixed key (Z number).</li>
+</ul>
+<p>
+	Example of algorithm implementation in Python:
+</p>
+ <pre><div class="code">def decrypt(data, Z):
+    index = 0
+    while index &lt; len(data):
+        dword = struct.unpack("&lt;I", data[index:index + 4])[0]
+        dword = (dword + index) &amp; (2 ** 32 - 1)
+        dword = dword ^ (index + Z)
+        data[index:index + 4] = struct.pack("&lt;I", dword)
+        index += 4</div></pre>
+<br>
+<p>
+	Values X, Y, and Z vary depending on a particular packed sample.
+</p>
+<p>
+	The next stage of extracting payload—the shellcode—is located inside the decrypted data. The shellcode takes control when the decryption ends.
+</p>
+<p>
+	The shellcode dynamically loads functions required for its operation. These functions are listed in the "import table" located at the beginning of decrypted data.
+</p>
+ <figure> <img src="/upload/corporate/ww-en/images/esc/article_319382/image14.png" alt="" decrypted="" import="" in=""> <figcaption>Figure 14. "Import table" in decrypted data</figcaption> </figure>
+<p>
+	For greater variability, the strings in the "import table" may be partially filled with random symbols. In the example above, the first function name "GetProcAddress" is fully replaced by the string "aaa45678901234", and the names "VirtualAlloc" and "VirtualProtect" are damaged. Right before processing the table, the shellcode restores correct values of all the symbols.
+</p>
+ <figure> <img alt="Code for restoring damaged names of functions" src="/upload/corporate/ww-en/images/esc/article_319382/image15.png"> <figcaption>Figure 15. Code for restoring damaged names of functions</figcaption> </figure>
+<p>
+	Payload (this time, it is the PE file) is extracted by the shellcode from the rest of the decrypted data. It is encrypted again by the same algorithm as described above. For Z key, figure 1001 is always used.
+</p>
+<p>
+	When the decryption is finished, the shellcode performs reflective loading of the PE file using the functions imported at the first stage.
+</p>
+<h3>Obfuscation</h3>
+<p>
+	Just like Rex3Packer, HellowinPacker samples call WinAPI functions not related to the main program logic. However, in this case, they are mostly used to complicate behavior analysis and detection in sandboxes. This is also confirmed by the fact that in most cases various functions are called in a row at the very beginning of the program.
+</p>
+ <figure> <img alt="Entry point in one of the packed libraries" src="/upload/corporate/ww-en/images/esc/article_319382/image16.png"> <figcaption>Figure 16. Entry point in one of the packed libraries</figcaption> </figure>
+<p>
+	An additional effect of the WinAPI use is the impossibility of detection by a list of imported functions and by imphash.
+</p>
+<p>
+	When working with various numeric values, a certain "arithmetic" obfuscation is often observed: necessary constants are represented as sums or differences of other constants (which in some cases equal zero). To obtain constants, WinAPI functions can also be called, yielding predictable results (for example, 0 in case of failure).
+</p>
+<p>
+	An example of such obfuscation is given on the Figure below: the only goal of this function is to assign the value of the argument <em>source</em> to a variable pointed by <em>target</em>. In this case, the output of calling GetStockObject(789644) will always equal zero, as the function was given an intentionally incorrect argument.
+</p>
+ <figure> <img alt="&quot;Arithmetic&quot; obfuscation in the HellowinPacker code" src="/upload/corporate/ww-en/images/esc/article_319382/image17.png"> <figcaption>Figure 17. "Arithmetic" obfuscation in the HellowinPacker code</figcaption> </figure>
+<p>
+	Various mutations are encountered at the assembler level as well: inserting junk code, using opaque predicates, calling functions with unused arguments and repeated calls of the functions, and replacing instructions with their equivalents.
+</p>
+ <figure> <img alt="Example of obfuscation at the assembler code level" src="/upload/corporate/ww-en/images/esc/article_319382/image18.png"> <figcaption>Figure 18. Example of obfuscation at the assembler code level</figcaption> </figure>
+<h3>Usage</h3>
+<p>
+	HellowinPacker exists at least since 2014 and has been so far used in various mass malware. Here are only a few examples:
+</p>
+<div class="table-container">
+	<table class="table-article">
+	<thead>
+	<tr>
+		<th>
+			Malware family
+		</th>
+		<th>
+			SHA256
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.cerber" target="_blank">Cerber Ransomware</a>
+		</td>
+		<td>
+			1e8b814a4bd850fc21690a66159a742bfcec212ccab3c3153a2c54c88c83ed9d
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.zloader" target="_blank">ZLoader</a>
+		</td>
+		<td>
+			44ede6e1b9be1c013f13d82645f7a9cff7d92b267778f19b46aa5c1f7fa3c10b
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.dridex" target="_blank">Dridex</a>
+		</td>
+		<td>
+			f5dfbb67b582a58e86db314cc99924502d52ccc306a646da25f5f2529b7bff16
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.bunitu" target="_blank">Bunitu</a>
+		</td>
+		<td>
+			54ff90a4b9d4f6bb2808476983c1a902d7d20fc0348a61c79ee2a9e123054cce
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.qakbot" target="_blank">QakBot</a>
+		</td>
+		<td>
+			c2482679c665dbec35164aba7554000817139035dc12efc9e936790ca49e7854
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<p>
+	The packer has been frequently mentioned in reports by other researchers. The earliest mention we found dates back to 2015. In an <a href="https://blog.malwarebytes.com/threat-analysis/2015/12/malware-crypters-the-deceptive-first-layer/" target="_blank">article about crypters</a>, Malwarebytes experts analyze malware samples that use HellowinPacker. Later, other researchers referred to it as the Emotet packer (<a href="https://www.bromium.com/wp-content/uploads/2019/07/Bromium-Emotet-Technical-Analysis-Report.pdf" target="_blank">1</a>, <a href="https://github.com/seth1002/analysis_report/blob/master/Emotet/2019_0918/packer_analyze.md" target="_blank">2</a>). In 2020, our colleagues from NCC Group called it CryptOne and <a href="https://research.nccgroup.com/2020/06/23/wastedlocker-a-new-ransomware-variant-developed-by-the-evil-corp-group/" target="_blank">described</a> how it can be used to pack the WastedLocker ransomware. According to NCC Group, the crypter was also used by the <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.mailto" target="_blank">Netwalker</a>, <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.isfb" target="_blank">Gozi ISFB v3</a>, <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.zloader" target="_blank">ZLoader</a>, and <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.smokeloader" target="_blank">Smokeloader</a> malware families.
+</p>
+<h2>Conclusion</h2>
+<p>
+	Our example of using the crypters shows us how hackers can delegate responsibilities among each other, especially when it comes to mass malware. Developing malicious payload, protecting it from antivirus tools («crypt»), and delivering it to end users—all this can be performed by completely unrelated hackers, and each element of this chain can be offered as a service. This approach lowers the cybercrime entry threshold for technically unskilled criminals: to conduct a mass attack, all they have to do is to provide a necessary amount of money to pay for all the services.
+</p>
+<p>
+	The packers we described are certainly not the only ones that exist on the market. However, they demonstrate the common features of such tools: as a result of their work, an executable file is obtained with obfuscated polymorphic code of the unpacker and a payload encrypted in some way or another. Mutations in code and reuse of the same crypters make static detection of payload almost impossible. However, since the payload is somehow decrypted to the memory and then starts its malicious activity, behavioral analysis using sandboxes (such as <a href="https://www.ptsecurity.com/ww-en/products/sandbox/" target="_blank">PT Sandbox</a>) allows detecting malware and providing accurate verdicts even for packed files. In addition, it should be noted that packers do not affect the interaction of malware with C&amp;C servers in any way. This makes it possible to determine the presence of malware in the network using traffic analysis tools such as <a href="https://www.ptsecurity.com/ww-en/products/network-attack-discovery/" target="_blank">PT Network Attack Discovery</a>.
+</p>
+<h2>Verdicts of our products</h2>
+<h3><a href="https://www.ptsecurity.com/ww-en/products/sandbox/" target="_blank">PT Sandbox</a></h3>
+<ul>
+	<li>
+	<p>
+		Trojan.Win32.RTM.a
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan.Win32.RTM.b
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.a
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.b
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.c
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.d
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.e
+	</p>
+	</li>
+	<li>
+	<p>
+		Trojan-Banker.Win32.RTM.f
+	</p>
+	</li>
+</ul>
+<h3><a href="https://www.ptsecurity.com/ww-en/products/network-attack-discovery/" target="_blank">PT Network Attack Discovery</a></h3>
+<ul>
+	<li>
+	<p>
+		REMOTE [PTsecurity] TeamBot/RTM<br>
+		 sid: 10004412;
+	</p>
+	</li>
+	<li>
+	<p>
+		BACKDOOR [PTsecurity] TeamBot/RTM<br>
+		 sid: 10004415;
+	</p>
+	</li>
+	<li>
+	<p>
+		MALWARE [PTsecurity] RTM Banker CnC POST<br>
+		 sid: 10000765;
+	</p>
+	</li>
+	<li>
+	<p>
+		MALWARE [PTsecurity] RTM.N (Redaman)<br>
+		 sid: 10005556; 10005557;
+	</p>
+	</li>
+	<li>
+	<p>
+		MALWARE [PTsecurity] Spy.RTM.AF<br>
+		 sid: 10005468;
+	</p>
+	</li>
+	<li>
+	<p>
+		MALWARE [PTsecurity] Trojan[Banker]/RTM<br>
+		 sid: 10004855; 10004875;
+	</p>
+	</li>
+	<li>
+	<p>
+		MALWARE [PTsecurity] Win32/Spy.RTM.N (Redaman)<br>
+		 sid: 10003414; 10004754; 10005555;
+	</p>
+	</li>
+	<li>
+	<p>
+		PAYLOAD [PTsecurity] RTM.Payload.xor<br>
+		 sid: 10005585;
+	</p>
+	</li>
+</ul>
+<h2>IOCs (RTM)</h2>
+<div class="table-container">
+	<table class="table-article">
+	<thead>
+	<tr>
+		<th>
+			Detection date
+		</th>
+		<th>
+			Crypter
+		</th>
+		<th>
+			SHA256
+		</th>
+		<th>
+			SHA1
+		</th>
+		<th>
+			MD5
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>
+			19.04.2020
+		</td>
+		<td>
+			RTM
+		</td>
+		<td>
+			a4229a54f76815ac30a2a878eadf275e199c82da657dbc5f3fc05fe95603c320
+		</td>
+		<td>
+			ad22ceb309dd30dc769f63174292657fe07f0ced
+		</td>
+		<td>
+			80b116708f75de212b49ff994ad8b43e
+		</td>
+	</tr>
+	<tr>
+		<td>
+			22.04.2020
+		</td>
+		<td>
+			Rex3Packer
+		</td>
+		<td>
+			9b88e8143e4452229dac7fdcc3d9281d21390f286c086f09aec410f120dc4325
+		</td>
+		<td>
+			f881729f6a5ca6fe80f385a2b0f8583b19214466
+		</td>
+		<td>
+			3965b819eb945a9c0defc746bbc8ed7a
+		</td>
+	</tr>
+	<tr>
+		<td>
+			13.05.2020
+		</td>
+		<td>
+			HellowinPacker
+		</td>
+		<td>
+			43e8ebacfa319ff7d871eef3cc35266cfa7c6f44dd787f27a48311e39727e10f
+		</td>
+		<td>
+			8a28b75285409c55d5bbeca62e3819c83c8e663f
+		</td>
+		<td>
+			afd18be08d135f7bf07007c1c9041126
+		</td>
+	</tr>
+	<tr>
+		<td>
+			28.01.2021
+		</td>
+		<td>
+			Rex3Packer (2 layers)
+		</td>
+		<td>
+			fbf5974daee93bf5a2ed1816a4edbb108ceccb264d3e3f72d0aed268dd45e315
+		</td>
+		<td>
+			2e3352c6341ce57a03aaf2c4fbf484f3a0a4bfe3
+		</td>
+		<td>
+			6e0c8510443586cdc8f84330e447aae5
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+</article>    </article>
+</div>
+
+                    <div class="article__sidebar">
+                            <div class="sidebar-item sidebar-item_white sidebar-item_interest">
+        <div class="sidebar-item__title">
+            <span class="h4">Related articles</span>
+        </div>
+        <div class="sidebar-item__list">
+            <ul>
+                            <li>
+                    <time class="time">August 4, 2022</time>
+                    <a class="link" href="/ww-en/analytics/pt-esc-threat-intelligence/apt31-cloud-attacks/" title="Flying in the clouds: APT31 renews its attacks on Russian companies through cloud storage" >Flying in the clouds: APT31 renews its attacks on Russian companies through cloud storage</a>
+                </li>
+                                <li>
+                    <time class="time">August 3, 2021</time>
+                    <a class="link" href="/ww-en/analytics/pt-esc-threat-intelligence/apt31-new-attacks/" title="APT31 new dropper. Target destinations: Mongolia, Russia, the U.S., and elsewhere" >APT31 new dropper. Target destinations: Mongolia, Russia, the U.S., and elsewhere</a>
+                </li>
+                                <li>
+                    <time class="time">July 24, 2023</time>
+                    <a class="link" href="/ww-en/analytics/pt-esc-threat-intelligence/space-pirates-a-look-into-the-group-s-unconventional-techniques-new-attack-vectors-and-tools/" title="Space Pirates: a look into the group's unconventional techniques, new attack vectors, and tools" >Space Pirates: a look into the group's unconventional techniques, new attack vectors, and tools</a>
+                </li>
+                            </ul>
+        </div>
+    </div>
+        <div class="sidebar-item sidebar-item_banner">
+                        <a href="/ww-en/products/network-attack-discovery/?utm_source=pt_site&utm_medium=sidebanner&utm_campaign=nad" target="_blank">
+                    <img src="/upload/iblock/33c/PT_NADanalytic_sidebar_320_480_NAD_EN.png" alt="">
+                </a>
+                    </div>
+                        </div>
+                </div>
+            </div>
+            <div class="content-wrapper">
+                <div class="share">
+    <div class="share__tl">Share:</div>
+    <div class="share__btns">
+        <div class="ya-share2" data-services="linkedin,twitter,gplus,reddit"></div>
+        <div class="share-custom-cr">
+            <a class="share__icon pt-via-mail"
+               href="mailto:?subject=PaaS, or how hackers evade antivirus software&body=https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/paas-or-how-hackers-evade-antivirus-software/"
+               title="Email"
+            ></a>
+            <div class="share__icon pt-copy-url copyToClipBoardBtn" title="Copy Link"></div>
+        </div>
+    </div>
+    <div class="share__tooltip copyToClipBoardTooltip">
+        <span>Link copied</span>
+    </div>
+</div>
+            </div>
+            <div class="content-wrapper">
+                    <div class="title title_mid">
+        <span class="h2">Related articles</span>
+    </div>
+    <div class="similar-articles">
+                        <a class="similar-articles__item" href="/ww-en/analytics/pt-esc-threat-intelligence/tgrat/">
+                    <div class="similar-articles__img" style="background-image:url(/upload/corporate/analytics_default.png);"></div>
+                    <div class="similar-articles__content">
+                        <time class="time">December 6, 2022</time>
+                        <h4>TgRAT</h4>
+                    </div>
+                </a>
+                            <a class="similar-articles__item" href="/ww-en/analytics/pt-esc-threat-intelligence/operation-ta505-part3/">
+                    <div class="similar-articles__img" style="background-image:url(/upload/corporate/analytics_default.png);"></div>
+                    <div class="similar-articles__content">
+                        <time class="time">May 24, 2020</time>
+                        <h4>Operation TA505: network infrastructure. Part 3</h4>
+                    </div>
+                </a>
+                            <a class="similar-articles__item" href="/ww-en/analytics/pt-esc-threat-intelligence/shadowpad-new-activity-from-the-winnti-group/">
+                    <div class="similar-articles__img" style="background-image:url(/upload/corporate/analytics_default.png);"></div>
+                    <div class="similar-articles__content">
+                        <time class="time">September 29, 2020</time>
+                        <h4>ShadowPad: new activity from the Winnti group</h4>
+                    </div>
+                </a>
+                </div>
+                    <a class="link link-cr link_back" href="/ww-en/analytics/pt-esc-threat-intelligence/">
+                    <span>All articles</span>
+                    <i class="pt-go-back"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="btn-cr">
+                <div class="btnToTop">
+            <i class="pt-angle-in-dropdown"></i>
+        </div>
+            </div>
+    </div>
+    <footer>
+        <div class="footer-cr">
+            
+<div class="footer-cr__menu fr-menu">
+            <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/solutions/">Solutions</a>
+                <div class="list-opener"></div>
+            </div>
+                            <ul class="fr-menu__list">
+                                            <li><a href="/ww-en/solutions/ics/">ICS/SCADA</a></li>
+                                                <li><a href="/ww-en/solutions/vulnerability/">Vulnerability Management</a></li>
+                                                <li><a href="/ww-en/solutions/financial/">Financial Services</a></li>
+                                                <li><a href="/ww-en/solutions/anti-apt/">Protection from targeted attacks (anti-apt)</a></li>
+                                                <li><a href="/ww-en/solutions/pt-ics/">PT Industrial Cybersecurity Suite </a></li>
+                                                <li><a href="/ww-en/solutions/utilities/">Utilities</a></li>
+                                                <li><a href="/ww-en/solutions/erp/">ERP Security</a></li>
+                                                <li><a href="/ww-en/solutions/compliance/">Security Compliance</a></li>
+                                        </ul>
+                    </div>
+                <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/products/">Products</a>
+                <div class="list-opener"></div>
+            </div>
+                            <ul class="fr-menu__list">
+                                            <li><a href="/ww-en/products/maxpatrol/">MaxPatrol 8</a></li>
+                                                <li><a href="/ww-en/products/mpsiem/">MaxPatrol SIEM</a></li>
+                                                <li><a href="/ww-en/products/af/">PT Application Firewall</a></li>
+                                                <li><a href="/ww-en/products/ai/">PT Application Inspector</a></li>
+                                                <li><a href="/ww-en/products/isim/">PT ISIM</a></li>
+                                                <li><a href="/ww-en/products/network-attack-discovery/">PT Network Attack Discovery</a></li>
+                                                <li><a href="/ww-en/products/sandbox/">PT Sandbox</a></li>
+                                                <li><a href="/ww-en/products/xspider/">XSpider</a></li>
+                                                <li><a href="/ww-en/products/mp-vm/">MaxPatrol VM</a></li>
+                                                <li><a href="/ww-en/products/mpsiem-all-in-one/">MaxPatrol SIEM All-in-One</a></li>
+                                                <li><a href="/ww-en/products/multiscanner/">PT MultiScanner</a></li>
+                                                <li><a href="/ww-en/products/blackbox/">PT BlackBox</a></li>
+                                        </ul>
+                    </div>
+                <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/services/">Services</a>
+                <div class="list-opener"></div>
+            </div>
+                            <ul class="fr-menu__list">
+                                            <li><a href="/ww-en/services/ics/">ICS/SCADA Security Assessment</a></li>
+                                                <li><a href="/ww-en/services/banking/">ATM Security Assessments</a></li>
+                                                <li><a href="/ww-en/services/webapp/">Web Application Security Services</a></li>
+                                                <li><a href="/ww-en/services/mobapp/">Mobile Application Security Services</a></li>
+                                                <li><a href="/ww-en/services/custom/">Custom Application Security Services</a></li>
+                                                <li><a href="/ww-en/services/pentest/">Penetration Testing</a></li>
+                                                <li><a href="/ww-en/services/forensic/">Forensic Services</a></li>
+                                                <li><a href="/ww-en/services/control/">Advanced Border Control</a></li>
+                                        </ul>
+                    </div>
+                <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/analytics/">Analytics</a>
+                <div class="list-opener"></div>
+            </div>
+                            <ul class="fr-menu__list">
+                                            <li><a href="/ww-en/analytics/threatscape/">Threatscape</a></li>
+                                                <li><a href="/ww-en/analytics/pt-esc-threat-intelligence/">PT ESC Threat Intelligence</a></li>
+                                                <li><a href="/ww-en/analytics/glossary/">Cybersecurity glossary</a></li>
+                                                <li><a href="/ww-en/analytics/knowledge-base/">Knowledge base</a></li>
+                                        </ul>
+                    </div>
+                <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/partners/">Partners</a>
+                <div class="list-opener"></div>
+            </div>
+                    </div>
+                <div class="footer-cr__item">
+            <div class="fr-menu__hr"><a href="/ww-en/about/">About</a>
+                <div class="list-opener"></div>
+            </div>
+                            <ul class="fr-menu__list">
+                                            <li><a href="/ww-en/about/clients/">Clients</a></li>
+                                                <li><a href="/ww-en/about/press/">Press</a></li>
+                                                <li><a href="/ww-en/about/news/">News</a></li>
+                                                <li><a href="/ww-en/about/events/">Events</a></li>
+                                                <li><a href="/ww-en/about/contacts/">Contacts</a></li>
+                                                <li><a href="/ww-en/about/docs/">Documents and Materials</a></li>
+                                        </ul>
+                    </div>
+        </div>
+            <div class="footer-cr__social fr-ct">
+                <div class="fr-ct__logo">
+                    <a class="header__logo" href="/ww-en/">
+    <img src="/local/templates/pt_corp2017/build/img/svg/logo.svg?1703745774" alt="Positive Technologies">
+</a>
+                    <div class="fr-ct__mob-copyrights">
+                        Copyright &copy; 2002—2024 Positive Technologies. All Rights Reserved.
+                    </div>
+                </div>
+                <div class="fr-ct__soc">
+                    <div class="fr-ct__soc-tl"></div>
+<div class="fr-ct__soc-list"></div>
+                    <div class="fr-ct__links hidden-lg">
+                        <ul>
+    <li><a href="/ww-en/legal/report-vulnerability/">Report a vulnerability</a></li>
+    <li><a href="https://help.ptsecurity.com/">Help Portal</a></li>
+    <li><a href="/ww-en/terms-of-use/">Terms of Use</a></li>
+    <li><a href="/ww-en/privacy-policy/">Privacy Notice</a></li>
+    <li><a href="/ww-en/legal/cookie-notice/">Cookie Notice</a></li>
+    <li><a href="/ww-en/legal/positive-coordinated-vulnerability-disclosure-policy/">Positive Coordinated Vulnerability Disclosure Policy</a></li>
+    <li><a href="/ww-en/sitemap/">Sitemap</a></li>
+</ul>
+                    </div>
+                    <div class="fr-ct__copyrights">Copyright &copy; 2002—2024 Positive Technologies. All Rights Reserved.
+</div>
+                </div>
+                <div class="fr-ct__links fr-ct__links-mob hidden visible-lg">
+                    <ul>
+    <li><a href="/ww-en/legal/report-vulnerability/">Report a vulnerability</a></li>
+    <li><a href="https://help.ptsecurity.com/">Help Portal</a></li>
+    <li><a href="/ww-en/terms-of-use/">Terms of Use</a></li>
+    <li><a href="/ww-en/privacy-policy/">Privacy Notice</a></li>
+    <li><a href="/ww-en/legal/cookie-notice/">Cookie Notice</a></li>
+    <li><a href="/ww-en/legal/positive-coordinated-vulnerability-disclosure-policy/">Positive Coordinated Vulnerability Disclosure Policy</a></li>
+    <li><a href="/ww-en/sitemap/">Sitemap</a></li>
+</ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+        <script src="/local/templates/pt_corp2017/build/js/vendor.min.js?1703745774"></script>
+        <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+            <script src="//yastatic.net/share2/share.js"></script>
+            <script src="//www.google.com/recaptcha/api.js?render=6LfykfYUAAAAALt2UWPTGsNEJnGgnlTbvOc6r7Km"></script>
+            <script src="/local/templates/pt_corp2017/build/js/app.min.js?1703745774"></script>
+    <div id="panel"></div>
+
+    <!-- OneTrust Cookies Consent Notice start for www.ptsecurity.com/ww-en/ -->
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-language="en" type="text/javascript" charset="UTF-8" data-domain-script="31c0c13c-7a81-44f3-a605-6f26198421c0" ></script>
+<script type="text/javascript">
+    function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for www.ptsecurity.com/ww-en/ -->
+    </body>
+</html>

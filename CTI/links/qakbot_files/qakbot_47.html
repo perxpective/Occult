@@ -1,0 +1,905 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>QAKBOT BB Configuration and C2 IPs List - Syrion</title>
+<meta name="description" content="This is my first malware blog post, hope it will be useful to someone, I’ll not go deeper in the malware details because there are plenty of detailed reports related to QAKBOT. I’ll describe how the malware changed its resource decryption mechanism and report some IoCs.">
+
+
+  <meta name="author" content="Raffaele Sabato">
+  
+  <meta property="article:author" content="Raffaele Sabato">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Syrion">
+<meta property="og:title" content="QAKBOT BB Configuration and C2 IPs List">
+<meta property="og:url" content="https://syrion.me/malware/qakbot-bb-extractor/">
+
+
+  <meta property="og:description" content="This is my first malware blog post, hope it will be useful to someone, I’ll not go deeper in the malware details because there are plenty of detailed reports related to QAKBOT. I’ll describe how the malware changed its resource decryption mechanism and report some IoCs.">
+
+
+
+  <meta property="og:image" content="https://syrion.me/assets/images/2022-10-13-qakbot-bb-extractor/img0.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-10-13T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://syrion.me/malware/qakbot-bb-extractor/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Syrion",
+      "url": "https://syrion.me/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Syrion Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/favicon.png" alt="Syrion"></a>
+        
+        <a class="site-title" href="/">
+          Syrion
+          <span class="site-subtitle">Offensive Security & Reverse Engineering</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/whoami/">Whoami</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/2022-10-13-qakbot-bb-extractor/img0.png" alt="QAKBOT BB Configuration and C2 IPs List" class="page__hero-image">
+  
+  
+    <span class="page__hero-caption">Picture credit: <a href="https://ciberseguridadenlinea.com/solo-30-minutos-y-qbot-puede-robar-tus-credenciales-y-emails/"><strong>Ciberseguridadenlinea.</strong></a>
+</span>
+  
+</div>
+
+
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#malware" itemprop="item"><span itemprop="name">Malware</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">QAKBOT BB Configuration and C2 IPs List</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://syrion.me/">
+        <img src="/assets/images/whoami/bio-photo.jpg" alt="Raffaele Sabato" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://syrion.me/" itemprop="url">Raffaele Sabato</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Cyber Security Consultant. Interested in Offensive Security, Malware and Reverse Engineering.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Italy</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/syrion89" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/raffaelesabato" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/Syrion89" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="QAKBOT BB Configuration and C2 IPs List">
+    <meta itemprop="description" content="This is my first malware blog post, hope it will be useful to someone, I’ll not go deeper in the malware details because there are plenty of detailed reports related to QAKBOT.I’ll describe how the malware changed its resource decryption mechanism and report some IoCs.">
+    <meta itemprop="datePublished" content="2022-10-13T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://syrion.me/malware/qakbot-bb-extractor/" class="u-url" itemprop="url">QAKBOT BB Configuration and C2 IPs List
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-10-13T00:00:00+02:00">October 13, 2022</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>This is my first malware blog post, hope it will be useful to someone, I’ll not go deeper in the malware details because there are plenty of detailed reports related to <strong>QAKBOT</strong>.
+I’ll describe how the malware changed its resource decryption mechanism and report some IoCs.</p>
+
+<p>On September 30, 2022 a friend of mine received a phishing email pretending to be sent by one of his customers, the email contained an URL, a password and a legit old message.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img1.png" alt="Screenshot" />
+<em><center>Figure 1 - Phishing Email</center></em></p>
+
+<p>By visiting the URL <strong>https://lynxus[.]com/usq/refeidpisnretse</strong> with a user agent related to Windows, a working zip named <strong>Card654141047.zip</strong> is provided, if the user agent is not “ok” the server responses with a fake zip file that doesn’t work.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img2.png" alt="Screenshot" />
+<em><center>Figure 2 - Malcious URL message containing the zip password</center></em></p>
+
+<p>Using the provided password “<strong>U492</strong>”, it is possible to extract an <strong>ISO file</strong> from the zip.
+The ISO file contains a <strong>LNK</strong> file and a <strong>hidden folder</strong> with the following files:</p>
+<ul>
+  <li>expeditionPresides.js</li>
+  <li>redressingLamentations.cmd</li>
+  <li>regressing.txt</li>
+  <li>rougher.gif</li>
+  <li>tiddler.dat</li>
+</ul>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img3.png" alt="Screenshot" />
+<em><center>Figure 3 - Lnk File and hidden folder</center></em></p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img4.png" alt="Screenshot" />
+<em><center>Figure 4 - Hidden folder content</center></em></p>
+
+<p>The LNK file is a link to <strong>expeditionPresides.js</strong>, it contains the following JScript:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// observablyCleaned
+var undisruptedPuzzles = "rund DllRegis";
+
+// ShellExecute
+var bridgeheadsLibels = new ActiveXObject("shell.application").shellexecute("assaulting\\redressingLamentations.cmd", undisruptedPuzzles, "", "open", 0);
+</code></pre></div></div>
+
+<p>it runs <strong>redressingLamentations.cmd</strong> by proving two parameters “<strong>rund DllRegis</strong>”. Following the content of <strong>redressingLamentations.cmd</strong>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@echo off
+
+set a=ll
+set e=32
+
+:: tankageLicentiously
+%1%a%%e% assaulting\tiddler.dat,%2terServer
+
+exit
+</code></pre></div></div>
+
+<p>It uses <strong>rundll32</strong> in order to execute the <strong>DllRegisterServer</strong> export function from <strong>tiddler.dat</strong>, following some details of the DLL.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img5.png" alt="Screenshot" />
+<em><center>Figure 5 - tiddler.dat details </center></em></p>
+
+<p><strong>Tiddler.dat</strong> is the first stage DLL used to extract the unpacked version of the malware, by setting a breakpoint on <strong>NtAllocateVirtualMemory</strong> it’s easy to find the unpacked version, I’ll not describe how to get it.</p>
+
+<p>After unpacking the DLL, we can analyse it, the details are in the image below.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img6.png" alt="Screenshot" />
+<em><center>Figure 6 - Unpacked DLL details</center></em></p>
+
+<p>After some analysis we can confirm that the malware is <strong>QAKBOT</strong>, the malware seems to be similar to the one reported by several blog post, anyway the <strong>BOT Configuration</strong> and the <strong>C2 IPs</strong> list are encrypted in a different way, so I’ll only describe how to decrypt it instead of write something already reported in a very clear way by several blog posts:</p>
+<ul>
+  <li><a href="https://www.elastic.co/security-labs/qbot-malware-analysis">Elastic</a></li>
+  <li><a href="https://www.hornetsecurity.com/en/threat-research/qakbot-reducing-its-on-disk-artifacts/?_adin=02021864894">Hornetsecurity</a></li>
+</ul>
+
+<p>You can find all the decrypted strings and the scripts in my <a href="https://github.com/Syrion89/Qakbot-2022.09.30">GitHub</a>.</p>
+
+<p>The file has two resources, one containing the encrypted <strong>Configuration</strong> and one containing the encrypted <strong>C2 IPs list</strong>.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img7.png" alt="Screenshot" />
+<em><center>Figure 7 - Resouce 3C91E639 containing the C2 list</center></em></p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img8.png" alt="Screenshot" />
+<em><center>Figure 8 - Resource 89210AF9 containing the bot configuration</center></em></p>
+
+<p>The resources are encrypted in the same way, so let’s use the configuration resource as example.</p>
+
+<p>Two “steps” of <strong>RC4 encryption</strong> are used, let’ see it on <a href="https://gchq.github.io/CyberChef/">CyberChef</a> in order to be clearer.</p>
+
+<p>As shown in the image below, in the first step, the <strong>SHA1 Hash</strong> is calculated on the string, 
+“<strong>Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd</strong>”, the SHA1 Hash  result is “<strong>CA 6A E9 55 26 F0 BC EB 6B A5 39 0E B6 14 81 9A 9B 4A F9 4E</strong>”, this will be the <strong>RC4 key</strong> (the string used is different in each qakbot sample, for example in another sample I analyzed it was “<strong>bUdiuy81gYguty@4frdRdpfko(eKmudeuMncueaN</strong>”, you have to figure out which string it uses).</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img9.png" alt="Screenshot" />
+<em><center>Figure 9 - SHA1 Hash of the string "Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd"</center></em></p>
+
+<p>Using the data we obtain from <strong>SHA1</strong> as key, we can use the <strong>RC4 algorithm</strong> to decrypt the data. The output from the first <strong>RC4 decryption</strong> will contains the following data:</p>
+
+<ul>
+  <li>From bytes 0 to 20: <strong>SHA1 Hash of New Key + Encrypted Configuration</strong></li>
+  <li>From bytes 20 to 40: <strong>New Key</strong></li>
+  <li>From bytes 40 to end: <strong>Encrypted Configuration</strong></li>
+</ul>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img10.png" alt="Screenshot" />
+<em><center>Figure 10 - Resource RC4 Decryption Step 1</center></em></p>
+
+<p>In the image below we can see that the <strong>SHA1 Hash</strong> of  <strong>New Key</strong> + <strong>Encrypted Configuration</strong> matches the first 20 bytes we got from the decrypted data.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img11.png" alt="Screenshot" />
+<em><center>Figure 11 - SHA1(Encrypted Configuration)</center></em></p>
+
+<p>In the second step, the <strong>RC4</strong> algorithm is used with the <strong>New Key</strong> to decrypt the <strong>Encrypted Configuration</strong>. The following images shows the result of the second step decryption.</p>
+
+<p><img src="/assets/images/2022-10-13-qakbot-bb-extractor/img12.png" alt="Screenshot" />
+<em><center>Figure 12 - Resource RC4 Decryption Step 2</center></em></p>
+
+<p>The QAKBOT campaign ID is “<strong>BB</strong>” the timestamp <strong>1664535088</strong> corresponds to <strong>Fri Sep 30 2022 10:51:28 GMT+0000</strong>.</p>
+
+<p>While writing this, a <a href="https://www.trendmicro.com/en_us/research/22/j/black-basta-infiltrates-networks-via-qakbot-brute-ratel-and-coba.html">blog post</a> by Trendmicro was published talking about this specific QAKBOT campaign.</p>
+
+<p>To automatically extract the configuration and the C2 IPs, I wrote the following python script.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import hashlib
+from arc4 import ARC4  
+
+file = open("89210AF9.bin","rb") #Resource with Qakbot configuration
+resource = file.read()
+
+key = hashlib.sha1(b"Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd").digest() #change with your password
+rc4 = ARC4(key)
+data = rc4.decrypt(resource)
+
+key = data[20:40]
+rc4 = ARC4(key)
+
+decrypted_data = rc4.decrypt(data[40:])
+print("Qakbot Configuration:")
+print((decrypted_data[20:]).decode("utf-8"))
+
+file = open("3C91E639.bin","rb") #Resource with Qakbot C2 
+resource = file.read()
+
+key = hashlib.sha1(b"Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd").digest() #change with your password
+rc4 = ARC4(key)
+data = rc4.decrypt(resource)
+
+
+key = data[20:40]
+rc4 = ARC4(key)
+#print(key)
+decrypted_data = rc4.decrypt(data[40:])
+
+
+print("Qakbot C2:")
+for i in range(21,len(decrypted_data),7):
+    c2 = bytearray(decrypted_data[i:i+7])
+    print("%d.%d.%d.%d:%d" % (c2[0],c2[1],c2[2],c2[3],(c2[4]&lt;&lt;8)+c2[5]))
+</code></pre></div></div>
+
+<p>Hope this first malware blog post can help someone during his analysis of QAKBOT, you can find the samples at the following urls:</p>
+<ul>
+  <li><a href="https://bazaar.abuse.ch/sample/5b54f57dbaa74fa589afb2d26d6c6b39e0c2930bd88fea3172556ce96b3eb959/">https://bazaar.abuse.ch/sample/5b54f57dbaa74fa589afb2d26d6c6b39e0c2930bd88fea3172556ce96b3eb959/</a></li>
+  <li><a href="https://bazaar.abuse.ch/sample/8b08c031d365a0b4d032c6e51bf773655e15795fe3eabcd3fa6487ffe9f3d6b3/">https://bazaar.abuse.ch/sample/8b08c031d365a0b4d032c6e51bf773655e15795fe3eabcd3fa6487ffe9f3d6b3/</a></li>
+  <li><a href="https://bazaar.abuse.ch/sample/796ff26db045085ec8162d414cc2deafb2836d3f0bffd8c58af4595ebb4261e9/">https://bazaar.abuse.ch/sample/796ff26db045085ec8162d414cc2deafb2836d3f0bffd8c58af4595ebb4261e9/</a></li>
+</ul>
+
+<p><strong>Configuration:</strong></p>
+<ul>
+  <li>10=BB</li>
+  <li>3=1664535088</li>
+</ul>
+
+<p><strong>File Hashes:</strong></p>
+<ul>
+  <li>5B54F57DBAA74FA589AFB2D26D6C6B39E0C2930BD88FEA3172556CE96B3EB959</li>
+  <li>796FF26DB045085EC8162D414CC2DEAFB2836D3F0BFFD8C58AF4595EBB4261E9</li>
+  <li>D5F09EBC9B1F3FB9781ACA09E3B9FA63F90B909CC7418FF7D2AFA462F400DCE3</li>
+  <li>8B08C031D365A0B4D032C6E51BF773655E15795FE3EABCD3FA6487FFE9F3D6B3</li>
+  <li>93104C4834A27E39C13AC9D4663C6FA622AE6ECC5491A67DDF9125E6633CF07B</li>
+  <li>55AD915DCD65192548046ECBECDA5AD8AD6A92A11F07EC9A92744FCAC1599501</li>
+  <li>757D3C81555FBF635B2B9FD1D5222E6FE046710753395545A29E3E1F0A78FBF1</li>
+  <li>BD3A47E0E27523044FEB2C30879EB684CFD174EC329350BAF5E0824FFFF1A22F</li>
+</ul>
+
+<p><strong>C2 IPs:</strong></p>
+<ul>
+  <li>41.107.71[.]201:443</li>
+  <li>105.101.230[.]16:443</li>
+  <li>105.108.239[.]60:443</li>
+  <li>196.64.227[.]5:8443</li>
+  <li>41.249.158[.]221:995</li>
+  <li>134.35.14[.]5:443</li>
+  <li>113.170.117[.]251:443</li>
+  <li>187.193.219[.]248:443</li>
+  <li>122.166.244[.]116:443</li>
+  <li>154.237.129[.]123:995</li>
+  <li>41.98.229[.]81:443</li>
+  <li>186.48.199[.]243:995</li>
+  <li>102.156.3[.]13:443</li>
+  <li>41.97.190[.]189:443</li>
+  <li>197.207.191[.]164:443</li>
+  <li>105.184.14[.]132:995</li>
+  <li>196.207.146[.]151:443</li>
+  <li>105.158.113[.]15:443</li>
+  <li>196.89.42[.]89:995</li>
+  <li>86.98.156[.]229:993</li>
+  <li>177.174.119[.]195:32101</li>
+  <li>81.156.194[.]147:2078</li>
+  <li>80.253.189[.]55:443</li>
+  <li>197.49.175[.]67:995</li>
+  <li>177.45.78[.]52:993</li>
+  <li>89.187.169[.]77:443</li>
+  <li>196.92.59[.]242:995</li>
+  <li>41.13.200[.]19:443</li>
+  <li>41.97.195[.]237:443</li>
+  <li>92.191.56[.]11:2222</li>
+  <li>154.70.53[.]202:443</li>
+  <li>210.186.37[.]98:50002</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#malware" class="page__taxonomy-item p-category" rel="tag">Malware</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2022-10-13T00:00:00+02:00">October 13, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=QAKBOT+BB+Configuration+and+C2+IPs+List%20https%3A%2F%2Fsyrion.me%2Fmalware%2Fqakbot-bb-extractor%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsyrion.me%2Fmalware%2Fqakbot-bb-extractor%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fsyrion.me%2Fmalware%2Fqakbot-bb-extractor%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/malware/emotet-malicious-excel-analysis/" class="pagination--pager" title="Emotet Malicious Excel Analysis
+">Previous</a>
+    
+    
+      <a href="/malware/rustware/rustware-part-1-shellcode-process-injection-development/" class="pagination--pager" title="Rustware Part 1: Shellcode Process Injection Development
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You may also enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/rustware/rustware-part-3-dynamic-api-resolution/" rel="permalink">Rustware Part 3: Dynamic API resolution
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2023-11-20T00:00:00+01:00">November 20, 2023</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          12 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In the previous blog post we have seen how to perform a shellcode process injection by finding a target process PID using several WinAPIs, in that case all t...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/rustware/rustware-part-2-process-enumeration-development/" rel="permalink">Rustware Part 2: Process Enumeration Development
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2023-11-06T00:00:00+01:00">November 6, 2023</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In the previous blog post we have seen how to develop a Shellcode Process Injection in Rust; the described Process Injection flow relies on several WinAPIs: ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/rustware/rustware-part-1-shellcode-process-injection-development/" rel="permalink">Rustware Part 1: Shellcode Process Injection Development
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2023-10-27T00:00:00+02:00">October 27, 2023</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          11 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Malware development is essential when performing activities like Red Teaming, Adversary Emulation and Network Penetration Testing, the operator can use custo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/emotet-malicious-excel-analysis/" rel="permalink">Emotet Malicious Excel Analysis
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-08-26T00:00:00+02:00">August 26, 2022</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Sometime ago a friend of mine sent me a suspicious email containg a zip file with an xls, at the time I didn’t focus too much on what the file does and simpl...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/syrion89" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/raffaelesabato" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/Syrion89" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Syrion. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

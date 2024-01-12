@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <script type="text/javascript" src="https://latest.cactus.chat/cactus.js"></script>
+  <link rel="stylesheet" href="https://latest.cactus.chat/style.css" type="text/css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Qakbot Series: Configuration Extraction | MALWAROLOGY</title>
+  <link rel = 'canonical' href = 'https://www.malwarology.com/2022/04/qakbot-series-configuration-extraction/'>
+  <meta name="description" content="MALWAROLOGY is a blog authored by Nino Pellegrino, threat researcher. Here you&#39;ll find excerpts of in-depth analyses of malware samples, reviews of published material, and general discussions about malicious software and cybersecurity. Mainly in broken-English, seldom in broken-Italian.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="Qakbot Series: Configuration Extraction" />
+<meta property="og:description" content="In late March 2022, I was requested to analyze a software artifact. It was an instance of Qakbot, a modular information stealer known since 2007. Differently to other analyses I do as part of my daily job, in this particular case I can disclose wide parts of it with you readers. I&rsquo;m addressing them in a post series. Here, I&rsquo;ll discuss about the configuration extraction based on this specific sample." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.malwarology.com/2022/04/qakbot-series-configuration-extraction/" />
+<meta property="article:published_time" content="2022-04-13T08:44:37+02:00" />
+<meta property="article:modified_time" content="2022-04-13T08:44:37+02:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Qakbot Series: Configuration Extraction"/>
+<meta name="twitter:description" content="In late March 2022, I was requested to analyze a software artifact. It was an instance of Qakbot, a modular information stealer known since 2007. Differently to other analyses I do as part of my daily job, in this particular case I can disclose wide parts of it with you readers. I&rsquo;m addressing them in a post series. Here, I&rsquo;ll discuss about the configuration extraction based on this specific sample."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://www.malwarology.com/css/styles.5bd9188e4c696a70f32fbca925aba31988dbae4e3c47b10517f50beeabffd3d94c1305d237e5eccfcb562e2ae66380a108a7718f067e298bb95eb7e5ee84fb66.css" integrity="sha512-W9kYjkxpanDzL7ypJaujGYjbrk48R7EFF/UL7qv/09lMEwXSN&#43;Xsz8tWLirmY4ChCKdxjwZ&#43;KYu5Xrfl7oT7Zg=="> 
+
+  
+   <link rel="stylesheet" href="https://www.malwarology.com/css/figure.css">  <link rel="stylesheet" href="https://www.malwarology.com/css/itemize.css"> 
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://www.malwarology.com/images/favicon.ico" />
+
+  
+  
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;" aria-label="Top of Page"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+         
+        <li><a href="/about">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://www.malwarology.com/2022/04/qakbot-series-string-obfuscation/" aria-label="Previous">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="https://www.malwarology.com/2022/04/qakbot-series-process-injection/" aria-label="Next">
+            <i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i>
+          </a>
+        </li>
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" aria-label="Top of Page">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#" aria-label="Share">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f" aria-label="Facebook">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&text=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Twitter">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Linkedin">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&is_video=false&description=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Pinterest">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Qakbot%20Series%3a%20Configuration%20Extraction&body=Check out this article: https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f" aria-label="Email">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Pocket">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="reddit">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&name=Qakbot%20Series%3a%20Configuration%20Extraction&description=In%20late%20March%202022%2c%20I%20was%20requested%20to%20analyze%20a%20software%20artifact.%20It%20was%20an%20instance%20of%20Qakbot%2c%20a%20modular%20information%20stealer%20known%20since%202007.%20Differently%20to%20other%20analyses%20I%20do%20as%20part%20of%20my%20daily%20job%2c%20in%20this%20particular%20case%20I%20can%20disclose%20wide%20parts%20of%20it%20with%20you%20readers.%20I%26rsquo%3bm%20addressing%20them%20in%20a%20post%20series.%20Here%2c%20I%26rsquo%3bll%20discuss%20about%20the%20configuration%20extraction%20based%20on%20this%20specific%20sample." aria-label="Tumblr">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&t=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Hacker News">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    
+    <div id="toc">
+      <nav id="TableOfContents"></nav>
+    </div>
+    
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        Qakbot Series: Configuration Extraction
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2022-04-13 08:44:37 &#43;0200 CEST" itemprop="datePublished">2022-04-13</time>
+          
+        </div>
+        
+        
+        
+        <div class="article-category">
+            <i class="fas fa-archive"></i>
+            
+            
+            <a class="category-link" href="/categories/malware-analysis">Malware Analysis</a>
+            
+             ,  
+            <a class="category-link" href="/categories/qakbot">Qakbot</a>
+            
+        </div>
+        
+        
+      </div>
+    </header>
+
+  
+    
+    <div class="content" itemprop="articleBody">
+      <p>In late March 2022, I was requested to analyze a software artifact. It was an instance of Qakbot, a modular information stealer known since 2007. Differently to other analyses I do as part of my daily job, in this particular case I can disclose wide parts of it with you readers. I&rsquo;m addressing them in a post series. Here, I&rsquo;ll discuss about the configuration extraction based on <a href="https://www.virustotal.com/gui/file/8565e3e213572cbd7c3df45ae3fadd094831aef7b63d3b389e57097c1b8602d6/detection">this</a> specific sample.</p>
+<p>The configuration of recent Qakbot samples is often stored in two distinct resources of the unpacked payload. Each resource contains a different part of the configuration. A first resource, usually the shortest one in size, contains general settings such as the botnet identifier and the campaign timestamp. A second resource, usually bigger in size, contains the list of command and control IP addresses and ports. Both resources are encrypted and this post is all about discussing how Qakbot decrypts its configuration.</p>
+
+<figure class="figure">
+	<img src="/images/2-qakbot-conf-extraction/1-resources.png"    alt="Qakbot resouces storing the malware configuration" }} />
+    
+	    <figcaption>
+		    	<h4>Figure 1</h4> - <p>Qakbot resouces storing the malware configuration</p> 
+	    </figcaption>
+    
+</figure>
+
+<p>As you may notice from <strong>Figure 1</strong>, our sample contains two encrypted sections. The smaller in size is labelled &ldquo;524&rdquo; and the bigger in size is labelled &ldquo;118&rdquo;. Those two sections labels aren’t new to the malware research community since the existence of other Qakbot samples sharing the same resource labels is documented (see, as an example, <a href="https://seguranca-informatica.pt/a-taste-of-the-latest-release-of-qakbot/amp/">Tavares - 2021</a>). Both resources are encrypted with a custom implementation of the RC4 algorithm. The RC4 key-scheduling algorithm is implemented in the function starting at <em>0xb339f9</em>. The RC4 pseudo-random generation algorithm is implemented in the function starting at <em>0xb33924</em>. The key used to decrypt the resources is the SHA1 of the string:</p>
+<pre><code>\System32\WindowsPowerShell\v1.0\powershell.exe
+</code></pre><p>Notice that you won&rsquo;t find that string into the sample because it is obfuscated. If you are interested in the Qakbot strings obfuscation technique, I discuss it in <a href="https://www.malwarology.com/2022/04/qakbot-series-string-obfuscation/">this post</a>.</p>
+
+<figure class="figure">
+	<img src="/images/2-qakbot-conf-extraction/2-deob-resource.png"    alt="Decompiled listing of the Qakbot general configuration extraction" }} />
+    
+	    <figcaption>
+		    	<h4>Figure 2</h4> - <p>Decompiled listing of the Qakbot general configuration extraction</p> 
+	    </figcaption>
+    
+</figure>
+
+<p>Qakbot contains a custom implementation of the SHA1 algorithm. The implementing function is located at <em>0xb3745c</em>. <strong>Figure 2</strong> shows the listing of the function responsible for the configuration extraction from the resource “524” located at <em>0xb234bb</em>. As you may notice, the resource label and the key string are obfuscated and we added their de-obfuscated counterpart as comments . Moreover, you may notice an example of junk API call (BitBlt) placed into the code just to distract the analyst. I&rsquo;ll pospone a general discussion about junk code injection and other Qakbot anti-analysis techniques in a dedicated post.</p>
+
+<figure class="figure">
+	<img src="/images/2-qakbot-conf-extraction/3-deobfuscation.png"    alt="Decompiled listing of the Qakbot resource decryption and validation" }} />
+    
+	    <figcaption>
+		    	<h4>Figure 3</h4> - <p>Decompiled listing of the Qakbot resource decryption and validation</p> 
+	    </figcaption>
+    
+</figure>
+
+<p>The actual decryption and validation is accomplished by the function located at <em>0xb2f7ac</em> and showed in <strong>Figure 3</strong>. From that listing you may notice that the sample decrypts the resource by calling the RC4 functions. The format of the decrypted resource is composed of two fields: a first field sized in 20 bytes containing the expected SHA1 of the content and a second field consisting of the actual content of the resource. The validation is accomplished by computing the SHA1 of the content field and then by comparing it with the expected SHA1 in the first field. If the validation succeeds, the just decrypted content is placed in a buffer.</p>
+
+<figure class="figure">
+	<img src="/images/2-qakbot-conf-extraction/4-524.png"  width="415px"    alt="Decrypted content of resource &#34;524&#34;" }} />
+    
+	    <figcaption>
+		    	<h4>Figure 4</h4> - <p>Decrypted content of resource &#34;524&#34;</p> 
+	    </figcaption>
+    
+</figure>
+
+<p>As already mentioned, the two resources contain different aspects of the Qakbot configuration. The content of resource &ldquo;524&rdquo; is structured in key-value pairs where each pair represent a configuration field. The key component is an integer identifier of the field. The value is unstructured since it may contain strings, integers, or even timestamps. As you may notice from <strong>Figure 4</strong>, showing the decrypted content of resource &ldquo;524&rdquo;, the configuration contain just two fields:  field 10, containing the botnet identifier, and field 3 containing what is often referred as the campaign identifier. Actually, field 3 is a Unix timestamp probably indicating the creation date of the campaign. Older Qakbot samples were used to contain a richer configuration (<a href="https://www.vkremez.com/2018/07/lets-learn-in-depth-reversing-of-qakbot.html">Kremez - 2018</a>).</p>
+
+<figure class="figure">
+	<img src="/images/2-qakbot-conf-extraction/5-netconf.png"    alt="Structure of the network configuration resource (decrypted)" }} />
+    
+	    <figcaption>
+		    	<h4>Figure 5</h4> - <p>Structure of the network configuration resource (decrypted)</p> 
+	    </figcaption>
+    
+</figure>
+
+<p>Resource &ldquo;118&rdquo; contains the network configuration of the sample. It is structured in records separated by the byte <em>0x01</em>. Each record is composed of four bytes each one representing an IP address octet and additional two bytes representing the port. The network configuration for the sample object of analysis contains 150 command and control IP addresses and ports. <strong>Figure 5</strong> shows the format of the unencrypted network configuration resource. You may find all the C2 addresses <a href="/text/2-qakbot-conf-extraction/c2ips.txt">here</a>.</p>
+<p>As always, if you want to share comments or feedbacks (rigorously in broken Italian or broken English) do not esitate to drop me a message at <strong>admin[@]malwarology.com</strong>.</p>
+
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/posts">Posts</a></li>
+         
+          <li><a href="/about">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents"></nav>
+    </div>
+    
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f" aria-label="Facebook">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&text=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Twitter">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Linkedin">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&is_video=false&description=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Pinterest">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Qakbot%20Series%3a%20Configuration%20Extraction&body=Check out this article: https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f" aria-label="Email">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Pocket">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&title=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="reddit">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&name=Qakbot%20Series%3a%20Configuration%20Extraction&description=In%20late%20March%202022%2c%20I%20was%20requested%20to%20analyze%20a%20software%20artifact.%20It%20was%20an%20instance%20of%20Qakbot%2c%20a%20modular%20information%20stealer%20known%20since%202007.%20Differently%20to%20other%20analyses%20I%20do%20as%20part%20of%20my%20daily%20job%2c%20in%20this%20particular%20case%20I%20can%20disclose%20wide%20parts%20of%20it%20with%20you%20readers.%20I%26rsquo%3bm%20addressing%20them%20in%20a%20post%20series.%20Here%2c%20I%26rsquo%3bll%20discuss%20about%20the%20configuration%20extraction%20based%20on%20this%20specific%20sample." aria-label="Tumblr">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fwww.malwarology.com%2f2022%2f04%2fqakbot-series-configuration-extraction%2f&t=Qakbot%20Series%3a%20Configuration%20Extraction" aria-label="Hacker News">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu-toggle" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;" aria-label="Menu">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="toc-toggle" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;" aria-label="TOC">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share-toggle" class="icon" href="#" onclick="$('#share-footer').toggle();return false;" aria-label="Share">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" aria-label="Top of Page">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2022  MALWAROLOGY 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+         
+        <li><a href="/about">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+<script src=/js/code-copy.js></script>
+
+
+
+
+</html>

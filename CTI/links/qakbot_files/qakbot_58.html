@@ -1,0 +1,1041 @@
+
+    <!DOCTYPE HTML>
+    <html lang="en" data-template="post-page teal-layer">
+    <head>
+        
+        <!--<sly data-sly-test="false">-->
+        
+            <link rel="preload" as="script" href="/etc/designs/fortinet/adb-target/at.js"/>
+            <script>
+
+                   ;(function(win, doc, style, timeout) {
+                   var STYLE_ID = 'at-body-style';
+                   function getParent() {
+                      return doc.getElementsByTagName('head')[0];
+                   }
+                   function addStyle(parent, id, def) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.createElement('style');
+                      style.id = id;
+                      style.innerHTML = def;
+                      parent.appendChild(style);
+                   }
+                   function removeStyle(parent, id) {
+                      if (!parent) {
+                      return;
+                      }
+                      var style = doc.getElementById(id);
+                      if (!style) {
+                      return;
+                      }
+                      parent.removeChild(style);
+                   }
+                   addStyle(getParent(), STYLE_ID, style);
+                   setTimeout(function() {
+                      removeStyle(getParent(), STYLE_ID);
+                   }, timeout);
+                   }(window, document, "body {opacity: 0 !important}", 3000));
+                </script>
+
+            <script type="text/plain" class="optanon-category-C0003" src="/etc/designs/fortinet/adb-target/at.js"></script>
+        
+        
+    <meta charset="UTF-8"/>
+    <title>Notable Droppers Emerge in Recent Threat Campaigns | FortiGuard Labs </title>
+    <meta name="keywords" content="email phishing,FortiGuards Labs,FortiGuard Labs Threat Research,emotet,malware analysis"/>
+    <meta name="description" content="FortiGuard Labs recently observed active droppers resulting from social engineered phishing emails involving Microsoft files. Read more about how they are delivered to the victim&#39;s device and how they drop malware payloads onto the victim&#39;s local disk."/>
+    <meta name="template" content="post-page"/>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+<meta name="google-site-verification" content="tiQ03tSujT2TSsWJ6tNHiiUn8cwYVmdMQrGUCNrPQmo"/>
+
+<meta property="og:site_name" content="Fortinet Blog"/>
+<meta property="og:title" content="Notable Droppers Emerge in Recent Threat Campaigns | FortiGuard Labs "/>
+<meta property="og:url" content="https://www.fortinet.com/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="FortiGuard Labs recently observed active droppers resulting from social engineered phishing emails involving Microsoft files. Read more about how they are delivered to the victim&#39;s device and how t…"/>
+<meta property="og:image" content="https://www.fortinet.com/content/dam/fortinet-blog/article-images/notable-dropper-hero.jpg"/>
+
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:site" content="@Fortinet"/>
+
+<meta property="article:author" content="Erin Lin"/>
+
+    <meta property="article:section" content="FortiGuard Labs Threat Research"/>
+
+
+    <meta property="article:published_time" content="2022-07-07T19:27:00.000Z"/>
+
+
+    <meta property="article:tag" content="email phishing"/>
+
+    <meta property="article:tag" content="FortiGuards Labs"/>
+
+    <meta property="article:tag" content="emotet"/>
+
+    <meta property="article:tag" content="malware analysis"/>
+
+
+<link rel="shortcut icon" href="/etc/designs/fortinet-blog/favicon.ico"/>
+
+<link rel="canonical" href="https://www.fortinet.com/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns"/>
+
+
+
+
+
+
+
+
+
+
+    
+<link rel="stylesheet" href="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.css" type="text/css">
+
+
+
+
+
+<!-- SEO Script -->
+
+
+
+
+<!-- OneTrust Cookies Consent Notice start for fortinet.com -->
+
+
+
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="f85f39fc-d7aa-467a-b762-fbb722748016"></script>
+    <script type="text/javascript">
+
+function OptanonWrapper() {
+    {
+       try{
+            $('#cookiescript_injected').remove(); // remove old cookie script
+        }catch(e){}
+        window.dataLayer.push({
+            event: 'OneTrustGroupsUpdated'
+        });
+        Optanon.InsertScript('//assets.adobedtm.com/launch-EN23cb8375449840dc93b13f34d935b8b9.min.js','head',null, null, '1',true);
+    }
+}
+
+</script>
+
+
+<!-- OneTrust Cookies Consent Notice end for fortinet.com -->
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+
+
+
+    </head>
+    <body>
+    
+
+
+
+    
+<div class="root responsivegrid">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="b1-header aem-GridColumn aem-GridColumn--default--12">
+
+
+<header class="b1-header__container">
+    <div class="b1-header__logo">
+        <a href="https://www.fortinet.com">
+            
+            <img class="desktop-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+            <img class="mobile-logo" src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet home"/>
+        </a>
+    </div>
+
+    <div class="b1-header__cta-list">
+      <a class="b1-header__cta-list-item " href="https://www.fortinet.com/blog">
+          <span>Blog</span>
+      </a>
+    </div>
+
+    <div class="b1-header__nav"><div class="b2-navigation">
+
+
+
+
+    <ul class="b2-navigation__list">
+        
+            <li class="b2-navigation-categories"><div class="b2-navigation__list-item nav-dropdown-title">Categories</div>
+                <ul class="navdropdown">
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/business-and-technology">
+                                <span>Business &amp; Technology </span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/threat-research">
+                                <span>FortiGuard Labs Threat Research</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/industry-trends">
+                                <span>Industry Trends</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/partners">
+                                <span>Partners</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/customer-stories">
+                                <span>Customer Stories</span>
+                            </a>
+                        </li>
+                    
+                
+                    
+                        <li>
+                            <a class="b2-navigation__dropdown__list-item" href="/blog/psirt-blogs">
+                                <span>PSIRT Blogs</span>
+                            </a>
+                        </li>
+                    
+                </ul>
+            </li>
+
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/business-and-technology">
+                    <span>Business &amp; Technology </span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/threat-research">
+                    <span>FortiGuard Labs Threat Research</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/industry-trends">
+                    <span>Industry Trends</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/partners">
+                    <span>Partners</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/customer-stories">
+                    <span>Customer Stories</span>
+                </a>
+            </li>
+        
+            <li class="m-nav-item">
+                <a class="b2-navigation__list-item false" href="/blog/psirt-blogs">
+                    <span>PSIRT Blogs</span>
+                </a>
+            </li>
+        
+        
+        
+            <li>
+                <a class="b2-navigation__list-item false" href="/blog/ciso-collective">
+                    <span>CISO Collective</span>
+                </a>
+            </li>
+        
+    </ul>
+
+
+    
+
+</div>
+</div>
+
+    <div id="blog-site-search" class="b1-header__search" aria-expanded="false"><div class="b3-searchbox">
+
+
+<form class="b3-searchbox__form" action="/blog/search" method="get">
+    <input class="b3-searchbox__input" type="text" name="q" placeholder="Search Blogs"/>
+    <button class="b3-searchbox__icon" aria-label="Search" type="submit">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z" fill="#fff">
+        </path>
+    </svg>
+
+    </button>
+</form>
+
+
+    
+
+</div>
+</div>
+
+    <button class="b1-header__search-toggle" aria-controls="blog-site-search" aria-label="Search">
+        
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.688 14.18l-4.075-4.075C12.36 9.06 12.8 7.78 12.8 6.4 12.8 2.87 9.93 0 6.4 0 2.87 0 0 2.87 0 6.4c0 3.53 2.87 6.4 6.4 6.4 1.38 0 2.66-.44 3.705-1.187l4.075 4.075c.207.208.48.312.753.312.274 0 .547-.104.755-.312.416-.417.416-1.093 0-1.51zM2.133 6.4c0-2.357 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267-1.91 4.267-4.267 4.267S2.133 8.757 2.133 6.4z">
+        </path>
+    </svg>
+
+        <div class="b1-header__search-toggle-close">
+            <span class="b1-header__search-toggle-close-line"></span>
+            <span class="b1-header__search-toggle-close-line"></span>
+        </div>
+    </button>
+
+    <div class="b1-header__nav-toggle" aria-hidden="true">
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+        <span class="b1-header__nav-toggle-line"></span>
+    </div>
+</header>
+
+    
+
+</div>
+<section class="b4-hero aem-GridColumn aem-GridColumn--default--12">
+
+
+
+<div class="b4-hero__container" style="background-image:url(/content/dam/fortinet-blog/article-images/notable-dropper-hero.jpg);">
+    <img class="ratio" alt="Notable Droppers Emerge in Recent Threat Campaigns | FortiGuard Labs " aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+    <div class="b4-hero__text text-container">
+        <p data-ly-test class="b4-hero__kicker">FortiGuard Labs Threat Research</p>
+        
+        
+        
+
+        <h1 class="b4-hero__headline">Notable Droppers Emerge in Recent Threat Campaigns</h1>
+        
+        
+    </div>
+</div>
+</section>
+<section class="b15-blog-meta aem-GridColumn aem-GridColumn--default--12">
+
+<div class="b15-blog-meta__container text-container">
+    <span>By </span>
+
+    <span class="b15-blog-meta__author">
+
+        
+					
+
+                        
+
+                                  
+                                      
+                                            
+                                              <a href="/blog/search?author=Erin+Lin">Erin Lin</a>
+                                          
+                                          
+                                           
+                                      
+                                  
+                          
+                    
+        
+    </span>
+    <span class="b15-blog-meta__">
+        
+
+              </span>
+
+
+
+    <span class="b15-blog-meta__date"> | July 07, 2022</span>
+</div>
+</section>
+<div class="responsivegrid aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"></div>
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Droppers are malicious files that deploy malware payloads to a victim's device, and are used in many threat campaigns. During the second quarter of 2022, FortiGuard Labs observed some active droppers, including Microsoft Excel files, as well as Windows shortcut files and ISO image files. We captured these samples from phishing emails that were combined with social engineering to trick victims into loading the malware onto their devices. Recently, we found common malware families involving these samples to be Emotet, Qbot, and Icedid. In addition, a malware called Bumblebee, a previously rarely observed malware loader, was also found in some ISO files.<br />
+</p>
+<p>This blog reveals how droppers are delivered to a victim's device and how they drop malware payloads onto the victim's local disk.</p>
+<p style="margin-left: 40.0px;"><b>Affected Platforms: </b>Microsoft Windows<br />
+<b>Impacted Users: </b>Windows users<br />
+<b>Impact:</b> Controls victim's device and collects sensitive information, plus delivers other malware<br />
+<b>Severity Level: </b>Critical<br />
+</p>
+<h2>Malicious Files Delivered Via Phishing Email</h2>
+<p>The droppers are spread through phishing emails in three ways. An email may:</p>
+<ul>
+<li>Contain the dropper or a password-protected ZIP as an attachment</li>
+<li>Contain an HTML file attachment that extracts a dropper when opened</li>
+<li>Have a link to download the dropper in the body of the email</li>
+</ul>
+<div> </div>
+<div>Each way delivers the malicious file to victims and tricks them into opening it. See the examples below.</div>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--8 aem-GridColumn--offset--default--2">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image.img.png/1657135941616/fig1.png" alt="Screenshot of Email with a password-protected ZIP archive attachment" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 1: Email with a password-protected ZIP archive attachment</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12"><p class="cq-text-placeholder-ipe" data-emptytext="Text">
+  
+</p>
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--8 aem-GridColumn--offset--default--2">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_2059079138.img.png/1657135984321/fig2.png" alt="Screenshot of Email with an HTML file attachment" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 2: Email with an HTML file attachment</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12"><p class="cq-text-placeholder-ipe" data-emptytext="Text">
+  
+</p>
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--8 aem-GridColumn--offset--default--2">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1299040364.img.png/1657136022357/fig3.png" alt="Screenshot of Email with a malicious download link" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 3: Email with a malicious download link</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>We observed the attached HTML file and the webpage of the download link use a technique called HTML smuggling, which leverages legitimate HTML5 and JavaScript features to encode the malicious data. As shown in Figure 4, The HTML smuggling file converts the blob data into a dropper when opened in the web browser.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1073305097.img.png/1657136083639/fitg4.png" alt="Example of HTML smuggling file" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 4: HTML smuggling file</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>The first observation was in May. The download link in the email pointed to a web page containing HTML smuggling. By June, the HTML smuggling file was sent directly to victims as an HTML attachment.</p>
+<h2>Analyzing the Droppers and Their Behaviors</h2>
+<p>This quarter, we captured three different samples active in the threat campaign. The first sample is an Excel file with Excel 4.0 macros. The second is an LNK file (Windows shortcut file). The third sample is an ISO file (optical disk image).</p>
+<h3><span style="font-weight: normal;">Excel file with Excel 4.0 macros</span></h3>
+<p>This Excel sample is not new. It has been heavily used in Emotet campaigns since last year, as mentioned in the <a href="https://www.fortinet.com/blog/threat-research/Trends-in-the-recent-emotet-maldoc-outbreak?utm_source=blog&amp;utm_medium=blog&amp;utm_campaign=Trends-in-the-recent-emotet-maldoc-outbreak">previous blog</a>. Some sheets of this sample are hidden, as shown in Figure 5, including an Excel 4.0 macro sheet &quot;IJEIGOPSAGHSPHP&quot; that contains the malicious formulas. Cell A1 in this macro sheet is named &quot;Auto_Open9939689536899569357795948589489469636486898953895396378943986&quot; and includes a built-in macro that automatically runs the formula from that cell once the file is opened.</p>
+<p>This macro sheet includes formulas that call the API &quot;URLDownloadToFileA&quot; to download the malware payloads from several different URLs. The malware payloads are actually DLL files and executed using &quot;regsvr32.exe&quot;.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_876190497.img.png/1657136258637/fig5.png" alt="Breakdown of The malicious formulas in the hidden macro sheet" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 5: The malicious formulas in the hidden macro sheet</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h3><span style="font-weight: normal;">LNK file</span></h3>
+<p>A Windows shortcut file (commonly referred to as LNK) is created to point to a specific target. Double-clicking on the shortcut file will execute the target.</p>
+<p>As shown in Figure 6, this sample includes a PowerShell code snippet in its target field. The PowerShell code converts a base64 string into a script that contains multiple URLs to download the malware payload. Next, it attempts to download the malware payload from each URL and execute it with &quot;Regsvr32.exe&quot; until it succeeds.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1287808510.img.png/1657136312791/fig6.png" alt="Example of The target of the shortcut file" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 6: The target of the shortcut file</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>We also captured other samples containing different malicious code in their target field. As shown in Figure 7, there is a command line to download a malware payload from a URL and execute it with &quot;Regsvr32.exe&quot;.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_589927736.img.png/1657136353295/fig7.png" alt="Screenshot of The malicious code in the target field of captured sample" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 7: The malicious code in the target field of captured sample</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Figure 8 shows another malicious PowerShell code in the target field. The data is decoded to a .hta URL and executed using &quot;mshta.exe&quot;. Next, the VBScript code in the web page of the .hta URL extracts a PowerShell code that includes encrypted data. In the end, the encrypted data is transformed into script code to get the payload URL and download malware.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1539365134.img.png/1657136405354/fig8.png" alt="Example of The malicious code in the target field of a captured sample" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 8: The malicious code in the target field of a captured sample</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>All three examples above download and execute a malware payload, despite the differences.</p>
+<h3><span style="font-weight: normal;">ISO file</span></h3>
+<p>An ISO file (often called an ISO image), is an archive file that stores the contents of a physical disk. In Windows 10, opening an ISO file by double-clicking it mounts the file on a virtual optical disc drive. Once mounted, the contents of an ISO file can be accessed in File Explorer.</p>
+<p>Threat actors store a malware DLL file and a malicious LNK file in the ISO file. As shown in Figure 9, the DLL file is set to a hidden attribute, so it is not visible in File Explorer by default. On the other hand, the shortcut file is used to execute the DLL file using &quot;Rundll32.exe&quot;.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1016474407.img.png/1657136462695/fig9.png" alt="Example of The malware DLL file and malicious LNK file stored in the ISO file" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 9: The malware DLL file and malicious LNK file are stored in the ISO file</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <h2>Conclusion</h2>
+<p>In recent threat campaigns, all droppers mentioned in the previous section are very active and used by more than one malware family. Below is the malware payload of each captured dropper.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody><tr><td width="327" valign="top"><p><b> Malware Dropper</b></p>
+</td>
+<td width="327" valign="top"><p><b> Payload</b></p>
+</td>
+</tr><tr><td width="327" valign="top"><p> Excel file</p>
+</td>
+<td width="327" valign="top"><p> Emotet and Qbot</p>
+</td>
+</tr><tr><td width="327" valign="top"><p> LNK file</p>
+</td>
+<td width="327" valign="top"><p> Emotet, Qbot, and Icedid</p>
+</td>
+</tr><tr><td width="327" valign="top"><p> ISO file</p>
+</td>
+<td width="327" valign="top"><p> Qbot, Icedid, and Bumblebee</p>
+</td>
+</tr></tbody></table>
+<p>Figure 10 shows the notable malware activities during the past three-month period. In early April, Microsoft Excel files were the only file type used to spread malware. We then captured a shortcut file with the Emotet malware payload, which first appeared on April 23. This new malware attack technique was soon followed by Qbot and Icedid, spreading using shortcut files as well in early May. Later, ISO files for droppers began appearing in the middle of May, and the malware families involved included Qbot, Icedid, and Bumblebee. Next, HTML smuggling attacks emerged in late May and June, including web pages and HTML file attachments. This builds malware locally instead of delivering malicious files directly through the network to bypass the firewall.</p>
+
+
+</div>
+<div class="cmp cmp-image aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--10 aem-GridColumn--offset--default--1">
+
+    
+        <noscript data-cmp-image="{&#34;smartImages&#34;:[],&#34;smartSizes&#34;:[],&#34;lazyEnabled&#34;:true}">
+            
+            <img src="/blog/threat-research/notable-droppers-emerge-in-recent-threat-campaigns/_jcr_content/root/responsivegrid/image_1678328011.img.png/1657136657226/fig10.png" alt="Timeline of dropper usage in recent threat campaigns" class="custom"/>
+        </noscript>
+    
+    
+    <!--<div class="enlarge-btn" data-sly-test=""><div class="gg-maximize-alt"></div> <div>Click to Enlarge</div></div>-->
+    <span class="cmp-image--title">Figure 10: Timeline of dropper usage in recent threat campaigns</span>
+
+
+    
+</div>
+<div class="cmp cmp-text aem-GridColumn aem-GridColumn--default--12">
+  <p>Microsoft Office files have been a favorite vehicle for threat actors because of the macros. However, things seem to be changing as Microsoft has added more security controls in Office files with macros. In July of 2021, <a href="https://techcommunity.microsoft.com/t5/excel-blog/excel-4-0-xlm-macros-now-restricted-by-default-for-customer/ba-p/3057905" target="_blank">Microsoft disabled Excel 4.0 macros by default</a> when opening an Excel file. In early April 2022, Microsoft created another setting to <a href="https://techcommunity.microsoft.com/t5/microsoft-365-blog/helping-users-stay-safe-blocking-internet-macros-by-default-in/ba-p/3071805" target="_blank">block VBA macros in files from the internet by default</a>. With more restrictions on the use of macros for Microsoft Office files, threat actors turn to other types of files to increase compromise rates. At this point, shortcut files provide a solid option due to double-click execution. ISO files can be automatically mounted and opened on modern versions of Windows with just a double click. In addition, ISO files take advantage of bypassing the Mark-of-the-Web trust control, making them easier to evade antivirus detection than other archive files. The HTML smuggling technique creates malicious files locally to bypass the restrictions on receiving files from the internet and emails. This explains the proliferation of shortcut files and ISO files, as well as HTML smuggling used for malware deployment at this time.</p>
+<h2>Fortinet Protections</h2>
+<p>Fortinet customers are protected from this malware by FortiGuard’s Web Filtering, Antivirus, FortiMail, FortiClient, FortiEDR, and Content Disarm &amp; Reconstruction (CDR) services as follows.</p>
+<p>The phishing email with its attached malicious file can be disarmed by the FortiGuard CDR service.</p>
+<p>FortiEDR detects the Excel, shortcut, ISO, and malware payload DLL files as malicious based on their behavior.</p>
+<p>Fortinet customers are protected from these malicious files and malware by FortiGuard Antivirus, which is included in FortiMail. It detects all malicious macro file types, including Excel 4.0 macro samples.</p>
+<p>All malicious samples described in this report are detected by FortiGuard Antivirus as follows:</p>
+<p style="margin-left: 40.0px;">XF/CoinMiner.Z!tr<br />
+LNK/Agent.APX!tr<br />
+LNK/Agent.PE!tr<br />
+LNK/Agent.VPIX!tr.dldr<br />
+LNK/PSRunner.VPHQ!tr<br />
+JS/Agent.BLOB!tr.dldr<br />
+</p>
+<p>The malware payloads are detected by FortiGuard Antivirus as follows:</p>
+<p style="margin-left: 40.0px;">W64/GenKryptik.FWMO!tr<br />
+W32/Emotet.C!tr<br />
+W32/Qbot.D!tr<br />
+W64/GenKryptik.FWBH!tr<br />
+W64/GenKryptik.FVFR!tr<br />
+W64/Bumblebee.E!tr<br />
+W64/IcedID.HG!tr<br />
+</p>
+<p>In addition, Fortinet has multiple solutions designed to train users on how to understand and detect phishing threats:</p>
+<p>The <a href="https://www.fortinet.com/products/phishing-simulation">FortiPhish Phishing Simulation Service</a> uses real-world simulations to help organizations test user awareness and vigilance to phishing threats and to train and reinforce proper practices when users encounter targeted phishing attacks.</p>
+<p>We also suggest that organizations have their end users go through our FREE <a href="https://training.fortinet.com/?utm_source=blog&amp;utm_campaign=nse-institute">NSE training</a>: <a href="https://training.fortinet.com/local/staticpage/view.php?page=nse_1&amp;utm_source=blog&amp;utm_campaign=nse-1">NSE 1 – Information Security Awareness</a>. It includes a module on internet threats to train end users on how to identify and protect themselves from phishing attacks.</p>
+<h2>IOCs</h2>
+<h3><span style="font-weight: normal;">Malicious sample (SHA256):</span></h3>
+<p>2fe44042cfc6602b43204e38bcbc2773d1e4f87be6aa16073625bc1b33af6877<br />
+8fda14f91e27afec5c1b1f71d708775c9b6e2af31e8331bbf26751bc0583dc7e<br />
+262f963f949671f429ba3c4233f493a064c08e1361d0c0689f7d3de205d5f7b1<br />
+2abfb434d9f16888332ecb2d6eb7660b28e544ad67130d0050330bdb104502c3<br />
+adf8cb3421c726efbadff60e97a07f6df6de98818e0978382ec388e7d32a2128<br />
+4b582f38e3376346cb066e36ff8dfa32b268154bb2de13870702e8bbf366a023<br />
+467bc7ff93d75009d3ba7633662dc9109297ac0f64abb078fd9c8e181abe6cca<br />
+</p>
+<h3><span style="font-weight: normal;">Malware payload (SHA256):</span></h3>
+<p>00dcc4642d488643856259cd3c576d9e24045b48783fc21ebdccd5fb4de66f8c<br />
+71c9cc11c107b0716eff86de98b3fbd77add1e35ceadf86519eb84b473cb862d<br />
+9d4bf3e9577884295102e5dd673b81065d21d348da8ba5a3249e8f5f4c40d5d6<br />
+424815ec0a4c06cb7e063c3540919f8f4b1ee369f977448b7eeaa248ef187431<br />
+9eea56f945cc00c5216b3250326f8b79d3d2cac5165b250b606729e72bd2647c<br />
+90576eb6754dd1c38fb4cea4bf3f029535900436a02caee891c057c01ca84941</p>
+<p><i>Learn more about Fortinet’s <a href="https://www.fortinet.com/fortiguard/labs?utm_source=blog&amp;utm_campaign=fortiguard-labs">FortiGuard Labs</a> threat research and intelligence organization and the FortiGuard Security Subscriptions and Services <a href="https://www.fortinet.com/fortiguard/labs?tab=security-bundles&amp;utm_source=blog&amp;utm_campaign=security-bundles">portfolio</a>.</i></p>
+
+
+</div>
+<div class="raw-import aem-GridColumn aem-GridColumn--default--12">
+<div class="text-container"><div id="om-b2dxtopzidsdt3fkzfsv-holder"></div></div>
+</div>
+
+    
+</div>
+</div>
+<div class="b16-blog-tags aem-GridColumn aem-GridColumn--default--12">
+
+
+
+  <div class="b16-blog-tags__container text-container" style="display:none">
+    <span class="b16-blog-tags__headline">Tags:</span>
+    <p class="b16-blog-tags__tag-links">
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=email-phishing">email phishing</a>, 
+    
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=fortiguards-labs">FortiGuards Labs</a>, 
+    
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=emotet">emotet</a>, 
+    
+      <a href="https://www.fortinet.com/blog/tags-search.html?tag=malware-analysis">malware analysis</a>
+    </p>
+  </div>
+
+</div>
+<section class="b12-related aem-GridColumn aem-GridColumn--default--12">
+
+
+
+
+<div class="b12-related__container text-container">
+    
+
+    
+    
+    <h3>Related Posts</h3>
+    <div class="b12-related__posts">
+        
+        <a href="/blog/threat-research/adobe-patches-address-zero-day-vulnerabilities-discovered-by-fortiguard-labs" class="b12-related__post b12-related__post-0">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/adobe-patches-new-thumb.jpg.thumb.319.319.png);">
+                <img class="ratio" alt="New Adobe Illustrator Patches Address Multiple Zero Day Vulnerabilities Discovered by FortiGuard Labs" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">New Adobe Illustrator Patches Address Multiple Zero Day Vulnerabilities Discovered by FortiGuard Labs</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/Trends-in-the-recent-emotet-maldoc-outbreak" class="b12-related__post b12-related__post-1">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/Emotet-maldoc-thumbnail.jpeg.thumb.319.319.png);">
+                <img class="ratio" alt="Trends in the Recent Emotet Maldoc Outbreak" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Trends in the Recent Emotet Maldoc Outbreak</h5>
+            </div>
+        </a>
+    
+    
+        
+        <a href="/blog/threat-research/ukraine-targeted-by-dark-crystal-rat" class="b12-related__post b12-related__post-2">
+            <div class="b12-related__image" style="background-image:url(/content/dam/fortinet-blog/article-images/ukraine-dcrat-thumb.jpg.thumb.319.319.png);">
+                <img class="ratio" alt="Ukraine Targeted by Dark Crystal RAT (DCRat)" aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAQAAAAe/WZNAAAADklEQVR42mNkgAJGDAYAAFEABCaLYqoAAAAASUVORK5CYII="/>
+            </div>
+
+            <div class="b12-related__text">
+                <p class="b12-related__category">
+                    FortiGuard Labs Threat Research
+                </p>
+                <h5 class="b12-related__title">Ukraine Targeted by Dark Crystal RAT (DCRat)</h5>
+            </div>
+        </a>
+    
+    </div>
+</div>
+
+
+</section>
+<div class="b13-comment-section aem-GridColumn aem-GridColumn--default--12">
+
+
+<div class="b13-comment-section__container text-container">
+
+
+  <!--data-sly-test="true - got replaced with false to disable the discussion event-->
+  
+</div>
+</div>
+<div class="b6-footer aem-GridColumn aem-GridColumn--default--12">
+
+
+  
+
+  <div class="b6-footer__container text-container">
+    <div class="b6-footer__footer-info">
+      <div class="b6-footer__logo">
+        <a href="https://www.fortinet.com" target="_blank">
+          <img src="/content/dam/fortinet-blog/fortinet-logo-white.svg" alt="Fortinet"/>
+        </a>
+      </div>
+      <div class="b6-footer__social-footer">
+        <ul>
+          
+            <li class="social-icon linkedin">
+              <a href="https://www.linkedin.com/company/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.934 15.835H12.55v-5.712c0-.897-1.008-1.64-1.905-1.64s-1.48.743-1.48 1.64v5.712H5.78V5.68h3.385v1.693c.558-.905 1.996-1.49 2.96-1.49 2.116 0 3.81 1.727 3.81 3.817v6.135zm-11.846 0H.703V5.68h3.385v10.155zM2.395.605c.935 0 1.693.757 1.693 1.69 0 .936-.758 1.694-1.693 1.694S.703 3.23.703 2.29C.703 1.36 1.46.6 2.395.6z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon twitter">
+              <a href="https://www.twitter.com/fortinet" target="_blank">
+                
+    <svg width="1200" height="1227" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"/>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon youtube">
+              <a href="https://www.youtube.com/channel/UCJHo4AuVomwMRzgkA5DQEOA?sub_confirmation=1" target="_blank">
+                
+    <svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.472 11.027V3.412L12.55 7.22l-5.08 3.806zM15.934.787C15.426.62 12.294.45 9.164.45c-3.13 0-6.26.16-6.77.322-1.32.44-1.69 3.4-1.69 6.447 0 3.03.37 6 1.69 6.43.51.17 3.64.33 6.77.33 3.13 0 6.262-.16 6.77-.33 1.32-.43 1.692-3.4 1.692-6.44 0-3.047-.372-6-1.692-6.43z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon instagram">
+              <a href="https://www.instagram.com/fortinet/" target="_blank">
+                
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path class="st0" d="M16,3.7c4,0,4.5,0,6.1,0.1c1.5,0.1,2.3,0.3,2.8,0.5c0.7,0.3,1.2,0.6,1.7,1.1c0.5,0.5,0.8,1,1.1,1.7
+          c0.2,0.5,0.4,1.3,0.5,2.8c0.1,1.6,0.1,2.1,0.1,6.1s0,4.5-0.1,6.1c-0.1,1.5-0.3,2.3-0.5,2.8c-0.3,0.7-0.6,1.2-1.1,1.7
+          c-0.5,0.5-1,0.8-1.7,1.1c-0.5,0.2-1.3,0.4-2.8,0.5c-1.6,0.1-2.1,0.1-6.1,0.1s-4.5,0-6.1-0.1c-1.5-0.1-2.3-0.3-2.8-0.5
+          c-0.7-0.3-1.2-0.6-1.7-1.1c-0.5-0.5-0.8-1-1.1-1.7c-0.2-0.5-0.4-1.3-0.5-2.8C3.7,20.5,3.7,20,3.7,16s0-4.5,0.1-6.1
+          c0.1-1.5,0.3-2.3,0.5-2.8C4.6,6.5,4.9,6,5.4,5.4c0.5-0.5,1-0.8,1.7-1.1c0.5-0.2,1.3-0.4,2.8-0.5C11.5,3.7,12,3.7,16,3.7 M16,1
+          c-4.1,0-4.6,0-6.2,0.1C8.2,1.2,7.1,1.4,6.2,1.8c-1,0.4-1.8,0.9-2.7,1.7C2.7,4.4,2.2,5.2,1.8,6.2c-0.4,1-0.6,2-0.7,3.6
+          C1,11.4,1,11.9,1,16c0,4.1,0,4.6,0.1,6.2c0.1,1.6,0.3,2.7,0.7,3.6c0.4,1,0.9,1.8,1.7,2.7c0.8,0.8,1.7,1.3,2.7,1.7
+          c1,0.4,2,0.6,3.6,0.7C11.4,31,11.9,31,16,31s4.6,0,6.2-0.1c1.6-0.1,2.7-0.3,3.6-0.7c1-0.4,1.8-0.9,2.7-1.7c0.8-0.8,1.3-1.7,1.7-2.7
+          c0.4-1,0.6-2,0.7-3.6C31,20.6,31,20.1,31,16s0-4.6-0.1-6.2c-0.1-1.6-0.3-2.7-0.7-3.6c-0.4-1-0.9-1.8-1.7-2.7
+          c-0.8-0.8-1.7-1.3-2.7-1.7c-1-0.4-2-0.6-3.6-0.7C20.6,1,20.1,1,16,1L16,1z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <path class="st0" d="M16,8.3c-4.3,0-7.7,3.4-7.7,7.7s3.4,7.7,7.7,7.7s7.7-3.4,7.7-7.7S20.3,8.3,16,8.3z M16,21c-2.8,0-5-2.2-5-5
+          s2.2-5,5-5s5,2.2,5,5S18.8,21,16,21z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+        <circle class="st0" cx="24" cy="8" r="1.8" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></circle>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon facebook">
+              <a href="https://www.facebook.com/fortinet" target="_blank">
+                
+    <svg viewBox="0 0 9 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.934.758v3.385H7.24c-.583 0-.845.685-.845 1.27v2.114h2.54v3.385h-2.54v6.77H3.01v-6.77H.472V7.527H3.01V4.143c0-1.87 1.516-3.385 3.385-3.385h2.54z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+            <li class="social-icon rss">
+              <a href="https://www.fortinet.com/rss-feeds.html" target="_blank">
+                
+    <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.072 17.68c-1.27 0-2.37-1.1-2.37-2.368 0-1.27 1.1-2.37 2.37-2.37s2.37 1.1 2.37 2.37-1.016 2.37-2.37 2.37zM.702.76v2.538c7.955 0 14.386 6.43 14.386 14.385h2.538C17.626 8.336 10.05.76.703.76zm0 5.162V8.46c5.078 0 9.224 4.146 9.224 9.223h2.54c0-6.514-5.248-11.76-11.763-11.76z" fill-opacity=".8" fill="#fff" fill-rule="evenodd"></path>
+    </svg>
+
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__footer-links">
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">News &amp; Articles</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases.html" target="_self">News Releases</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/newsroom/news.html" target="_blank">News Articles</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Security Research</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-research.html" target="_self">Threat Research</a>
+              </li>
+            
+              <li>
+                <a href="https://fortiguard.com/" target="_self">FortiGuard Labs</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/fortiguard/threat-intelligence/threat-map.html" target="_self">Threat Map</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/solutions/ransomware.html" target="_self">Ransomware Prevention</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Connect With Us</h4>
+          <ul>
+            
+              <li>
+                <a href="https://community.fortinet.com/" target="_blank">Fortinet Community</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/partners/partner-program/become-a-fortinet-partner" target="_blank">Partner Portal</a>
+              </li>
+            
+              <li>
+                <a href="https://investor.fortinet.com/" target="_blank">Investor Relations</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/product-certifications" target="_blank">Product Certifications</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="b6-footer__footer-links-column">
+          <h4 class="b6-footer__header">Company</h4>
+          <ul>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/about-us" target="_blank">About Us</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/executive-management" target="_self">Exec Mgmt</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/careers" target="_self">Careers</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/nse-training" target="_self">Training</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/events" target="_self">Events</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/industry-awards" target="_self">Industry Awards</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/corporate/about-us/corporate-social-responsibility" target="_self">Social Responsibility</a>
+              </li>
+            
+              <li>
+                <a href="/resources/cyberglossary" target="_self">CyberGlossary</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/sitemap" target="_self">Sitemap</a>
+              </li>
+            
+              <li>
+                <a href="https://www.fortinet.com/blog/blog-sitemap" target="_self">Blog Sitemap</a>
+              </li>
+            
+          </ul>
+        </div>
+      
+      <div class="b6-footer__contact-info">
+        <h4 class="b6-footer__header">Contact Us</h4>
+        <ul>
+          <li>(866) 868-3678</li>
+        </ul>
+      </div>
+    </div>
+    <div class="b6-footer__copyright">
+      <div class="b6-footer__copyright-info">
+        <p class="b6-footer__copyright-text">Copyright © 2023 Fortinet, Inc. All Rights Reserved</p>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/legal.html" target="_blank">Terms of Services</a>
+        
+          <a class="b6-footer__copyright-link" href="https://www.fortinet.com/corporate/about-us/privacy.html" target="_blank">Privacy Policy</a>
+        
+        <span class="ot-ftnt-cookie-settings"> | <a href="#" onclick="Optanon.ToggleInfoDisplay()">Cookie Settings</a></span>
+      </div>
+    </div>
+  </div>
+
+<!-- Launch COnfiguration -->
+
+
+<!-- END Launch COnfiguration --></div>
+
+    
+</div>
+</div>
+
+
+    
+    
+    
+    
+    
+<script type="text/javascript" src="/etc.clientlibs/fortinet-blog/clientlibs/clientlib-base.min.js"></script>
+
+
+
+
+
+    
+
+
+    
+
+    </body>
+    </html>

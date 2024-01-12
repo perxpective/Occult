@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">	
+<head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app28.us.archive.org';v.server_ms=447;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/bundle-playback.js?v=t1Bf4PY_" charset="utf-8"></script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/ruffle.js"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99","20151027061642","https://web.archive.org/","web","https://web-static.archive.org/_static/",
+	      "1445926602");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+
+
+<meta charset="utf-8"/>
+<title>W32.Qakbot | Symantec</title>
+<meta http-equiv="Content-Language" content="en-US"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="Remove W32.Qakbot - Symantec Security Response provides comprehensive internet protection expertise to guard against complex threats, information about latest new computer viruses and spyware."/>
+<meta name="keywords" content="W32.Qakbot, remove W32.Qakbot"/>
+<meta name="symc.page" content="/security_response/writeup.jsp"/>
+
+<meta name="om.site_language" content="en"/>
+<meta name="om.site_country" content="us"/>
+<meta name="om.content_format" content="html"/>
+<meta name="om.content_type" content="page"/>
+<meta name="om.content_title" content="W32.Qakbot"/>
+<meta name="om.visitor_segment" content="Business"/>
+<meta name="om.visitor_sub_segment" content="Security Response"/>
+<meta name="om.site_section" content="Security Response"/>
+<meta name="om.site_section_us" content="Security Response"/>
+<meta name="om.site_sub_section" content="Writeup"/>
+<meta name="om.page_name" content="en/us: biz: security response: writeup: w32.qakbot"/>
+<!---[if IE]--><![endif]->
+<link href="/web/20151027061642cs_/https://www.symantec.com/styles/version-3/symantec.css?20151026" media="screen, projection" rel="stylesheet"/>
+<link href="/web/20151027061642cs_/https://www.symantec.com/styles/version-3/print.css?20120712" media="print" rel="stylesheet"/>
+<!--[if IE 6]><link href="/styles/version-3/ie1.css?20130412" media="screen, projection" rel="stylesheet"/><![endif]-->
+<!--[if IE 7]><link href="/styles/version-3/ie2.css?20130412" media="screen, projection" rel="stylesheet"/><![endif]-->
+<!--[if IE 8]><link href="/styles/version-3/ie3.css?20130412" media="screen, projection" rel="stylesheet"/><![endif]-->
+	<link href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" rel="canonical"/>
+<script src="/web/20151027061642js_/https://www.symantec.com/scripts/version-3/rum/rum-min.js?20150629"></script>
+<script src="/web/20151027061642js_/https://www.symantec.com/scripts/library/jquery-1.7.2.min.js?20140127"></script>
+<script src="/web/20151027061642js_/https://www.symantec.com/script/omniture/om_code.js?20151019"></script>
+<script src="/web/20151027061642js_/https://www.symantec.com/scripts/version-3/omniture/visitor-scoring.js?20140115"></script>
+<script src="/web/20151027061642js_/https://www.symantec.com/script/omniture/s_code.js?20151019"></script><script>s.pageName=metaData['page_name'];</script>
+<script src="//web.archive.org/web/20151027061642js_/https://nexus.ensighten.com/symantec/symEnterprise/Bootstrap.js"></script>
+<script src="/web/20151027061642js_/https://www.symantec.com/scripts/version-3/symantec-min.js?20140910"></script>
+</head>
+<body><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display:none;direction:ltr;">
+<div id="wm-ipp" style="position:fixed;left:0;top:0;right:0;">
+<div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="https://archive.org/includes/donate.php?as_page=1&amp;platform=wb&amp;referer=https%3A//web.archive.org/web/20151027061642/https%3A//www.symantec.com/security_response//writeup.jsp%3Fdocid%3D2009-050707-0639-99"
+	    scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><div id="wm-ipp-inside">
+  <div id="wm-toolbar" style="position:relative;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+    <div id="wm-logo" style="/*width:110px;*/padding-top:12px;">
+      <a href="/web/" title="Wayback Machine home page"><img src="https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png" srcset="https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-100.png, https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-150.png 1.5x, https://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png 2x" alt="Wayback Machine" style="width:100px" border="0" /></a>
+    </div>
+    <div class="c" style="display:flex;flex-flow:column nowrap;justify-content:space-between;flex:1;">
+      <form class="u" style="display:flex;flex-direction:row;flex-wrap:nowrap;" target="_top" method="get" action="/web/submit" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" onfocus="this.focus();this.select();" style="flex:1;"/><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20151027061642" /><input type="submit" value="Go" />
+      </form>
+      <div style="display:flex;flex-flow:row nowrap;align-items:flex-end;">
+                <div class="s" id="wm-nav-captures" style="flex:1;">
+                    <a class="t" href="/web/20151027061642*/https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" title="See a list of every capture for this URL">39 captures</a>
+          <div class="r" title="Timespan for captures of this URL">12 May 2009 - 04 Nov 2023</div>
+          </div>
+        <div class="k">
+          <a href="" id="wm-graph-anchor">
+            <div id="wm-ipp-sparkline" title="Explore captures for this URL" style="position: relative">
+              <canvas id="wm-sparkline-canvas" width="725" height="27" border="0"></canvas>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="n">
+      <table>
+        <tbody>
+          <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+          <tr class="m">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20150919055306/http://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" title="19 Sep 2015"><strong>Sep</strong></a></td>
+            <td class="c" id="displayMonthEl" title="You are here: 06:16:42 Oct 27, 2015">OCT</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160918082929/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" title="18 Sep 2016"><strong>Sep</strong></a></td>
+          </tr>
+          <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+          <tr class="d">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20150919055306/http://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" title="05:53:06 Sep 19, 2015"><img src="https://web-static.archive.org/_static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a></td>
+            <td class="c" id="displayDayEl" style="width:34px;font-size:22px;white-space:nowrap;" title="You are here: 06:16:42 Oct 27, 2015">27</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20160918082929/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" title="08:29:29 Sep 18, 2016"><img src="https://web-static.archive.org/_static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0" /></a></td>
+          </tr>
+          <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+          <tr class="y">
+            <td class="b" nowrap="nowrap"><a href="https://web.archive.org/web/20130516120344/http://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" title="16 May 2013"><strong>2013</strong></a></td>
+            <td class="c" id="displayYearEl" title="You are here: 06:16:42 Oct 27, 2015">2015</td>
+            <td class="f" nowrap="nowrap"><a href="https://web.archive.org/web/20171107173131/http://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" title="07 Nov 2017"><strong>2017</strong></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="r" style="display:flex;flex-flow:column nowrap;align-items:flex-end;justify-content:space-between;">
+      <div id="wm-btns" style="text-align:right;height:23px;">
+                <span class="xxs">
+          <div id="wm-save-snapshot-success">success</div>
+          <div id="wm-save-snapshot-fail">fail</div>
+          <a id="wm-save-snapshot-open" href="#" title="Share via My Web Archive" >
+            <span class="iconochive-web"></span>
+          </a>
+          <a href="https://archive.org/account/login.php" title="Sign In" id="wm-sign-in">
+            <span class="iconochive-person"></span>
+          </a>
+          <span id="wm-save-snapshot-in-progress" class="iconochive-web"></span>
+        </span>
+                <a class="xxs" href="http://faq.web.archive.org/" title="Get some help using the Wayback Machine" style="top:-6px;"><span class="iconochive-question" style="color:rgb(87,186,244);font-size:160%;"></span></a>
+        <a id="wm-tb-close" href="#close" style="top:-2px;" title="Close the toolbar"><span class="iconochive-remove-circle" style="color:#888888;font-size:240%;"></span></a>
+      </div>
+      <div id="wm-share" class="xxs">
+        <a href="/web/20151027061642/http://web.archive.org/screenshot/https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99"
+           id="wm-screenshot"
+           title="screenshot">
+          <span class="wm-icon-screen-shot"></span>
+        </a>
+        <a href="#" id="wm-video" title="video">
+          <span class="iconochive-movies"></span>
+        </a>
+        <a id="wm-share-facebook" href="#" data-url="https://web.archive.org/web/20151027061642/https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" title="Share on Facebook" style="margin-right:5px;" target="_blank"><span class="iconochive-facebook" style="color:#3b5998;font-size:160%;"></span></a>
+        <a id="wm-share-twitter" href="#" data-url="https://web.archive.org/web/20151027061642/https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99" title="Share on Twitter" style="margin-right:5px;" target="_blank"><span class="iconochive-twitter" style="color:#1dcaff;font-size:160%;"></span></a>
+      </div>
+      <div style="padding-right:2px;text-align:right;white-space:nowrap;">
+        <a id="wm-expand" class="wm-btn wm-closed" href="#expand" onclick="__wm.ex(event);return false;"><span id="wm-expand-icon" class="iconochive-down-solid"></span> <span class="xxs" style="font-size:80%;">About this capture</span></a>
+      </div>
+    </div>
+  </div>
+    <div id="wm-capinfo" style="border-top:1px solid #777;display:none; overflow: hidden">
+        <div id="wm-capinfo-notice" source="api"></div>
+                <div id="wm-capinfo-collected-by">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center">COLLECTED BY</div>
+    <div style="padding:3px;position:relative" id="wm-collected-by-content">
+            <div style="display:inline-block;vertical-align:top;width:50%;">
+			<span class="c-logo" style="background-image:url(https://archive.org/services/img/webwidecrawl);"></span>
+		Organization: <a style="color:#33f;" href="https://archive.org/details/webwidecrawl" target="_new"><span class="wm-title">Internet Archive</span></a>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  The Internet Archive discovers and captures web pages through many different web crawls.
+
+At any given time several distinct crawls are running, some for months, and some every day or longer.
+
+View the web archive through the <a href="http://archive.org/web/web.php">Wayback Machine</a>.
+	</div>
+	      </div>
+      <div style="display:inline-block;vertical-align:top;width:49%;">
+			<span class="c-logo" style="background-image:url(https://archive.org/services/img/wide00013)"></span>
+		<div>Collection: <a style="color:#33f;" href="https://archive.org/details/wide00013" target="_new"><span class="wm-title">Wide Crawl Number 13</span></a></div>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Web Wide Crawl Number 13
+	</div>
+	      </div>
+    </div>
+    </div>
+    <div id="wm-capinfo-timestamps">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center" title="Timestamps for the elements of this page">TIMESTAMPS</div>
+    <div>
+      <div id="wm-capresources" style="margin:0 5px 5px 5px;max-height:250px;overflow-y:scroll !important"></div>
+      <div id="wm-capresources-loading" style="text-align:left;margin:0 20px 5px 5px;display:none"><img src="https://web-static.archive.org/_static/images/loading.gif" alt="loading" /></div>
+    </div>
+    </div>
+  </div></div></div></div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20151027061642/https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(725,27,25,2,"web","https://www.symantec.com/security_response//writeup.jsp?docid=2009-050707-0639-99","20151027061642",1996,"https://web-static.archive.org/_static/",["https://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt","https://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+ 
+
+<a class="hide" href="#startcontent"></a>
+
+<div class="ssPane fontSM mrgnBtmMD unit">
+<div class="ssUtil">
+<ul class="ssItems unit">
+
+	<li><a href="/web/20151027061642/https://www.symantec.com/?site=norton&amp;inid=us_ghp_hho_topnav_segment">Norton</a></li>
+
+	<li><a class="ssSegment" href="/web/20151027061642/https://www.symantec.com/?site=smb&amp;inid=us_ent_topnav_smb">Small &amp; Medium Business</a></li>
+
+	<li><a class="ssSegment" href="/web/20151027061642/https://www.symantec.com/?site=business&amp;inid=us_ent_topnav_enterprise"><strong>Enterprise</strong></a></li>
+
+	<li><a href="/web/20151027061642/https://www.symantec.com/?site=partners&amp;inid=us_ent_topnav_partners">Partners</a></li>
+
+	<li><a href="https://web.archive.org/web/20151027061642/https://www.veritas.com/">Veritas</a></li>
+
+</ul>
+</div>
+</div>
+
+<div class="headerPane clear">
+<div class="colOneMain">
+		
+<div class="symLogo unit">
+
+<a href="/web/20151027061642/https://www.symantec.com/index.jsp"><img src="/web/20151027061642im_/https://www.symantec.com/images/version-3/symantec.gif" alt="Symantec | United States" title="Symantec | United States"/></a>
+</div>
+
+				
+		<div class="symUtil unitRight">
+		
+		<div class="mod-search unit">
+			
+<form action="https://web.archive.org/web/20151027061642/https://searchg.symantec.com/search" id="search" method="get" name="search" onsubmit="return searchFormAction('Search Symantec','q')">
+	<input autocomplete="off" class="inputBdr unit txtLgtGray" maxlength="100" name="q" value="Search Symantec" onfocus="clearInputValue(this); $(this).addClass('colorBlack')" onblur="writeInputValue(this, 'Search Symantec'); $(this).removeClass('colorBlack')" onkeyup="ss_handleKey(event)" type="text" size="22"/>
+	<input name="charset" type="hidden" value="utf-8"/>
+	<input name="client" type="hidden" value="symc_en_US"/>
+	<input name="context" type="hidden" value="ent"/>
+	<input name="hitsceil" type="hidden" value="100"/>
+	<input name="output" value="xml_no_dtd" type="hidden"/>
+	<input name="proxystylesheet" type="hidden" value="symc_en_US"/>
+	<input name="site" type="hidden" value="symc_en_US"/>
+	<input type="image" src="/web/20151027061642im_/https://www.symantec.com/images/version-3/header/g-search-icon.png" alt="Search Symantec"/>
+</form>
+			
+<table cellpadding="0" cellspacing="0" class="ss-gac-m" style="visibility: hidden;" id="search_suggest"></table>
+			
+	</div>	
+	</div>	</div>	
+<div class="bckPadBtmSM fullWidth  unit">
+	 <div id="mainNav" class="textLeft">
+			<ul id="flyout">
+				 
+						<li class="flyoutTitle">
+							 <a href="/web/20151027061642/https://www.symantec.com/products-solutions/" title="Products &amp; Solutions"> Products &amp; Solutions
+							 </a>
+							 <div class="flyoutConnect hide"></div>
+							 <div class="flyoutContainer ">
+									<div class="flyoutContent">
+										 
+												<div class="bckPadXSM bckSolidMedGry unit">
+													 <div class="bckSolidWht unit">
+															
+															<div class="mod-flyoutContent unit">
+																 <div class="mod-flyoutContentLft bckSolidWht bckPadXLGMDTall unit">
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>PRODUCT CATEGORIES</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/threat-protection/" title="Threat Protection">Threat Protection</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/information-protection/" title="Information Protection">Information Protection</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/cyber-security-services/" title="Cyber Security Services">Cyber Security Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/website-security/" title="Website Security">Website Security</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>TRENDS</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/cloud-computing-software/" title="Cloud">Cloud</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/IoT/" title="Internet of Things">Internet of Things</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/mobility/" title="Mobile">Mobile</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 
+ <h3>INDUSTRY SOLUTIONS</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=public_sector" title="Public Sector">Public Sector</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=communications" title="Comms Service Providers">Comms Service Providers</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=healthcare" title="Healthcare">Healthcare</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=financial_services" title="Financial Services">Financial Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/page.jsp?id=secure-your-point-of-sale-system" title="Retail Point of Sale">Retail Point of Sale</a></li> 
+ </ul> 
+																		</div>
+																		<div class="mod-flyoutContentColLast unit">
+																			 <div class="mrgnBtmMD">
+ <h3>RESOURCES</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://symantecevents.verite.com/?action=public.dsp_calendar&amp;view=list" title="Events &amp; Webcasts">Webcasts &amp; Events</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/trialware/" title="Downloads &amp; Trialware">Downloads &amp; Trialware</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/training/" title="Training">Training</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://partnerlocator.symantec.com/" title="Find a Partner">Find a Partner</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/ssl-certificates/" title="Buy SSL Certificate">Buy SSL Certificate</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/products/" title="Product Index">Product Index</a></li> 
+ </ul> </div>
+																		</div>
+																 </div>
+															</div>
+													 </div>
+												</div>
+												<div class="clear"></div>
+												
+	</div>	
+ </div> 
+	</li> 
+						<li class="flyoutTitle">
+							 <a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US.html" title="Support &amp; Communities"> Support &amp; Communities
+							 </a>
+							 <div class="flyoutConnect hide"></div>
+							 <div class="flyoutContainer ">
+									<div class="flyoutContent">
+										 
+												<div class="bckPadXSM bckSolidMedGry unit">
+													 <div class="bckSolidWht unit">
+															
+															<div class="mod-flyoutContent unit">
+																 <div class="mod-flyoutContentLft bckSolidWht bckPadXLGMDTall unit">
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>PRODUCT SUPPORT</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US.html" title="Technical Support">Technical Support</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://symaccount.symantec.com/SymAccount/index.jsp" title="Login to Support">Login to Support</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US/products-a-z.html" title="Supported Products A-Z">Supported Products A-Z</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US/contact-us.html" title="Contact Technical Support">Contact Technical Support</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://my.symantec.com/webapp/faces/login?appParam=support" title="File a Case">File a Case</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://my.symantec.com/" title="Business Critical Member Support Site">Business Critical Member Support Site</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/contactsupport/" title="Support for Authentication Services Products">Support for Authentication Services Products</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>PRODUCT SUPPORT FOR ACQUIRED COMPANIES</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US/article.HOWTO55897.html" title="Support for Blackfin Security Group">Support for Blackfin Security Group</a></li> 
+ </ul> </div><div class="mrgnBtmMD">
+ <h3><a href="https://web.archive.org/web/20151027061642/http://customersupport.symantec.com/" title="Licensing &amp; Account Management Assistance">LICENSING &amp; ACCOUNT MANAGEMENT ASSISTANCE</a></h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/http://my.symantec.com/webapp/faces/login?appParam=licensing" title="Symantec Licensing Portal">Symantec Licensing Portal</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>BUSINESS SUPPORT RESOURCES</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://my.symantec.com/webapp/faces/login/" title="Online Case Management">Online Case Management</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://my.symantec.com/webapp/faces/login/" title="Business Critical Support">Business Critical Support</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/support/support_fundamentals.jsp" title="Support Fundamentals">Support Fundamentals</a></li> 
+ </ul> </div>
+ <h3>SOCIAL MEDIA</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/social/" title="Social@Symantec">Social@Symantec</a></li> 
+ </ul> 
+																		</div>
+																		<div class="mod-flyoutContentColLast unit">
+																			 <div class="mrgnBtmMD">
+ <h3><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/" title="Community: Symantec Connect ">COMMUNITIES:  SYMANTEC CONNECT</a></h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/endpoint-management/" title="Endpoint Management">Endpoint Management</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/endpoint-virtualization/" title="Endpoint Virtualization">Endpoint Virtualization</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/managing-mobility" title="Managing Mobility">Managing Mobility</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/security/" title="Security">Security</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/inside-symantec/" title="Inside Symantec">Inside Symantec</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/groups/customer-trust-group&amp;inid=us_ghp_navigation_customer_trust_portal" title="Customer Trust Portal">Customer Trust Portal</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/partners/" title="Partners">Partners</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/vision/" title="Vision">Vision</a></li> 
+ </ul> </div>
+																		</div>
+																 </div>
+															</div>
+													 </div>
+												</div>
+												<div class="clear"></div>
+												
+	</div>	
+ </div> 
+	</li> 
+						<li class="flyoutTitle">
+							 <a href="/web/20151027061642/https://www.symantec.com/security_response/" title="Security Response"> Security Response
+							 </a>
+							 <div class="flyoutConnect hide"></div>
+							 <div class="flyoutContainer ">
+									<div class="flyoutContent">
+										 
+												<div class="bckPadXSM bckSolidMedGry unit">
+													 <div class="bckSolidWht unit">
+															
+															<div class="mod-flyoutContent unit">
+																 <div class="mod-flyoutContentLft bckSolidWht bckPadXLGMDTall unit">
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>STAY SECURE</h3> 
+ <h4>Updates</h4>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/definitions.jsp">Virus Definitions and Security Updates</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/licensing/renewals/?inid=smb_rainmaker_bizlicensingrenewals_manualrenew">Symantec License Renewal Center</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/page.jsp?id=stopping_malware">Security Best Practices</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US/article.TECH173752.html">Recommended Endpoint Protection Security Settings</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://buy.norton.com/mf/upgradeRenewal/?inid=us_sr_flyout_updates_nortonup&amp;trf_id=symantec.com">Norton Upgrades &amp; Renewals</a></li> 
+ </ul> </div>
+ <h4>Repair</h4>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/removaltools.jsp">Removal Tools</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/theme.jsp?themeid=stopping_malware&amp;depthpath=0">Security Best Practices</a></li> 
+ </ul> 
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>BE INFORMED</h3> 
+ <h4>24/7 Reporting</h4>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/landing/azlisting.jsp">A-Z Listing of IT Threats &amp; Risks</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/landing/vulnerabilities.jsp">Vulnerabilities</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/symantec-blogs/sr/">Security Response Blogs</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/deepsight-products/">DeepSight Security Intelligence Products</a></li> 
+ </ul> </div>
+ <h4>Security Technology and Response</h4>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/page.jsp?id=star">STAR Malware Protection Technologies</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/glossary/">Security Response Glossary</a></li> 
+ </ul> 
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmLG">
+ <h3><a href="/web/20151027061642/https://www.symantec.com/security_response/publications/">PUBLICATIONS</a></h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/http://know.symantec.com/LP=1269?CID=70150000000di1tAAA&amp;MC=189178&amp;OC=80555&amp;OT=WC&amp;WCN=212&amp;TT=S">Internet Security Threat Report</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/publications/monthlythreatreport.jsp">Symantec Intelligence Report</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/publications/whitepapers.jsp">Security White Papers</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/tv/allvideos/?subnav=on">SymantecTV</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentColLast unit">
+																			 
+ <h3>CONTACT US ABOUT</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/submitsamples.jsp">Virus Samples</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://submit.symantec.com/false_positive/" class=" popupWidth800 popupHeight600 popupScrollYes" rel="external">Suspected Erroneous Detection (False Positive)</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://submit.symantec.com/whitelist/" class=" popupWidth800 popupHeight600 popupScrollYes" rel="external">Software White-Listing Request</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security/">Symantec Product Vulnerability</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www.symantec.com/contact/authentication/seal-abuse.jsp" class=" popupWidth800 popupHeight600 popupScrollYes" rel="external">Norton Seal Abuse</a></li> 
+ </ul> 
+																		</div>
+																 </div>
+															</div>
+													 </div>
+												</div>
+												<div class="clear"></div>
+												
+	</div>	
+ </div> 
+	</li> 
+						<li class="flyoutTitle">
+							 <a href="/web/20151027061642/https://www.symantec.com/store/index.jsp" title="Try &amp; Buy"> Try &amp; Buy
+							 </a>
+							 <div class="flyoutConnect hide"></div>
+							 <div class="flyoutContainer ">
+									<div class="flyoutContent">
+										 
+												<div class="bckPadXSM bckSolidMedGry unit">
+													 <div class="bckSolidWht unit">
+															
+															<div class="mod-flyoutContent unit">
+																 <div class="mod-flyoutContentLft bckSolidWht bckPadXLGMDTall unit">
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>TRIALWARE</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=77987" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Client Management Suite</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=87729" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Mobile Management</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=54166" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Endpoint Encryption</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=117524" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Endpoint Protection</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=32763" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Ghost Solution Suite</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://www4.symantec.com/Vrt/offer?a_id=20032" class=" popupWidth980 popupHeight775 popupScrollYes" rel="external">Mail Security for Microsoft Exchange</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://trustcenter.websecurity.symantec.com/process/retail/trial_initial?application_locale=VRSN_US">SSL Test Certificate</a></li> 
+ </ul> </div>
+ <h3><a href="/web/20151027061642/https://www.symantec.com/products-solutions/trialware/">All Business Trialware</a></h3> 
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>BUY ONLINE</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/http://buy.symantec.com/estore/clp/productdetails/pk/endpoint-protection-small-business-edition?inid=symcom_SEPSBE2013_buynow_smbstore">Endpoint Protection Small Business Edition</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://buy.symantec.com/estore/clp/productdetails/pk/endpoint-protection?inid=symcom_SEP_buynow_smbstore">Endpoint Protection</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://buy.symantec.com/estore/clp/productdetails/pk/drive-encryption?inid=symcom_DRE_buynow_smbstore">Drive Encryption (formerly PGP Whole Disk Encryption)</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://buy.symantec.com/estore/clp/productdetails/pk/ghost-solution-suite?inid=symcom_GSS_buynow_smbstore">Ghost Solution Suite</a></li> 
+ </ul> </div>
+ <h3><a href="https://web.archive.org/web/20151027061642/http://buy.symantec.com/?inid=us_bt_flyout_buyonline_all_biz">Shop All Business</a></h3> 
+																		</div>
+																		<div class="mod-flyoutContentCol unit">
+																			 <div class="mrgnBtmMD">
+ <h3>WEBSITE SECURITY SOLUTIONS</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/ssl-certificates/">Buy SSL Certificates</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/code-signing/">Buy Code Signing</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://trustcenter.websecurity.symantec.com/process/retail/trust_initial?application_locale=VRSN_US">Buy Safe Site</a></li> 
+ </ul> </div>
+																		</div>
+																		<div class="mod-flyoutContentColLast unit">
+																			 <div class="mrgnBtmMD">
+ <h3>SHOP NORTON</h3>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://us.norton.com/norton-security-antivirus">Norton Security</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/https://us.norton.com/norton-security-with-backup">Norton Security with Backup</a></li> 
+ </ul> </div><div class="mrgnBtmMD">
+ <h4>My Norton Product</h4>   
+    <ul class="listCHor">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/http://us.norton.com/upgrade-center/promo/">Upgrade</a></li> 
+ <li><a href="https://web.archive.org/web/20151027061642/http://us.norton.com/upgrade-center/promo/">Renew</a></li> 
+ </ul> </div>
+ <h3><a href="https://web.archive.org/web/20151027061642/http://us.norton.com/products/">See all Norton offerings</a></h3> 
+																		</div>
+																 </div>
+															</div>
+													 </div>
+												</div>
+												<div class="clear"></div>
+												
+	</div>	
+ </div> 
+	</li> 
+			</ul>
+	 </div>
+	 <div class="clear"></div>
+</div>
+					
+<div class="clear"></div>
+</div>
+		
+<a id="startcontent"></a>
+<!--ng-->
+
+
+<div class="contentPane megaNav">
+	<div class="cbMrgnBtmMD cbMrgnTopSM">
+		<div class="unit colTwoStyle11">
+<ol class="crumbs">
+	<li><a href="/web/20151027061642/https://www.symantec.com/index.jsp"><img src="/web/20151027061642im_/https://www.symantec.com/images/version-3/icons/home-icon.png" width="11" height="10"/><span>/</span></a></li><li><a href="/web/20151027061642/https://www.symantec.com/security_response/">Security Response</a><span>/</span></li> 
+ <li>W32.Qakbot</li>	
+</ol>
+</div>
+
+<div class="unitRight colTwoStyle21">
+<div class="unitRight">
+    <div class="utilNav unit">
+		<ul class="unit">
+			<li class="addAction">
+				<div><span class="addTitle">
+					Add
+					</span>
+					<div class="transitionSmall hide"></div>
+				</div>
+			</li>
+		</ul>
+		<div class="utilMenu mod-add-dropdown relative clear hide upperzIndex">
+			<ul class="addItems unit trackSBOmniture" data-omniture="sb_widget_small">	
+	<li>	Add Bookmark or Share
+	</li>	
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/google-plus.png"/><a href="https://web.archive.org/web/20151027061642/https://plus.google.com/share?url=THE_PAGE_URL" target="_blank" title="Google+" class="pixCon4434">Google+</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/technorati-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://technorati.com/faves?add=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="Technorati" class="pixCon3106">Technorati</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/digg-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://digg.com/submit?url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="Digg" class="pixCon3100">Digg</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/delicious-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://del.icio.us/post?url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="Delicious" class="pixCon3099">Delicious</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/reddit-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://reddit.com/submit?url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="Reddit" class="pixCon3104">Reddit</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/stumbleupon-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://www.stumbleupon.com/submit?url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="StumbleUpon" class="pixCon3105">StumbleUpon</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/twitter.gif"/><a href="https://web.archive.org/web/20151027061642/http://twitter.com/home?status=THE_PAGE_TITLE+THE_PAGE_URL" target="_blank" title="Twitter" class="pixCon3107">Twitter</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/linkedin-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://www.linkedin.com/shareArticle?mini=true&amp;url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="LinkedIn">LinkedIn</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/facebook.gif"/><a href="https://web.archive.org/web/20151027061642/http://www.facebook.com/share.php?u=THE_PAGE_URL&amp;t=THE_PAGE_TITLE" target="_blank" title="Facebook" class="pixCon3101">Facebook</a></li>	
+						<div class="hr"></div>
+					
+	<li><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/utilityicons/socialbookmark/logos/newsvine-logo.gif"/><a href="https://web.archive.org/web/20151027061642/http://www.newsvine.com/_wine/save?popoff=0&amp;url=THE_PAGE_URL&amp;title=THE_PAGE_TITLE" target="_blank" title="Newsvine" class="pixCon3103">Newsvine</a></li>	
+	</ul>	</div>	
+	</div>	
+</div>
+</div>
+<div class="clear"></div>
+	</div>	
+	<h1>W32.Qakbot</h1> 
+
+	<div class="colTwoMain unit">
+	<div class="bckBrdr bckGry">
+      <div class="bckPadSmall introTxt1">
+<h2>Risk Level 2: Low</h2>
+</div><div class="upperCase">
+<ul class="clearfix tabsNav unit">
+<li class="unit">
+<a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99" class="on">summary</a>
+</li>
+<li class="unit">
+<a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99&amp;tabid=2">technical details</a>
+</li>
+<li class="unit">
+<a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99&amp;tabid=3">removal</a>
+</li>
+</ul>
+<div class="unitRight mrgnTopXLG tabsNavSubNav">
+<strong><a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2011-042105-0220-99" class="download">Download Removal Tool</a></strong><span class="mrgnSM">|</span><strong><a class="popup" href="#" onclick="javascript:window.open('/security_response/print_writeup.jsp?docid=2009-050707-0639-99','','width=800,height=600, scrollbars=yes, menubar=yes, resizable=yes'); return false;">Printer Friendly Page</a></strong>
+</div>
+</div><div class="clear"></div><div id="tab1" class="bckSolidBlk bckBrdr clearfix">
+<div class="bckSolidGry bckBrdr clearfix">
+<div class="bckSolidWht bckPadLarge clearfix">
+<dl class="fontXLG">
+<dt class="unit mrgnRgtXSM">
+<strong>Discovered: </strong>
+</dt>
+<dd>May 7, 2009</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>Updated: </strong>
+</dt>
+<dd>August 10, 2012 3:14:11 PM</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>Also Known As: </strong>
+</dt>
+<dd>BKDR_QAKBOT.AF [Trend],	Win32/Qakbot [Computer Associates],	W32/QakBot [Sophos],	W32/Akbot [McAfee],	Trojan-PSW.Win32.Qbot.mk [Kaspersky]</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>Type: </strong>
+</dt>
+<dd>Worm</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>Infection Length: </strong>
+</dt>
+<dd>Varies</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>Systems Affected: </strong>
+</dt>
+<dd>Windows 2000, Windows 7, Windows NT, Windows Server 2003, Windows Server 2008, Windows Vista, Windows XP</dd>
+<dt class="unit mrgnRgtXSM">
+<strong>CVE References: </strong>
+</dt>
+<dd>
+<a href="https://web.archive.org/web/20151027061642/http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-0015">CVE-2007-0015</a>, <a href="https://web.archive.org/web/20151027061642/http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-4673">CVE-2007-4673</a>
+</dd>
+</dl>
+<div style="clear: both;"></div>
+<div class="imgMrgnTopLG imgMrgnBtmLG listBullet">W32.Qakbot is a worm that spreads through network shares and removable drives. It downloads additional files, steals information, and opens a back door on the compromised computer. The worm also contains rootkit functionality to allow it to hide its presence.
+<br>
+<br><strong>     
+<br>Infection</strong>     
+<br>W32.Qakbot spreads by exploiting  vulnerabilities when a user visits certain Web pages.  Exploit code  hosted at these remote locations downloads the threat on to the  compromised computer. Many of the infections are aided by users  unwittingly clicking on malicious links. As more and more threats make  use of the Web to spread, the clearer it becomes that <a href="https://web.archive.org/web/20151027061642/http://www.everyclickmatters.com/">Every Click Matters</a>.     
+<br>      
+<br>The  worm also spreads through network shares by copying itself to shared  folders when instructed to by a remote attacker. It also copies itself to removable drives.     
+<br>     
+<br>     
+<br><strong>Functionality  </strong>     
+<br>While W32.Qakbot has multiple capabilities, its ultimate  goal is clearly theft of information.  Identification theft is big  business in the underground world of cybercrime and the more data a  threat can steal, the bigger the profit that can be made. W32.Qakbot is  capable of gathering a number of different kinds of information,  including the following confidential information:     
+<br><ul><li>Authentication  cookies, including Flash cookies</li><li>DNS, IP, hostname details     
+<br></li><li>OS  and system information</li><li>Geographic and browser version  information</li><li>Keystrokes including login information</li><li>Login  details for FTP, IRC, POP3 email, and IMAP email</li><li>Outlook  account information</li><li>Private keys from system certificates</li><li>Login  credentials for certain websites</li><li>URLs visited </li></ul>     
+<br><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/about/news/release/article.jsp?prid=20090910_01">Cybercrime  is big business</a>, and it is real crime.  The U.S. Dept. of Treasury  reports that cybercrime has surpassed illegal drug trafficking as a  criminal money maker, with one in five people becoming a victim. With  the profits often in the millions of dollars, it takes very little  effort for a cybercriminal to set up an operation, steal identities and  begin selling.  Just a small glimpse of what is possible -- or, say, an <a href="https://web.archive.org/web/20151027061642/http://www.youtube.com/watch?v=qLOEl7Z1PVs">Introduction to the  Black Market</a> -- can give the average internet user an idea of the  insidious nature of cybercrime.     
+<br>     
+<br>There is a funny credit card  television ad that features barbarians running around using the credit  card and the tag-line is "What's in your wallet?" You can almost hear  the cybercriminals asking themselves, "What’s on your computer?" <a href="https://web.archive.org/web/20151027061642/http://www.everyclickmatters.com/victim/assessment.html">If you  have a computer, you're at risk</a>, which means that assessing your  level of risk is always a good idea.       
+<br>     
+<br>Once stolen, login  details, credentials from particular websites, passwords, financial  information and other personally identifiable information can be sold on  the black market.  Ultimately, that ends in identity theft.  The most  often used technique, keylogging, attempts to provide as much data as  possible; the more details about the user that end up in the hands of  the remote attacker, the bigger the <a href="https://web.archive.org/web/20151027061642/http://www.youtube.com/watch?v=SGZp4FeeNSk">Black Market  Keylogging</a> profit.     
+<br>     
+<br>     
+<br><strong>White paper: W32.Qakbot in Detail</strong>     
+<br>Symantec have published a white paper probing deeper into the worm to reveal its inner workings. To find out more about this worm, download a copy of the paper: <a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/content/en/us/enterprise/media/security_response/whitepapers/w32_qakbot_in_detail.pdf">W32.Qakbot in Detail</a>.     
+<br>     
+<br><strong></strong>     
+<br>     
+<br><strong></strong><strong>GEOGRAPHICAL  DISTRIBUTION</strong>     
+<br> Symantec has observed the following  geographic distribution of this threat.     
+<br>     
+<br><img src="https://web.archive.org/web/20151027061642im_/http://www.symantec.com/content/en/us/global/images/threat_writeups/2009-050707-0639-99.1.gif" align="">     
+<br><img src="https://web.archive.org/web/20151027061642im_/http://www.symantec.com/content/en/us/global/images/threat_writeups/2009-050707-0639-99.2.PNG" align="">     
+<br>      
+<br>     
+<br><strong>PREVALENCE</strong>     
+<br>Symantec has observed the following infection levels of this threat  worldwide.     
+<br>     
+<br><img src="https://web.archive.org/web/20151027061642im_/http://www.symantec.com/content/en/us/global/images/threat_writeups/2009-050707-0639-99.3.png" align="">     
+<br>     
+<br>     
+<br><strong>SYMANTEC PROTECTION SUMMARY</strong>     
+<br>The  following content is provided by Symantec to protect against this  threat family.     
+<br>     
+<br><strong>     
+<br>Antivirus signatures</strong>      
+<br><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99">W32.Qakbot</a>     
+<br>     
+<br><strong>     
+<br>Antivirus  (heuristic/generic)</strong>      
+<br><ul><li>  <a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2009-111803-2703-99">Packed.Cupx!gen2</a></li><li>  <a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2009-120806-2917-99">Packed.Cupx!gen3</a></li><li>  <a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2010-030805-2550-99">Packed.Cupx!gen4</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2010-041306-1140-99">Packed.Cupx!gen5</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2009-122918-3306-99">Packed.Generic.276</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2010-060403-2225-99">Packed.Generic.304</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2010-100614-4519-99">Packed.Generic.308</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2012-051807-3005-99">Packed.Generic.368</a> </li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-070709-1325-99">SONAR.Qakbot!gen1</a> 
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2010-032506-0008-99">W32.Qakbot!conf</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-022308-5525-99">W32.Qakbot!conf2</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-041903-2839-99">W32.Qakbot!conf3</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2009-122404-3606-99">W32.Qakbot!gen1</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2010-031511-4238-99%20">W32.Qakbot!gen2</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2010-060403-2225-99">W32.Qakbot!gen3</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2011-030709-1256-99">W32.Qakbot!gen4</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2011-032506-4117-99">W32.Qakbot!gen5</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-042002-3648-99">W32.Qakbot!gen6</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-041313-1240-99">W32.Qakbot!gen7</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2011-041802-4243-99">W32.Qakbot!gen8</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2011-042505-1710-99">W32.Qakbot!html</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/writeup.jsp?docid=2011-042713-4355-99">W32.Qakbot!job</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/security_response/writeup.jsp?docid=2010-012607-3312-99%20">W32.Qakbot!zip</a></li></ul><strong>     
+<br>     
+<br>Browser protection</strong>      
+<br>Symantec Browser Protection is known to be  effective at preventing some infection attempts made through the Web  browser.     
+<br>     
+<br>     
+<br><strong>Intrusion Prevention System</strong>      
+<br><ul><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=50155">MSIE Apple  QuickTime RTSP URI Remote BO</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=24115">System Infected: W32.Qakbot Activity</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=24233">System Infected: W32.Qakbot Activity 2</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=23571">System Infected: W32.Qakbot FTP Activity</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=24245">System Infected: W32.Qakbot FTP Activity 3</a>     
+<br></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=23566">HTTP  W32 QakBot File Download Activity</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=50031">MSIE  ADODB.Stream Object File Installation Weakness</a></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/business/security_response/attacksignatures/detail.jsp?asid=23350">HTTP Trojan IRCBot Activity</a>     
+<br></li></ul>     
+<br>     
+<br><strong>Symantec Endpoint Protection – Application and Device Control</strong>     
+<br>Symantec  Security Response has developed an Application and Device Control (ADC)  Policy for Symantec Endpoint Protection to protect against the  activities associated with this threat. ADC policies are useful in  reducing the risk of a threat infecting a computer, the unintentional  removal of data, and to restrict the programs that are run on a  computer.     
+<br>     
+<br>This particular ADC policy can be used to help combat  an outbreak of this threat by slowing down or eliminating its ability to  spread from one computer to another. If you are experiencing an  outbreak of this threat on your network, please <a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/content/en/us/enterprise/media/security_response/policies/W32.Qakbot.dat">download  the policy</a> by right-clicking the link, choosing your browser's "save as" option, and saving the file as "W32.Qakbot.dat".     
+<br>     
+<br>To use the policy, <a href="https://web.archive.org/web/20151027061642/http://service1.symantec.com/SUPPORT/ent-security.nsf/docid/2008110606154848?Open&amp;seg=ent">import  the .dat file</a> into your Symantec Endpoint Protection Manager. When  distributing it to client computers, we recommend using it in <strong>Test  (log only)</strong> mode initially in order to determine the possible  impacts of the policy on normal network/computer usage. After observing  the policy for a period of time, and determining the possible  consequences of enabling it in your environment, deploy the policy in <strong>Production  </strong>mode to enable active protection.     
+<br>     
+<br>For more information  on ADC and how to manage and deploy them throughout your organization,  please refer to the <a href="https://web.archive.org/web/20151027061642/ftp://ftp.entsupport.symantec.com/pub/support/documentation/Administration_Guide_SEP11.0.6.pdf">Symantec  Endpoint Protection Administration Manual</a> (PDF).     
+<br>     
+<br><strong>Note:</strong>  The ADC policies developed by Security Response are recommended for use  in outbreak situations. While useful in such situations, due to their  restrictive nature they may cause disruptions to normal business  activities.</div>
+<h3>Antivirus Protection Dates</h3>
+<ul class="listSQbl">
+<li>
+<strong>Initial Rapid Release version </strong>May 7, 2009 revision 001</li>
+<li>
+<strong>Latest Rapid Release version </strong>October 26, 2015 revision 035</li>
+<li>
+<strong>Initial Daily Certified version </strong>May 7, 2009 revision 003</li>
+<li>
+<strong>Latest Daily Certified version </strong>October 26, 2015 revision 022</li>
+<li>
+<strong>Initial Weekly Certified release date </strong>May 13, 2009</li>
+</ul>
+<div class="imgMrgnTopMD imgMrgnBtmLG">Click <a onclick="javascript:window.open('/enterprise/popup.jsp?popupid=sr_help_popup','','width=815,height=605,scrollbars=yes'); return false;" href="#" class="popup">here</a> for a more detailed description of Rapid Release and Daily Certified virus definitions.</div>
+<div class="imgMrgnTopLG">
+<strong>Writeup By: </strong>Angela Thigpen and Eric Chien</div>
+<div class="hr2 mrgnTopMD"></div>
+<div class="imgMrgnTopLG">
+<strong><span class="txtLgtGray">Summary</span><span class="mrgnLftSM mrgnRgtSM">| </span><a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99&amp;tabid=2">Technical Details</a><span class="mrgnLftSM mrgnRgtSM">| </span><a href="/web/20151027061642/https://www.symantec.com/security_response/writeup.jsp?docid=2009-050707-0639-99&amp;tabid=3">Removal</a></strong>
+</div>
+</div>
+</div>
+</div>
+
+	</div>	</div>	
+	<div class="colSide unitRight">
+      
+            <div class="bckSolidGry bckBrdr">
+                <div class="bckSolidWht bckPadSmall bckPadLftMD">
+                    <h3>Search Threats</h3>
+                    <div class="fontSM mrgnTopSM"><div class="mrgnBtmSM"><strong>Search by name</strong><br/>Example: W32.Beagle.AG@mm</div><div class="mod-search unit">
+
+<form method="get" id="search" name="searchSR" action="https://web.archive.org/web/20151027061642/http://searchg.symantec.com/search">
+<input name="q" size="16" value="Search Threats" class="inputBdr unit txtLgtGray" maxlength="100" type="text" onfocus="clearInputValue(this); $(this).addClass('colorBlack')" onblur="writeInputValue(this, 'Search Glossary'); $(this).removeClass('colorBlack')"/>
+<input type="image" src="/web/20151027061642im_/https://www.symantec.com/images/version-3/header/g-search-icon.png" alt="search"/>
+<input value="utf-8" name="charset" type="hidden"/>
+<input value="10" name="nh" type="hidden"/>
+<input value="100" name="hitsceil" type="hidden"/>
+<input value="1" name="st" type="hidden"/>
+<input value="symc_en_US" name="proxystylesheet" type="hidden"/>
+<input value="symc_en_US" name="client" type="hidden"/>
+<input value="symc_en_US_vir" name="site" type="hidden"/>
+<input type="hidden" name="output" value="xml_no_dtd"/>
+<input value="ent" name="context" type="hidden"/>
+</form>		
+
+</div><div class="clear"></div></div> </div> </div> 
+      <div class="promoWdgt mrgnTopMD">
+	      <a href="/web/20151027061642/https://www.symantec.com/business/theme.jsp?themeid=star"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/enterprise/images/promo/b-star-technologies-promo.png" alt="STAR Antimalware Protection Technologies" title="STAR Antimalware Protection Technologies" class="imgFltTop" width="180" height="130"/></a>
+      </div>
+      <div class="promoWdgt mrgnTopMD">
+	      <a href="/web/20151027061642/https://www.symantec.com/security_response/publications/threatreport.jsp"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/enterprise/images/promo/b-istr20-promo-180x190.png" alt="Internet Security Threat Report" title="Internet Security Threat Report" class="imgFltTop" width="180" height="190"/></a>
+      </div>			
+      <div class="promoWdgt mrgnTopMD">	    
+      				
+	  </div>
+</div>
+<div class="clear"></div>
+
+		<div class="footerPane">
+		
+			<div class="colOneMain">
+				<div class="symLogo mrgnTopXLG mrgnBtmMD unit">
+					
+					<a href="/web/20151027061642/https://www.symantec.com/index.jsp"><img src="/web/20151027061642im_/https://www.symantec.com/images/version-3/symantec-logo-120x32.png" alt="Symantec | United States" title="Symantec | United States"/></a>
+				</div>
+				
+				<div class="unit mrgnBtmXLG fatFooter">
+					<div class="mrgnRgtXXXLG txtWidgetFacet unit">
+						
+ <h4>Products</h4> 
+    <ul class="listNone">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/">Products &amp; Solutions</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/threat-protection/">Threat Protection</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/information-protection/">Information Protection</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/iot/">Internet of Things</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/cyber-security-services/">Cyber Security Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/website-security/">Web Security</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/small-business/">Small Business</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/products/">Product Index</a></li> 
+ </ul> 
+					</div>
+					<div class="mrgnRgtXXXLG txtWidgetFacet unit">
+						
+ <h4>Solutions</h4> 
+    <ul class="listNone">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/cloud-computing-software/">Cloud</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/iot/">Internet of Things</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/mobility/">Mobile</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=communications">Communications Service Providers</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/sub-industries.jsp?ind=public_sector&amp;sind=ps_education">Education</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/sub-industries.jsp?ind=public_sector&amp;sind=ps_federal">Federal Government</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=financial_services">Financial Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/?ind=healthcare">Healthcare</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/page.jsp?id=secure-your-point-of-sale-system">Retail Point of Sale</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/industries/sub-industries.jsp?ind=public_sector&amp;sind=ps_state_local">State &amp; Local</a></li> 
+ </ul> 
+					</div>
+					<div class="mrgnRgtXXXLG txtWidgetFacet unit">				
+						
+ <h4>Services</h4> 
+    <ul class="listNone">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/services/">Home</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/services/services.jsp?pcid=business_critical_services">Business Critical Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/it-consulting-services/">Consulting Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/cyber-security-services/">Cyber Security Services</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/services/it-training/">Education Services</a></li> 
+ </ul> 
+					</div>
+					<div class="mrgnRgtXXXLG txtWidgetFacet unit">
+						
+ <h4>Support Center</h4> 
+    <ul class="listNone">
+      
+ <li><a href="https://web.archive.org/web/20151027061642/https://support.symantec.com/en_US.html">Technical Support</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/connect/">Symantec Connect</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/licensing/">Buying Programs</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/licensing/upgrading-products/">Upgrades</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/licensing/renewals/">Renewals</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/products-solutions/training/">Training</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/resources/customer_success/">Customer Success</a></li> 
+ </ul> 
+					</div>
+					<div class="txtWidgetFacet unit">				
+						
+ <h4>Security Center</h4> 
+    <ul class="listNone">
+      
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/">Home</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/connect/symantec-blogs/sr">Security Response Blogs</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/publications/threatreport.jsp">ISTR</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/landing/threats.jsp">Threats</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/definitions.jsp">Virus Definitions and Security Updates</a></li> 
+ <li><a href="/web/20151027061642/https://www.symantec.com/security_response/removaltools.jsp">Removal Tools</a></li> 
+ </ul> 
+	</div>	</div>	
+			
+		<div class="unit fullWidth">
+			
+<div class="mod-linkSites unitRight">
+	
+	<a href="/web/20151027061642/https://www.symantec.com/globalsites/index.jsp" title="Change Country"><img class="unit" src="/web/20151027061642im_/https://www.symantec.com/images/version-3/header/globe-icon-off.png" width="22" height="22" alt="Change Country" title="Change Country"/><span>United States</span></a>	
+</div>	
+	</div>
+	<div class="unitRight mrgnTopXLG mrgnBtmLG">	
+				
+				<div class="unit mrgnRgtLG">  		
+					<div class="unit">
+						
+		<div class="unit clearfix">
+			<ul class=" trackSBOmniture">	
+	<li class="mrgnRgtMD unit"><a href="https://web.archive.org/web/20151027061642/http://twitter.com/symantec" target="_blank" title="Twitter"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/social-twitter-33x33.png"/></a></li>	
+	<li class="mrgnRgtMD unit"><a href="https://web.archive.org/web/20151027061642/http://www.facebook.com/Symantec" target="_blank" title="Facebook"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/social-facebook-33x33.png"/></a></li>	
+	<li class="mrgnRgtMD unit"><a href="https://web.archive.org/web/20151027061642/https://www.linkedin.com/company/1231" target="_blank" title="LinkedIn"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/social-linkedin-33x33.png"/></a></li>	
+	<li class="mrgnRgtMD unit"><a href="https://web.archive.org/web/20151027061642/https://plus.google.com/+symantec/posts" target="_blank" title="Google+"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/social-googleplus-33x33.png"/></a></li>	
+	<li class="mrgnRgtMD unit"><a href="https://web.archive.org/web/20151027061642/https://www.youtube.com/user/symantec/home" target="_blank" title="YouTube"><img src="/web/20151027061642im_/https://www.symantec.com/content/en/us/global/images/version3/social-media-icons/social-youtube-33x33.png"/></a></li>	
+	</ul>	</div>	
+	</div>	</div>	<div class="unitRight">
+		<script src="/web/20151027061642js_/https://www.symantec.com/scripts/getverisignsealimage-min.js?20150616"></script>
+		</div>
+	</div>	</div>	
+		<div class="fullWidth bckYellow unit">
+		<div class="footer">
+		<div class="">   
+		©1995 - 2015 Symantec Corporation 	</div><div class="">
+		<ul class="footerNav">
+		<li><a href="/web/20151027061642/https://www.symantec.com/about/index.jsp" title="About Symantec">About Symantec</a><span>|</span></li><li><a href="/web/20151027061642/https://www.symantec.com/about/careers/" title="Careers">Careers</a><span>|</span></li><li><a href="https://web.archive.org/web/20151027061642/https://symantecevents.verite.com/?action=public.dsp_calendar&amp;view=list" title="Events">Events</a><span>|</span></li><li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/about/news/" title="News">News</a><span>|</span></li><li><a href="/web/20151027061642/https://www.symantec.com/sitemap/index.jsp" title="Site Map">Site Map</a><span>|</span></li><li><a href="/web/20151027061642/https://www.symantec.com/about/profile/policies/legal.jsp" title="Legal">Legal<span>|</span></a><div class="footerNavBtm hide"></div><div class="footerMenu hide"><ul>
+		<li><a href="/web/20151027061642/https://www.symantec.com/about/profile/policies/legal.jsp" title="Legal Notices">Legal Notices</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/about/profile/policies/eulas/index.jsp" title="License Agreements">License Agreements</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/about/profile/policies/repository.jsp" title="Repository">Repository</a></li>	
+		<li><a href="https://web.archive.org/web/20151027061642/http://www.symantec.com/connect/groups/customer-trust-group&amp;inid=us_ghp_footer_customer_trust_portal" title="Customer Trust Portal">Customer Trust Portal</a></li>	
+	</ul></div></li><li><a href="/web/20151027061642/https://www.symantec.com/about/profile/privacypolicy/index.jsp" title="Privacy">Privacy</a><span>|</span></li><li><a href="/web/20151027061642/https://www.symantec.com/about/profile/policies/privacy.jsp#about_cookies" title="Cookies">Cookies</a><span>|</span></li><li><a href="/web/20151027061642/https://www.symantec.com/feedback/contactus.jsp" title="Contact">Contact<span>|</span></a><div class="footerNavBtm hide"></div><div class="footerMenu hide"><ul>
+		<li><a href="/web/20151027061642/https://www.symantec.com/norton/support/index.jsp" title="Norton Support">Norton Support</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/enterprise/support/index.jsp" title="Business Support">Business Support</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/enterprise/contact_sales.jsp" title="Business Sales">Business Sales</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/customer-support" title="Customer Support">Customer Support</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/page.jsp?id=contact-authentication-services" title="Authentication Services">Authentication Services</a></li>	
+		<li><a href="/web/20151027061642/https://www.symantec.com/feedback/contactus.jsp" title="Corporate Information">Corporate Information</a></li>	
+	</ul></div></li><li><a href="/web/20151027061642/https://www.symantec.com/rss/index.jsp" title="RSS">RSS</a></li>
+	</ul>	</div>	</div>	</div>
+	</div>	
+<script src="/web/20151027061642js_/https://www.symantec.com/scripts/version-3/search/google-min.js?20120403"></script>	
+<!--om-->
+<!-- SiteCatalyst code. Copyright 1997-2008 Omniture, Inc. More info available at http://www.omniture.com -->
+        <script><!--
+        /* You may give each page an identifying name, server, and channel on the next lines. */
+        s.server="symantec"
+        s.channel=metaData['visitor_segment'] + ': ' + metaData['site_section']
+        s.prop2=metaData['site_country']
+        s.prop3=metaData['site_language']
+        s.prop27=metaData['visitor_segment']
+        s.prop30=metaData['user_id']
+        s.prop41=metaData['site_section']
+        s.prop42=metaData['product_name']
+        s.prop43=metaData['product_category_name']
+        s.prop44=metaData['product_sub_category_name']
+        s.prop45=metaData['product_version_name']
+        s.prop46=metaData['content_format']
+        s.prop47=metaData['content_type']
+        s.prop48=metaData['content_title']
+        s.prop49=metaData['site_sub_section']
+        s.prop54=metaData['site_section_us']
+        s.prop58=metaData['site_sub_sub_section']
+        s.prop64=metaData['visitor_sub_segment']
+        s.prop52=metaData['site_section_4']
+        s.prop53=metaData['site_section_5']
+        /* Conversion Variables */
+        s.products=metaData['products']
+        s.eVar27=metaData['site_country']
+        s.eVar28=metaData['site_language']
+        s.eVar29=metaData['visitor_segment'] + ': ' + metaData['site_section']
+        s.eVar32=metaData['user_id']
+        s.eVar41=metaData['site_section']
+        s.eVar48=metaData['site_sub_section']
+        s.eVar49=metaData['content_title']
+        s.eVar50=metaData['visitor_segment']
+        s.eVar58=metaData['site_sub_sub_section']
+        s.eVar75=metaData['visitor_sub_segment']      
+if(typeof(metaData['score_id']) != "undefined" && typeof(metaData['score_value']) != "undefined") {
+    s.eVar7=metaData['score_id'];
+    s.eVar8="+"+metaData['score_value'];
+    s.events="event18="+metaData['score_value'];
+}        /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+        var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+        <script language="JavaScript" type="text/javascript"><!--
+        if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+        //--></script><noscript><img src="https://web.archive.org/web/20151027061642im_/http://om.symantec.com/b/ss/veritasnonconsumer/1/H.24.1--NS/0" height="1" width="1" border="0" alt=""/>
+        </noscript>
+        <!--/DO NOT REMOVE/-->
+        <!-- End SiteCatalyst code version: H.24.1. -->
+</body>
+</html><!--
+     FILE ARCHIVED ON 06:16:42 Oct 27, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 12:07:56 Jan 01, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 264.489 (11)
+  exclusion.robots: 0.183
+  exclusion.robots.policy: 0.175
+  cdx.remote: 0.053
+  esindex: 0.007
+  LoadShardBlock: 224.952 (3)
+  PetaboxLoader3.resolve: 147.765 (2)
+  PetaboxLoader3.datanode: 210.674 (4)
+  load_resource: 178.043
+-->

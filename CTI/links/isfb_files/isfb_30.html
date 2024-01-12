@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/bootstrap.min.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/navigation.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/pagination.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/banners.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/style.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-vsc-dark-plus.css?v=a225f65a71">
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/prism-talos.css?v=a225f65a71">
+
+    <link rel="stylesheet" href="https://blog.talosintelligence.com/assets/css/landing-page.css?v=a225f65a71">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/css/style.min.css" rel="stylesheet">
+
+
+    <link rel="icon" href="https://blog.talosintelligence.com/content/images/size/w256h256/2022/07/talos_o_square.png" type="image/png">
+    <link rel="canonical" href="https://blog.talosintelligence.com/valak-emerges/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Cisco Talos Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks">
+    <meta property="og:description" content="By Nick Biasini, Edmund Brumaghin and Mariano Graziano.
+
+
+Threat summary
+
+ * Attackers are actively distributing the Valak malware family around the globe, with enterprises, in particular, being targeted.
+ * These campaigns make use of existing email threads from compromised accounts to greatly increase success.
+ * The additional use of password-protected ZIP files can">
+    <meta property="og:url" content="https://blog.talosintelligence.com/valak-emerges/">
+    <meta property="og:image" content="https://blog.talosintelligence.com/content/images/-HJyNv0Ptu8o/XvyMXBCpbuI/AAAAAAAABtk/hoFfn6JqEFIyGuWggqS4Vwjh9rdiJ4e6wCLcBGAsYHQ/w1200-h630-p-k-no-nu/image3.png">
+    <meta property="article:published_time" content="2020-07-01T15:02:00.000Z">
+    <meta property="article:modified_time" content="2022-08-24T15:20:10.000Z">
+    <meta property="article:tag" content="Infostealer">
+    <meta property="article:tag" content="Threats">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks">
+    <meta name="twitter:description" content="By Nick Biasini, Edmund Brumaghin and Mariano Graziano.
+
+
+Threat summary
+
+ * Attackers are actively distributing the Valak malware family around the globe, with enterprises, in particular, being targeted.
+ * These campaigns make use of existing email threads from compromised accounts to greatly increase success.
+ * The additional use of password-protected ZIP files can">
+    <meta name="twitter:url" content="https://blog.talosintelligence.com/valak-emerges/">
+    <meta name="twitter:image" content="https://blog.talosintelligence.com/content/images/-HJyNv0Ptu8o/XvyMXBCpbuI/AAAAAAAABtk/hoFfn6JqEFIyGuWggqS4Vwjh9rdiJ4e6wCLcBGAsYHQ/w1200-h630-p-k-no-nu/image3.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Edmund Brumaghin">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Infostealer, Threats">
+    <meta name="twitter:site" content="@TalosSecurity">
+    <meta property="og:image:width" content="955">
+    <meta property="og:image:height" content="501">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Cisco Talos Blog",
+        "url": "https://blog.talosintelligence.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.talosintelligence.com/content/images/2022/11/TalosBrand_ukraine.svg"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Edmund Brumaghin",
+        "url": "https://blog.talosintelligence.com/author/edmund-brumaghin/",
+        "sameAs": []
+    },
+    "headline": "Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks",
+    "url": "https://blog.talosintelligence.com/valak-emerges/",
+    "datePublished": "2020-07-01T15:02:00.000Z",
+    "dateModified": "2022-08-24T15:20:10.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.talosintelligence.com/content/images/-HJyNv0Ptu8o/XvyMXBCpbuI/AAAAAAAABtk/hoFfn6JqEFIyGuWggqS4Vwjh9rdiJ4e6wCLcBGAsYHQ/w1200-h630-p-k-no-nu/image3.png",
+        "width": 955,
+        "height": 501
+    },
+    "keywords": "Infostealer, Threats",
+    "description": "By Nick Biasini, Edmund Brumaghin and Mariano Graziano.\n\n\nThreat summary\n\n * Attackers are actively distributing the Valak malware family around the globe, with enterprises, in particular, being targeted.\n * These campaigns make use of existing email threads from compromised accounts to greatly increase success.\n * The additional use of password-protected ZIP files can create a blind spot in security protections.\n * The overwhelming majority of campaigns occurred over the last couple of months a",
+    "mainEntityOfPage": "https://blog.talosintelligence.com/valak-emerges/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.75">
+    <link rel="alternate" type="application/rss+xml" title="Cisco Talos Blog" href="https://blog.talosintelligence.com/rss/">
+    
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="4ffb0139d74ada998f4b141e4d" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://cisco-talos-blog.ghost.io/" crossorigin="anonymous"></script>
+    
+    <link href="https://blog.talosintelligence.com/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=a225f65a71"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=a225f65a71">
+    <style type='text/css'>
+    img[src*="icon_check_white.svg"] { width: 20px; margin-left: 0px; margin-right: auto; }
+    
+    #ghost-portal-root { display: none; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F45RVJG3BK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F45RVJG3BK');
+</script>
+<style>:root {--ghost-accent-color: #006db6;}</style>
+</head>
+
+<body class="post-template tag-infostealer tag-threats tag-hash-blogger">
+
+    <div id="mobile-page-header" class="desktop-hide">
+    <h1>Cisco Talos Blog</h1>
+</div>
+<input id="nav-trigger" class="nav-trigger" type="checkbox"/>
+<label for="nav-trigger">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="16px" viewBox="0 0 22 16">
+        <g id="menu-icon">
+            <path fill="#FFFFFF" d="M20.5,3h-19C0.672,3,0,2.329,0,1.5S0.672,0,1.5,0h19C21.328,0,22,0.671,22,1.5S21.328,3,20.5,3z"></path>
+            <path fill="#FFFFFF" d="M20.5,9.5h-19C0.672,9.5,0,8.828,0,8c0-0.829,0.672-1.5,1.5-1.5h19C21.328,6.5,22,7.171,22,8   C22,8.828,21.328,9.5,20.5,9.5z"></path>
+            <path fill="#FFFFFF" d="M20.5,16h-19C0.672,16,0,15.328,0,14.5S0.672,13,1.5,13h19c0.828,0,1.5,0.672,1.5,1.5S21.328,16,20.5,16z"></path>
+        </g>
+    </svg>
+</label>
+<nav id="nav">
+    <div id="top-nav-bar">
+    </div>
+
+    <div id="navigation">
+        <div class="navigation-logos-wrapper">
+            <div id="talos-logo-wrapper">
+                <a class="navbar-brand" href="https://talosintelligence.com">
+                </a>
+            </div>
+        </div>
+        <div class="navigation-links-wrapper">
+            <ul class="main-nav-list">
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/software">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <path class="white" d="M19.4,17.1c0,0.1-0.1,0-0.2,0c0,0-1.3-0.9-2-1.4c-0.2-0.1-0.5-0.1-0.6,0.1c-0.3,0.3-0.6,0.8-0.9,1.3  c-0.1,0.2-0.1,0.5,0.1,0.6l2,1.5c0.1,0,0,0.1,0.1,0.2c0,0.1,0,0.1-0.1,0.2c-1.2,0.5-2.6,0.2-3.5-0.7c-0.8-0.9-1-2-0.7-3.1L4.5,6.5  c-1,0.3-2.3,0-3-0.9c-0.8-0.9-1.1-1.7-1-2.7c0-0.1,0-0.1,0.1-0.2c0.1,0,0.2,0.1,0.2,0.1l2,1.5C3,4.4,3.3,4.5,3.4,4.2  c0,0,0.5-0.8,0.9-1.3c0.1-0.2,0.1-0.5-0.1-0.6L2.3,0.9c-0.1,0,0-0.1-0.1-0.3c0-0.1,0-0.1,0.1-0.2C3.5-0.1,5,0.2,5.8,1.1  c0.8,0.9,1,2,0.7,3.1l9.1,9.3c1-0.3,2.3,0,3,0.9c0.7,0.7,0.9,1.5,0.9,2.5C19.5,16.9,19.5,17,19.4,17.1z"></path>
+                        </svg>
+                        <span>Software</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/vulnerability_info">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                                <g id="vuln-icon" class="nav-icon">
+                                    <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                                </g>
+                            </svg>
+                            <span>Vulnerability Information</span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="vuln-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="vuln-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/vulnerability_info">
+                                <h4>Vulnerability Information</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="vuln-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/vulnerability_reports">Vulnerability Reports</a></li>
+                        <li><a href="https://talosintelligence.com/ms_advisories">Microsoft Advisories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="20px" viewBox="0 0 26 20">
+                            <g id="vuln-icon" class="nav-icon">
+                                <path fill="#FFFFFF" d="M24.256,18.49L13.872,0.503C13.692,0.192,13.36,0,13,0c-0.359,0-0.692,0.192-0.872,0.503L1.744,18.49  c-0.18,0.312-0.18,0.695,0,1.006C1.924,19.809,2.257,20,2.616,20h20.769c0.359,0,0.691-0.191,0.871-0.504  C24.436,19.186,24.436,18.803,24.256,18.49 M14.268,18.215h-2.533v-1.85h2.533V18.215z M14.268,15.441h-2.533L10.89,6.515h4.222  L14.268,15.441z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/reputation">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                                <style type="text/css">
+                                    .white{fill:#FFFFFF;}
+                                </style>
+                                <g>
+                                <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                    <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                                </g>
+                            </svg>
+                            <span>
+                                Reputation Center
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="reputation-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="reputation-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/reputation">
+                                <h4>Reputation Center</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="reputation-sub-trigger">BACK</label>
+                        </li>
+                        <li><a data-method="get" href="https://talosintelligence.com/reputation_center">IP &amp; Domain Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a></li>
+                        <li><a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a></li>
+                        <li><a href="https://talosintelligence.com/categories">Intelligence Categories</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 20 20" height="20px" width="20px" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+                            <style type="text/css">
+                                .white{fill:#FFFFFF;}
+                            </style>
+                            <g>
+                            <path class="white" d="M19.5,9.5h-1.1c-0.3-4.2-3.6-7.6-7.8-7.8V0.5C10.5,0.2,10.3,0,10,0l0,0C9.7,0,9.5,0.2,9.5,0.5l0,0v1.1   C5.3,1.9,1.9,5.3,1.6,9.5H0.5C0.2,9.5,0,9.7,0,10s0.2,0.5,0.5,0.5l0,0h1.1c0.3,4.2,3.6,7.6,7.8,7.8v1.1c0,0.3,0.2,0.5,0.5,0.5l0,0   c0.3,0,0.5-0.2,0.5-0.5l0,0v-1.1c4.2-0.3,7.6-3.6,7.8-7.8h1.1c0.3,0,0.5-0.2,0.5-0.5C20,9.7,19.8,9.5,19.5,9.5 M16.6,10.5h0.7   c-0.3,3.6-3.2,6.5-6.8,6.8v-0.8c0-0.3-0.2-0.5-0.5-0.5l0,0c-0.3,0-0.5,0.2-0.5,0.5v0.8C5.8,17,3,14.2,2.7,10.5h0.8   C3.8,10.5,4,10.3,4,10S3.8,9.5,3.5,9.5l0,0H2.7C3,5.8,5.8,3,9.5,2.7v0.8C9.5,3.7,9.7,4,10,4l0,0c0.3,0,0.5-0.2,0.5-0.5V2.7   C14.2,3,17,5.8,17.3,9.5h-0.7c-0.3,0-0.5,0.2-0.5,0.5C16.1,10.3,16.3,10.5,16.6,10.5L16.6,10.5"></path>
+                                <circle class="white" cx="10" cy="10" r="3.2"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://support.talosintelligence.com/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26px" height="20px" viewBox="0 0 123.17 159.292">
+                            <path d="M61.59,0,0,17.069v85.32c0,23.472,61.59,56.9,61.59,56.9s61.58-36.288,61.58-56.9V17.069Zm-.433,149.746C38.314,136.662,8.128,114.3,8.128,102.389V23.239l53.029-14.7Z" fill="#fff"></path>
+                        </svg>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/incident_response">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="111.588" height="148.311" viewBox="0 0 111.588 148.311">
+                            <path d="M1.181,128.446v15.7a4.167,4.167,0,0,0,4.167,4.167h100.9a4.167,4.167,0,0,0,4.167-4.167v-15.7a4.167,4.167,0,0,0-4.167-4.167H5.348a4.167,4.167,0,0,0-4.167,4.166M55.8,63.109a3.277,3.277,0,1,1,0,6.553c-10.344,0-20.755,8.578-20.755,18.57a3.277,3.277,0,1,1-6.554,0C28.489,73.947,41.93,63.109,55.8,63.109Zm0-12.016c-21.787,0-39.325,17.81-39.325,39.937v26.7H95.122V91.03c0-22.128-17.537-39.937-39.324-39.937m52.365-38.3a3.291,3.291,0,0,0-2.254,1.024L88.432,31.294a3.283,3.283,0,0,0,4.642,4.644l17.478-17.479a3.278,3.278,0,0,0-2.389-5.666m-105.138,0a3.276,3.276,0,0,0-1.98,5.666L18.522,35.938a3.283,3.283,0,0,0,4.643-4.644L5.687,13.817A3.255,3.255,0,0,0,3.025,12.793ZM55.389.026a3.276,3.276,0,0,0-2.867,3.345V19.642a3.277,3.277,0,1,0,6.554,0V3.371A3.283,3.283,0,0,0,55.389.026Z" fill="#fff"></path>
+                        </svg>
+                        <span>Incident Response</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/careers">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="153.816" height="90" viewBox="0 0 153.816 90">
+                            <g>
+                                <path d="M56.336,47.451a31.328,31.328,0,0,0-17.1-10.872A19.564,19.564,0,0,0,50.91,19.1C50.91,8.868,42.008,0,31.735,0S12.559,8.868,12.559,19.1A19.564,19.564,0,0,0,24.22,36.574,31.239,31.239,0,0,0,0,66.717c0,2.343,12.671,10.9,31.883,10.9a63.142,63.142,0,0,0,6.536-.341,37,37,0,0,1,8.222-21.367,38.039,38.039,0,0,1,9.7-8.456" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M106.731,70.729a32.386,32.386,0,0,0-1.889-4.815c-.014-.029-.028-.058-.043-.087a32.308,32.308,0,0,0-2.568-4.335c-.033-.047-.066-.095-.1-.142-.312-.436-.631-.866-.964-1.287l-.015-.02a32.215,32.215,0,0,0-2.185-2.483l-.166-.168c-.369-.372-.745-.737-1.131-1.09l-.025-.024c-.415-.379-.838-.744-1.272-1.1l-.081-.064q-.582-.474-1.189-.92l-.217-.159c-.43-.312-.866-.616-1.313-.9h0a31.084,31.084,0,0,0-9.679-4.164A19.564,19.564,0,0,0,95.566,31.488c0-10.234-8.9-19.1-19.175-19.1s-19.176,8.868-19.176,19.1A19.564,19.564,0,0,0,68.876,48.96a31.828,31.828,0,0,0-9.109,3.733h0a31.8,31.8,0,0,0-6.941,5.668l-.045.05a31.3,31.3,0,0,0-2.243,2.738l-.024.034q-.5.693-.969,1.415c-.014.023-.03.047-.046.07a31.053,31.053,0,0,0-1.7,3.019c-.028.059-.057.117-.085.175a30.16,30.16,0,0,0-1.33,3.185c-.02.056-.038.112-.058.169q-.255.741-.474,1.5c-.019.065-.039.13-.057.2a30.092,30.092,0,0,0-.741,3.374c-.015.094-.03.188-.044.282-.084.56-.158,1.123-.211,1.693v.007c-.087.935-.135,1.88-.135,2.834,0,2.343,12.671,10.9,31.883,10.9s31.583-8.555,31.583-10.9a32.8,32.8,0,0,0-1.384-8.35l-.007-.023" fill="#fff" fill-rule="evenodd"></path>
+                                <path d="M129.588,36.579A19.564,19.564,0,0,0,141.261,19.1c0-10.234-8.9-19.1-19.175-19.1S102.91,8.868,102.91,19.1a19.562,19.562,0,0,0,11.66,17.472A31.817,31.817,0,0,0,96.916,47.859a38.586,38.586,0,0,1,17.373,29.253,63.062,63.062,0,0,0,7.945.5c19.212,0,31.582-8.554,31.582-10.9a31.947,31.947,0,0,0-24.228-30.138" fill="#fff" fill-rule="evenodd"></path>
+                            </g>
+                        </svg>
+                        <span>Careers</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a id="link_blog" class="primary_nav_link" href="https://blog.talosintelligence.com">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="260px" height="296.5px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                                <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                            </svg>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+                    <input id="blog-sub-trigger" class="sub-nav-trigger" type="checkbox"/>
+                    <label class="sub-nav-trigger-label" for="blog-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://blog.talosintelligence.com">
+                                <h4>Blog</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="blog-sub-trigger">BACK</label>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com/category/threat-source-newsletter/">Talos Threat Source Newsletter</a>
+                        </li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 260 296.5" enable-background="new 0 0 260 296.5" xml:space="preserve">
+                            <path fill="#FFFFFF" d="M243.586,42.404h-14.448c-0.943-4.513-3.143-8.813-6.616-12.33L201.793,9.098  c-4.7-4.757-10.972-7.377-17.66-7.377c-6.578,0-12.777,2.547-17.457,7.173l-33.875,33.511H17.586c-6.6,0-12,5.399-12,12V226.28  c0,6.6,5.4,12,12,12H153.83l84.21,56.278l-27.448-56.278h32.994c6.6,0,12-5.4,12-12V54.404  C255.586,47.804,250.186,42.404,243.586,42.404z M214.662,48.045c-0.01,0.2-0.021,0.399-0.044,0.599  c-0.008,0.069-0.021,0.139-0.031,0.207c-0.046,0.345-0.113,0.688-0.196,1.026c-0.034,0.137-0.063,0.273-0.103,0.408  c-0.039,0.135-0.087,0.267-0.133,0.399c-0.051,0.151-0.102,0.302-0.16,0.45c-0.049,0.126-0.105,0.249-0.16,0.373  c-0.068,0.153-0.139,0.307-0.216,0.457c-0.059,0.116-0.12,0.23-0.184,0.345c-0.088,0.157-0.181,0.312-0.278,0.465  c-0.065,0.104-0.13,0.206-0.2,0.308c-0.115,0.168-0.239,0.33-0.366,0.492c-0.064,0.081-0.124,0.165-0.19,0.244  c-0.199,0.238-0.409,0.472-0.635,0.694L82.458,182.308l-47.932,12.871l13.427-47.74L177.223,19.561  c1.917-1.895,4.414-2.84,6.911-2.84c2.534,0,5.068,0.975,6.99,2.92l20.726,20.974c0.545,0.552,1.002,1.156,1.39,1.79  c0.574,0.938,0.975,1.951,1.206,2.993c0.004,0.021,0.01,0.04,0.014,0.06c0.049,0.226,0.086,0.453,0.119,0.682  c0.008,0.06,0.017,0.118,0.024,0.178c0.026,0.211,0.045,0.424,0.058,0.636c0.004,0.077,0.007,0.153,0.009,0.23  c0.007,0.203,0.011,0.407,0.005,0.61C214.673,47.877,214.666,47.961,214.662,48.045z"></path>
+                        </svg>
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="primary-link-wrapper">
+                        <a class="primary_nav_link" href="https://talosintelligence.com/podcasts">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                                <style type="text/css">
+                                    .podcast-fill{fill:#fff;}
+                                </style>
+                                <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                            </svg>
+
+                            <span>
+                                Podcasts
+                            </span>
+                        </a>
+                    </div>
+                    <input class="sub-nav-trigger" id="podcast-sub-trigger" type="checkbox">
+                    <label class="sub-nav-trigger-label" for="podcast-sub-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.167px" height="47.75px" viewBox="0 0 48.167 47.75">
+                            <circle opacity="0.4" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="24.083" cy="23.875" r="22"></circle>
+                            <g>
+                                <circle fill="#FFFFFF" cx="24.083" cy="16.068" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="23.875" r="2.496"></circle>
+                                <circle fill="#FFFFFF" cx="24.083" cy="31.682" r="2.496"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                    <ul class="sub-nav">
+                        <li class="desktop-hide">
+                            <a href="https://talosintelligence.com/podcasts">
+                                <h4>Podcasts</h4>
+                            </a>
+                        </li>
+                        <li class="desktop-hide">
+                            <label class="subnav-back-button" for="podcast-sub-trigger">BACK</label>
+                        </li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos</a></li>
+                        <li><a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes</a></li>
+                    </ul>
+                    <div class="desktop-hide subnav-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="podcast-icon-nav" x="0px" y="0px" viewBox="0 0 71.8 75" width="26px" height="20px" style="enable-background:new 0 0 71.8 75;" xml:space="preserve">
+                            <style type="text/css">
+                                .podcast-fill{fill:#fff;}
+                            </style>
+                            <path class="podcast-fill" d="M21.8,15.1c0-7.8,6.3-14.1,14.1-14.1c7.8,0,14.1,6.3,14.1,14.1v25.4c0,7.8-6.3,14.1-14.1,14.1  c-7.8,0-14.1-6.3-14.1-14.1V15.1z M59.9,40.1c0,12.4-9.4,22.6-21.5,23.9v3.6h12.8c1.4,0,2.6,1.2,2.6,2.6c0,1.4-1.2,2.6-2.6,2.6H20.4  c-1.4,0-2.6-1.2-2.6-2.6c0-1.4,1.2-2.6,2.6-2.6h12.8V64c-12-1.3-21.5-11.5-21.5-23.9v-6.8c0-1.4,1.2-2.6,2.6-2.6  c1.4,0,2.6,1.2,2.6,2.6v6.8c0,10.4,8.5,18.8,18.8,18.8c10.4,0,18.8-8.5,18.8-18.9v-6.8c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6  V40.1z"></path>
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="primary_nav_link" href="https://talosintelligence.com/about">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55px" height="55px" viewBox="0 0 55 55">
+                            <g>
+                                <g class="mobile-nav-home">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M45.201,12.343c0.378,0.48,0.758,0.925,1.096,1.401    c2.975,4.207,4.543,8.876,4.494,14.044c-0.05,5.452-1.643,10.386-5.186,14.593c-3.484,4.133-7.929,6.73-13.182,7.895    c-6.313,1.398-12.216,0.275-17.695-3.131c-0.441-0.273-0.847-0.6-1.266-0.904c-0.11-0.078-0.208-0.174-0.337-0.287    c0.127-0.141,0.246-0.27,0.366-0.398c0.887-0.949,1.765-1.904,2.663-2.844c0.114-0.119,0.321-0.217,0.485-0.217    c3.658-0.006,7.318,0,10.975,0.008c3.458,0.006,6.913,0.02,10.369,0.02c0.957,0,1.871-0.193,2.62-0.844    c0.797-0.693,1.157-1.596,1.157-2.643c0.001-7.533,0.003-15.067-0.005-22.601c-0.002-0.309,0.088-0.524,0.3-0.743    C43.098,14.598,44.127,13.49,45.201,12.343"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M41.402,8.822c-0.99,1.027-1.994,2.021-2.935,3.072    c-0.312,0.35-0.616,0.416-1.036,0.415c-6.98-0.009-13.957-0.007-20.938-0.007c-2.039,0-3.561,1.514-3.561,3.557    c0,6.504,0.002,13.008,0.006,19.512c0.002,0.973,0.011,1.943,0.004,2.914c0,0.133-0.04,0.301-0.127,0.393    c-1.069,1.162-2.15,2.314-3.229,3.469c-0.021,0.023-0.052,0.039-0.109,0.08c-0.159-0.188-0.323-0.369-0.471-0.562    c-2.535-3.348-4.119-7.102-4.605-11.268c-0.61-5.229,0.194-10.229,2.835-14.839c2.669-4.664,6.655-7.805,11.618-9.75    c3.205-1.257,6.533-1.852,9.977-1.621c4.478,0.298,8.553,1.754,12.227,4.325c0.101,0.072,0.197,0.151,0.291,0.229    C41.364,8.755,41.374,8.778,41.402,8.822"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M39.799,12.47c0.873-0.911,1.749-1.829,2.676-2.797    c0.605,0.564,1.195,1.112,1.816,1.691c-0.941,0.985-1.817,1.903-2.703,2.83c-0.276-0.339-0.511-0.688-0.807-0.975    C40.492,12.941,40.145,12.728,39.799,12.47"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M10.35,43.279c0.969-1.016,1.885-1.977,2.76-2.893    c0.213,0.369,0.376,0.762,0.639,1.072c0.265,0.312,0.627,0.539,0.98,0.832c-0.853,0.891-1.713,1.791-2.624,2.746    C11.513,44.445,10.939,43.869,10.35,43.279"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item desktop-hide">
+                    <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> <span>Search Blog</span></button>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-search-wrapper">
+            <button class="search-button" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+        </div>
+    </div>
+</nav>
+    
+
+    <main id="site-main">
+        <div class="container-fluid">
+            <div class="row main-content-row">
+                <div class="col post-full-content">
+                    
+<article class="post tag-infostealer tag-threats tag-hash-blogger ">
+        <div class="feature-image-wrapper my-5">
+            <figure>
+                <img src="/content/images/-HJyNv0Ptu8o/XvyMXBCpbuI/AAAAAAAABtk/hoFfn6JqEFIyGuWggqS4Vwjh9rdiJ4e6wCLcBGAsYHQ/w1200-h630-p-k-no-nu/image3.png" alt="" class="img-fluid" />
+            </figure>
+        </div>
+
+    <h1 class="text-center">Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks</h1>
+
+    <div class="text-center m-1">
+        <div class="post-author">
+            <span>By </span>
+                <a href="https://blog.talosintelligence.com/author/edmund-brumaghin/">Edmund Brumaghin</a>
+        </div>
+
+        <br/>
+        <time class="post-datetime" datetime="July 1, 2020 11:02">
+            Wednesday, July 1, 2020 11:02
+        </time>
+
+        <div class="m-3">
+                            <a href="/category/infostealer/" class="category primary-category">
+                                Infostealer
+                            </a>
+                                                    <a href="/category/threats/" class="category primary-category">
+                                Threats
+                            </a>
+                                </div>
+    </div>
+
+    <section class="post-content-wrapper mt-5">
+        <div class="post-content">
+            <p><i>By <a href="https://twitter.com/infosec_nick">Nick Biasini</a>, <a href="https://www.blogger.com/profile/10442669663667294759">Edmund Brumaghin</a> and <a href="https://twitter.com/emd3l">Mariano Graziano</a>.</i></p><h2 id="threat-summary">Threat summary</h2><ul><li>Attackers are actively distributing the Valak malware family around the globe, with enterprises, in particular, being targeted.</li><li>These campaigns make use of existing email threads from compromised accounts to greatly increase success.</li><li>The additional use of password-protected ZIP files can create a blind spot in security protections.</li><li>The overwhelming majority of campaigns occurred over the last couple of months and targeted organizations in the financial, manufacturing, health care and insurance verticals.</li></ul><h2 id="executive-summary-valak-is-a-modular-information-stealer-that-attackers-have-deployed-to-various-countries-since-early-to-mid-2019-while-valak-features-a-robust-feature-set-it-is-often-observed-alongside-secondary-malware-payloads-including-gozi-ursnif-and-icedid-this-malware-is-typically-delivered-via-malicious-spam-email-campaigns-that-leverage-password-protected-zip-archives-to-evade-detection-by-email-security-solutions-that-may-inspect-the-contents-of-emails-entering-corporate-networks-while-previous-analysis-focused-on-campaigns-targeting-the-united-states-and-germany-cisco-talos-has-observed-ongoing-campaigns-targeting-other-geographic-regions-including-countries-in-north-america-south-america-europe-and-likely-others-the-email-campaigns-distributing-downloaders-associated-with-valak-also-appear-to-be-leveraging-existing-email-threads-to-lend-credibility-to-the-emails-and-increase-the-likelihood-that-victims-will-open-file-attachments-and-initiate-the-valak-infection-process-">Executive summary <br> Valak is a modular information-stealer that attackers have deployed to various countries since early-to-mid 2019. While Valak features a robust feature set, it is often observed alongside secondary malware payloads, including <a href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018">Gozi/Ursnif</a> and <a href="https://blog.talosintelligence.com/icedid-banking-trojan">IcedID</a>. This malware is typically delivered via malicious spam email campaigns that leverage password-protected ZIP archives to evade detection by email security solutions that may inspect the contents of emails entering corporate networks. While previous <a href="https://www.cybereason.com/blog/valak-more-than-meets-the-eye">analysis</a> focused on campaigns targeting the United States and Germany, Cisco Talos has observed ongoing campaigns targeting other geographic regions including countries in North America, South America, Europe and likely others. The email campaigns distributing downloaders associated with Valak also appear to be leveraging existing email threads to lend credibility to the emails and increase the likelihood that victims will open file attachments and initiate the Valak infection process.<br> <br></h2><h3 id="what-s-new-valak-is-a-relatively-new-stealer-that-has-greatly-increased-its-distribution-over-the-last-several-months-by-using-stolen-email-threads-and-password-protected-zip-files-valak-has-enjoyed-success-compromising-enterprises-research-shows-that-organizations-are-targeted-repeatedly-by-valak-in-hopes-of-monetary-gain-">What's new? <br> Valak is a relatively new stealer that has greatly increased its distribution over the last several months. By using stolen email threads and password-protected ZIP files, Valak has enjoyed success compromising enterprises. Research shows that organizations are targeted repeatedly by Valak in hopes of monetary gain.</h3><h3 id="how-did-it-work-valak-is-spread-through-malspam-campaigns-what-makes-this-threat-unique-is-its-repeated-use-of-stolen-email-threads-by-replying-to-existing-conversations-with-their-targets-the-actors-behind-valak-greatly-increased-their-success-rate-finally-the-email-attachments-are-password-protected-preventing-content-analysis-and-inspection-prior-to-reaching-a-user-s-desktop-">How did it work? <br> Valak is spread through malspam campaigns. What makes this threat unique is its repeated use of stolen email threads. By replying to existing conversations with their targets, the actors behind Valak greatly increased their success rate. Finally, the email attachments are password-protected, preventing content analysis and inspection prior to reaching a user's desktop.</h3><h3 id="so-what-the-campaigns-we-analyzed-have-targeted-major-organizations-in-verticals-such-as-energy-health-care-finance-manufacturing-and-insurance-these-targets-need-to-be-aware-that-existing-email-threads-are-being-hijacked-with-success-and-organizations-will-need-to-decide-how-to-address-emails-with-password-protected-attachments-if-they-accept-them-at-all-as-we-continue-to-get-better-at-detecting-and-blocking-spam-messages-adversaries-will-continue-to-move-to-novel-approaches-like-email-thread-hijacking-">So what? <br> The campaigns we analyzed have targeted major organizations in verticals such as energy, health care, finance, manufacturing and insurance. These targets need to be aware that existing email threads are being hijacked with success and organizations will need to decide how to address emails with password-protected attachments, if they accept them at all. As we continue to get better at detecting and blocking spam messages adversaries will continue to move to novel approaches, like email thread hijacking.</h3><h2 id="malspam-campaigns-in-most-of-the-email-campaigns-observed-the-emails-consist-of-a-reply-message-within-an-existing-email-thread-in-some-cases-the-previous-messages-in-the-email-threads-were-several-years-old-the-emails-reference-an-attached-zip-archive-and-provide-a-password-that-can-be-used-to-extract-the-contents-of-the-archive-">Malspam campaigns <br> In most of the email campaigns observed, the emails consist of a reply message within an existing email thread. In some cases, the previous messages in the email threads were several years old. The emails reference an attached ZIP archive and provide a password that can be used to extract the contents of the archive.</h2><p>In our analysis, we've identified a couple of patterns to highlight. One of the most important findings is how this group appears to be targeting its victims. During our research, we found Valak targeting financial, manufacturing, insurance and transportation organizations. This included multiple attempts to deliver malspam from different sources. Please note that due to the use of stolen email threads, the emails are heavily redacted to protect the privacy of all parties involved.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-bvJ7VsNjNfA/XvyMfSz7FgI/AAAAAAAABto/YftzPjyyNkgprh9T6ZF3gF6NiRDkNn7vgCLcBGAsYHQ/s640/image23.jpg" class="kg-image" alt loading="lazy"></figure><h3 id="financials-targeted-in-this-example-we-will-walk-through-emails-observed-over-the-course-of-a-week-directed-at-a-single-financial-institution-the-modus-operandi-for-this-group-is-to-use-stolen-hijacked-email-threads-to-send-reply-emails-to-target-organizations-below-is-the-first-example-we-saw-directed-at-the-financial-institution-in-question-">Financials targeted <br> In this example, we will walk through emails observed over the course of a week directed at a single financial institution. The modus operandi for this group is to use stolen/hijacked email threads to send reply emails to target organizations. Below is the first example we saw directed at the financial institution in question.</h3><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-s09guaBhrZU/XvyMl9ksO2I/AAAAAAAABts/y777V3gYv38rVxQVJJQQ3NlcGRQq17-JgCLcBGAsYHQ/s640/image1.png" class="kg-image" alt loading="lazy"></figure><p>This email arrived early in the morning and was a response to an email from a couple of months earlier, in late February. Note the basic body, with a password-protected ZIP file. As is also common with these attacks, email signatures are also present. A few hours later, several other emails arrived — all from the same compromised email account. Each of these emails is addressed to a single unique recipient. This is something else we commonly saw — if there was an email thread with many participants, the actors chose to send a single email message to each user instead of replying to all or sending a single email to multiple targets.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-WMo8LL2I1tk/XvyMq_9kkDI/AAAAAAAABt0/OKFrxx6Dwrkw6_QbvLiGs6z8Kx1b5wSTQCLcBGAsYHQ/s640/image7.png" class="kg-image" alt loading="lazy"></figure><p>The second email is similar to the first with one notable exception. This is a response from an email sent more than two years ago, in late March 2018. This was the first indicator that these actors are hunting through the email accounts they have compromised looking for ways to effectively target potential victims. Throughout the day, the emails would continue from this one email account.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-9gpMN-DHCx8/XvyMwI9pboI/AAAAAAAABt8/xW4pMgTZW_UXThhXqP3lnehCZpGc7KCFACLcBGAsYHQ/s640/image11.png" class="kg-image" alt loading="lazy"></figure><p>The third email received was associated with an email thread from December 2017, but again is a response to an existing email thread that this particular email account had with the target.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-hpg00ASV1KU/XvyM1XcehSI/AAAAAAAABuA/PI6Ia7OhuFk3v4vpATKa0k0zpgHsR5QiwCLcBGAsYHQ/s640/image22.png" class="kg-image" alt loading="lazy"></figure><p>This final email from this account was a reply dating back to March 2018. The compromised account in question was associated with a real estate company, so the emails ranged from information about properties and financing to showings and general friendly emails between associates. This highlights why these campaigns can have a high success rate: They are sent from existing email threads between colleagues or acquaintances. This simple change will greatly increase the likelihood of success. This combined with password-protected ZIP files can defeat a lot of email security and increase the likelihood of the email hitting the target's inbox.</p><p>However, this particular email account was not the only one attempting to compromise this bank. We found several other examples that were received later that same day. This second batch of requests shows a group that isn't looking for the best quality email threads to reply to.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-PrVzw-OZKT0/XvyM6wUzx4I/AAAAAAAABuM/7snNou9pmwsERkssbIr78ZGHCEpkgPifgCLcBGAsYHQ/s640/image5.png" class="kg-image" alt loading="lazy"></figure><p>In the case above, the adversaries hijacked an automated email sent by LinkedIn after two users connect. Where the previous examples were tied to more robust email threads, this is an example of a less sophisticated attempt to compromise the same financial institution.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-tsowpPGiQzY/XvyM-lZAEfI/AAAAAAAABuQ/UD5fMoAxSd0_hLfoqSmVp96ENU_I2N2GgCLcBGAsYHQ/s640/image16.png" class="kg-image" alt loading="lazy"></figure><p>In this next example, on that same date, another email account was used to try and lure the victim to infect themselves with Valak. This particular thread was personal and associated with raffle prize winnings, again not necessarily the most effective avenue of attack, but these actors are opportunistic and appear to be willing to try multiple lures against a target organization, regardless of the sophistication or relevance to the intended recipient.</p><p>These actors were not done trying to compromise this particular organization. Later in the week, we observed another attempt, this time originating from the account of an IT consultant.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-JXOqiBccs98/XvyNCp7D-LI/AAAAAAAABuY/3bS5wInlaO03vqp_3IC-Lj2nli8VPBWvgCLcBGAsYHQ/s640/image10.png" class="kg-image" alt loading="lazy"></figure><p>This final example was in reference to an ongoing IT project the consultant was involved in, as you can imagine this could be an increasingly effective lure.</p><p>Over the course of our investigation, we found 14 unique emails sent over a period of 10 days. These emails were associated with eight different compromised email accounts and addressed a wide variety of topics, again reiterating the actors' use of all emails they can find associated with a specific target, in this case, a financial institution.</p><h3 id="insurer-targeted-financial-institutions-weren-t-the-only-organizations-we-observed-being-targeted-by-valak-campaigns-we-also-observed-large-insurance-companies-being-targeted-as-well-in-this-example-an-insurer-was-targeted-using-a-variety-of-different-avenues-these-included-responses-to-affidavit-email-threads-from-compromised-email-accounts-at-law-firms-as-shown-below-">Insurer targeted <br> Financial institutions weren't the only organizations we observed being targeted by Valak campaigns. We also observed large insurance companies being targeted as well. In this example, an insurer was targeted using a variety of different avenues. These included responses to affidavit email threads from compromised email accounts at law firms, as shown below.</h3><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-80yinREpLOI/XvyNIO8PqNI/AAAAAAAABuc/0eOFD4QmyMYlozudNsxFsruoE3q0oNTiwCLcBGAsYHQ/s640/image9.png" class="kg-image" alt loading="lazy"></figure><p>This is a response to an email that was generated by a state court system. By abusing a lawyer's email account, the attackers are again increasing the likelihood of success as lawyers will commonly send documents to clients, co-workers, and other colleagues.</p><p>Other examples of lures sent to the insurer include personal threads related to religious activities around the holidays and even individual users emailing about their respective policies with their insurance agents, an example of which is shown below. In the case of the insurer, we found more than 20 emails sent over a period of several weeks from eight different email accounts. This again reinforces how organizations are being targeted by these Valak campaigns.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-pbKq59V_cdA/XvyNMLWjA8I/AAAAAAAABug/2ppQEpzk5JUkwkbafeMnilcDYs9mL8TPwCLcBGAsYHQ/s640/image8.png" class="kg-image" alt loading="lazy"></figure><p>These are just a handful of the email messages that we saw being abused by these actors. One thing to note about the law firm mentioned above is that during our research we found that several of the email accounts at that firm were being used to target a variety of organizations, including other law firms. This does indicate that at least some of these emails may be associated with larger longer-term compromises.</p><h3 id="password-protected-attachment-usage-one-commonality-to-all-the-observed-valak-campaigns-is-the-use-of-password-protected-attachments-there-is-an-obvious-tradeoff-for-the-adversary-in-using-these-methods-by-password-protecting-the-zip-file-they-will-bypass-a-lot-of-detection-technologies-but-it-may-also-decrease-effectiveness-during-our-investigation-we-were-able-to-find-examples-of-these-malspam-messages-being-forwarded-around-an-organization-and-in-some-cases-to-internal-it-support-personnel-to-try-and-determine-how-to-extract-the-contents-this-really-illustrates-two-points-the-first-is-that-it-was-able-to-bypass-what-email-security-if-any-was-present-at-the-enterprises-in-question-additionally-it-shows-that-not-all-users-are-savvy-enough-to-open-password-protected-attachments-and-it-may-limit-users-who-would-otherwise-be-susceptible-to-this-attack-from-being-able-to-infect-themselves-">Password protected attachment usage <br> One commonality to all the observed Valak campaigns is the use of password-protected attachments. There is an obvious tradeoff for the adversary in using these methods. By password protecting the ZIP file they will bypass a lot of detection technologies, but it may also decrease effectiveness. During our investigation we were able to find examples of these malspam messages being forwarded around an organization and, in some cases to internal IT support personnel, to try and determine how to extract the contents. This really illustrates two points. The first is that it was able to bypass what email security, if any, was present at the enterprises in question. Additionally, it shows that not all users are savvy enough to open password-protected attachments and it may limit users, who would otherwise be susceptible to this attack, from being able to infect themselves.</h3><p>During the investigation, we observed that the same passwords were often leveraged across multiple targets and malspam campaigns and did not appear to be specific to any individual organization.</p><h3 id="languages-targeted-in-the-examples-to-this-point-we-focused-on-the-english-language-campaigns-we-uncovered-however-english-was-not-the-only-language-we-found-attackers-leveraging-we-also-identified-several-other-campaigns-including-campaigns-in-german-like-one-targeting-a-transportation-organization-an-email-associated-with-this-german-campaign-is-shown-below-">Languages targeted <br> In the examples to this point, we focused on the English-language campaigns we uncovered. However, English was not the only language we found attackers leveraging. We also identified several other campaigns, including campaigns in German, like one targeting a transportation organization. An email associated with this German campaign is shown below.</h3><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-rsX4BiYxhGE/XvyNSpUZe4I/AAAAAAAABus/AMZDx3za4O4z-RbW4t5nk5hEUnPpeXQNQCLcBGAsYHQ/s640/image4.png" class="kg-image" alt loading="lazy"></figure><p>One interesting note related to the campaign in German, many of the threads they were leveraging were in English, but the malicious reply message was always in German, something that would likely stand out to potential victims.</p><p>In addition to German campaigns, we also found some targeting email threads in Spanish. In this case, the threads were in Spanish, but the malspam responses were in English, an example of which you can find below. Please note that I have left the salutations in the emails to denote the use of Spanish, as the majority of the text needs to be redacted.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-89DzPSbQpR8/XvyNXKOVSVI/AAAAAAAABuw/Hrf1NM-8pakcyyfYuzOkRMlF6f8cNJIxwCLcBGAsYHQ/s640/image12.png" class="kg-image" alt loading="lazy"></figure><h3 id="evidence-of-consumer-targeting-while-the-majority-of-the-emails-we-have-observed-distributing-valak-are-tied-to-enterprises-they-are-not-the-only-targets-during-our-investigation-we-found-examples-of-attempts-being-made-against-personal-email-accounts-and-in-some-cases-the-adversaries-made-some-poor-choices-as-to-which-emails-to-respond-to-this-shows-a-divergent-approach-from-what-we-saw-in-some-of-the-more-targeted-emails-including-accurate-signature-blocks-and-replying-to-relevant-threads-">Evidence of consumer targeting <br> While the majority of the emails we have observed distributing Valak are tied to enterprises, they are not the only targets. During our investigation, we found examples of attempts being made against personal email accounts, and in some cases, the adversaries made some poor choices as to which emails to respond to. This shows a divergent approach from what we saw in some of the more targeted emails, including accurate signature blocks and replying to relevant threads.</h3><p>As an example of one of these failures, we show here the actors responding to what is obviously dating spam, trying to entice the user to send an email to a third email account for further compromise. The Valak distributors still tried to respond as if it were a legitimate email, showing that the automation they are using has its faults.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-HyePFqZZ790/XvyNemFVnXI/AAAAAAAABu8/ru49vFsnUKwl6yUFU-Z8BM09VWBTN9mbQCLcBGAsYHQ/s640/image14.png" class="kg-image" alt loading="lazy"></figure><p>In another email mistake, the actors actually responded to what is clearly pharmaceutical spam and is not even a remotely legitimate email thread.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-WtCEPV0InCg/XvyN6sp9dHI/AAAAAAAABvM/STvIwu0bfMAemB6wEa-MrCMpGILXLNk_ACLcBGAsYHQ/s640/image19.png" class="kg-image" alt loading="lazy"></figure><p>There were a handful of other obvious spam messages that these actors replied to, during these campaigns. It is worth noting that these messages make up a much smaller percentage than those we saw targeting larger enterprises.</p><p>However, it does point to two separate campaigns that may be ongoing. One that is targeting specific organizations with an array of email messages from multiple different accounts and another that appears to be responding to a wide array of emails directed at end-users, without much consideration for what thread the reply originated from.</p><h2 id="initial-infection-process-as-previously-mentioned-the-emails-associated-with-these-distribution-campaigns-feature-the-use-of-password-protected-zip-archives-by-encrypting-the-contents-of-the-email-attachments-the-attackers-can-ensure-that-content-inspection-and-detection-capabilities-are-unable-to-properly-evaluate-them-this-also-allows-them-to-evade-some-automated-analysis-environments-like-sandboxes-as-user-interaction-is-required-to-decrypt-the-zip-archives-">Initial infection process <br> As previously mentioned, the emails associated with these distribution campaigns feature the use of password-protected ZIP archives. By encrypting the contents of the email attachments, the attackers can ensure that content inspection and detection capabilities are unable to properly evaluate them. This also allows them to evade some automated analysis environments like sandboxes, as user interaction is required to decrypt the ZIP archives.</h2><p>Microsoft Word documents inside these ZIP archives are used to initiate the Valak infection. Most of the documents analyzed feature the use of similar decoy images as the document in the example below, however, they were localized with different language sets being used to display a message to potential victims, instructing them to enable macros.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-VUM0K5raeeM/XvyN-lxXMhI/AAAAAAAABvQ/penobYljKMctBO8usS9mN0xlIROTycCbACLcBGAsYHQ/s640/image2.png" class="kg-image" alt loading="lazy"></figure><p>When enabled, the embedded VBA macros function as a downloader and handle retrieving and executing the DLL associated with Valak.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-IjStNZfvols/XvyOCcD9DzI/AAAAAAAABvU/lLQIQJtbSL4AW72nPvBhXiKL7KFIHxcuACLcBGAsYHQ/s640/image21.png" class="kg-image" alt loading="lazy"></figure><p>The URL used to retrieve the malicious DLL has been obfuscated.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-ea9mlAsLHZo/XvyOG2qID2I/AAAAAAAABvY/QZW9sdllOjEsT_4BY_kmxZ2N3WB9x5h7gCLcBGAsYHQ/s640/image6.png" class="kg-image" alt loading="lazy"></figure><p>The previous series of arrays contain the URL hosting the malicious DLL as well as the local storage location where the DLL will be stored:</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-6RyTRdWS1xk/XvyOK03-utI/AAAAAAAABvg/gh-dUuqp1fktXSZBAqp5Y1O0JAruPNKgwCLcBGAsYHQ/s640/image24.png" class="kg-image" alt loading="lazy"></figure><p>The DLL is then retrieved from an attacker-controlled web server using UrlDownloadToFileA.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-_bNoGphB8SY/XvyOOUIddJI/AAAAAAAABvo/L6Fvgl9txScLnu8YNrh5KhJ093irEP3-QCLcBGAsYHQ/s640/image13.png" class="kg-image" alt loading="lazy"></figure><p>The DLL is then registered using regsvr32.exe, which initiates the Valak infection process. The infection process has been covered extensively <a href="https://labs.sentinelone.com/valak-malware-and-the-connection-to-gozi-loader-confcrew/">here</a> and <a href="https://www.cybereason.com/blog/valak-more-than-meets-the-eye">here</a>. Valak is a continuously evolving, modular malware family that features robust capabilities and is successful at infecting systems across the various geographic regions targeted by these attackers. Over the past few weeks, Cisco Talos observed multiple changes to the way in which Valak is retrieved, as well as an increase in the level of obfuscation in the configuration file used by the malware's later stages. Recently, it appears that Valak is also leveraging compromised CMS servers to distribute the initial Valak DLL, an example of which is below:<br></p><pre><code>http://digifish3[.]com/blog/wp-content/themes/busify/_eWTFIH4ngoi2PJUl.php?x=MDAwMSBskYeC02Ql3VG8Ae9TVFHu6uY34q-zd5ISLrA1LlMNJ88yi_SVZUlkWiyyC9gmFThkFMVkHIlaI-DSlZPLLzSuvVgZWgWuujIh-VCBWg50AL-jKfRnl38NNw89_MLBalU19J9qyusiuA_X0pqC</code></pre><p>As previous analysis focused on the infection process itself, we will focus on analyzing the characteristics associated with the distribution and C2 infrastructure associated with this threat.</p><h2 id="campaign-analysis">Campaign analysis <br></h2><h3 id="spam-volume-and-victimology-talos-was-able-to-track-the-campaigns-back-to-early-2020-with-a-couple-of-samples-from-early-in-the-year-however-the-activity-really-appeared-to-explode-over-the-last-several-months-as-you-can-see-below-the-activity-in-may-and-early-june-accounted-for-more-95-of-the-overall-valak-activity-">Spam volume and victimology <br> Talos was able to track the campaigns back to early 2020, with a couple of samples from early in the year. However, the activity really appeared to explode over the last several months. As you can see below the activity in May and early June accounted for more 95% of the overall Valak activity.</h3><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-vSQXrhNLJWI/XvyOb_Fc-2I/AAAAAAAABv0/BKXh9IddCBwJbBGS2OEFuHc1o711mU4SQCLcBGAsYHQ/s640/image17.jpg" class="kg-image" alt loading="lazy"></figure><p>The Valak campaigns aren't marked with huge amounts of emails but given that they are curating the emails they are sending from existing email threads, it makes logical sense. This use of stolen email threads and password-protected ZIPs has been successful for the group delivering Valak, so the likelihood of imposters is relatively high.</p><h3 id="valak-distribution-servers-during-the-analysis-of-valak-distribution-infrastructure-we-observed-dns-updates-being-made-frequently-as-new-campaigns-were-launched-by-attackers-to-track-the-movement-of-malicious-domains-across-the-attacker-infrastructure-passive-dns-data-was-used-to-track-the-servers-being-used-to-deliver-the-initial-valak-dll-to-victims-">Valak distribution servers <br> During the analysis of Valak distribution infrastructure, we observed DNS updates being made frequently as new campaigns were launched by attackers. To track the movement of malicious domains across the attacker infrastructure, Passive DNS data was used to track the servers being used to deliver the initial Valak DLL to victims.</h3><p>We discovered that a large portion of the infrastructure used to deliver the initial DLL was hosted across a relatively small number of hosting providers with servers primarily located in Russia and Ukraine.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-nkR6AfK4s9c/XvyOgkCdFKI/AAAAAAAABv4/aHXqR4vNzvwiTPNr-Ono9jnida8d2MYYwCLcBGAsYHQ/s640/image20.jpg" class="kg-image" alt loading="lazy"></figure><h3 id="valak-c2-servers-in-addition-to-the-infrastructure-being-used-for-the-initial-distribution-of-the-dll-associated-with-valak-infected-systems-also-communicate-with-c2-servers-to-transfer-information-and-attempt-to-obtain-additional-modules-and-instructions-to-perform-in-analyzing-the-c2-infrastructure-associated-with-various-valak-campaigns-we-observed-the-same-infrastructure-associated-with-a-myriad-of-other-malicious-activities-additionally-in-multiple-instances-passive-dns-telemetry-indicates-that-some-of-the-systems-used-for-c2-may-have-also-been-leveraged-as-part-of-the-mykings-and-dark-cloud-botnets-however-this-may-be-coincidental-and-not-intentional-on-the-part-of-the-attackers-">Valak C2 servers <br> In addition to the infrastructure being used for the initial distribution of the DLL associated with Valak, infected systems also communicate with C2 servers to transfer information and attempt to obtain additional modules and instructions to perform. In analyzing the C2 infrastructure associated with various Valak campaigns, we observed the same infrastructure associated with a myriad of other malicious activities. Additionally, in multiple instances, passive DNS telemetry indicates that some of the systems used for C2 may have also been leveraged as part of the <a href="https://blog.talosintelligence.com/tor2mine-is-up-to-their-old-tricks-and_11">MyKings</a> and <a href="https://blog.talosintelligence.com/gozi-isfb-remains-active-in-2018">Dark Cloud</a> botnets, however, this may be coincidental and not intentional on the part of the attackers.</h3><p>While the majority of the servers used to distribute the initial Valak DLL files were hosted in a relatively small number of different geographic regions, the C2 servers used to administer the botnet were spread out across a larger number of regions. Many of the servers were hosted in the United States. Below is a high-level overview of the geographic region of the servers used for C2.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-WWWnuoUM8Ec/XvyOkQAr_XI/AAAAAAAABv8/_2Z--Bvntb8CpBnAvrz9lynXzicyAxpbACLcBGAsYHQ/s640/image25.jpg" class="kg-image" alt loading="lazy"></figure><p>The campaigns associated with Valak appear to be relatively successful, likely because of perimeter security controls being unable to scan the initial attachments being sent to potential victims. Below is a graph showing the DNS activity from systems likely infected with Valak attempting to communicate with one of the Valak C2 servers. As soon as the distribution campaigns that leveraged this domain became active, infected systems immediately began beaconing. Due to the way that C2 has been implemented, infected systems are continuously establishing connections to malicious infrastructure, creating a consistent amount of DNS-related traffic.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-E5lpbmOTELA/XvyOodcfXwI/AAAAAAAABwA/jiWZwQOtPbUW7W7d03PF5Ze-AnnhE-6mACLcBGAsYHQ/s640/image18.png" class="kg-image" alt loading="lazy"></figure><p><br></p><h2 id="conclusion-in-a-world-where-malspam-is-constantly-being-created-and-sent-the-goal-is-to-get-to-inboxes-we-as-an-industry-are-always-getting-better-at-detecting-malspam-and-adversaries-are-always-going-to-be-looking-for-ways-to-move-ahead-we-ve-seen-with-emotet-before-and-now-with-valak-that-stolen-email-is-an-effective-way-to-increase-not-only-the-likelihood-of-getting-to-a-user-s-inbox-but-the-user-is-going-to-be-receptive-of-the-malspam-">Conclusion <br> In a world where malspam is constantly being created and sent, the goal is to get to inboxes. We as an industry are always getting better at detecting malspam and adversaries are always going to be looking for ways to move ahead. We've seen with Emotet before and now with Valak that stolen email is an effective way to increase not only the likelihood of getting to a user's inbox but the user is going to be receptive of the malspam.</h2><p>Once you combine that with the use of password-protected ZIP files, the effect can be quite successful. As we've shown throughout this blog these Valak campaigns have proceeded and the resulting command and control traffic indicates, it's been productive. This puts organizations in a tough position. The use of stolen email threads means that the emails are unlikely to be blocked based on content and the use of password-protected ZIPs, prevents most scanning. Organizations need to make a decision on whether or not they want to allow password-protected files to be sent via email. Depending on the vertical and the organization, this may or may not be a valid option for mitigation.</p><p>By allowing password-protected files to be sent via email, endpoint security largely becomes the final bastion before a compromise occurs. This key technology is only getting more important as encryption on the wire and sophisticated evasion become standard. Enterprises need to also be adjusting hunting activities to look at what appears to be legitimate email threads and potentially isolating all unscannable files received via email or through other means.</p><h2 id="coverage">Coverage</h2><p>Ways our customers can detect and block this threat are listed below.</p><figure class="kg-card kg-image-card"><img src="https://blog.talosintelligence.com/content/images/-9Jniz2A7A9Y/XpiI_2GFOTI/AAAAAAAAAvY/3teuUYZTILs8iN-M2x8txvjiTAAJM5lfACLcBGAsYHQ/s1600/image10.png" class="kg-image" alt loading="lazy"></figure><p><br> Advanced Malware Protection (<a href="https://www.cisco.com/c/en/us/products/security/advanced-malware-protection">AMP</a>) is ideally suited to prevent the execution of the malware used by these threat actors. Exploit Prevention present within AMP is designed to protect customers from unknown attacks such as this automatically.</p><p>Cisco Cloud Web Security (<a href="https://www.cisco.com/c/en/us/products/security/cloud-web-security/index.html">CWS</a>) or<a href="https://www.cisco.com/c/en/us/products/security/web-security-appliance/index.html"> Web Security Appliance (WSA</a>) web scanning prevents access to malicious websites and detects malware used in these attacks.</p><p>Cisco AMP users can use Orbital Advanced Search to run complex OSqueries to see if their endpoints are infected with this specific threat. For specific OSqueries on this threat, click <a href="https://github.com/Cisco-Talos/osquery_queries/blob/master/win_malware/malware_valak_registry.yaml">here</a>.</p><p><a href="https://www.cisco.com/c/en/us/products/security/email-security-appliance/index.html">Email Security</a> can block malicious emails sent by threat actors as part of their campaign.</p><p>Network Security appliances such as Next-Generation Firewall (<a href="https://www.cisco.com/c/en/us/products/security/firewalls/index.html">NGFW</a>), Next-Generation Intrusion Prevention System (<a href="https://www.cisco.com/c/en/us/products/security/intrusion-prevention-system-ips/index.html">NGIPS</a>),<a href="https://www.cisco.com/c/en/us/products/routers/branch-routers/index.html"> Cisco ISR</a>, and<a href="https://meraki.cisco.com/products/appliances"> Meraki MX</a>.</p><p><a href="https://www.cisco.com/c/en/us/solutions/enterprise-networks/amp-threat-grid/index.html">AMP Threat Grid</a> helps identify malicious binaries and build protection into all Cisco Security products.</p><p><a href="https://umbrella.cisco.com/">Umbrella</a>, our secure internet gateway (SIG), blocks users from connecting to malicious domains, IPs, and URLs, whether users are on or off the corporate network.</p><p>Open Source Snort Subscriber Rule Set customers can stay up to date by downloading the latest rule pack available for purchase on<a href="https://www.snort.org/products"> Snort.org</a>. The following SIDs have been released to detect this threat: 54401-54404.</p><h2 id="indicators-of-compromise-iocs-the-following-indicators-of-compromise-have-been-observed-as-being-associated-with-valak-">Indicators of Compromise (IOCs) <br> The following indicators of compromise have been observed as being associated with Valak.<br></h2><h3 id="hashes-a-list-of-file-hashes-sha256-that-have-been-observed-as-being-associated-with-valak-can-be-found-here-">Hashes A list of file hashes (SHA256) that have been observed as being associated with Valak can be found <a href="https://storage.googleapis.com/blogs-images/ciscoblogs/1/2020/07/hashes-final.txt">here</a>.<br></h3><h3 id="domains-a-list-of-domains-that-have-been-observed-as-being-associated-with-valak-can-be-found-here-">Domains A list of domains that have been observed as being associated with Valak can be found <a href="https://storage.googleapis.com/blogs-images/ciscoblogs/1/2020/07/domains-final.txt">here</a>.<br></h3><h3 id="ip-addresses-a-list-of-ip-addresses-that-have-been-observed-as-being-associated-with-valak-can-be-found-here-">IP Addresses A list of IP addresses that have been observed as being associated with Valak can be found <a href="https://storage.googleapis.com/blogs-images/ciscoblogs/1/2020/07/ips-final.txt">here</a>.</h3>
+        </div>
+    </section>
+    <div class="social-media-wrapper">
+    <h5>Share this post</h5>
+    <ul class="social-media-share-list">
+        <li>
+            <a class="share-facebook" title="Share this on Facebook" data-text="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks" data-href="https://blog.talosintelligence.com/valak-emerges/" rel="nofollow" target="_blank" href="https://www.facebook.com/sharer.php?u=https://blog.talosintelligence.com/valak-emerges/"></a>
+        </li>
+        <li>
+            <a class="share-twitter" title="Tweet This" data-text="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks" data-href="https://blog.talosintelligence.com/valak-emerges/" rel="nofollow" target="_blank" href="https://twitter.com/share?url=https://blog.talosintelligence.com/valak-emerges/"></a>
+        </li>
+        <li>
+            <a class="share-linkedin" title="Share this on LinkedIn" data-text="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks" data-href="https://blog.talosintelligence.com/valak-emerges/" rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.talosintelligence.com/valak-emerges/"></a>
+        </li>
+        <li>
+            <a class="share-reddit" title="Reddit This" data-text="Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networks" data-href="https://blog.talosintelligence.com/valak-emerges/" rel="nofollow" target="_blank" href="https://www.reddit/submit?url=https://blog.talosintelligence.com/valak-emerges/"></a>
+        </li>
+        <li>
+            <a class="share-email" title="Email This" href="mailto:?body=Threat Spotlight: Valak Slithers Its Way Into Manufacturing and Transportation Networkshttps://blog.talosintelligence.com/valak-emerges/"></a>
+        </li>
+    </ul>
+</div></article>
+                </div>
+                <div class="col-lg alt-layout-row-dk sidebar" id="side-bar">
+                            <h4>Related Content</h4>
+
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/get-a-loda-this/">
+                                        <h3>Get a Loda This: LodaRAT meets new friends</h3>
+                                        <span  class="preview-attributes">November 17, 2022 08:01</span>
+                                        <p>* LodaRAT samples were deployed alongside other malware families, including RedLine and Neshta.
+ * Cisco Talos identified several variants and altered versions of LodaRAT with updated functionality have been seen in the wild.
+ * Changes in these LodaRAT variants include new functionality allowing proliferation to attached removable storage, a new string encoding algorithm</p>
+                                    </a>
+                                </div>
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/neurevt-trojan-takes-aim-at-mexican/">
+                                        <h3>Neurevt trojan takes aim at Mexican users</h3>
+                                        <span  class="preview-attributes">August 17, 2021 08:01</span>
+                                        <p>By Chetan Raghuprasad, with contributions from Vanja Svajcer.
+
+
+News summary
+
+ * Cisco Talos discovered a new version of the Neurevt trojan with spyware and backdoor capabilities in June 2021 using Cisco Secure Endpoint product telemetry.
+ * This version of Neurevt appears to target users of Mexican financial institutions.
+ * This threat demonstrates several</p>
+                                    </a>
+                                </div>
+                                <div class="sidebar-snippet-wrapper">
+                                    <a href="/telegrab/">
+                                        <h3>TeleGrab - Grizzly Attacks on Secure Messaging</h3>
+                                        <span  class="preview-attributes">May 16, 2018 13:17</span>
+                                        <p></p>
+                                    </a>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer id="footer">
+    <div class="container-fluid">
+        <div class="row footer_nav_wrapper">
+            <div class="col-lg-10 col-md-9 col-sm-12">
+                <div class="multi-col-list-wrapper">
+                    <ul>
+                        <li>
+                            <a href="https://talosintelligence.com/software">Software</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/reputation_center">Reputation Center</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/vulnerability_info">Vulnerability Information</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/ms_advisories">Microsoft Advisory Snort Rules</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/incident_response">Incident Response</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/amp-naming">Secure Endpoint Naming Conventions</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/talos_file_reputation">Talos File Reputation</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/community">Support Communities</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/careers">Careers</a>
+                        </li>
+                        <li>
+                            <a href="https://blog.talosintelligence.com">Talos Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/newsletters">Threat Source Newsletter</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/beers_with_talos">Beers with Talos Podcast</a>
+                        </li>
+                        <li>
+                            <a href="https://talosintelligence.com/podcasts/shows/talos_takes">Talos Takes Podcast</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 connect_social">
+                <h5>Connect with us</h5>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://twitter.com/talossecurity" rel="nofollow">
+                            <img alt="Follow us on Twitter" src="https://blog.talosintelligence.com/assets/images/footer_icon_tw.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCPZ1DtzQkStYBSG3GTNoyfg/featured" rel="nofollow">
+                            <img alt="Watch our informational videos on YouTube" src="https://blog.talosintelligence.com/assets/images/footer_icon_yt.svg?v=a225f65a71"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/company/cisco-talos-intelligence-group/" rel="nofollow">
+                            <img alt="Connect with us on LinkedIn" src="https://blog.talosintelligence.com/assets/images/footer_icon_li.svg?v=a225f65a71">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 footer_corporate">
+                <a href="http://tools.cisco.com/security/center/home.x" target="_blank">
+                    <img src="https://blog.talosintelligence.com/assets/images/logo_cisco_white.svg?v=a225f65a71" alt="Cisco Security"/>
+                </a>
+
+                <p class="copyright">
+                    &copy; <span id="current-year"></span> Cisco Systems, Inc. and/or its affiliates. All rights reserved. View our <a href="https://www.cisco.com/web/siteassets/legal/privacy_full.html" class="underline" target="_blank">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://blog.talosintelligence.com/assets/js/jquery-3.6.0.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/popper.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/bootstrap.bundle.min.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/date.js?v=a225f65a71"></script>
+<script src="https://blog.talosintelligence.com/assets/js/prism.js?v=a225f65a71"></script>
+<script src="https://cdn.jsdelivr.net/npm/ghost-theme-utils@latest/dist/js/ghost-theme-utils.min.js" async defer></script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"83ea9f295c0540c2","b":1,"version":"2023.10.0","token":"35f8ae698f9d471b83b846a751388737"}' crossorigin="anonymous"></script>
+</body>
+
+</html>
