@@ -121,7 +121,6 @@ async def upload_pcap(file: UploadFile = File(...)):
     print(f"CSV files found in data folder: {csv_files}")
 
     global vector_store
-    
     for csv_file in csv_files:
         vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
 

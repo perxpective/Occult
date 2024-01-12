@@ -6,6 +6,7 @@ import time
 from PIL import Image
 load_dotenv()
 
+# Base URL
 BASE_URL = os.getenv("BASE_URL")
 
 # Load favicon
