@@ -160,7 +160,7 @@ if prompt := st.chat_input():
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Let Occult Cook..."):
-            if not uploaded_files or len(file_uploads) == 0:
+            if len(uploaded_files) or len(file_uploads) == 0:
                 response = "Please upload your PCAP files first!"
                 st.markdown(response)
             else:

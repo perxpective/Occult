@@ -1,4 +1,8 @@
 streamlit
 pandas
+pandasai
 numpy
 requests
+google.generativeai
+langchain
+langchain_experimental
