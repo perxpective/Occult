@@ -100,47 +100,43 @@ else:
     chart_tab, df_tab = st.tabs(["Charts", "Dataframes"])
     
     # Display dataframes
-    response = requests.get(BASE_URL + "data/csv")
-    csv_filenames = response.json()["csv_filenames"]
-    csv_datas = response.json()["csv_data"]
+    try:
+        response = requests.get(BASE_URL + "data/csv")
+        csv_filenames = response.json()["csv_filenames"]
+        csv_datas = response.json()["csv_data"]
+    except requests.exceptions.RequestException as e:
+        st.toast("Failed to get dataframes data from Occult! 😢")
+        st.toast(e)
 
     # Dataframe Tab Contents
     with df_tab:
-        try:
-            for filename, data in zip(csv_filenames, csv_datas):
-                st.markdown(f"### {filename}")
-                st.dataframe(data)
-        except requests.exceptions.RequestException as e:
-            st.toast("Failed to retrieve dataframes from Occult! 😢")
-            st.toast(e)
+        for filename, data in zip(csv_filenames, csv_datas):
+            st.markdown(f"### {filename}")
+            st.dataframe(data)
 
     # Charts Tab Contents
     with chart_tab:
-        try:
-            for filename, data in zip(csv_filenames, csv_datas):
-                smart_df = SmartDataframe(data, config={"llm": llm})
-                df = pd.DataFrame(data)
-                st.markdown(f"### {filename}")
-                st.markdown("#### Occult's Summary!")
-                col1, col2, col3, col4 = st.columns(4)
-                with col1:
-                    st.metric("Packets found", smart_df.chat("How many packets are there in the dataframe altogether?"))
-                    st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets?"))
-                with col2:
-                    st.metric("Unique IP Addresses", smart_df.chat("How many unique IP addresses are there in the dataframe?"))
-                    st.metric("Average Packet Length", smart_df.chat("What is the average packet length?"))
-                with col3:
-                    st.metric("Unique MAC Addresses", smart_df.chat("How many unique MAC addresses are there in the dataframe?"))
-                    st.metric("Largest Packet Length", smart_df.chat("What is the largest packet length?"))
-                with col4:
-                    st.metric("Unique Ports", smart_df.chat("How many unique ports are there in the dataframe?"))
+        # Display data visualisation for each PCAP file
+        for filename, data in zip(csv_filenames, csv_datas):
+            smart_df = SmartDataframe(data, config={"llm": llm})
+            df = pd.DataFrame(data)
+            st.markdown(f"### {filename}")
+            st.markdown("#### Occult's Summary!")
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Packets found", smart_df.chat("How many packets are there in the dataframe altogether?"))
+                st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets?"))
+            with col2:
+                st.metric("Unique IP Addresses", smart_df.chat("How many unique IP addresses are there in the dataframe?"))
+                st.metric("Average Packet Length", smart_df.chat("What is the average packet length?"))
+            with col3:
+                st.metric("Unique MAC Addresses", smart_df.chat("How many unique MAC addresses are there in the dataframe?"))
+                st.metric("Largest Packet Length", smart_df.chat("What is the largest packet length?"))
+            with col4:
+                st.metric("Unique Ports", smart_df.chat("How many unique ports are there in the dataframe?"))
 
 
-                # Bar graph
-                st.markdown("### Display a Bar Graph!")
-                variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_proto","ip_ttl","src_port","dst_port","packet_time","packet_length"), key="0") 
-                st.bar_chart(df[variable].value_counts())
-
-        except requests.exceptions.RequestException as e:
-            st.toast("Failed to retrieve dataframes from Occult! 😢")
-            st.toast(e) 
+            # Bar graph
+            st.markdown("### Display a Bar Graph!")
+            variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_proto","ip_ttl","src_port","dst_port","packet_time","packet_length"), key="0") 
+            st.bar_chart(df[variable].value_counts())
