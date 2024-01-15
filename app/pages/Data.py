@@ -4,15 +4,8 @@ import requests
 from dotenv import load_dotenv
 from PIL import Image
 import pandas as pd
-import pandasai
-import io
-# from pandasai import PandasAI
 from pandasai.llm import GooglePalm
 from pandasai import SmartDataframe
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-
-
 
 load_dotenv()
 
