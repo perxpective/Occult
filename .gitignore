@@ -3,3 +3,5 @@ server/data
 server/uploads
 server/chain_test.py
 server/__pycache__
+cache
+exports

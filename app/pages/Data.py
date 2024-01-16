@@ -1,11 +1,13 @@
 import streamlit as st
-import os 
+import os
 import requests
 from dotenv import load_dotenv
 from PIL import Image
 import pandas as pd
 from pandasai.llm import GooglePalm
 from pandasai import SmartDataframe
+import pandasai
+import matplotlib.pyplot as plt
 
 load_dotenv()
 
@@ -17,7 +19,6 @@ favicon = Image.open("assets/Occult.png")
 
 # Load GooglePalm LLM
 llm = GooglePalm(api_key=os.getenv("GOOGLE_API_KEY"))
-# pandas_ai = PandasAI(llm=llm)
 
 # Page configurations
 st.set_page_config(
@@ -133,3 +134,8 @@ else:
             st.markdown("### Display a Bar Graph!")
             variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_proto","ip_ttl","src_port","dst_port","packet_time","packet_length"), key="0") 
             st.bar_chart(df[variable].value_counts())
+
+            # Generate summary
+            # result = smart_df.chat("Generate a sample bar graph that shows the number of packets for each unique IP address in the dataframe")
+            # plot = Image.open("assets/plot.png")
+            # st.image(plot)
