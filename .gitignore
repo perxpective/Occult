@@ -5,3 +5,4 @@ server/chain_test.py
 server/__pycache__
 cache
 exports
+app/pandasai.log

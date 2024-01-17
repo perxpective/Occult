@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 from PIL import Image
 import pandas as pd
 from pandasai.llm import GooglePalm
+from pandasai import PandasAI
 from pandasai import SmartDataframe
-import pandasai
-import matplotlib.pyplot as plt
+from pandasai.middlewares.streamlit import StreamlitMiddleware
 
 load_dotenv()
 
@@ -19,6 +19,7 @@ favicon = Image.open("assets/Occult.png")
 
 # Load GooglePalm LLM
 llm = GooglePalm(api_key=os.getenv("GOOGLE_API_KEY"))
+pandas_ai = PandasAI(llm=llm, middlewares=[StreamlitMiddleware()])
 
 # Page configurations
 st.set_page_config(
@@ -129,13 +130,29 @@ else:
             with col4:
                 st.metric("Unique Ports", smart_df.chat("How many unique ports are there in the dataframe?"))
 
-
             # Bar graph
             st.markdown("### Display a Bar Graph!")
             variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_proto","ip_ttl","src_port","dst_port","packet_time","packet_length"), key="0") 
             st.bar_chart(df[variable].value_counts())
 
-            # Generate summary
-            # result = smart_df.chat("Generate a sample bar graph that shows the number of packets for each unique IP address in the dataframe")
-            # plot = Image.open("assets/plot.png")
-            # st.image(plot)
+            # Generate diagram
+            st.markdown("### Generate a Diagram")
+            st.markdown("Not enough diagrams for your infromation? Ask Occult to generate a diagram for you!")
+
+            # User prompt to generate diagram
+            chart_prompt = st.text_input("What kind of diagram do you want to generate?")
+            if st.button("Generate Diagram! 📊"):
+                with st.spinner("Generating diagram..."):
+                    # If image exists, generate diagram
+                    result = pandas_ai.run(df, prompt=chart_prompt)
+                    find_file = False
+                    current_directory = os.getcwd()
+                    for file in os.listdir(current_directory):
+                        if file == "temp_chart.png":
+                            find_file = True
+                            break
+                    if find_file:
+                        print("Diagram found!")
+                        st.image("temp_chart.png")
+                    else:
+                        st.markdown("Occult couldn't generate a diagram for you! Please try again! 😢")
