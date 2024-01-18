@@ -2,6 +2,10 @@ from scapy.all import rdpcap
 import os
 import csv
 from langchain.document_loaders.csv_loader import CSVLoader
+from langchain.vectorstores import utils
+import subprocess
+import csv
+import pandas as pd
 
 # Extract important pcap fields to be added into a csv files
 def extract_pcap_fields(pcap_file):
@@ -25,7 +29,8 @@ def extract_pcap_fields(pcap_file):
                 'dst_port': packet['TCP'].dport if packet.haslayer('TCP') else packet['UDP'].dport if packet.haslayer('UDP') else empty_field,
                 'tcp_flags': packet['TCP'].flags if packet.haslayer('TCP') else empty_field,
                 'packet_time': packet.time,
-                'packet_length': len(packet)
+                'packet_length': len(packet),
+                'packet_summary': packet.summary()
             }
             extracted_fields.append(entry)
         except AttributeError:
@@ -47,7 +52,49 @@ def write_to_csv(extracted_fields, csv_file):
         # Write the data rows
         writer.writerows(extracted_fields)
 
+# Extracting the Protcol Name and the Info field from the PCAP  using Tshark
+def extract_pcap_info(input_pcap, output_csv):
+    # Run tshark command to extract protocol name and info field
+    tshark_command = ["tshark", "-r", input_pcap, "-T", "fields", "-e", "frame.number","-e", "frame.protocols", "-e", "_ws.col.Info"]
+
+    try:
+        result = subprocess.run(tshark_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        output_lines = result.stdout.splitlines()
+
+        # Extract protocol name and info field
+        # data = [(line.split('\t')[0], line.split('\t')[1]) for line in output_lines]
+        data = [(line.split('\t')[0], line.split('\t')[1].split(":")[-1], line.split('\t')[2]) for line in output_lines]
+
+        # Write to CSV
+        with open(output_csv, mode='w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerow(['frame_number','protocol_name', 'info'])
+            csv_writer.writerows(data)
+
+        print(f"Extraction completed. Data saved to {output_csv}")
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error running tshark command: {e}")
+        print(f"stderr: {e.stderr}")
+
+def merge_csv_files(file1, file2, common_column, output_file):
+    # Read CSV files into DataFrames
+    df1 = pd.read_csv(file1)
+    df2 = pd.read_csv(file2)
+
+    # Merge DataFrames based on the common column
+    merged_df = pd.merge(df1, df2, on=common_column)
+
+    # Write the merged DataFrame to a new CSV file
+    merged_df.to_csv(output_file, index=False)
+
+    print(f"Merged data saved to {output_file}")
+
 def split_csv(csv_file):
     csvLoader = CSVLoader(csv_file)
     csvdocs = csvLoader.load()
+    csvdocs = utils.filter_complex_metadata(csvdocs)
     return csvdocs
+
+
+
