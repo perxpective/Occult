@@ -68,7 +68,7 @@ def extract_pcap_info(input_pcap, output_csv):
         # Write to CSV
         with open(output_csv, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
-            csv_writer.writerow(['frame_number','protocol_name', 'info'])
+            csv_writer.writerow(['frame_number','protocol_name', 'information'])
             csv_writer.writerows(data)
 
         print(f"Extraction completed. Data saved to {output_csv}")
@@ -103,7 +103,6 @@ def split_csv(csv_file):
     csvdocs = csvLoader.load()
 
     # Apply a filtering operation to remove complex metadata from the loaded CSV documents using a utility function.
-    # The utility function is assumed to be defined in a module named 'utils'.
     csvdocs = utils.filter_complex_metadata(csvdocs)
 
     # Return the filtered CSV documents.
