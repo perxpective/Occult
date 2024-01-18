@@ -77,6 +77,8 @@ def extract_pcap_info(input_pcap, output_csv):
         print(f"Error running tshark command: {e}")
         print(f"stderr: {e.stderr}")
 
+
+# Merging the outout (CSV) from both the scapy and Tshark into a single CSV File
 def merge_csv_files(file1, file2, common_column, output_file):
     # Read CSV files into DataFrames
     df1 = pd.read_csv(file1)
@@ -90,11 +92,20 @@ def merge_csv_files(file1, file2, common_column, output_file):
 
     print(f"Merged data saved to {output_file}")
 
+
+
+# This function, split_csv, takes a CSV file path as input.
 def split_csv(csv_file):
+    # Create an instance of the CSVLoader class, passing the CSV file path.
     csvLoader = CSVLoader(csv_file)
+
+    # Use the load method of the CSVLoader instance to load the CSV file and obtain a list of CSV documents.
     csvdocs = csvLoader.load()
+
+    # Apply a filtering operation to remove complex metadata from the loaded CSV documents using a utility function.
+    # The utility function is assumed to be defined in a module named 'utils'.
     csvdocs = utils.filter_complex_metadata(csvdocs)
+
+    # Return the filtered CSV documents.
     return csvdocs
-
-
 
