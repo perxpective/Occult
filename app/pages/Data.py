@@ -78,6 +78,7 @@ with st.expander("PCAP Files in Memory 🧠"):
             st.toast("Failed to delete uploads to Occult! 😢")
             st.toast(e)
 
+# Check if there are files in memory
 if len(file_uploads) == 0:
     st.markdown("""
         ### Whoops! There aren't any files uploaded yet! 📁
@@ -87,16 +88,17 @@ if len(file_uploads) == 0:
 else: 
     # Display stats
     st.markdown("## Occult's Data Analysis!")
-    st.markdown("""
-        Occult has analysed the data from the PCAP files you have uploaded and has generated some stats for you! You can view the stats in the form of charts or dataframes below!
-        
-        Some information worth mentioning are:
-        - IP addresses
-        - MAC addresses
-        - Ports
-        - Packets
-        - Packet Length
-    """)
+    with st.expander("What is Occult's Data Analysis? 🤔"):
+        st.markdown("""
+            Occult has analysed the data from the PCAP files you have uploaded and has generated some stats for you! You can view the stats in the form of charts or dataframes below!
+            
+            Some information worth mentioning are:
+            - IP addresses
+            - MAC addresses
+            - Ports
+            - Packets
+            - Packet Length
+        """)
 
     # Tabs (Charts or dataframes)
     chart_tab, df_tab = st.tabs(["Charts", "Dataframes"])
@@ -157,7 +159,7 @@ else:
             st.info("Be sure to be specific in your prompts so that Occult can generate a diagram to your liking!")
 
             # User prompt to generate diagram
-            chart_prompt = st.text_input("Tell Occult what you want to generate!")
+            chart_prompt = st.text_input("Tell Occult what you want to generate!", placeholder="Generate a bar graph/pie chart/histogram of...")
             if st.button("Generate Diagram! 📊"):
                 for file in os.listdir("exports/charts"):
                     os.remove(os.path.join("exports/charts", file))
@@ -174,6 +176,7 @@ else:
                     if find_file:
                         print("Diagram generated")
                         st.image(f"exports/charts/{file}")
+                        Image.open(f"exports/charts/{file}").show()
                     else:
                         st.warning("Occult cannot produce a graph! Try to rephrase your prompt to be clearer for Occult!")
                         st.error(result)
