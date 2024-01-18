@@ -8,6 +8,7 @@ from pandasai.llm import GooglePalm
 from pandasai import PandasAI
 from pandasai import SmartDataframe
 from pandasai.middlewares.streamlit import StreamlitMiddleware
+import matplotlib.pyplot as plt
 
 load_dotenv()
 
@@ -19,7 +20,14 @@ favicon = Image.open("assets/Occult.png")
 
 # Load GooglePalm LLM
 llm = GooglePalm(api_key=os.getenv("GOOGLE_API_KEY"))
-pandas_ai = PandasAI(llm=llm, middlewares=[StreamlitMiddleware()])
+pandas_ai = PandasAI(
+    llm=llm, 
+    middlewares=[StreamlitMiddleware()], 
+    conversational=True, 
+    verbose=False, 
+    save_charts=True, 
+    save_charts_path="exports/charts",
+)
 
 # Page configurations
 st.set_page_config(
@@ -88,7 +96,6 @@ else:
         - Ports
         - Packets
         - Packet Length
-                
     """)
 
     # Tabs (Charts or dataframes)
@@ -113,17 +120,26 @@ else:
     with chart_tab:
         # Display data visualisation for each PCAP file
         for filename, data in zip(csv_filenames, csv_datas):
-            smart_df = SmartDataframe(data, config={"llm": llm})
+            smart_df = SmartDataframe(
+                data, 
+                config={
+                    "llm": llm,
+                    "verbose": True,
+                    "open_charts": True,
+                    "use_error_correction_framework": True,
+                }
+            )
+
             df = pd.DataFrame(data)
             st.markdown(f"### {filename}")
             st.markdown("#### Occult's Summary!")
             col1, col2, col3, col4 = st.columns(4)
             with col1:
                 st.metric("Packets found", smart_df.chat("How many packets are there in the dataframe altogether?"))
-                st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets?"))
+                st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets? Round the value to the nearest whole number."))
             with col2:
                 st.metric("Unique IP Addresses", smart_df.chat("How many unique IP addresses are there in the dataframe?"))
-                st.metric("Average Packet Length", smart_df.chat("What is the average packet length?"))
+                st.metric("Average Packet Length", smart_df.chat("What is the average packet length? Round the value to the nearest whole number."))
             with col3:
                 st.metric("Unique MAC Addresses", smart_df.chat("How many unique MAC addresses are there in the dataframe?"))
                 st.metric("Largest Packet Length", smart_df.chat("What is the largest packet length?"))
@@ -137,22 +153,27 @@ else:
 
             # Generate diagram
             st.markdown("### Generate a Diagram")
-            st.markdown("Not enough diagrams for your infromation? Ask Occult to generate a diagram for you!")
+            st.markdown("Not enough diagrams for your information? Ask Occult to generate a diagram for you! Generate a bar graph, pie chart, histogram, line chart, scatter plot, you name it!")
+            st.info("Be sure to be specific in your prompts so that Occult can generate a diagram to your liking!")
 
             # User prompt to generate diagram
-            chart_prompt = st.text_input("What kind of diagram do you want to generate?")
+            chart_prompt = st.text_input("Tell Occult what you want to generate!")
             if st.button("Generate Diagram! 📊"):
+                for file in os.listdir("exports/charts"):
+                    os.remove(os.path.join("exports/charts", file))
                 with st.spinner("Generating diagram..."):
-                    # If image exists, generate diagram
-                    result = pandas_ai.run(df, prompt=chart_prompt)
+                    print("Generating diagram...")
+                    # If image exists, generate diagram 
+                    result = pandas_ai(df, prompt=chart_prompt)
                     find_file = False
-                    current_directory = os.getcwd()
-                    for file in os.listdir(current_directory):
-                        if file == "temp_chart.png":
+                    for file in os.listdir("exports/charts"):
+                        if file.endswith(".png"):
+                            filename = file
                             find_file = True
                             break
                     if find_file:
-                        print("Diagram found!")
-                        st.image("temp_chart.png")
+                        print("Diagram generated")
+                        st.image(f"exports/charts/{file}")
                     else:
-                        st.markdown("Occult couldn't generate a diagram for you! Please try again! 😢")
+                        st.warning("Occult cannot produce a graph! Try to rephrase your prompt to be clearer for Occult!")
+                        st.error(result)
