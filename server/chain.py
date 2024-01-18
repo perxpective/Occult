@@ -55,7 +55,7 @@ def write_to_csv(extracted_fields, csv_file):
 # Extracting the Protcol Name and the Info field from the PCAP  using Tshark
 def extract_pcap_info(input_pcap, output_csv):
     # Run tshark command to extract protocol name and info field
-    tshark_command = ["tshark", "-r", input_pcap, "-T", "fields", "-e", "frame.number","-e", "frame.protocols", "-e", "_ws.col.Info"]
+    tshark_command = ["tshark", "-r", input_pcap, "-T", "fields", "-e", "frame.number","-e", "_ws.col.Protocol", "-e", "_ws.col.Info"]
 
     try:
         result = subprocess.run(tshark_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
@@ -63,7 +63,7 @@ def extract_pcap_info(input_pcap, output_csv):
 
         # Extract protocol name and info field
         # data = [(line.split('\t')[0], line.split('\t')[1]) for line in output_lines]
-        data = [(line.split('\t')[0], line.split('\t')[1].split(":")[-1], line.split('\t')[2]) for line in output_lines]
+        data = [(line.split('\t')[0], line.split('\t')[1], line.split('\t')[2]) for line in output_lines]
 
         # Write to CSV
         with open(output_csv, mode='w', newline='') as csv_file:
