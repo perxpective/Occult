@@ -6,10 +6,13 @@ from pathlib import Path
 from langchain.prompts   import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
+from langchain.vectorstores import Chroma
 from langchain.llms import DeepInfra
 from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 import os
+from langchain.vectorstores import Chroma
+import chromadb.utils.embedding_functions as embedding_functions
 
 # Import functions from chain.py
 import chain
@@ -17,12 +20,14 @@ import chain
 # Load environment variables
 load_dotenv()
 
-# Embeddings
-embeddings = HuggingFaceEmbeddings()
-
 # Import environment variables
 DEEP_INFRA_API_TOKEN = os.getenv("DEEP_INFRA_API_TOKEN")
 HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+
+# Embeddings
+embeddings = HuggingFaceEmbeddings()
+
+
 
 # Initialize FastAPI
 app = FastAPI(title="Occult", version="0.1.0")
@@ -37,8 +42,11 @@ llm.model_kwargs = {
 }
 
 # Initialize chain and vector store
-vector_store = None
-lang_chain = None
+vector_store = Chroma(persist_directory="./../database", embedding_function=embeddings)
+lang_chain = RetrievalQA.from_chain_type(
+    llm=llm, 
+    retriever=vector_store.as_retriever()
+    )
 
 # Prompt Template
 template = """
@@ -123,13 +131,13 @@ async def upload_pcap(file: UploadFile = File(...)):
     global vector_store
     
     for csv_file in csv_files:
-        vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
+        vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
 
     global lang_chain
     lang_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
-        retriever=vector_store.as_retriever()
+        retriever=vector_store.as_retriever(search_kwargs={"k":7})
     )
     
     return {
@@ -145,8 +153,12 @@ async def receive_prompt(chat_prompt: ChatPrompt):
     # Process chat message with LLM
     received_message = chat_prompt.message
     print(f"User Message Received: {received_message}")
+
     global vector_store
     print("Initializing chain...")
+    # if vector_store is None:
+    #     for csv_file in Path("data").glob("*.csv"):
+    #         vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
 
     # Process chat message with LLM
     global lang_chain
