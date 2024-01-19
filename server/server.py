@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 import os
 from langchain.vectorstores import Chroma
 import chromadb.utils.embedding_functions as embedding_functions
+import time
 
 # Import functions from chain.py
 import chain
@@ -49,9 +50,12 @@ lang_chain = RetrievalQA.from_chain_type(
     )
 
 # Prompt Template
+# You are an AI network security pcap analyzer named Occult. You will be given a network capture (pcap) in CSV format.
+# Your tasks will be to analyse the CSV and answer user questions and do not answer any question twice.
 template = """
-You are an AI network security pcap analyzer named Occult. You will be given a network capture (pcap) in CSV format.
-Your tasks will be to analyse the CSV and answer user questions and do not answer any question twice.
+You are an AI network security pcap analyzer named Occult. You have been given a network capture (pcap) in CSV format and some CTI data.
+You will answer user questions regarding the network capture. Try to give a conclusive answer, do not beat around the bush. Do not refer to the CTI data when the user asks network capture related questions.
+Look for answers in various columns like protocol_name, packet_information and etc.
 Question: {query}
 Answer: 
 """
@@ -124,11 +128,12 @@ async def upload_pcap(file: UploadFile = File(...)):
     # Write the extracted data to the CSV file (without info)
     chain.write_to_csv(extracted_fields, csv_filename)
 
-    
+
     csv_filename_info = f"{csv_filename}_info.csv"
     chain.extract_pcap_info(str(file_path),csv_filename_info)
 
     chain.merge_csv_files(csv_filename, csv_filename_info, "frame_number", csv_filename)
+    time.sleep(5)
 
 
     # Iterate through all CSV files in data folder
@@ -144,7 +149,7 @@ async def upload_pcap(file: UploadFile = File(...)):
     lang_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
-        retriever=vector_store.as_retriever(search_kwargs={"k":7})
+        retriever=vector_store.as_retriever()
     )
     
     return {

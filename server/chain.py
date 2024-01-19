@@ -68,7 +68,7 @@ def extract_pcap_info(input_pcap, output_csv):
         # Write to CSV
         with open(output_csv, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
-            csv_writer.writerow(['frame_number','protocol_name', 'information'])
+            csv_writer.writerow(['frame_number','protocol_name', 'packet_information'])
             csv_writer.writerows(data)
 
         print(f"Extraction completed. Data saved to {output_csv}")
