@@ -6,3 +6,4 @@ server/__pycache__
 app/pandasai.log
 app/cache
 app/exports/*
+database

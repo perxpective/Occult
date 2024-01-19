@@ -114,15 +114,22 @@ async def upload_pcap(file: UploadFile = File(...)):
     with file_path.open("wb") as buffer:
         buffer.write(file.file.read())
 
-    # Process PCAP file
+    # Process PCAP file (getting common fields using scapy)
     extracted_fields = chain.extract_pcap_fields(str(file_path))
 
     # Convert PCAP to CSV file in data folder
     csv_filename = str(Path("data") / str(file.filename).replace(".pcap", ".csv").replace(".pcapng", ".csv"))
     print("Created new CSV file:", csv_filename)
 
-    # Write the extracted data to the CSV file
+    # Write the extracted data to the CSV file (without info)
     chain.write_to_csv(extracted_fields, csv_filename)
+
+    
+    csv_filename_info = f"{csv_filename}_info.csv"
+    chain.extract_pcap_info(str(file_path),csv_filename_info)
+
+    chain.merge_csv_files(csv_filename, csv_filename_info, "frame_number", csv_filename)
+
 
     # Iterate through all CSV files in data folder
     csv_files = Path("data").glob("*.csv")
@@ -156,9 +163,6 @@ async def receive_prompt(chat_prompt: ChatPrompt):
 
     global vector_store
     print("Initializing chain...")
-    # if vector_store is None:
-    #     for csv_file in Path("data").glob("*.csv"):
-    #         vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
 
     # Process chat message with LLM
     global lang_chain

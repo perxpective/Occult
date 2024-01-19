@@ -55,7 +55,7 @@ def write_to_csv(extracted_fields, csv_file):
 # Extracting the Protcol Name and the Info field from the PCAP  using Tshark
 def extract_pcap_info(input_pcap, output_csv):
     # Run tshark command to extract protocol name and info field
-    tshark_command = ["tshark", "-r", input_pcap, "-T", "fields", "-e", "frame.number","-e", "_ws.col.Protocol", "-e", "_ws.col.Info"]
+    tshark_command = [r"C:\Program Files\Wireshark\tshark.exe", "-r", input_pcap, "-T", "fields", "-e", "frame.number","-e", "_ws.col.Protocol", "-e", "_ws.col.Info"]
 
     try:
         result = subprocess.run(tshark_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
@@ -89,6 +89,8 @@ def merge_csv_files(file1, file2, common_column, output_file):
 
     # Write the merged DataFrame to a new CSV file
     merged_df.to_csv(output_file, index=False)
+    os.remove(file2)
+    print(f"File '{file2}' deleted successfully.")
 
     print(f"Merged data saved to {output_file}")
 
