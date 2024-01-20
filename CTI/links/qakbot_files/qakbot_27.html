@@ -1,0 +1,864 @@
+
+<!-- This page is cached by the Hummingbird Performance plugin v2.7.2 - https://wordpress.org/plugins/hummingbird-performance/. --><!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO Premium plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>From Innocence to Malice: The OneNote Malware Campaign Uncovered</title>
+	<meta name="description" content="Check out our latest threat research blog - From Innocence to Malice: The OneNote Malware Campaign Uncovered" />
+	<link rel="canonical" href="https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="From Innocence to Malice: The OneNote Malware Campaign Uncovered" />
+	<meta property="og:description" content="Check out our latest threat research blog - From Innocence to Malice: The OneNote Malware Campaign Uncovered" />
+	<meta property="og:url" content="https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/" />
+	<meta property="og:site_name" content="Loginsoft Research" />
+	<meta property="article:published_time" content="2023-03-30T11:23:54+00:00" />
+	<meta property="article:modified_time" content="2023-06-15T06:27:22+00:00" />
+	<meta property="og:image" content="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram.png" />
+	<meta property="og:image:width" content="1250" />
+	<meta property="og:image:height" content="825" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@Loginsoft_Inc" />
+	<meta name="twitter:site" content="@Loginsoft_Inc" />
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="ssane">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="6 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://research.loginsoft.com/#organization","name":"Loginsoft","url":"https://research.loginsoft.com/","sameAs":["https://www.linkedin.com/company/loginsoft","https://twitter.com/Loginsoft_Inc"],"logo":{"@type":"ImageObject","@id":"https://research.loginsoft.com/#logo","inLanguage":"en-US","url":"https://research.loginsoft.com/wp-content/uploads/sites/2/2019/03/logo.png","contentUrl":"https://research.loginsoft.com/wp-content/uploads/sites/2/2019/03/logo.png","width":170,"height":52,"caption":"Loginsoft"},"image":{"@id":"https://research.loginsoft.com/#logo"}},{"@type":"WebSite","@id":"https://research.loginsoft.com/#website","url":"https://research.loginsoft.com/","name":"Loginsoft Research","description":"Research","publisher":{"@id":"https://research.loginsoft.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://research.loginsoft.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#primaryimage","inLanguage":"en-US","url":"https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram.png","contentUrl":"https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram.png","width":1250,"height":825},{"@type":"WebPage","@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#webpage","url":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/","name":"From Innocence to Malice: The OneNote Malware Campaign Uncovered","isPartOf":{"@id":"https://research.loginsoft.com/#website"},"primaryImageOfPage":{"@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#primaryimage"},"datePublished":"2023-03-30T11:23:54+00:00","dateModified":"2023-06-15T06:27:22+00:00","description":"Check out our latest threat research blog - From Innocence to Malice: The OneNote Malware Campaign Uncovered","breadcrumb":{"@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/"]}]},{"@type":"BreadcrumbList","@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://research.loginsoft.com/","url":"https://research.loginsoft.com/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/","url":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/","name":"From Innocence to Malice: The OneNote Malware Campaign Uncovered"}}]},{"@type":"Article","@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#article","isPartOf":{"@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#webpage"},"author":{"@id":"https://research.loginsoft.com/#/schema/person/2e849350e6013bd9f1c1aba832a93f78"},"headline":"From Innocence to Malice: The OneNote Malware Campaign Uncovered","datePublished":"2023-03-30T11:23:54+00:00","dateModified":"2023-06-15T06:27:22+00:00","mainEntityOfPage":{"@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#webpage"},"publisher":{"@id":"https://research.loginsoft.com/#organization"},"image":{"@id":"https://research.loginsoft.com/threat-research/from-innocence-to-malice-the-onenote-malware-campaign-uncovered/#primaryimage"},"articleSection":"Threat Research","inLanguage":"en-US"},{"@type":"Person","@id":"https://research.loginsoft.com/#/schema/person/2e849350e6013bd9f1c1aba832a93f78","name":"ssane","image":{"@type":"ImageObject","@id":"https://research.loginsoft.com/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/1ae2fe4ad82da3cba6f87824165acedd?s=96&d=mm&r=g","contentUrl":"https://secure.gravatar.com/avatar/1ae2fe4ad82da3cba6f87824165acedd?s=96&d=mm&r=g","caption":"ssane"}}]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Loginsoft Research &raquo; Feed" href="https://research.loginsoft.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Loginsoft Research &raquo; Comments Feed" href="https://research.loginsoft.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/research.loginsoft.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.10"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://research.loginsoft.com/wp-includes/css/dist/block-library/style.min.css?ver=5.7.10' type='text/css' media='all' />
+<link rel='stylesheet' id='wphb-1-css'  href='https://research.loginsoft.com/wp-content/uploads/sites/2/hummingbird-assets/e5e896ceb9d8e059caa4fecd8af5dd9a.css' type='text/css' media='all' />
+<script type='text/javascript' src='https://research.loginsoft.com/wp-content/uploads/sites/2/hummingbird-assets/66eb5cf623f3347ff1a53683626ddd82.js' id='wphb-2-js'></script>
+<script type='text/javascript' src='https://research.loginsoft.com/wp-content/uploads/sites/2/hummingbird-assets/f5f7f53ce33a60bd57f20f4cd23b0d1b.js' id='wphb-3-js'></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='https://research.loginsoft.com/wp-content/uploads/sites/2/hummingbird-assets/bdc7f63c238c3af1b33fb432018b51aa.js' id='html5hiv-js'></script>
+<![endif]-->
+<link rel="https://api.w.org/" href="https://research.loginsoft.com/wp-json/" /><link rel="alternate" type="application/json" href="https://research.loginsoft.com/wp-json/wp/v2/posts/3803" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://research.loginsoft.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://research.loginsoft.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.7.10" />
+<link rel='shortlink' href='https://research.loginsoft.com/?p=3803' />
+<link rel="alternate" type="application/json+oembed" href="https://research.loginsoft.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fresearch.loginsoft.com%2Fthreat-research%2Ffrom-innocence-to-malice-the-onenote-malware-campaign-uncovered%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://research.loginsoft.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fresearch.loginsoft.com%2Fthreat-research%2Ffrom-innocence-to-malice-the-onenote-malware-campaign-uncovered%2F&#038;format=xml" />
+	<style type="text/css">
+		a {
+cursor: pointer !important;
+}	
+	</style>
+	<link rel="pingback" href="https://research.loginsoft.com/xmlrpc.php">    <style type="text/css">
+        #page-sub-header { background: #fff; }
+    </style>
+    <link rel="icon" href="https://research.loginsoft.com/wp-content/uploads/sites/2/2018/10/cropped-Favi-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://research.loginsoft.com/wp-content/uploads/sites/2/2018/10/cropped-Favi-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://research.loginsoft.com/wp-content/uploads/sites/2/2018/10/cropped-Favi-180x180.png" />
+<meta name="msapplication-TileImage" content="https://research.loginsoft.com/wp-content/uploads/sites/2/2018/10/cropped-Favi-270x270.png" />
+	<link rel="stylesheet" type="text/css" href="https://research.loginsoft.com/wp-content/themes/research_21/main.css">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125440592-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-125440592-1');
+</script>
+	
+	<!-- Global site tag (gtag.js) - Google Ads: 740364111 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-740364111"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-740364111');
+</script>
+<script>
+  var llcookieless = false;
+  var formalyze = [];
+  formalyze.auto = true;
+  formalyze.callback = function(options) {};
+  (function() {
+    var a = document.createElement('script');
+    a.src = 'https://lltrck.com/scripts/lt-v3.js?llid=31999';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(a, s);
+  })();
+</script>
+<script src="https://kit.fontawesome.com/bb20e64956.js" crossorigin="anonymous"></script>
+<!--	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous"/>
+	<!--<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+</head>
+
+<body class="post-template-default single single-post postid-3803 single-format-standard group-blog">
+<div id="page" class="site">
+<div class="site-inner">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    	<header id="masthead" class="site-header navbar-static-top navbar-light" role="banner">
+        <div class="container">
+            <nav class="navbar navbar-expand-xl p-0">
+                <div class="navbar-brand">
+                    						<a href="https://www.loginsoft.com/">
+							<img src="https://research.loginsoft.com/wp-content/uploads/sites/2/2019/03/logo.png" alt="Loginsoft" />							
+						</a>
+											<a href="https://research.loginsoft.com/" rel="home"> | <p class="site-description">Research</p></a>
+					
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="main-nav" class="collapse navbar-collapse justify-content-end"><ul id="menu-main-menu" class="navbar-nav"><li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-2210" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown menu-item-2210 nav-item"><a title="Security Advisories" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle nav-link" id="menu-item-dropdown-2210">Security Advisories</a>
+<ul class="dropdown-menu" aria-labelledby="menu-item-dropdown-2210" role="menu">
+	<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-1452" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1452 nav-item"><a title="Vulnerability Reports" href="https://research.loginsoft.com/category/vulnerability/" class="dropdown-item">Vulnerability Reports</a></li>
+	<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-1453" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1453 nav-item"><a title="Bug Reports" href="https://research.loginsoft.com/category/bugs/" class="dropdown-item">Bug Reports</a></li>
+</ul>
+</li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-3756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3756 nav-item"><a title="Threat Research" href="https://research.loginsoft.com/threat-research/" class="nav-link">Threat Research</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-3755" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3755 nav-item"><a title="Vulnerability Research" href="https://research.loginsoft.com/vulnerability-research/" class="nav-link">Vulnerability Research</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-1794" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1794 nav-item"><a title="IP Reputation" href="https://research.loginsoft.com/ip-reputation/" class="nav-link">IP Reputation</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-752" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-752 nav-item"><a title="Contact us" href="https://research.loginsoft.com/contact-us/" class="nav-link">Contact us</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-807" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-807 nav-item"><a title="Cyber Security Services" target="_blank" href="https://www.loginsoft.com/loginsoft-cybersecurity-services/" class="nav-link">Cyber Security Services</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-868" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-868 nav-item"><a title="Blogs" target="_blank" href="https://www.loginsoft.com/blogs/" class="nav-link">Blogs</a></li>
+</ul></div>
+            </nav>
+        </div>
+	</header><!-- #masthead -->
+	<div id="content" class="site-content">
+                <div class="container">
+	<section id="primary" class="content-area col-sm-12 col-lg-12" style="padding-top: 45px;">
+		<main id="main" class="site-main" role="main" style="padding:35px 15px;" >
+
+		
+<article id="post-3803" class="post-3803 post type-post status-publish format-standard has-post-thumbnail hentry category-threat-research">
+	<header class="entry-header">
+		<h1 class="entry-title">From Innocence to Malice: The OneNote Malware Campaign Uncovered</h1>	</header><!-- .entry-header -->
+
+	
+	
+	<div class="entry-content">
+		
+<h4 id="h-summary"><strong><strong>Summary</strong></strong></h4>
+
+
+
+<p class="has-text-align-right wp-author has-black-color has-text-color has-small-font-size">March 30, 2023<br> <span style="color:#FFF">By</span> <strong>Saharsh Agrawal</strong></p>
+
+
+
+<p>OneNote has been highly cherished by Threat Actors (TAs) in recent months. Unfortunately, many malware distributors have taken notice and are now using OneNote to deliver malicious files to their victims. These actors attach malicious files to a page within OneNote and then share it with their targets as a .one file. The ONE file reaches its targets through phishing emails. Upon opening the attachment, the victim&#8217;s computer is compromised.</p>
+
+
+
+<div class="wp-block-image is-style-default"><figure class="aligncenter size-large is-resized"><img loading="lazy" src="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram-1024x676.png" alt="OneNote Malware Campaign" class="wp-image-3809" width="512" height="338" srcset="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram-1024x676.png 1024w, https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram-300x198.png 300w, https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram-768x507.png 768w, https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/flow-diagram.png 1250w" sizes="(max-width: 512px) 100vw, 512px" /><figcaption><em><em>Figure 1: Overview of OneNote Malware Campaign</em></em></figcaption></figure></div>
+
+
+
+<h4 id="h-evolution"><strong><strong>Evolution</strong></strong></h4>
+
+
+
+<p>The inclusion of the MoTW flag and disabling macros in Microsoft Office applications has resulted in a notable reduction in the use of MS Word and other executables for distributing malware. OneNote enables its users to attach files without constraints, making it a convenient means for TAs to deliver malicious payloads. To address this concern, Microsoft has introduced a warning dialog box that prompts users when attempting to open an attachment.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full"><img loading="lazy" width="1152" height="648" src="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/timeline-1.gif" alt="Evolution in Malware Distribution" class="wp-image-3918" /><figcaption><em>Figure 2: Evolution in Malware Distribution</em></figcaption></figure></div>
+
+
+
+<h4 id="h-how-tas-are-using-onenote"><strong><strong><strong>How TAs are using OneNote</strong></strong></strong></h4>
+
+
+
+<p>OneNote malware campaign is propagated via phishing emails, with <a href="https://www.bleepingcomputer.com/news/security/emotet-malware-now-distributed-in-microsoft-onenote-files-to-evade-defenses/" target="_blank" rel="noreferrer noopener">Emotet</a> being the latest malware to take part in this campaign. The attackers employ a tactic of deception by displaying a counterfeit button, concealing the actual harmful attachment underneath it. Victims are lured into clicking the button with the promise of accessing the document upon clicking the fake button. <a href="https://blog.nviso.eu/2023/03/27/onenote-embedded-url-abuse/" target="_blank" rel="noreferrer noopener">Nviso Labs</a> also reported the use of embedded URLs by the TAs to deliver their payload.</p>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:100%">
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" width="2560" height="1292" src="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/4x4-image-1-scaled.jpg" alt="OneNote Attachments" class="wp-image-3909" srcset="https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/4x4-image-1-scaled.jpg 2560w, https://research.loginsoft.com/wp-content/uploads/sites/2/2023/03/4x4-image-1-300x151.jpg 300w" sizes="(max-width: 2560px) 100vw, 2560px" /></figure></div>
+</div>
+</div>
+
+
+
+<p>The threat actors have been disseminating the malware by using various file types as attachments. Our findings reveal that the primary purpose of these attachments is to download and execute the intended malware. Presented below is a list of some file extensions that the TAs favor.</p>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column tasfavour">
+<ul><li>.bat</li><li>.js</li><li>.cmd</li><li>.wsf</li><li>.ps</li><li>.lnk</li><li>.exe</li><li>.hta</li><li>.vbs</li></ul>
+</div>
+</div>
+
+
+
+<p>One noteworthy technique that was observed involved the use of <a href="https://attack.mitre.org/techniques/T1036/002/" target="_blank" rel="noreferrer noopener">Right-to-Left Override</a> to masquerade the file extension. The malware has also been seen with <a href="https://attack.mitre.org/techniques/T1036/007/" target="_blank" rel="noreferrer noopener">double file extensions</a> in order to evade detection.</p>
+
+
+
+<p>In late November 2022, Qakbot was observed utilizing OneNote to distribute its malware and since then, numerous threat actors have followed suit, taking advantage of this feature. This campaign has brought together multiple malware families and integrated them into a unified approach. Threat actors still continue to incorporate OneNote as a tool in their arsenal for delivering their malware.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+
+
+<p>The chart below illustrates the distribution trend of malware by various TAs in the last four months. OneNote has been extensively used by Qakbot in recent months, which is evident from the chart. Emotet joined the campaign in March and has been consistently active since then. Meanwhile, AsyncRAT has shown a gradual rise in the number of malwares detected over the months, with a halt in March.</p>
+
+
+
+
+
+
+
+<p>The OneNote Malware Campaign displayed no bias towards specific malware categories as it welcomed all types of malwares, including info-stealers and ransomware, with open arms.</p>
+
+
+
+<p>A list of some popular malware utilizing the OneNote malware campaign that was observed, is provided below.</p>
+
+
+
+<div class="wp-block-columns are-vertically-aligned-center malware">
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%">
+<ul><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.qakbot" target="_blank" rel="noreferrer noopener">Qakbot</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.agent_tesla" target="_blank" rel="noreferrer noopener">Agent Tesla</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.asyncrat" target="_blank" rel="noreferrer noopener">AsyncRAT</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.redline_stealer" target="_blank" rel="noreferrer noopener">Redline</a>&nbsp;</li></ul>
+</div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%">
+<ul><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.icedid" target="_blank" rel="noreferrer noopener">IcedID</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.emotet" target="_blank" rel="noreferrer noopener">Emotet</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.quasar_rat" target="_blank" rel="noreferrer noopener">Quasar</a>&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.xworm" target="_blank" rel="noreferrer noopener">XWorm</a></li></ul>
+</div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:29%">
+<ul><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.netwire" target="_blank" rel="noreferrer noopener">Netwire RAT</a></li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.doubleback" target="_blank" rel="noreferrer noopener">DOUBLEBACK</a> (backdoor)&nbsp;</li><li><a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.formbook" target="_blank" rel="noreferrer noopener">Formbook</a>&nbsp;</li></ul>
+</div>
+</div>
+
+
+
+<p>Malware samples using OneNote can be found in <a href="https://bazaar.abuse.ch/browse/tag/one/" target="_blank" rel="noreferrer noopener">MalwareBazaar</a>, and there are open-source tools developed by <a href="https://github.com/DidierStevens/Beta/blob/master/onedump.py" target="_blank" rel="noreferrer noopener">DidierStevens</a> and <a href="https://github.com/knight0x07/OneNoteAnalyzer" target="_blank" rel="noreferrer noopener">knight0x07</a> that will be helpful for static analysis of the .one file format.</p>
+
+
+
+<h4 id="h-prevention"><strong><strong>Prevention</strong></strong></h4>
+
+
+
+<p>As we mentioned earlier, the campaign is being spread through emails. An adequate way for your organization to protect itself is by either creating a rule in Microsoft Exchange Online or by creating a new Anti-malware policy to block emails containing .one files as attachments.</p>
+
+
+
+<p>If these options are not feasible, you can limit the launching of embedded file attachments in OneNote by utilizing Microsoft Office group policies.</p>
+
+
+
+<p>Creating an Attack Surface Reduction (ASR) rule on `D4F940AB-401B-4EfC-AADC-AD5F3C50688A` as shown below will help prevent the execution of OneNote attachments. If a user tries to open the attachment, they will receive a notification alerting them that the administrator has blocked this action.</p>
+
+
+
+<pre class="wp-block-code"><code>Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EfC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions Enabled</code></pre>
+
+
+
+<h4 id="h-detection"><strong><strong><strong>Detection</strong></strong></strong></h4>
+
+
+
+<p>OneNote Malware Campaign can be detected using <a href="https://www.loginsoft.com/blog/2020/06/17/threat-detection-with-sigma-rules/">sigma</a> rules.</p>
+
+
+
+<p>The below rule detects the creation of .one file in users machine.</p>
+
+
+
+<pre class="wp-block-code"><code>logsource: 
+    category: file_event 
+
+    product: windows 
+
+detection: 
+
+    selection: 
+
+        TargetFilename|contains: 
+
+            - '\AppData\Local\Temp\' 
+
+            - '\Users\Public\' 
+
+            - '\Users\' 
+
+            - '\Windows\Temp\' 
+
+            - 'C:\Temp\' 
+
+        TargetFilename|endswith: '.one' 
+
+    condition: selection </code></pre>
+
+
+
+<p>As we highly observed the use of RUNDLL32 for the execution of the malware where the attachment was an .hta file. This behavior can be detected using the following rule.&nbsp;</p>
+
+
+
+<pre class="wp-block-code"><code>logsource: 
+
+  product: windows 
+
+  category: process_creation 
+
+detection: 
+
+  selection_process: 
+
+    Image|contains: 'rundll32.exe' 
+
+    ParentImage|contains: 'mshta.exe' 
+
+    ParentCommandLine|contains|all: 
+
+      - '.hta' 
+
+      - 'OneNote' 
+
+  condition: selection_process </code></pre>
+
+
+
+<p>All the attachments that we open from OneNote without saving them first is temporarily saved to the following path.&nbsp;</p>
+
+
+
+<pre class="wp-block-code"><code>C:\Users\{username}\AppData\Local\Temp\OneNote\16.0\Exported\{DF885392-41F2-44A2-B034-3710120A9EAC}\NT\0\ </code></pre>
+
+
+
+<p>The rule mentioned below was written on the above scenario on attachments with suspicious file extension.&nbsp;</p>
+
+
+
+<pre class="wp-block-code"><code>logsource: 
+
+  category: file_event 
+
+  product: windows 
+
+detection: 
+
+  selection_image: 
+
+    Image|endswith:  
+
+      - '\onenote.exe' 
+
+      - '\ONENOTE.EXE' 
+
+    TargetFilename|contains|all:  
+
+      - '\AppData\Local\Temp\OneNote\' 
+
+      - '\Exported\' 
+
+      - '\NT\' 
+
+  selection_file_ext: 
+
+    TargetFilename|endswith: 
+
+      - '.bat'
+      - '.dat'
+      - '.exe'
+      - '.hta'
+      - '.vba'
+      - '.vbe'
+      - '.vbs'
+      - '.wsh'
+      - '.wsf'
+      - '.js'
+      - '.scr'
+      - '.pif'
+      - '.cmd'
+      - '.chm'
+      - '.ps'
+      - '.lnk'
+      - '.ps1'
+      - '.ps2'
+      - '.jse' 
+  selection_file_right2left: # FileContaining Right-to-Left Override 
+    TargetFilename|re: ^.*U+202E.*$ 
+  selection_file_doubleExt: # File with Double File Extension 
+    TargetFilename|re: ^.*\.&#091;a-zA-Z0-9]*\.&#091;a-zA-Z0-9]*$ 
+  condition: selection_image and 1 of selection_file*</code></pre>
+
+
+
+<p>Additional detections for this campaign have been shared by <a href="https://github.com/mbabinski/Sigma-Rules/tree/main/2023_OneNote_Malware" target="_blank" rel="noreferrer noopener">mbabinski</a> and <a href="https://github.com/SigmaHQ/sigma/blob/4921c96703cb60dcc54898d9a1f65f534ea7a844/rules/windows/process_creation/proc_creation_win_susp_microsoft_onenote_child_process.yml" target="_blank" rel="noreferrer noopener">SigmaHQ</a> for the community.</p>
+
+
+
+<p class="has-small-font-size">For more threat analytics reach us <a href="https://research.loginsoft.com/contact-us/">here</a>.</p>
+
+
+
+<h4 id="h-mitre-att-ck-techniques"><strong>MITRE ATT&amp;CK Techniques</strong></h4>
+
+
+
+<figure class="wp-block-table aligncenter"><table class="table table-bordered table-hover table-striped table-responsive"><tbody><tr><td><strong>Tactic</strong></td><td><strong>Technique ID</strong></td><td><strong>Technique Name</strong></td></tr><tr><td>Initial Access</td><td><a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank" rel="noreferrer noopener">T1566.001</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1566/002/" target="_blank" rel="noreferrer noopener">T1566.002</a>&nbsp;</td><td>Phishing: Spearphishing Attachment&nbsp;<br>Phishing: Spearphishing Link&nbsp;</td></tr><tr><td>Execution</td><td><a href="https://attack.mitre.org/techniques/T1059/001/" target="_blank" rel="noreferrer noopener">T1059.001</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1059/003/" target="_blank" rel="noreferrer noopener">T1059.003</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1059/005/" target="_blank" rel="noreferrer noopener">T1059.005</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1059/007/" target="_blank" rel="noreferrer noopener">T1059.007</a>&nbsp;</td><td>Command and Scripting Interpreter: PowerShell&nbsp;<br>Command and Scripting Interpreter: Windows Command Shell&nbsp;<br>Command and Scripting Interpreter: Visual Basic&nbsp;<br>Command and Scripting Interpreter: JavaScript&nbsp;</td></tr><tr><td>Defense Evasion&nbsp;</td><td><a href="https://attack.mitre.org/techniques/T1036/002/" target="_blank" rel="noreferrer noopener">T1036.002</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1036/007/" target="_blank" rel="noreferrer noopener">T1036.007</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1027/009/" target="_blank" rel="noreferrer noopener">T1027.009</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1055/002/" target="_blank" rel="noreferrer noopener">T1055.002</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1218/001/" target="_blank" rel="noreferrer noopener">T1218.001</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1218/005/" target="_blank" rel="noreferrer noopener">T1218.005</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1218/009/" target="_blank" rel="noreferrer noopener">T1218.009</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1218/011/" target="_blank" rel="noreferrer noopener">T1218.011</a>&nbsp;</td><td>Masquerading: Right-to-Left Override&nbsp;<br>Masquerading: Double File Extension&nbsp;<br>Obfuscated Files or Information: Embedded Payloads&nbsp;<br>Process Injection: Portable Executable Injection&nbsp;<br>System Binary Proxy Execution: Compiled HTML File&nbsp;<br>System Binary Proxy Execution: Mshta&nbsp;<br>System Binary Proxy Execution: Regsvcs/Regasm&nbsp;<br>System Binary Proxy Execution: Rundll32&nbsp;</td></tr><tr><td>Command and Control&nbsp;</td><td><a href="https://attack.mitre.org/techniques/T1105/" target="_blank" rel="noreferrer noopener">T1105</a>&nbsp;<br><a href="https://attack.mitre.org/techniques/T1219/" target="_blank" rel="noreferrer noopener">T1219</a>&nbsp;</td><td>Ingress Tool Transfer&nbsp;<br>Remote Access Software</td></tr></tbody></table></figure>
+
+
+
+<h4 id="h-threat-bites"><strong>Threat Bites</strong></h4>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column wp-block-1" style="flex-basis:10.34%"></div>
+
+
+
+<div class="wp-block-column wp-block-2" style="flex-basis:14.1%">
+<p><strong>Threat Name</strong></p>
+
+
+
+<p><strong>Category</strong></p>
+
+
+
+<p><strong>Threat Actor</strong></p>
+
+
+
+<p><strong>Targeted Country</strong></p>
+
+
+
+<p><strong>Targeted Industry</strong></p>
+
+
+
+<p><strong>First Seen</strong></p>
+
+
+
+<p><strong>Last Seen&nbsp;</strong></p>
+
+
+
+<p><strong>LOLBAS</strong></p>
+
+
+
+<p><strong>Telemetry</strong></p>
+
+
+
+<p><strong>Samples</strong></p>
+</div>
+
+
+
+<div class="wp-block-column wp-block-3" style="flex-basis:1%">
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+
+
+
+<p>:</p>
+</div>
+
+
+
+<div class="wp-block-column wp-block-4" style="flex-basis:50.55%">
+<p>OneNote Malware Campaign&nbsp;</p>
+
+
+
+<p>Malware Distribution Channel</p>
+
+
+
+<p>TA551, TA2541, TA558, TA542, APT33, TA577, TA558</p>
+
+
+
+<p>Worldwide</p>
+
+
+
+<p>Shipping, Manufacturing and Aerospace</p>
+
+
+
+<p>November 2022</p>
+
+
+
+<p>March 2023</p>
+
+
+
+<p>Wmic,Reg, Rundll32, Mshta, Regasm, Regsvcs</p>
+
+
+
+<p>sysmon, security, windefend, powershell</p>
+
+
+
+<p><a href="https://bazaar.abuse.ch/sample/8bfd499350dc36e9ad85f70e01249bb917dfe4002d07c8fca7a780a1a4b2c6c7" target="_blank" rel="noreferrer noopener">https://bazaar.abuse.ch/sample/8bfd499350dc36e9ad85f70e01249bb917dfe4002d07c8fca7a780a1a4b2c6c7</a></p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns references_ul">
+<div class="wp-block-column mb-0" style="flex-basis:100%">
+<h4 id="h-references"><strong>References</strong></h4>
+
+
+
+<ul><li><a href="https://www.proofpoint.com/us/blog/threat-insight/onenote-documents-increasingly-used-to-deliver-malware" target="_blank" rel="noreferrer noopener">https://www.proofpoint.com/us/blog/threat-insight/onenote-documents-increasingly-used-to-deliver-malware&nbsp;</a></li><li><a href="https://www.trustedsec.com/blog/new-attacks-old-tricks-how-onenote-malware-is-evolving/" target="_blank" rel="noreferrer noopener">https://www.trustedsec.com/blog/new-attacks-old-tricks-how-onenote-malware-is-evolving/&nbsp;</a></li><li><a href="https://blog.cyble.com/2023/02/01/qakbots-evolution-continues-with-new-strategies/" target="_blank" rel="noreferrer noopener">https://blog.cyble.com/2023/02/01/qakbots-evolution-continues-with-new-strategies/</a>&nbsp;</li><li><a href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/trojanized-onenote-document-leads-to-formbook-malware/" target="_blank" rel="noreferrer noopener">https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/trojanized-onenote-document-leads-to-formbook-malware/</a>&nbsp;</li><li><a href="https://www.rapid7.com/blog/post/2023/01/31/rapid7-observes-use-of-microsoft-onenote-to-spread-redline-infostealer-malware/" target="_blank" rel="noreferrer noopener">https://www.rapid7.com/blog/post/2023/01/31/rapid7-observes-use-of-microsoft-onenote-to-spread-redline-infostealer-malware/&nbsp;</a></li></ul>
+
+
+
+<p></p>
+</div>
+</div>
+
+
+
+<p>To uncover the dark secrets of the Aurora Stealer Malware, check out the <a href="https://research.loginsoft.com/threat-research/aurora-the-dark-dawn-and-its-menacing-effects/">blog</a>!</p>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<p style="padding-top:20px"><strong>Author</strong>: Saharsh Agrawal <br> Security Researcher, Loginsoft </p>
+</div>
+</div>
+
+
+<style>
+.entry-content {
+    padding: 15px !important;
+}
+.site {
+    background: #e8e8e8;
+}
+.tasfavour ul{
+    list-style: none !important;
+    display: flex !important;
+    padding: 0px !important;
+    justify-content: center;
+}
+.tasfavour ul li{
+background: #CCC !important;
+    border-radius: 20px !important;
+    padding: 5px 25px !important;
+    color: #2e2e2e !important;
+    font-weight: bold !important;
+margin:10px;
+}
+.malware{     justify-content: center;}
+.malware ul{
+    list-style: square !important;
+    padding: 0px !important;
+}
+.malware ul li{
+    padding: 0 !important;
+    color: #2e2e2e !important;
+    font-weight: bold !important;
+margin:10px;
+}
+.malware ul li a {color: #f18520!important;}
+.malware  ul li a:hover {
+    color: #f18520 !important;
+    text-decoration: underline;
+}
+.references_ul{
+    list-style-type: disc;
+    color: #666;
+}
+.references_ul a {color: #f18520!important;}
+.references_ul a:hover {
+    color: #f18520 !important;
+    text-decoration: underline;
+}
+.content-area .site-main{ background:#FFF !important; border: none;}
+h4 {
+    color: #f18520 !important;
+    font-size: 22px;
+    margin-top: 0px;
+    padding-top: 0px !important;
+    line-height: 2.5rem !important;
+}
+.table-bordered {
+    border: none;
+}
+p {
+    color: #000 !important;
+font-weight:500;
+}
+p a {color: #f18520!important;}
+p a:hover {
+    color: #f18520 !important;
+    text-decoration: underline;
+}
+table a {color: #f18520!important;}
+table a:hover {
+    color: #f18520 !important;
+    text-decoration: underline;
+}
+pre {
+    background-color: #f1f0eb;
+border: 1px solid #c6c6c6;
+    color: #000;
+}
+pre >code {
+    background-color: #f1f0eb;
+}
+.table td {padding: 10px; color: #000 !important;}
+.table-hover tbody tr:hover {
+    background-color: #eee;
+}
+.wp-block-image figcaption {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+    text-align: center;
+    color: #5f5f5f !important;
+    font-size: smaller !important;
+}
+.wp-block-columns{ margin-bottom:0px;}
+.wp-block-image figcaption {
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+    text-align: center;
+}
+.wp-image{
+    border: 1px solid #ccc;
+}
+.wp-author{ margin-top: -120px !important;
+    color: #FFF!important;
+    text-align: right !important;
+    font-size: normal;
+    float: right;
+}
+ @media screen and (max-width: 599px) {  
+.wp-block-1{
+    display:none;
+}
+.wp-block-2{
+    flex-basis: 35% !important;
+}
+.wp-block-3{
+    flex-basis: 1% !important;
+}
+.wp-block-4{
+    flex-basis: 56% !important;
+}
+.wp-author {
+    margin-top: -110px !important;
+    color: #FFF!important;
+    text-align: right !important;
+    font-size: normal;
+    float: right;
+    margin-right: -20px;
+    font-size: 10px !important;
+}
+.tasfavour ul {display: flow-root !important;}
+.tasfavour ul li {
+    background: #CCC !important;
+    border-radius: 20px !important;
+    padding: 5px 18px !important;
+    color: #2e2e2e !important;
+    font-weight: bold !important;
+    margin: 10px;
+    width: 80px;
+    float: left;
+    text-align: center;
+}
+.malware ul {display: flow-root !important; list-style-type:none !important;}
+.malware ul li {
+    float: left;
+    text-align: center;
+}
+
+}
+</style>	</div><!-- .entry-content -->
+</article><!-- #post-## -->
+
+	<nav class="navigation post-navigation" role="navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://research.loginsoft.com/threat-research/aurora-the-dark-dawn-and-its-menacing-effects/" rel="prev">Aurora: The Dark Dawn and its Menacing Effects</a></div><div class="nav-next"><a href="https://research.loginsoft.com/threat-research/maximizing-threat-detections-of-qakbot-with-osquery-old/" rel="next">Maximizing Threat Detections of Qakbot with Osquery</a></div></div>
+	</nav>
+		</main><!-- #main -->
+	</section><!-- #primary -->
+</div>
+</div><!-- .site-content -->
+	<div class="call-to-action">
+				<div class="container">
+					<div class="action-inner">
+						<aside id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><p>
+	Let us know how we can help you
+</p>
+<a href="/contact-us" class="vc_btn3 vc_btn3-size-md">Contact</a></div></aside>					</div>
+				</div>
+			</div>
+	<footer id="colophon" class="site-footer navbar-light" role="contentinfo">
+	<div class="footer-wrap">
+				<div class="container">
+					<div class="footer-location">
+						<aside id="media_image-2" class="widget widget_media_image"><a href="https://www.loginsoft.com/"><img width="160" height="50" src="https://research.loginsoft.com/wp-content/uploads/sites/2/2019/02/Loginsoft-logo-inverse.png" class="image wp-image-1270  attachment-full size-full" alt="Loginsoft" loading="lazy" style="max-width: 100%; height: auto;" /></a></aside><aside id="custom_html-2" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><ul>
+	<li><strong>US Office</strong><br>
+		4437 Brookfield Corporate Drive,
+Suite 101 Chantilly, VA USA 20151.
+<a href="tel:+1 703 956 7410">+1 703 956 7410</a>
+	</li>
+	<li><strong>Canada Office</strong><br>
+		7-7003 Steeles Ave W,
+Toronto,<br> ON M9W 0A2, Canada.
+	</li>
+	<li><strong>India Office</strong><br>
+		1-63-5-8B, Kavuri Hills, Jubilee Hills,
+Hyderabad-500033. 
+
+	</li>
+</ul></div></aside>					</div>
+				</div>
+			</div>	
+			
+			
+		<div class="">
+           <div class="site-info">
+				<div class="container">
+					<div class="copyright">
+						<aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>© copyright 2023. All Rights Reserved.</p>
+</div>
+		</aside>					</div>
+					<div class="social-links">
+						<aside id="custom_html-3" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><ul>
+	<li><a href="https://research.loginsoft.com/privacy-and-disclosure-policy/">Privacy and Disclosure Policy</a></li>
+	<li><a target="_blank" href="https://twitter.com/loginsoft_inc" rel="noopener"><i class="fa-brands fa-square-x-twitter fa-2x"></i></a></li>
+	<li><a target="_blank" href="https://www.linkedin.com/company/loginsoft/" rel="noopener"><span class="fab fa-linkedin fa-2x"></span></a></li>
+	<li><a target="_blank" href="https://github.com/Loginsoft-Research?tab=repositories&q=&type=public&language=&sort=" rel="noopener"><span class="fab fa-github fa-2x"></span></a></li>
+</ul></div></aside>					</div>
+				</div><!-- .site-info -->
+			</div>
+		</div>
+	</footer><!-- #colophon -->
+	</div><!-- .site-inner -->
+</div><!-- .site -->
+
+<div id="sidebar-overlay"></div>	<script type="text/javascript">
+    var ajaxurl = "https://research.loginsoft.com/wp-admin/admin-ajax.php";
+	var diviAjaxUrl = 'https://research.loginsoft.com/wp-content/plugins/divi-overlays/ajax-handler-wp.php';
+    </script>
+	<!--Start of Tawk.to Script (0.3.3)-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{};
+var Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5ef065969e5f694422910c9b/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script (0.3.3)--><script type='text/javascript' src='https://research.loginsoft.com/wp-content/plugins/dg-carousel/scripts/swiper.min.js?ver=1.0.0' id='swipe-script-js'></script>
+<script type='text/javascript' src='https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' id='wp-polyfill-js'></script>
+<script type='text/javascript' id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://research.loginsoft.com/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4"></scr' + 'ipt>' );
+</script>
+<script type='text/javascript' id='wphb-4-js-extra'>
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6Ld56sEcAAAAALt-EnOrirAWkTrCkOmwYqcb4ixu","actions":{"homepage":"homepage","contactform":"contactform"}};;;var wpcf7 = {"api":{"root":"https:\/\/research.loginsoft.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://research.loginsoft.com/wp-content/uploads/sites/2/hummingbird-assets/faad5e17c65a299e8694afe9c0075f3d.js' id='wphb-4-js'></script>
+
+<script type="text/javascript">
+_linkedin_partner_id = "562737";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script><script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=562737&fmt=gif" />
+</noscript>
+</body>
+</html><!-- Hummingbird cache file was created in 0.31881284713745 seconds, on 27-12-23 7:40:18 -->

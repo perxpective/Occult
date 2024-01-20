@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://l1v1ngc0d3.wordpress.com/xmlrpc.php">
+
+<title>AgentTesla dropped via NSIS installer &#8211; Living Code</title>
+<script type="text/javascript">
+  WebFontConfig = {"google":{"families":["Roboto+Slab:r:latin,latin-ext","Anonymous+Pro:r,i,b,bi:latin,latin-ext"]},"api_url":"https:\/\/fonts-api.wp.com\/css"};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://s0.wp.com/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active body, .wf-active button, .wf-active input, .wf-active select, .wf-active textarea{font-family:"Anonymous Pro",monospace}.wf-active code, .wf-active kbd, .wf-active tt, .wf-active var{font-family:"Anonymous Pro",monospace}.wf-active button, .wf-active input[type="button"], .wf-active input[type="reset"], .wf-active input[type="submit"]{font-family:"Anonymous Pro",monospace}.wf-active label{font-family:"Anonymous Pro",monospace}.wf-active #infinite-handle span{font-family:"Anonymous Pro",monospace}.wf-active .main-navigation{font-family:"Anonymous Pro",monospace}.wf-active .comment-navigation a, .wf-active .post-navigation a, .wf-active .posts-navigation a{font-family:"Anonymous Pro",monospace}.wf-active .site-description{font-family:"Anonymous Pro",monospace}.wf-active .entry-footer, .wf-active .entry-meta{font-family:"Anonymous Pro",monospace}.wf-active .page-links{font-family:"Anonymous Pro",monospace}.wf-active .comments-area .comment-meta{font-family:"Anonymous Pro",monospace}.wf-active .comments-area .comment-reply-link{font-family:"Anonymous Pro",monospace}.wf-active #infinite-footer, .wf-active #infinite-footer .container{font-family:"Anonymous Pro",monospace}.wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6{font-family:"Roboto Slab",serif;font-weight:400;font-style:normal}.wf-active h1{font-style:normal;font-weight:400}.wf-active h2{font-style:normal;font-weight:400}.wf-active h3{font-style:normal;font-weight:400}.wf-active h4{font-style:normal;font-weight:400}.wf-active h5{font-style:normal;font-weight:400}.wf-active h6{font-style:normal;font-weight:400}@media screen and (min-width: 40.063em){.wf-active h1{font-style:normal;font-weight:400}}@media screen and (min-width: 40.063em){.wf-active h2, .wf-active .single .entry-title{font-style:normal;font-weight:400}}@media screen and (min-width: 40.063em){.wf-active h3{font-style:normal;font-weight:400}}@media screen and (min-width: 40.063em){.wf-active h4{font-style:normal;font-weight:400}}@media screen and (min-width: 40.063em){.wf-active h5{font-style:normal;font-weight:400}}.wf-active .widget-title{font-style:normal;font-weight:400}.wf-active .entry-title{font-style:normal;font-weight:400}.wf-active .page-title{font-style:normal;font-weight:400}.wf-active .site-title{font-style:normal;font-weight:400}@media screen and (min-width: 50em){.wf-active .site-title{font-style:normal;font-weight:400}}.wf-active .comments-area .comments-title{font-style:normal;font-weight:400}</style>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//ced.sascdn.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//wordpress.com' />
+<link rel='dns-prefetch' href='//fonts-api.wp.com' />
+<link rel='dns-prefetch' href='//s.pubmine.com' />
+<link rel='dns-prefetch' href='//x.bidswitch.net' />
+<link rel='dns-prefetch' href='//static.criteo.net' />
+<link rel='dns-prefetch' href='//ib.adnxs.com' />
+<link rel='dns-prefetch' href='//aax.amazon-adsystem.com' />
+<link rel='dns-prefetch' href='//bidder.criteo.com' />
+<link rel='dns-prefetch' href='//cas.criteo.com' />
+<link rel='dns-prefetch' href='//gum.criteo.com' />
+<link rel='dns-prefetch' href='//ads.pubmatic.com' />
+<link rel='dns-prefetch' href='//gads.pubmatic.com' />
+<link rel='dns-prefetch' href='//tpc.googlesyndication.com' />
+<link rel='dns-prefetch' href='//ad.doubleclick.net' />
+<link rel='dns-prefetch' href='//googleads.g.doubleclick.net' />
+<link rel='dns-prefetch' href='//www.googletagservices.com' />
+<link rel='dns-prefetch' href='//cdn.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.g.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.swid.switchadhub.com' />
+<link rel='dns-prefetch' href='//a.teads.tv' />
+<link rel='dns-prefetch' href='//prebid.media.net' />
+<link rel='dns-prefetch' href='//adserver-us.adtech.advertising.com' />
+<link rel='dns-prefetch' href='//fastlane.rubiconproject.com' />
+<link rel='dns-prefetch' href='//prebid-server.rubiconproject.com' />
+<link rel='dns-prefetch' href='//hb-api.omnitagjs.com' />
+<link rel='dns-prefetch' href='//mtrx.go.sonobi.com' />
+<link rel='dns-prefetch' href='//apex.go.sonobi.com' />
+<link rel='dns-prefetch' href='//u.openx.net' />
+<link rel="alternate" type="application/rss+xml" title="Living Code &raquo; Feed" href="https://l1v1ngc0d3.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Living Code &raquo; Kommentar-Feed" href="https://l1v1ngc0d3.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Living Code &raquo; AgentTesla dropped via NSIS&nbsp;installer Kommentar-Feed" href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s0.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1677072837i&ver=6.5-alpha-57144"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-1' href='https://s2.wp.com/_static/??-eJx9jEsKwzAMBS9UVw2kv0XpWZxYGMeyZSIZ09s3KYWULrIc3ryBVszIWTErDMTeFKo+ZIHGs7NOwBMPlo6jyAF+3FQ3MziPKoB1WTkGNGQbKKZCVlFA9EW4F5hQix3jl0FqhsSu0vKdcW04U1j0j/aKFCJu3Q+t+jM9uuupu9z7c3+b3giGXeY=&cssminify=yes' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='https://s0.wp.com/wp-content/plugins/gutenberg-core/v17.2.4/build/block-library/style.css?m=1703614475i&cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.wp-block-cover__image-background.has-parallax {
+	background-size: cover;
+}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='https://s0.wp.com/_static/??-eJyVjV0OwiAQBi8kEKrR+mA8C4UN2br8hAVNby8mprEvGh8n+82semSB0VJzwGpmFcChAYIAsW4gk1mgCAJv7CIDRmmZd+qb3m+fvJFsivW1ydQ8Rla+dZygeDFRsrceg5qNvYn+NrUqfEGnuC4E/yeKqRg9/9BtemuD1KPUgjFkAlHgLg/KIdd1IdbQNVz0cdTjfhjOp/kJMmh7kg==&cssminify=yes' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='https://s2.wp.com/_static/??-eJx9y0EOwjAMRNELYQxFImKBOEuTWGBUp1bsUI6P2SM2sxj9h5tCWZtTc5QBuow7N8OydopfdHaMQqjyTAtJZPtitsPfbNMwkLN2MoNY4SHgj4D2z72o5yFY2Ry5VXp/45tcj+lwSuc0TZfnB03SPok=&cssminify=yes' type='text/css' media='all' />
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-8-1' href='https://s2.wp.com/_static/??-eJxtjV0KAjEMhC9kDVX8exCPIhrCbnebtJgU8fZGVmRR32a+SWbgXgMWMRIDbqHm1iVRwMLsKOQ0kjv9IksnC0ggxZJ/60dMwazTemJvqO0KpNgMeyoCao9MP7ez/YGsXnB8e9AmcE6C0JHQbZr8K1+dJz7G7X4T42p92A1Pw9ZUKA==&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='escutcheon-fonts-css' href='https://fonts-api.wp.com/css?family=Oswald%3A400%2C300%2C700%7CAlegreya+Sans%3A400%2C400italic%2C700%2C700italic&#038;subset=latin%2Clatin-ext' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-10-1' href='https://s2.wp.com/_static/??-eJx9y9EKwjAMheEXMoZBxXkhPssWYldpk7KkDN/eeter3Z0fzodHBVJxFkffuLBhbSuyUXPaWAWTEJp/M8NRScuVzC44qNKg5haTGEZWyEqLp+7GgHde0n5Gd16zxj4j9teQf/QqzyncHiHM9yl8fteUQjI=&cssminify=yes' type='text/css' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-11-1' href='https://s1.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1465851035i&cssminify=yes' type='text/css' media='print' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-14-1' href='https://s0.wp.com/_static/??-eJyNjcsKAjEMRX/IGsdR1IX4KRLT0nZMkzJpEf/eB27Ejbt74HIO3KojlRakQemuco9ZDKbQKtL1w2BdoKjvHAws4Rw8en9/zyxxSWYL+Ft0zkJgShnZsUa1L/iRtRTKM5s2EFkvyK/DqRyH3WrcDodxv54euNBIXw==&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s1.wp.com/_static/??-eJxdjUEOwjAMBD+Ea+VACwfEU1DamsohcaLYUeH35MABOM7uaBf3AksWIzEMiinPHAmaUvVbz4DlnoegB/zyUoMS28aiGMiKXx4fRm2CN5YF58ZxxUrRG61Qspr+0pBY/nf7f40Gpebnq3fXdHHjaXLn4+im8AYoQT4U'></script>
+<script type="text/javascript" id="rlt-proxy-js-after">
+/* <![CDATA[ */
+	window.addEventListener( 'DOMContentLoaded', function() {
+		rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+	} );
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://s2.wp.com/wp-content/plugins/gutenberg-core/v17.2.4/build/modules/importmap-polyfill.min.js?m=1703614475i" id="es-module-shims-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" id="media-video-jwt-bridge-js-extra">
+/* <![CDATA[ */
+var videopressAjax = {"ajaxUrl":"https:\/\/l1v1ngc0d3.wordpress.com\/wp-admin\/admin-ajax.php","bridgeUrl":"\/wp-content\/mu-plugins\/jetpack-plugin\/sun\/jetpack_vendor\/automattic\/jetpack-videopress\/build\/lib\/token-bridge.js","post_id":"1441"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="wpcom-actionbar-placeholder-js-extra">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"109859092","postID":"1441","siteURL":"http:\/\/l1v1ngc0d3.wordpress.com","xhrURL":"https:\/\/l1v1ngc0d3.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"69b2623962","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https:\/\/s0.wp.com\/wp-content\/js\/wpcom-proxy-request.js?ver=20211021","shortlink":"https:\/\/wp.me\/p7qXmQ-nf","i18n":{"followedText":"Neue Beitr\u00e4ge von dieser Website erscheinen nun in deinem <a href=\"https:\/\/wordpress.com\/read\">Reader<\/a>","foldBar":"Diese Leiste einklappen","unfoldBar":"Diese Leiste aufklappen"}};
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??-eJxNjs0KwzAMg19ombceynoYe5SRHxPSJnaInfb128FWdhISQp9gq8YzKZJC6abmHhMJzKjV+uXrQTr9oveKFLiB7crFqiZ/ltcUkGtDEXA95QA5OVBekIxrKUS8znKBP6DLHE/kxi3YIMZnK4LHBQFfKqzDRwwxmRhqOyZe5Xkfp2l6jMN4m3cMYUeI'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://l1v1ngc0d3.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" />
+<link rel='shortlink' href='https://wp.me/p7qXmQ-nf' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="AgentTesla dropped via NSIS installer" />
+<meta property="og:url" content="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" />
+<meta property="og:description" content="Lately one of our customers received a suspicious file which was blocked by our sandbox solution but it was unclear if this was malicious and if so what malware it was so I did an analysis and want…" />
+<meta property="article:published_time" content="2021-11-12T10:32:00+00:00" />
+<meta property="article:modified_time" content="2021-11-12T12:55:29+00:00" />
+<meta property="og:site_name" content="Living Code" />
+<meta property="og:image" content="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png" />
+<meta property="og:image:width" content="1043" />
+<meta property="og:image:height" content="667" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="de_DE" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:creator" content="@DegrootDominik" />
+<meta name="twitter:text:title" content="AgentTesla dropped via NSIS&nbsp;installer" />
+<meta name="twitter:image" content="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=144" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="search" type="application/opensearchdescription+xml" href="https://l1v1ngc0d3.wordpress.com/osd.xml" title="Living Code" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#ffffff" />
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Living Code" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-task" content="name=Abonnieren;action-uri=https://l1v1ngc0d3.wordpress.com/feed/;icon-uri=https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=16" /><meta name="msapplication-task" content="name=Registriere dich für einen kostenlosen Blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com-Support;action-uri=http://support.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com-Foren;action-uri=http://forums.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="description" content="Lately one of our customers received a suspicious file which was blocked by our sandbox solution but it was unclear if this was malicious and if so what malware it was so I did an analysis and want to share my results with you. The main goal of this article is to show how to&hellip;" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+	
+			<style>
+			.wordads-ad-wrapper {
+				position: absolute;
+				visibility: hidden;
+				font: normal 11px Arial, sans-serif;
+				letter-spacing: 1px;
+				text-decoration: none;
+				width: 100%;
+				margin: 25px auto;
+				padding: 0;
+				clear: both;
+			}
+			.wordads-ad-title {
+				margin: 0 auto 5px auto;
+			}
+			.wordads-ad-controls {
+				margin: 5px auto 0 auto;
+				text-align: right;
+			}
+			.wordads-ad-controls span {
+				cursor: pointer;
+			}
+			.wordads-ad {
+				width: 300px;
+				max-width: 580px;
+				margin: 0 auto;
+			}
+			.wordads-ad iframe {
+				margin: 0;
+				padding: 0;
+			}
+			.wordads-ad.wordads-ad-responsive {
+				width: 100%;
+			}
+			</style>
+		<script type="text/javascript">
+/* <![CDATA[ */
+let wa_smart = { 'network_id': 3905, 'site_id': 474853, 'page_id': 1572546, 'formats': [ { 'id': 110354, 'tagId': 'sas_110354' } ], 'blog_id': 109859092, 'post_id': 1441, 'theme': 'pub/escutcheon', 'target': 'iab_category=IAB19;iab_category=IAB18;wp_blog_id=109859092;language=de', 'inline': { 'title': 'Werbung', 'gdpr': '', 'format_id': 110354, 'max_slots': 20, 'max_blaze_slots': 1, 'enabled': true, 'adflow_enabled': false }, 'openwrap_enabled': true }; wa_smart.cmd = [];
+/* ]]> */
+</script>
+		<script>
+			window.sas_fallback = window.sas_fallback || [];
+			window.sas_fallback.push( { tag: "&lt;div class=&quot;OUTBRAIN wa-ob-widget&quot;data-ob-contentUrl=&quot;https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/&quot;data-widget-id=&quot;AR_1&quot;data-ob-installation-key=&quot;WORDP263NC92GIANECJP6HEPM&quot;data-ob-psub=&quot;tech&quot;&gt;&lt;/div&gt;&lt;script&gt;window._stq = window._stq || [];window._stq.push( [ \'extra\', { x_wordads_outbrain: \'widget_render_ar_1\', }, ] );&lt;/script&gt;&lt;script src=&quot;https://widgets.outbrain.com/outbrain.js&quot;&gt;&lt;/script&gt;", type: 'belowpost' } );
+		</script>		<script type="text/javascript">
+		function __ATA_CC() {var v = document.cookie.match('(^|;) ?personalized-ads-consent=([^;]*)(;|$)');return v ? 1 : 0;}
+		var __ATA_PP = { 'pt': 1, 'ht': 0, 'tn': 'escutcheon', 'uloggedin': 0, 'amp': false, 'consent': __ATA_CC(), 'gdpr_applies': false, 'ad': { 'label': { 'text': 'Werbeanzeigen' }, 'reportAd': { 'text': 'Diese Anzeige melden' } }, 'disabled_slot_formats': [ 'IAD' ], 'siteid': 8982, 'blogid': 109859092 };
+		var __ATA = __ATA || {};
+		__ATA.cmd = __ATA.cmd || [];
+		__ATA.criteo = __ATA.criteo || {};
+		__ATA.criteo.cmd = __ATA.criteo.cmd || [];
+		</script>
+		<script type="text/javascript">
+		(function(){var g=Date.now||function(){return+new Date};function h(a,b){a:{for(var c=a.length,d="string"==typeof a?a.split(""):a,e=0;e<c;e++)if(e in d&&b.call(void 0,d[e],e,a)){b=e;break a}b=-1}return 0>b?null:"string"==typeof a?a.charAt(b):a[b]};function k(a,b,c){c=null!=c?"="+encodeURIComponent(String(c)):"";if(b+=c){c=a.indexOf("#");0>c&&(c=a.length);var d=a.indexOf("?");if(0>d||d>c){d=c;var e=""}else e=a.substring(d+1,c);a=[a.substr(0,d),e,a.substr(c)];c=a[1];a[1]=b?c?c+"&"+b:b:c;a=a[0]+(a[1]?"?"+a[1]:"")+a[2]}return a};var l=0;function m(a,b){var c=document.createElement("script");c.src=a;c.onload=function(){b&&b(void 0)};c.onerror=function(){b&&b("error")};a=document.getElementsByTagName("head");var d;a&&0!==a.length?d=a[0]:d=document.documentElement;d.appendChild(c)}function n(a){var b=void 0===b?document.cookie:b;return(b=h(b.split("; "),function(c){return-1!=c.indexOf(a+"=")}))?b.split("=")[1]:""}function p(a){return"string"==typeof a&&0<a.length}
+		function r(a,b,c){b=void 0===b?"":b;c=void 0===c?".":c;var d=[];Object.keys(a).forEach(function(e){var f=a[e],q=typeof f;"object"==q&&null!=f||"function"==q?d.push(r(f,b+e+c)):null!==f&&void 0!==f&&(e=encodeURIComponent(b+e),d.push(e+"="+encodeURIComponent(f)))});return d.filter(p).join("&")}function t(a,b){a||((window.__ATA||{}).config=b.c,m(b.url))}var u=Math.floor(1E13*Math.random()),v=window.__ATA||{};window.__ATA=v;window.__ATA.cmd=v.cmd||[];v.rid=u;v.createdAt=g();var w=window.__ATA||{},x="s.pubmine.com";
+		w&&w.serverDomain&&(x=w.serverDomain);var y="//"+x+"/conf",z=window.top===window,A=window.__ATA_PP&&window.__ATA_PP.gdpr_applies,B="boolean"===typeof A?Number(A):null,C=window.__ATA_PP||null,D=z?document.referrer?document.referrer:null:null,E=z?window.location.href:document.referrer?document.referrer:null,F,G=n("__ATA_tuuid");F=G?G:null;var H=window.innerWidth+"x"+window.innerHeight,I=n("usprivacy"),J=r({gdpr:B,pp:C,rid:u,src:D,ref:E,tuuid:F,vp:H,us_privacy:I?I:null},"",".");
+		(function(a){var b=void 0===b?"cb":b;l++;var c="callback__"+g().toString(36)+"_"+l.toString(36);a=k(a,b,c);window[c]=function(d){t(void 0,d)};m(a,function(d){d&&t(d)})})(y+"?"+J);}).call(this);
+		</script>	<script>
+		var sas_fallback = sas_fallback || [];
+		sas_fallback.push(
+			{ tag: "&lt;div id=&quot;atatags-26942-6592aa93aeeca&quot;&gt;&lt;/div&gt;&lt;script&gt;__ATA.cmd.push(function() {__ATA.initDynamicSlot({id: \'atatags-26942-6592aa93aeeca\',location: 120,formFactor: \'001\',label: {text: \'Werbeanzeigen\',},creative: {reportAd: {text: \'Diese Anzeige melden\',},privacySettings: {text: \'Datenschutz\',}}});});&lt;/script&gt;", type: 'belowpost' },
+			{ tag: "&lt;div id=&quot;atatags-26942-{{unique_id}}&quot;&gt;&lt;/div&gt;&lt;script&gt;__ATA.cmd.push(function() {__ATA.initDynamicSlot({id: \'atatags-26942-{{unique_id}}\',location: 310,formFactor: \'001\',label: {text: \'Werbeanzeigen\',},creative: {reportAd: {text: \'Diese Anzeige melden\',},privacySettings: {text: \'Datenschutz\',}}});});&lt;/script&gt;", type: 'inline' }
+		);
+	</script>		<script type="text/javascript">
+
+			window.doNotSellCallback = function() {
+
+				var linkElements = [
+					'a[href="https://wordpress.com/?ref=footer_blog"]',
+					'a[href="https://wordpress.com/?ref=footer_website"]',
+					'a[href="https://wordpress.com/?ref=vertical_footer"]',
+					'a[href^="https://wordpress.com/?ref=footer_segment_"]',
+				].join(',');
+
+				var dnsLink = document.createElement( 'a' );
+				dnsLink.href = 'https://wordpress.com/de/advertising-program-optout/';
+				dnsLink.classList.add( 'do-not-sell-link' );
+				dnsLink.rel = 'nofollow';
+				dnsLink.style.marginLeft = '0.5em';
+				dnsLink.textContent = 'Meine persönlichen Informationen nicht verkaufen oder weitergeben';
+
+				var creditLinks = document.querySelectorAll( linkElements );
+
+				if ( 0 === creditLinks.length ) {
+					return false;
+				}
+
+				Array.prototype.forEach.call( creditLinks, function( el ) {
+					el.insertAdjacentElement( 'afterend', dnsLink );
+				});
+
+				return true;
+			};
+
+		</script>
+		<style type="text/css" id="custom-colors-css">	.highlander-dark #respond #comment-form-comment textarea,
+	.highlander-dark #comment-form-share-text-padder textarea,
+	#respond #comment-form-comment,
+	#comment-form-share-text-padder,
+	.highlander-dark #respond .comment-form-service,
+	.highlander-dark #respond .comment-form-fields div.comment-form-input {
+		text-shadow: none !important;
+		box-shadow: none !important;
+	}
+	.highlander-dark #respond #comment-form-comment,
+	.highlander-dark #respond #comment-form-comment.active,
+	.highlander-dark #comment-form-share-text-padder:active {
+		border: 4px solid;
+	}
+	.highlander-dark #respond #comment-form-identity {
+		border-top: 0;
+	}
+
+	.jetpack_widget_social_icons a:hover,
+	.widget_wpcom_social_media_icons_widget a:hover {
+		color: inherit;
+	}
+
+	@media screen and ( max-width: 50em ) {
+		.main-navigation ul ul {
+			background-color: transparent !important;
+		}
+	}
+
+.comment-navigation a:hover, .posts-navigation a:hover, .post-navigation a:hover, .comment-navigation a:hover:visited, .posts-navigation a:hover:visited, .post-navigation a:hover:visited, button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover { color: #2D2D2D;}
+#infinite-footer, #infinite-footer .container, button, input[type="button"], input[type="reset"], input[type="submit"], .highlander-dark #respond #comment-form-comment textarea, .highlander-dark #comment-form-share-text-padder textarea, .highlander-dark #respond .comment-form-fields div.comment-form-input { color: #6D6D6D;}
+body, button, input, select, textarea, .blog .entry-title a:hover, .archive .entry-title a:hover, .search .entry-title a:hover, h3.sd-title, .main-navigation a:hover, .main-navigation a:visited:hover, #infinite-handle span { color: #6D6D6D;}
+.highlander-dark #respond label, .highlander-dark #respond .comment-form-service a, .highlander-dark #respond .comment-form-fields p.comment-form-posting-as, .highlander-dark #respond .comment-form-fields p.comment-form-log-out { color: #6D6D6D;}
+.comment-navigation a, .posts-navigation a, .post-navigation a, .comment-navigation a:visited, .posts-navigation a:visited, .post-navigation a:visited { color: #6D6D6D;}
+.entry-meta a, .entry-footer a, .entry-meta a:visited, .entry-footer a:visited, .entry-meta, .entry-footer, .main-navigation a, .main-navigation a:visited, .comments-area .comments-title, .comments-area .comment-meta a, .comments-area .comment-meta a:visited, .comments-area .comment-meta, .site-footer a, .site-footer a:visited, .page-title { color: #6D6D6D;}
+input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, textarea:focus { border-color: #aaaaaa;}
+input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, textarea:focus, select, input[type="number"]:focus, input[type="tel"]:focus, input[type="range"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="week"]:focus, input[type="time"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="color"]:focus { color: #6D6D6D;}
+#infinite-footer .blog-info a, #infinite-footer .blog-credits a, #infinite-footer .container .blog-info a, #infinite-footer .container .blog-credits a, #infinite-footer .blog-info a:hover, #infinite-footer .blog-credits a:hover, #infinite-footer .container .blog-info a:hover, #infinite-footer .container .blog-credits a:hover { color: #666666;}
+body, button, input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], select, textarea, #infinite-footer, #infinite-footer .container { background-color: #ffffff;}
+.main-navigation ul ul, .single .entry-meta:before, .site-title:after, .comments-area:after, .comments-area:before, .site-footer:before, .page-header:after { background-color: #EBEBEB;}
+.main-navigation ul ul > li:first-of-type:before { border-bottom-color: #EBEBEB;}
+.highlander-dark #respond #comment-form-identity, .highlander-dark #respond #comment-form-comment, .highlander-dark #comment-form-share-text-padder, .highlander-dark #respond .comment-form-fields div.comment-form-input { background-color: #ffffff;}
+blockquote, q, input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], select, textarea, input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], input[type="color"], .comments-area .comment-list > .parent, th, td { border-color: #EBEBEB;}
+input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], textarea, input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], input[type="color"] { color: #EBEBEB;}
+.highlander-dark #respond #comment-form-comment, .highlander-dark #respond #comment-form-comment.active, .highlander-dark #comment-form-share-text-padder:active, .highlander-dark #respond .comment-form-fields div.comment-form-input { border-color: #EBEBEB;}
+a, a:visited, a:hover, .comments-area .comment-reply-link, .comments-area .comment-reply-link:visited, .entry-meta a:hover, .entry-footer a:hover, .comments-area .comment-meta a:hover { color: #0D75A9;}
+.jetpack-social-navigation a:hover, .site-title, .site-title a:hover, .site-title a:visited, .entry-title a, .entry-title a:visited, .entry-title { color: #20A6E8;}
+.comment-navigation a, .posts-navigation a, .post-navigation a, button, input[type="button"], input[type="reset"], input[type="submit"], button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button, input[type="button"], input[type="reset"], input[type="submit"], button:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus, button, input[type="button"], input[type="reset"], input[type="submit"], button:active, input[type="button"]:active, input[type="reset"]:active, input[type="submit"]:active, #infinite-handle span, #infinite-handle span:hover { border-color: #20a6e8;}
+.comment-navigation a:hover, .posts-navigation a:hover, .post-navigation a:hover { background-color: #20a6e8;}
+.main-navigation a:after, .entry-title a:after, button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover { background-color: #20a6e8;}
+</style>
+<link rel="icon" href="https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=32" sizes="32x32" />
+<link rel="icon" href="https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=192" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=180" />
+<meta name="msapplication-TileImage" content="https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=270" />
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_gat._anonymizeIp']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="post-template-default single single-post postid-1441 single-format-standard custom-background customizer-styles-applied">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Zum Inhalt springen</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="navigation-wrapper">
+						<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menü</button>
+				<div class="menu"><ul>
+<li class="page_item page-item-455"><a href="https://l1v1ngc0d3.wordpress.com/reverse-engineering/">Reverse Engineering</a></li>
+<li class="page_item page-item-286 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/">Security</a>
+<ul class='children'>
+	<li class="page_item page-item-313"><a href="https://l1v1ngc0d3.wordpress.com/security/walkthroughs/">Walkthroughs</a></li>
+	<li class="page_item page-item-324 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/">Exploits</a>
+	<ul class='children'>
+		<li class="page_item page-item-328"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/x64/">x64</a></li>
+		<li class="page_item page-item-326"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/x86/">x86</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-295"><a href="https://l1v1ngc0d3.wordpress.com/security/host-security/">Host Security</a></li>
+	<li class="page_item page-item-298 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/network-security/">Network Security</a>
+	<ul class='children'>
+		<li class="page_item page-item-302"><a href="https://l1v1ngc0d3.wordpress.com/security/network-security/sniffing/">Sniffing</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-300"><a href="https://l1v1ngc0d3.wordpress.com/security/procedures/">Procedures</a></li>
+</ul>
+</li>
+<li class="page_item page-item-287"><a href="https://l1v1ngc0d3.wordpress.com/linux/">Linux</a></li>
+<li class="page_item page-item-293"><a href="https://l1v1ngc0d3.wordpress.com/ios/">iOS</a></li>
+<li class="page_item page-item-289"><a href="https://l1v1ngc0d3.wordpress.com/python/">Python</a></li>
+<li class="page_item page-item-291"><a href="https://l1v1ngc0d3.wordpress.com/design-pattern/">Design Pattern</a></li>
+</ul></div>
+			</nav><!-- #site-navigation -->
+		</div>
+
+		<div class="site-branding">
+						<a href="https://l1v1ngc0d3.wordpress.com/" class="site-logo-link" rel="home" itemprop="url"></a>			<h1 class="site-title"><a href="https://l1v1ngc0d3.wordpress.com/" rel="home">Living Code</a></h1>
+			<h2 class="site-description"></h2>
+		</div><!-- .site-branding -->
+
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+				<article id="post-1441" class="post-1441 post type-post status-publish format-standard hentry category-allgemein">
+
+		<header class="entry-header">
+			<div class="entry-meta">
+				<span class="byline"> Verfasst von <span class="author vcard"><a class="url fn n" href="https://l1v1ngc0d3.wordpress.com/author/dominikdegroot/">dominik</a></span></span><span class="posted-on"><a href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" rel="bookmark"><time class="entry-date published" datetime="2021-11-12T12:32:00+02:00">12 Nov 2021</time><time class="updated" datetime="2021-11-12T14:55:29+02:00">12 Nov 2021</time></a></span>			</div><!-- .entry-meta -->
+			<h1 class="entry-title">AgentTesla dropped via NSIS&nbsp;installer</h1>		</header><!-- .entry-header -->
+
+		
+		<div class="entry-wrapper">
+
+			<div class="entry-content">
+				
+<p>Lately one of our customers received a suspicious file which was blocked by our sandbox solution but it was unclear if this was malicious and if so what malware it was so I did an analysis and want to share my results with you. The main goal of this article is to show how to extract the final payload.</p>
+
+
+
+<p>The sample is now available on VT: ce8a9bf908ce35bf0c034c61416109a44f015eabf058b12485450cd40af95fc3</p>
+
+
+
+<h2 class="wp-block-heading" id="nsis-installer">NSIS installer</h2>
+
+
+
+<p>If we do some static analysis via DiE (Detect it Easy) we see that the file is of type NSIS installer. One easy way to obtain the files is to just simply extract the files with 7-ZIP. Unfortunately I&#8217;m not aware of any way to reverse the NSIS script (any hint welcome ;-)).</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1445" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-72/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png" data-orig-size="641,97" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png?w=641" width="641" height="97" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png?w=641" alt="" class="wp-image-1445" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png 641w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik.png?w=300 300w" sizes="(max-width: 641px) 100vw, 641px" /></figure>
+
+
+
+<p>After extracting the file we find a folder $PLUGINDIR as expected and another file with a random name and some bytes in it. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1447" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-1-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png" data-orig-size="599,86" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-1" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png?w=599" width="599" height="86" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png?w=599" alt="" class="wp-image-1447" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png 599w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-1.png?w=300 300w" sizes="(max-width: 599px) 100vw, 599px" /></figure>
+
+
+
+<h2 class="wp-block-heading" id="first-dll-swfmwfkkeh-dll">First dll &#8211; swfmwfkkeh.dll </h2>
+
+
+
+<p>Inside of the $PLUGINSDIR directory we find one file named swfmwfkkeh.dll (SHA1: 56f3d68f10bde42216634f987b421feee696506e). Once again we open it up in DiE and find out that its written in C/C++ and some exports which look a little strange.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1449" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-2-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png" data-orig-size="636,67" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-2" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png?w=636" width="636" height="67" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png?w=636" alt="" class="wp-image-1449" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png 636w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-2.png?w=300 300w" sizes="(max-width: 636px) 100vw, 636px" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1450" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-3-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png" data-orig-size="526,73" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-3" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png?w=526" loading="lazy" width="526" height="73" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png?w=526" alt="" class="wp-image-1450" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png 526w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-3.png?w=300 300w" sizes="(max-width: 526px) 100vw, 526px" /></figure>
+
+
+
+<p>In the imports there are some false flags but the VirtualProtect seems to be reasonable</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1452" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-4-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png" data-orig-size="759,148" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-4" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=756" loading="lazy" width="759" height="148" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=759" alt="" class="wp-image-1452" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png 759w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-4.png?w=300 300w" sizes="(max-width: 759px) 100vw, 759px" /></figure>
+
+
+
+<p>Now we open up the file in IDA Pro and take a look at the export functions</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1454" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-5-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png" data-orig-size="577,69" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-5" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png?w=577" loading="lazy" width="577" height="69" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png?w=577" alt="" class="wp-image-1454" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png 577w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-5.png?w=300 300w" sizes="(max-width: 577px) 100vw, 577px" /></figure>
+
+
+
+<p>We assume that the NSIS installer will start the DLL and call the exported function &#8222;zznqqqjqi&#8220; so we start our analysis there. After setting up the stack the function intiliazes &#8222;var_14&#8220; which then is compared if its above 4722 (in fact the function does a &#8222;jump not below&#8220; with the main functionality in the false tree). </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1457" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-7-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png" data-orig-size="333,55" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-7" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png?w=333" loading="lazy" width="333" height="55" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png?w=333" alt="" class="wp-image-1457" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png 333w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-7.png?w=300 300w" sizes="(max-width: 333px) 100vw, 333px" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1456" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-6-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png" data-orig-size="1043,667" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-6" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=756" loading="lazy" width="1024" height="654" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=1024" alt="" class="wp-image-1456" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=1024 1024w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png?w=768 768w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-6.png 1043w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>We will start with the right block first because there you can see that the memory address at 10009014 will receive RWX permissions and after that will be called. So we can assume that at this location there must be some assembly code. Now lets take a look what happens in the left block because this is where we land after the first comparison. At this point &#8222;var_14&#8220; is still below 4722. As you can see the variable (now in ecx) is used as a pointer in the marked area by utilizing &#8222;byte ptr loc_10009014[ecx]&#8220;. So it grabs the first bytes of what ever is at this address. If we take a look what is there we see some &#8222;strange&#8220; assembly code &#8211; this doesn&#8217;t look as valid assembly code at all. If we look further down in the left block we see some xor, sub, add and mov operations so we can assume that this code will be modified. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1459" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-8-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png" data-orig-size="643,497" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-8" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png?w=643" loading="lazy" width="643" height="497" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png?w=643" alt="" class="wp-image-1459" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png 643w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-8.png?w=300 300w" sizes="(max-width: 643px) 100vw, 643px" /></figure>
+
+
+
+<p>After all the byte manipulations are done the byte is written back to the address 10009014. This time esi receives the pointer (mov esi, [ebp+var_14]). </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1461" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-9-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png" data-orig-size="385,167" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-9" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png?w=385" loading="lazy" width="385" height="167" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png?w=385" alt="" class="wp-image-1461" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png 385w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-9.png?w=300 300w" sizes="(max-width: 385px) 100vw, 385px" /></figure>
+
+
+
+<p>Then we jump back to the comparison if var_14 is already above 4722. If this is the case we change the page permissions to RWX and execute the now modified code. </p>
+
+
+
+<h2 class="wp-block-heading" id="let-s-debug-some-code">Let&#8217;s debug some code </h2>
+
+
+
+<p>The decryption routine is very very long and we don&#8217;t want to go into reversing this algorithm. Below is a screenshot of the algorithm &#8211; hell no! </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1463" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-10-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png" data-orig-size="338,1001" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-10" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png?w=101" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png?w=338" loading="lazy" width="338" height="1001" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png?w=338" alt="" class="wp-image-1463" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png 338w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png?w=51 51w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-10.png?w=101 101w" sizes="(max-width: 338px) 100vw, 338px" /></figure>
+
+
+
+<p>So lets open the file up in x64dbg and jump to user code but stop there. We want to start at the function &#8222;zznqqqjqi&#8220;. If we switch to text mode in IDA we can see the address. We have two options to change the instruction pointer (EIP) to continue from this address. First we can right-click on the EIP register and modify the value.</p>
+
+
+
+<div class="wp-block-image"><figure class="alignleft size-large is-resized"><img data-attachment-id="1465" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-11-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png" data-orig-size="288,73" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-11" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png?w=288" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png?w=288" loading="lazy" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png?w=288" alt="" class="wp-image-1465" width="288" height="73" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png 288w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-11.png?w=150 150w" sizes="(max-width: 288px) 100vw, 288px" /></figure></div>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1467" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-12-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png" data-orig-size="271,232" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-12" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png?w=271" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png?w=271" loading="lazy" width="271" height="232" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png?w=271" alt="" class="wp-image-1467" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png 271w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-12.png?w=150 150w" sizes="(max-width: 271px) 100vw, 271px" /></figure>
+
+
+
+<p>Or we can jump to the address in the disassembly view (Ctrl + G) and then right-click &#8222;Set new origin here&#8220;. </p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img data-attachment-id="1472" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-16-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png" data-orig-size="553,138" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-16" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=553" loading="lazy" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=553" alt="" class="wp-image-1472" width="492" height="123" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=492 492w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-16.png 553w" sizes="(max-width: 492px) 100vw, 492px" /></figure>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img data-attachment-id="1471" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-15-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png" data-orig-size="315,715" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-15" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=132" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=315" loading="lazy" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=315" alt="" class="wp-image-1471" width="270" height="613" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=270 270w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=66 66w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png?w=132 132w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-15.png 315w" sizes="(max-width: 270px) 100vw, 270px" /></figure>
+
+
+
+<p>After that we can start debugging.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1474" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-17-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png" data-orig-size="800,511" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-17" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=756" loading="lazy" width="800" height="511" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=800" alt="" class="wp-image-1474" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png 800w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-17.png?w=768 768w" sizes="(max-width: 800px) 100vw, 800px" /></figure>
+
+
+
+<p>We also see as we did in IDA Pro the initialization of the pointer and the comparision with 1272 (hex) = 4722 (dez). Here is on speciality about assembly. Instead of the jnb operation we saw in IDA Pro we see a jae (jump if above or equal). In fact the operations are interchangeable because both check if the ZERO flag is set. </p>
+
+
+
+<p>We know from our static analysis that after the decryption loop we change the permission of the page so lets follow the jump and place a breakpoint at this point.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1476" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-18-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png" data-orig-size="878,145" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-18" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=756" loading="lazy" width="878" height="145" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=878" alt="" class="wp-image-1476" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png 878w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-18.png?w=768 768w" sizes="(max-width: 878px) 100vw, 878px" /></figure>
+
+
+
+<p>Now we want to obverse how the code changes (without reversing the algorithm). Follow the address 10009014 in disassembler to see the code.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img data-attachment-id="1478" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-19-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png" data-orig-size="545,393" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-19" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=545" loading="lazy" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=545" alt="" class="wp-image-1478" width="400" height="289" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=400 400w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-19.png 545w" sizes="(max-width: 400px) 100vw, 400px" /><figcaption><strong>Before decryption</strong></figcaption></figure>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img data-attachment-id="1480" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-20-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png" data-orig-size="667,467" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-20" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=667" loading="lazy" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=667" alt="" class="wp-image-1480" width="407" height="285" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=407 407w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-20.png 667w" sizes="(max-width: 407px) 100vw, 407px" /><figcaption><strong>After decryption</strong></figcaption></figure>
+
+
+
+<p>As you can see now the code changed fundamentally and it starts with a jmp to another offset in the code. Jump back to the current instruction by double-clicking the EIP register.</p>
+
+
+
+<p>Lets single step over the VirtualProtect and then jump into the decrypted code (F7).</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1482" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-21-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png" data-orig-size="872,127" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-21" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=756" loading="lazy" width="872" height="127" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=872" alt="" class="wp-image-1482" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png 872w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-21.png?w=768 768w" sizes="(max-width: 872px) 100vw, 872px" /></figure>
+
+
+
+<p>We follow the jump and land at this address where we can see values being push/popped and then moved into a local variable (ebp-28). These values are ASCII codes so we can convert them manually or step over until we reach 0x10009849 where the string is terminated by a 0 (xor eax,eax = 0; mov memory,ax).</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1484" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-22-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png" data-orig-size="492,436" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-22" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png?w=492" loading="lazy" width="492" height="436" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png?w=492" alt="" class="wp-image-1484" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png 492w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-22.png?w=300 300w" sizes="(max-width: 492px) 100vw, 492px" /></figure>
+
+
+
+<p>If we follow the address ebp-28 we can see the string</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1486" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-23-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png" data-orig-size="525,63" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-23" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png?w=525" loading="lazy" width="525" height="63" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png?w=525" alt="" class="wp-image-1486" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png 525w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-23.png?w=300 300w" sizes="(max-width: 525px) 100vw, 525px" /></figure>
+
+
+
+<p>After that the next call will get us the Magic (4D 5A) of Kernel32.dll</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1488" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-24-4/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png" data-orig-size="480,86" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-24" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png?w=480" loading="lazy" width="480" height="86" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png?w=480" alt="" class="wp-image-1488" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png 480w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-24.png?w=300 300w" sizes="(max-width: 480px) 100vw, 480px" /></figure>
+
+
+
+<p>After that we see a lot of calls to the same function and what we suspect to be API hashes. So lets dive into this function and try to figure out what algorithm is used to hash the API function names. For easier analysis I dumped the DLL again with Scylla and opened it up again in IDA Pro.</p>
+
+
+
+<h2 class="wp-block-heading" id="api-hashing">API Hashing</h2>
+
+
+
+<p>We will go into the details of the function but what it mainly does is hashing the function names (exports) of the DLL and comparing it with the provided hash. If they match the function is found and a pointer to the function is stored. </p>
+
+
+
+<p>We know that the function receives the address to the module base of kernel32.dll. The address is passed via the ECX register. Additionally the function receives the precomputed hash via the EDX register. The first steps in the program are to store the passed arguments into edi respectively in var_4. Then the function goes over the memory region and reads in the PE structure looking for the export directory. To better unterstand whats going on here and what offsets are used take a look at this (huge) diagram: <a href="https://raw.githubusercontent.com/corkami/pics/master/binary/pe102/pe102.svg" rel="nofollow">https://raw.githubusercontent.com/corkami/pics/master/binary/pe102/pe102.svg</a></p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1552" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-55-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png" data-orig-size="609,601" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-55" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png?w=609" loading="lazy" width="609" height="601" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png?w=609" alt="" class="wp-image-1552" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png 609w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-55.png?w=300 300w" sizes="(max-width: 609px) 100vw, 609px" /></figure>
+
+
+
+<p>Now the function gets the first name from the export directory (edx+esi*4) and calls the function sub_100096B6. The function name (better: the address of the function name) is passed via the ECX register.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1553" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-56-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png" data-orig-size="775,709" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-56" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=756" loading="lazy" width="775" height="709" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=775" alt="" class="wp-image-1553" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png 775w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-56.png?w=768 768w" sizes="(max-width: 775px) 100vw, 775px" /></figure>
+
+
+
+<p>And here we have find the hashing algorithm. First the address of the function name is stored in ESI. Then we move the constant 2326 (hex) into EDX register and jump down to loc_100096CF where we get the first char by utilizing &#8222;movsx edi, byte ptr [esi]&#8220;. Then the constant 2326h is copied into EAX. With &#8222;test edi, edi&#8220; the function checks if there are still characters in the function name left or if the string termination (&#8222;0&#8220;) is reached. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1551" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-54-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png" data-orig-size="403,563" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-54" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png?w=215" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png?w=403" loading="lazy" width="403" height="563" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png?w=403" alt="" class="wp-image-1551" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png 403w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png?w=107 107w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-54.png?w=215 215w" sizes="(max-width: 403px) 100vw, 403px" /></figure>
+
+
+
+<h3 class="wp-block-heading" id="pseudocode-of-the-hashing-algorithm">Pseudocode of the hashing algorithm</h3>
+
+
+
+<p>If we remove some of the optimizations by the compiler and do the shr / shl operations inline (these operations can only be done on registers therefore the compiler had to assemble it this way) then we get a very simple code. Basically its just starting with a constant (I called iv for Initialization Vector) and then shifts right and left and adds the current char. This way we go over all the chars in the string until we reach the end of the string. To simplify things I use a fixed string of &#8222;GetTempPathW&#8220;. To account for the EDX register (which is 32 bytes long) we have to make sure that we stay inside this range and therefore have to do an AND operation with 0xFFFFFFFF.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+iv = 0x2326
+name = &quot;GetTempPathW&quot;
+hash = 0
+for i in range(len(name)):
+    iv = (iv + (iv &gt;&gt; 1 | iv &lt;&lt; 7) + ord(name&#91;i])) &amp; 0xFFFFFFFF
+    hash = iv 
+    
+print(hex(hash))
+ 
+</pre></div>
+
+
+<h3 class="wp-block-heading" id="resolve-the-called-api-hashes">Resolve the called API hashes</h3>
+
+
+
+<p>If we jump over one of these function calls we see the pointer in the EAX being returned. So we can jump over all the function call and make notes of the resolved API hashes. You could write a IDAPython script if you want but there are not many hashes so I decided to do it manually.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1491" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-25-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png" data-orig-size="322,118" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-25" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png?w=322" loading="lazy" width="322" height="118" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png?w=322" alt="" class="wp-image-1491" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png 322w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-25.png?w=300 300w" sizes="(max-width: 322px) 100vw, 322px" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1493" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-26-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png" data-orig-size="697,490" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-26" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png?w=697" loading="lazy" width="697" height="490" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png?w=697" alt="" class="wp-image-1493" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png 697w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-26.png?w=300 300w" sizes="(max-width: 697px) 100vw, 697px" /></figure>
+
+
+
+<p>From what we see we can expect some file operations. </p>
+
+
+
+<p>After all necessary APIs are resolved we can see that the malware does the same push/pop trick as before &#8211; so we do the same and run to the end and jump to the address in the dump</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1495" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-27-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png" data-orig-size="541,452" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-27" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png?w=541" loading="lazy" width="541" height="452" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png?w=541" alt="" class="wp-image-1495" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png 541w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-27.png?w=300 300w" sizes="(max-width: 541px) 100vw, 541px" /></figure>
+
+
+
+<p>There we see a strange string &#8222;w66zlsqpnyue6&#8220;. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1499" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-29-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png" data-orig-size="521,42" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-29" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png?w=521" loading="lazy" width="521" height="42" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png?w=521" alt="" class="wp-image-1499" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png 521w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-29.png?w=300 300w" sizes="(max-width: 521px) 100vw, 521px" /></figure>
+
+
+
+<h2 class="wp-block-heading" id="reading-and-decrypting-main-payload">Reading and decrypting main payload</h2>
+
+
+
+<p>Lets continue debugging. And find out what this string is used for. Next we have a call to a memory region and as you might have expected its an API call. We call GetTempPathW. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1500" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-30-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png" data-orig-size="689,77" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-30" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png?w=689" loading="lazy" width="689" height="77" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png?w=689" alt="" class="wp-image-1500" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png 689w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-30.png?w=300 300w" sizes="(max-width: 689px) 100vw, 689px" /></figure>
+
+
+
+<p>With the next call we are able to figure out what the previous strange string means. The string is appended to the result of GetTempPathW and therefore it must be a file. If you recall ebp-44 is the string and ebp-480 contains the string of the temp folder.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1502" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-31-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png" data-orig-size="685,119" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-31" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png?w=685" loading="lazy" width="685" height="119" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png?w=685" alt="" class="wp-image-1502" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png 685w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-31.png?w=300 300w" sizes="(max-width: 685px) 100vw, 685px" /></figure>
+
+
+
+<p>After the call the newly formed string is stored at ebp-480 and we can follow this memory in the dump and see the final result</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1504" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-32-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png" data-orig-size="523,77" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-32" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png?w=523" loading="lazy" width="523" height="77" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png?w=523" alt="" class="wp-image-1504" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png 523w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-32.png?w=300 300w" sizes="(max-width: 523px) 100vw, 523px" /></figure>
+
+
+
+<p>Next we have a call to CreateFileW. Remember that the parameters are pushed to the stack in reverse order. One interesting fact about this call is the value 80000000 which is a constant for GENERIC_READ which means that the file must already exist or we will get an error. At this point we can assume that the NSIS installer will copy the file over to the temp directory. To proceed with our debugging we have to copy the file ourselves. You can find the file in the &#8222;root&#8220; folder.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1505" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-33-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png" data-orig-size="691,171" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-33" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png?w=691" loading="lazy" width="691" height="171" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png?w=691" alt="" class="wp-image-1505" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png 691w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-33.png?w=300 300w" sizes="(max-width: 691px) 100vw, 691px" /></figure>
+
+
+
+<p>If the call succeeds EAX will contain the handle to the file. The result of the call is storend and checked in the next line.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1508" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-34-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png" data-orig-size="692,233" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-34" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png?w=692" loading="lazy" width="692" height="233" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png?w=692" alt="" class="wp-image-1508" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png 692w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-34.png?w=300 300w" sizes="(max-width: 692px) 100vw, 692px" /></figure>
+
+
+
+<p>If this is successful the malware gets the size of the file with a call to GetFileSize</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1510" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-35-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png" data-orig-size="690,178" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-35" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png?w=690" loading="lazy" width="690" height="178" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png?w=690" alt="" class="wp-image-1510" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png 690w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-35.png?w=300 300w" sizes="(max-width: 690px) 100vw, 690px" /></figure>
+
+
+
+<p>The same logic as above is used to check if the file size is not equal 0. Next we allocate virtual memory with a call to VirtualAlloc and pass the size (stored at ebp-8) to the function. The allocated memory is stored in ebp-C.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1512" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-36-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png" data-orig-size="648,157" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-36" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png?w=648" loading="lazy" width="648" height="157" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png?w=648" alt="" class="wp-image-1512" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png 648w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-36.png?w=300 300w" sizes="(max-width: 648px) 100vw, 648px" /></figure>
+
+
+
+<p>We do another check if the function succeeded and continue with a call to read file. The destination buffer is the just allocated memory region. In my case its 0x750000.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1514" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-37-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png" data-orig-size="800,97" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-37" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=756" loading="lazy" width="800" height="97" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=800" alt="" class="wp-image-1514" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png 800w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-37.png?w=768 768w" sizes="(max-width: 800px) 100vw, 800px" /></figure>
+
+
+
+<p>After the file is read we can take a look at the memory region. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1516" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-38-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png" data-orig-size="517,206" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-38" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png?w=517" loading="lazy" width="517" height="206" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png?w=517" alt="" class="wp-image-1516" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png 517w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-38.png?w=300 300w" sizes="(max-width: 517px) 100vw, 517px" /></figure>
+
+
+
+<p>This does look like encrypted data but lets continue our analysis. After reading the file we close the handle to the file and jump into another function at 10009A0E. Notice that the functions receives two parameters. First the file size (ebp-8) and the allocated region of memory (ebp-C). </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1518" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-39-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png" data-orig-size="723,149" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-39" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png?w=723" loading="lazy" width="723" height="149" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png?w=723" alt="" class="wp-image-1518" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png 723w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-39.png?w=300 300w" sizes="(max-width: 723px) 100vw, 723px" /></figure>
+
+
+
+<p>In the function we see a familiar code structure &#8211; it has great similarities with the first decryption loop. First there is a pointer initialized with zero stored as local variable at ebp-8. Then the pointer is incremented by one and check against the argument at ebp+C which is the file size. If the pointer value is lower than the size of data (jae) the encryption will continue otherwise we jump to 10009C8B. After the jump is NOT taken we see that the value at ebp+8 (the data itself) is moved into eax and then the pointer (counter) gets added.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1520" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-40-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png" data-orig-size="711,413" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-40" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png?w=711" loading="lazy" width="711" height="413" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png?w=711" alt="" class="wp-image-1520" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png 711w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-40.png?w=300 300w" sizes="(max-width: 711px) 100vw, 711px" /></figure>
+
+
+
+<p>As we did with the previous encryption loop we don&#8217;t want to dig into the algorithm and just see whats happening. We know that this code will manipulate the read file so go to address 10009C8B and set a breakpoint. After the decryption is complete we can see a MZ header in the dump. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1525" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-43-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png" data-orig-size="536,210" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-43" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png?w=536" loading="lazy" width="536" height="210" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png?w=536" alt="" class="wp-image-1525" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png 536w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-43.png?w=300 300w" sizes="(max-width: 536px) 100vw, 536px" /></figure>
+
+
+
+<p>So right-click on the address 750000 and follow in memory map. Then right-click the address again and choose &#8222;Dump memory to file&#8220;. We want to stop our analysis of the initial sample here and continue with the dumped PE.</p>
+
+
+
+<h2 class="wp-block-heading" id="analyzing-the-dumped-pe">Analyzing the dumped PE</h2>
+
+
+
+<p>We once again start with some basic static analysis and open the file in DiE.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1526" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-44-3/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png" data-orig-size="632,63" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-44" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png?w=632" loading="lazy" width="632" height="63" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png?w=632" alt="" class="wp-image-1526" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png 632w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-44.png?w=300 300w" sizes="(max-width: 632px) 100vw, 632px" /></figure>
+
+
+
+<p>Immediately we can see that the PE imports APIs to handle resources so lets check if there is something interesting.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1528" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-45-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png" data-orig-size="1018,496" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-45" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=756" loading="lazy" width="1018" height="496" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=1018" alt="" class="wp-image-1528" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png 1018w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-45.png?w=768 768w" sizes="(max-width: 1018px) 100vw, 1018px" /></figure>
+
+
+
+<p>And wow &#8230; there is an unencrypted PE inside of the resource section. To dump this PE we will utilize Resource Hacker and dump the file via &#8222;Save Resource to a BIN file&#8230;&#8220;</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1530" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-46-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png" data-orig-size="792,437" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-46" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=756" loading="lazy" width="792" height="437" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=792" alt="" class="wp-image-1530" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png 792w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=300 300w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-46.png?w=768 768w" sizes="(max-width: 792px) 100vw, 792px" /></figure>
+
+
+
+<h2 class="wp-block-heading" id="analyzing-the-dumped-resource">Analyzing the dumped resource</h2>
+
+
+
+<p>Once again we open the dumped PE in DiE and see that its written in .NET and obfuscated.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1532" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-47-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png" data-orig-size="658,134" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-47" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png?w=658" loading="lazy" width="658" height="134" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png?w=658" alt="" class="wp-image-1532" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png 658w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-47.png?w=300 300w" sizes="(max-width: 658px) 100vw, 658px" /></figure>
+
+
+
+<p>From this point on I just dropped this sample into the CAPE and got a hit on AgentTeslaV3 YARA signatures. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="1534" data-permalink="https://l1v1ngc0d3.wordpress.com/grafik-48-2/" data-orig-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png" data-orig-size="465,155" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="grafik-48" data-image-description="" data-image-caption="" data-medium-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png?w=300" data-large-file="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png?w=465" loading="lazy" width="465" height="155" src="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png?w=465" alt="" class="wp-image-1534" srcset="https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png 465w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png?w=150 150w, https://l1v1ngc0d3.files.wordpress.com/2021/11/grafik-48.png?w=300 300w" sizes="(max-width: 465px) 100vw, 465px" /></figure>
+
+
+
+<p>Mission complete! </p>
+
+
+
+<h2 class="wp-block-heading" id="iocs">IoCs</h2>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<figure class="wp-block-table"><table><tbody><tr><td><strong>NSIS Installer</strong></td><td>ce8a9bf908ce35bf0c034c61416109a44f015eabf058b12485450cd40af95fc3</td></tr><tr><td><strong>swfmwfkkeh.dll</strong></td><td>6d8bc73c6f2ef4ee700fc8bc4088f73a14dab355a2dd4e3e9aa3ddf52f7e946e</td></tr><tr><td><strong>Encrypted resource (inside of NSIS data)<br>w66zlsqpnyue6</strong></td><td>c02ff5253bf3930f1ee14e088f50c827bf2209f3a7e9f00ed3994fd417d790b2</td></tr><tr><td><strong>Dumped PE</strong></td><td>9a72e5859b5564cecff5d5a4a929e81595d68aca1972ea2cf0fcf71c518d2cb9</td></tr><tr><td><strong>AgentTesla V3</strong></td><td>5459e87eb0a39243a35405866b2dca1d57c2c1ee02d24052635fcc48de5d397c</td></tr></tbody></table></figure>
+</div></div>
+
+
+
+<p></p>
+<div id="atatags-370373-6592aa93c0dd5">
+		<script type="text/javascript">
+			__ATA.cmd.push(function() {
+				__ATA.initVideoSlot('atatags-370373-6592aa93c0dd5', {
+					sectionId: '370373',
+					format: 'inread'
+				});
+			});
+		</script>
+	</div><span id="wordads-inline-marker" style="display: none;"></span>	<div class="OUTBRAIN wa-ob-widget"
+		data-ob-contentUrl="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/"
+		data-widget-id="AR_1"
+		data-ob-installation-key="WORDP263NC92GIANECJP6HEPM"
+		data-ob-psub="tech"
+	></div>
+	<script>
+		window._stq = window._stq || [];
+		window._stq.push( [ 'extra', { x_wordads_outbrain: 'widget_render_ar_1', }, ] );
+	</script><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Teilen mit:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-1441" class="share-twitter sd-button share-icon" href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/?share=twitter" target="_blank" title="Klick, um über Twitter zu teilen" ><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-1441" class="share-facebook sd-button share-icon" href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/?share=facebook" target="_blank" title="Klick, um auf Facebook zu teilen" ><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-109859092-1441-6592aa93c201f' data-src='//widgets.wp.com/likes/index.html?ver=20231208#blog_id=109859092&amp;post_id=1441&amp;origin=l1v1ngc0d3.wordpress.com&amp;obj_id=109859092-1441-6592aa93c201f&amp;n=1' data-name='like-post-frame-109859092-1441-6592aa93c201f' data-title='Liken oder rebloggen'><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Gefällt mir</span></span> <span class='loading'>Wird geladen …</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Ähnliche Beiträge</em></h3>
+</div></div>							</div><!-- .entry-content -->
+
+			<footer class="entry-footer">
+							</footer><!-- .entry-footer -->
+
+			
+<div id="comments" class="comments-area">
+
+	
+	
+		<h2 class="comments-title">
+	Ein Kommentar zu &bdquo;<span>AgentTesla dropped via NSIS&nbsp;installer</span>&ldquo;</h2>
+
+		
+		<ol class="comment-list">
+			<li id="comment-170" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://thisweekin4n6.com/2021/11/14/week-46-2021/" class="url" rel="ugc external nofollow">Week 46 &#8211; 2021 &#8211; This Week In 4n6</a> 			</div>
+		</li><!-- #comment-## -->
+</ol><!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Kommentar verfassen <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2021/11/12/agenttesla-dropped-via-nsis-installer/#respond" style="display:none;">Antwort abbrechen</a></small></h3><form action="https://l1v1ngc0d3.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+
+
+<div id="comment-form__verbum" class="transparent"></div><div class="verbum-form-meta"><input type='hidden' name='comment_post_ID' value='1441' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+
+			<input type="hidden" name="highlander_comment_nonce" id="highlander_comment_nonce" value="33918f111a" />
+			<input type="hidden" name="verbum_show_subscription_modal" value="" /></div><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5471a6c3a0" /></p><p style="display: none !important;"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="153"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+		</div>
+
+		<div class="sidebar">
+			
+<div id="secondary" class="widget-area" role="complementary">
+	
+		<aside id="recent-posts-2" class="widget widget_recent_entries">
+		<h1 class="widget-title">Aktuelle Beiträge</h1>
+		<ul>
+											<li>
+					<a href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" aria-current="page">AgentTesla dropped via NSIS&nbsp;installer</a>
+									</li>
+											<li>
+					<a href="https://l1v1ngc0d3.wordpress.com/2021/10/24/malware-analysis-nitol-b/">Malware Analysis &#8211;&nbsp;Nitol.B</a>
+									</li>
+											<li>
+					<a href="https://l1v1ngc0d3.wordpress.com/2021/01/24/hackthebox-forensic-challenge-reminiscent/">HackTheBox &#8211; Forensic Challenge &#8211;&nbsp;Reminiscent</a>
+									</li>
+											<li>
+					<a href="https://l1v1ngc0d3.wordpress.com/2017/11/20/fristileaks-1-3-walkthrough/">FristiLeaks 1.3 Walkthrough</a>
+									</li>
+											<li>
+					<a href="https://l1v1ngc0d3.wordpress.com/2017/10/25/bad-rabbit/">Bad Rabbit</a>
+									</li>
+					</ul>
+
+		</aside><aside id="pages-3" class="widget widget_pages"><h1 class="widget-title">Seiten</h1>
+			<ul>
+				<li class="page_item page-item-455"><a href="https://l1v1ngc0d3.wordpress.com/reverse-engineering/">Reverse Engineering</a></li>
+<li class="page_item page-item-286 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/">Security</a>
+<ul class='children'>
+	<li class="page_item page-item-313"><a href="https://l1v1ngc0d3.wordpress.com/security/walkthroughs/">Walkthroughs</a></li>
+	<li class="page_item page-item-324 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/">Exploits</a>
+	<ul class='children'>
+		<li class="page_item page-item-328"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/x64/">x64</a></li>
+		<li class="page_item page-item-326"><a href="https://l1v1ngc0d3.wordpress.com/security/assembler/x86/">x86</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-295"><a href="https://l1v1ngc0d3.wordpress.com/security/host-security/">Host Security</a></li>
+	<li class="page_item page-item-298 page_item_has_children"><a href="https://l1v1ngc0d3.wordpress.com/security/network-security/">Network Security</a>
+	<ul class='children'>
+		<li class="page_item page-item-302"><a href="https://l1v1ngc0d3.wordpress.com/security/network-security/sniffing/">Sniffing</a></li>
+	</ul>
+</li>
+	<li class="page_item page-item-300"><a href="https://l1v1ngc0d3.wordpress.com/security/procedures/">Procedures</a></li>
+</ul>
+</li>
+<li class="page_item page-item-287"><a href="https://l1v1ngc0d3.wordpress.com/linux/">Linux</a></li>
+<li class="page_item page-item-293"><a href="https://l1v1ngc0d3.wordpress.com/ios/">iOS</a></li>
+<li class="page_item page-item-289"><a href="https://l1v1ngc0d3.wordpress.com/python/">Python</a></li>
+<li class="page_item page-item-291"><a href="https://l1v1ngc0d3.wordpress.com/design-pattern/">Design Pattern</a></li>
+			</ul>
+
+			</aside><aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://l1v1ngc0d3.wordpress.com/">
+				<label>
+					<span class="screen-reader-text">Suche nach:</span>
+					<input type="search" class="search-field" placeholder="Suche&#160;&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Suche" />
+			</form></aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h1 class="widget-title">Neueste Kommentare</h1>				<table class="recentcommentsavatar" cellspacing="0" cellpadding="0" border="0">
+					<tr><td title="Week 46 &#8211; 2021 &#8211; This Week In 4n6" class="recentcommentsavatartop" style="height:48px; width:48px;"><a href="http://thisweekin4n6.com/2021/11/14/week-46-2021/" rel="nofollow"><img alt='' src='https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=48' srcset='https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=48 1x, https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=72 1.5x, https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=96 2x, https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=144 3x, https://thisweekin4n6.files.wordpress.com/2017/07/cropped-image-e1499241240995.png?w=192 4x' class='avatar avatar-48' height='48' width='48' loading='lazy' decoding='async' /></a></td><td class="recentcommentstexttop" style=""><a href="http://thisweekin4n6.com/2021/11/14/week-46-2021/" rel="nofollow">Week 46 &#8211; 2021&hellip;</a> bei <a href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/comment-page-1/#comment-170">AgentTesla dropped via NSIS&hellip;</a></td></tr><tr><td title="Modern Binary Exploitation Challenges &#8211; part 1 &#8211; Living Code" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="https://dominikdegroot.wordpress.com/2017/08/20/modern-binary-exploitation-challenges-part1/" rel="nofollow"></a></td><td class="recentcommentstextend" style=""><a href="https://dominikdegroot.wordpress.com/2017/08/20/modern-binary-exploitation-challenges-part1/" rel="nofollow">Modern Binary Exploi&hellip;</a> bei <a href="https://l1v1ngc0d3.wordpress.com/2017/08/26/modern-binary-exploitation-challenges-part-2/comment-page-1/#comment-11">Modern Binary Exploitation Cha&hellip;</a></td></tr><tr><td title="Modern Binary Exploitation Challenges – part 2 – Living Code" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="https://l1v1ngc0d3.wordpress.com/2017/08/26/modern-binary-exploitation-challenges-part-2/" rel="nofollow"><img alt='' src='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=48' srcset='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=48 1x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=72 1.5x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=96 2x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=144 3x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=192 4x' class='avatar avatar-48' height='48' width='48' loading='lazy' decoding='async' /></a></td><td class="recentcommentstextend" style=""><a href="https://l1v1ngc0d3.wordpress.com/2017/08/26/modern-binary-exploitation-challenges-part-2/" rel="nofollow">Modern Binary Exploi&hellip;</a> bei <a href="https://l1v1ngc0d3.wordpress.com/2017/08/20/modern-binary-exploitation-challenges-part1/comment-page-1/#comment-10">Modern Binary Exploitation Cha&hellip;</a></td></tr><tr><td title="NA9x2000" class="recentcommentsavatarend" style="height:48px; width:48px;"><img alt='' src='https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=48&#038;d=identicon&#038;r=G' srcset='https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=48&#038;d=identicon&#038;r=G 1x, https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=72&#038;d=identicon&#038;r=G 1.5x, https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=96&#038;d=identicon&#038;r=G 2x, https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=144&#038;d=identicon&#038;r=G 3x, https://0.gravatar.com/avatar/01bfb7f89bea7c0db48a6dfb17b28cbf54215bf6c68b5e618b0319611ffbb412?s=192&#038;d=identicon&#038;r=G 4x' class='avatar avatar-48' height='48' width='48' loading='lazy' decoding='async' /></td><td class="recentcommentstextend" style="">NA9x2000 bei <a href="https://l1v1ngc0d3.wordpress.com/2016/04/22/singleton/comment-page-1/#comment-3">Singleton</a></td></tr><tr><td title="Observer (Beobachter) &#8211; Living Code" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="https://dominikdegroot.wordpress.com/2016/04/22/observer-beobachter/" rel="nofollow"></a></td><td class="recentcommentstextend" style=""><a href="https://dominikdegroot.wordpress.com/2016/04/22/observer-beobachter/" rel="nofollow">Observer (Beobachter&hellip;</a> bei <a href="https://l1v1ngc0d3.wordpress.com/2016/04/21/localization-on-the-fly/comment-page-1/#comment-2">Localization on-the-fly</a></td></tr>				</table>
+				</aside></div><!-- #secondary -->
+		</div><!-- .sidebar -->
+
+	</article><!-- #post-## -->
+			
+	<nav class="navigation post-navigation" aria-label="Beiträge">
+		<h2 class="screen-reader-text">Beitrags-Navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://l1v1ngc0d3.wordpress.com/2021/10/24/malware-analysis-nitol-b/" rel="prev">Previous Post <span class="screen-reader-text">Malware Analysis &#8211;&nbsp;Nitol.B</span></a></div></div>
+	</nav>
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+
+		<div class="site-info">
+	<a href="https://wordpress.com/?ref=footer_blog" rel="nofollow">Bloggen auf WordPress.com.</a>
+	
+	</div><!-- .site-info -->
+
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!--  -->
+<script type="text/javascript" src="//0.gravatar.com/js/hovercards/hovercards.min.js?ver=202401131f6b765e798866d728f95661b78bbf269c86482ffff0fa8c08e18a1a65cc89" id="grofiles-cards-js"></script>
+<script type="text/javascript" id="wpgroho-js-extra">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240i'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init(
+					'body',
+					'#wp-admin-bar-my-account',
+					{
+						i18n: {
+							'Edit your profile': 'Bearbeite Dein Profil',
+							'View profile': 'View profile',
+							'Sorry, we are unable to load this Gravatar profile.': 'Sorry, we are unable to load this Gravatar profile.',
+							'Sorry, we are unable to load this Gravatar profile. Please check your internet connection.': 'Sorry, we are unable to load this Gravatar profile. Please check your internet connection.',
+						},
+					}
+				);
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-38006eca873b7d268e2dc9e844c5ccaa">
+	</div>
+	</div>
+		<script type="text/javascript">
+		( function() {
+			function init() {
+				document.body.addEventListener( 'is.post-load', function() {
+					if ( typeof __ATA.insertInlineAds === 'function' ) {
+						__ATA.insertInlineAds();
+					}
+				} );
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+		</script>		<!-- CCPA [start] -->
+		<script type="text/javascript">
+			( function () {
+
+				var setupPrivacy = function() {
+
+					// Minimal Mozilla Cookie library
+					// https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
+					var cookieLib = window.cookieLib = {getItem:function(e){return e&&decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*"+encodeURIComponent(e).replace(/[\-\.\+\*]/g,"\\$&")+"\\s*\\=\\s*([^;]*).*$)|^.*$"),"$1"))||null},setItem:function(e,o,n,t,r,i){if(!e||/^(?:expires|max\-age|path|domain|secure)$/i.test(e))return!1;var c="";if(n)switch(n.constructor){case Number:c=n===1/0?"; expires=Fri, 31 Dec 9999 23:59:59 GMT":"; max-age="+n;break;case String:c="; expires="+n;break;case Date:c="; expires="+n.toUTCString()}return"rootDomain"!==r&&".rootDomain"!==r||(r=(".rootDomain"===r?".":"")+document.location.hostname.split(".").slice(-2).join(".")),document.cookie=encodeURIComponent(e)+"="+encodeURIComponent(o)+c+(r?"; domain="+r:"")+(t?"; path="+t:"")+(i?"; secure":""),!0}};
+
+					// Implement IAB USP API.
+					window.__uspapi = function( command, version, callback ) {
+
+						// Validate callback.
+						if ( typeof callback !== 'function' ) {
+							return;
+						}
+
+						// Validate the given command.
+						if ( command !== 'getUSPData' || version !== 1 ) {
+							callback( null, false );
+							return;
+						}
+
+						// Check for GPC. If set, override any stored cookie.
+						if ( navigator.globalPrivacyControl ) {
+							callback( { version: 1, uspString: '1YYN' }, true );
+							return;
+						}
+
+						// Check for cookie.
+						var consent = cookieLib.getItem( 'usprivacy' );
+
+						// Invalid cookie.
+						if ( null === consent ) {
+							callback( null, false );
+							return;
+						}
+
+						// Everything checks out. Fire the provided callback with the consent data.
+						callback( { version: 1, uspString: consent }, true );
+					};
+
+					// Initialization.
+					document.addEventListener( 'DOMContentLoaded', function() {
+
+						// Internal functions.
+						var setDefaultOptInCookie = function() {
+							var value = '1YNN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 365 * 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultOptOutCookie = function() {
+							var value = '1YYN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultNotApplicableCookie = function() {
+							var value = '1---';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setCcpaAppliesCookie = function( applies ) {
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'ccpa_applies', applies, 24 * 60 * 60, '/', domain );
+						}
+
+						var maybeCallDoNotSellCallback = function() {
+							if ( 'function' === typeof window.doNotSellCallback ) {
+								return window.doNotSellCallback();
+							}
+
+							return false;
+						}
+
+						// Look for usprivacy cookie first.
+						var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
+
+						// Found a usprivacy cookie.
+						if ( null !== usprivacyCookie ) {
+
+							// If the cookie indicates that CCPA does not apply, then bail.
+							if ( '1---' === usprivacyCookie ) {
+								return;
+							}
+
+							// CCPA applies, so call our callback to add Do Not Sell link to the page.
+							maybeCallDoNotSellCallback();
+
+							// We're all done, no more processing needed.
+							return;
+						}
+
+						// We don't have a usprivacy cookie, so check to see if we have a CCPA applies cookie.
+						var ccpaCookie = cookieLib.getItem( 'ccpa_applies' );
+
+						// No CCPA applies cookie found, so we'll need to geolocate if this visitor is from California.
+						// This needs to happen client side because we do not have region geo data in our $SERVER headers,
+						// only country data -- therefore we can't vary cache on the region.
+						if ( null === ccpaCookie ) {
+
+							var request = new XMLHttpRequest();
+							request.open( 'GET', 'https://public-api.wordpress.com/geo/', true );
+
+							request.onreadystatechange = function () {
+								if ( 4 === this.readyState ) {
+									if ( 200 === this.status ) {
+
+										// Got a geo response. Parse out the region data.
+										var data = JSON.parse( this.response );
+										var region      = data.region ? data.region.toLowerCase() : '';
+										var ccpa_applies = ['california', 'colorado', 'connecticut', 'utah', 'virginia'].indexOf( region ) > -1;
+										// Set CCPA applies cookie. This keeps us from having to make a geo request too frequently.
+										setCcpaAppliesCookie( ccpa_applies );
+
+										// Check if CCPA applies to set the proper usprivacy cookie.
+										if ( ccpa_applies ) {
+											if ( maybeCallDoNotSellCallback() ) {
+												// Do Not Sell link added, so set default opt-in.
+												setDefaultOptInCookie();
+											} else {
+												// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+												setDefaultOptOutCookie();
+											}
+										} else {
+											// CCPA does not apply.
+											setDefaultNotApplicableCookie();
+										}
+									} else {
+										// Could not geo, so let's assume for now that CCPA applies to be safe.
+										setCcpaAppliesCookie( true );
+										if ( maybeCallDoNotSellCallback() ) {
+											// Do Not Sell link added, so set default opt-in.
+											setDefaultOptInCookie();
+										} else {
+											// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+											setDefaultOptOutCookie();
+										}
+									}
+								}
+							};
+
+							// Send the geo request.
+							request.send();
+						} else {
+							// We found a CCPA applies cookie.
+							if ( ccpaCookie === 'true' ) {
+								if ( maybeCallDoNotSellCallback() ) {
+									// Do Not Sell link added, so set default opt-in.
+									setDefaultOptInCookie();
+								} else {
+									// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+									setDefaultOptOutCookie();
+								}
+							} else {
+								// CCPA does not apply.
+								setDefaultNotApplicableCookie();
+							}
+						}
+					} );
+				};
+
+				// Kickoff initialization.
+				if ( window.defQueue && defQueue.isLOHP && defQueue.isLOHP === 2020 ) {
+					defQueue.items.push( setupPrivacy );
+				} else {
+					setupPrivacy();
+				}
+
+			} )();
+		</script>
+
+		<!-- CCPA [end] -->
+		<div class="widget widget_eu_cookie_law_widget">
+<div
+	class="hide-on-button ads-active"
+	data-hide-timeout="30"
+	data-consent-expiration="180"
+	id="eu-cookie-law"
+	style="display: none"
+>
+	<form method="post">
+		<input type="submit" value="Schließen und Akzeptieren" class="accept" />
+
+		Datenschutz &amp; Cookies: Diese Website verwendet Cookies. Wenn du die Website weiterhin nutzt, stimmst du der Verwendung von Cookies zu. <br />
+Weitere Informationen, beispielsweise zur Kontrolle von Cookies, findest du hier:
+				<a href="https://automattic.com/cookies/" rel="nofollow">
+			Cookie-Richtlinie		</a>
+ </form>
+</div>
+</div>	<div id="actionbar" style="display: none;"
+			class="actnbr-pub-escutcheon actnbr-has-follow">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-comment" href="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/#comments">
+							<svg class="gridicon gridicons-comment" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12 16l-5 5v-5H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2h-7z"/></g></svg>							<span>Kommentar						</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Abonnieren</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Abonniert</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://l1v1ngc0d3.wordpress.com">
+				<img alt='' src='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=50' srcset='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=50 1x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=75 1.5x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=100 2x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=150 3x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Living Code			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																				<div>
+										<input type="email" name="email" placeholder="Gib deine E-Mail-Adresse ein" class="actnbr-email-field" aria-label="Gib deine E-Mail-Adresse ein" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="109859092" />
+										<input type="hidden" name="source" value="https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="3c40454b01" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Anmelden">
+												Anmelden											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Du hast bereits ein WordPress.com-Konto? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F&#038;signup_flow=account">Melde dich jetzt an.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+									<li class="actnbr-sitename">
+			<a href="https://l1v1ngc0d3.wordpress.com">
+				<img alt='' src='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=50' srcset='https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=50 1x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=75 1.5x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=100 2x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=150 3x, https://l1v1ngc0d3.files.wordpress.com/2017/08/cropped-screenshot_2017-08-22_14-19-22.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Living Code			</a>
+		</li>
+								<li class="actnbr-folded-customize">
+								<a href="https://l1v1ngc0d3.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F">
+									<svg class="gridicon gridicons-customize" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z"/></g></svg>									<span>Anpassen</span>
+								</a>
+							</li>
+																<li class="actnbr-folded-follow">
+												<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Abonnieren</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Abonniert</span>
+		</a>
+										</li>
+																	<li class="actnbr-signup"><a href="https://wordpress.com/start/">Registrieren</a></li>
+									<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F&#038;signup_flow=account">Anmelden</a></li>
+																	<li class="actnbr-shortlink"><a href="https://wp.me/p7qXmQ-nf">Kurzlink kopieren</a></li>
+																	<li class="flb-report">
+										<a href="http://en.wordpress.com/abuse/?report_url=https://l1v1ngc0d3.wordpress.com/2021/11/12/agenttesla-dropped-via-nsis-installer/" target="_blank">
+											Melde diesen Inhalt										</a>
+									</li>
+																	<li class="actnbr-reader">
+										<a href="https://wordpress.com/read/blogs/109859092/posts/1441">
+											Beitrag im Reader lesen										</a>
+									</li>
+																	<li class="actnbr-subs">
+										<a href="https://subscribe.wordpress.com/">Abonnements verwalten</a>
+									</li>
+																		<li class="actnbr-fold"><a href="">Diese Leiste einklappen</a></li>
+															</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "load", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "https://s0.wp.com/wp-content/mu-plugins/actionbar/actionbar.css?v=20231122";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "https://s0.wp.com/wp-content/mu-plugins/actionbar/actionbar.js?v=20231122";
+	script.defer = true;
+	document.body.appendChild( script );
+} );
+</script>
+
+			<div id="jp-carousel-loading-overlay">
+			<div id="jp-carousel-loading-wrapper">
+				<span id="jp-carousel-library-loading">&nbsp;</span>
+			</div>
+		</div>
+		<div class="jp-carousel-overlay" style="display: none;">
+
+		<div class="jp-carousel-container">
+			<!-- The Carousel Swiper -->
+			<div
+				class="jp-carousel-wrap swiper-container jp-carousel-swiper-container jp-carousel-transitions"
+				itemscope
+				itemtype="https://schema.org/ImageGallery">
+				<div class="jp-carousel swiper-wrapper"></div>
+				<div class="jp-swiper-button-prev swiper-button-prev">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskPrev" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="9" height="12">
+							<path d="M16.2072 16.59L11.6496 12L16.2072 7.41L14.8041 6L8.8335 12L14.8041 18L16.2072 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskPrev)">
+							<rect x="0.579102" width="23.8823" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+				<div class="jp-swiper-button-next swiper-button-next">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskNext" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="8" height="12">
+							<path d="M8.59814 16.59L13.1557 12L8.59814 7.41L10.0012 6L15.9718 12L10.0012 18L8.59814 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskNext)">
+							<rect x="0.34375" width="23.8822" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<!-- The main close buton -->
+			<div class="jp-carousel-close-hint">
+				<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<mask id="maskClose" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="15" height="14">
+						<path d="M19.3166 6.41L17.9135 5L12.3509 10.59L6.78834 5L5.38525 6.41L10.9478 12L5.38525 17.59L6.78834 19L12.3509 13.41L17.9135 19L19.3166 17.59L13.754 12L19.3166 6.41Z" fill="white"/>
+					</mask>
+					<g mask="url(#maskClose)">
+						<rect x="0.409668" width="23.8823" height="24" fill="#FFFFFF"/>
+					</g>
+				</svg>
+			</div>
+			<!-- Image info, comments and meta -->
+			<div class="jp-carousel-info">
+				<div class="jp-carousel-info-footer">
+					<div class="jp-carousel-pagination-container">
+						<div class="jp-swiper-pagination swiper-pagination"></div>
+						<div class="jp-carousel-pagination"></div>
+					</div>
+					<div class="jp-carousel-photo-title-container">
+						<h2 class="jp-carousel-photo-caption"></h2>
+					</div>
+					<div class="jp-carousel-photo-icons-container">
+						<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-info" aria-label="Sichtbarkeit von Fotometadaten ändern">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskInfo" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7537 2C7.26076 2 2.80273 6.48 2.80273 12C2.80273 17.52 7.26076 22 12.7537 22C18.2466 22 22.7046 17.52 22.7046 12C22.7046 6.48 18.2466 2 12.7537 2ZM11.7586 7V9H13.7488V7H11.7586ZM11.7586 11V17H13.7488V11H11.7586ZM4.79292 12C4.79292 16.41 8.36531 20 12.7537 20C17.142 20 20.7144 16.41 20.7144 12C20.7144 7.59 17.142 4 12.7537 4C8.36531 4 4.79292 7.59 4.79292 12Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskInfo)">
+										<rect x="0.8125" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+							</span>
+						</a>
+												<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-comments" aria-label="Sichtbarkeit von Fotokommentaren ändern">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskComments" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.3271 2H20.2486C21.3432 2 22.2388 2.9 22.2388 4V16C22.2388 17.1 21.3432 18 20.2486 18H6.31729L2.33691 22V4C2.33691 2.9 3.2325 2 4.3271 2ZM6.31729 16H20.2486V4H4.3271V18L6.31729 16Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskComments)">
+										<rect x="0.34668" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+
+								<span class="jp-carousel-has-comments-indicator" aria-label="Dieses Bild verfügt über Kommentare."></span>
+							</span>
+						</a>
+											</div>
+				</div>
+				<div class="jp-carousel-info-extra">
+					<div class="jp-carousel-info-content-wrapper">
+						<div class="jp-carousel-photo-title-container">
+							<h2 class="jp-carousel-photo-title"></h2>
+						</div>
+						<div class="jp-carousel-comments-wrapper">
+															<div id="jp-carousel-comments-loading">
+									<span>Lade Kommentare&#160;&hellip;</span>
+								</div>
+								<div class="jp-carousel-comments"></div>
+								<div id="jp-carousel-comment-form-container">
+									<span id="jp-carousel-comment-form-spinner">&nbsp;</span>
+									<div id="jp-carousel-comment-post-results"></div>
+																														<form id="jp-carousel-comment-form">
+												<label for="jp-carousel-comment-form-comment-field" class="screen-reader-text">Verfasse einen Kommentar&#160;&hellip;</label>
+												<textarea
+													name="comment"
+													class="jp-carousel-comment-form-field jp-carousel-comment-form-textarea"
+													id="jp-carousel-comment-form-comment-field"
+													placeholder="Verfasse einen Kommentar&#160;&hellip;"
+												></textarea>
+												<div id="jp-carousel-comment-form-submit-and-info-wrapper">
+													<div id="jp-carousel-comment-form-commenting-as">
+																													<fieldset>
+																<label for="jp-carousel-comment-form-email-field">E-Mail (Erforderlich)</label>
+																<input type="text" name="email" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-email-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-author-field">Name (Erforderlich)</label>
+																<input type="text" name="author" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-author-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-url-field">Website</label>
+																<input type="text" name="url" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-url-field" />
+															</fieldset>
+																											</div>
+													<input
+														type="submit"
+														name="submit"
+														class="jp-carousel-comment-form-button"
+														id="jp-carousel-comment-form-button-submit"
+														value="Kommentar absenden" />
+												</div>
+											</form>
+																											</div>
+													</div>
+						<div class="jp-carousel-image-meta">
+							<div class="jp-carousel-title-and-caption">
+								<div class="jp-carousel-photo-info">
+									<h3 class="jp-carousel-caption" itemprop="caption description"></h3>
+								</div>
+
+								<div class="jp-carousel-photo-description"></div>
+							</div>
+							<ul class="jp-carousel-image-exif" style="display: none;"></ul>
+							<a class="jp-carousel-image-download" href="#" target="_blank" style="display: none;">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="19" height="18">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.84615 5V19H19.7775V12H21.7677V19C21.7677 20.1 20.8721 21 19.7775 21H5.84615C4.74159 21 3.85596 20.1 3.85596 19V5C3.85596 3.9 4.74159 3 5.84615 3H12.8118V5H5.84615ZM14.802 5V3H21.7677V10H19.7775V6.41L9.99569 16.24L8.59261 14.83L18.3744 5H14.802Z" fill="white"/>
+									</mask>
+									<g mask="url(#mask0)">
+										<rect x="0.870605" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+								<span class="jp-carousel-download-text"></span>
+							</a>
+							<div class="jp-carousel-image-map" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/l1v1ngc0d3.wordpress.com\/2021\/11\/12\/agenttesla-dropped-via-nsis-installer\/":1441};
+	</script>
+				<script crossorigin='anonymous' type='text/javascript' src='https://s1.wp.com/_static/??-eJzTLy/QTc7PK0nNK9EvyClNz8wr1i+uzCtJrMjITM/IAeKS1CJMEWP94uSizIISoOIM5/yiVL2sYh19yo1yKiotzgioLMnIzwOaaJ9ra2hmaGpibmZpbJQFAFtgQQs='></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s1.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.head.appendChild( corecss );
+		var themecssurl = "https://s2.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414i&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.head.appendChild( themecss );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ Quelltext aufklappen';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+	// Infinite scroll support
+	document.addEventListener( 'is.post-load', function () {
+		SyntaxHighlighter.highlight();
+	} );
+</script>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-2' href='https://s2.wp.com/_static/??-eJydjEEKgCAQAD+UrR6KLtFbTJfQdJXWxe9HUB/oOMMw0KtyhRpSgyyqJjkCMURs1brzZWAhyMVLQgZnryKMCbiHipfahXzC0TEP8H/2NZ94fltezbxMxkx61vEGx+U/hQ==&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" src="https://ced.sascdn.com/tag/3905/smart.js" id="smart-tag-lib-js"></script>
+<script type="text/javascript" id="comment-like-js-extra">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Lade\u00a0\u2026","swipeUrl":"https:\/\/s2.wp.com\/wp-content\/mu-plugins\/comment-likes\/js\/lib\/swipe.js?ver=20131008"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="coblocks-loader-js-extra">
+/* <![CDATA[ */
+var wpcom_coblocks_js = {"coblocks_masonry_js":"https:\/\/s2.wp.com\/wp-content\/plugins\/coblocks\/2.18.1-simple-rev.4\/dist\/js\/coblocks-masonry.min.js","coblocks_lightbox_js":"https:\/\/s2.wp.com\/wp-content\/plugins\/coblocks\/2.18.1-simple-rev.4\/dist\/js\/coblocks-lightbox.min.js","jquery_core_js":"\/wp-includes\/js\/jquery\/jquery.min.js","jquery_migrate_js":"\/wp-includes\/js\/jquery\/jquery-migrate.min.js","masonry_js":"\/wp-includes\/js\/masonry.min.js","imagesloaded_js":"\/wp-includes\/js\/imagesloaded.min.js"};
+var coblocksLigthboxData = {"closeLabel":"Galerie schlie\u00dfen","leftLabel":"Vorherige","rightLabel":"N\u00e4chste"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-carousel-js-extra">
+/* <![CDATA[ */
+var jetpackSwiperLibraryPath = {"url":"https:\/\/s2.wp.com\/wp-content\/mu-plugins\/jetpack-plugin\/sun\/_inc\/build\/carousel\/swiper-bundle.min.js"};
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"de","ajaxurl":"https:\/\/l1v1ngc0d3.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"36531795d0","display_exif":"1","display_comments":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Kommentar","post_comment":"Kommentar absenden","write_comment":"Verfasse einen Kommentar\u00a0\u2026","loading_comments":"Lade Kommentare\u00a0\u2026","download_original":"Bild in Originalgr\u00f6\u00dfe anschauen <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Stelle bitte sicher, das du mit deinem Kommentar ein bisschen Text \u00fcbermittelst.","no_comment_email":"Bitte eine E-Mail-Adresse angeben, um zu kommentieren.","no_comment_author":"Bitte deinen Namen angeben, um zu kommentieren.","comment_post_error":"Dein Kommentar konnte leider nicht abgeschickt werden. Bitte versuche es sp\u00e4ter erneut.","comment_approved":"Dein Kommentar wurde genehmigt.","comment_unapproved":"Dein Kommentar wartet auf Freischaltung.","camera":"Kamera","aperture":"Blende","shutter_speed":"Verschlusszeit","focal_length":"Brennweite","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/l1v1ngc0d3.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fl1v1ngc0d3.wordpress.com%2F2021%2F11%2F12%2Fagenttesla-dropped-via-nsis-installer%2F","blog_id":"109859092","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"stats_query_args":"blog=109859092&v=wpcom&tz=2&user_id=0&subd=l1v1ngc0d3","is_public":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="verbum-settings-js-before">
+/* <![CDATA[ */
+window.VerbumComments = {"Log in or provide your name and email to leave a reply.":"Melde dich an oder gib deinen Namen und deine E-Mail-Adresse an, um uns zu antworten.","Receive web and mobile notifications for posts on this site.":"Erhalte Web- und Mobil-Benachrichtigungen \u00fcber neue Beitr\u00e4ge auf dieser Website.","Name":"Name","Email (address never made public)":"E-Mail (-Adresse wird niemals ver\u00f6ffentlicht)","Website (optional)":"Website (optional)","Leave a reply. (log in optional)":"Antworte uns. (Anmelden optional)","Log in to leave a reply.":"Melde dich an, um eine Antwort zu verfassen.","Logged in via %s":"\u00dcber %s angemeldet","Log out":"Abmelden","Email":"E-Mail ","(Address never made public)":"(Adresse wird niemals ver\u00f6ffentlicht)","Instantly":"Sofort","Daily":"T\u00e4glich","Reply":"Antworten","WordPress":"WordPress","Weekly":"W\u00f6chentlich","Notify me of new posts":"Bei neuen Beitr\u00e4gen benachrichtigen","Email me new posts":"Neue Beitr\u00e4ge per E-Mail zusenden","Email me new comments":"Neue Kommentare per E-Mail zusenden","Cancel":"Abbrechen","Write a comment...":"Verfasse einen Kommentar...","Website":"Website","Optional":"Optional","We'll keep you in the loop!":"Mit uns bleibst du auf dem Laufenden!","Loading your comment...":"Dein Kommentar wird geladen\u00a0\u2026","Never miss a beat!":"Lass dir nichts entgehen!","Interested in getting blog post updates? Simply click the button below to stay in the loop!":"Hast du Interesse daran, Updates zu Blogbeitr\u00e4gen zu erhalten? Klicke einfach auf den Button unten, um nichts mehr zu verpassen!","Enter your email address":"Gib deine E-Mail-Adresse ein","Subscribe":"Abonnieren","Comment sent successfully":"Kommentar erfolgreich versandt","Save my name, email, and website in this browser for the next time I comment.":"Meinen Namen, E-Mail und Website in diesem Browser speichern, bis ich wieder kommentiere.","siteId":109859092,"postId":1441,"mustLogIn":false,"requireNameEmail":true,"commentRegistration":false,"connectURL":"https:\/\/l1v1ngc0d3.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/l1v1ngc0d3.wordpress.com\/wp-login.php?action=logout&_wpnonce=bbf12c65c9","homeURL":"https:\/\/l1v1ngc0d3.wordpress.com\/","subscribeToBlog":true,"subscribeToComment":true,"isJetpackCommentsLoggedIn":false,"jetpackUsername":"","jetpackUserId":0,"jetpackSignature":"","jetpackAvatar":"https:\/\/0.gravatar.com\/avatar\/?s=96&amp;d=identicon&amp;r=G","enableBlocks":false,"enableSubscriptionModal":true,"currentLocale":"de","isJetpackComments":false,"allowedBlocks":["core\/paragraph","core\/list","core\/code","core\/list-item","core\/quote","core\/image","core\/embed","core\/quote","core\/code"],"embedNonce":"f250755d5a","verbumBundleUrl":"https:\/\/s2.wp.com\/wp-content\/mu-plugins\/verbum\/dist\/index.js"}
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s2.wp.com/_static/??-eJyVkN1OwzAMhV+I1B1MGrtAPApKE69zm7/FccfenqCtdFRoEpc5Oeezj+GclImhYCjQudir5KSnwHCO2WrLyjjNjAzDIrHXuTQDP8Fd2MsSJdtjYUCpv3EkVE6foaBPThdc6Q84jsbqPgkKHnWwDvMD84S5Ew/fy9bR9hK0J6Nc1PZhzETvq6Sus4aVsA4uqXorMzI8N5vXZqOYajdUGadmC5a4XElX07yEp7DmlSP6OjZJB8hGijliDHOHigh6ol4Xiv9O8kipdgijOkQjrA70OSMoGCf2d9uMyV3+2vDuVAOWpM14ewNLgI/Kgk7IWTA6R2F0P7ZZuFHf/dtm1760+1273w5fhZnrsg=='></script>
+<script type="text/javascript" src="https://widgets.outbrain.com/outbrain.js?ver=20221005" id="outbrain-js"></script>
+<script type="text/javascript" id="sharing-js-js-extra">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??-eJx9jcsOwiAQRX9IGLGpj4XxUxoErENhIAyk8e9rqnFhjLt7bu4D5ixMouqoQmwihzYiMegJOboqOrmFAcl8jFtZw1Z63sDvrtElNXZBzNmk+IV/et7VrM30ZuBGr+trw2CB77o4q619rBJplBHpOXeJZ7U/9krtutPBL8axTI0='></script>
+<script type="text/javascript" id="sharing-js-js-after">
+/* <![CDATA[ */
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+/* ]]> */
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<iframe src='https://widgets.wp.com/likes/master.html?ver=20231208#ver=20231208&amp;lang=de&amp;lang_ver=1701981990&amp;origin=https://l1v1ngc0d3.wordpress.com&amp;n=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars' class='wpl-new-layout' aria-hidden="true">
+		<div class="likes-text">
+			<span>%d</span>		</div>
+		<ul class="wpl-avatars sd-like-gravatars"></ul>
+	</div>
+
+		<script src="//stats.wp.com/w.js?65" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'109859092','blog_tz':'2','user_lang':'de','blog_lang':'de','user_id':'0'}]);
+_stq.push(['view', {'blog':'109859092','v':'wpcom','tz':'2','user_id':'0','post':'1441','subd':'l1v1ngc0d3'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRZmhSYUFEMXVJdlp1Q2dGaT0lXXxFb1RyWzM3ZWV0ZjI4SmVUVlVdWWNTSi5udURFaXNKdUl6dHMmX0xbflg/QzhRSEJJSn5BdTM2Njd6ZVk/WGRJcXd1VUdjSGhfREtjRmR4Lyx4bU0ufFVDQUE1SmJYdVNQaF8mdU12Q3B2fFQvdDJHMEg0Um5INGY9W1tVUDNHXXg2Xy1ULmxIaG9qd3Q1W1EtdyVMQz9ITy1LMTRaaDZhWUNpbXMtUkplPStEbDNRVjBrMy9OLis0W2VIdFl0MUtbdUhdPTYsTjRUWzhFXXNTOFZhTzYxOC55Rj0xLlFuejdYZz9ELzl6eldbST1NcTRGLXhGZVhRQnZdc3NIJlQ='}]);
+_stq.push([ 'clickTrackerInit', '109859092', '1441' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<script>
+(function() {
+	'use strict';
+
+	const fetches = {};
+	const promises = {};
+	const urls = {
+		'verbum': 'https://s2.wp.com/wp-content/mu-plugins/verbum/dist/index.js?m=1703767229i&ver=1703767229'
+	};
+	const loaders = {
+		'verbum': () => {
+			fetchExternalScript('verbum');
+			promises['verbum'] = promises['verbum'] || loadWPScript('verbum');
+			return promises['verbum'];
+		},
+		
+	};
+	const scriptExtras = {
+		
+	};
+
+	window.WP_Enqueue_Dynamic_Script = {
+		loadScript: (handle) => {
+			if (!loaders[handle]) {
+				console.error('WP_Enqueue_Dynamic_Script: unregistered script `' + handle + '`.');
+			}
+			return loaders[handle]();
+		}
+	};
+
+	function fetchExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		fetches[handle] = fetches[handle] || fetch(urls[handle], { mode: 'no-cors' });
+		return fetches[handle];
+	}
+
+	function runExtraScript(handle, type, index) {
+		const id = 'wp-enqueue-dynamic-script:' + handle + ':' + type + ':' + (index + 1);
+		const template = document.getElementById(id);
+		if (!template) {
+			return Promise.reject();
+		}
+
+		const script = document.createElement( 'script' );
+		script.innerHTML = template.innerHTML;
+		document.body.appendChild( script );
+		return Promise.resolve();
+	}
+
+	function loadExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		return fetches[handle].then(() => {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.onload = () => resolve();
+				script.onerror = (e) => reject(e);
+				script.src = urls[handle];
+				document.body.appendChild(script);
+			});
+		});
+	}
+
+	function loadExtra(handle, pos) {
+		const count = (scriptExtras[handle] && scriptExtras[handle][pos]) || 0;
+		let promise = Promise.resolve();
+
+		for (let i = 0; i < count; i++) {
+			promise = promise.then(() => runExtraScript(handle, pos, i));
+		}
+
+		return promise;
+	}
+
+	function loadWPScript(handle) {
+		return loadExtra(handle, 'before')
+			.then(() => loadExternalScript(handle))
+			.then(() => loadExtra(handle, 'after'));
+	}
+} )();
+</script>
+
+</body>
+</html>

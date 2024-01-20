@@ -1,0 +1,948 @@
+    <!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="profile" href="//gmpg.org/xfn/11" />
+
+    <script type="application/javascript">var ajaxurl = "https://blog.checkpoint.com/wp-admin/admin-ajax.php"</script><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.7 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files - Check Point Blog</title>
+	<meta name="description" content="Check Point Research reports that Emotet Trojan launched a new campaign last month to evade Microsoft’s macro block, sending spam emails containing" />
+	<link rel="canonical" href="https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files - Check Point Blog" />
+	<meta property="og:description" content="Check Point Research reports that Emotet Trojan launched a new campaign last month to evade Microsoft’s macro block, sending spam emails containing" />
+	<meta property="og:url" content="https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/" />
+	<meta property="og:site_name" content="Check Point Blog" />
+	<meta property="article:published_time" content="2023-04-10T11:00:11+00:00" />
+	<meta property="article:modified_time" content="2023-04-10T14:06:02+00:00" />
+	<meta name="author" content="gmcdouga" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="gmcdouga" />
+	<meta name="twitter:label2" content="Est. reading time" />
+	<meta name="twitter:data2" content="7 minutes" />
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+<link rel="alternate" type="application/rss+xml" title="Check Point Blog &raquo; Feed" href="https://blog.checkpoint.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Check Point Blog &raquo; Comments Feed" href="https://blog.checkpoint.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Check Point Blog &raquo; March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files Comments Feed" href="https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.checkpoint.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.3.2"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://blog.checkpoint.com/wp-includes/css/dist/block-library/style.min.css?ver=6.3.2' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='boostrap-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/vendors/boostrap.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='owl-carousel-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/vendors/owl-carousel.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='perfect-scrollbar-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/vendors/perfect-scrollbar.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/vendors/magnific-popup.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fotorama-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/vendors/fotorama.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='atbs-style-css' href='https://blog.checkpoint.com/wp-content/themes/atoms/css/style.css?ver=6.0.5' type='text/css' media='all' />
+<style id='atbs-style-inline-css' type='text/css'>
+:root {
+                --color-primary: #D61A69;
+                --bg-color-primary: #D61A69;
+            }select:focus {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' fill='%23D61A69' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M16.594 8.578l1.406 1.406-6 6-6-6 1.406-1.406 4.594 4.594z'/%3E%3C/svg%3E"); }.post--single-cover-gradient .single-header
+            {
+                background-image: -webkit-linear-gradient( bottom , #D61A69 0%, rgba(252, 60, 45, 0.7) 50%, rgba(252, 60, 45, 0) 100%);
+                background-image: linear-gradient(to top, #D61A69 0%, rgba(252, 60, 45, 0.7) 50%, rgba(252, 60, 45, 0) 100%);
+            }::selection {color: #FFF; background: #D61A69;}::-webkit-selection {color: #FFF; background: #D61A69;}
+            .atbs-btn-load-post:focus {
+                box-shadow: 0 0 0 4px rgba(214, 26, 105, .2);
+            }
+            .atbs-theme-switch:hover .atbs-theme-switch__inner {
+                box-shadow: 0 0 0 8px rgba(214, 26, 105, .1);
+            }
+            .atbs-theme-switch:focus .atbs-theme-switch__inner {
+                box-shadow: 0 0 0 8px rgba(214, 26, 105, .15);
+            }
+            .atbs-theme-switch:active .atbs-theme-switch__inner {
+                box-shadow: 0 0 0 8px rgba(214, 26, 105, .2);
+            }a.view-all-btn, .view-all-btn { border-color: rgba(214, 26, 105, 0.6); }atbs-video-box__playlist .is-playing .post__thumb:after { content: 'Now playing'; }
+</style>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&#038;display=swap&#038;ver=1680554497" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&#038;display=swap&#038;ver=1680554497" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&#038;display=swap&#038;ver=1680554497" /></noscript><script type='text/javascript' src='https://blog.checkpoint.com/wp-content/plugins/jquery-updater/js/jquery-3.7.1.min.js?ver=3.7.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/plugins/jquery-updater/js/jquery-migrate-3.4.1.min.js?ver=3.4.1' id='jquery-migrate-js'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.checkpoint.com/xmlrpc.php?rsd" />
+<link rel='shortlink' href='https://blog.checkpoint.com/?p=244074' />
+<link rel="alternate" type="application/json+oembed" href="https://blog.checkpoint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://blog.checkpoint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F&#038;format=xml" />
+<meta name="framework" content="Redux 4.1.22" /><!-- Stream WordPress user activity plugin v3.10.0 -->
+<link rel="pingback" href="https://blog.checkpoint.com/xmlrpc.php">
+
+<script type="application/ld+json" class="saswp-schema-markup-output">
+[{"@context":"https://schema.org/","@type":"Article","@id":"https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/#Article","url":"https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/","inLanguage":"en-US","mainEntityOfPage":"https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/","headline":"March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious On ...","description":"Check Point Research reports that Emotet Trojan launched a new campaign last month to evade Microsoft’s macro block, sending spam emails containing malicious OneNote files. Meanwhile Ahmyth was the most prevalent mobile malware and Log4j took top spot once again as the most exploited vulnerability Our latest Global Threat Index for March 2023 saw researchers uncover a new malware campaign from Emotet Trojan, which rose to become the second most prevalent malware last month. As reported earlier this year, Emotet attackers have been exploring alternative ways to distribute malicious files since Microsoft announced they will block macros from office files.","articleBody":"Check Point Research reports that Emotet Trojan launched a new campaign last month to evade Microsoft’s macro block, sending spam emails containing malicious OneNote files. Meanwhile Ahmyth was the most prevalent mobile malware and Log4j took top spot once again as the most exploited vulnerability  Our latest Global Threat Index for March 2023 saw researchers uncover a new malware campaign from Emotet Trojan, which rose to become the second most prevalent malware last month.    As reported earlier this year, Emotet attackers have been exploring alternative ways to distribute malicious files since Microsoft announced they will block macros from office files. In the latest campaign, the attackers have adopted a new strategy of sending spam emails containing a malicious OneNote file. Once opened, a fake message appears to trick the victim into clicking the document, which downloads the Emotet infection. Once installed, the malware can gather user email data such as login credentials and contact information. The attackers then use the gathered information to expand the reach of the campaign and facilitate future attacks.    While big tech companies do their best to cut off cybercriminals at the earliest point, it’s near impossible to stop every attack from bypassing the security measures. We know that Emotet is a sophisticated Trojan and it’s no surprise to see it has managed to navigate Microsoft’s latest defenses. The most important thing people can do is make sure they have appropriate email security in place, avoid downloading any unexpected files and adopt heathy skepticism about the origins of an email and its contents.    Last month also revealed that “Apache Log4j Remote Code Execution” was the most exploited vulnerability, impacting 44% of organizations globally, followed by “HTTP Headers Remote Code Execution” with 43% of organizations worldwide and “MVPower DVR Remote Code Execution” with a global impact of 40%.    Top Malware Families    *The arrows relate to the change in rank compared to the previous month.    Qbot was the most prevalent malware last month with an impact of more than 10% on worldwide organizations respectively, followed by Emotet and Formbook with a 4% global impact.     \t&#x2194; Qbot – Qbot AKA Qakbot is a banking Trojan that first appeared in 2008. It was designed to steal a user’s banking credentials or keystrokes and is often distributed via spam emails. Qbot employs several anti-VM, anti-debugging and anti-sandbox techniques to hinder analysis and evade detection.   \t↑ Emotet - Emotet is an advanced, self-propagating and modular Trojan. Emotet used to be employed as a banking Trojan but has recently been used as a distributor to other malware or malicious campaigns. It uses multiple methods for maintaining persistence and evasion techniques to avoid detection. In addition, it can be spread through phishing spam emails containing malicious attachments or links.   \t↓ FormBook – FormBook is an Infostealer targeting Windows OS and was first detected in 2016. It is marketed as Malware as a Service (MaaS) in underground hacking forums for its strong evasion techniques and relatively low price. Formbook harvests credentials from various web browsers, collects screenshots, monitors and logs keystrokes and can download and execute files according to orders from its C&amp;C.   \t↑ AgentTesla - AgentTesla is an advanced RAT functioning as a keylogger and information stealer, which is capable of monitoring and collecting the victim’s keyboard input, system keyboard, taking screenshots, and exfiltrating credentials to a variety of software installed on a victim’s machine (including Google Chrome, Mozilla Firefox and the Microsoft Outlook email client).   \t↓ XMRig – XMRig is open-source CPU mining software used to mine the Monero cryptocurrency. Threat actors often abuse this open-source software by integrating it into their malware to conduct illegal mining on victims’ devices.   \t&#x2194; GuLoader - Guloader is a downloader that has been widely used since December 2019. When it first appeared, GuLoader was used to download Parallax RAT but has been applied to other remote access trojans and info-stealers such as Netwire, FormBook, and Agent Tesla.   \t↑ Remcos - Remcos is a RAT that first appeared in the wild in 2016. Remcos distributes itself through malicious Microsoft Office documents, which are attached to SPAM emails, and is designed to bypass Microsoft Windows's UAC security and execute malware with high-level privileges.   \t↑ NJRat – NJRat is a remote accesses Trojan, targeting mainly government agencies and organizations in the Middle East. The Trojan first emerged in 2012 and has multiple capabilities: capturing keystrokes, accessing the victim's camera, stealing credentials stored in browsers, uploading and downloading files, performing process and file manipulations, and viewing the victim's desktop. NJRat infects victims via phishing attacks and drive-by downloads, and propagates through infected USB keys or networked drives, with the support of Command &amp; Control server software.   \t&#x2194; Tofsee - Tofsee is a Trickler that targets the Windows platform. This malware attempts to download and execute additional malicious files on target systems. It may download and display an image file to a user to hide its true purpose.   \t↓ NanoCore - NanoCore is a Remote Access Trojan that targets Windows operating system users and was first observed in the wild in 2013. All versions of the RAT contain basic plugins and functionalities such as screen capture, crypto currency mining, remote control of the desktop and webcam session theft.    Top Attacked Industries Globally    Last month, Education/Research remained the most attacked industry globally, followed by Government/Military and then Healthcare.     \tEducation/Research   \tGovernment/Military   \tHealthcare    Top Exploited Vulnerabilities    Last month, “Apache Log4j Remote Code Execution” was the most exploited vulnerability, impacting 44% of organizations globally, followed by “HTTP Headers Remote Code Execution” with 43% of organizations worldwide and “MVPower DVR Remote Code Execution” with a global impact of 40%.     \t↑ Apache Log4j Remote Code Execution (CVE-2021-44228) - A remote code execution vulnerability exists in Apache Log4j. Successful exploitation of this vulnerability could allow a remote attacker to execute arbitrary code on the affected system.   \t↑ HTTP Headers Remote Code Execution (CVE-2020-10826,CVE-2020-10827,CVE-2020-10828,CVE-2020-13756) - HTTP headers let the client and the server pass additional information with an HTTP request. A remote attacker may use a vulnerable HTTP Header to run arbitrary code on the victim machine.   \t↑MVPower DVR Remote Code Execution - A remote code execution vulnerability exists in MVPower DVR devices. A remote attacker can exploit this weakness to execute arbitrary code in the affected router via a crafted request.   \t↑ OpenSSL TLS DTLS Heartbeat Information Disclosure (CVE-2014-0160,CVE-2014-0346) – An information disclosure vulnerability exists in OpenSSL. The vulnerability, aka Heartbleed, is due to an error when handling TLS/DTLS heartbeat packets. An attacker can leverage this vulnerability to disclose memory contents of a connected client or server.   \t↓ Web Servers Malicious URL Directory Traversal - There exists a directory traversal vulnerability on different web servers. The vulnerability is due to an input validation error in a web server that does not properly sanitize the URI for the directory traversal patterns. Successful exploitation allows unauthenticated remote attackers to disclose or access arbitrary files on the vulnerable server.   \t↑ Dasan GPON Router Authentication Bypass (CVE-2018-10561) - An authentication bypass vulnerability exists in Dasan GPON routers. Successful exploitation of this vulnerability would allow remote attackers to obtain sensitive information and gain unauthorized access into the affected system.   \t&#x2194; PHP Easter Egg Information Disclosure - An information disclosure vulnerability has been reported in the PHP pages. The vulnerability is due to incorrect web server configuration. A remote attacker can exploit this vulnerability by sending a specially crafted URL to an affected PHP page.   \t↓ Command Injection Over HTTP (CVE-2021-43936,CVE-2022-24086) - A command Injection over HTTP vulnerability has been reported. A remote attacker can exploit this issue by sending a specially crafted request to the victim. Successful exploitation would allow an attacker to execute arbitrary code on the target machine.   \t↑ D-Link Multiple Products Remote Code Execution (CVE-2015-2051) - A remote code execution vulnerability exists in multiple D-Link products. Successful exploitation of this vulnerability could allow a remote attacker to execute arbitrary code on the affected system.   \t↓ WordPress portable-phpMyAdmin Plugin Authentication Bypass (CVE-2012-5469) - An authentication bypass vulnerability exists in WordPress portable-phpMyAdmin Plugin. Successful exploitation of this vulnerability would allow remote attackers to obtain sensitive information and gain unauthorized access into the affected system.    Top Mobile Malwares    Last month, Ahmyth moved to the top spot as the most prevalent mobile malware, followed by Anubis and Hiddad.     \tAhMyth – AhMyth is a Remote Access Trojan (RAT) discovered in 2017. It is distributed through Android apps that can be found on app stores and various websites. When a user installs one of these infected apps, the malware can collect sensitive information from the device and perform actions such as keylogging, taking screenshots, sending SMS messages, and activating the camera.   \tAnubis – Anubis is a banking Trojan malware designed for Android mobile phones. Since it was initially detected, it has gained additional functions including Remote Access Trojan (RAT) functionality, keylogger, audio recording capabilities and various ransomware features. It has been detected on hundreds of different applications available in the Google Store.   \tHiddad - Hiddad is an Android malware which repackages legitimate apps and then releases them to a third-party store. Its main function is to display ads, but it can also gain access to key security details built into the OS.    Check Point’s Global Threat Impact Index and its ThreatCloud Map is powered by Check Point’s ThreatCloud intelligence. ThreatCloud provides real-time threat intelligence derived from hundreds of millions of sensors worldwide, over networks, endpoints and mobiles. The intelligence is enriched with AI-based engines and exclusive research data from Check Point Research, the intelligence and research Arm of Check Point Software Technologies.","keywords":"","datePublished":"2023-04-10T03:00:11-07:00","dateModified":"2023-04-10T06:06:02-07:00","author":{"@type":"Person","name":"gmcdouga","url":"https://blog.checkpoint.com/author/gmcdouga/","sameAs":[],"image":{"@type":"ImageObject","url":"https://secure.gravatar.com/avatar/62b3ea7133b4e488b470760746c8aff9?s=96&d=mm&r=pg","height":96,"width":96}},"editor":{"@type":"Person","name":"gmcdouga","url":"https://blog.checkpoint.com/author/gmcdouga/","sameAs":[],"image":{"@type":"ImageObject","url":"https://secure.gravatar.com/avatar/62b3ea7133b4e488b470760746c8aff9?s=96&d=mm&r=pg","height":96,"width":96}},"publisher":{"@type":"Organization","name":"Check Point Software","url":"https://blog.checkpoint.com","logo":{"@type":"ImageObject","url":"//blog.checkpoint.com/wp-content/uploads/2022/06/checkpoint-logo.png","width":"226","height":"50"}},"image":[{"@type":"ImageObject","@id":"https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/#primaryimage","url":"https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c.jpg","width":"2000","height":"700"},{"@type":"ImageObject","url":"https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-1200x900.jpg","width":"1200","height":"900"},{"@type":"ImageObject","url":"https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-1200x675.jpg","width":"1200","height":"675"}]}]
+</script>
+
+      <meta name="onesignal" content="wordpress-plugin"/>
+            <script>
+
+      window.OneSignal = window.OneSignal || [];
+
+      OneSignal.push( function() {
+        OneSignal.SERVICE_WORKER_UPDATER_PATH = "OneSignalSDKUpdaterWorker.js.php";
+                      OneSignal.SERVICE_WORKER_PATH = "OneSignalSDKWorker.js.php";
+                      OneSignal.SERVICE_WORKER_PARAM = { scope: "/" };
+        OneSignal.setDefaultNotificationUrl("https://blog.checkpoint.com");
+        var oneSignal_options = {};
+        window._oneSignalInitOptions = oneSignal_options;
+
+        oneSignal_options['wordpress'] = true;
+oneSignal_options['appId'] = '8fda8b9d-6ba7-4357-8125-c6df304f7ef8';
+oneSignal_options['allowLocalhostAsSecureOrigin'] = true;
+oneSignal_options['welcomeNotification'] = { };
+oneSignal_options['welcomeNotification']['title'] = "Check Point Software Blog";
+oneSignal_options['welcomeNotification']['message'] = "Thanks for subscribing!";
+oneSignal_options['welcomeNotification']['url'] = "https://blog.checkpoint.com";
+oneSignal_options['path'] = "https://blog.checkpoint.com/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/";
+oneSignal_options['safari_web_id'] = "web.onesignal.auto.69735df3-8f8c-40d7-a01f-205a16828de8";
+oneSignal_options['promptOptions'] = { };
+          /* OneSignal: Using custom SDK initialization. */
+                });
+
+      function documentInitOneSignal() {
+        var oneSignal_elements = document.getElementsByClassName("OneSignal-prompt");
+
+        var oneSignalLinkClickHandler = function(event) { OneSignal.push(['registerForPushNotifications']); event.preventDefault(); };        for(var i = 0; i < oneSignal_elements.length; i++)
+          oneSignal_elements[i].addEventListener('click', oneSignalLinkClickHandler, false);
+      }
+
+      if (document.readyState === 'complete') {
+           documentInitOneSignal();
+      }
+      else {
+           window.addEventListener("load", function(event){
+               documentInitOneSignal();
+          });
+      }
+    </script>
+<link rel="amphtml" href="https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/amp/"><link rel="icon" href="https://blog.checkpoint.com/wp-content/uploads/2023/10/cropped-favicon-512x512-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://blog.checkpoint.com/wp-content/uploads/2023/10/cropped-favicon-512x512-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://blog.checkpoint.com/wp-content/uploads/2023/10/cropped-favicon-512x512-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://blog.checkpoint.com/wp-content/uploads/2023/10/cropped-favicon-512x512-1-270x270.png" />
+<style id="atbs_option-dynamic-css" title="dynamic-css" class="redux-options-output">html{font-size:14px;} .atbs-post--grid-g .post-sub .posts-navigation__label, .page-heading__title, .widget__title-text, .comment-reply-title, .comments-title, .comment-reply-title, .category-tile__name, .block-heading .view-all-btn, .block-heading__title, .post-categories__title, .post__title, .entry-title, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .text-font-primary, .social-tile__title, .widget_recent_comments .recentcomments > a, .widget_recent_entries li > a, .modal-title.modal-title, .author-box .author-name a, .comment-author, .widget_calendar caption, .widget_categories li>a, .widget_meta ul, .widget_recent_comments .recentcomments>a, .widget_recent_entries li>a, .widget_pages li>a, .widget_categories li, .widget_loginwithajaxwidget .lwa-info, .widget_calendar caption, .wp-calendar-nav, .rsswidget{font-family:Poppins,Arial, Helvetica, sans-serif;}.page_blog .block-heading .block-heading__title.page-heading__title{font-family:Poppins,Arial, Helvetica, sans-serif;font-weight:normal;font-style:normal;font-size:36px;}</style>        <!-- Schema meta -->
+        <script type="application/ld+json">
+{
+          "@context": "http://schema.org",
+          "@type": "NewsArticle",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://blog.checkpoint.com/security/march-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files/"
+          },
+          "headline": "March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files",
+                    "image": [
+            "https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c.jpg"
+           ],
+                    "datePublished": "2023-04-10T03:00:11+00:00",
+          "dateModified": "2023-04-10T06:06:02-07:00",
+          "author": {
+            "@type": "Person",
+            "name": "gmcdouga"
+          },
+           "publisher": {
+            "@type": "Organization",
+            "name": "Check Point Blog",
+            "logo": {
+              "@type": "ImageObject",
+              "url": ""
+            }
+          },
+          "description": ""
+        }
+        </script>
+    
+
+
+<!-- XXXXXXXX START Unified Header/Footer HEAD XXXXXXXX -->
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.checkpoint.com/images/icons/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" href="https://www.checkpoint.com/images/icons/favicon.png"/>
+<link rel="shortcut icon" href="https://www.checkpoint.com/images/icons/favicon.ico"/>
+<meta class='swiftype' name='popularity' data-type='integer' content='2' />
+<script>var CP = {};</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5JCRGP');</script>
+<!-- End Google Tag Manager -->
+
+<link rel='stylesheet' id='font-awesome-base64'  href='https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/css/page-font-awesome-Base64.css' type='text/css' media='all' />
+<link rel='stylesheet' id='font-din-base64'  href='https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/css/page-font-DIN-Base64.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='cp-unified-css'  href='https://sc1.checkpoint.com/sc1/css/page-cp-unified-v1.css?v=1.0' type='text/css' media='all' />
+
+
+<script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='ie-only-css-css'  href='https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/css/ie-only.css' type='text/css' media='all' />
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- XXXXXXXX END Unified Header/Footer HEAD XXXXXXXX -->
+
+
+<style>
+body.product_updates-template-default .entry-author {
+    display: none !important;
+}
+</style>
+
+</head>
+<body class="post-template-default single single-post postid-244074 single-format-standard wp-embed-responsive">
+
+<!-- XXXXXXXX START Unified Header/Footer BODY XXXXXXXX -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JCRGP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="CP-Unified">
+    <div id="CP-Unified-nav">
+        <!--<style>body .cp_head_banner__flex ~ #container-content { margin-top: 0px !important; }</style>-->
+        <style>
+            #cp-logo-2022-animated { display: none !important; }
+        </style>
+        <div class=".cp_head_banner"><div class=".cp_head_banner_close"></div></div>
+
+        <header id="cp_header" data-swiftype-index="false" class="no-print" role="banner"  >
+            <input class="cp_nav_menu__mobile__input" id="cp_nav_menu__mobile" type="checkbox" />
+            <div class="cp_top_nav_menu">
+                <a href="https://www.checkpoint.com/demos/" class="header-link" id="free-demo">Free Demo</a>
+                <a href="https://www.checkpoint.com/about-us/contact-us/" class="header-link" id="top-nav-desk-contact-us-link">Contact Us</a>
+                <a href="https://supportcenter.checkpoint.com/" class="header-link" id="top-nav-desk-support-center-link">Support Center</a>
+                <a href="https://usercenter.checkpoint.com/usercenter/index.jsp" class="header-link" id="top-nav-desk-user-center-link">Sign In</a>
+                <a href="https://blog.checkpoint.com/" class="header-link" id="top-nav-desk-blog-link">Blog</a>
+                <a href="https://www.checkpoint.com/support-services/threatcloud-incident-response/" class="header-link" id="under-attack"><img src="https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/images/under-attack.png" alt="Under Attack" /></a>
+            </div>
+            <div class="cp_nav_menu">
+                <ul class="cp_search_geo">
+                    <li class="cp_menu__item alt_menu_item">
+                        <span class="cp_menu__item__icon cp_menu__item__search cp_menu__item__main" id="cp_search">Search</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <form id="search-form">
+                                    <input type="image" src="/wp-content/themes/atoms/images/search-btn.png" value="Submit" alt="Search"><input type="text" id="stq" name="stq" class="st-search-input" placeholder="Enter your keywords..." x-webkit-speech="" x-webkit-grammar="builtin:search" autocomplete="off" aria-label="Search Term">
+                                </form>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                    <li class="cp_menu__item alt_menu_item">
+                        <span class="cp_menu__item__icon cp_menu__item__geo cp_menu__item__main" id="cp_geo">Geo Menu</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <ul>
+                                    <li id="choose-lang">Choose your language...</li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-en"><a lang="en-US" hreflang="en-US" href="https://www.checkpoint.com/" class="header-link" id="header-language-english-link">English (English)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-es"><a lang="es-419" hreflang="es-419" href="https://www.checkpoint.com/es/" class="header-link" id="header-language-spanish-link">Spanish (Español)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-fr"><a lang="fr-FR" hreflang="fr-FR" href="https://www.checkpoint.com/fr/" class="header-link" id="header-language-french-link">French (Français)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-de"><a lang="de-DE" hreflang="de-DE" href="https://www.checkpoint.com/de/" class="header-link" id="header-language-german-link">German (Deutsch)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-it"><a lang="it-IT" hreflang="it-IT" href="https://www.checkpoint.com/it/" class="header-link" id="header-language-italian-link">Italian (Italiano)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-pt"><a lang="pt-PT" hreflang="pt-PT" href="https://www.checkpoint.com/pt/" class="header-link" id="header-language-portuguese-link">Portuguese (Português)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-jp"><a lang="ja" hreflang="ja" href="https://www.checkpoint.com/jp/" class="header-link" id="header-language-japanese-link">Japanese (日本語)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-cn"><a lang="zh" hreflang="zh" href="https://www.checkpoint.com.cn/" class="header-link" id="header-language-chinese-link">Chinese (中文)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-kr"><a lang="kr-KR" hreflang="kr-KR" href="https://www.checkpoint.com/kr/" class="header-link" id="header-language-korean-link">Korean (한국어)</a></li>
+                                    <li class="cp_menu__item__li__inner_li lang-item-tw"><a lang="tw-TW" hreflang="tw-TW" href="https://www.checkpoint.com/tw/" class="header-link" id="header-language-taiwan-link">Taiwan (繁體中文)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                </ul>
+                <ul class="cp_menu">
+                    <li class="cp_menu__item" id="products-mega">
+                        <span class="cp_menu__item__main" id="products-menu">Products</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/quantum/" class="header-link" id="header-desk-products-quantum-link">QUANTUM</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/next-generation-firewall/" class="header-link" id="header-desk-products-ngfw-link">Quantum Security Gateway</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/maestro-hyperscale-network-security/" class="header-link" id="header-desk-products-maestro-link">Quantum Maestro</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/sase/" class="header-link" id="header-desk-products-sase-link">Quantum SASE</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/sase/internet-access/" class="header-link" id="header-desk-products-sase-internet-access-link">Quantum SASE Internet Access</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/sase/private-access/" class="header-link" id="header-desk-products-sase-private-access-link">Quantum SASE Private Access</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/sd-wan/" class="header-link" id="header-desk-products-sd-wan-link">Quantum SD-WAN</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/next-generation-firewall/small-business-security/" class="header-link" id="header-desk-products-spark-link">Quantum Spark</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/iot-protect/" class="header-link" id="header-desk-products-iot-link">Quantum IoT Protect</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/remote-access-vpn/" class="header-link" id="header-desk-products-vpn-link">Quantum VPN</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/unified-cyber-security-platform/smart-1-appliances/" class="header-link" id="header-desk-products-management-appliances-link">Quantum Smart-1</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/unified-cyber-security-platform/smart-1-cloud/" class="header-link" id="header-desk-products-smart-1-link">Quantum Smart-1 Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/quantum/unified-cyber-security-platform/" class="header-link" id="header-desk-products-cyber-security-platform-link">Quantum Cyber Security Platform</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/cloudguard/" class="header-link" id="header-desk-products-cloud-native-link">CLOUDGUARD</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-network-security/" class="header-link" id="header-desk-products-cloud-network-link"><b>CloudGuard Network</b></a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-network-security/iaas-private-cloud-security/" class="header-link" id="header-desk-products-private-cloud-network-link">CloudGuard Private Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-network-security/iaas-public-cloud-security/" class="header-link" id="header-desk-products-public-cloud-network-link">CloudGuard Public Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cnapp/" class="header-link" id="header-desk-products-cloud-cnapp-link" ><b>CloudGuard CNAPP</b></a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-security-posture-management/" class="header-link" id="header-desk-products-cloud-security-posture-link" >CloudGuard Posture Management</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/workload-protection/" class="header-link" id="header-desk-products-workload-protection-link">CloudGuard Workload</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/appsec/" class="header-link" id="header-desk-products-cloudguard-appsec-link">CloudGuard AppSec</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-intelligence-threat-hunting/" class="header-link" id="header-desk-products-cloud-intelligence-link">CloudGuard Intelligence</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/developer-security/" class="header-link" id="header-desk-products-cloud-spectral-link">CloudGuard Spectral</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/harmony/" class="header-link" id="header-desk-products-harmony-link">HARMONY</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/advanced-endpoint-protection/" class="header-link" id="header-desk-products-endpoint-link">Harmony Endpoint</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/email-security/email-office/" class="header-link" id="header-desk-products-email-security-link">Harmony Email &amp; Collaboration</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/mobile-security/mobile/" class="header-link" id="header-desk-products-mobile-security-link">Harmony Mobile</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/horizon/" class="header-link" id="header-desk-products-horizon-link">HORIZON</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/horizon/mdr-mpr/" class="header-link" id="header-desk-products-horizon-mdr-link">Horizon MDR/MPR</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/horizon/xdr-xpr/" class="header-link" id="header-desk-products-horizon-xdr-link">Horizon XDR/XPR</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/horizon/playblocks/" class="header-link" id="header-desk-products-horizon-playblocks-link">Horizon Playblocks</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/horizon/events/" class="header-link" id="header-desk-products-horizon-events-link">Horizon Events</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/infinity/portal/" class="header-link" id="header-desk-products-infinity-portal-link">Infinity Portal</a></li>
+                                    <li class="cp_menu__item__li__inner_li cp_menu__item__li__desktop_link"><a href="https://www.checkpoint.com/products/" class="header-link" id="header-desk-products-all-products-link">View All Products A-Z <span>&gt;</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li cp_menu__item__li__right_image_container">
+                                <div class="cp_menu__item__li__right_image_container__inner" style="background-image: url('https://www.checkpoint.com/wp-content/uploads/infinity-ela-solutions-megamenu.jpg'); width: 100% !important; height: 100% !important;">
+                                    <span class="cp_menu__item__li__right_image_container__inner__title"></span>
+                                    <span class="cp_menu__item__li__right_image_container__inner__body">Increase Protection and Reduce TCO with a Consolidated Security Architecture</span>
+                                    <a class="cp_menu__item__li__right_image_container__inner_link header-link" href="https://www.checkpoint.com/infinity/?utm_source=cp-home&amp;utm_medium=cp-website&amp;utm_campaign=infinity_ela_menu_banner&amp;utm_content=megamenu" id="header-desk-solutions-feature-link">DISCOVER
+                                        <span class="fa fa-angle-right nav-image-right-span-greater-than"></span>
+                                    </a>
+                                </div>
+                                <span class="cp_menu__item__li__title__mobile"><a href="https://www.checkpoint.com/products/" class="header-link" id="header-desk-products-products-overview-link">Products Overview</a></span>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                    <li class="cp_menu__item" id="solutions-mega">
+                        <span class="cp_menu__item__main" id="solutions-menu">Solutions</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/cloudguard/cloud-security-solutions/" class="header-link" id="header-desk-solutions-cloud-security-link">Cloud Security</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-migration-security/" class="header-link" id="header-desk-solutions-cloud-migration-security-link">Cloud Migration Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/cloud-network-security/public-cloud-compliance-governance/" class="header-link" id="header-desk-solutions-cloud-compliance-governance-link">Compliance in the Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/threat-hunting/" class="header-link" id="header-desk-solutions-cloud-threat-hunting-link">Cloud Threat Hunting</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/devsecops/" class="header-link" id="header-desk-solutions-cloud-devsecops-link">Developer Security</a></li>
+                                </ul>
+                                <hr>
+                                <span class="cp_menu__item__li__title">Cloud Providers</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/amazon-aws-security/" class="header-link" id="header-desk-solutions-aws-security-link">AWS Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/microsoft-azure-security/" class="header-link" id="header-desk-solutions-azure-security-link">Azure Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/google-cloud-platform-security/" class="header-link" id="header-desk-solutions-gcp-security-link">Google Cloud</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/quantum/network-security-solutions/" class="header-link" id="header-desk-solutions-network-security-link">Network Security</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/data-center-security/" class="header-link" id="header-desk-solutions-data-center-link">Hybrid Data Center</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/sd-wan-security/" class="header-link" id="header-desk-solutions-sdwan-security-link">SD-WAN Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/zero-trust-security/" class="header-link" id="header-desk-solutions-zero-trust-link">Zero Trust Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/iot-security/" class="header-link" id="header-desk-solutions-iot-security-link">IoT Security</a></li>
+                                </ul>
+                                <hr>
+                                <span class="cp_menu__item__li__title">AI-Powered Prevention</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/infinity/threatcloud-ai/" class="header-link" id="header-desk-products-threatcloud-link">ThreatCloud AI</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/harmony/" class="header-link" id="header-desk-solutions-harmony-link">Users &amp; Access Security</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/connect-sase/" class="header-link" id="header-desk-solutions-connect-sase-link">Secure Access Service Edge (SASE)</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/endpoint-security/" class="header-link" id="header-desk-solutions-endpoint-security-link">Endpoint Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/mobile-security/" class="header-link" id="header-desk-solutions-secure-mobile-workforce-link">Mobile Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/advanced-endpoint-protection/browser-security/" class="header-link" id="header-desk-products-browse-link">Browser Security</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/anti-ransomware/" class="header-link" id="header-desk-solutions-ransomware-link">Anti-Ransomware</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/harmony/anti-phishing/" class="header-link" id="header-desk-solutions-ant-phishing-link">Anti-Phishing</a></li>
+                                </ul>
+                                <hr>
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/solutions/security-operations/" class="header-link" id="header-desk-solutions-security-operations-link">Security Operations</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/infinity/zero-day-protection/" class="header-link" id="header-desk-solutions-zero-day-protection-link">Zero-Day Protection</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/industry/" class="header-link" id="header-desk-solutions-industry-link">Industry</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/retail/" class="header-link" id="header-desk-solutions-retail-link">Retail</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/financial-services/" class="header-link" id="header-desk-solutions-financial-services-link">Financial Services</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/government-federal-security/" class="header-link" id="header-desk-solutions-government-link">Federal Government</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/government-state-local-security/" class="header-link" id="header-desk-solutions-state-government-link">State and Local Government</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/healthcare/" class="header-link" id="header-desk-solutions-healthcare-link">Healthcare</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/industrial-control-systems/" class="header-link" id="header-desk-solutions-critical-infrastructure-link">Industrial Control Systems ICS &amp; SCADA</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/service-provider/" class="header-link" id="header-desk-solutions-service-provider-link">Telco / Service Provider</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/industry/education/" class="header-link" id="header-desk-solutions-education-link">Education</a></li>
+                                </ul>
+                                <hr>
+                                <span class="cp_menu__item__li__title">Business Size</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/enterprise-network-security/" class="header-link" id="header-desk-solutions-large-enterprise-link">Large Enterprise</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/small-medium-business/" class="header-link" id="header-desk-solutions-small-business-branch-office-link">Small &amp; Medium Business</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/consumer-small-business/" class="header-link" id="header-desk-solutions-home-offices-link">Consumer &amp; Small Business</a></li>
+                                    <li class="cp_menu__item__li__inner_li cp_menu__item__li__desktop_link" id="solutions-overview"><a href="https://www.checkpoint.com/solutions/" class="header-link" id="header-desk-solutions-overview-link">Solutions Overview <span>&gt;</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li cp_menu__item__li__right_image_container">
+                                <div class="cp_menu__item__li__right_image_container__inner" style="background-image: url('https://www.checkpoint.com/wp-content/uploads/infinity-ela-solutions-megamenu.jpg');">
+                                    <span class="cp_menu__item__li__right_image_container__inner__title"></span>
+                                    <span class="cp_menu__item__li__right_image_container__inner__body">Increase Protection and Reduce TCO with a Consolidated Security Architecture</span>
+                                    <a class="cp_menu__item__li__right_image_container__inner_link header-link" href="https://www.checkpoint.com/infinity/?utm_source=cp-home&utm_medium=cp-website&utm_campaign=infinity_ela_menu_banner&utm_content=megamenu" id="header-desk-solutions-feature-link">DISCOVER
+                                        <span class="fa fa-angle-right nav-image-right-span-greater-than"></span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                    <li class="cp_menu__item" id="support-mega">
+                        <span class="cp_menu__item__main" id="support-menu">Support & Services</span>
+                        <ul class="cp_menu__item__ul">
+                    <li class="cp_menu__item__li">
+                        <span class="cp_menu__item__li__title">Support</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://help.checkpoint.com/s/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-support-create-support-request-link">Create/View Service Request</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/contact-support/" class="header-link" id="header-desk-support-contact-support-link">Contact Support</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/pro/" class="header-link" id="header-desk-support-check-point-pro-link">Check Point Pro</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/support-plans/" class="header-link" id="header-desk-support-support-plans-link">Support Programs</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/support-life-cycle-policy/" class="header-link" id="header-desk-support-life-cycle-policy-link">Life Cycle Policy</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/software-license-agreement-limited-hardware-warranty/" class="header-link" id="header-desk-support-license-agreement-warranty-link">License Agreement & Warranty</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/rma-return-process/" class="header-link" id="header-desk-support-rma-policy-link">RMA Policy</a></li>
+                        </ul>
+                    </li>
+                    <li class="cp_menu__item__li">
+                        <span class="cp_menu__item__li__title">Infinity Global Services</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/services/infinity-global/" class="header-link" id="header-desk-support-infinity-global-services-link">IGS Overview</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://igs.checkpoint.com/" class="header-link" id="header-desk-support-infinity-portal-link" target="_blank">IGS Portal</a></li>
+                        </ul>
+                    </li>
+                    <li class="cp_menu__item__li">
+                        <span class="cp_menu__item__li__title">Assess</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/security-consulting/" class="header-link" id="header-desk-support-cyber-security-risk-assessment-link">Cyber Security Risk Assessment</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/services/infinity-global/security-controls-gap-analysis-nist-cis/" class="header-link" id="header-desk-support-security-controls-gap-analysis-link">Security Controls Gap Analysis</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/services/infinity-global/penetration-testing/" class="header-link" id="header-desk-support-penetration-testing-link">Penetration Testing</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/solutions/threat-intelligence-research/" class="header-link" id="header-desk-support-threat-intelligence-link">Threat Intelligence</a></li>
+                        </ul>
+                        <hr>
+                        <span class="cp_menu__item__li__title">Optimize</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/professional-services/" class="header-link" id="header-desk-support-security-deployment-optimization-link">Security Deployment & Optimization</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/professional-services/account-management/" class="header-link" id="header-desk-support-advanced-technical-account-management-link">Advanced Technical Account Management</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/lifecycle-management/" class="header-link" id="header-desk-support-lifecycle-management-services-link">Lifecycle Management Services</a></li>
+                        </ul>
+                    </li>
+                    <li class="cp_menu__item__li">
+                        <span class="cp_menu__item__li__title">Master</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/mind/" class="header-link" id="header-desk-support-mind-link">Mind</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://training-certifications.checkpoint.com/#/" class="header-link" id="header-desk-support-certifications-accreditations-link" target="_blank">Certifications & Accreditations</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/mind/ciso-academy/" class="header-link" id="header-desk-support-ciso-training-link">CISO Training</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/mind/smartawareness/" class="header-link" id="header-desk-support-security-awareness-link">Security Awareness</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://cyberpark.checkpoint.com/" class="header-link" id="header-desk-support-cyber-park-link" target="_blank">Cyber Park</a></li>
+                        </ul>
+                        <hr>
+                        <span class="cp_menu__item__li__title">Respond</span>
+                        <ul>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/support-services/threatcloud-incident-response/" class="header-link" id="header-desk-support-incident-response-link">Incident Response</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/horizon/mdr-mpr/" class="header-link" id="header-desk-support-managed-detection-link">Managed Detection and Response</a></li>
+                            <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/services/infinity-global/digital-forensics/" class="header-link" id="header-desk-support-digital-forensics-link">Digital Forensics</a></li>
+                        </ul>
+                    </li>
+                            <li class="cp_menu__item__li cp_menu__item__li__right_image_container">
+                                <div class="cp_menu__item__li__right_image_container__inner" style="background-image: url('https://www.checkpoint.com/wp-content/uploads/Support-Services-Nav-Featured-Image-180621.jpg');">
+                                    <span class="cp_menu__item__li__right_image_container__inner__title">HackingPoint Training</span>
+                                    <span class="cp_menu__item__li__right_image_container__inner__body">Learn hackers inside secrets to beat them at their own game.</span>
+                                    <a href="https://www.checkpoint.com/training/hackingpoint/" class="cp_menu__item__li__right_image_container__inner_link header-link" id="header-desk-support-feature-image">VIEW COURSES
+                                        <span class="fa fa-angle-right nav-image-right-span-greater-than"></span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                    <li class="cp_menu__item" id="partners-mega">
+                        <span class="cp_menu__item__main" id="partners-menu">Partners</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/partners/" class="header-link" id="header-desk-partners-link">Channel Partners</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/partners/channel/" class="header-link" id="header-desk-partners-become-partner-link">Become a Partner</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/partners/mssp-program/" class="header-link" id="header-desk-partners-mssp-link">MSSP Partner Program</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/partners/global-systems-integrators/" class="header-link" id="header-desk-partners-global-systems-link">Global Systems Integrators</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/partners/smb/" class="header-link" id="header-desk-partners-smb-link">SMB Partners</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://partnerlocator.checkpoint.com/#/" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-find-a-partner-link">Find a Partner</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://www.checkpoint.com/technology-partners/" class="header-link" id="header-desk-partners-technology-partners-link">Technology Partners</a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/technology-partners/featured/" class="header-link" id="header-desk-partners-featured-partners-link">Featured Technology Partners</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/amazon-aws-security/" class="header-link" id="header-desk-partners-amazon-aws-link">AWS Cloud</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cloudguard/microsoft-azure-security/" class="header-link" id="header-desk-partners-microsoft-azure-link">Azure Cloud</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title"><a href="https://usercenter.checkpoint.com/usercenter/index.jsp" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-portal-link">Partner Portal <i class="fa fa-lock lock-icon" aria-label="PMAP" aria-hidden="true"></i></a></span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://catalog.checkpoint.com/" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-catalog-link">Product Catalog</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://usercenter.checkpoint.com/usercenter/portal/media-type/html/role/usercenterUser/page/default.psml/js_pane/PricingToolsId,RenewalToolApp" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-renewal-link">Renewal Tool</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://usercenter.checkpoint.com/usercenter/portal/media-type/html/role/usercenterUser/page/default.psml/js_pane/PartnerInfoId%2CPartnerDashboard#/overview" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-dashboard-link">Partner Dashboard</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://usercenter.checkpoint.com/usercenter/portal/media-type/html/role/usercenterUser/page/default.psml/js_pane/SalesEnabelrsId?pageUrl=/p/campaign-central/" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-campaign-central-link">Campaign Central</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://usercenter.checkpoint.com/usercenter/portal/media-type/html/role/usercenterUser/page/default.psml/js_pane/SalesEnabelrsId?pageUrl=/p/campaign-central/pre-packaged-agency-campaigns/" target="blank" rel="noopener noreferrer" class="header-link" id="header-desk-partners-campaign-marketplace-link">Campaign Marketplace</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li cp_menu__item__li__right_image_container">
+                                <div class="cp_menu__item__li__right_image_container__inner" style="background-image: url('https://www.checkpoint.com/wp-content/uploads/partners-criado-featured-image.jpg');">
+                                    <span class="cp_menu__item__li__right_image_container__inner__title" style="color: #ffffff;">Francisco Criado</span>
+                                    <span class="cp_menu__item__li__right_image_container__inner__body" style="color: #ffffff;font-size:18px;">Check Point's VP, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Global Partner<br>Ecosystem<br>Organization</span>
+                                    <a class="cp_menu__item__li__right_image_container__inner_link header-link" href="https://blog.checkpoint.com/2023/03/07/getting-to-know-francisco-criado-check-points-new-vp-global-partner-ecosystem-organization/" id="header-desk-partner-feature-link" style="color: #ffffff;">LEARN MORE <span class="fa fa-angle-right nav-image-right-span-greater-than"></span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                    <li class="cp_menu__item" id="resources-mega">
+                        <span class="cp_menu__item__main" id="resources-menu">Resources</span>
+                        <ul class="cp_menu__item__ul">
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title">Resources</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://resources.checkpoint.com/" class="header-link" id="header-desk-resources-resource-center-link">Content Resource Center</a> </li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/demos/" class="header-link" id="header-desk-resources-product-demos-link">Product Demos</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/trials/" class="header-link" id="header-desk-resources-product-trials-link">Product Trials</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/customer-stories/" class="header-link" id="header-desk-resources-customer-stories-link">Customer Stories</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/events/" class="header-link" id="header-desk-resources-events-link">Events</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/webinars/" class="header-link" id="header-desk-resources-webinars-link">Webinars</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/videos/" class="header-link" id="header-desk-resources-videos-link">Videos</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.checkpoint.com/cyber-hub/" class="header-link" id="header-desk-resources-cyber-hub-link">Cyber Hub</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title">Downloads &amp; Documentation</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doShowprelanding&all" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-downloads-documentation-link">Downloads &amp; Documentation</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://catalog.checkpoint.com/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-product-catalog-link">Product Catalog</a> </li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://usercenter.checkpoint.com/usercenter/portal/media-type/html/role/usercenterUser/page/default.psml/js_pane/PricingToolsId,supportQuoteToolId" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-renewal-pricing-tool-link">Renewal Pricing Tool</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li">
+                                <span class="cp_menu__item__li__title">Cyber Security Insights</span>
+                                <ul>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://blog.checkpoint.com/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-check-point-blog-link">Check Point Blog</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://research.checkpoint.com/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-check-point-research-link">Check Point Research</a></li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://www.cybertalk.org/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-cyber-talk-link">Cyber Talk for Executives</a> </li>
+                                    <li class="cp_menu__item__li__inner_li"><a href="https://community.checkpoint.com/" target="_blank" rel="noopener noreferrer" class="header-link" id="header-desk-resources-checkmates-link">CheckMates Community</a></li>
+                                </ul>
+                            </li>
+                            <li class="cp_menu__item__li cp_menu__item__li__right_image_container">
+                                <!--<div class="cp_menu__item__li__right_image_container__inner" style="background-image: url('https://www.checkpoint.com/wp-content/uploads/cpx2023-megamenu.jpg');">
+                                    <span class="cp_menu__item__li__right_image_container__inner__title">CPX 360 2023:</span>
+                                    <span class="cp_menu__item__li__right_image_container__inner__body">The Industry’s Premier Cyber Security Summit and Expo</span>
+                                    <a class="cp_menu__item__li__right_image_container__inner_link header-link" href="https://www.checkpoint.com/cpx/" id="header-desk-resources-feature-link" target="_blank">REGISTER NOW
+                                        <span class="fa fa-angle-right nav-image-right-span-greater-than"></span>
+                                    </a>
+                                </div>-->
+                            </li>
+                        </ul>
+                        <span class="dark"></span>
+                    </li>
+                </ul>
+                <div id="nav-logo" class="cp_nav_menu__logo">
+                    <ul class="cp_search_geo__mobile">
+                        <li class="cp_menu__item alt_menu_item">
+                            <span class="cp_menu__item__icon cp_menu__item__search cp_menu__item__main" id="cp_search_mobile">Search</span>
+                            <ul class="cp_menu__item__ul">
+                                <li class="cp_menu__item__li">
+                                    <form id="search-form1">
+                                        <label style="display: none;">Search</label>
+                                        <input type="image" src="https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/images/search-btn.png" value="Submit" alt="Search"><input type="text" id="stq1" name="stq1" class="st-search-input" placeholder="Enter your keywords..." x-webkit-speech="" x-webkit-grammar="builtin:search" autocomplete="off" aria-label="Search Term">
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="cp_menu__item alt_menu_item">
+                            <span class="cp_menu__item__icon cp_menu__item__geo cp_menu__item__main" id="cp_geo_mobile">Geo Menu</span>
+                            <ul class="cp_menu__item__ul">
+                                <li id="choose-lang">Choose your language...</li>
+                                <li class="cp_menu__item__li__inner_li lang-item-en"><a lang="en-US" hreflang="en-US" href="https://www.checkpoint.com/" class="header-link" id="header-mobile-language-english-link">English (English)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-es"><a lang="es-419" hreflang="es-419" href="https://www.checkpoint.com/es/" class="header-link" id="header-mobile-language-spanish-link">Spanish (Español)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-fr"><a lang="fr-FR" hreflang="fr-FR" href="https://www.checkpoint.com/fr/" class="header-link" id="header-mobile-language-french-link">French (Français)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-de"><a lang="de-DE" hreflang="de-DE" href="https://www.checkpoint.com/de/" class="header-link" id="header-mobile-language-german-link">German (Deutsch)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-it"><a lang="it-IT" hreflang="it-IT" href="https://www.checkpoint.com/it/" class="header-link" id="header-mobile-language-italian-link">Italian (Italiano)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-pt"><a lang="pt-PT" hreflang="pt-PT" href="https://www.checkpoint.com/pt/" class="header-link" id="header-mobile-language-portuguese-link">Portuguese (Português)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-ru"><a lang="ru-RU" hreflang="ru-RU" href="https://www.checkpoint.com/ru/" class="header-link" id="header-mobile-language-russia-link">Russian (Русский)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-jp"><a lang="ja" hreflang="ja" href="https://www.checkpoint.com/jp/" class="header-link" id="header-mobile-language-japanese-link">Japanese (日本語)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-cn"><a lang="zh" hreflang="zh" href="https://www.checkpoint.com.cn/" class="header-link" id="header-mobile-language-chinese-link">Chinese (中文)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-cz"><a lang="cs" hreflang="cs" href="https://www.checkpoint.com/cz/" class="header-link" id="header-mobile-language-czech-link">Czech (čeština)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-id"><a lang="id-ID" hreflang="id-ID" href="https://www.checkpoint.com/id/" class="header-link" id="header-mobile-language-indonesian-link">Indonesian (Bahasa Indonesia)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-kr"><a lang="kr-KR" hreflang="kr-KR" href="https://www.checkpoint.com/kr/" class="header-link" id="header-mobile-language-korean-link">Korean (한국어)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-nl"><a lang="nl-NL" hreflang="nl-NL" href="https://www.checkpoint.com/nl/" class="header-link" id="header-mobile-language-dutch-link">Dutch (Nederlands)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-pl"><a lang="pl-PL" hreflang="pl-PL" href="https://www.checkpoint.com/pl/" class="header-link" id="header-mobile-language-polish-link">Polish (Polszczyzna)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-tr"><a lang="tr-TR" hreflang="tr-TR" href="https://www.checkpoint.com/tr/" class="header-link" id="header-mobile-language-turkish-link">Turkish (Türkçe)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-tw"><a lang="tw-TW" hreflang="tw-TW" href="https://www.checkpoint.com/tw/" class="header-link" id="header-mobile-language-taiwan-link">Taiwan (繁體中文)</a></li>
+                                <li class="cp_menu__item__li__inner_li lang-item-vi"><a lang="vi-VI" hreflang="vi-VI" href="https://www.checkpoint.com/vi/" class="header-link" id="header-mobile-language-vietnamese-link">Vietnamese (Tiếng Việt)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href="https://www.checkpoint.com/" title="Check Point Software Technologies Ltd." class="header-link" id="logo-page-link"><img src="/wp-content/themes/atoms/images/checkpoint-logo.png?v=1.0" alt="Check Point Software Technologies Ltd."></a>
+                    <label for="cp_nav_menu__mobile" class="cp_nav-icon">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <div class="cp_nav-icon__inside"></div>
+                    </label>
+                </div>
+            </div>
+        </header>        </div>
+</div>
+
+<!-- XXXXXXXX END Unified Header/Footer BODY XXXXXXXX -->
+
+        <div class="site-wrapper header-1 ">
+
+<div class="container"><div id="breadcrumbs"><span><span><a href="https://blog.checkpoint.com/">Blog Home</a></span> &gt; <span><a href="https://blog.checkpoint.com/security/">Security</a></span> &gt; <span class="breadcrumb_last" aria-current="page">March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files</span></span>        <div class="blog-search">Filter by: <select  name='cat' id='cat' class='postform'>
+	<option value='-1'>Select category</option>
+	<option class="level-0" value="210">Research&nbsp;&nbsp;(540)</option>
+	<option class="level-0" value="624">Security&nbsp;&nbsp;(882)</option>
+	<option class="level-0" value="654">Securing the Cloud&nbsp;&nbsp;(277)</option>
+	<option class="level-0" value="755">Harmony&nbsp;&nbsp;(145)</option>
+	<option class="level-0" value="920">Company and Culture&nbsp;&nbsp;(15)</option>
+	<option class="level-0" value="921">Innovation&nbsp;&nbsp;(6)</option>
+	<option class="level-0" value="922">Customer Stories&nbsp;&nbsp;(10)</option>
+	<option class="level-0" value="924">Horizon&nbsp;&nbsp;(3)</option>
+	<option class="level-0" value="925">Securing the Network&nbsp;&nbsp;(8)</option>
+	<option class="level-0" value="931">Partners&nbsp;&nbsp;(5)</option>
+	<option class="level-0" value="933">Connect SASE&nbsp;&nbsp;(10)</option>
+	<option class="level-0" value="935">Harmony Email&nbsp;&nbsp;(45)</option>
+	<option class="level-0" value="938">Artificial Intelligence&nbsp;&nbsp;(17)</option>
+	<option class="level-0" value="952">Infinity Global Services&nbsp;&nbsp;(11)</option>
+	<option class="level-0" value="953">Crypto&nbsp;&nbsp;(13)</option>
+</select>
+            <input type="text" name="searchbutton" placeholder="Search Articles" class=" js-search-toggle"><i class="fa fa-search" aria-hidden="true"></i></div>
+    </div></div>
+    <script type="text/javascript">
+        var dropdown = document.getElementById("cat");
+        function onCatChange() {
+            if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+                location.href = "https://blog.checkpoint.com/?cat="+dropdown.options[dropdown.selectedIndex].value;
+            }
+        }
+        dropdown.onchange = onCatChange;
+    </script>
+
+<div id="site-content" class="site-content single-entry  single-entry--has-share-box">
+    <div class="single-entry-container">
+        <div class="single-entry-container__inner single-1 atbs-block-244074 element-scrolling-progress scrolling-progress-post-content" data-url-to-load="" data-postid="244074">
+            <div class="atbs-block atbs-block--fullwidth single-header-wrap">
+                <div class="container">
+                    <div class="single-header__inner">
+                                                    <div class="entry-thumb single-entry-thumb atbs-thumb-object-fit">
+                                <img width="800" height="400" src="https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-800x400.jpg" class="attachment-atbs-m-2_1 size-atbs-m-2_1 wp-post-image default-featured-img" alt="" decoding="async" loading="lazy" srcset="https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-800x400.jpg 800w, https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-400x200.jpg 400w, https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-600x300.jpg 600w, https://blog.checkpoint.com/wp-content/uploads/2023/12/featured-image-default-c-1200x600.jpg 1200w" sizes="(max-width: 800px) 100vw, 800px" />                            </div>
+                                                <header class="single-header--body single-header">
+                            <div class="entry-meta">
+                                <a class="cat-624 entry-cat post__cat post__cat--bg cat-theme-bg" href="https://blog.checkpoint.com/security/">Security</a><span class="time-wrap"><time class="time published" datetime="2023-04-10T03:00:11+00:00" title="April 10, 2023 at 3:00 am">April 10, 2023</time></span>                            </div>
+                            <h1 class="entry-title">March 2023’s Most Wanted Malware: New Emotet Campaign Bypasses Microsoft Blocks to Distribute Malicious OneNote Files</h1>
+                                                        <div class="entry-author entry-author-has-avatar post-author author-circle"><span class="post-author__avatar" href="https://blog.checkpoint.com/author/gmcdouga/" ><img alt="author image" src="/wp-content/uploads/2023/02/author-image.png" class="avatar avatar-50 photo author-avatar" style="border-radius: 0;" height="50" width="50" loading="lazy"></span><div class="post-author__text">
+                        <span class="hint-span">By</span><strong class="post-author__name" href="https://blog.checkpoint.com/author/gmcdouga/">Check Point Team</strong></div></div>                        </header>
+                                            </div>
+                </div> <!-- .container -->
+            </div><!-- .single-header-wrap -->
+            <div class="atbs-block atbs-block--fullwidth single-entry-wrap">
+                <div class="container">
+                                            <div class="atbs-main-col-no-sidebar" role="main">
+                            <article class="post--single post-244074 post type-post status-publish format-standard has-post-thumbnail hentry category-security">
+                                <div class="single-content">
+                                    <div class="single-body entry-content typography-copy">
+                                        <div class="single-row">
+                                            <!-- Share Box -->
+                                                    <div class="single-column-left js-sticky-sidebar">
+            <div class="single-content-share share-box">
+                <span class="atoms-share-lable">Share</span>
+                <div class="social-share">
+                                        <ul class="social-list">
+                        <li class="facebook-share" ><a class="sharing-btn sharing-btn-primary facebook-btn" data-placement="top" title="Share on Facebook" onClick="window.open('//www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="//www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F"><div class="share-item__icon"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1.3em" width="1.3em" viewBox="0 0 40 40">
+                              <g>
+                                <path d="m21.7 16.7h5v5h-5v11.6h-5v-11.6h-5v-5h5v-2.1c0-2 0.6-4.5 1.8-5.9 1.3-1.3 2.8-2 4.7-2h3.5v5h-3.5c-0.9 0-1.5 0.6-1.5 1.5v3.5z"></path>
+                              </g>
+                            </svg></div></a></li><li class="twitter-share" ><a class="sharing-btn sharing-btn-primary twitter-btn" data-placement="top" title="Share on Twitter" onClick="window.open('//twitter.com/share?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F&amp;text=March%202023’s%20Most%20Wanted%20Malware:%20New%20Emotet%20Campaign%20Bypasses%20Microsoft%20Blocks%20to%20Distribute%20Malicious%20OneNote%20Files','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;" href="//twitter.com/share?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F&amp;text=March%202023’s%20Most%20Wanted%20Malware:%20New%20Emotet%20Campaign%20Bypasses%20Microsoft%20Blocks%20to%20Distribute%20Malicious%20OneNote%20Files"><div class="share-item__icon"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1.3em" width="1.3em" viewBox="0 0 40 40">
+                              <g>
+                                <path d="m31.5 11.7c1.3-0.8 2.2-2 2.7-3.4-1.4 0.7-2.7 1.2-4 1.4-1.1-1.2-2.6-1.9-4.4-1.9-1.7 0-3.2 0.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.4 0 0.5 0.1 0.9 0.2 1.3-5.1-0.1-9.4-2.3-12.7-6.4-0.6 1-0.9 2.1-0.9 3.1 0 2.2 1 3.9 2.8 5.2-1.1-0.1-2-0.4-2.8-0.8 0 1.5 0.5 2.8 1.4 4 0.9 1.1 2.1 1.8 3.5 2.1-0.5 0.1-1 0.2-1.6 0.2-0.5 0-0.9 0-1.1-0.1 0.4 1.2 1.1 2.3 2.1 3 1.1 0.8 2.3 1.2 3.6 1.3-2.2 1.7-4.7 2.6-7.6 2.6-0.7 0-1.2 0-1.5-0.1 2.8 1.9 6 2.8 9.5 2.8 3.5 0 6.7-0.9 9.4-2.7 2.8-1.8 4.8-4.1 6.1-6.7 1.3-2.6 1.9-5.3 1.9-8.1v-0.8c1.3-0.9 2.3-2 3.1-3.2-1.1 0.5-2.3 0.8-3.5 1z"></path>
+                              </g>
+                            </svg></div></a></li><li class="linkedin-share" ><a class="sharing-btn linkedin-btn" data-placement="top" title="Share on Linkedin" onClick="window.open('//www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F','Linkedin','width=863,height=500,left='+(screen.availWidth/2-431)+',top='+(screen.availHeight/2-250)+''); return false;" href="//www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F"><div class="share-item__icon"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1.3em" width="1.3em" viewBox="0 0 40 40">
+                          <g>
+                            <path d="m13.3 31.7h-5v-16.7h5v16.7z m18.4 0h-5v-8.9c0-2.4-0.9-3.5-2.5-3.5-1.3 0-2.1 0.6-2.5 1.9v10.5h-5s0-15 0-16.7h3.9l0.3 3.3h0.1c1-1.6 2.7-2.8 4.9-2.8 1.7 0 3.1 0.5 4.2 1.7 1 1.2 1.6 2.8 1.6 5.1v9.4z m-18.3-20.9c0 1.4-1.1 2.5-2.6 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5 2.6 1.2 2.6 2.5z"></path>
+                          </g>
+                        </svg></div></a></li><li class="reddit-share" ><a class="sharing-btn reddit-btn" data-placement="top" title="Share on Reddit" onClick="window.open('//www.reddit.com/submit?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F&amp;title=March%202023’s%20Most%20Wanted%20Malware:%20New%20Emotet%20Campaign%20Bypasses%20Microsoft%20Blocks%20to%20Distribute%20Malicious%20OneNote%20Files','Reddit','width=863,height=500,left='+(screen.availWidth/2-431)+',top='+(screen.availHeight/2-250)+''); return false;" href="//www.reddit.com/submit?url=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F"><div class="share-item__icon"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1.3em" width="1.3em" viewBox="10 10 80 80">
+                          <g>
+                            <path d="M80.6043 45.9872C80.6043 42.252 77.5728 39.2205 73.8376 39.2205C71.997 39.2205 70.373 39.9242 69.1821 41.1152C64.5807 37.813 58.1929 35.6476 51.1555 35.377L54.2411 20.9232L64.2559 23.0345C64.3642 25.5787 66.4754 27.6358 69.0738 27.6358C71.7264 27.6358 73.8917 25.4705 73.8917 22.8179C73.8917 20.1654 71.7264 18 69.0738 18C67.1791 18 65.5551 19.0827 64.7972 20.7067L53.5915 18.3248C53.2667 18.2707 52.9419 18.3248 52.6713 18.4872C52.4006 18.6496 52.2382 18.9203 52.1299 19.2451L48.7195 35.377C41.5197 35.5935 35.0778 37.7047 30.4222 41.1152C29.2313 39.9783 27.5531 39.2205 25.7667 39.2205C22.0315 39.2205 19 42.252 19 45.9872C19 48.748 20.624 51.0758 23.0059 52.1585C22.8976 52.8081 22.8435 53.5118 22.8435 54.2156C22.8435 64.6093 34.9154 73 49.8563 73C64.7972 73 76.8691 64.6093 76.8691 54.2156C76.8691 53.5118 76.815 52.8622 76.7067 52.2126C78.9262 51.1299 80.6043 48.748 80.6043 45.9872ZM34.3199 50.8051C34.3199 48.1526 36.4852 45.9872 39.1378 45.9872C41.7904 45.9872 43.9557 48.1526 43.9557 50.8051C43.9557 53.4577 41.7904 55.623 39.1378 55.623C36.4852 55.623 34.3199 53.4577 34.3199 50.8051ZM61.2244 63.5266C57.9222 66.8287 51.6427 67.0453 49.8022 67.0453C47.9616 67.0453 41.6279 66.7746 38.3799 63.5266C37.8927 63.0394 37.8927 62.2274 38.3799 61.7402C38.8671 61.253 39.6791 61.253 40.1663 61.7402C42.2234 63.7972 46.6624 64.5551 49.8563 64.5551C53.0502 64.5551 57.435 63.7972 59.5463 61.7402C60.0335 61.253 60.8455 61.253 61.3327 61.7402C61.7116 62.2815 61.7116 63.0394 61.2244 63.5266ZM60.3583 55.623C57.7057 55.623 55.5404 53.4577 55.5404 50.8051C55.5404 48.1526 57.7057 45.9872 60.3583 45.9872C63.0108 45.9872 65.1762 48.1526 65.1762 50.8051C65.1762 53.4577 63.0108 55.623 60.3583 55.623Z"/>
+                          </g>
+                        </svg></div></a></li><li class="email-share" ><a class="sharing-btn email-btn" data-placement="top" title="Share with Email"  href="mailto:?subject=March%202023’s%20Most%20Wanted%20Malware:%20New%20Emotet%20Campaign%20Bypasses%20Microsoft%20Blocks%20to%20Distribute%20Malicious%20OneNote%20Files&amp;body=https%3A%2F%2Fblog.checkpoint.com%2Fsecurity%2Fmarch-2023s-most-wanted-malware-new-emotet-campaign-bypasses-microsoft-blocks-to-distribute-malicious-onenote-files%2F"><div class="share-item__icon"><svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1.3em" width="1.3em" viewBox="-4 -4 40 40">
+                          <g>
+		<path d="M16,16.8l13.8-9.2C29.2,5.5,27.3,4,25,4H7C4.7,4,2.8,5.5,2.2,7.6L16,16.8z"/>
+	</g>
+	<g>
+		<path d="M16.6,18.8C16.4,18.9,16.2,19,16,19s-0.4-0.1-0.6-0.2L2,9.9V23c0,2.8,2.2,5,5,5h18c2.8,0,5-2.2,5-5V9.9L16.6,18.8z"/>
+	</g>
+                        </svg></div></a></li>                    </ul>
+                                    </div>
+            </div>
+        </div>
+                                                    <div class="single-column-right">
+                                                <h2 style="text-align: center;"><em>Check Point Research reports that Emotet Trojan launched a new campaign last month to evade Microsoft’s macro block, sending spam emails containing malicious OneNote files. Meanwhile Ahmyth was the most prevalent mobile malware and Log4j took top spot once again as the most exploited vulnerability</em></h2>
+<p>Our latest Global Threat Index for March 2023 saw researchers uncover a new malware campaign from Emotet Trojan, which rose to become the second most prevalent malware last month.</p>
+<p>As reported earlier this year, Emotet attackers have been exploring alternative ways to distribute malicious files since Microsoft announced they will <a href="https://learn.microsoft.com/en-us/deployoffice/security/internet-macros-blocked" target="_blank" rel="noopener">block macros from office files</a>. In the latest campaign, the attackers have adopted a new strategy of sending spam emails containing a malicious OneNote file. Once opened, a fake message appears to trick the victim into clicking the document, which downloads the Emotet infection. Once installed, the malware can gather user email data such as login credentials and contact information. The attackers then use the gathered information to expand the reach of the campaign and facilitate future attacks.</p>
+<p>While big tech companies do their best to cut off cybercriminals at the earliest point, it’s near impossible to stop every attack from bypassing the security measures. We know that Emotet is a sophisticated Trojan and it’s no surprise to see it has managed to navigate Microsoft’s latest defenses. The most important thing people can do is make sure they have appropriate email security in place, avoid downloading any unexpected files and adopt heathy skepticism about the origins of an email and its contents.</p>
+<p>Last month also revealed that “Apache Log4j Remote Code Execution” was the most exploited vulnerability, impacting 44% of organizations globally, followed by “HTTP Headers Remote Code Execution” with 43% of organizations worldwide and “MVPower DVR Remote Code Execution” with a global impact of 40%.</p>
+<p><strong><u>Top Malware Families</u></strong></p>
+<p><em>*The arrows relate to the change in rank compared to the previous month.</em></p>
+<p><strong>Qbot </strong>was the most prevalent malware last month with an impact of more than 10% on worldwide organizations respectively, followed by <strong>Emotet </strong>and <strong>Formbook </strong>with a 4% global impact.</p>
+<ol>
+<li><strong>&#x2194; Qbot</strong> – Qbot AKA Qakbot is a banking Trojan that first appeared in 2008. It was designed to steal a user’s banking credentials or keystrokes and is often distributed via spam emails. Qbot employs several anti-VM, anti-debugging and anti-sandbox techniques to hinder analysis and evade detection.</li>
+<li><strong>↑ Emotet</strong> &#8211; Emotet is an advanced, self-propagating and modular Trojan. Emotet used to be employed as a banking Trojan but has recently been used as a distributor to other malware or malicious campaigns. It uses multiple methods for maintaining persistence and evasion techniques to avoid detection. In addition, it can be spread through phishing spam emails containing malicious attachments or links.</li>
+<li><strong>↓ </strong><strong>FormBook</strong> – FormBook is an Infostealer targeting Windows OS and was first detected in 2016. It is marketed as Malware as a Service (MaaS) in underground hacking forums for its strong evasion techniques and relatively low price. Formbook harvests credentials from various web browsers, collects screenshots, monitors and logs keystrokes and can download and execute files according to orders from its C&amp;C.</li>
+<li><strong>↑ AgentTesla</strong> &#8211; AgentTesla is an advanced RAT functioning as a keylogger and information stealer, which is capable of monitoring and collecting the victim’s keyboard input, system keyboard, taking screenshots, and exfiltrating credentials to a variety of software installed on a victim’s machine (including Google Chrome, Mozilla Firefox and the Microsoft Outlook email client).</li>
+<li><strong>↓ XMRig</strong> – XMRig is open-source CPU mining software used to mine the Monero cryptocurrency. Threat actors often abuse this open-source software by integrating it into their malware to conduct illegal mining on victims’ devices.</li>
+<li><strong>&#x2194; GuLoader &#8211; </strong>Guloader is a downloader that has been widely used since December 2019. When it first appeared, GuLoader was used to download Parallax RAT but has been applied to other remote access trojans and info-stealers such as Netwire, FormBook, and Agent Tesla.</li>
+<li><strong>↑ Remcos &#8211; </strong>Remcos is a RAT that first appeared in the wild in 2016. Remcos distributes itself through malicious Microsoft Office documents, which are attached to SPAM emails, and is designed to bypass Microsoft Windows&#8217;s UAC security and execute malware with high-level privileges.</li>
+<li><strong>↑ NJRat</strong> – NJRat is a remote accesses Trojan, targeting mainly government agencies and organizations in the Middle East. The Trojan first emerged in 2012 and has multiple capabilities: capturing keystrokes, accessing the victim&#8217;s camera, stealing credentials stored in browsers, uploading and downloading files, performing process and file manipulations, and viewing the victim&#8217;s desktop. NJRat infects victims via phishing attacks and drive-by downloads, and propagates through infected USB keys or networked drives, with the support of Command &amp; Control server software.</li>
+<li><strong>&#x2194; Tofsee &#8211; </strong>Tofsee is a Trickler that targets the Windows platform. This malware attempts to download and execute additional malicious files on target systems. It may download and display an image file to a user to hide its true purpose.</li>
+<li><strong>↓ NanoCore</strong> &#8211; NanoCore is a Remote Access Trojan that targets Windows operating system users and was first observed in the wild in 2013. All versions of the RAT contain basic plugins and functionalities such as screen capture, crypto currency mining, remote control of the desktop and webcam session theft.</li>
+</ol>
+<p><strong><u>Top Attacked Industries Globally</u></strong></p>
+<p>Last month, <strong>Education/Research</strong> remained the most attacked industry globally, followed by <strong>Government/Military</strong> and then <strong>Healthcare</strong>.</p>
+<ol>
+<li>Education/Research</li>
+<li>Government/Military</li>
+<li>Healthcare</li>
+</ol>
+<p><strong><u>Top Exploited Vulnerabilities</u></strong></p>
+<p>Last month, <strong>“Apache Log4j Remote Code Execution</strong>” was the most exploited vulnerability, impacting 44% of organizations globally, followed by <strong>“HTTP Headers Remote Code Execution”</strong> with 43% of organizations worldwide and <strong>“MVPower DVR Remote Code Execution”</strong> with a global impact of 40%.</p>
+<ol>
+<li><strong>↑ Apache Log4j Remote Code Execution (CVE-2021-44228) </strong>&#8211; A remote code execution vulnerability exists in Apache Log4j. Successful exploitation of this vulnerability could allow a remote attacker to execute arbitrary code on the affected system.</li>
+<li><strong>↑ HTTP Headers Remote Code Execution (CVE-2020-10826,CVE-2020-10827,CVE-2020-10828,CVE-2020-13756)</strong> &#8211; HTTP headers let the client and the server pass additional information with an HTTP request. A remote attacker may use a vulnerable HTTP Header to run arbitrary code on the victim machine.</li>
+<li><strong>↑MVPower DVR Remote Code Execution &#8211;</strong> A remote code execution vulnerability exists in MVPower DVR devices. A remote attacker can exploit this weakness to execute arbitrary code in the affected router via a crafted request.</li>
+<li><strong>↑</strong><strong> OpenSSL TLS DTLS Heartbeat Information Disclosure (CVE-2014-0160,CVE-2014-0346)</strong> – An information disclosure vulnerability exists in OpenSSL. The vulnerability, aka Heartbleed, is due to an error when handling TLS/DTLS heartbeat packets. An attacker can leverage this vulnerability to disclose memory contents of a connected client or server.</li>
+<li><strong>↓ Web Servers Malicious URL Directory Traversal &#8211; </strong>There exists a directory traversal vulnerability on different web servers. The vulnerability is due to an input validation error in a web server that does not properly sanitize the URI for the directory traversal patterns. Successful exploitation allows unauthenticated remote attackers to disclose or access arbitrary files on the vulnerable server.</li>
+<li><strong>↑ Dasan GPON Router Authentication Bypass (CVE-2018-10561)</strong> &#8211; An authentication bypass vulnerability exists in Dasan GPON routers. Successful exploitation of this vulnerability would allow remote attackers to obtain sensitive information and gain unauthorized access into the affected system.</li>
+<li><strong>&#x2194; PHP Easter Egg Information Disclosure &#8211;</strong> An information disclosure vulnerability has been reported in the PHP pages. The vulnerability is due to incorrect web server configuration. A remote attacker can exploit this vulnerability by sending a specially crafted URL to an affected PHP page.</li>
+<li><strong>↓ Command Injection Over HTTP (CVE-2021-43936,CVE-2022-24086)</strong> &#8211; A command Injection over HTTP vulnerability has been reported. A remote attacker can exploit this issue by sending a specially crafted request to the victim. Successful exploitation would allow an attacker to execute arbitrary code on the target machine.</li>
+<li><strong>↑ D-Link Multiple Products Remote Code Execution (CVE-2015-2051) </strong>&#8211; A remote code execution vulnerability exists in multiple D-Link products. Successful exploitation of this vulnerability could allow a remote attacker to execute arbitrary code on the affected system.</li>
+<li><strong>↓ WordPress portable-phpMyAdmin Plugin Authentication Bypass (CVE-2012-5469)</strong> &#8211; An authentication bypass vulnerability exists in WordPress portable-phpMyAdmin Plugin. Successful exploitation of this vulnerability would allow remote attackers to obtain sensitive information and gain unauthorized access into the affected system.</li>
+</ol>
+<p><strong><u>Top Mobile Malwares</u></strong></p>
+<p>Last month, <strong>Ahmyth </strong>moved to the top spot as the most prevalent mobile malware, followed by <strong>Anubis </strong>and <strong>Hiddad.</strong></p>
+<ol>
+<li><strong>AhMyth </strong>– AhMyth is a Remote Access Trojan (RAT) discovered in 2017. It is distributed through Android apps that can be found on app stores and various websites. When a user installs one of these infected apps, the malware can collect sensitive information from the device and perform actions such as keylogging, taking screenshots, sending SMS messages, and activating the camera.</li>
+<li><strong>Anubis </strong>– Anubis is a banking Trojan malware designed for Android mobile phones. Since it was initially detected, it has gained additional functions including Remote Access Trojan (RAT) functionality, keylogger, audio recording capabilities and various ransomware features. It has been detected on hundreds of different applications available in the Google Store.</li>
+<li><strong>Hiddad </strong>&#8211; Hiddad is an Android malware which repackages legitimate apps and then releases them to a third-party store. Its main function is to display ads, but it can also gain access to key security details built into the OS.</li>
+</ol>
+<p>Check Point’s Global Threat Impact Index and its ThreatCloud Map is powered by Check Point’s <a href="https://www.checkpoint.com/infinity-vision/threatcloud/">ThreatCloud</a> intelligence. ThreatCloud provides real-time threat intelligence derived from hundreds of millions of sensors worldwide, over networks, endpoints and mobiles. The intelligence is enriched with AI-based engines and exclusive research data from Check Point Research, the intelligence and research Arm of Check Point Software Technologies.</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- .single-body -->
+                                    <!-- Post Pagination -->
+                                                                        <!-- Single Footer -->
+                                    <footer class="single-footer entry-footer">
+    <div class="entry-interaction entry-interaction--horizontal">
+        <div class="entry-interaction__left">
+            <div class="entry-tags">
+                            </div>
+        </div>
+                <div class="entry-interaction__right">
+            <a href="#comments" class="comments-count" data-toggle="tooltip" data-placement="top" title="0 Comments"><i class="mdicon mdicon-comment-o"></i><span>0</span></a>            <a href="#views" class="view-count" data-toggle="tooltip" data-placement="top" title="4709 Views"><i class="mdicon mdicon-visibility"></i><span>4709</span></a>        </div>
+            </div>
+</footer>                                </div><!-- .single-content -->
+                            </article><!-- .post-single -->
+                            <div class="navigation-author__wrap">
+                                                            </div>
+                            <div class="related-posts single-entry-section"><div class="block-heading block-heading--style-1" style="--color-heading: heading-style-1;"><h4 class="block-heading__title">You may also like</h4></div><div class="atoms-listing-list-1-has-sidebar"><div class="posts-list posts-list-2i flexbox-wrap flexbox-wrap-2i flex-space-30"><div class="list-item">            <article class="post post--vertical post--vertical-medium post__thumb-250 disable-thumb-placeholder" data-dark-mode="true">
+                    <div class="post__thumb atbs-thumb-object-fit post-thumb-radius">
+                                                     <a href="https://blog.checkpoint.com/security/top-reasons-to-attend-cpx-2024/"><img width="400" height="300" src="https://blog.checkpoint.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-21-at-11.19.59-400x300.jpeg" class="attachment-atbs-xs-4_3 size-atbs-xs-4_3 wp-post-image" alt="CPX 2024" decoding="async" srcset="https://blog.checkpoint.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-21-at-11.19.59-400x300.jpeg 400w, https://blog.checkpoint.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-21-at-11.19.59-180x135.jpeg 180w, https://blog.checkpoint.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-21-at-11.19.59-600x450.jpeg 600w" sizes="(max-width: 400px) 100vw, 400px" /></a> <!-- close a tag -->                                            </div>
+                <div class="post__text">
+                                                                <div class="post__meta post-time-cat-wrap">
+                            <a class="cat-920 post__cat post__cat--bg cat-theme-bg" href="https://blog.checkpoint.com/company-and-culture/">Company and Culture</a>                            <span class="time-wrap"><time class="time published" datetime="2023-12-22T06:00:11+00:00" title="December 22, 2023 at 6:00 am">December 22, 2023</time></span>                        </div>
+                                        <h3 class="post__title typescale-2 line-limit-child line-limit-3">
+                        <a href="https://blog.checkpoint.com/security/top-reasons-to-attend-cpx-2024/">Top Reasons to Attend CPX 2024</a>                    </h3>
+                                        <div class="post__excerpt ">
+                        <div class="excerpt">What is CPX 2024? CPX 2024 is an annual cyber ...</div>                    </div>
+                                                                            </div>
+                            </article>
+            </div><!-- .list-item --><div class="list-item">            <article class="post post--vertical post--vertical-medium post__thumb-250 disable-thumb-placeholder" data-dark-mode="true">
+                    <div class="post__thumb atbs-thumb-object-fit post-thumb-radius">
+                                                     <a href="https://blog.checkpoint.com/security/introducing-threatcloud-graph-a-multi-dimensional-perspective-on-cyber-security/"><img width="400" height="300" src="https://blog.checkpoint.com/wp-content/uploads/2023/12/TC-G-update-banner-2-400x300.jpg" class="attachment-atbs-xs-4_3 size-atbs-xs-4_3 wp-post-image" alt="ThreatCloud Graph" decoding="async" srcset="https://blog.checkpoint.com/wp-content/uploads/2023/12/TC-G-update-banner-2-400x300.jpg 400w, https://blog.checkpoint.com/wp-content/uploads/2023/12/TC-G-update-banner-2-180x135.jpg 180w, https://blog.checkpoint.com/wp-content/uploads/2023/12/TC-G-update-banner-2-600x450.jpg 600w, https://blog.checkpoint.com/wp-content/uploads/2023/12/TC-G-update-banner-2-800x600.jpg 800w" sizes="(max-width: 400px) 100vw, 400px" /></a> <!-- close a tag -->                                            </div>
+                <div class="post__text">
+                                                                <div class="post__meta post-time-cat-wrap">
+                            <a class="cat-624 post__cat post__cat--bg cat-theme-bg" href="https://blog.checkpoint.com/security/">Security</a>                            <span class="time-wrap"><time class="time published" datetime="2023-12-21T09:38:20+00:00" title="December 21, 2023 at 9:38 am">December 21, 2023</time></span>                        </div>
+                                        <h3 class="post__title typescale-2 line-limit-child line-limit-3">
+                        <a href="https://blog.checkpoint.com/security/introducing-threatcloud-graph-a-multi-dimensional-perspective-on-cyber-security/">Introducing ThreatCloud Graph: A Multi-Dimensional Perspective on Cyber Security</a>                    </h3>
+                                        <div class="post__excerpt ">
+                        <div class="excerpt">In the face of complex and sophisticated cyber threats, enterprises ...</div>                    </div>
+                                                                            </div>
+                            </article>
+            </div><!-- .list-item --><div class="list-item">            <article class="post post--vertical post--vertical-medium post__thumb-250 disable-thumb-placeholder" data-dark-mode="true">
+                    <div class="post__thumb atbs-thumb-object-fit post-thumb-radius">
+                                                     <a href="https://blog.checkpoint.com/company-and-culture/check-point-software-the-pioneer-in-cybersecurity-earns-security-platform-recognition-from-top-analysts-firms-in-2023/"><img width="400" height="300" src="https://blog.checkpoint.com/wp-content/uploads/2023/12/blog-template-2000x700-copy-400x300.jpg" class="attachment-atbs-xs-4_3 size-atbs-xs-4_3 wp-post-image" alt="Check Point Software:" decoding="async" loading="lazy" srcset="https://blog.checkpoint.com/wp-content/uploads/2023/12/blog-template-2000x700-copy-400x300.jpg 400w, https://blog.checkpoint.com/wp-content/uploads/2023/12/blog-template-2000x700-copy-180x135.jpg 180w, https://blog.checkpoint.com/wp-content/uploads/2023/12/blog-template-2000x700-copy-600x450.jpg 600w, https://blog.checkpoint.com/wp-content/uploads/2023/12/blog-template-2000x700-copy-800x600.jpg 800w" sizes="(max-width: 400px) 100vw, 400px" /></a> <!-- close a tag -->                                            </div>
+                <div class="post__text">
+                                                                <div class="post__meta post-time-cat-wrap">
+                            <a class="cat-924 post__cat post__cat--bg cat-theme-bg" href="https://blog.checkpoint.com/security-operations/">Horizon</a>                            <span class="time-wrap"><time class="time published" datetime="2023-12-20T11:21:05+00:00" title="December 20, 2023 at 11:21 am">December 20, 2023</time></span>                        </div>
+                                        <h3 class="post__title typescale-2 line-limit-child line-limit-3">
+                        <a href="https://blog.checkpoint.com/company-and-culture/check-point-software-the-pioneer-in-cybersecurity-earns-security-platform-recognition-from-top-analysts-firms-in-2023/">Check Point Software: The Pioneer in Cybersecurity Earns Security Platform Recognition from Top Analysts Firms in 2023</a>                    </h3>
+                                        <div class="post__excerpt ">
+                        <div class="excerpt">For more than three decades, Check Point Software has led ...</div>                    </div>
+                                                                            </div>
+                            </article>
+            </div><!-- .list-item --><div class="list-item">            <article class="post post--vertical post--vertical-medium post__thumb-250 disable-thumb-placeholder" data-dark-mode="true">
+                    <div class="post__thumb atbs-thumb-object-fit post-thumb-radius">
+                                                     <a href="https://blog.checkpoint.com/artificial-intelligence/the-evolving-cyber-landscape-ai-fighting-ai/"><img width="400" height="300" src="https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-400x300.jpg" class="attachment-atbs-xs-4_3 size-atbs-xs-4_3 wp-post-image" alt="Check Point&#039;s Chief Strategy Officer Itai Greenberg" decoding="async" loading="lazy" srcset="https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-400x300.jpg 400w, https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-180x135.jpg 180w, https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-600x450.jpg 600w, https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-800x600.jpg 800w, https://blog.checkpoint.com/wp-content/uploads/2023/12/itai-1200x900.jpg 1200w" sizes="(max-width: 400px) 100vw, 400px" /></a> <!-- close a tag -->                                            </div>
+                <div class="post__text">
+                                                                <div class="post__meta post-time-cat-wrap">
+                            <a class="cat-938 post__cat post__cat--bg cat-theme-bg" href="https://blog.checkpoint.com/artificial-intelligence/">Artificial Intelligence</a>                            <span class="time-wrap"><time class="time published" datetime="2023-12-20T06:01:25+00:00" title="December 20, 2023 at 6:01 am">December 20, 2023</time></span>                        </div>
+                                        <h3 class="post__title typescale-2 line-limit-child line-limit-3">
+                        <a href="https://blog.checkpoint.com/artificial-intelligence/the-evolving-cyber-landscape-ai-fighting-ai/">The Evolving Cyber Landscape: AI Fighting AI</a>                    </h3>
+                                        <div class="post__excerpt ">
+                        <div class="excerpt">The rise of Generative AI (GenAI) is causing a shift ...</div>                    </div>
+                                                                            </div>
+                            </article>
+            </div><!-- .list-item --></div></div></div>                        </div><!-- .atbs-main-col -->
+                                        </div><!-- .container -->
+            </div><!-- .single-entry-wrap -->
+                    </div><!-- .single-entry-container__inner -->
+    </div><!-- .single-entry-container -->
+</div><!-- .site-content -->
+</div><!-- .site-wrapper -->
+
+
+<div class="atbs-atoms-search-full-style-2" role="dialog" style="outline: 0px;">
+    <button type="button" id="atbs-atoms-search-close" aria-label="Close"><i class="atbs-atoms-icon-close"></i></button>
+    <div class="atbs-atoms-search-full__wrap ajax-search is-in-navbar js-ajax-search is-active">
+        <div class="atbs-atoms-search-full__inner">
+            <div class="atbs-atoms-search-full__form">
+                <div class="container-sm">
+                    <form action="/" id="searchform" class="search-form" method="get">
+                        <div class="form-group">
+                            <input type="search" name="s" class="search-form__input" autocomplete="off" placeholder="Search ...">
+                            <button type="submit" class="btn search-form__submit"><i class="atbs-atoms-icon-right-arrow"></i></button>
+                        </div>
+                    </form>
+                    <div class="data-typing-loader">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" stroke="#000">
+                            <g fill="none">
+                                <g transform="translate(1 1)" stroke-width="2">
+                                    <circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+                                    <path d="M36 18c0-9.94-8.06-18-18-18">
+                                        <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"></animateTransform>
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div> <!-- .container -->
+            </div>
+            <div class="atbs-atoms-search-full__results search-results">
+
+                <div class="container-sm">
+                    <div class="search-results__inner">
+                        <div class="search-results__content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .atbs-atoms-search-full__wrap -->
+</div>
+
+
+<!-- XXXXXXXX START Unified Header/Footer FOOTER XXXXXXXX -->
+<div class="CP-Unified">
+    <footer id="colophon" class="site-footer" role="contentinfo"   data-swiftype-index="false">
+        <div class="container">
+            <div class="row">
+                <hr>
+                <div class="row min-footer">
+
+                    <div class="col-lg-5 col-lg-push-7 text-right followUs"><span class="title">Follow Us</span>
+                        <a href="https://www.facebook.com/checkpointsoftware"><i class="fa fa-facebook-square"></i></a>
+                        <a href="https://twitter.com/checkpointsw"><i class="fa fa-twitter-square"></i></a>
+                        <a href="https://www.linkedin.com/company/check-point-software-technologies"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.youtube.com/user/CPGlobal"><i class="fa fa-youtube-play"></i></a>
+                    </div>
+                    <div class="col-lg-7 col-lg-pull-5 text-left">
+                        <span class="tagline">YOU DESERVE THE BEST SECURITY<small class="tagline_tm">&trade;</small></span>
+                        <span class="copyright">&copy;1994-<script type="text/javascript">document.write(new Date().getFullYear());</script> Check Point Software Technologies Ltd. All rights reserved.</span><br />
+                        <span class="copyright"><a class="footer-link" id="footer-desk-Copyright-link" href="https://www.checkpoint.com/copyright/">Copyright</a> | <a class="footer-link" id="footer-desk-Privacy Policy-link" href="https://www.checkpoint.com/privacy/">Privacy Policy</a></span>
+                        <p>&nbsp;</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type='text/javascript' src='https://sc1.checkpoint.com/sc1/unified/js/nav_unified.js' id='nav_unified-js'></script>
+    <script type='text/javascript' src='https://www.checkpoint.com/wp-content/themes/checkpoint-theme-v2/js/footer.js'></script>
+    <div id="sitedark"></div>
+</div>
+<!-- XXXXXXXX END Unified Header/Footer FOOTER XXXXXXXX -->
+
+
+
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-includes/js/imagesloaded.min.js?ver=4.1.4' id='imagesloaded-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-includes/js/masonry.min.js?ver=4.2.2' id='masonry-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b' id='jquery-masonry-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/throttle-debounce.min.js?ver=6.3.2' id='throttle-debounce-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/bootstrap.min.js?ver=6.3.2' id='bootstrap-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/fotorama.min.js?ver=6.3.2' id='fotorama-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/owl-carousel.min.js?ver=6.3.2' id='owl-carousel-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/theiaStickySidebar.min.js?ver=6.3.2' id='theiaStickySidebar-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/vendors/fitvids.js?ver=6.3.2' id='fitvids-js'></script>
+<script type='text/javascript' id='atbs-scripts-js-extra'>
+/* <![CDATA[ */
+var ajax_buff = {"atbs_security":{"atbs_security_code":{"content":"a5f7a08a76"}}};
+var dark_mode_buff = {"dark_mode_enabled":"0","dark_mode_default":"0","dark_mode_cookie_name":"atbs_dark_mode-bec4f8826c757da79c0516a5a5ab2f4e82f777f5"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-content/themes/atoms/js/scripts.js?ver=6.3.2' id='atbs-scripts-js'></script>
+<script type='text/javascript' src='https://blog.checkpoint.com/wp-includes/js/comment-reply.min.js?ver=6.3.2' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://cdn.onesignal.com/sdks/OneSignalSDK.js?ver=6.3.2' async='async' id='remote_sdk-js'></script>
+</body>
+</html>

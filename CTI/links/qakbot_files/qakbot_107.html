@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+	<title>Qbot: Analyzing PHP Proxy Scripts from Compromised Web Server &#8211; MADRID Labs</title>
+<meta name='robots' content='max-image-preview:large' />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="template" content="Period 1.720" />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="MADRID Labs &raquo; Feed" href="https://madlabs.dsu.edu/madrid/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="MADRID Labs &raquo; Comments Feed" href="https://madlabs.dsu.edu/madrid/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="MADRID Labs &raquo; Qbot: Analyzing PHP Proxy Scripts from Compromised Web Server Comments Feed" href="https://madlabs.dsu.edu/madrid/blog/2021/04/30/qbot-analyzing-php-proxy-scripts-from-compromised-web-server/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/madlabs.dsu.edu\/madrid\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.2.3"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://madlabs.dsu.edu/madrid/blog/wp-includes/css/dist/block-library/style.min.css?ver=6.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://madlabs.dsu.edu/madrid/blog/wp-includes/css/classic-themes.min.css?ver=6.2.3' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 12px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 21px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--regular: 16px;--wp--preset--font-size--larger: 28px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='ct-period-google-fonts-css' href='//fonts.googleapis.com/css?family=Roboto%3A300%2C300italic%2C400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=6.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='ct-period-font-awesome-css' href='https://madlabs.dsu.edu/madrid/blog/wp-content/themes/period/assets/font-awesome/css/all.min.css?ver=6.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='ct-period-style-css' href='https://madlabs.dsu.edu/madrid/blog/wp-content/themes/period/style.css?ver=6.2.3' type='text/css' media='all' />
+<style id='ct-period-style-inline-css' type='text/css'>
+.site-header{
+	background:#003552;
+	border-bottom:12px solid #009dd1;
+}
+.right-logo{
+	float:right;
+}
+.primary-container{
+	margin-top:0em
+}
+#main{
+	width:100%;
+}
+.entry > article{
+	background:#f4f4f4;
+}
+.menu-primary li.current-menu-item > a, .menu-primary li.current_page_item > a, .menu-primary li.current-menu-ancestor > a {
+    background: #00779e;
+}
+li.menu-item a:hover, li.menu-item a:active, li.menu-item a:focus{
+	background: #00779e;
+	color:#ffffff;
+}
+.menu-primary li.current-menu-item > a:hover, .menu-primary li.current-menu-item > a:active, .menu-primary li.current-menu-item > a:focus, .menu-primary li.current_page_item > a:hover, .menu-primary li.current_page_item > a:active, .menu-primary li.current_page_item > a:focus, .menu-primary li.current-menu-ancestor > a:hover, .menu-primary li.current-menu-ancestor > a:active, .menu-primary li.current-menu-ancestor > a:focus{
+		background: #00779e;
+	color:#ffffff;
+}.logo {
+							width: 148px;
+						  }
+</style>
+<script type='text/javascript' src='https://madlabs.dsu.edu/madrid/blog/wp-includes/js/jquery/jquery.min.js?ver=3.6.4' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://madlabs.dsu.edu/madrid/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.0' id='jquery-migrate-js'></script>
+<link rel="https://api.w.org/" href="https://madlabs.dsu.edu/madrid/blog/wp-json/" /><link rel="alternate" type="application/json" href="https://madlabs.dsu.edu/madrid/blog/wp-json/wp/v2/posts/144" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://madlabs.dsu.edu/madrid/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://madlabs.dsu.edu/madrid/blog/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 6.2.3" />
+<link rel="canonical" href="https://madlabs.dsu.edu/madrid/blog/2021/04/30/qbot-analyzing-php-proxy-scripts-from-compromised-web-server/" />
+<link rel='shortlink' href='https://madlabs.dsu.edu/madrid/blog/?p=144' />
+<link rel="alternate" type="application/json+oembed" href="https://madlabs.dsu.edu/madrid/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmadlabs.dsu.edu%2Fmadrid%2Fblog%2F2021%2F04%2F30%2Fqbot-analyzing-php-proxy-scripts-from-compromised-web-server%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://madlabs.dsu.edu/madrid/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmadlabs.dsu.edu%2Fmadrid%2Fblog%2F2021%2F04%2F30%2Fqbot-analyzing-php-proxy-scripts-from-compromised-web-server%2F&#038;format=xml" />
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>		<style type="text/css" id="wp-custom-css">
+			.site-header{
+	background:#003552;
+	border-bottom:12px solid #009dd1;
+}
+.right-logo{
+	float:right;
+}
+.primary-container{
+	margin-top:0em
+}
+#main{
+	width:100%;
+}
+.entry > article{
+	background:#f4f4f4;
+}
+.menu-primary li.current-menu-item > a, .menu-primary li.current_page_item > a, .menu-primary li.current-menu-ancestor > a {
+    background: #00779e;
+}
+li.menu-item a:hover, li.menu-item a:active, li.menu-item a:focus{
+	background: #00779e;
+	color:#ffffff;
+}
+.menu-primary li.current-menu-item > a:hover, .menu-primary li.current-menu-item > a:active, .menu-primary li.current-menu-item > a:focus, .menu-primary li.current_page_item > a:hover, .menu-primary li.current_page_item > a:active, .menu-primary li.current_page_item > a:focus, .menu-primary li.current-menu-ancestor > a:hover, .menu-primary li.current-menu-ancestor > a:active, .menu-primary li.current-menu-ancestor > a:focus{
+		background: #00779e;
+	color:#ffffff;
+}		</style>
+		</head>
+
+<body id="period" class="post-template-default single single-post postid-144 single-format-standard">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-dark-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0.49803921568627" /><feFuncG type="table" tableValues="0 0.49803921568627" /><feFuncB type="table" tableValues="0 0.49803921568627" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.54901960784314 0.98823529411765" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.71764705882353 0.25490196078431" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-red"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 0.27843137254902" /><feFuncB type="table" tableValues="0.5921568627451 0.27843137254902" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-midnight"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0" /><feFuncG type="table" tableValues="0 0.64705882352941" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-magenta-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.78039215686275 1" /><feFuncG type="table" tableValues="0 0.94901960784314" /><feFuncB type="table" tableValues="0.35294117647059 0.47058823529412" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-green"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.65098039215686 0.40392156862745" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.44705882352941 0.4" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-orange"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.098039215686275 1" /><feFuncG type="table" tableValues="0 0.66274509803922" /><feFuncB type="table" tableValues="0.84705882352941 0.41960784313725" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><a class="skip-content" href="#main">Press &quot;Enter&quot; to skip to content</a>
+<div id="overflow-container" class="overflow-container">
+			<header class="site-header" id="site-header" role="banner">
+		<div class="max-width">
+			<div id="title-container" class="title-container">
+				<div id='site-title' class='site-title'><a href='https://madlabs.dsu.edu/madrid/blog'>MADRID Labs</a></div>				<p class="tagline">Malware Discovery Reversing and Disruption</p>			</div>
+			<div class="right-logo">
+				<a href="https://dsu.edu" target="_blank">
+					<img src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/dsu-logo-white1.png" width="250" />
+				</a>
+			</div>
+			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
+				<span class="screen-reader-text">open menu</span>
+				<svg width="36px" height="23px" viewBox="0 0 36 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				    <desc>mobile menu toggle button</desc>
+				    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+				        <g transform="translate(-142.000000, -104.000000)" fill="#FFFFFF">
+				            <g transform="translate(142.000000, 104.000000)">
+				                <rect x="0" y="20" width="36" height="3"></rect>
+				                <rect x="0" y="10" width="36" height="3"></rect>
+				                <rect x="0" y="0" width="36" height="3"></rect>
+				            </g>
+				        </g>
+				    </g>
+				</svg>			</button>
+			<div id="menu-primary-container" class="menu-primary-container">
+				<div class="icon-container">
+					<ul class='social-media-icons'>					<li>
+						<a class="twitter" target="_blank" href="https://twitter.com/jstrosch">
+							<i class="fab fa-twitter" aria-hidden="true" title="twitter"></i>
+							<span class="screen-reader-text">twitter</span>
+						</a>
+					</li>
+									<li>
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/joshstroschein/">
+							<i class="fab fa-linkedin" aria-hidden="true" title="linkedin"></i>
+							<span class="screen-reader-text">linkedin</span>
+						</a>
+					</li>
+									<li>
+						<a class="youtube" target="_blank" href="https://www.youtube.com/channel/UCI8zwug_Lv4_-KPT62oeDUA">
+							<i class="fab fa-youtube" aria-hidden="true" title="youtube"></i>
+							<span class="screen-reader-text">youtube</span>
+						</a>
+					</li>
+									<li>
+						<a class="github" target="_blank" href="https://github.com/jstrosch">
+							<i class="fab fa-github" aria-hidden="true" title="github"></i>
+							<span class="screen-reader-text">github</span>
+						</a>
+					</li>
+				</ul>									</div>
+				<div id="menu-primary" class="menu-container menu-primary" role="navigation">
+    <nav class="menu"><ul id="menu-primary-items" class="menu-primary-items"><li id="menu-item-32" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-32"><a href="https://madlabs.dsu.edu/madrid/blog/">Home</a></li>
+<li id="menu-item-129" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-129"><a href="https://madlabs.dsu.edu/madrid/blog/category/malware-analysis/">Malware Analysis</a></li>
+<li id="menu-item-130" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-130"><a href="https://madlabs.dsu.edu/madrid/blog/category/reverse-engineering/">Reverse Engineering</a></li>
+<li id="menu-item-131" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-131"><a href="https://madlabs.dsu.edu/madrid/blog/category/threat-hunting/">Threat Hunting</a></li>
+<li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33"><a href="https://madlabs.dsu.edu/madrid/blog/about-madrid-labs/">About MADRID Labs</a></li>
+</ul></nav></div>
+			</div>
+		</div>
+	</header>
+			<div id="primary-container" class="primary-container">
+		<div class="max-width">
+			<section id="main" class="main" role="main">
+				
+<div id="loop-container" class="loop-container">
+    <div class="post-144 post type-post status-publish format-standard hentry category-malware-analysis category-reverse-engineering category-threat-hunting tag-malware tag-qbot entry">
+	<article>
+						<div class="post-container">
+			<div class='post-header'>
+				<h1 class='post-title'>Qbot: Analyzing PHP Proxy Scripts from Compromised Web Server</h1>
+				<div class="post-byline">Published <a class='date' href='https://madlabs.dsu.edu/madrid/blog/2021/04/'>April 30, 2021</a> by <a class='author' href='https://madlabs.dsu.edu/madrid/blog/author/odin-bernstein/'>Odin Bernstein</a></div>			</div>
+			<div class="post-content">
+								
+<h3 class="wp-block-heading"><strong>About Qbot</strong></h3>
+
+
+
+<p>Qbot (also known as Qakbot) is an information stealer that has been active since 2007. It was originally used as a banking trojan, but has since been updated to steal credentials from other sites as well that are not financial. Qbot has also been observed being used for a variety of different types of activities, including distributing ransomware. </p>
+
+
+
+<p>Recently, Qbot has been distributed through spam email campaigns. Specifically, a URL is sent through an email. This URL belongs to a compromised WordPress site controlled by the attacker. This URL is redirected to a malicious PHP script that loads Qbot onto the victim&#8217;s machine. </p>
+
+
+
+<h3 class="wp-block-heading"><strong>Analysis</strong></h3>
+
+
+
+<p>Recently, some files were collected from a web server that was compromised by QBot at <strong>hxxp://185.220.100.246/home/selfst15/public_html_selfstoragemillionaires.com/BAItICsGBq/</strong>. These files were then analyzed, specifically the <strong>.htaccess</strong> and <strong>p_univ.php</strong> files.</p>
+
+
+
+<h3 class="wp-block-heading">.htaccess</h3>
+
+
+
+<p> The .htaccess file contains multiple rewrite rules. These will redirect any file with the extensions listed below to our malicious file, <em>p_univ.php</em>. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img decoding="async" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/1.png" alt=".htaccess file containing multiple rewrite rules." class="wp-image-148" width="492" height="400" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/1.png 612w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/1-300x244.png 300w" sizes="(max-width: 492px) 100vw, 492px" /></figure></div>
+
+
+
+<p>The malware authors do this for a few different reasons. For one, a victim might be tricked into clicking one link that appears to be benign, only to be tricked into visiting the page that contains the malware. Also, using this trick makes it appear as if the malware were present in multiple different locations, making it more difficult for the website owners to detect and remove the malware. After all, many people wouldn&#8217;t think to check the <em>.htaccess</em> file if their site were compromised with malware.</p>
+
+
+
+<h3 class="wp-block-heading">p_univ<strong>.php</strong></h3>
+
+
+
+<p>This file makes use of a couple different obfuscation techniques:</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="1024" height="163" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/2-1024x163.png" alt="" class="wp-image-157" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/2-1024x163.png 1024w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/2-300x48.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/2-768x122.png 768w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/2.png 1480w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>First, it uses ROT13 and then base64 to decode the string, and then uses the eval function. Eval executes a string as PHP code. We could run a tool such as XAMPP on our local machine to execute the PHP script, or we can make use of a third-party tool. I made use of a tool called <a href="https://www.unphp.net/" data-type="URL" data-id="https://www.unphp.net/">UnPHP,</a> which decodes PHP files that make use of common obfuscation techniques.</p>
+
+
+
+<p>The deobfuscated code returns some interesting results:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/3-1024x842.png" alt="1) Time zone being set - Europe/Moscow
+2) Display errors being hidden
+3) Host and port of the server that delivers the next stage of malware (91.193.180.161:80).
+4) Target URI - first_loader/first_loader_qbz001.php
+" class="wp-image-159" width="566" height="465" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/3-1024x842.png 1024w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/3-300x247.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/3-768x632.png 768w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/3.png 1036w" sizes="(max-width: 566px) 100vw, 566px" /></figure></div>
+
+
+
+<p>First, we see the timezone being set to Europe/Moscow (1), which gives an indication of where the attackers reside. Next, we see the display indicators being turned off (2), which is likely being used as a method to hide malicious activity from the victim by hiding any errors from the output. We also see a target host of 91[.]193[.]180[.]161 and a target port of 80 (3). There is also a variable target_uri, that appears to contain the file path of the next stage of the malware (4).</p>
+
+
+
+<p>Let&#8217;s look into this script more:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/4-1-1024x499.png" alt="Appends two parameters to TARGET_URI, fname (the name of this file, p_univ.php) and bg (the bot group - specified in conf.php)." class="wp-image-165" width="564" height="274" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/4-1-1024x499.png 1024w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/4-1-300x146.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/4-1-768x374.png 768w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/4-1.png 1313w" sizes="(max-width: 564px) 100vw, 564px" /></figure></div>
+
+
+
+<p><strong>TARGET_URI,</strong> which contains the path of the next stage of malware, appends two parameters. The first parameter, <strong>fname</strong>, contains the name of the current file, <strong>p_univ.php</strong>, which is accessed using the <strong>$_SERVER</strong> array. The second parameter, <strong>bg</strong>, contains the bot group, which is obtained through the <strong>conf.php</strong> file:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/5.png" alt="The bot group (&quot;abc122&quot;) shown in conf.php. " class="wp-image-166" width="-122" height="-45" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/5.png 813w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/5-300x111.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/5-768x285.png 768w" sizes="(max-width: 813px) 100vw, 813px" /></figure></div>
+
+
+
+<p>The &#8220;bot group&#8221; we are in is &#8220;abc122&#8221;. This must be used as a method of managing different groups of infected machines, and could be a possible indicator that the end goal is to create a botnet, although that remains unclear. It is likely a method used by their C2 server to control different groups of infected machines.</p>
+
+
+
+<p>Based on this information, the full URL containing the next stage of malware is: <strong>hxxp://91.193.180.161:80/first_loader/first_loader_qbz001.php?fname=p_univ.php&amp;bg=abc122</strong></p>
+
+
+
+<p>A request to this URL is then made using a cURL request:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/6-1024x816.png" alt="cURL request being made to target URL. " class="wp-image-169" width="523" height="417" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/6-1024x816.png 1024w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/6-300x239.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/6-768x612.png 768w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/6.png 1039w" sizes="(max-width: 523px) 100vw, 523px" /></figure></div>
+
+
+
+<p>cURL is used to attempt to visit the target URL. Several headers are also sent in the cURL request, including the user agent.</p>
+
+
+
+<p>XAMPP was used in an isolated environment to attempt to retrieve further stages of malware, but these efforts were ultimately unsuccessful. When using a TOR node to attempt to send the request, the server responded with a 502 status code (&#8220;Bad gateway&#8221;). I looked further in the script and the <strong>client_ip</strong> variable is used, which sends the IP of the connecting server (obtained through $_SERVER[&#8216;REMOTE_ADDR&#8217;]): </p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/7.png" alt="Changign client IP to the IP of compromised web server (185[.]220[.]100[.]246)" class="wp-image-172" width="718" height="192" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/7.png 808w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/7-300x81.png 300w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/7-768x206.png 768w" sizes="(max-width: 718px) 100vw, 718px" /></figure>
+
+
+
+<p>I attempted to instead change the client_ip variable to the IP of the original compromised web server, 185[.]220[.]100[.]246. When I did this, I got a different error code, a 403 forbidden response. This typically means that this page has been blocked entirely, although servers can fake error codes so it is possible that the malware authors are using additional checks to block the page on certain conditions.</p>
+
+
+
+<p><strong>Domain info </strong></p>
+
+
+
+<p>The attacker&#8217;s server which delivers the next stage of malware is at the IP address 91[.]193[.]180[.]161. Doing a whois lookup on this server returned the following results:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" loading="lazy" src="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/8.png" alt="IP lookup results from whois lookup." class="wp-image-173" width="402" height="464" srcset="https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/8.png 519w, https://madlabs.dsu.edu/madrid/blog/wp-content/uploads/2021/04/8-260x300.png 260w" sizes="(max-width: 402px) 100vw, 402px" /></figure></div>
+
+
+
+<p>The server originates in the Netherlands and belongs to 3NT Solutions LLP. Not much could be found on this company, except for the fact they are a cloud hosting provider. Several Google searches indicate that this ISP is commonly being used to deploy malware. </p>
+
+
+
+<p><strong>IOCs </strong></p>
+
+
+
+<p>Original compromised web server: <strong>hxxp://185.220.100.246/home/selfst15/public_html_selfstoragemillionaires.com/BAItICsGBq</strong></p>
+
+
+
+<p>Attacker web server: <strong>91[.]193[.]180[.]161</strong></p>
+
+
+
+<p>Next stage of malware: <strong>hxxp://91.193.180.161:80/first_loader/first_loader_qbz001.php?fname=p_univ.php&amp;bg=abc122</strong></p>
+
+
+
+<h3 class="wp-block-heading">Resources</h3>
+
+
+
+<p>Artifacts: <a href="https://github.com/jstrosch/malware-samples/tree/master/malware_infrastructure/2021/January/qbot_compromised_server" target="_blank" rel="noreferrer noopener">https://github.com/jstrosch/malware-samples/tree/master/malware_infrastructure/2021/January/qbot_compromised_server</a></p>
+											</div>
+			<div class="post-meta">
+				<p class="post-categories"><span>Published in </span><a href="https://madlabs.dsu.edu/madrid/blog/category/malware-analysis/" title="View all posts in Malware Analysis">Malware Analysis</a>, <a href="https://madlabs.dsu.edu/madrid/blog/category/reverse-engineering/" title="View all posts in Reverse Engineering">Reverse Engineering</a> and <a href="https://madlabs.dsu.edu/madrid/blog/category/threat-hunting/" title="View all posts in Threat Hunting">Threat Hunting</a></p>				<div class="post-tags"><ul><li><a href="https://madlabs.dsu.edu/madrid/blog/tag/malware/" title="View all posts tagged malware">malware</a></li><li><a href="https://madlabs.dsu.edu/madrid/blog/tag/qbot/" title="View all posts tagged qbot">qbot</a></li></ul></div>				<nav class="further-reading">
+	<div class="previous">
+		<span>Previous Post</span>
+		<a href="https://madlabs.dsu.edu/madrid/blog/2021/04/19/analysis-of-password-protected-malicious-word-document/" rel="prev">Analysis of Password Protected Malicious Word Document</a>	</div>
+	<div class="next">
+		<span>Next Post</span>
+		<a href="https://madlabs.dsu.edu/madrid/blog/2021/05/17/announcing-collaboration-with-any-run/" rel="next">Announcing Collaboration with Any.Run</a>	</div>
+</nav>			</div>
+		</div>
+	</article>
+	<div class="comments-container">
+		<section id="comments" class="comments">
+    <ol class="comment-list">
+      </ol>
+      <p class="comments-closed pings-open">
+      Comments are closed, but <a href="https://madlabs.dsu.edu/madrid/blog/2021/04/30/qbot-analyzing-php-proxy-scripts-from-compromised-web-server/trackback/" title="Trackback URL for this post">trackbacks</a> and pingbacks are open.    </p>
+  </section>	</div>
+</div></div></section> <!-- .main -->
+    <aside class="sidebar sidebar-primary" id="sidebar-primary" role="complementary">
+        <h2 class="screen-reader-text">Sidebar</h2>
+        <section id="search-2" class="widget widget_search"><div class='search-form-container'>
+    <form role="search" method="get" class="search-form" action="https://madlabs.dsu.edu/madrid/blog/">
+        <label class="screen-reader-text" for="search-field">Search</label>
+        <input id="search-field" type="search" class="search-field" value="" name="s"
+               title="Search for:" placeholder="Search for..."/>
+        <input type="submit" class="search-submit" value='Search'/>
+    </form>
+</div></section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="https://madlabs.dsu.edu/madrid/blog/2021/06/11/ghidra-plug-in-to-decode-xor-obfuscated-strings/">Ghidra Plug-in to Decode XOR-Obfuscated Strings</a>
+									</li>
+											<li>
+					<a href="https://madlabs.dsu.edu/madrid/blog/2021/05/17/analyzing-document-with-malicious-excel-4-0-macros/">Analyzing Document with Malicious Excel 4.0 Macros</a>
+									</li>
+											<li>
+					<a href="https://madlabs.dsu.edu/madrid/blog/2021/05/17/announcing-collaboration-with-any-run/">Announcing Collaboration with Any.Run</a>
+									</li>
+											<li>
+					<a href="https://madlabs.dsu.edu/madrid/blog/2021/04/30/qbot-analyzing-php-proxy-scripts-from-compromised-web-server/" aria-current="page">Qbot: Analyzing PHP Proxy Scripts from Compromised Web Server</a>
+									</li>
+											<li>
+					<a href="https://madlabs.dsu.edu/madrid/blog/2021/04/19/analysis-of-password-protected-malicious-word-document/">Analysis of Password Protected Malicious Word Document</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"></ul></section>    </aside>
+</div><!-- .max-width -->
+</div><!-- .primary-container -->
+
+<footer id="site-footer" class="site-footer" role="contentinfo">
+    <div class="max-width">
+            </div>
+    <div class="design-credit">
+        <span>
+            <a href="https://www.competethemes.com/period/" rel="nofollow">Period WordPress Theme</a> by Compete Themes.        </span>
+    </div>
+</footer>
+</div><!-- .overflow-container -->
+
+<button id="scroll-to-top" class="scroll-to-top"><span class="screen-reader-text">Scroll to the top</span><i class="fas fa-arrow-up"></i></button>
+<script type='text/javascript' id='ct-period-js-js-extra'>
+/* <![CDATA[ */
+var ct_period_objectL10n = {"openMenu":"open menu","closeMenu":"close menu","openChildMenu":"open dropdown menu","closeChildMenu":"close dropdown menu"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://madlabs.dsu.edu/madrid/blog/wp-content/themes/period/js/build/production.min.js?ver=6.2.3' id='ct-period-js-js'></script>
+
+</body>
+</html>

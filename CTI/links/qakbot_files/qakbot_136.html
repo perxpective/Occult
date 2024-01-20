@@ -1,0 +1,1327 @@
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/favicon/icon-Unit42-180x180.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/favicon/icon-Unit42-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/favicon/icon-Unit42-16x16.png">
+	<link rel="manifest" href="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/favicon/site.webmanifest">
+	<link rel="mask-icon" href="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/favicon/safari-pinned-tab.svg" color="#000000">
+	<meta name="msapplication-TileColor" content="#000000">
+	<meta name="theme-color" content="#000">
+        <script type="text/javascript">
+var main_site_url = 'https://www.paloaltonetworks.com';
+var maindomain_lang = 'https://www.paloaltonetworks.com';
+function getParameterByName(name, url) {
+		if(url == null){
+		  url = window.location.href;
+		}
+	    name = name.replace(/[\[\]]/g, '\\$&');
+	    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	}
+	var container_q = getParameterByName('container');
+	var d_lang = 'en';	
+	if(container_q != '' && container_q != null){	    
+	    sessionStorage.setItem('container',container_q);
+	    	    location.href = 'https://unit42.paloaltonetworks.com/tutorial-qakbot-infection';
+	}
+</script>
+<style type="text/css">
+@font-face{font-family:'Merriweather';font-style:normal;font-weight:300;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.eot');src:local('Merriweather Light'),local('Merriweather-Light'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300.svg#Merriweather') format('svg')}
+@font-face{font-family:'Merriweather';font-style:italic;font-weight:300;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.eot');src:local('Merriweather Light Italic'),local('Merriweather-LightItalic'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-300italic.svg#Merriweather') format('svg')}
+@font-face{font-family:'Merriweather';font-style:normal;font-weight:400;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.eot');src:local('Merriweather Regular'),local('Merriweather-Regular'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-regular.svg#Merriweather') format('svg')}
+@font-face{font-family:'Merriweather';font-style:italic;font-weight:400;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.eot');src:local('Merriweather Italic'),local('Merriweather-Italic'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-italic.svg#Merriweather') format('svg')}
+@font-face{font-family:'Merriweather';font-style:normal;font-weight:700;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.eot');src:local('Merriweather Bold'),local('Merriweather-Bold'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700.svg#Merriweather') format('svg')}
+@font-face{font-family:'Merriweather';font-style:italic;font-weight:700;font-display:swap;src:url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.eot');src:local('Merriweather Bold Italic'),local('Merriweather-BoldItalic'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.eot?#iefix') format('embedded-opentype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.ttf') format('truetype'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/merriweather/merriweather-v21-latin-700italic.svg#Merriweather') format('svg')}
+
+
+@font-face{font-family:'Decimal';font-style:normal;font-weight:500;font-display:swap;src:local('Decimal Medium'),local('Decimal-Medium'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Medium-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Medium-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Medium-Pro.otf') format('opentype')}
+@font-face{font-family:'Decimal';font-style:italic;font-weight:500;font-display:swap;src:local('Decimal Medium'),local('Decimal-Medium'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-MediumItalic-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-MediumItalic-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-MediumItalic-Pro.otf') format('opentype')}
+@font-face{font-family:'Decimal';font-style:normal;font-weight:600;font-display:swap;src:local('Decimal SemiBold'),local('Decimal-SemiBold'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Semibold-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Semibold-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Semibold-Pro.otf') format('opentype')}
+@font-face{font-family:'Decimal';font-style:italic;font-weight:600;font-display:swap;src:local('Decimal SemiBold'),local('Decimal-SemiBold'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-SemiboldItalic-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-SemiboldItalic-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-SemiboldItalic-Pro.otf') format('opentype')}
+@font-face{font-family:'Decimal';font-style:normal;font-weight:700;font-display:swap;src:local('Decimal Bold'),local('Decimal-Bold'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Bold-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Bold-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-Bold-Pro.otf') format('opentype')}
+@font-face{font-family:'Decimal';font-style:italic;font-weight:700;font-display:swap;src:local('Decimal Bold'),local('Decimal-Bold'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-BoldItalic-Pro_Web.woff2') format('woff2'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-BoldItalic-Pro_Web.woff') format('woff'),url('https://www.paloaltonetworks.com/etc/clientlibs/clean/dependencies/fonts/decimal/Decimal-BoldItalic-Pro.otf') format('opentype')}    
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+.productNav2021Component .btn {
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: inline-block;
+    font-family: Decimal,Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-weight: 600;
+    color: #141414;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    transition: box-shadow .15s ease-in-out;
+}
+
+.productNav2021Component .btn-primary{
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    max-width: 100%;
+    text-align: left;
+    background-color: #fa582d;
+    color: #141414;
+    position: relative;
+}
+.productNav2021Component .btn-primary.focus,.productNav2021Component  .btn-primary:focus{
+    color: #141414;
+    border-color: #00c0e8;
+}
+.productNav2021Component .btn-primary:hover, .productNav2021Component .btn-primary-outline:hover,  .productNav2021Component .btn-black:hover, .productNav2021Component .btn-white:hover {
+    background-color: #fb7652;
+}
+.productNav2021Component .btn{
+    height:auto;
+}
+.productNav2021Component .btn:hover {
+    color: #141414;
+    text-decoration: none;
+    border-color: transparent;
+}
+.productNav2021Component .btn-dark,.productNav2021Component .btn-outline-dark{
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    max-width: 100%;
+    text-align: left;
+    background: 0;
+    color: #fff;
+    position: relative;
+}
+.productNav2021Component .btn-dark i, .productNav2021Component .btn-outline-dark i {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('https://www.paloaltonetworks.com/etc/clientlibs/clean/imgs/arrow-right-white.svg');
+}
+.productNav2021Component .btn-dark:hover{
+    color: #999;
+}
+.productNav2021Component .btn-dark:not(:disabled):not(.disabled):active,.productNav2021Component .btn-dark:hover{
+    background-color: transparent;
+    border-color: transparent;
+}
+.productNav2021Component .btn-dark:not(:disabled):not(.disabled):active:focus{
+    box-shadow: none;
+}
+.productNav2021Component .display-2{
+    font-family: Merriweather,Georgia,serif;
+    font-weight: 400;
+    color: #5f5f5f;
+    font-size: 14px;
+    line-height: 24px;
+} 
+.panClean .ar-1-1 img,.panClean .ar-4-3 img,.panClean .ar-3-2 img,.panClean .ar-3-4 img,.panClean .ar-12-17 img,.panClean .ar-16-7 img,.panClean .ar-16-9 img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    font-family:'object-fit: contain;'
+}
+.panClean .ar-3-2{padding-bottom:66.6666667%}
+.panClean .ar-1-1,.panClean .ar-4-3,.panClean .ar-3-2,.panClean .ar-3-4,.panClean .ar-12-17,.panClean .ar-16-7,.panClean .ar-16-9{display:inline-block;width:100%;height:0;overflow:hidden;position:relative;margin:0}
+.panClean .ar-16-9{padding-bottom:52.25%}
+.panClean .ar-3-4{padding-bottom:133.3333333%}
+.productNav2021Component .container,.productNav2021Component .container-fluid,.productNav2021Component .container-sm,.productNav2021Component .container-md,.productNav2021Component .container-lg,.productNav2021Component .container-xl{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+
+/** [Start] custom css, not copied from main site **/
+.productNav2021Component a, button, input[type=reset], input[type=submit]{
+    transition: none;
+}
+.panClean .productNav2021Component .prisma-2021-nav-main .btn.btn-primary {
+    height: auto;
+}
+.pan-search-coveo-header .magic-box-clear{
+    display: block!important;
+}
+.no-scroll{overflow:hidden !important}
+/** [End] custom css, not copied from main site **/
+@media (min-width: 576px){
+.productNav2021Component .container-fluid {
+    width: auto;
+    margin-left: 7.14285714%;
+    margin-right: 7.14285714%;
+}
+}
+@media(min-width:768px){.productNav2021Component .btn{padding:13px 24px;font-size:16px;line-height:20px}}
+@media(min-width:768px){.productNav2021Component .btn{padding:13px 24px;font-size:16px;line-height:20px}
+.productNav2021Component .btn-light,.productNav2021Component .btn-dark{padding-left:0;padding-right:0}
+.productNav2021Component .btn-link{padding:5px 0}
+.productNav2021Component .btn-lg,.productNav2021Component .btn-group-lg>.btn{padding:20px 40px;font-size:18px}
+.productNav2021Component .btn-sm,.productNav2021Component .btn-group-sm>.btn{padding:10px 20px;font-size:14px}
+}
+@media(max-width:767.98px){.productNav2021Component .btn{padding:10px 20px;font-size:14px;line-height:18px;}}
+@media(max-width:767.98px){
+    .productNav2021Component .btn-dark{padding-left:0;padding-right:0}
+}    
+.wpp-meta {
+    display: none !important;
+}
+</style>   
+<link rel='stylesheet'  href='https://www.paloaltonetworks.com/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/criticalTop.min.css' type='text/css' media='all' />
+<!--<link rel='stylesheet' href='https://www.paloaltonetworks.com/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/defered.min.css' media='all' />
+<link rel='stylesheet' href='https://www.paloaltonetworks.com/etc/clientlibs/clean/panClean/prisma/defered.min.css' media='all' />-->
+<link rel='stylesheet' href='https://www.paloaltonetworks.com/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/criticalTopProductNav.min.css' media='all' />
+<link rel='stylesheet' href='https://www.paloaltonetworks.com/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/deferedProductNav.min.css' media='all' />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<link rel="alternate" hreflang="en" href="https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" />
+<link rel="alternate" hreflang="ja" href="https://unit42.paloaltonetworks.jp/tutorial-qakbot-infection/" />
+<link rel="alternate" hreflang="x-default" href="https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" />
+
+	<!-- This site is optimized with the Yoast SEO Premium plugin v21.0 (Yoast SEO v21.0) - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Wireshark Tutorial: Examining Qakbot Infections</title>
+	<meta name="description" content="A Wireshark tutorial to help security pros understand traffic patterns for investigating Qakbot infections, which steals information." />
+	<link rel="canonical" href="https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Wireshark Tutorial: Examining Qakbot Infections" />
+	<meta property="og:description" content="A Wireshark tutorial to help security pros understand traffic patterns for investigating Qakbot infections, which steals information." />
+	<meta property="og:url" content="https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" />
+	<meta property="og:site_name" content="Unit 42" />
+	<meta property="article:published_time" content="2020-02-13T14:00:10+00:00" />
+	<meta property="article:modified_time" content="2022-03-23T20:53:26+00:00" />
+	<meta property="og:image" content="https://unit42.paloaltonetworks.com/wp-content/uploads/2019/01/tutorial.png" />
+	<meta property="og:image:width" content="974" />
+	<meta property="og:image:height" content="554" />
+	<meta property="og:image:type" content="image/png" />
+	<meta name="author" content="Brad Duncan" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel="alternate" type="application/rss+xml" title="Unit 42 &raquo; Wireshark Tutorial:  Examining Qakbot Infections Comments Feed" href="https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/feed/" />
+<script type="text/javascript">
+var globalConfig = {};
+globalConfig.buildName = "UniqueResourceAssetsID_DEC022022";
+</script>
+<meta property="og:likes" content="41"/>
+<meta property="og:readtime" content="9"/>
+<meta property="og:views" content="74,923"/>
+<meta property="og:date_created" content="February 13, 2020 at 6:00 AM"/>
+<meta property="og:post_length" content="2227"/>
+<meta property="og:category" content="Tutorial"/>
+<meta property="og:category" content="Unit 42"/>
+<meta property="og:category_link" content="https://unit42.paloaltonetworks.com/category/tutorial/"/>
+<meta property="og:category_link" content="https://unit42.paloaltonetworks.com/category/unit-42/"/>
+<meta property="og:author" content="Brad Duncan"/>
+<meta property="og:authorlink" content="https://unit42.paloaltonetworks.com/author/bduncan/"/>
+<meta property="og:author_image_link" content="https://unit42.paloaltonetworks.com/wp-content/uploads/2017/09/Duncan-bio-picture-1-copy-150x150.jpg"/>
+<meta name="post_tags" content="Cybercrime,pcap,Qakbot,Wireshark,Wireshark Tutorial"/>
+<meta property="og:post_image" content="https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512-380x184.png"/>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"BlogPosting","headline":"Wireshark Tutorial:  Examining Qakbot Infections","name":"Wireshark Tutorial:  Examining Qakbot Infections","description":"Brad Duncan is back with a new Wireshark tutorial. This one examines a recent infection of Qakbot (AKA Qbot), which is an information stealer, so security pros can better understand its traffic patterns for detecting and investigating in the future. ","url":"https:\/\/unit42.paloaltonetworks.com\/tutorial-qakbot-infection\/","mainEntityOfPage":"https:\/\/unit42.paloaltonetworks.com\/tutorial-qakbot-infection\/","datePublished":"February 13, 2020","articleBody":"Overview\r\nQakbot is an information stealer also known as Qbot. This family of malware has been active for years, and Qakbot generates distinct traffic patterns. This Wireshark tutorial reviews a recent packet capture (pcap) from a Qakbot infection. Understanding these traffic patterns can be critical for security professionals when detecting and investigating Qakbot infections.\r\n\r\nNote: This tutorial assumes you have a basic knowledge of network traffic and Wireshark. We use a customized column display shown in this tutorial. You should also have experience with Wireshark display filters as described in this additional tutorial.\r\n\r\nPlease also note that the pcap used for this tutorial contains malware. You should review this pcap in a non-Windows environment. If you are limited to a Windows computer, we suggest reviewing the pcap within a virtual machine (VM) running any of the popular recent Linux distros.\r\n\r\nThis tutorial will cover the following:\r\n\r\n \t\r\n\r\n \tQakbot distribution methods\r\n \tInitial zip archive from link in an malspam\r\n \tWindows executable for Qakbot\r\n \tPost-infection HTTPS activity\r\n \tOther post-infection traffic\r\n\r\n\r\n\r\nThe pcap used for this tutorial is located here. Download the zip archive named 2020-01-29-Qbot-infection-traffic.pcap.zip and extract the pcap. Figure 1 shows our pcap open in Wireshark, ready to review.\r\n\r\n[caption id=\"attachment_104370\" align=\"aligncenter\" width=\"1024\"] Figure 1. The pcap for this tutorial.[\/caption]\r\nQakbot Distribution Methods\r\nQakbot is most often distributed through malicious spam (malspam), but it also has been distributed through exploit kits as recently as November 2019. In some cases, Qakbot is a follow-up infection caused by different malware like Emotet as reported in this example from March 2019.\r\n\r\nRecent malspam-based distribution campaigns for Qakbot follow a chain of events shown in Figure 2.\r\n\r\n[caption id=\"attachment_104316\" align=\"aligncenter\" width=\"1024\"] Figure 2. Flow chart from recent Qakbot distribution campaigns.[\/caption]\r\nInitial Zip Archive from Link in Malspam\r\nRecent malspam distributing Qakbot uses fake email chains that spoof legitimate email addresses. One such example is shown in Figure 3.\r\n\r\n[caption id=\"attachment_104318\" align=\"aligncenter\" width=\"1024\"] Figure 3. Recent malspam example pushing Qakbot.[\/caption]\r\n\r\nURLs from these emails end with a short series of numbers followed by .zip. See Table 1 for a few examples of URLs from Qakbot malspam recently reported on URLhaus and Twitter.\r\n\r\n\r\n\r\nFirst reported\r\nURL for initial zip archive\r\n\r\n\r\n2019-12-27\r\nhxxps:\/\/prajoon.000webhostapp[.]com\/wp-content\/uploads\/2019\/12\/last\/033\/033.zip\r\n\r\n\r\n2019-12-27\r\nhxxps:\/\/psi-uae[.]com\/wp-content\/uploads\/2019\/12\/last\/870853.zip\r\n\r\n\r\n2019-12-27\r\nhxxps:\/\/re365[.]com\/wp-content\/uploads\/2019\/12\/last\/85944289\/85944289.zip\r\n\r\n\r\n2019-12-27\r\nhxxps:\/\/liputanforex.web[.]id\/wp-content\/uploads\/2019\/12\/last\/794\/794.zip\r\n\r\n\r\n2020-01-06\r\nhxxp:\/\/eps.icothanglong.edu[.]vn\/forward\/13078.zip\r\n\r\n\r\n2020-01-22\r\nhxxp:\/\/hitechrobo[.]com\/wp-content\/uploads\/2020\/01\/ahead\/84296848\/84296848.zip\r\n\r\n\r\n2020-01-22\r\nhxxp:\/\/faithoasis.000webhostapp.com\/wp-content\/uploads\/2020\/01\/ahead\/550889.zip\r\n\r\n\r\n2020-01-27\r\nhxxps:\/\/madisonclubbar[.]com\/fast\/invoice049740.zip\r\n\r\n\r\n2020-01-29\r\nhxxp:\/\/zhinengbao[.]wang\/wp-content\/uploads\/2020\/01\/lane\/00571.zip\r\n\r\n\r\n2020-01-29\r\nhxxp:\/\/bhatner[.]com\/wp-content\/uploads\/2020\/01\/ahead\/9312.zip\r\n\r\n\r\n2020-02-03\r\nhxxp:\/\/santedeplus[.]info\/wp-content\/uploads\/2020\/02\/ending\/1582820\/1582820.zip\r\n\r\n\r\n\r\nTable 1. URLs for the initial zip archive to kick off a Qakbot infection chain.\r\nIn our pcap, you can find the HTTP request for a zip archive using http.request.uri contains .zip in the Wireshark filter as shown in Figure 4.\r\n\r\n[caption id=\"attachment_104320\" align=\"aligncenter\" width=\"1024\"] Figure 4. Finding the URL for the initial zip archive.[\/caption]\r\n\r\nFollow the TCP stream to confirm this is a zip archive as shown in Figure 5 and Figure 6, then try to export the zip archive from the pcap as shown in Figure 7.\r\n\r\n[caption id=\"attachment_104322\" align=\"aligncenter\" width=\"1024\"] Figure 5. Following the TCP stream for the HTTP request from our filter results.[\/caption]\r\n\r\n[caption id=\"attachment_104324\" align=\"aligncenter\" width=\"1024\"] Figure 6. Indicators this URL returned a zip archive.[\/caption]\r\n\r\n[caption id=\"attachment_104326\" align=\"aligncenter\" width=\"1024\"] Figure 7. Exporting objects from HTTP traffic in the pcap.[\/caption]\r\n\r\nIn most cases, the menu for File \u2192 Export Objects \u2192 HTTP should export a zip archive sent over HTTP. Unfortunately, as shown in Figure 8, we cannot export this file named 9312.zip because it is separated into hundreds of smaller parts within the export HTTP objects list.\r\n\r\n[caption id=\"attachment_104328\" align=\"aligncenter\" width=\"1024\"] Figure 8. 9312.zip is broken up into hundreds of objects within the list, so we cannot export it this way.[\/caption]\r\n\r\nFortunately, we can export data from a TCP stream window and edit the binary in a hex editor to remove any hxxP response headers. Use the following steps to extract the zip archive from this pcap:\r\n\r\n \t\r\n\r\n \tFollow TCP stream for the HTTP request for 9312.zip.\r\n \tShow only the response traffic in the TCP stream Window.\r\n \tChange \u201cShow and save data as\u201d from ASCII to Raw.\r\n \tSave the data as a binary (I chose to save it as: 9312.zip.bin)\r\n \tOpen the binary in a hex editor and remove the HTTP request headers before the first two bytes of the zip archive (which show as PK in ASCII).\r\n \tSave the file as a zip archive (I chose to save it as 9312.zip)\r\n \tCheck the file to make sure it\u2019s a zip archive.\r\n\r\n\r\n\r\nSee Figures 9 through 14 for a visual guide of this process.\r\n\r\n[caption id=\"attachment_104330\" align=\"aligncenter\" width=\"1024\"] Figure 9. Step 2 - When viewing the TCP stream, switch from viewing the entire conversation to viewing only data returned from the server.[\/caption]\r\n\r\n[caption id=\"attachment_104332\" align=\"aligncenter\" width=\"1024\"] Figure 10. Step 3 - Show and save data as Raw instead of ASCII.[\/caption]\r\n\r\n[caption id=\"attachment_104334\" align=\"aligncenter\" width=\"1024\"] Figure 11. Step 4 - Save this raw data from the TCP stream as a binary.[\/caption]\r\n\r\n[caption id=\"attachment_104336\" align=\"aligncenter\" width=\"1024\"] Figure 12. Step 5 - Open your saved binary in a hex editor and remove any HTTP response data before the first two bytes of the zip archive (that show as PK in ASCII).[\/caption]\r\n\r\n[caption id=\"attachment_104338\" align=\"aligncenter\" width=\"1024\"] Figure 13. Step 6 - Save your edited binary as a zip archive.[\/caption]\r\n\r\n[caption id=\"attachment_104340\" align=\"aligncenter\" width=\"1024\"] Figure 14. Step 7 - Confirm the edited file is a zip archive, then extract the VBS file and check the file hashes.[\/caption]\r\n\r\nFigure 14 shows how to use a terminal window from a Debian-based Linux distro to check the files. From our pcap, the zip archive should be the same as this file submitted to VirusTotal. Our extracted VBS file should be the same as this file also submitted to VirusTotal.\r\n\r\nA public sandbox analysis of our extracted VBS file indicates it generates the next Qakbot-related URL in our infection chain: a URL that returned a Windows executable for Qakbot.\r\nWindows Executable for Qakbot\r\nThese extracted VBS files generate URLs that return Windows executables for Qakbot. Since December 2019, URLs for Qakbot executables have ended with 44444.png or 444444.png. See Table 2 for some recent examples of these Qakbot URLs we found using our AutoFocus Threat Intelligence service.\r\n\r\n\r\n\r\nFirst Seen\r\nURL for Qakbot executable\r\n\r\n\r\n2019-12-27\r\nhxxp:\/\/centre-de-conduite-roannais[.]com\/wp-content\/uploads\/2019\/12\/last\/444444.png\r\n\r\n\r\n2020-01-06\r\nhxxp:\/\/newsinside[.]info\/wp-content\/uploads\/2020\/01\/forward\/44444.png\r\n\r\n\r\n2020-01-15\r\nhxxp:\/\/iike.xolva[.]com\/wp-content\/themes\/keenshot\/fast\/444444.png\r\n\r\n\r\n2020-01-17\r\nhxxp:\/\/deccolab[.]com\/fast\/444444.png\r\n\r\n\r\n2020-01-21\r\nhxxp:\/\/myrestaurant.coupoly[.]com\/wp-content\/uploads\/2020\/01\/along\/444444.png\r\n\r\n\r\n2020-01-22\r\nhxxp:\/\/alphaenergyeng[.]com\/wp-content\/uploads\/2020\/01\/ahead\/444444.png\r\n\r\n\r\n2020-01-23\r\nhxxp:\/\/claramohammedschoolstl[.]org\/wp-content\/uploads\/2020\/01\/upwards\/444444.png\r\n\r\n\r\n2020-01-23\r\nhxxp:\/\/creationzerodechet[.]com\/choice\/444444.png\r\n\r\n\r\n2020-01-26\r\nhxxp:\/\/productsphotostudio[.]com\/wp-content\/uploads\/2020\/01\/lane\/444444.png\r\n\r\n\r\n2020-01-27\r\nhxxp:\/\/sophistproduction[.]com\/wp-content\/uploads\/2020\/01\/choice\/444444.png\r\n\r\n\r\n2020-01-30\r\nhxxp:\/\/uofnpress[.]ch\/wp-content\/uploads\/2020\/01\/side\/444444.png\r\n\r\n\r\n2020-02-03\r\nhxxp:\/\/csrkanjiza[.]rs\/wp-content\/uploads\/2020\/02\/ending\/444444.png\r\n\r\n\r\n\r\nTable 2. URLs for Qakbot executables.\r\nIn our pcap, find the HTTP GET request for our Qakbot executable using hxxp.request.uri contains .png in the Wireshark filter as shown in Figure 15.\r\n\r\n[caption id=\"attachment_104342\" align=\"aligncenter\" width=\"1024\"] Figure 15. Finding the URL for our Qakbot executable.[\/caption]\r\n\r\nExport this object from the pcap using the File \u2192 Export Objects \u2192 HTTP menu path as shown in Figure 16 and check the results as shown in Figure 17.\r\n\r\n[caption id=\"attachment_104344\" align=\"aligncenter\" width=\"1024\"] Figure 16. Exporting our Qakbot executable from the pcap.[\/caption]\r\n\r\n[caption id=\"attachment_104346\" align=\"aligncenter\" width=\"1024\"] Figure 17. Checking the exported file in a Debian-based Linux terminal window.[\/caption]\r\n\r\nFrom our pcap, the Qakbot executable should be this file submitted to VirusTotal. A public sandbox analysis of this file generated several Qakbot indicators (identified as Qbot).\r\nPost-infection HTTPS Activity\r\nUse your basic filter (covered in this previous WIreshark tutorial) for a quick view of web traffic in our pcap. Scroll down to activity after the HTTP GET request to alphaenergyeng[.]com that returned our Qakbot executable. You should see several indicators of HTTPS or SSL\/TLS traffic to 68.1.115[.]106 with no associated domain as noted in Figure 18.\r\n\r\n[caption id=\"attachment_104348\" align=\"aligncenter\" width=\"1024\"] Figure 18. HTTPS or SSL\/TLS traffic caused by Qakbot.[\/caption]\r\n\r\nThis traffic has unusual certificate issuer data commonly noted during Qakbot infections. We reviewed unusual certificate issuer data in our previous WIreshark tutorial about Ursnif, so this should be easy to find.\r\n\r\nLet\u2019s review our Qakbot certificate issuer data using the following Wireshark filter:\r\n\r\nIp.addr eq 68.1.115.186 and ssl.handshake.type eq 11\r\n\r\nFor Wireshark 3.0 or newer, use tls.handshake.type instead of ssl.handshake.type. Select the first frame in your results and expand the frame details window until you find the certificate issuer data as shown in Figure 19.\r\n\r\n[caption id=\"attachment_104350\" align=\"aligncenter\" width=\"1024\"] Figure 19. Reviewing certificate issuer data from Qakbot traffic.[\/caption]\r\n\r\nPatterns for the locality name, organization name, and common name are highly-unusual, not normally found in certificates from legitimate HTTPS, SSL, or TLS traffic. Our example of this issuer data is listed below:\r\n\r\n \t\r\n\r\n \tid-at-countryName=ES\r\n \tid-at-stateOrProvinceName=IA\r\n \tid-at-localityName=Uorh Ofwa\r\n \tid-at-organizationName=Coejdut Mavmtko Qxyemk Dxsjie LLC.\r\n \tid-at-commonName=gaevietovp.mobi\r\n\r\n\r\n\r\nOther Post-infection Traffic\r\nOur pcap contains other activity associated with a Qakbot infection. Each activity is not inherently malicious on its own, but taken together with our previous findings, we can assume a full Qakbot infection.\r\n\r\nAnother indicator of a Qakbot infection is HTTPS traffic to cdn.speedof[.]me. The domain speedof[.]me is used by a legitimate Internet speed test service. Although this is not malicious traffic, we frequently see traffic to cdn.speedof[.]me during Qakbot infections. Figure 20 shows this activity from our pcap.\r\n\r\n[caption id=\"attachment_104352\" align=\"aligncenter\" width=\"1024\"] Figure 20. The domain cdn.speedof[.]me within the Qakbot traffic.[\/caption]Qakbot also opens windows from all browsers on an infected Windows host. At approximately 13 minutes and 5 seconds into this sandbox analysis, the video playback shows Qakbot opening Chrome, then Firefox, then Internet Explorer on a Windows 7 host. This analysis shows Qakbot generated traffic to the following URLs:\r\n\r\n \thxxp:\/\/store.nvprivateoffice[.]com\/redir_chrome.html\r\n \thxxp:\/\/store.nvprivateoffice[.]com\/redir_ff.html\r\n \thxxp:\/\/store.nvprivateoffice[.]com\/redir_ie.html\r\n\r\nThe domain nvprivateoffice[.]com has been registered through GoDaddy since 2012, and store.nvprivateoffice[.]com shows a default web page for nginx on a Fedora server.\r\n\r\nOur pcap for this tutorial is from a Qakbot infection on a Windows 10 host without Chrome or Firefox installed. Our pcap only shows web traffic for Internet Explorer and the new Chromium-based Microsoft Edge. Both times, the URL generated by Qakbot was hxxp:\/\/store.nvprivateoffice[.]com\/redir_ie.html.\r\n\r\nTo find this traffic, use the following Wireshark filter as shown in Figure 21:\r\n\r\nhttp.request.full_uri contains store.nvprivateoffice\r\n\r\n[caption id=\"attachment_104354\" align=\"aligncenter\" width=\"1024\"] Figure 21. Finding Qakbot traffic that opens web browsers on an infected Windows host.[\/caption]\r\n\r\nFollow the TCP stream for each of the two HTTP GET requests ending in redir_ie.html. The first request has a User-Agent in the HTTP headers for Internet Explorer as shown in Figure 22. The second request for the same URL has a User-Agent in the HTTP headers for the new Chromium-based Microsoft Edge as noted in Figure 23.\r\n\r\n[caption id=\"attachment_104356\" align=\"aligncenter\" width=\"1024\"] Figure 22. Qakbot traffic to store.nvprivateoffice[.]com using Internet Explorer 11.[\/caption][caption id=\"attachment_104358\" align=\"aligncenter\" width=\"1024\"] Figure 23. Qakbot traffic to store.nvprivateoffice[.]com using the new Chromium-based Microsoft Edge.[\/caption]Finally, our pcap from the Qakbot-infected host also has email-related TCP traffic to various ports for various email protocols like SMTP, IMAP, and POP3. To get an idea of this non-web-related traffic, use the following Wireshark filter as shown in Figure 25:\r\n\r\ntcp.flags eq 0x0002 and !(tcp.port eq 80) and !(tcp.port eq 443)\r\n\r\n[caption id=\"attachment_104360\" align=\"aligncenter\" width=\"1024\"] Figure 25. Getting an idea of the non-web-related traffic from this Qakbot infection.[\/caption]\r\n\r\nFigure 25 shows TCP connections and attempted TCP connections to various ports like 25, 110,143, 465, 587, 993, and 995 commonly used by different email protocols. The first two lines in the results show traffic to TCP port 65400, but reviewing the associated TCP streams indicates this also email-related traffic.\r\n\r\nUse the following Wireshark filter to get a better idea of email-related traffic from the infected host as shown in Figure 26:\r\n\r\nsmtp or imap or pop\r\n\r\n[caption id=\"attachment_104362\" align=\"aligncenter\" width=\"1024\"] Figure 26. Finding email-related traffic caused by Qakbot in this pcap.[\/caption]\r\n\r\nFollow some of the TCP streams to get a better idea for this type of email traffic. We do not normally see such unencrypted email traffic originating from a Windows client to public IP addresses. Along with other indicators, this smtp or imap or pop filter may reveal Qakbot activity.\r\nConclusion\r\nThis tutorial provided tips for examining Windows infections with Qakbot malware. More pcaps with examples of Qakbot activity can be found at malware-traffic-analysis.net.\r\n\r\nFor more help with Wireshark, see our previous tutorials:\r\n\r\n \tCustomizing Wireshark \u2013 Changing Your Column Display\r\n \tUsing Wireshark \u2013 Display Filter Expressions\r\n \tUsing Wireshark: Identifying Hosts and Users\r\n \tUsing Wireshark: Exporting Objects from a Pcap\r\n \tWireshark Tutorial: Examining Trickbot Infections\r\n \tWireshark Tutorial: Examining Ursnif Infections\r\n\r\n&nbsp;","publisher":{"@type":"Organization","@id":"#panworg"},"image":{"@type":"ImageObject","url":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/uploads\/2019\/01\/tutorial-150x150.png","width":150,"height":150},"author":[{"@type":"Person","name":"Brad Duncan"}]}</script><link rel='stylesheet' id='crayon-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://unit42.paloaltonetworks.com/wp-includes/css/dist/block-library/style.min.css?ver=6.3' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='dashicons-css' href='https://unit42.paloaltonetworks.com/wp-includes/css/dashicons.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='post-views-counter-frontend-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/post-views-counter/css/frontend.min.css?ver=1.3.13' type='text/css' media='all' />
+<link rel='stylesheet' id='ppress-frontend-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/css/frontend.min.css?ver=4.13.0' type='text/css' media='all' />
+<link rel='stylesheet' id='ppress-flatpickr-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/flatpickr/flatpickr.min.css?ver=4.13.0' type='text/css' media='all' />
+<link rel='stylesheet' id='ppress-select2-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/select2/select2.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wpml-legacy-horizontal-list-0-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-list-horizontal/style.min.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='wpml-legacy-post-translations-0-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-post-translations/style.min.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/wordpress-popular-posts/assets/css/wpp.css?ver=5.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='unit42/css-css' href='https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/dist/styles/main.css?v2' type='text/css' media='all' />
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' id='jquery-migrate-js'></script>
+<script type='text/javascript' id='crayon_js-js-extra'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/unit42.paloaltonetworks.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta' id='crayon_js-js'></script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/flatpickr/flatpickr.min.js?ver=4.13.0' id='ppress-flatpickr-js'></script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/select2/select2.min.js?ver=4.13.0' id='ppress-select2-js'></script>
+<script id="wpp-json" type="application/json">
+{"sampling_active":0,"sampling_rate":100,"ajax_url":"https:\/\/unit42.paloaltonetworks.com\/wp-json\/wordpress-popular-posts\/v1\/popular-posts","api_url":"https:\/\/unit42.paloaltonetworks.com\/wp-json\/wordpress-popular-posts","ID":104313,"token":"525fab1ac5","lang":0,"debug":0}
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/wordpress-popular-posts/assets/js/wpp.min.js?ver=5.5.1' id='wpp-js-js'></script>
+<script type='text/javascript' id='wpml-xdomain-data-js-extra'>
+/* <![CDATA[ */
+var wpml_xdomain_data = {"css_selector":"wpml-ls-item","ajax_url":"https:\/\/unit42.paloaltonetworks.com\/wp-admin\/admin-ajax.php","current_lang":"en","_nonce":"b0f4a5a4ca"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/sitepress-multilingual-cms/res/js/xdomain-data.js?ver=4.6.5' id='wpml-xdomain-data-js'></script>
+<link rel="https://api.w.org/" href="https://unit42.paloaltonetworks.com/wp-json/" /><link rel="alternate" type="application/json" href="https://unit42.paloaltonetworks.com/wp-json/wp/v2/posts/104313" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://unit42.paloaltonetworks.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.3" />
+<link rel='shortlink' href='https://unit42.paloaltonetworks.com/?p=104313' />
+<link rel="alternate" type="application/json+oembed" href="https://unit42.paloaltonetworks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Funit42.paloaltonetworks.com%2Ftutorial-qakbot-infection%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://unit42.paloaltonetworks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Funit42.paloaltonetworks.com%2Ftutorial-qakbot-infection%2F&#038;format=xml" />
+<meta name="generator" content="WPML ver:4.6.5 stt:1,28;" />
+<meta name="google-site-verification" content="zHZtYOWm9hm4SZgsH7wqiYcOwmsAsxDUDU4UD1QxB40" /><style>#wpdevart_lb_overlay{background-color:#000000;} #wpdevart_lb_overlay.wpdevart_opacity{opacity:0.8 !important;} #wpdevart_lb_main_desc{
+				 -webkit-transition: opacity 0.3s ease;
+				 -moz-transition: opacity 0.3s ease;
+				 -o-transition: opacity 0.3s ease;
+				 transition: opacity 0.3s ease;} #wpdevart_lb_information_content{
+				 -webkit-transition: opacity 0.3s ease;
+				 -moz-transition: opacity 0.3s ease;
+				 -o-transition: opacity 0.3s ease;
+				 transition: opacity 0.3s ease;}
+		#wpdevart_lb_information_content{
+			width:100%;	
+			padding-top:0px;
+			padding-bottom:0px;
+		}
+		#wpdevart_info_counter_of_imgs{
+			    display: inline-block;
+				padding-left:15px;
+				padding-right:4px;
+				font-size:20px;
+				color:#000000;
+		}
+		#wpdevart_info_caption{
+			    display: inline-block;
+				padding-left:15px;
+				padding-right:4px;
+				font-size:20px;
+				color:#000000;
+		}
+		#wpdevart_info_title{
+			    display: inline-block;
+				padding-left:5px;
+				padding-right:5px;
+				font-size:15px;
+				color:#000000;
+		}
+		@-webkit-keyframes rotate {
+			to   {-webkit-transform: rotate(360deg);}
+			from  {-webkit-transform: rotate(0deg);}
+		}
+		@keyframes rotate {
+			to   {transform: rotate(360deg);}
+			from  {transform: rotate(0deg);}
+		}
+		#wpdevart_lb_loading_img,#wpdevart_lb_loading_img_first{
+			-webkit-animation: rotate 2s linear  infinite;
+    		animation: rotate 2s linear infinite;
+		}
+	  </style>                  <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+              <script>var $ = jQuery;</script>
+  
+  
+<script type="text/javascript">
+;(function(win, doc, style, timeout) {
+var STYLE_ID = 'at-body-style';
+function getParent() {
+return doc.getElementsByTagName('head')[0];
+}
+function addStyle(parent, id, def) {
+if (!parent) {
+return;
+}
+var style = doc.createElement('style');
+style.id = id;
+style.innerHTML = def;
+parent.appendChild(style);
+}
+function removeStyle(parent, id) {
+if (!parent) {
+return;
+}
+var style = doc.getElementById(id);
+if (!style) {
+return;
+}
+parent.removeChild(style);
+}
+addStyle(getParent(), STYLE_ID, style);
+setTimeout(function() {
+removeStyle(getParent(), STYLE_ID);
+}, timeout);
+}(window, document, "body {visibility:hidden !important}", 3000));
+</script>
+
+<script src="//assets.adobedtm.com/9273d4aedcd2/0d76ae0322d7/launch-425c423d843b.min.js" async></script>
+<script type="text/javascript" src="https://www.paloaltonetworks.com/content/dam/pan/en_US/includes/attribution.js"></script>
+  
+
+<script type="text/javascript">
+    var isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+if(isIE11){
+    var polyfill = 'https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/dist/scripts/polyfill.min.js';
+    document.write('<script type="text/javascript" src="'+polyfill+'">\x3C/script>');
+
+}
+    /**
+ * String.prototype.replaceAll() polyfill
+ * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
+ * @author Chris Ferdinandi
+ * @license MIT
+ */
+if (!String.prototype.replaceAll) {
+	String.prototype.replaceAll = function(str, newStr){
+
+		// If a regex pattern
+		if (Object.prototype.toString.call(str).toLowerCase() === '[object regexp]') {
+			return this.replace(str, newStr);
+		}
+
+		// If a string
+		return this.replace(new RegExp(str, 'g'), newStr);
+
+	};
+}
+
+
+    /*! lozad.js - v1.16.0 - 2020-09-06 */
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t.lozad=e()}(this,function(){"use strict";
+/**
+   * Detect IE browser
+   * @const {boolean}
+   * @private
+   */var g="undefined"!=typeof document&&document.documentMode,f={rootMargin:"0px",threshold:0,load:function(t){if("picture"===t.nodeName.toLowerCase()){var e=t.querySelector("img"),r=!1;null===e&&(e=document.createElement("img"),r=!0),g&&t.getAttribute("data-iesrc")&&(e.src=t.getAttribute("data-iesrc")),t.getAttribute("data-alt")&&(e.alt=t.getAttribute("data-alt")),r&&t.append(e)}if("video"===t.nodeName.toLowerCase()&&!t.getAttribute("data-src")&&t.children){for(var a=t.children,o=void 0,i=0;i<=a.length-1;i++)(o=a[i].getAttribute("data-src"))&&(a[i].src=o);t.load()}t.getAttribute("data-poster")&&(t.poster=t.getAttribute("data-poster")),t.getAttribute("data-src")&&(t.src=t.getAttribute("data-src")),t.getAttribute("data-srcset")&&t.setAttribute("srcset",t.getAttribute("data-srcset"));var n=",";if(t.getAttribute("data-background-delimiter")&&(n=t.getAttribute("data-background-delimiter")),t.getAttribute("data-background-image"))t.style.backgroundImage="url('"+t.getAttribute("data-background-image").split(n).join("'),url('")+"')";else if(t.getAttribute("data-background-image-set")){var d=t.getAttribute("data-background-image-set").split(n),u=d[0].substr(0,d[0].indexOf(" "))||d[0];// Substring before ... 1x
+u=-1===u.indexOf("url(")?"url("+u+")":u,1===d.length?t.style.backgroundImage=u:t.setAttribute("style",(t.getAttribute("style")||"")+"background-image: "+u+"; background-image: -webkit-image-set("+d+"); background-image: image-set("+d+")")}t.getAttribute("data-toggle-class")&&t.classList.toggle(t.getAttribute("data-toggle-class"))},loaded:function(){}};function A(t){t.setAttribute("data-loaded",!0)}var m=function(t){return"true"===t.getAttribute("data-loaded")},v=function(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:document;return t instanceof Element?[t]:t instanceof NodeList?t:e.querySelectorAll(t)};return function(){var r,a,o=0<arguments.length&&void 0!==arguments[0]?arguments[0]:".lozad",t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},e=Object.assign({},f,t),i=e.root,n=e.rootMargin,d=e.threshold,u=e.load,g=e.loaded,s=void 0;"undefined"!=typeof window&&window.IntersectionObserver&&(s=new IntersectionObserver((r=u,a=g,function(t,e){t.forEach(function(t){(0<t.intersectionRatio||t.isIntersecting)&&(e.unobserve(t.target),m(t.target)||(r(t.target),A(t.target),a(t.target)))})}),{root:i,rootMargin:n,threshold:d}));for(var c,l=v(o,i),b=0;b<l.length;b++)(c=l[b]).getAttribute("data-placeholder-background")&&(c.style.background=c.getAttribute("data-placeholder-background"));return{observe:function(){for(var t=v(o,i),e=0;e<t.length;e++)m(t[e])||(s?s.observe(t[e]):(u(t[e]),A(t[e]),g(t[e])))},triggerLoad:function(t){m(t)||(u(t),A(t),g(t))},observer:s}}});
+
+</script>
+<script type="text/javascript">
+var webData =
+
+{ 
+
+   channel : "unit42", //Place the site section the user is in
+
+   property : "unit42.paloaltonetworks.com", //Place domain or sub-domain
+
+   pageType : "blogs",
+
+   language : "en_us",
+
+   pageName : "unit42:Wireshark Tutorial:  Examining Qakbot Infections", //Place the page name the user is viewing - every page needs a unique page name
+
+   pageURL : "https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" //Place the url the user is viewing with no parameters
+
+}
+webData.resourceAssetID = "0b40c9b9f1978eb3de220516ac525af8";
+if(sessionStorage.getItem("container") && webData){
+	webData.container=sessionStorage.getItem("container");
+}
+
+</script>
+</head>
+  <body class="post-template-default single single-post postid-104313 single-format-standard">
+    <!--[if IE]>
+      <div class="alert alert-warning">
+        You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.      </div>
+    <![endif]-->
+    <style type="text/css">
+	.pan-page-alert {
+		height: 60px;
+	    width: 100%;
+	    background-color: #f4f4f2;
+	    text-align: center;
+	    position: relative;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    line-height: 20px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    z-index: 999;
+	    padding: 0;
+	    display: none;
+	}
+	.pan-page-alert.open {
+		display: flex;
+		z-index: 1;
+	}
+	.pan-page-alert .pan-page-alert-text {
+		flex-grow: 1;
+	    color: #141414;
+	    font-family: Decimal,Arial,"Helvetica Neue",Helvetica,sans-serif;
+	    font-style: normal;
+	    font-weight: 600;
+	    line-height: 20px;
+	}
+	.pan-page-alert .pan-page-alert-text a {
+		color: #bd4122;
+		text-decoration: none;
+		border-bottom: 2px solid #bd4122;
+	}
+	.pan-page-alert .pan-page-alert-close {
+		margin: 0 15px;
+		width: 24px;
+		height: 24px;
+		border-radius: 24px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		/**background-image: url(https://www.paloaltonetworks.com/etc/clientlibs/clean/imgs/x-black.svg);
+		 * */
+		border: 0;
+		background-color: transparent;
+	}
+	
+	@media(max-width: 1199.98px){
+		.panClean .pan-page-alert .pan-page-alert-text {
+			text-align: left;
+			padding-left: calc(7.14285714vw + 15px);
+		}
+		.pan-page-alert .pan-page-alert-text {
+	    	font-size: 14px;
+	    }
+	}
+	.productNav2021Component .btn-light i, .productNav2021Component .btn-outline-light i {
+	    width: 20px;
+	    height: 20px;
+	    margin-left: 15px;
+	    flex-grow: 0;
+	    flex-shrink: 0;
+	    display: inline-block;
+	    background-size: contain;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-image: url(https://www.paloaltonetworks.com/etc/clientlibs/clean/imgs/arrow-right-black.svg);
+	}
+	.productNav2021Component .btn-light, .productNav2021Component .btn-outline-light {
+	    display: inline-flex;
+	    align-items: center;
+	    text-decoration: none;
+	    max-width: 100%;
+	    text-align: left;
+	    background: 0;
+	    color: #141414;
+	    position: relative;
+	}
+	.productNav2021Component .btn-light:hover, .productNav2021Component .btn-outline-light:hover {
+	    color: #7a7a7a;
+	}
+	.productNav2021Component .btn{
+	   white-space: normal; 
+	}
+	.productNav2021Component .btn-light:hover i, .productNav2021Component .btn-outline-light:hover i{
+	    opacity: .6;
+	}
+	@media(min-width: 1200px){
+		.pan-page-alert .pan-page-alert-text {
+	    	font-size: 16px;
+	    }
+	}
+</style>
+
+	<!--<div class="pan-page-alert pan-page-alert-light" id="info-alert-top1">
+                <div class="pan-page-alert-text"><a href="https://www.paloaltonetworks.com/russia-ukraine-cyber-resources" target="_blank" style="color:#bd4122;border-color:#bd4122;" data-page-track="true" data-page-track-value="russiaukrainerapidresponse:unit42site:topnav:ticker">Protect Against Russia-Ukraine Cyber Activity</a></div>
+		<button type="button" class="pan-page-alert-close" aria-label="page alert close">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L6 6M6 6L11 1M6 6L1 11M6 6L11 11" stroke="#727272" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+    </div>
+    <script type="text/javascript">
+        
+        //Hide/Show top ribbon
+          if(localStorage.getItem('top_ribbon_closed') == null){
+            document.getElementById('info-alert-top1').classList.add("open");            
+          }
+          
+          $(".pan-page-alert-close").click(function(){
+            $("#nav-mobile").css("top", "72px");
+          });
+          
+        $(".pan-page-alert-close").click(function(){
+        		$( "#nav-mobile" ).addClass( "add-nav-height" );
+  		});
+  
+          $(document).on('click', '.pan-page-alert .pan-page-alert-close', function (ev) {            
+		document.getElementById('info-alert-top1').classList.remove("open");            
+		localStorage.setItem('top_ribbon_closed', "yes");
+	});
+          
+    </script>-->
+<header class="haeder py-15 position-relative z-index-2" style="display: none;">
+  <div class="container px-sm-30 px-35">
+    <div class="row">
+      <div class="first-logo col-sm-auto col-6 mb-sm-0 mb-40 text-sm-center order-1">
+                  <a href="https://www.paloaltonetworks.com/">
+<!--<img src="/wp-content/uploads/2019/07/paloaltonetwork.svg" class="attachment-full size-full" alt="" height="43" width="124" />-->
+<img src="/wp-content/uploads/2021/07/PANW_Parent.png" width="140px" alt="Logo" />
+
+</a>
+
+      </div>
+
+      <div class="col-sm-auto col-6 text-sm-center order-sm-2 order-4 second-logo-unit">
+        <a href="https://unit42.paloaltonetworks.com/">
+            <!--<img src="/wp-content/uploads/2019/07/unit42.svg" class="attachment-full size-full" alt="" height="35" width="105" />-->
+            <img src="https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/dist/images/svg/unit42-logo-white.svg" class="attachment-full size-full" alt="Unit42 Logo"  width="150" height="35"/>
+        </a>
+      </div>
+
+      <div class="col-auto d-sm-none ml-auto mb-40 order-2">
+        <button class="btn__search" data-toggle="collapse" data-target="#search" aria-label="search"><i class="ui ui-1"></i></button>
+      </div>
+
+      <div id="search" class="collapse d-sm-block col-sm-auto col-12 ml-auto order-3">
+        <div class="pt-sm-0 pt-20 pb-sm-0 pb-40 mt-sm-0 mt-n30">
+                      <input type="search" placeholder="Search Unit 42" id="innerSearch" class="header__search" value="" required aria-label="Inner Search">
+                  </div>
+      </div>
+
+      <div class="col-auto d-sm-none d-flex ml-auto align-items-center order-5">
+        <button class="btn__menu rounded" data-toggle="collapse" data-target="#navigation">Menu</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav id="navigation" class="site-nav collapse d-sm-block pb-20 mt-sm-10"  style="display: none!important;">
+  <div class="container px-sm-30">
+    <ul id="menu-primary-navigation" class="main-menu d-sm-flex font-weight-medium"><li id="menu-item-97290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-97290"><a href="https://unit42.paloaltonetworks.com/tools/">Tools</a></li>
+<li id="menu-item-41" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-41"><a href="https://unit42.paloaltonetworks.com/atoms/">ATOMs</a></li>
+<li id="menu-item-119884" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-119884"><a target="_blank" rel="noopener" href="https://www.paloaltonetworks.com/unit42">Security Consulting</a></li>
+<li id="menu-item-81229" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81229"><a href="https://unit42.paloaltonetworks.com/about-unit-42/">About Us</a></li>
+<li id="menu-item-121229" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-121229"><a href="https://start.paloaltonetworks.com/contact-unit42.html"><b style="color:#C84727">Under Attack?</b></a></li>
+</ul>  </div>
+</nav>
+<div class="panClean pan-template-home" id="main-nav-menu-cont" style="display:none;">
+    <div class="cleanHeader mainNavigationComp baseComponent parbase">
+        <div class="productNav2021Component dark default" id="PAN_2021_NAV_ASYNC"></div>
+
+  </div>
+<div class="cleanTopHtml htmlComp baseComponent parbase"><div class="base-component-spacer spacer-none  "></div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+	function getCookie(cname) {
+	 	var name = cname + "=";
+  		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+  		for(var i = 0; i <ca.length; i++) {
+    			var c = ca[i];
+    			while (c.charAt(0) == ' ') {
+     				 c = c.substring(1);
+    			}
+    			if (c.indexOf(name) == 0) {
+    				 return c.substring(name.length, c.length);
+    			}
+  		}
+  		return "";
+	}
+
+	var referer = "";//sessionStorage.container;
+	var pcontainer = sessionStorage.getItem("container");
+	var searchResultsPagePath = "";
+	/**
+	if(document.location.host==='unit42.paloaltonetworks.com'){
+		window.initialContainer = "Unit";
+		window.supportedContainer = ["Prisma","Sase","Cortex","Unit"];
+	}
+	**/
+	
+	
+	if(((pcontainer) && pcontainer.indexOf('Prisma')!=-1)){
+	    referer = 'Prisma' ;
+	}
+        else if(((pcontainer) && pcontainer.indexOf('Cortex')!=-1)){
+	    referer = 'Cortex' ;
+	}
+        else if(((pcontainer) && pcontainer.indexOf('Sase')!=-1)){
+	    referer = 'Sase' ;
+	}
+	else if(((pcontainer) && pcontainer.indexOf('Unit')!=-1)){
+	    referer = 'Unit' ;
+	}
+	else if(((pcontainer) && pcontainer.indexOf('Ngfw')!=-1)){
+	    referer = 'Ngfw' ;
+	}
+        var fromRef = document.referrer;
+	var nContainer = getCookie("navContainer");
+        if(nContainer){//If user is coming from main site, we need to reset the container		
+		if(fromRef  && fromRef.indexOf("prismacloud.io")!=-1){
+                        referer = 'Prisma' ;
+                        sessionStorage.setItem("container","Prisma");
+                } else if(fromRef.indexOf("paloaltonetworks.com")!=-1 || fromRef.indexOf("paloaltonetworks.jp")!=-1 ){
+                        if(nContainer.indexOf('Prisma') != -1){
+                            referer = 'Prisma' ;
+                            sessionStorage.setItem("container","Prisma");
+                        }
+                        if(nContainer.indexOf('Cortex') != -1){
+                            referer = 'Cortex' ;
+                            sessionStorage.setItem("container","Cortex");
+                        }
+			if(nContainer.indexOf('Sase') != -1){
+                            referer = 'Sase' ;
+                            sessionStorage.setItem("container","Sase");
+                        }
+			if(nContainer.indexOf('Unit') != -1){
+                            referer = 'Unit' ;
+                            sessionStorage.setItem("container","Unit");
+                        }
+			if(nContainer.indexOf('Ngfw') != -1){
+                            referer = 'Ngfw' ;
+                            sessionStorage.setItem("container","Ngfw");
+                        }
+			document.cookie = 'navContainer=; path=/; domain=.paloaltonetworks.com; expires=' + new Date(0).toUTCString();
+		}
+	}
+    //var referer = "Prisma";//sessionStorage.container;
+        console.log("referer"+referer);
+        if(referer != "Prisma" && referer != "Cortex" && referer != "Sase" && referer != "Unit" && referer != "Ngfw"){
+	    		referer = 'Unit' ;
+                sessionStorage.setItem("container","Unit");  		    
+	  
+        }
+function callMainSitePrismaNavHTML(){
+    
+   //var menu_url = 'https://www.paloaltonetworks.com/_jcr_content/globals/cleanHeaderPrisma.prismaRenderer.html';
+   var referrer_domain = 'https://www.paloaltonetworks.com';
+   sessionStorage.setItem("domain",referrer_domain);
+   if(referer == 'Prisma'){
+        var menu_url = referrer_domain+'/_jcr_content/globals/cleanHeaderPrisma.prismaRenderer.html';
+		searchResultsPagePath = referrer_domain+"/search/prismasearch";
+	    }
+    if(referer == 'Cortex'){
+        var menu_url = referrer_domain+'/_jcr_content/globals/cleanHeaderCortex.cortexRenderer.html';	
+	searchResultsPagePath = referrer_domain+"/search/cortexsearch";	
+    }
+    if(referer == 'Sase'){
+        var menu_url = referrer_domain+'/_jcr_content/globals/cleanHeaderSase.saseRenderer.html';
+	searchResultsPagePath = referrer_domain+"/search/sasesearch";
+    }
+    if(referer == 'Unit'){
+        //var menu_url = referrer_domain+'/_jcr_content/globals/cleanHeaderUnit.unitRenderer.html';
+	var menu_url = 'https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/unit-nav-renderer.php';
+	searchResultsPagePath = referrer_domain+"/content/pan/en_US/search/unit42search";
+    }
+    if(referer == 'Ngfw'){
+        //var menu_url = referrer_domain+'/_jcr_content/globals/cleanHeaderNgfw.ngfwRenderer.html';
+	var menu_url = 'https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/ngfw-cdss-nav-renderer.php';
+	searchResultsPagePath = referrer_domain+"/search/ngfwcdsssearch";
+    }
+    httpGet(menu_url,'menu_html');
+    document.getElementById('main-nav-menu-cont').removeAttribute("style");
+}
+function addStyle(styles) {
+              
+    /* Create style document */
+    var css = document.createElement('style');
+    css.type = 'text/css';
+
+    if (css.styleSheet) 
+        css.styleSheet.cssText = styles;
+    else 
+        css.appendChild(document.createTextNode(styles));
+
+    /* Append style to the tag name */
+    document.getElementsByTagName("head")[0].appendChild(css);
+}
+    function httpGet(theUrl,req_type)
+    {
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                //console.log();
+                //return xmlhttp.responseText;
+                
+                if(req_type == 'menu_html'){
+		    var nav_text = xmlhttp.responseText.replaceAll('https://static.cloud.coveo.com/searchui/v2.9159/js/CoveoJsSearch.Lazy.min.js', '');
+
+                    nav_text = nav_text.replaceAll('src="/', 'src="'+maindomain_lang+'/');
+		    nav_text = nav_text.replaceAll("'/content", "'"+maindomain_lang+"/content");
+		                        
+                    document.getElementById("PAN_2021_NAV_ASYNC").innerHTML = nav_text.replaceAll('href="/', 'href="'+maindomain_lang+'/');
+		    
+		    var lozad_back = document.getElementsByClassName('lozad-background');
+		    Array.prototype.forEach.call(lozad_back, function(el) {
+			// Do stuff here
+			var el_back_img_path = el.getAttribute('data-background-image');
+			var first_pos = el_back_img_path.indexOf("'");
+			var last_pos = el_back_img_path.indexOf("'",first_pos+1);
+			el_back_img_path = el_back_img_path.substring(first_pos+1,last_pos);
+			el.setAttribute("data-background-image",main_site_url+el_back_img_path);
+		    });
+                }
+                if(req_type == 'head_inline_css'){
+                    addStyle(xmlhttp.responseText);
+                }
+                //document.getElementsByTagName("header")[1].removeAttribute("style");
+                //document.getElementsByTagName("header")[1].classList.add("light");
+            }
+        }
+        xmlhttp.open("GET", theUrl, false );
+        xmlhttp.send();    
+    }    
+    
+    if(referer == 'Prisma' || referer == 'Cortex' || referer == 'Sase' || referer == 'Unit' || referer == 'Ngfw'){
+        const article = document.querySelector('#PAN_2021_NAV_ASYNC');
+        if(referer == 'Prisma'){
+            article.dataset.type = 'prisma';
+	    $('#PAN_2021_NAV_ASYNC').removeClass('default').addClass('defaultRedesigned');
+        }
+        else if(referer == 'Cortex'){
+            article.dataset.type = 'cortex';
+        }
+        else if(referer == 'Sase'){
+            article.dataset.type = 'sase';
+        }
+	else if(referer == 'Unit'){
+            article.dataset.type = 'unit';
+        }
+	else if(referer == 'Ngfw'){
+            article.dataset.type = 'ngfw';
+        }
+	//set class to default
+	if(referer == 'Unit' || referer == 'Ngfw'){
+	   
+	   $('#PAN_2021_NAV_ASYNC').removeClass('default').addClass('defaultRedesigned');
+	}
+        callMainSitePrismaNavHTML();        
+    }
+</script>
+
+
+  <article class="article overflow-hidden">
+    
+<header class="article__header py-sm-25 pt-40 pb-25 bg-gray-700">
+  <div class="container">
+    
+    <h1 class="article__header__title mb-sm-30 mb-40">Wireshark Tutorial:  Examining Qakbot Infections</h1>
+
+    <ul class="article__entry-meta d-flex flex-wrap align-items-center text-black">
+      <li class="mr-10 mb-10 px-20 rounded-pill d-flex bg-gray-200"><div class="post-views content-post post-104313 entry-meta">
+				<span class="post-views-count">74,923</span>
+			</div> <span class="ml-5">people reacted</span></li>
+      <li class="d-sm-none col-12 p-0"></li>
+      <li class="mr-10 mb-10 px-20 rounded-pill bg-gray-200"><span class="ldc-ul_cont idc_ul_cont_not_liked_inner" onclick="alter_ul_post_values(this,'104313','like')"><i class="ui ui-2"></i><span class="ml-5">41</span></span></li>
+      <li class="mb-10 px-20 rounded-pill bg-gray-200"><span class="span-reading-time rt-reading-time"><span class="rt-label rt-prefix"></span> <span class="rt-time"> 9</span> <span class="rt-label rt-postfix"></span></span> min. read</li>
+    </ul>
+
+    <div class="article__share position-relative">
+      <div class="dropdown dropdown-right">
+        <button type="button" class="px-25 text-black bg-white text-uppercase rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Share <i class="ui ui-6 ml-10 align-text-top"></i>
+        </button>
+        <div class="dropdown-menu rounded-pill" role="toolbar">
+          <div class="share-dropdown px-20 py-10 text-black font-size-sm">
+            <div class="row align-items-center flex-nowrap">
+              <div class="col">
+                <div class="d-flex align-items-center">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Funit42.paloaltonetworks.com%2Ftutorial-qakbot-infection%2F" target="_blank" aria-label="facebbok"><i class="ui ui-7"></i></a>
+                  <a href="https://twitter.com/home?status=https%3A%2F%2Funit42.paloaltonetworks.com%2Ftutorial-qakbot-infection%2F+-+Wireshark+Tutorial%3A++Examining+Qakbot+Infections" target="_blank" aria-label="twitter"><i class="ui ui-8"></i></a>
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Funit42.paloaltonetworks.com%2Ftutorial-qakbot-infection%2F&title=Wireshark+Tutorial%3A++Examining+Qakbot+Infections&summary=&source=" target="_blank" aria-label="linkedin"><i class="ui ui-9"></i></a>
+                  <a href="//www.reddit.com/submit?url=https://unit42.paloaltonetworks.com/tutorial-qakbot-infection/" target="_blank" aria-label="reddit"><i class="ui ui-10"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>    <div class="article__summary py-25 text-gray-500 font-size-sm">
+  <div class="container">
+    <div class="row align-items-center no-gutters">
+      <div class="col-sm-auto col-12 mb-sm-0 mb-35">
+        <i class="ui ui-11 text-gray-700 mr-sm-20"></i>
+      </div>
+  
+      <div class="col-sm col-12">
+        <p>
+          By <a href="https://unit42.paloaltonetworks.com/author/bduncan/" title="Posts by Brad Duncan" class="author url fn" rel="author">Brad Duncan</a>        </p>
+        <p><time datetime="2020-02-13T14:00:10+00:00">February 13, 2020 at 6:00 AM</time></p>
+        <p>Category: <a href="https://unit42.paloaltonetworks.com/category/tutorial/" rel="category tag">Tutorial</a>, <a href="https://unit42.paloaltonetworks.com/category/unit-42/" rel="category tag">Unit 42</a></p>
+        <p>Tags: <a href="https://unit42.paloaltonetworks.com/tag/cybercrime/" rel="tag">Cybercrime</a>, <a href="https://unit42.paloaltonetworks.com/tag/pcap/" rel="tag">pcap</a>, <a href="https://unit42.paloaltonetworks.com/tag/qakbot/" rel="tag">Qakbot</a>, <a href="https://unit42.paloaltonetworks.com/tag/wireshark/" rel="tag">Wireshark</a>, <a href="https://unit42.paloaltonetworks.com/tag/wireshark-tutorial/" rel="tag">Wireshark Tutorial</a></p>
+      </div>
+    </div>
+  </div>
+</div>    <div class="py-30 bg-white">
+      <div class="container">
+        <div class="article__content pb-30">
+                      <figure class="mb-30 text-center">
+              <img width="900" height="512" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512-900x512.png" class="attachment-single size-single" alt="A conceptual image representing Wireshark Tutorials." decoding="async" loading="lazy" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512.png 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512-300x171.png 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512-768x437.png 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2019/11/tutorial-900x512-370x210.png 370w" sizes="(max-width: 900px) 100vw, 900px" />            </figure>
+                    <p class="wpml-ls-statics-post_translations wpml-ls">This post is also available in: 
+    <span class="wpml-ls-slot-post_translations wpml-ls-item wpml-ls-item-ja wpml-ls-first-item wpml-ls-last-item wpml-ls-item-legacy-post-translations"><a href="https://unit42.paloaltonetworks.jp/tutorial-qakbot-infection/" class="wpml-ls-link"><span class="wpml-ls-native" lang="ja">日本語</span><span class="wpml-ls-display"><span class="wpml-ls-bracket"> (</span>Japanese<span class="wpml-ls-bracket">)</span></span></a></span></p><h2>Overview</h2>
+<p><a href="https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Win32%2FQakbot">Qakbot</a> is an information stealer also known as Qbot. This family of malware has been active for years, and Qakbot generates distinct traffic patterns. This <a href="https://www.wireshark.org">Wireshark</a> tutorial reviews a recent packet capture (pcap) from a Qakbot infection. Understanding these traffic patterns can be critical for security professionals when detecting and investigating Qakbot infections.</p>
+<p>Note: This tutorial assumes you have a basic knowledge of network traffic and Wireshark. We use a customized column display shown in <a href="https://unit42.paloaltonetworks.com/unit42-customizing-wireshark-changing-column-display/">this tutorial</a>. You should also have experience with Wireshark display filters as described in <a href="https://unit42.paloaltonetworks.com/using-wireshark-display-filter-expressions/">this additional tutorial</a>.</p>
+<p>Please also note that the pcap used for this tutorial contains malware. You should review this pcap in a non-Windows environment. If you are limited to a Windows computer, we suggest reviewing the pcap within a virtual machine (VM) running any of the popular recent Linux distros.</p>
+<p>This tutorial will cover the following:</p>
+<ul>
+<li style="list-style-type: none;">
+<ul style="list-style-type: disc;">
+<li>Qakbot distribution methods</li>
+<li>Initial zip archive from link in an malspam</li>
+<li>Windows executable for Qakbot</li>
+<li>Post-infection HTTPS activity</li>
+<li>Other post-infection traffic</li>
+</ul>
+</li>
+</ul>
+<p>The pcap used for this tutorial is located <a href="https://www.malware-traffic-analysis.net/2020/01/29/index.html">here</a>. Download the zip archive named <strong><em>2020-01-29-Qbot-infection-traffic.pcap.zip</em></strong> and extract the pcap. Figure 1 shows our pcap open in Wireshark, ready to review.</p>
+<figure id="attachment_104370" aria-describedby="caption-attachment-104370" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" fetchpriority="high" class="wp-image-104370 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-1024x641.jpg" alt="Qakbot Infection Traffic" width="1024" height="641" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-1024x641.jpg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-300x188.jpg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-768x480.jpg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-1536x961.jpg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-900x563.jpg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01-370x231.jpg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/PB-210-image-01.jpg 1600w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104370" class="wp-caption-text">Figure 1. The pcap for this tutorial.</figcaption></figure>
+<h2>Qakbot Distribution Methods</h2>
+<p>Qakbot is most often distributed through malicious spam (malspam), but it also has been distributed through exploit kits <a href="https://www.malware-traffic-analysis.net/2019/11/25/index3.html">as recently as November 2019</a>. In some cases, Qakbot is a follow-up infection caused by different malware like <a href="https://www.us-cert.gov/ncas/alerts/TA18-201A">Emotet</a> as reported in <a href="https://isc.sans.edu/forums/diary/Malspam+pushes+Emotet+with+Qakbot+as+the+followup+malware/24738/">this example from March 2019</a>.</p>
+<p>Recent malspam-based distribution campaigns for Qakbot follow a chain of events shown in Figure 2.</p>
+<figure id="attachment_104316" aria-describedby="caption-attachment-104316" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" class="wp-image-104316 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-1024x618.jpeg" alt="" width="1024" height="618" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-1024x618.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-300x181.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-768x464.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-1536x927.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-2048x1236.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-900x543.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-29-370x223.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104316" class="wp-caption-text">Figure 2. Flow chart from recent Qakbot distribution campaigns.</figcaption></figure>
+<h3>Initial Zip Archive from Link in Malspam</h3>
+<p>Recent malspam distributing Qakbot uses fake email chains that spoof legitimate email addresses. One such example is shown in Figure 3.</p>
+<figure id="attachment_104318" aria-describedby="caption-attachment-104318" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" class="wp-image-104318 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-1024x821.jpeg" alt="Qakbot Infections" width="1024" height="821" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-1024x821.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-300x240.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-768x616.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-1536x1231.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-2048x1641.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-900x721.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-30-370x297.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104318" class="wp-caption-text">Figure 3. Recent malspam example pushing Qakbot.</figcaption></figure>
+<p>URLs from these emails end with a short series of numbers followed by <strong><em>.zip</em></strong>. See Table 1 for a few examples of URLs from Qakbot malspam recently reported on <a href="https://urlhaus.abuse.ch/browse/">URLhaus</a> and <a href="https://twitter.com/search?q=Qakbot%20zip&amp;f=live">Twitter</a>.</p>
+<table>
+<tbody>
+<tr>
+<td style="width: 111.333px;"><strong>First reported</strong></td>
+<td style="width: 612.667px;"><strong>URL for initial zip archive</strong></td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2019-12-27</td>
+<td style="width: 612.667px;">hxxps://prajoon.000webhostapp[.]com/wp-content/uploads/2019/12/last/033/033.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2019-12-27</td>
+<td style="width: 612.667px;">hxxps://psi-uae[.]com/wp-content/uploads/2019/12/last/870853.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2019-12-27</td>
+<td style="width: 612.667px;">hxxps://re365[.]com/wp-content/uploads/2019/12/last/85944289/85944289.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2019-12-27</td>
+<td style="width: 612.667px;">hxxps://liputanforex.web[.]id/wp-content/uploads/2019/12/last/794/794.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-06</td>
+<td style="width: 612.667px;">hxxp://eps.icothanglong.edu[.]vn/forward/13078.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-22</td>
+<td style="width: 612.667px;">hxxp://hitechrobo[.]com/wp-content/uploads/2020/01/ahead/84296848/84296848.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-22</td>
+<td style="width: 612.667px;">hxxp://faithoasis.000webhostapp.com/wp-content/uploads/2020/01/ahead/550889.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-27</td>
+<td style="width: 612.667px;">hxxps://madisonclubbar[.]com/fast/invoice049740.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-29</td>
+<td style="width: 612.667px;">hxxp://zhinengbao[.]wang/wp-content/uploads/2020/01/lane/00571.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-01-29</td>
+<td style="width: 612.667px;">hxxp://bhatner[.]com/wp-content/uploads/2020/01/ahead/9312.zip</td>
+</tr>
+<tr>
+<td style="width: 111.333px;">2020-02-03</td>
+<td style="width: 612.667px;">hxxp://santedeplus[.]info/wp-content/uploads/2020/02/ending/1582820/1582820.zip</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center;"><span style="font-size: 10pt;"><em>Table 1. URLs for the initial zip archive to kick off a Qakbot infection chain.</em></span></p>
+<p>In our pcap, you can find the HTTP request for a zip archive using <strong><em>http.request.uri contains .zip</em></strong> in the Wireshark filter as shown in Figure 4.</p>
+<figure id="attachment_104320" aria-describedby="caption-attachment-104320" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104320 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-1024x263.jpeg" alt="Qakbot Infections" width="1024" height="263" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-1024x263.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-300x77.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-768x197.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-1536x394.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-2048x526.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-900x231.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-31-370x95.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104320" class="wp-caption-text">Figure 4. Finding the URL for the initial zip archive.</figcaption></figure>
+<p>Follow the TCP stream to confirm this is a zip archive as shown in Figure 5 and Figure 6, then try to export the zip archive from the pcap as shown in Figure 7.</p>
+<figure id="attachment_104322" aria-describedby="caption-attachment-104322" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104322 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-1024x657.jpeg" alt="Qakbot Infections" width="1024" height="657" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-1024x657.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-300x192.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-768x492.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-1536x985.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-900x577.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32-370x237.jpeg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-32.jpeg 1962w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104322" class="wp-caption-text">Figure 5. Following the TCP stream for the HTTP request from our filter results.</figcaption></figure>
+<figure id="attachment_104324" aria-describedby="caption-attachment-104324" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104324 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-1024x750.jpeg" alt="" width="1024" height="750" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-1024x750.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-300x220.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-768x562.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-1536x1125.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-2048x1499.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-900x659.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-33-370x271.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104324" class="wp-caption-text">Figure 6. Indicators this URL returned a zip archive.</figcaption></figure>
+<figure id="attachment_104326" aria-describedby="caption-attachment-104326" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104326 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-1024x663.jpeg" alt="Qakbot Infections" width="1024" height="663" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-1024x663.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-300x194.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-768x497.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-1536x995.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-900x583.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34-370x240.jpeg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-34.jpeg 1776w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104326" class="wp-caption-text">Figure 7. Exporting objects from HTTP traffic in the pcap.</figcaption></figure>
+<p>In most cases, the menu for <strong><em>File → Export Objects → HTTP</em></strong> should export a zip archive sent over HTTP. Unfortunately, as shown in Figure 8, we cannot export this file named <strong><em>9312.zip</em></strong> because it is separated into hundreds of smaller parts within the export HTTP objects list.</p>
+<figure id="attachment_104328" aria-describedby="caption-attachment-104328" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104328 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-1024x757.jpeg" alt="" width="1024" height="757" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-1024x757.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-300x222.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-768x568.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-1536x1135.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-900x665.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35-370x273.jpeg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-35.jpeg 1572w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104328" class="wp-caption-text">Figure 8. 9312.zip is broken up into hundreds of objects within the list, so we cannot export it this way.</figcaption></figure>
+<p>Fortunately, we can export data from a TCP stream window and edit the binary in a hex editor to remove any hxxP response headers. Use the following steps to extract the zip archive from this pcap:</p>
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li>Follow TCP stream for the HTTP request for 9312.zip.</li>
+<li>Show only the response traffic in the TCP stream Window.</li>
+<li>Change “Show and save data as” from ASCII to Raw.</li>
+<li>Save the data as a binary (I chose to save it as: 9312.zip.bin)</li>
+<li>Open the binary in a hex editor and remove the HTTP request headers before the first two bytes of the zip archive (which show as PK in ASCII).</li>
+<li>Save the file as a zip archive (I chose to save it as 9312.zip)</li>
+<li>Check the file to make sure it’s a zip archive.</li>
+</ol>
+</li>
+</ol>
+<p>See Figures 9 through 14 for a visual guide of this process.</p>
+<figure id="attachment_104330" aria-describedby="caption-attachment-104330" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104330 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-1024x675.jpeg" alt="Qakbot Infections" width="1024" height="675" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-1024x675.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-300x198.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-768x506.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-1536x1012.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-2048x1350.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-900x593.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-36-370x244.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104330" class="wp-caption-text">Figure 9. Step 2 - When viewing the TCP stream, switch from viewing the entire conversation to viewing only data returned from the server.</figcaption></figure>
+<figure id="attachment_104332" aria-describedby="caption-attachment-104332" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104332 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-1024x771.jpeg" alt="Qakbot Infections" width="1024" height="771" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-1024x771.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-300x226.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-768x578.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-1536x1157.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-2048x1542.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-900x678.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-37-370x279.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104332" class="wp-caption-text">Figure 10. Step 3 - Show and save data as Raw instead of ASCII.</figcaption></figure>
+<figure id="attachment_104334" aria-describedby="caption-attachment-104334" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104334 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-1024x645.jpeg" alt="Qakbot Infections" width="1024" height="645" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-1024x645.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-300x189.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-768x483.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-1536x967.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-2048x1289.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-900x567.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-38-370x233.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104334" class="wp-caption-text">Figure 11. Step 4 - Save this raw data from the TCP stream as a binary.</figcaption></figure>
+<figure id="attachment_104336" aria-describedby="caption-attachment-104336" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104336 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-1024x609.jpeg" alt="Qakbot Infections" width="1024" height="609" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-1024x609.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-300x178.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-768x457.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-1536x914.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-2048x1219.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-900x535.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-39-370x220.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104336" class="wp-caption-text">Figure 12. Step 5 - Open your saved binary in a hex editor and remove any HTTP response data before the first two bytes of the zip archive (that show as PK in ASCII).</figcaption></figure>
+<figure id="attachment_104338" aria-describedby="caption-attachment-104338" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104338 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-1024x616.jpeg" alt="Qakbot Infections" width="1024" height="616" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-1024x616.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-300x180.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-768x462.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-1536x924.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-2048x1231.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-900x541.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-40-370x222.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104338" class="wp-caption-text">Figure 13. Step 6 - Save your edited binary as a zip archive.</figcaption></figure>
+<figure id="attachment_104340" aria-describedby="caption-attachment-104340" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104340 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-1024x476.jpeg" alt="Qakbot Infections" width="1024" height="476" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-1024x476.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-300x139.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-768x357.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-1536x713.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-900x418.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41-370x172.jpeg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-41.jpeg 1860w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104340" class="wp-caption-text">Figure 14. Step 7 - Confirm the edited file is a zip archive, then extract the VBS file and check the file hashes.</figcaption></figure>
+<p>Figure 14 shows how to use a terminal window from a Debian-based Linux distro to check the files. From our pcap, the zip archive should be the same as <a href="https://www.virustotal.com/gui/file/5121c89e898eadeff9eeef660d92f3cff75700c7f017b33c913a951018a3df9a">this file submitted to VirusTotal</a>. Our extracted VBS file should be the same as <a href="https://www.virustotal.com/gui/file/51758a9ddf92d19be7c69a60125fb3dfc303152e9bbc77478dfff497422f3d25">this file also submitted to VirusTotal</a>.</p>
+<p>A public sandbox analysis of <a href="https://app.any.run/tasks/e2c36659-1070-4665-991c-245e900245b7">our extracted VBS file</a> indicates it generates the next Qakbot-related URL in our infection chain: a URL that returned a Windows executable for Qakbot.</p>
+<h2>Windows Executable for Qakbot</h2>
+<p>These extracted VBS files generate URLs that return Windows executables for Qakbot. Since December 2019, URLs for Qakbot executables have ended with <span style="font-family: 'courier new', courier, monospace;">44444.png</span> or <span style="font-family: 'courier new', courier, monospace;">444444.png</span>. See Table 2 for some recent examples of these Qakbot URLs we found using our <a href="https://www.paloaltonetworks.com/cortex/autofocus">AutoFocus</a> Threat Intelligence service.</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td><strong>First Seen</strong></td>
+<td><strong>URL for Qakbot executable</strong></td>
+</tr>
+<tr>
+<td>2019-12-27</td>
+<td>hxxp://centre-de-conduite-roannais[.]com/wp-content/uploads/2019/12/last/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-06</td>
+<td>hxxp://newsinside[.]info/wp-content/uploads/2020/01/forward/44444.png</td>
+</tr>
+<tr>
+<td>2020-01-15</td>
+<td>hxxp://iike.xolva[.]com/wp-content/themes/keenshot/fast/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-17</td>
+<td>hxxp://deccolab[.]com/fast/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-21</td>
+<td>hxxp://myrestaurant.coupoly[.]com/wp-content/uploads/2020/01/along/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-22</td>
+<td>hxxp://alphaenergyeng[.]com/wp-content/uploads/2020/01/ahead/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-23</td>
+<td>hxxp://claramohammedschoolstl[.]org/wp-content/uploads/2020/01/upwards/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-23</td>
+<td>hxxp://creationzerodechet[.]com/choice/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-26</td>
+<td>hxxp://productsphotostudio[.]com/wp-content/uploads/2020/01/lane/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-27</td>
+<td>hxxp://sophistproduction[.]com/wp-content/uploads/2020/01/choice/444444.png</td>
+</tr>
+<tr>
+<td>2020-01-30</td>
+<td>hxxp://uofnpress[.]ch/wp-content/uploads/2020/01/side/444444.png</td>
+</tr>
+<tr>
+<td>2020-02-03</td>
+<td>hxxp://csrkanjiza[.]rs/wp-content/uploads/2020/02/ending/444444.png</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center;"><em><span style="font-size: 10pt;">Table 2. URLs for Qakbot executables.</span></em></p>
+<p>In our pcap, find the HTTP GET request for our Qakbot executable using <strong><em>hxxp.request.uri contains .png</em></strong> in the Wireshark filter as shown in Figure 15.</p>
+<figure id="attachment_104342" aria-describedby="caption-attachment-104342" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104342 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-1024x258.jpeg" alt="Qakbot Infections" width="1024" height="258" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-1024x258.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-300x75.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-768x193.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-1536x386.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-2048x515.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-900x226.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-42-370x93.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104342" class="wp-caption-text">Figure 15. Finding the URL for our Qakbot executable.</figcaption></figure>
+<p>Export this object from the pcap using the <strong><em>File → Export Objects → HTTP</em></strong> menu path as shown in Figure 16 and check the results as shown in Figure 17.</p>
+<figure id="attachment_104344" aria-describedby="caption-attachment-104344" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104344 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-1024x506.jpeg" alt="Qakbot Infections" width="1024" height="506" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-1024x506.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-300x148.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-768x379.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-1536x759.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-2048x1012.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-900x445.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-43-370x183.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104344" class="wp-caption-text">Figure 16. Exporting our Qakbot executable from the pcap.</figcaption></figure>
+<figure id="attachment_104346" aria-describedby="caption-attachment-104346" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104346 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-1024x276.jpeg" alt="Qakbot Infections" width="1024" height="276" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-1024x276.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-300x81.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-768x207.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-1536x414.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-900x243.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44-370x100.jpeg 370w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-44.jpeg 1846w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104346" class="wp-caption-text">Figure 17. Checking the exported file in a Debian-based Linux terminal window.</figcaption></figure>
+<p>From our pcap, the Qakbot executable should be <a href="https://www.virustotal.com/gui/file/56ee803fa903ab477f939b3894af6771aebf0138abe38ae8e3c41cf96bbb0f2a">this file submitted to VirusTotal</a>. A <a href="https://app.any.run/tasks/fb9cffb1-7797-4827-8446-05fee3d6a3de">public sandbox analysis of this file</a> generated several Qakbot indicators (identified as Qbot).</p>
+<h2>Post-infection HTTPS Activity</h2>
+<p>Use your basic filter (covered in <a href="https://unit42.paloaltonetworks.com/using-wireshark-display-filter-expressions/">this previous WIreshark tutorial</a>) for a quick view of web traffic in our pcap. Scroll down to activity after the HTTP GET request to <span style="font-family: 'courier new', courier, monospace;">alphaenergyeng[.]com</span> that returned our Qakbot executable. You should see several indicators of HTTPS or SSL/TLS traffic to <span style="font-family: 'courier new', courier, monospace;">68.1.115[.]106</span> with no associated domain as noted in Figure 18.</p>
+<figure id="attachment_104348" aria-describedby="caption-attachment-104348" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104348 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-1024x608.jpeg" alt="Qakbot Infections" width="1024" height="608" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-1024x608.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-300x178.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-768x456.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-1536x912.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-2048x1216.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-900x535.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-45-370x220.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104348" class="wp-caption-text">Figure 18. HTTPS or SSL/TLS traffic caused by Qakbot.</figcaption></figure>
+<p>This traffic has unusual certificate issuer data commonly noted during Qakbot infections. We reviewed unusual certificate issuer data in our <a href="https://unit42.paloaltonetworks.com/using-wireshark-display-filter-expressions/">previous WIreshark tutorial about Ursnif</a>, so this should be easy to find.</p>
+<p>Let’s review our Qakbot certificate issuer data using the following Wireshark filter:</p>
+<p><strong><em>Ip.addr eq 68.1.115.186 and ssl.handshake.type eq 11</em></strong></p>
+<p>For Wireshark 3.0 or newer, use <strong><em>tls.handshake.type</em></strong> instead of <strong><em>ssl.handshake.type</em></strong>. Select the first frame in your results and expand the frame details window until you find the certificate issuer data as shown in Figure 19.</p>
+<figure id="attachment_104350" aria-describedby="caption-attachment-104350" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104350 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-1024x723.jpeg" alt="Qakbot Infections" width="1024" height="723" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-1024x723.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-300x212.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-768x543.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-1536x1085.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-2048x1447.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-900x636.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-46-370x261.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104350" class="wp-caption-text">Figure 19. Reviewing certificate issuer data from Qakbot traffic.</figcaption></figure>
+<p>Patterns for the locality name, organization name, and common name are highly-unusual, not normally found in certificates from legitimate HTTPS, SSL, or TLS traffic. Our example of this issuer data is listed below:</p>
+<ul>
+<li style="list-style-type: none;">
+<ul style="list-style-type: disc;">
+<li>id-at-countryName=<strong>ES</strong></li>
+<li>id-at-stateOrProvinceName=<strong>IA</strong></li>
+<li>id-at-localityName=<strong>Uorh Ofwa</strong></li>
+<li>id-at-organizationName=<strong>Coejdut Mavmtko Qxyemk Dxsjie LLC.</strong></li>
+<li>id-at-commonName=<strong>gaevietovp.mobi</strong></li>
+</ul>
+</li>
+</ul>
+<h3>Other Post-infection Traffic</h3>
+<p>Our pcap contains other activity associated with a Qakbot infection. Each activity is not inherently malicious on its own, but taken together with our previous findings, we can assume a full Qakbot infection.</p>
+<p>Another indicator of a Qakbot infection is HTTPS traffic to<span style="font-family: 'courier new', courier, monospace;"> cdn.speedof[.]me</span>. The domain <span style="font-family: 'courier new', courier, monospace;">speedof[.]me</span> is used by a legitimate Internet speed test service. Although this is not malicious traffic, we frequently see traffic to <span style="font-family: 'courier new', courier, monospace;">cdn.speedof[.]me</span> during Qakbot infections. Figure 20 shows this activity from our pcap.</p>
+<p><figure id="attachment_104352" aria-describedby="caption-attachment-104352" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104352 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-1024x622.jpeg" alt="" width="1024" height="622" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-1024x622.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-300x182.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-768x467.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-1536x934.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-2048x1245.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-900x547.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-47-370x225.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104352" class="wp-caption-text">Figure 20. The domain <span style="font-family: 'courier new', courier, monospace;">cdn.speedof[.]me</span> within the Qakbot traffic.</figcaption></figure>Qakbot also opens windows from all browsers on an infected Windows host. At approximately 13 minutes and 5 seconds into <a href="https://app.any.run/tasks/fb9cffb1-7797-4827-8446-05fee3d6a3de">this sandbox analysis</a>, the video playback shows Qakbot opening Chrome, then Firefox, then Internet Explorer on a Windows 7 host. This analysis shows Qakbot generated traffic to the following URLs:</p>
+<ul>
+<li>hxxp://store.nvprivateoffice[.]com/redir_chrome.html</li>
+<li>hxxp://store.nvprivateoffice[.]com/redir_ff.html</li>
+<li>hxxp://store.nvprivateoffice[.]com/redir_ie.html</li>
+</ul>
+<p>The domain <span style="font-family: 'courier new', courier, monospace;">nvprivateoffice[.]com</span> has been registered through GoDaddy since 2012, and <span style="font-family: 'courier new', courier, monospace;">store.nvprivateoffice[.]com</span> shows a default web page for nginx on a Fedora server.</p>
+<p>Our pcap for this tutorial is from a Qakbot infection on a Windows 10 host without Chrome or Firefox installed. Our pcap only shows web traffic for Internet Explorer and the new Chromium-based Microsoft Edge. Both times, the URL generated by Qakbot was <span style="font-family: 'courier new', courier, monospace;">hxxp://store.nvprivateoffice[.]com/redir_ie.html</span>.</p>
+<p>To find this traffic, use the following Wireshark filter as shown in Figure 21:</p>
+<p><em><span style="font-family: georgia, palatino, serif;"><strong>http.request.full_uri contains store.nvprivateoffice</strong></span></em></p>
+<figure id="attachment_104354" aria-describedby="caption-attachment-104354" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104354 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-1024x315.jpeg" alt="" width="1024" height="315" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-1024x315.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-300x92.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-768x236.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-1536x473.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-2048x630.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-900x277.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-48-370x114.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104354" class="wp-caption-text">Figure 21. Finding Qakbot traffic that opens web browsers on an infected Windows host.</figcaption></figure>
+<p>Follow the TCP stream for each of the two HTTP GET requests ending in <span style="font-family: 'courier new', courier, monospace;">redir_ie.html</span>. The first request has a User-Agent in the HTTP headers for Internet Explorer as shown in Figure 22. The second request for the same URL has a User-Agent in the HTTP headers for the new Chromium-based Microsoft Edge as noted in Figure 23.</p>
+<p><figure id="attachment_104356" aria-describedby="caption-attachment-104356" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104356 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-1024x757.jpeg" alt="" width="1024" height="757" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-1024x757.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-300x222.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-768x567.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-1536x1135.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-2048x1513.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-900x665.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-49-370x273.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104356" class="wp-caption-text">Figure 22. Qakbot traffic to <span style="font-family: 'courier new', courier, monospace;">store.nvprivateoffice[.]com</span> using Internet Explorer 11.</figcaption></figure><figure id="attachment_104358" aria-describedby="caption-attachment-104358" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104358 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-1024x758.jpeg" alt="" width="1024" height="758" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-1024x758.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-300x222.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-768x568.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-1536x1136.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-2048x1515.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-900x666.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-50-370x274.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104358" class="wp-caption-text">Figure 23. Qakbot traffic to<span style="font-family: 'courier new', courier, monospace;"> store.nvprivateoffice[.]com</span> using the new Chromium-based Microsoft Edge.</figcaption></figure>Finally, our pcap from the Qakbot-infected host also has email-related TCP traffic to various ports for various email protocols like SMTP, IMAP, and POP3. To get an idea of this non-web-related traffic, use the following Wireshark filter as shown in Figure 25:</p>
+<p><strong><em>tcp.flags eq 0x0002 and !(tcp.port eq 80) and !(tcp.port eq 443)</em></strong></p>
+<figure id="attachment_104360" aria-describedby="caption-attachment-104360" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104360 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-1024x864.jpeg" alt="" width="1024" height="864" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-1024x864.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-300x253.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-768x648.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-1536x1296.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-2048x1728.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-900x759.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-51-370x312.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104360" class="wp-caption-text">Figure 25. Getting an idea of the non-web-related traffic from this Qakbot infection.</figcaption></figure>
+<p>Figure 25 shows TCP connections and attempted TCP connections to various ports like 25, 110,143, 465, 587, 993, and 995 commonly used by different email protocols. The first two lines in the results show traffic to TCP port 65400, but reviewing the associated TCP streams indicates this also email-related traffic.</p>
+<p>Use the following Wireshark filter to get a better idea of email-related traffic from the infected host as shown in Figure 26:</p>
+<p><strong><em>smtp or imap or pop</em></strong></p>
+<figure id="attachment_104362" aria-describedby="caption-attachment-104362" style="width: 1024px" class="wp-caption aligncenter"><img decoding="async" loading="lazy" class="wp-image-104362 size-large" src="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-1024x628.jpeg" alt="" width="1024" height="628" srcset="https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-1024x628.jpeg 1024w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-300x184.jpeg 300w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-768x471.jpeg 768w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-1536x943.jpeg 1536w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-2048x1257.jpeg 2048w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-900x552.jpeg 900w, https://unit42.paloaltonetworks.com/wp-content/uploads/2020/02/word-image-52-370x227.jpeg 370w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption id="caption-attachment-104362" class="wp-caption-text">Figure 26. Finding email-related traffic caused by Qakbot in this pcap.</figcaption></figure>
+<p>Follow some of the TCP streams to get a better idea for this type of email traffic. We do not normally see such unencrypted email traffic originating from a Windows client to public IP addresses. Along with other indicators, this <strong><em>smtp or imap or pop</em></strong> filter may reveal Qakbot activity.</p>
+<h2>Conclusion</h2>
+<p>This tutorial provided tips for examining Windows infections with Qakbot malware. More pcaps with examples of Qakbot activity can be found at <a href="https://www.malware-traffic-analysis.net">malware-traffic-analysis.net</a>.</p>
+<p>For more help with Wireshark, see our previous tutorials:</p>
+<ul>
+<li><a href="https://unit42.paloaltonetworks.com/unit42-customizing-wireshark-changing-column-display/">Customizing Wireshark – Changing Your Column Display</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/using-wireshark-display-filter-expressions/">Using Wireshark – Display Filter Expressions</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/using-wireshark-identifying-hosts-and-users/">Using Wireshark: Identifying Hosts and Users</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/using-wireshark-exporting-objects-from-a-pcap/">Using Wireshark: Exporting Objects from a Pcap</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/wireshark-tutorial-examining-trickbot-infections/">Wireshark Tutorial: Examining Trickbot Infections</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/wireshark-tutorial-examining-ursnif-infections/">Wireshark Tutorial: Examining Ursnif Infections</a></li>
+</ul>
+<p>&nbsp;</p>
+          <div class="article__subscribe mb-40 text-gray-400 bg-gray-200 rounded-lg">
+  <h4 class="h3 mb-10 text-black">Get updates from <br class="d-sm-none"> Palo Alto<br class="d-sm-none"> Networks!</h4>
+  <p>Sign up to receive the latest news, cyber threat intelligence and research from us</p>
+  <!-- <form action="https://app-guse4001.marketo.com/index.php/leadCapture/save2" method="post" novalidate class="subscribe-form py-25" name="Unit42_Subscribe"> -->
+  <form action="https://www.paloaltonetworks.com/apps/pan/public/formsubmithandler.submitform.json" method="post" novalidate class="subscribe-form py-25" name="Unit42_Subscribe">
+    <input type="hidden" name="emailFormMask" value="">
+    <input type="hidden" value="1086" name="formid">
+    <!-- <input type="hidden" value="818-CZC-273" name="munchkinId"> -->
+    <input type="hidden" value="531-OCS-018" name="munchkinId">
+    <input type="hidden" value="2141" name="lpId">
+	<input type="hidden" value="1203" name="programId">  
+    <input type="hidden" value="1086" name="formVid">
+    <input type="hidden" name="mkto_optinunit42" value="true">
+    <input type="hidden" name="mkto_opt-in" value="true">
+    <div class="row">
+      <div class="col-sm col-12 mb-sm-0 mb-15">
+        <input type="email" name="Email" placeholder="Email address" class="subscribe-field d-block w-100 px-sm-25 px-15 bg-white" aria-label="Email">
+        <p class="error-mail d-none mt-15 text-danger" style="color: #dc3545">Please enter your email address!</p>
+      </div>
+      <div class="col-sm-auto col-12">
+          <input type="submit" value="Subscribe" class="btn btn--black btn--sm w-100" disabled="disabled">
+      </div>
+    </div>
+
+    <div class="google-recapth mt-15">
+      <div class="g-recaptcha" data-expired-callback="captchaExpires" data-callback="captchaComplete" data-sitekey="6Lc5EhgTAAAAAJa-DzE7EeWABasWg4LKv-R3ao6o"></div>
+      <p class="error-recaptcha d-none mt-15 text-danger" style="color: #dc3545">Please mark, I'm not a robot!</p>
+    </div>
+  </form>
+
+  <div class="font-size-ex-sm col-sm-7 p-0">
+    <p>By submitting this form, you agree to our <a href="https://www.paloaltonetworks.com/legal-notices/terms-of-use">Terms of Use</a> and acknowledge our <a href="https://www.paloaltonetworks.com/legal-notices/privacy">Privacy Statement</a>.</p>
+  </div>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+<footer class="site-footer px-sm-0 px-15">
+  <div class="pt-40">
+    <div class="container pt-sm-30">
+      <div class="row justify-content-lg-center">
+        <div class="col-lg-11 col-12">
+          <div class="row">
+            <div class="col-lg-4 col-sm-3 col-12 order-sm-2">
+              <nav class="footer-socials mb-sm-0 mb-25 text-white text-sm-right" aria-label="Footer Socials">
+                                                <a href="https://twitter.com/Unit42_Intel" target="_blank" aria-label="Twitter"><span class="ui ui-4"></span></a>
+                <a href="https://github.com/pan-unit42" target="_blank" aria-label="Github"><span class="ui ui-5"></span></a>
+              </nav>
+            </div>
+
+            <div class="col-lg-8 col-sm-9 col-12 order-sm-1">
+              <div class="row">
+                <div class="col-sm col-12 footer-widget widget_nav_menu"><h4 class="h6 mb-15 font-weight-black">Popular Resources</h4><div class="menu-footer-company-phase-container"><ul id="menu-footer-company-phase" class="menu"><li id="menu-item-97096" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97096"><a target="_blank" href="https://www.paloaltonetworks.com/resources">Resource Center</a></li>
+<li id="menu-item-97097" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97097"><a target="_blank" href="https://www.paloaltonetworks.com/blog/">Blog</a></li>
+<li id="menu-item-97098" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97098"><a target="_blank" href="https://www.paloaltonetworks.com/communities">Communities</a></li>
+<li id="menu-item-97099" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97099"><a target="_blank" href="https://docs.paloaltonetworks.com/">Tech Docs</a></li>
+<li id="menu-item-97100" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-97100"><a href="https://unit42.paloaltonetworks.com/">Unit 42</a></li>
+<li id="menu-item-97101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97101"><a target="_blank" href="https://www.paloaltonetworks.com/sitemap">Sitemap</a></li>
+</ul></div></div><div class="col-sm col-12 footer-widget widget_nav_menu"><h4 class="h6 mb-15 font-weight-black">Legal Notices</h4><div class="menu-footer-legal-notices-phase-container"><ul id="menu-footer-legal-notices-phase" class="menu"><li id="menu-item-97093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97093"><a target="_blank" href="https://www.paloaltonetworks.com/legal-notices/privacy">Privacy</a></li>
+<li id="menu-item-97094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97094"><a target="_blank" href="https://www.paloaltonetworks.com/legal-notices/terms-of-use">Terms of Use</a></li>
+<li id="menu-item-97095" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97095"><a target="_blank" href="https://www.paloaltonetworks.com/legal">Documents</a></li>
+</ul></div></div><div class="col-sm col-12 footer-widget widget_nav_menu"><h4 class="h6 mb-15 font-weight-black">Account</h4><div class="menu-footer-trending-topics-phase-container"><ul id="menu-footer-trending-topics-phase" class="menu"><li id="menu-item-97102" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97102"><a href="https://start.paloaltonetworks.com/preference-center">Manage Subscriptions</a></li>
+<li id="menu-item-97103" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97103"><a href="#" aria-label="menu-item">&nbsp;</a></li>
+<li id="menu-item-97104" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97104"><a href="https://www.paloaltonetworks.com/security-disclosure">Report a Vulnerability</a></li>
+</ul></div></div>              </div>
+            </div>
+          </div>
+
+          
+            <div class="copyrights py-25 mt-40">
+               <p>© 2024 Palo Alto Networks, Inc. All rights reserved.</p>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<form method="post">
+<input type="hidden" id="_wpnonce" name="_wpnonce" value="c4f6a23be5" /><input type="hidden" name="_wp_http_referer" value="/tutorial-qakbot-infection/" /></form>
+<script type="text/javascript">
+    const observer_lozad = lozad('.lozad, .lozad-background'); // lazy loads elements with default selector as '.lozad'
+      observer_lozad.observe();
+        if(referer == "Prisma" || referer == "Cortex" || referer == "Sase" || referer == "Unit" || referer == "Ngfw"){
+	var Coveo_organizationId = "paloaltonetworksintranet";        
+        var techDocsPagePath = "https://docs.paloaltonetworks.com/search.html#hd=All%20Prisma%20Cloud%20Documentation&hq=%40panproductcategory%3D%3D(%22Prisma%20Cloud%22)&sort=relevancy&layout=card&numberOfResults=25";
+        var languageFromPath="en_US";
+        window.Granite = window.Granite || {};
+	Granite.I18n = (function() {
+		var self = {};
+		self.setLocale = function(locale) { };
+		self.get = function(text, snippets, note) {
+        	var out = "";
+        	if(text){
+        		if(text ==="coveo.clear"){
+        			out = "Clear";
+        		}else if(text ==="coveo.noresultsfound"){
+        			out = "No results found for this search term.";
+        		}
+        	}
+        	return out;
+        };
+        return self
+	}());
+}
+/*
+    var Coveo_organizationId = "paloaltonetworksintranetsandbox1";
+    var searchResultsPagePath = "https://www.paloaltonetworks.com/search/prismasearch";
+    var techDocsPagePath = "https://docs.paloaltonetworks.com/search";
+    var languageFromPath="en_US";
+    */
+       	var main_site_critical_top = maindomain_lang+'/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/criticalTop.min.js';
+	var main_site_defered = maindomain_lang+'/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/defered.min.js';
+	var main_site_criticalTopBase = maindomain_lang+'/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/criticalTopBase.min.js';
+	var main_site_criticalTopProductNav = maindomain_lang+'/etc.clientlibs/panClean/components/mainNavigationComp/clientlibs/panClean/criticalTopProductNav.min.js';
+        window.PAN_MainNavAsyncUrl = maindomain_lang+"/_jcr_content/globals/cleanHeaderPrisma.prismaRenderer.html";
+
+function loadScript(url, defer){
+        var script1 = document.createElement('script');
+        script1.setAttribute('type', 'text/javascript');
+        script1.setAttribute('src',url);
+        if(defer == true){
+            script1.setAttribute('defer','defer');
+        }
+        document.head.appendChild(script1);
+}
+function loadScript1(url, callback){
+
+        var script = document.createElement("script")
+        script.type = "text/javascript";
+
+        if (script.readyState){  //IE
+            script.onreadystatechange = function(){
+                if (script.readyState == "loaded" || script.readyState == "complete"){
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  //Others
+            script.onload = function(){
+                callback();
+            };
+        }
+
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+}
+if(referer == "Prisma" || referer == "Cortex" || referer == "Sase" || referer == "Unit" || referer == "Ngfw"){
+	if(referer == "Unit"){
+		loadScript(main_site_criticalTopBase, false);
+		loadScript1(main_site_criticalTopProductNav, function(){
+			window.PAN_initializeProduct2021Nav();
+		});
+		loadScript(main_site_defered, false);
+	}
+	else{
+		loadScript1(main_site_critical_top, function(){
+			window.PAN_initializeProduct2021Nav();
+		});
+		loadScript(main_site_defered, false);
+	}
+}
+</script>
+    <script type="text/javascript">
+	var isProcessing = false; 
+    function alter_ul_post_values(obj,post_id,ul_type){
+	
+		if (isProcessing)    
+		return;  
+		isProcessing = true;   
+		var like_nonce = jQuery('#_wpnonce').val();
+		jQuery(obj).find("span").html("..");
+                jQuery.ajax({
+                    type: "POST",
+                    url: "https://unit42.paloaltonetworks.com/wp-content/plugins/like-dislike-counter-for-posts-pages-and-comments/ajax_counter.php",
+                    data: "post_id="+post_id+"&up_type="+ul_type+"&ul_nonce="+like_nonce,
+                    success: function(msg){
+                            jQuery(obj).find("span").html(msg);
+                            isProcessing = false; 
+                            jQuery(obj).find('svg').children('path').attr('stroke','#0050FF');
+                            jQuery(obj).removeClass('idc_ul_cont_not_liked idc_ul_cont_not_liked_inner');
+                    }
+ 		});
+	}
+	</script>
+    <link rel='stylesheet' id='wpdevart_lightbox_front_end_css-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/lightbox-popup/includes/style/wpdevart_lightbox_front.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wpdevart_lightbox_effects-css' href='https://unit42.paloaltonetworks.com/wp-content/plugins/lightbox-popup/includes/style/effects_lightbox.css?ver=6.3' type='text/css' media='all' />
+<script id="post-views-counter-frontend-js-before" type="text/javascript">
+var pvcArgsFrontend = {"mode":"js","postID":104313,"requestURL":"https:\/\/unit42.paloaltonetworks.com\/wp-admin\/admin-ajax.php","nonce":"8779151d12"};
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/post-views-counter/js/frontend.min.js?ver=1.3.13' id='post-views-counter-frontend-js'></script>
+<script type='text/javascript' id='ppress-frontend-script-js-extra'>
+/* <![CDATA[ */
+var pp_ajax_form = {"ajaxurl":"https:\/\/unit42.paloaltonetworks.com\/wp-admin\/admin-ajax.php","confirm_delete":"Are you sure?","deleting_text":"Deleting...","deleting_error":"An error occurred. Please try again.","nonce":"6af7f1c526","disable_ajax_form":"false","is_checkout":"0","is_checkout_tax_enabled":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/wp-user-avatar/assets/js/frontend.min.js?ver=4.13.0' id='ppress-frontend-script-js'></script>
+<script type='text/javascript' src='https://www.google.com/recaptcha/api.js' id='google/api-js'></script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/dist/scripts/fancybox.js' id='unit42/fancybox-js'></script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/themes/unit42-v5/dist/scripts/main.js' id='unit42/js-js'></script>
+<script type='text/javascript' id='wpdevart_lightbox_front_end_js-js-extra'>
+/* <![CDATA[ */
+var wpdevart_lb_variables = {"eneble_lightbox_content":"enable","overlay_transparency_prancent":"80","enable_video_popuping":"enable","popup_background_color":"#000000","popup_loading_image":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/popup_loading.png","popup_initial_width":"350","popup_initial_height":"300","popup_youtube_width":"640","popup_youtube_height":"410","popup_vimeo_width":"500","popup_vimeo_height":"410","popup_max_width":"5000","popup_max_height":"5000","popup_position":"5","popup_fixed_position":"true","popup_outside_margin":"0","popup_border_width":"2","popup_border_color":"#000000","popup_border_radius":"10","control_buttons_show":"true","control_buttons_show_in_content":"false","control_buttons_height":"30","control_buttons_line_bg_color":"#000000","control_button_prev_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/prev.png","control_button_prev_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/prev_hover.png","control_button_next_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/next.png","control_button_next_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/next_hover.png","control_button_download_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/download.png","control_button_download_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/download_hover.png","control_button_innewwindow_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/innewwindow.png","control_button_innewwindow_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/innewwindow_hover.png","control_button_fullwidth_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/fullwidth.png","control_button_fullwidht_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/fullwidth_hover.png","control_button_fullwidthrest_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/fullwidthreset.png","control_button_fullwidhtrest_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/fullwidthreset_hover.png","control_button_close_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/close.png","control_button_close_hover_img_src":"https:\/\/unit42.paloaltonetworks.com\/wp-content\/plugins\/lightbox-popup\/images\/contorl_buttons\/close_hover.png","information_panel_show":"false","information_panel_padding_top":"0","information_panel_padding_bottom":"0","information_panel_show_in_content":"false","information_panel_bg_color":"#000000","information_panel_default_transparency":"100","information_panel_hover_trancparency":"100","information_panel_count_image_after_text":"Image","information_panel_count_image_middle_text":"of","information_panel_count_padding_left":"15","information_panel_count_padding_right":"4","information_panel_count_font_size":"20","information_panel_desc_padding_left":"15","information_panel_desc_padding_right":"4","information_panel_desc_font_size":"20","information_panel_desc_show_if_not":"true","information_panel_text_for_no_caption":"No Caption","information_panel_title_padding_left":"5","information_panel_title_padding_right":"5","information_panel_title_font_size":"15","information_panel_title_show_if_not":"true","information_panel_text_for_no_title":"No Title","information_panel_ordering":"{\"count\":[1,\"count\"],\"title\":[0,\"title\"],\"caption\":[0,\"caption\"]}"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://unit42.paloaltonetworks.com/wp-content/plugins/lightbox-popup/includes/javascript/wpdevart_lightbox_front.js?ver=1.0' id='wpdevart_lightbox_front_end_js-js'></script>
+          
+  </body>
+</html>

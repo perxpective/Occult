@@ -1,0 +1,1998 @@
+<!doctype html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>CVE-2023-38831 Exploited by Pro-Russia Hacking Groups in RU-UA Conflict Zone for Credential Harvesting Operations</title>
+    <link rel="shortcut icon" href="https://blog.cluster25.duskrise.com/hubfs/DuskRise_March2022/Images/favicon-32x32.png">
+    <meta name="description" content="Cluster25 analyzed an attack by APT28/FancyBear exploiting the WinRAR vulnerability&nbsp;CVE-2023-38831">
+    
+		
+		
+		
+      
+		
+	
+    
+    
+    
+    
+    
+    <meta property="og:description" content="Cluster25 analyzed an attack by APT28/FancyBear exploiting the WinRAR vulnerability&nbsp;CVE-2023-38831">
+    <meta property="og:title" content="CVE-2023-38831 Exploited by Pro-Russia Hacking Groups in RU-UA Conflict Zone for Credential Harvesting Operations">
+    <meta name="twitter:description" content="Cluster25 analyzed an attack by APT28/FancyBear exploiting the WinRAR vulnerability&nbsp;CVE-2023-38831">
+    <meta name="twitter:title" content="CVE-2023-38831 Exploited by Pro-Russia Hacking Groups in RU-UA Conflict Zone for Credential Harvesting Operations">
+
+    
+
+    
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81445552143/1660147887871/proX-C25-child/css/main.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81446893668/1660147901209/proX-C25-child/css/vendor/_aos.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/88998707230/1669633900528/proX-duskrise-child/js/libs/splitting-js/splitting.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/88985577371/1669633926753/proX-duskrise-child/js/libs/splitting-js/splitting-cells.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81446103729/1660147906944/proX-C25-child/child.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/80514929251/1673618683883/proX-duskrise-child/child.min.css">
+<link rel="stylesheet" href="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/module_assets/87568042657/1668167162378/module_87568042657_menu.min.css">
+
+  <style>
+    footer {
+      background-color: rgba(40, 44, 62, 1.0);
+    }
+    
+    footer * {
+      color: #ffffff;
+    }
+    
+		
+		
+		.footer__main {
+			flex: 0 350px;
+		}
+		
+		.footer__social-link a {
+			background: rgba(255, 255, 255, 0.12);
+		}
+
+		.footer__social-link a:hover {
+			background: rgba(255, 255, 255, 0.34);
+		}
+		
+    .footer__menu .hs-menu-depth-1 > a {
+			text-transform: uppercase;
+			margin-bottom: 6px;
+		}
+		
+		
+		  .footer__menu .hs-menu-wrapper li ul li ul {
+				display: block;
+			}
+		
+  </style>
+
+<style>
+  @font-face {
+    font-family: "Roboto";
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Roboto/100.woff2") format("woff2"), url("/_hcms/googlefonts/Roboto/100.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Roboto";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Roboto/regular.woff2") format("woff2"), url("/_hcms/googlefonts/Roboto/regular.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Roboto/700.woff2") format("woff2"), url("/_hcms/googlefonts/Roboto/700.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Halant";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Halant/regular.woff2") format("woff2"), url("/_hcms/googlefonts/Halant/regular.woff") format("woff");
+  }
+</style>
+
+    <script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack"
+  },
+  "author" : {
+    "name" : "Cluster25 Threat Intel Team",
+    "url" : "https://blog.cluster25.duskrise.com/author/cluster25",
+    "@type" : "Person"
+  },
+  "headline" : "CVE-2023-38831 Exploited by Pro-Russia Hacking Groups in RU-UA Conflict Zone for Credential Harvesting Operations",
+  "datePublished" : "2023-10-12T14:23:55.000Z",
+  "dateModified" : "2023-10-25T07:48:14.421Z",
+  "publisher" : {
+    "name" : "DuskRise Inc",
+    "logo" : {
+      "url" : "https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/LOGO_P.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/C25_Bear_WinRAR.png" ]
+}
+</script>
+
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81445138344/1660147917881/proX-C25-child/js/vendor/bundle.min.js"></script>
+
+    
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-GT629LHB3L');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GT629LHB3L"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KDBFGDS');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Hotjar Tracking Code for https://www.duskrise.com/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3646583,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+<!-- Install this snippet AFTER the Hotjar tracking code. -->
+<script>
+var userId = your_user_id || null; // Replace your_user_id with your own if available.
+window.hj('identify', userId, {
+    // Add your own custom attributes here. Some EXAMPLES:
+    // 'Signed up': '2019—06-20Z', // Signup date in ISO-8601 format.
+    // 'Last purchase category': 'Electronics', // Send strings with quotes around them.
+    // 'Total purchases': 15, // Send numbers without quotes.
+    // 'Last purchase date': '2019-06-20Z', // Send dates in ISO-8601 format.
+    // 'Last refund date': null, // Send null when no value exists for a user.
+});
+</script>
+
+<script src="https://global.localizecdn.com/localize.js"></script>
+<script>!function(a){if(!a.Localize){a.Localize={};for(var e=["translate","untranslate","phrase","initialize","translatePage","setLanguage","getLanguage","getSourceLanguage","detectLanguage","getAvailableLanguages","untranslatePage","bootstrap","prefetch","on","off","hideWidget","showWidget"],t=0;t<e.length;t++)a.Localize[e[t]]=function(){}}}(window);</script>
+
+<script>
+  Localize.initialize({
+    key: 'cEqXuK0bL5ZC6',
+    rememberLanguage: true,
+  });
+</script>
+
+
+
+
+<style>
+.header-main__menu-nav-wrapper .hs-menu-children-wrapper a:hover, .header-main__language-switcher .lang_list_class li a:hover{
+  background-color: #e8f2fc !important;
+}
+  
+.counter .counter__number, .counter .counter__type {
+  color: #f5bd75;
+}
+  
+@media (min-width: 1200px){
+  .hs-menu-wrapper.flyouts .hs-menu-children-wrapper:not(.menu--wide) {
+      min-width: 170px;
+  }
+}
+  
+  
+  
+/* ancore */
+a[data-hs-anchor=true] {
+  transform: translateY(-100px);
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+}
+
+@media (min-width:768px){
+  a[data-hs-anchor=true] {
+    transform: translateY(-200px);
+  }
+}
+
+.hs-inline-edit a[data-hs-anchor=true] {
+  transform: translateY(0);
+}
+
+  
+/* colonne invertite su mobile */
+@media (max-width: 767px){
+  
+  .mobile-reverse-cols > .row-fluid  {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
+
+  .mobile-reverse-cols > .row-fluid > .dnd-column:last-child {
+    margin-bottom: 45px; 
+  } 
+  
+  /* questo serve per mettere un margine invece sulla colonna normale con immagine */
+  .mobile-standard-cols > .row-fluid  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-standard-cols > .row-fluid > .dnd-column:first-child {
+    margin-bottom: 45px; 
+  }
+  
+  .spazio-top-sumobile {
+    margin-top: 45px; 
+  }
+
+}
+  
+  
+
+.h1-title {
+  font-size: 2.4rem !important;
+  line-height: 122%;
+}
+
+.h2-subtitle {
+  font-size: 1.4rem;
+  line-height: 122%;
+}
+
+@media (min-width: 992px) {
+
+  .h1-title {
+    font-size: 5rem !important;
+    line-height: 100%;
+  }
+
+  .h2-subtitle {
+    font-size: 1.8rem;
+  }
+
+}
+  
+  
+@media (max-width: 767px){
+  h2 {
+   font-size: 26px;
+  }  
+}
+  
+  
+/* fix menu */
+@media (max-width: 1200px) { 
+  
+  .body-wrapper--mobile-menu{
+    transform: none !important;
+    overflow-y: hidden;
+  }
+
+  .body-wrapper--mobile-menu .header-main__logo {
+    display:none !important;
+  }
+
+  .body-wrapper--mobile-menu .header-main__menu-nav-container {
+      display: block;
+      opacity: 1;
+      position: fixed;
+      left: 20vw;
+  }
+  
+  .header-main__mobile-menu-btn span{
+    background: #fff !important;
+  }
+
+  .body-wrapper--mobile-menu .body-container-wrapper {
+    height: 100% !important;
+    overflow-y: auto !important;
+    transform: translateX(-80vw) !important;
+  }
+
+}
+
+  
+
+  
+</style>
+<link rel="amphtml" href="https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack?hs_amp=true">
+
+<meta property="og:image" content="https://blog.cluster25.duskrise.com/hubfs/C25_Bear_WinRAR.png#keepProtocol">
+<meta property="og:image:width" content="1171">
+<meta property="og:image:height" content="586">
+
+<meta name="twitter:image" content="https://blog.cluster25.duskrise.com/hubfs/C25_Bear_WinRAR.png#keepProtocol">
+
+
+<meta property="og:url" content="https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack">
+
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://blog.cluster25.duskrise.com/rss.xml">
+<meta name="twitter:domain" content="blog.cluster25.duskrise.com">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en">
+
+
+
+
+
+  
+    
+    
+  <meta name="generator" content="HubSpot"></head>
+  
+	
+	
+  
+  <body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDBFGDS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <div class="body-wrapper   hs-content-id-137956316196 hs-blog-post hs-blog-id-79260149140 body-wrapper--default">
+      
+      
+        
+
+        
+      
+        <div data-global-resource-path="proX-duskrise-child/templates/partials/header.html"><header class="header-main header-main--default sticky-menu-on">
+    
+  <div id="hs_cos_wrapper_headertopbar" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"></div>
+
+  <div class="row-fluid-wrapper header-main__container header-main__container--default">
+    <div class="row-fluid">
+      <div class="content-wrapper newheader">
+
+        <div class="newheader__logo">
+          <a href="https://www.duskrise.com?hsLang=en">
+            <img src="https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=120&amp;height=28&amp;name=DuskRise%20Logo%20White.png" alt="DuskRise Logo White" width="120" height="28" class="header-main__white-logo true" srcset="https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=60&amp;height=14&amp;name=DuskRise%20Logo%20White.png 60w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=120&amp;height=28&amp;name=DuskRise%20Logo%20White.png 120w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=180&amp;height=42&amp;name=DuskRise%20Logo%20White.png 180w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=240&amp;height=56&amp;name=DuskRise%20Logo%20White.png 240w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=300&amp;height=70&amp;name=DuskRise%20Logo%20White.png 300w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20White.png?width=360&amp;height=84&amp;name=DuskRise%20Logo%20White.png 360w" sizes="(max-width: 120px) 100vw, 120px">
+          </a>
+          <a href="https://www.duskrise.com?hsLang=en">
+            <img src="https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=120&amp;height=28&amp;name=DuskRise%20Logo%20Dark.png" alt="DuskRise Logo Dark" width="120" height="28" class="header-main__color-logo  hide" srcset="https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=60&amp;height=14&amp;name=DuskRise%20Logo%20Dark.png 60w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=120&amp;height=28&amp;name=DuskRise%20Logo%20Dark.png 120w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=180&amp;height=42&amp;name=DuskRise%20Logo%20Dark.png 180w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=240&amp;height=56&amp;name=DuskRise%20Logo%20Dark.png 240w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=300&amp;height=70&amp;name=DuskRise%20Logo%20Dark.png 300w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/DuskRise%20Logo%20Dark.png?width=360&amp;height=84&amp;name=DuskRise%20Logo%20Dark.png 360w" sizes="(max-width: 120px) 100vw, 120px">
+            <span class="hide-text">DuskRise Logo</span>
+          </a>
+        </div>
+
+  
+        <div id="mainmenuwrapper" class="newheader__menu" role="navigation" aria-label="Navigation Menu">
+          <div id="hs_cos_wrapper_navigation-primary" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+<div class="content-wrapper">
+  <nav class="menu menu--desktop megamenu" aria-label="Main menu" id="menu-desktop">
+    <ul class="menu__wrapper no-list">
+      
+
+  
+    
+  
+
+
+
+  
+    
+    <li class="menu__item menu__item--depth-1 menu__item--has-submenu hs-skip-lang-url-rewrite">
+
+      
+        
+          <a class="menu__link menu__link--toggle" href="#" aria-haspopup="true" aria-expanded="false">C25 INTELLIGENCE</a>
+          <span class="menu__plus"></span> 
+        
+      
+      
+      
+        
+        <div class="megamenu__panel">
+            <div class="megamenu__inner">
+              <div class="megamenu__content">
+              
+                
+                
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                
+              
+                <ul class="menu__submenu menu__submenu--level-2 no-list megamenu__row">
+                
+                
+                  
+
+                  
+                    <li class="megamenu__col megamenu__col--overview"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Overview</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/cluster25_platform"><i class="icon-threat-intelligence megamenu__icon" aria-hidden="true"></i>The C25 Intelligence</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Threat Intelligence Modules</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform_global_threat_intelligence"><i class="icon-threat-analysts megamenu__icon" aria-hidden="true"></i> Global Threat Intel</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform-exposure-intelligence"><i class="icon-it-management megamenu__icon" aria-hidden="true"></i> Exposure Intelligence</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform_hunting_investigate"><i class="icon-threat-analysts megamenu__icon" aria-hidden="true"></i> Hunting and Investigate</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform_tailored_intelligence_services"><i class="icon-ciso megamenu__icon" aria-hidden="true"></i> Tailored Services</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Useful links</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://blog.cluster25.duskrise.com"><i class="icon-cluster25-blog megamenu__icon" aria-hidden="true"></i> Cluster25 Blog</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://get.duskrise.com/delisting"><i class="icon-platform-benefits megamenu__icon" aria-hidden="true"></i> Delisting Portal</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+              </ul>
+              </div>
+            </div>
+          </div>
+          
+      
+    </li>
+  
+  
+    
+    <li class="menu__item menu__item--depth-1 menu__item--has-submenu hs-skip-lang-url-rewrite">
+
+      
+        
+          <a class="menu__link menu__link--toggle" href="#" aria-haspopup="true" aria-expanded="false">Remote Network Protection</a>
+          <span class="menu__plus"></span> 
+        
+      
+      
+      
+        
+        <div class="megamenu__panel">
+            <div class="megamenu__inner">
+              <div class="megamenu__content">
+              
+                
+                
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                
+              
+                <ul class="menu__submenu menu__submenu--level-2 no-list megamenu__row">
+                
+                
+                  
+
+                  
+                    <li class="megamenu__col megamenu__col--overview"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Overview</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/the-duskrise-platform"><i class="icon-the-platform megamenu__icon" aria-hidden="true"></i>Network Protection Solution</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Components</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform-device"><i class="icon-device megamenu__icon" aria-hidden="true"></i> Device</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform-app"><i class="icon-app megamenu__icon" aria-hidden="true"></i> App</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform-dashboard"><i class="icon-dashboard megamenu__icon" aria-hidden="true"></i> Dashboard</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Useful links</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/platform-benefits"><i class="icon-platform-benefits megamenu__icon" aria-hidden="true"></i> Platform benefits</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+              </ul>
+              </div>
+            </div>
+          </div>
+          
+      
+    </li>
+  
+  
+    
+    <li class="menu__item menu__item--depth-1 menu__item--has-submenu hs-skip-lang-url-rewrite">
+
+      
+        
+          <a class="menu__link menu__link--toggle" href="#" aria-haspopup="true" aria-expanded="false">Industries</a>
+          <span class="menu__plus"></span> 
+        
+      
+      
+      
+        
+        <div class="megamenu__panel">
+            <div class="megamenu__inner">
+              <div class="megamenu__content">
+              
+                
+                
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                
+              
+                <ul class="menu__submenu menu__submenu--level-2 no-list megamenu__row">
+                
+                
+                  
+
+                  
+                    <li class="megamenu__col megamenu__col--overview"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">Overview</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/solutions-use-cases"><i class="icon-solution megamenu__icon" aria-hidden="true"></i> Use Cases</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        
+          <span class="menu__link">By Industry</span>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/mssps-use-case"><i class="icon-mssps megamenu__icon" aria-hidden="true"></i> MSSPs</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/higher-ed-use-case"><i class="icon-higher-education megamenu__icon" aria-hidden="true"></i> Higher Education</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/government-use-case"><i class="icon-compliance-team megamenu__icon" aria-hidden="true"></i> Government</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/power-utilities-use-case"><i class="icon-utilities megamenu__icon" aria-hidden="true"></i> Utilities</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/air-transportation-use-case"><i class="icon-transportation megamenu__icon" aria-hidden="true"></i> Transportation</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/military-use-case"><i class="icon-call-center" aria-hidden="true"></i> Military/Defense</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+              </ul>
+              </div>
+            </div>
+          </div>
+          
+      
+    </li>
+  
+  
+    
+    <li class="menu__item menu__item--depth-1 menu__item--has-submenu hs-skip-lang-url-rewrite">
+
+      
+        
+          <a class="menu__link menu__link--toggle" href="#" aria-haspopup="true" aria-expanded="false">About DuskRise</a>
+          <span class="menu__plus"></span> 
+        
+      
+      
+      
+        
+        <div class="megamenu__panel">
+            <div class="megamenu__inner">
+              <div class="megamenu__content">
+              
+                
+                
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                
+              
+                <ul class="menu__submenu menu__submenu--level-2 no-list megamenu__row">
+                
+                
+                  
+
+                  
+                    <li class="megamenu__col"><ul class="no-list">
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/about-duskrise"><i class="icon-dashboard megamenu__icon" aria-hidden="true"></i> About</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/resources"><i class="icon-threat-intelligence megamenu__icon" aria-hidden="true"></i>Resources</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://www.duskrise.com/careers"><i class="icon-the-platform megamenu__icon" aria-hidden="true"></i>Careers</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    
+    <li class="menu__item menu__item--depth-2  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://blog.duskrise.com"><i class="icon-cluster25-blog megamenu__icon" aria-hidden="true"></i> DuskRise Blog</a>
+        
+      
+      
+      
+    </li>
+  
+                  
+
+                
+                  
+
+                  
+                    </ul></li>
+                  
+
+                
+              </ul>
+              </div>
+            </div>
+          </div>
+          
+      
+    </li>
+  
+  
+    
+    <li class="menu__item menu__item--depth-1  hs-skip-lang-url-rewrite">
+
+      
+        <a class="menu__link   " href="https://get.duskrise.com/contact">Contact Us</a>
+        
+      
+      
+      
+    </li>
+  
+  
+
+
+    </ul>
+  </nav>
+</div>
+
+
+</div>
+        </div>
+ 
+
+          
+          
+           
+        
+          <div class="newheader__buttons">
+            <a class="button header-main__cta" href="https://get.duskrise.com/consultation?hsLang=en">GET A CONSULTATION</a>
+          </div>
+        
+        
+      
+        <button id="hamburger" class="hamburger hamburger--spin" aria-label="Open menu" role="button" aria-controls="menu-desktop">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+        </button>
+
+      </div><!-- .content-wrapper.space-between -->
+    </div><!-- .row-fluid -->
+  </div><!-- .row-fluid-wrapper.header-main__container -->
+</header></div>
+        
+
+      
+<main class="body-container-wrapper">
+  <div class="body-container body-container--blog-post" style="background-color: #121212">
+		
+		<div class="banner banner--blog" style="background-image:url(https://blog.cluster25.duskrise.com/hubfs/DR-blog-hd_04.png); background-position: left;">
+			<div class="banner__inner">
+				<h1 style="font-size: 70px; text-align: left; line-height: .9;"><span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">CVE-2023-38831 Exploited by Pro-Russia Hacking Groups in RU-UA Conflict Zone for Credential Harvesting Operations</span></h1>
+			</div>
+		</div>
+		
+		
+		<div class="content-wrapper dnd-section" style="background-color: #272525">
+    
+      
+      <article class="blog-post" style="max-width: 800px">
+		
+			 <p style="color: #ffffff">By 
+								Cluster25 Threat Intel Team<br>
+								
+				 October 12, 2023
+				
+						</p>
+        
+        
+				
+        
+        
+        <p style="color: #ffffff">
+      	<span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"></span></p><p><img src="https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=800&amp;height=400&amp;name=C25_Bear_WinRAR.png" width="800" height="400" loading="lazy" alt="C25_Bear_WinRAR" style="width: 800px; height: auto; max-width: 100%;" srcset="https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=400&amp;height=200&amp;name=C25_Bear_WinRAR.png 400w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=800&amp;height=400&amp;name=C25_Bear_WinRAR.png 800w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=1200&amp;height=600&amp;name=C25_Bear_WinRAR.png 1200w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=1600&amp;height=800&amp;name=C25_Bear_WinRAR.png 1600w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=2000&amp;height=1000&amp;name=C25_Bear_WinRAR.png 2000w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/C25_Bear_WinRAR.png?width=2400&amp;height=1200&amp;name=C25_Bear_WinRAR.png 2400w" sizes="(max-width: 800px) 100vw, 800px"></p>
+<p style="text-align: justify; font-weight: normal;"><span style="font-weight: bold;">Cluster25 </span>observed and analyzed several phishing-based attacks to be linked to a Russia-nexus nation-State threat actor. The attack involves the use of <span style="font-weight: bold;">malicious archive files</span> that exploit the recently discovered vulnerability affecting the <span style="font-weight: bold;">WinRAR </span>compression software versions prior to <span style="font-weight: bold;">6.23 </span>and traced as <span style="font-weight: bold;">CVE-2023-38831</span>.</p>
+<p style="text-align: justify; font-weight: normal;">The <span style="font-weight: bold;">lure file consists in a PDF document</span>, contained in the archive, that <span style="font-weight: bold;">shows a list of Indicator of Compromise (IoCs)</span> with domain names and hashes related to different malware, including SmokeLoader, Nanocore RAT, Crimson RAT and AgentTesla. Due to the vulnerability, the click on the PDF file causes a BAT script to be executed, which launches PowerShell commands to open a reverse shell that gives the attacker the access to the targeted machine and a PowerShell script that steals data, including login credentials, from the Google Chrome and Microsoft Edge browsers. To exfiltrate the data, attackers uses the legit web service <span style="font-weight: bold;">webhook[.]site</span>.&nbsp;</p>
+<p style="text-align: justify;"><!--more--></p>
+<h2>INSIGHTS</h2>
+<p style="text-align: justify;">The lure sample is an archive file named IOC_09_11.rar, probably with the intention of masquerading itself as a file to be used to share Indicators of Compromise (IoCs). The archive is crafted to exploit the WinRAR vulnerability traced as<span style="font-weight: bold;"> CVE-2023-38831</span>: it contains a bogus PDF file named IOC_09_11.pdf with a trailing space character in its filename and a directory with the same name (including the trailing space) with the file named "IOC_09_11.pdf .cmd", which is a BAT script.&nbsp;</p>
+<p style="text-align: justify;"><img src="https://blog.cluster25.duskrise.com/hubfs/image-png-Oct-10-2023-03-48-36-8737-PM.png" loading="lazy"></p>
+<p style="text-align: justify; margin-bottom: 0px;"><img src="https://blog.cluster25.duskrise.com/hubfs/image-png-Oct-10-2023-03-48-42-0537-PM.png" loading="lazy"></p>
+<p style="margin-top: 0px; margin-right: 0cm; margin-bottom: 12pt; padding-left: 0cm; font-size: 12px; text-align: center;">Content of the malicious RAR file</p>
+<p style="text-align: justify; margin-top: 12pt; margin-right: 0cm; margin-bottom: 12pt; padding-left: 0cm;">Due to the vulnerability, if the victim user has an installed version of the WinRAR software prior to <strong>6.23</strong>, the opening of <span style="font-weight: bold;">the bogus PDF file causes the BAT script to be executed</span>. The BAT script first launches a background command of <strong>WinRAR</strong> to extract its content in the <strong>%TEMP%</strong> directory, then it deletes the script file from it and opens the PDF file to show the lure to the victim. The latter shows a list of IoCs containing domain names and hashes related to different malware, including <strong>SmokeLoader</strong>, <strong>Nanocore RAT</strong>, <strong>Crimson RAT</strong> and <strong>AgentTesla</strong>.</p>
+<p style="text-align: justify; margin-top: 12pt; margin-right: 0cm; margin-bottom: 0px; padding-left: 0cm;"><img src="https://blog.cluster25.duskrise.com/hubfs/image-png-Oct-10-2023-03-48-57-6818-PM.png" loading="lazy"></p>
+<p style="text-align: center; border: none; font-size: 12px;"><em>Content of lure PDF document used by attackers</em></p>
+<p style="text-align: justify; border: none;">Then, the script begins the malicious activity, launching three <strong>PowerShell</strong> commands.</p>
+<p style="text-align: justify; border: none; margin-bottom: 0px;"><img src="https://blog.cluster25.duskrise.com/hubfs/image-png-Oct-10-2023-03-50-00-4176-PM.png" loading="lazy"></p>
+<p style="text-align: center; border: none; font-size: 12px;"><em>Content of.bat script used in the kill-chain</em></p>
+<p style="text-align: justify; border: none;">The first command writes a <strong>Private RSA Key</strong> in the file <strong>rsakey </strong>under the directory <strong>%LOCALAPPDATA%\Temp</strong>. The file is used by the second command to open a <strong>reverse shell</strong> that gives the attacker access to the targeted machine, using the <strong>SSH tool</strong> with the TCP port <strong>443 </strong>at the IP address <strong>216.66.35[.]145</strong>.</p>
+<p style="text-align: justify; border: none; margin-bottom: 0px;"><img src="https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=676&amp;height=98&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png" loading="lazy" width="676" height="98" style="width: 676px; height: auto; max-width: 100%; margin-left: auto; margin-right: auto; display: block;" srcset="https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=338&amp;height=49&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 338w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=676&amp;height=98&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 676w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=1014&amp;height=147&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 1014w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=1352&amp;height=196&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 1352w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=1690&amp;height=245&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 1690w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-50-36-3055-PM.png?width=2028&amp;height=294&amp;name=image-png-Oct-10-2023-03-50-36-3055-PM.png 2028w" sizes="(max-width: 676px) 100vw, 676px"></p>
+<p style="text-align: center; border: none; font-size: 12px;"><em>Code snippet of PowerShell code used in the kill-chain</em></p>
+<p style="text-align: justify; border: none;">The third command executes a Base64-encoded string that once decoded shows the following PowerShell script:</p>
+<p style="text-align: justify; border: none; margin-bottom: 0px;"><img src="https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=696&amp;height=93&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png" loading="lazy" width="696" height="93" style="width: 696px; height: auto; max-width: 100%; margin-left: auto; margin-right: auto; display: block;" srcset="https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=348&amp;height=47&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 348w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=696&amp;height=93&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 696w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=1044&amp;height=140&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 1044w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=1392&amp;height=186&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 1392w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=1740&amp;height=233&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 1740w, https://blog.cluster25.duskrise.com/hs-fs/hubfs/image-png-Oct-10-2023-03-51-10-8732-PM.png?width=2088&amp;height=279&amp;name=image-png-Oct-10-2023-03-51-10-8732-PM.png 2088w" sizes="(max-width: 696px) 100vw, 696px"></p>
+<p style="text-align: center; border: none; font-size: 12px;"><em>Redacted second-stage code snippet of PowerShell code used in the kill-chain</em></p>
+<p style="text-align: justify; margin-top: 12pt; margin-right: 0cm; margin-bottom: 12pt; padding-left: 0cm;">The script retrieves and decrypts the data, including the <strong>Login credentials</strong>, from the <strong>Google Chrome</strong> and <strong>Microsoft Edge</strong> browsers, then it sends it to the threat actor using the legit <strong>Webhook.site</strong> service, which allows users to set a <strong>unique URL</strong> and to obtain a log of requests or emails sent to it, so to inspect their content. The script performs a <strong>POST request</strong> with the retrieved data to the following URL, containing the unique token owned by the attacker:</p>
+<p style="text-align: justify; margin-top: 12pt; margin-right: 0cm; margin-bottom: 12pt; padding-left: 0cm;">&nbsp;</p>
+<div data-hs-responsive-table="true" style="overflow-x: auto; max-width: 100%; width: 73%; margin-left: auto; margin-right: auto;">
+<table style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid #99acc2;">
+<tbody>
+<tr>
+<td style="width: 100%; padding: 4px;"><strong>WEBHOOK URL</strong></td>
+</tr>
+<tr>
+<td style="width: 100%; padding: 4px;"><span style="font-size: 16px;">http://webhook[.]site/e2831741-d8c8-4971-9464-e52d34f9d611</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="font-size: 17px; text-align: justify;">According to the Cluster25 visibility and considering the sophistication of the infection chain, the attack could be related with low-to-mid confidence to the Russian state-sponsored group <span style="font-weight: bold;">APT28 </span>(aka Fancy Bear, Sednit).</p>
+<p style="font-size: 17px; text-align: justify;">&nbsp;</p>
+<h2>MITRE ATT&amp;CK MATRIX</h2>
+<figure class="wp-block-table is-style-regular">
+<table style="border-collapse: collapse; margin: 0px auto 23px; width: 100%; border: 1px solid #99acc2;">
+<tbody>
+<tr style="height: 53px;">
+<td style="height: 53px; width: 169.25px;"><strong><span style="color: #ffffff; font-size: 16px;">TACTIC</span></strong></td>
+<td style="height: 53px; width: 128.5px;"><strong><span style="color: #ffffff; font-size: 16px;">TECHNIQUE</span></strong></td>
+<td style="height: 53px; width: 490.25px;"><strong><span style="color: #ffffff; font-size: 16px;">DESCRIPTION</span></strong></td>
+</tr>
+<tr style="height: 53px;">
+<td style="height: 53px; width: 169.25px;"><span style="color: #ffffff; font-size: 15px;">Initial Access</span></td>
+<td style="height: 53px; width: 128.5px;"><span style="font-size: 15px; color: #ffffff;">T1566.001</span></td>
+<td style="height: 53px; width: 490.25px;"><span style="font-size: 15px; color: #ffffff;">Phishing: Spearphishing Attachment</span></td>
+</tr>
+<tr style="height: 53px;">
+<td style="height: 53px; width: 169.25px;"><span style="color: #ffffff; font-size: 15px;">Execution</span></td>
+<td style="height: 53px; width: 128.5px;"><span style="font-size: 15px; color: #ffffff;">T1059.003</span></td>
+<td style="height: 53px; width: 490.25px;"><span style="font-size: 15px; color: #ffffff;">Command and Scripting Interpreter: Windows Command Shell</span></td>
+</tr>
+<tr style="height: 53px;">
+<td style="height: 53px; width: 169.25px;"><span style="color: #ffffff; font-size: 15px;">Execution</span></td>
+<td style="height: 53px; width: 128.5px;"><span style="font-size: 15px; color: #ffffff;">T1204.002</span></td>
+<td style="height: 53px; width: 490.25px;"><span style="font-size: 15px; color: #ffffff;">User Execution: Malicious File</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="height: 52px; width: 169.25px;"><span style="color: #ffffff; font-size: 15px;">Defense Evasion</span></td>
+<td style="height: 52px; width: 128.5px;"><span style="font-size: 15px; color: #ffffff;">T1140</span></td>
+<td style="height: 52px; width: 490.25px; vertical-align: middle;"><span style="font-size: 15px; color: #ffffff;">Deobfuscate/Decode Files or Information</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="height: 52px; width: 169.25px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">Defense Evasion</span></td>
+<td style="height: 52px; width: 128.5px;"><span style="font-size: 15px; color: #ffffff;">T1036</span></td>
+<td style="height: 52px; width: 490.25px;"><span style="font-size: 15px;">Masquerading</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; Discovery</span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; T1082</span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; System Information Discovery</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px; color: #ffffff;">&nbsp; Collection</span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; T1005</span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px;">&nbsp; Data from Local System</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px; color: #ffffff;">&nbsp; Command and Control</span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; T1105</span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px;">&nbsp; Ingress Tool Transfer</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff;"><span style="font-size: 15px;">&nbsp; Command and Control</span></span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; T1071</span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px;">&nbsp; Application Layer Protocol</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff;"><span style="font-size: 15px;">&nbsp; Command and Control</span></span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; T1102</span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; Web Service</span></td>
+</tr>
+<tr style="height: 52px;">
+<td style="width: 169.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; Exfiltration</span></td>
+<td style="width: 128.5px; padding: 4px; height: 52px; vertical-align: middle;"><span style="color: #ffffff; font-size: 15px;">&nbsp; <span style="font-size: 15px;">T1567</span></span></td>
+<td style="width: 490.25px; padding: 4px; height: 52px; vertical-align: middle;"><span style="font-size: 15px;">&nbsp; Exfiltration Over Web Service</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<h2>&nbsp;</h2>
+<h2>INDICATORS OF COMPROMISE</h2>
+<figure class="wp-block-table">
+<table style="width: 100%; height: 351.078px;">
+<tbody>
+<tr style="height: 75.0938px;">
+<td style="width: 15.1134%; height: 75.0938px;"><span style="color: #ffffff;"><strong>CATEGORY</strong></span></td>
+<td style="width: 13.602%; height: 75.0938px;"><span style="color: #ffffff;"><strong>TYPE</strong></span></td>
+<td style="width: 70.7809%; height: 75.0938px;"><span style="color: #ffffff;"><strong>VALUE</strong></span></td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 15.1134%; padding: 4px; height: 39px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 39px;"><span style="color: #ffffff; font-size: 15px;">SHA256</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 39px;"><span style="font-size: 15px;">072afea7cae714b44c24c16308da0ef0e5aab36b7a601b310d12f8b925f359e7</span></td>
+</tr>
+<tr style="height: 34px;">
+<td style="width: 15.1134%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">SHA1</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 34px;"><span style="font-size: 15px; color: #ffffff;"><code data-stringify-type="code">9e630c9879e62dc801ac01af926fbc6d372c8416</code></span></td>
+</tr>
+<tr style="height: 34px;">
+<td style="width: 15.1134%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">MD5</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 34px;"><span style="font-size: 15px; color: #ffffff;"><code data-stringify-type="code">89939a43c56fe4ce28936ee76a71ccb0</code></span></td>
+</tr>
+<tr style="height: 33.7969px;">
+<td style="width: 15.1134%; padding: 4px; height: 39px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 39px;"><span style="color: #ffffff; font-size: 15px;">SHA256</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 33.7969px;"><span style="font-size: 15px; color: #ffffff;">91dec1160f3185cec4cb70fee0037ce3a62497e830330e9ddc2898f45682f63a</span></td>
+</tr>
+<tr style="height: 33.7969px;">
+<td style="width: 15.1134%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">SHA1</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 33.7969px;"><span style="font-size: 15px; color: #ffffff;">bd44774417ba5342d30a610303cde6c2f6a54f64</span></td>
+</tr>
+<tr>
+<td style="width: 15.1134%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">&nbsp; PAYLOAD</span></td>
+<td style="width: 13.602%; padding: 4px; height: 34px;"><span style="color: #ffffff; font-size: 15px;">MD5</span></td>
+<td style="width: 70.7809%; padding: 4px;"><span style="font-size: 15px; color: #ffffff;">9af76e61525fe6c89fe929ac5792ab62</span></td>
+</tr>
+<tr style="height: 33.7969px;">
+<td style="width: 15.1134%; padding: 4px; height: 34px;"><span style="font-size: 15px;">&nbsp; NETWORK</span></td>
+<td style="width: 13.602%; padding: 4px; height: 34px;">IPv4</td>
+<td style="width: 70.7809%; padding: 4px; height: 33.7969px;"><span style="font-size: 15px; color: #ffffff;">216[.]66[.]35[.]145</span></td>
+</tr>
+<tr style="height: 33.7969px;">
+<td style="width: 15.1134%; padding: 4px; height: 33.7969px;"><span style="color: #ffffff; font-size: 15px;"><span style="font-size: 15px;">&nbsp; NETWORK</span></span></td>
+<td style="width: 13.602%; padding: 4px; height: 33.7969px;"><span style="color: #ffffff; font-size: 15px;">URL</span></td>
+<td style="width: 70.7809%; padding: 4px; height: 33.7969px;"><span style="font-size: 15px; color: #ffffff;">http://webhook[.]site/e2831741-d8c8-4971-9464-e52d34f9d611</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<figure class="wp-block-table">
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+</figure>
+        <p></p>
+		
+        
+        
+          <div class="blog-post__tags">
+            <span id="hs_cos_wrapper_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" width="12" aria-hidden="true"><g id="tag1_layer"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z" /></g></svg></span>
+            
+              <a class="blog-post__tag-link" href="https://blog.cluster25.duskrise.com/tag/malware">Malware</a>,
+            
+              <a class="blog-post__tag-link" href="https://blog.cluster25.duskrise.com/tag/intelligence">Intelligence</a>,
+            
+              <a class="blog-post__tag-link" href="https://blog.cluster25.duskrise.com/tag/apt">APT</a>,
+            
+              <a class="blog-post__tag-link" href="https://blog.cluster25.duskrise.com/tag/apt28">apt28</a>
+            
+          </div>
+        
+        
+        
+	
+
+				<div class="text-center mt-l">
+					<h5 style="color: #ffffff">Like it? Share it:</h5>
+					<div class="blog-post__share mb-xl">
+						<a title="Share on Twitter" href="https://twitter.com/intent/tweet?url=https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack" rel="noreferrer" class="blog-post__share-twitter">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" width="21" height="21" aria-labelledby="twitter2" role="img"><title id="twitter2">Twitter</title><g id="twitter2_layer"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" /></g></svg>
+						</a>
+						<a title="Share on LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack" rel="noreferrer" class="blog-post__share-linkedin">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" width="21" height="21" aria-labelledby="linkedin3" role="img"><title id="linkedin3">LinkedIn</title><g id="linkedin3_layer"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></g></svg>
+						</a>
+						<a title="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.cluster25.duskrise.com/2023/10/12/cve-2023-38831-russian-attack" rel="noreferrer" class="blog-post__share-facebook">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" width="21" height="21" aria-labelledby="facebook-square4" role="img"><title id="facebook-square4">Facebook</title><g id="facebook-square4_layer"><path d="M448 80v352c0 26.5-21.5 48-48 48h-85.3V302.8h60.6l8.7-67.6h-69.3V192c0-19.6 5.4-32.9 33.5-32.9H384V98.7c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9H184v67.6h60.9V480H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48z" /></g></svg>
+						</a>
+					</div>
+				</div>
+			</article>
+   
+			
+		
+			
+	
+			
+			
+      
+
+      
+      
+      
+      
+      
+      
+      
+
+			<div class="blog-recent-posts widget-span dnd-section">
+				<div class="text-center">
+				  <h3 style="color: #ffffff">You may also like</h3>
+				</div>
+				
+				<div class="blog-recent-posts__list flex-container flex-container--3-col flex-container--wrap flex-container--center">
+					
+  
+				<div class="item-with-image">
+					
+						<a href="https://blog.cluster25.duskrise.com/2023/10/25/the-duck-is-hiring?hsLang=en">
+							<span class="item-with-image__image lazy" align="center" data-bg="https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/C25_Duck.png">The Duck is Hiring in Italy: DUCKTAIL Spread via Compromised LinkedIn Profiles</span>
+						</a>
+					
+					<div class="item-with-image__inner-content">
+						<h5 class="margin-0"><a href="https://blog.cluster25.duskrise.com/2023/10/25/the-duck-is-hiring?hsLang=en">The Duck is Hiring in Italy: DUCKTAIL Spread via Compromised LinkedIn Profiles</a></h5>
+						<small style="color: #121212">October 25, 2023</small>
+
+						<p class="item-with-image__text mt-m" ; style="color: #121212">Cluster25 observed a malicious campaign that employs LinkedIn messages as a vector for executing identity theft attacks....</p>
+
+					<div class="flex-container space-between">
+							<p class="item-with-image__text"><a title="Read this article" href="https://blog.cluster25.duskrise.com/2023/10/25/the-duck-is-hiring?hsLang=en">Read this article</a></p>
+						
+
+            
+            
+            
+            
+            
+            
+           
+            
+            
+            
+            
+						</div>
+					</div>
+				</div>
+		
+      
+      
+      
+      
+      
+
+  
+				<div class="item-with-image">
+					
+						<a href="https://blog.cluster25.duskrise.com/2023/05/22/back-in-black-blackbyte-nt?hsLang=en">
+							<span class="item-with-image__image lazy" align="center" data-bg="https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/Cover_crypted.png">Back in Black: BlackByte Ransomware returns with its New Technology (NT) version</span>
+						</a>
+					
+					<div class="item-with-image__inner-content">
+						<h5 class="margin-0"><a href="https://blog.cluster25.duskrise.com/2023/05/22/back-in-black-blackbyte-nt?hsLang=en">Back in Black: BlackByte Ransomware returns with its New Technology (NT) version</a></h5>
+						<small style="color: #121212">May 22, 2023</small>
+
+						<p class="item-with-image__text mt-m" ; style="color: #121212">BlackByte is a Ransomware-as-a-Service (RaaS) group that is known for the use of the homonymous malware that is constant...</p>
+
+					<div class="flex-container space-between">
+							<p class="item-with-image__text"><a title="Read this article" href="https://blog.cluster25.duskrise.com/2023/05/22/back-in-black-blackbyte-nt?hsLang=en">Read this article</a></p>
+						
+
+            
+            
+            
+            
+            
+            
+           
+            
+            
+            
+            
+						</div>
+					</div>
+				</div>
+		
+      
+      
+      
+      
+      
+
+  
+				<div class="item-with-image">
+					
+						<a href="https://blog.cluster25.duskrise.com/2022/12/22/an-infostealer-comes-to-town?hsLang=en">
+							<span class="item-with-image__image lazy" align="center" data-bg="https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/image.png">An infostealer comes to town:&nbsp;Dissecting a highly evasive malware targeting Italy</span>
+						</a>
+					
+					<div class="item-with-image__inner-content">
+						<h5 class="margin-0"><a href="https://blog.cluster25.duskrise.com/2022/12/22/an-infostealer-comes-to-town?hsLang=en">An infostealer comes to town:&nbsp;Dissecting a highly evasive malware targeting Italy</a></h5>
+						<small style="color: #121212">December 22, 2022</small>
+
+						<p class="item-with-image__text mt-m" ; style="color: #121212">Cluster25 researchers analyzed several campaigns (also publicly reported by CERT-AGID) that used phishing emails to spre...</p>
+
+					<div class="flex-container space-between">
+							<p class="item-with-image__text"><a title="Read this article" href="https://blog.cluster25.duskrise.com/2022/12/22/an-infostealer-comes-to-town?hsLang=en">Read this article</a></p>
+						
+
+            
+            
+            
+            
+            
+            
+           
+            
+            
+            
+            
+						</div>
+					</div>
+				</div>
+		
+      
+      
+      
+      
+      
+
+
+				</div>
+			</div>
+			
+		</div>
+		
+		
+  </div>
+</main>
+
+      
+      
+        <div id="hs_cos_wrapper_footer_main" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><footer class="footer dnd-section " id="">
+  <div class="footer-container footer-container--wide flex-container">
+		
+		<div class="footer__main">
+			<p class="footer__logo">
+				<a class="footer__logo-link" href="/?hsLang=en">
+					
+						
+						
+							
+						
+						<img class="lazy" data-src="https://21649046.fs1.hubspotusercontent-na1.net/hubfs/21649046/DuskRise_March2022/Images/LOGO_W.png" alt="LOGO_W" width="100%" style="max-width: 175px; max-height: 40px">
+					
+				</a>
+			</p>
+
+			<div class="footer__text"><p style="font-size: 14px; line-height: 1.25;"><strong>GLOBAL HQ</strong><br><span>437 Madison Avenue, </span><span>24th&nbsp;Floor<br>New York, NY 10022</span></p></div>
+
+			<div class="footer__social-link">
+				
+					<a href="https://www.linkedin.com/company/duskrise" rel="noreferrer" class="linkedin">
+						<span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-hidden="true"><g id="linkedin5_layer"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></g></svg></span>
+						<span class="hide-text">linkedin</span>
+					</a>
+				
+					<a href="https://twitter.com/DuskRiseInc" rel="noreferrer" class="twitter">
+						<span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" aria-hidden="true"><g id="twitter6_layer"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" /></g></svg></span>
+						<span class="hide-text">twitter</span>
+					</a>
+				
+					<a href="https://www.instagram.com/duskriseinc/" rel="noreferrer" class="instagram">
+						<span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-hidden="true"><g id="instagram7_layer"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" /></g></svg></span>
+						<span class="hide-text">instagram</span>
+					</a>
+				
+					<a href="https://www.facebook.com/DuskRiseCyber/" rel="noreferrer" class="facebook">
+						<span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" style="" data-hs-cos-general-type="widget" data-hs-cos-type="icon"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-hidden="true"><g id="facebook8_layer"><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z" /></g></svg></span>
+						<span class="hide-text">facebook</span>
+					</a>
+				
+			</div>
+			<p class="footer__copyright-text">© 2023 DuskRise Inc. All Rights Reserved.</p>
+			<div class="footer__legal-menu" role="menu">
+				<p><span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"></span></p><div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="79040764526" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/hubfs/Privacy_DuskRise_website/en/privacy%20EN%20DR.html" role="menuitem">Privacy Policy</a></li>
+ </ul>
+</div><p></p>
+			</div>
+		</div>
+		
+		
+		
+			<div>
+				
+				  <div class="footer__menu">
+				    <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"><div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="110829825913" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/cluster25_platform" role="menuitem">C25 INTELLIGENCE</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/the-duskrise-platform" role="menuitem">Remote Network Protection</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/it/solutions-use-cases" role="menuitem">Industries</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/about-duskrise" role="menuitem">About DuskRise</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://blog.cluster25.duskrise.com" role="menuitem">Cluster25 Blog</a></li>
+ </ul>
+</div></span>
+				  </div>
+				
+		  </div>
+		
+		
+		
+		
+			<div>
+				
+				  <div class="footer__menu">
+				    <span id="hs_cos_wrapper_footer_main_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"><div id="hs_menu_wrapper_footer_main_" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="110829297962" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/resources" role="menuitem">Resources</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.duskrise.com/careers" role="menuitem">Careers</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://blog.duskrise.com" role="menuitem">Blog</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://get.duskrise.com/contact" role="menuitem">Contact Us</a></li>
+ </ul>
+</div></span>
+				  </div>
+				
+		  </div>
+		
+		
+		
+		
+		
+		
+		
+  </div>
+</footer>
+
+</div>
+      
+    </div>
+    
+		
+		
+		
+		
+		
+      
+		
+
+    
+  
+    
+    
+    
+
+    
+
+    <script src="/hs/hsstatic/jquery-libs/static-1.1/jquery/jquery-1.7.1.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81445757079/1660147889950/proX-C25-child/js/vendor/aos.min.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/88996704812/1669633899533/proX-duskrise-child/js/libs/splitting-js/splitting.min.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/89271424580/1669633902611/proX-duskrise-child/js/website-scroller.min.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/98405340582/1673602749401/proX-duskrise-child/js/website-language-switcher.min.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/template_assets/81445623885/1660147899096/proX-C25-child/child.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://blog.cluster25.duskrise.com/hs-fs/hub/21649046/hub_generated/module_assets/87568042657/1668167161151/module_87568042657_menu.min.js"></script>
+<script src="/hs/hsstatic/keyboard-accessible-menu-flyouts/static-1.17/bundles/project.js"></script>
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/blog.cluster25.duskrise.com\/2023\/10\/12\/cve-2023-38831-russian-attack"]);
+_hsq.push(["setPageId", "137956316196"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 137956316196,
+    "legacyPageId": "137956316196",
+    "contentFolderId": null,
+    "contentGroupId": 79260149140,
+    "abTestId": null,
+    "languageVariantId": 137956316196,
+    "languageCode": "en",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/21649046.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "3463e752-46e5-44a3-a9b5-e89b3ec9f1e2",
+    ticks: 1703551790398,
+    page_id: 137956316196,
+    
+    content_group_id: 79260149140,
+    portal_id: 21649046,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "137956316196",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+  
+</body></html>

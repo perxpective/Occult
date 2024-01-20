@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>PureCrypter is busy pumping out various malicious malware families</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=16eac6b760" />
+
+    <link rel="icon" href="https://blog.netlab.360.com/content/images/size/w256h256/2019/02/netlab_xs-2.png" type="image/png" />
+    <link rel="canonical" href="https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/amp/" />
+    
+    <meta property="og:site_name" content="360 Netlab Blog - Network Security Research Lab at 360" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="PureCrypter is busy pumping out various malicious malware families" />
+    <meta property="og:description" content="In our daily botnet analysis work, it is common to encounter various loaders.Compared to other types of malware, loaders are unique in that they are mainly used to &quot;promote&quot;, i.e., download and run other malware on the infected machine. According to our observations, most loaders are proprietary and" />
+    <meta property="og:url" content="https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/" />
+    <meta property="og:image" content="https://blog.netlab.360.com/content/images/2019/02/astronomy-constellation-dark-998641-4.jpg" />
+    <meta property="article:published_time" content="2022-08-29T13:00:00.000Z" />
+    <meta property="article:modified_time" content="2022-08-29T13:00:00.000Z" />
+    <meta property="article:tag" content="Botnet" />
+    <meta property="article:tag" content="PureCrypter" />
+    <meta property="article:tag" content="MaaS" />
+    <meta property="article:tag" content="malware-as-a-service" />
+    <meta property="article:tag" content="AgentTesla" />
+    <meta property="article:tag" content="PureMiner" />
+    <meta property="article:tag" content="loader" />
+    <meta property="article:tag" content="Import 2022-11-30 11:16" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PureCrypter is busy pumping out various malicious malware families" />
+    <meta name="twitter:description" content="In our daily botnet analysis work, it is common to encounter various loaders.Compared to other types of malware, loaders are unique in that they are mainly used to &quot;promote&quot;, i.e., download and run other malware on the infected machine. According to our observations, most loaders are proprietary and" />
+    <meta name="twitter:url" content="https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/" />
+    <meta name="twitter:image" content="https://blog.netlab.360.com/content/images/2019/02/astronomy-constellation-dark-998641-4.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="wanghao" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Botnet, PureCrypter, MaaS, malware-as-a-service, AgentTesla, PureMiner, loader, Import 2022-11-30 11:16" />
+    <meta name="twitter:site" content="@360Netlab" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="1333" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "360 Netlab Blog - Network Security Research Lab at 360",
+        "url": "https://blog.netlab.360.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.netlab.360.com/content/images/2019/02/netlab-brand-5.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "wanghao",
+        "url": "https://blog.netlab.360.com/author/wanghao/",
+        "sameAs": []
+    },
+    "headline": "PureCrypter is busy pumping out various malicious malware families",
+    "url": "https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/",
+    "datePublished": "2022-08-29T13:00:00.000Z",
+    "dateModified": "2022-08-29T13:00:00.000Z",
+    "keywords": "Botnet, PureCrypter, MaaS, malware-as-a-service, AgentTesla, PureMiner, loader, Import 2022-11-30 11:16",
+    "description": "In our daily botnet analysis work, it is common to encounter various loaders.Compared to other types of malware, loaders are unique in that they are mainly used to &quot;promote&quot;, i.e., download and run other malware on the infected machine. According to our observations, most loaders are proprietary and have a binding relationship with the family they are promoting. A few loader families make themselves into promotion platforms that can spread any other malware family, achieving the so-called malwar",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.netlab.360.com/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.22" />
+    <link rel="alternate" type="application/rss+xml" title="360 Netlab Blog - Network Security Research Lab at 360" href="https://blog.netlab.360.com/rss/" />
+    
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="db8c743e6bb1457403d255d83f" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://blog.netlab.360.com/" crossorigin="anonymous"></script>
+    <script defer src="/public/cards.min.js?v=16eac6b760"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=16eac6b760">
+    <style type='text/css'>
+	#ghost-portal-root {
+        display: none;
+    }
+</style><style>:root {--ghost-accent-color: #eca265;}</style>
+
+</head>
+<body class="post-template tag-botnet tag-purecrypter tag-maas tag-malware-as-a-service tag-agenttesla tag-pureminer tag-loader tag-import-2022-11-30-11-16 has-cover">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head outer">
+        <nav class="gh-head-inner inner">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="https://blog.netlab.360.com">
+                        <img src="https://blog.netlab.360.com/content/images/2019/02/netlab-brand-5.png" alt="360 Netlab Blog - Network Security Research Lab at 360" />
+                </a>
+                <div class="gh-head-brand-wrapper">
+                    <button class="gh-search" data-ghost-search><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <a class="gh-burger" role="button">
+                        <div class="gh-burger-box">
+                            <div class="gh-burger-inner"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-botnet"><a href="https://blog.netlab.360.com/tag/botnet/">Botnet</a></li>
+    <li class="nav-dnsmon"><a href="https://blog.netlab.360.com/tag/dnsmon/">DNSMon</a></li>
+    <li class="nav-ddos"><a href="https://blog.netlab.360.com/tag/ddos/">DDoS</a></li>
+    <li class="nav-passivedns"><a href="https://blog.netlab.360.com/tag/pdns/">PassiveDNS</a></li>
+    <li class="nav-mirai"><a href="https://blog.netlab.360.com/tag/mirai/">Mirai</a></li>
+    <li class="nav-dta"><a href="https://blog.netlab.360.com/tag/dta/">DTA</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                        <a class="gh-social-link gh-social-twitter" href="https://twitter.com/360Netlab" title="Twitter" target="_blank" rel="me noopener"><svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg></a>
+                        <a class="gh-social-link gh-social-feedly" href="https://feedly.com/i/subscription/feed/https://blog.netlab.360.com/rss/" title="RSS" target="_blank" rel="me noopener"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="site-content">
+             <div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://blog.netlab.360.com">
+                <img src="/content/images/size/w30/2019/02/netlab_xs-2.png" alt="360 Netlab Blog - Network Security Research Lab at 360 icon" />
+            <span>360 Netlab Blog - Network Security Research Lab at 360</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">PureCrypter is busy pumping out various malicious malware families</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=PureCrypter%20is%20busy%20pumping%20out%20various%20malicious%20malware%20families&amp;url=https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg>        </a>
+    </div>
+    <progress id="reading-progress" class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+  <main id="site-main" class="site-main">
+    <article class="article post tag-botnet tag-purecrypter tag-maas tag-malware-as-a-service tag-agenttesla tag-pureminer tag-loader tag-import-2022-11-30-11-16 no-image ">
+
+      <header class="article-header gh-canvas">
+
+        <div class="article-tag post-card-tags">
+          <span class="post-card-primary-tag">
+            <a href="/tag/botnet/">Botnet</a>
+          </span>
+        </div>
+
+        <h1 class="article-title">PureCrypter is busy pumping out various malicious malware families</h1>
+
+
+        <div class="article-byline">
+          <section class="article-byline-content">
+
+            <ul class="author-list">
+              <li class="author-list-item">
+                <a href="/author/wanghao/" class="author-avatar author-profile-image"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z" fill="#FFF"/></g></svg>
+</a>
+              </li>
+            </ul>
+
+            <div class="article-byline-meta">
+              <h4 class="author-name"><a href="/author/wanghao/">wanghao</a></h4>
+              <div class="byline-meta-content">
+                <time class="byline-meta-date" datetime=" 2022-08-29">Aug 29, 2022</time>
+                <span class="byline-reading-time"><span class="bull">&bull;</span> 12 min read</span>
+              </div>
+            </div>
+
+          </section>
+        </div>
+
+
+      </header>
+
+      <section class="gh-content gh-canvas">
+        <!--kg-card-begin: markdown--><p>In our daily botnet analysis work, it is common to encounter various loaders.Compared to other types of malware, loaders are unique in that they are mainly used to &quot;promote&quot;, i.e., download and run other malware on the infected machine. According to our observations, most loaders are proprietary and have a binding relationship with the family they are promoting. A few loader families make themselves into promotion platforms that can spread any other malware family, achieving the so-called malware-as-a-service (MaaS). Compared with proprietary loaders, MaaS types are obviously more dangerous and should be our primary target of concern.</p>
+<p>This article introduces a MaaS type loader we saw a while ago, named PureCrypter, which is very active this year, promoting more than 10 other families and using hundreds of C2s. Zscaler has done a <a href="https://www.zscaler.com/blogs/security-research/technical-analysis-purecrypter">detailed sample analysis</a>, this blog mainly introduces the PureCrypter propagation activity we saw from the perspective of C2s and propagation chains to explore the operation of the MaaS type botnet.</p>
+<p>The main points of this paper are as follows.</p>
+<ul>
+<li>PureCrypter is a loader written in C# that has been around since at least 2021 and can propagate any other family.</li>
+<li>PureCrypter continues to be active this year and has propagated more than 10 other malware families including Formbook, SnakeKeylogger, AgentTesla, Redline, AsyncRAT, and others.</li>
+<li>PureCrypter authors appears to be resourceful, as we have seen hundreds of C2 domains and IPs.</li>
+<li>PureCrypter use image name suffixes combined with inversion, compression and encryption to avoid detection.</li>
+<li>PureCrypter has a long propagation chain, and most of them use pre-protectors, some times mixed with other loaders, making detection more difficult.</li>
+</ul>
+<p>In general, the spread of PureCrypter can be summarized in the following figure.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--0--1.png" alt="Image--0--1" loading="lazy"></p>
+<p>Now let’s look at the samples and some typical propagation cases below.</p>
+<h1 id="sampleanalysis">Sample analysis</h1>
+<p>PureCrypter uses the <a href="https://www.zscaler.com/blogs/security-research/technical-analysis-purecrypter">package mechanism</a>, which consists of two executables: downloader and injector, both written in C#, where downloader is responsible for propagating the injector, which releases and runs the final payload.</p>
+<p>In practice, the attacker generates downloader and injector through builder, and then will try to propagate downloader, which will download and execute injector on the target machine, and then injector will do the rest of the work. In terms of code logic, the downloader module is relatively simple, with a low level of binary obfuscation and no complex operations such as environment detection and persistence, while injector uses common tricks and techniques seen in popular loaders, such as binary obfuscation, runtime environment detection, starting puppet processes, etc. The following is a brief introduction to downloader and injector combined with actual examples.</p>
+<h2 id="downloadermodule">downloader module</h2>
+<p>This module directly calls WebClient's DownloadData method for HTTP downloads, without setting any HTTP headers.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--11-.png" alt="Image--11-" loading="lazy"></p>
+<p>The following is an example of downloading a sample variant with inverted processing, from the parsing code you can see that the HTTP payload is inverted.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--12-.png" alt="Image--12-" loading="lazy"></p>
+<p>The inverted PE Header can be found at the end.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--13-.png" alt="Image--13-" loading="lazy"></p>
+<p>Finally, the recovered data (.DLL file) is loaded by Assembly.Load, and the entry method of plaintext encoding is called to proceed to the next stage.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--14-.png" alt="Image--14-" loading="lazy"></p>
+<p>PureCrypter is relatively simple to protect the injector download, so far, in addition to the above mentioned inverted (reverse) encoding, there are also gzip compression, symmetric encryption, etc. This encoding is fixed, that is, the builder has already determined the encoding method when generating the modules of downloader and injector.</p>
+<p>The following is an example of using gzip compression and then transferring the injector, and the magic header of gzip can be found at the beginning: <code>1F 8B 08 00</code>.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--15-.png" alt="Image--15-" loading="lazy"></p>
+<p>We have also come across examples where AES encryption is used.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--16-.png" alt="Image--16-" loading="lazy"></p>
+<p>In addition to AES, PureCrypter also supports DES, RC4 and other encryption algorithms.</p>
+<h2 id="injectormodule">injector module</h2>
+<p>If you analyze the injector samples restored by downloader, you will find that the latter are heavily obfuscated. Here is an example of an injector obfuscated by SmartAssembly and partially encrypted with resources.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--17-.png" alt="Image--17-" loading="lazy"></p>
+<p>As shown in the figure above, first the relevant configuration information can be got from the combo of Reverse + GZip + Protubuf.Deserialize; then the runtime environment is checked to fight against sandboxing, with mutexes creation and persistence being done based on the configuration; and finally the payload is read from the resource section for loading. The sample does not enter any if statement, and soon reaches the last important function, which mainly implements the final payload injection. 4 injection methods are supported. While which one to use depends on the configuration, Process Hollowing is the most frequently used one.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/image.png" alt="image" loading="lazy"></p>
+<p>The final payload is stored in the resource.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--18-.png" alt="Image--18-" loading="lazy"></p>
+<p>After reversing and gzip decompression, a puppet process is created to start the final payload.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--19-.png" alt="Image--19-" loading="lazy"></p>
+<p>The final payload promoted above is AgentTesla, whose configuration information is as follows.</p>
+<pre><code>host: raphaellasia.com
+port:587
+username: origin@raphaellasia.com
+pwd: student@1980
+to: origin2022@raphaellasia.com
+</code></pre>
+<h2 id="accidentaldiscovery">Accidental discovery</h2>
+<p>PureCrypter likes to disguise the injector as an image for downloading, the image name is relatively random and has obvious machine generated features. Here are some of the actual detected image names.</p>
+<pre><code># pattern 1
+/dl/0414/net_Gzhsuovx.bmp
+/dl/0528/mars2_Hvvpvuns.bmp
+/dl/0528/az_Tsrqixjf.bmp
+
+# pattern 2
+/040722/azne_Bvaquebo.bmp
+/04122022/net_Ygikzmai.bmp
+/04122022/azne_Jzoappuq.bmp
+/04122022/pm_Dxjlqugu.bmp
+/03252022/azne_Rmpsyfmd.bmp
+
+# pattern 3
+/Rrgbu_Xruauocq.png
+/Gepstl_Mouktkmu.bmp
+/Zhyor_Uavuxobp.png
+/Xgjbdziy_Kglkvdfb.png
+/Ankwgqtwf_Bdevsqnz.bmp
+/Osgyjgne_Ymgrebdt.png
+/Rrgbu_Xruauocq.png
+/Gepstl_Mouktkmu.bmp
+/Osgyjgne_Ymgrebdt.png
+/Osgyjgne_Ymgrebdt.png
+/Zhyor_Uavuxobp.png
+
+</code></pre>
+<p>After analyzing several samples, we found that there is a correspondence between the requested image name and the downloader's AssmblyName.</p>
+<table>
+<thead>
+<tr>
+<th>PictureName</th>
+<th>AssmblyName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Belcuesth_Ipdtbadv.png</td>
+<td>Belcuesth</td>
+</tr>
+<tr>
+<td>Kzzlcne_Prgftuxn.png</td>
+<td>Kzzlcne</td>
+</tr>
+<tr>
+<td>newminer2_Jrltkmeh.jpg</td>
+<td>newminer2</td>
+</tr>
+<tr>
+<td>Belcuesth_Ipdtbadv.png</td>
+<td>Belcuesth</td>
+</tr>
+<tr>
+<td>Nykymad_Bnhmcpqo.bmp</td>
+<td>Nykymad</td>
+</tr>
+<tr>
+<td>my_ori_Ywenb_Yzueqpjp.bmp</td>
+<td>my ori Ywenb</td>
+</tr>
+</tbody>
+</table>
+<p>and the content after the underscore always matches the regular expression</p>
+<blockquote>
+<p>[A-Z][a-zA-Z]{7}</p>
+</blockquote>
+<h1 id="c2andpropagationanalysis">C2 and propagation analysis</h1>
+<p>PureCrypter has been active this year, and we have detected more than 200 C2 domains and IPs, and more than 10 propagated families. In the cases we have seen, the propagation chain is generally long, and the downloader module of PureCrypter is often used in conjunction with various other types of predecessor downloaders. Because there are too many C2s, here is an introduction to <code>185.215.113.89</code> as an example in terms of scale and propagation methods.</p>
+<h2 id="c2analysis">C2 analysis</h2>
+<p>This C2 is more active than others among the C2s we detected, and its active time is from mid-April to early June this year, as shown in the figure below.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/xmon_185.215.113.89_ganwang.png" alt="xmon_185.215.113.89_ganwang" loading="lazy"></p>
+<p>Its activity level can be reflected visually by our graph system.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/domain_ip_of_butler_202205-1.png" alt="domain_ip_of_butler_202205-1" loading="lazy"></p>
+<p>It can be seen that it is associated with more domains and IPs, and the following is part of the IP's domain name resolution during this period.</p>
+<pre><code>2022-04-14 22:47:34	2022-07-05 00:42:16	22	rockrock.ug	A	185.215.113.89	
+2022-04-21 08:22:03	2022-06-13 09:17:50	15	marnersstyler.ug	A	185.215.113.89	
+2022-04-17 03:17:41	2022-06-10 04:31:27	2538	qwertzx.ru	A	185.215.113.89	
+2022-04-24 02:16:46	2022-06-09 00:11:24	3	hubvera.ac.ug	A	185.215.113.89	
+2022-04-15 23:47:43	2022-06-08 19:24:59	43	timekeeper.ug	A	185.215.113.89	
+2022-04-15 11:34:35	2022-06-08 19:24:59	35	boundertime.ru	A	185.215.113.89	
+2022-04-14 23:01:50	2022-06-08 15:33:25	24	timebound.ug	A	185.215.113.89	
+2022-04-15 21:58:54	2022-06-08 05:43:21	7	www.rockrock.ug	A	185.215.113.89	
+2022-04-16 20:50:41	2022-06-08 01:44:01	54	beachwood.ug	A	185.215.113.89	
+2022-04-23 16:23:41	2022-06-07 18:30:51	5	asdsadasrdc.ug	A	185.215.113.89	
+2022-05-02 22:35:40	2022-06-07 04:34:12	17	leatherlites.ug	A	185.215.113.89	
+2022-05-29 17:46:00	2022-06-07 03:50:36	3	underdohg.ac.ug	A	185.215.113.89	
+2022-04-15 22:34:53	2022-06-07 03:33:10	18	rockphil.ac.ug	A	185.215.113.89	
+2022-04-15 03:09:13	2022-06-07 03:19:50	14	pdshcjvnv.ug	A	185.215.113.89	
+2022-04-15 03:04:12	2022-06-07 03:12:04	16	mistitis.ug	A	185.215.113.89	
+2022-04-16 03:08:46	2022-06-07 03:08:48	18	nicoslag.ru	A	185.215.113.89	
+2022-04-19 02:33:31	2022-06-07 02:37:08	16	danwisha.ac.ug	A	185.215.113.89	
+2022-05-28 23:56:02	2022-06-05 05:14:50	7	underdohg.ug	A	185.215.113.89	
+2022-05-10 14:44:28	2022-06-02 17:40:12	24	jonescourtney.ac.ug	A	185.215.113.89	
+2022-06-02 07:44:25	2022-06-02 07:44:25	1	triathlethe.ug	A	185.215.113.89	
+2022-04-24 03:05:38	2022-06-01 16:54:59	2191	qwertasd.ru	A	185.215.113.89	
+2022-04-17 09:34:27	2022-06-01 01:42:07	2	partaususd.ru	A	185.215.113.89	
+2022-04-25 00:08:53	2022-05-31 07:17:00	5	timecheck.ug	A	185.215.113.89	
+2022-04-21 02:36:41	2022-05-31 01:20:37	21	courtneyjones.ac.ug	A	185.215.113.89	
+2022-04-16 19:09:02	2022-05-31 01:02:02	14	marksidfgs.ug	A	185.215.113.89	
+2022-04-25 03:01:15	2022-05-30 03:04:29	10	mofdold.ug	A	185.215.113.89	
+2022-04-15 02:36:21	2022-05-30 02:32:53	17	check-time.ru	A	185.215.113.89	
+2022-04-18 02:21:26	2022-05-30 02:22:30	17	agenttt.ac.ug	A	185.215.113.89	
+2022-04-17 03:17:46	2022-05-29 03:17:26	15	qd34g34ewdfsf23.ru	A	185.215.113.89	
+2022-04-19 02:25:06	2022-05-29 02:22:57	14	andres.ug	A	185.215.113.89	
+2022-04-16 02:27:44	2022-05-29 02:22:47	16	asdasgs.ug	A	185.215.113.89	
+</code></pre>
+<p>From the visits in column 3, differences in the number of visits to these domains can be found, with overall visits in the thousands, and this is only one of the many C2s we see.</p>
+<p>Through correlation analysis, we found that <code>185.215.113.89</code> is often used in conjunction with two C2s, <code>62.204.41.69</code> (March) and <code>45.143.201.4</code>(June), and their relationship can be correlated using the chart below.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--21--2.png" alt="Image--21--2" loading="lazy"></p>
+<h2 id="propagationanalysis">Propagation analysis</h2>
+<p>PureCrypter uses the dual module mechanism of downloader+injector, the former is disseminated and then the latter is disseminated, which is equivalent to adding a link to the dissemination chain, plus the author's usual means to hide the objector by means of fake image, encoding transmission, etc., which is complicated enough in itself.</p>
+<p>The author also put a lot of effort in the downloader propagation piece, we see the way through the bat2exe bundled crack software, the use of VBS and powershell script loader, combined with Godzilla front loader and many other ways, the result of these operations superimposed is the spread chain is generally deeper and more complex. In May we even found cases of spreading Raccoon through PureCrypter, which further spread Azorult, Remcos, PureMiner, and PureClipper.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/PC-RACCOON-OTHER.png" alt="PC-RACCOON-OTHER" loading="lazy"></p>
+<p>Here are a few typical propagation techniques.</p>
+<h3 id="1bat2exepowershellvbsmeteoritepurecrypterspreadingmarsstealer">1, &quot;Bat2Exe+Powershell+VBS+Meteorite+PureCrypter&quot; spreading Mars Stealer</h3>
+<p>This is mainly seen in some cracking software, downloader module is bundled to the former for propagation with Bat2Exe. The actual payload files stored in the resource are released to the tmp directory and triggered by the start.bat. The files released in the tmp directory are shaped as follows.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--1-.png" alt="Image--1-" loading="lazy"></p>
+<p>The start.bat command takes the shape of：</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--2-.png" alt="Image--2-" loading="lazy"></p>
+<p>In the case we analyzed, the .lnk file is used to start the powershell to execute the malicious command.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--3-.png" alt="Image--3-" loading="lazy"></p>
+<p>Powershell decodes a base64-encoded VBS loader.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--8-.png" alt="Image--8-" loading="lazy"></p>
+<p>The VBS loader further releases a downloader and runs the latter via shellcode. The key information of this downloader is stored in the resource, including the process name and download url, as shown in the image below.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--28-.png" alt="Image--28-" loading="lazy"></p>
+<p>The downloader is named Meteorite according to the process name after running, and the url in the above figure corresponds to the downloader module of PureCrypter, and the complete communication process is as follows.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/25e6857acc38482a85b9863f5749d21a-----.png" alt="25e6857acc38482a85b9863f5749d21a-----" loading="lazy"></p>
+<p>The final payload is Mars Stealer, c2: <code>rockrock.ug/gggate.php</code>, with the following configuration information:</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--24-.png" alt="Image--24-" loading="lazy"></p>
+<h3 id="2vbspowershellpurecrypterpropagatingpureminer">2, &quot;VBS/Powershell + PureCrypter&quot; propagating PureMiner</h3>
+<p>The C2 involved is <code>89.34.27.167</code>. The entry can be either a VBS script or a Powershell script, here is an example of VBS script.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--4-.png" alt="Image--4-" loading="lazy"></p>
+<p>The network communication traffic is as follows.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/VBS_CASE.png" alt="VBS_CASE" loading="lazy"></p>
+<p>Powershell script is as follows.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--25-.png" alt="Image--25-" loading="lazy"></p>
+<p>The Powershell script downloads and runs the downloader module of PureCrypter, which proceeds to download the injector, here it is more specific to use Discord to distribute the injector:</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--26-.png" alt="Image--26-" loading="lazy"></p>
+<p>The final payload is PureMiner and C2 is as follows:</p>
+<pre><code>185.157.160.214
+pwn.oracleservice.top
+pwn.letmaker.top
+
+port: 8080, 8444
+</code></pre>
+<h3 id="3unknownnetdownloaderpurecryptertospreadagentteslaredline">3, &quot;unknown .NET downloader + PureCrypter&quot; to spread AgentTesla, RedLine</h3>
+<p>The downloader family is unknown, and its runtime is also divided into multiple stages, where the stage0 module is responsible for loading the stage1 malicious module in the resource.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--5-.png" alt="Image--5-" loading="lazy"></p>
+<p>The stage1 module will continue to load the next stage module stage2 after running.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--6-.png" alt="Image--6-" loading="lazy"></p>
+<p>stage2 module is also a Crypter (not yet named), different from PureCrypter, he also provides a download function, used to download the malicious PureCrypter downloader module, that is, the figure of puty.exe.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--7-.png" alt="Image--7-" loading="lazy"></p>
+<p>The malware can be decrypted from the resource with  the key <code>bnvFGkCKlnhQ</code> using  the following algorithm.</p>
+<p><img src="https://blog.netlab.360.com/content/images/2022/08/Image--29-.png" alt="Image--29-" loading="lazy"></p>
+<p>Two families of binaries are spread. Stage2's payload is AgentTesla with C2:  <code>https[:]//api.telegram.org/bot5421147975:AAGrsGnLOHZfFv7yHuj3hZdQSOVmPodIAVI/sendDocument</code></p>
+<p>PureCrypter's payload is RedLine with C2:</p>
+<pre><code>IP: workstation2022.ddns.net:62099
+ID: cheat
+</code></pre>
+<h1 id="summary">Summary</h1>
+<p>PureCrypter is a MaaS type botnet that is still active and has spread more than 10 other families of payloads, with generally complex spreading practices. There might be a fairly big and resourceful team behind it, so it won’t surprised us if they continuously add and spread other malicious families in the future. We will keep an eye on it and share more information when it is needed.</p>
+<h1 id="contactus">Contact us</h1>
+<p>Readers are always welcomed to reach us on <a href="https://twitter.com/360Netlab"><strong>twitter</strong></a> or email us to <strong>netlab[at]360.cn</strong>.</p>
+<h2 id="iocs">IoCs</h2>
+<h3 id="md5">MD5</h3>
+<table>
+<thead>
+<tr>
+<th>Family Name</th>
+<th>MD5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bat2Exe Downloader</td>
+<td>424ed5bcaae063a7724c49cdd93138f5</td>
+</tr>
+<tr>
+<td>VBS downloader</td>
+<td>3f20e08daaf34b563227c797b4574743</td>
+</tr>
+<tr>
+<td>Powershell downloader</td>
+<td>c4c5167dec23b6dd2d565cd091a279e4</td>
+</tr>
+<tr>
+<td>Unknown .NET Downloader</td>
+<td>9b70a337824bac612946da1432295e9c</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c2url">C2 &amp;URL</h3>
+<pre><code>agenttt.ac.ug
+andres.ug
+asdasgs.ug
+asdsadasrdc.ug
+beachwood.ug
+boundertime.ru
+check-time.ru
+courtneyjones.ac.ug
+danwisha.ac.ug
+hopeforhealth.com.ph
+hubvera.ac.ug
+jonescourtney.ac.ug
+leatherlites.ug
+marksidfgs.ug
+marnersstyler.ug
+mistitis.ug
+mofdold.ug
+momomolastik.ug
+nicoslag.ru
+partaususd.ru
+pdshcjvnv.ug
+qd34g34ewdfsf23.ru
+qwertasd.ru
+qwertzx.ru
+raphaellasia.com
+rockphil.ac.ug
+rockrock.ug
+timebound.ug
+timebounder.ru
+timecheck.ug
+timekeeper.ug
+triathlethe.ug
+underdohg.ac.ug
+underdohg.ug
+www.rockrock.ug
+212.192.246.195
+37.0.11.164:8080
+80.66.75.123
+89.34.27.167
+91.243.44.142
+185.215.113.89
+62.204.41.69
+45.143.201.4
+https://cdn.discordapp.com/attachments/994652587494232125/1004377750762704896/ps1-6_Hjuvcier.png
+</code></pre>
+<!--kg-card-end: markdown-->
+      </section>
+
+
+
+      <div id="disqus_thread" class="disqus-comments gh-canvas"></div>
+      <script>
+        var disqus_config = function () {
+          this.page.url = "https://blog.netlab.360.com/purecrypter-is-busy-pumping-out-various-malicious-malware-families/";
+          this.page.identifier = "ghost-63084fb81510a00007850cee"
+        };
+        (function () {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://blog-netlab-360.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    </article>
+
+  </main>
+
+
+    <aside class="read-more-wrap outer">
+      <div class="inner">
+        <div class="read-more-feed">
+            <article class="read-more-card" 
+                  style="background-image: url(/content/images/2019/02/astronomy-constellation-dark-998641-4.jpg)" 
+              >
+              <header class="read-more-card-header">
+                <small class="read-more-card-header-sitetitle">&mdash; 360 Netlab Blog - Network Security Research Lab at 360 &mdash;</small>
+                <h3 class="read-more-card-header-title"><a href="/tag/botnet/">Botnet</a></h3>
+              </header>
+              <div class="read-more-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+              <div class="read-more-card-content">
+                <ul>
+                  <li><a href="/headsup_xdr33_variant_of_ciahive_emeerges/">Heads up! Xdr33, A Variant Of CIA’s HIVE  Attack Kit Emerges</a></li>
+                  <li><a href="/warning-hive-variant-xdr33-is-coming_cn/">警惕：魔改后的CIA攻击套件Hive进入黑灰产领域</a></li>
+                  <li><a href="/new-ddos-botnet-wszeor/">快讯：使用21个漏洞传播的DDoS家族WSzero已经发展到第4个版本</a></li>
+                </ul>
+              </div>
+              <footer class="read-more-card-footer">
+                <a href="/tag/botnet/">See all 113 posts →</a>
+              </footer>
+            </article>
+
+          
+<article class="post-card post tag-botnet tag-ddos tag-import-2022-11-30-11-16 no-image">
+
+
+  <div class="post-card-content">
+
+    <a class="post-card-content-link" href="/ddosmonster_the_return_of__fodcha_cn/">
+      <header class="post-card-header">
+        <div class="post-card-tags">
+          <span class="post-card-primary-tag">Botnet</span>
+        </div>
+        <h2 class="post-card-title">
+          卷土重来的DDoS狂魔：Fodcha僵尸网络再次露出獠牙
+        </h2>
+      </header>
+      <div class="post-card-excerpt">背景
+
+
+2022年4月13日，360Netlab首次向社区披露了Fodcha僵尸网络，在我们的文章发表之后，Fodcha遭受到相关部门的打击，其作者迅速做出回应，在样本中留下Netlab pls leave me alone I surrender字样向我们投降。本以为Fodcha会就此淡出江湖，没想到这次投降只是一个不讲武德的假动作，Fodcha的作者在诈降之后并没有停下更新的脚步，很快就推出了新版本。
+
+
+在新版本中，Fodcha的作者重新设计了通信协议，并开始使用xxtea和chacha20算法对敏感资源和网络通信进行加密，以躲避文件&流量层面的检测；同时引入了OpenNIC 域名做为主选C2，ICANN 域名做为后备C2的双C2方案。这种冗余机制，既能防止C2被接管，又有良好的健壮性，能够维持其主控网络的稳定。
+
+
+依托于背后团队强大的N-day漏洞整合能力，卷土重来的Focha与之前对比可谓有过之而无不及。在我们的数据视野中，从规模来看，Fodcha再次发展成日活Bot节点数超过60K，C2域名绑定40+IP，可以轻松打出超过1Tbps流量的大规模僵尸网络；就活跃程度而言，</div>
+    </a>
+
+    <footer class="post-card-meta">
+      <ul class="author-list">
+        <li class="author-list-item">
+          <div class="author-name-tooltip">
+            Alex.Turing
+          </div>
+
+          <a href="/author/alex/" class="static-avatar">
+            <img class="author-profile-image" src="/content/images/2019/06/turing.PNG" alt="Alex.Turing" />
+          </a>
+        </li>
+        <li class="author-list-item">
+          <div class="author-name-tooltip">
+            Hui Wang
+          </div>
+
+          <a href="/author/huiwang/" class="static-avatar">
+            <img class="author-profile-image" src="/content/images/2017/05/WechatIMG1.jpeg" alt="Hui Wang" />
+          </a>
+        </li>
+        <li class="author-list-item">
+          <div class="author-name-tooltip">
+            YANG XU
+          </div>
+
+          <a href="/author/xuy1202/" class="static-avatar">
+            <img class="author-profile-image" src="/content/images/2019/04/head.jpg" alt="YANG XU" />
+          </a>
+        </li>
+      </ul>
+      <time class="post-card-meta-date" datetime=" 2022-10-27">Oct 27, 2022</time>
+      <span class="post-card-meta-length">23 min read</span>
+    </footer>
+
+  </div>
+
+</article>
+          
+<article class="post-card post tag-loader tag-botnet tag-malware-as-a-service tag-purecrypter tag-maas tag-bat2exe tag-agenttesla tag-mars tag-raccoon tag-pureminer tag-import-2022-11-30-11-16 no-image">
+
+
+  <div class="post-card-content">
+
+    <a class="post-card-content-link" href="/purecrypter/">
+      <header class="post-card-header">
+        <div class="post-card-tags">
+          <span class="post-card-primary-tag">loader</span>
+        </div>
+        <h2 class="post-card-title">
+          PureCrypter Loader持续活跃，已经传播了10多个其它家族
+        </h2>
+      </header>
+      <div class="post-card-excerpt">在我们的日常botnet分析工作中，碰到各种loader是常事。跟其它种类的malware相比，loader的特殊之处在于它主要用来“推广”，即在被感染机器上下载并运行其它的恶意软件。根据我们的观察，大部分loader是专有的，它们和推广的家族之间存在绑定关系。而少数loader家族会将自己做成通用的推广平台，可以传播其它任意家族，实现所谓的malware-as-a-service（MaaS）。跟专有loader相比，MaaS类型显然更危险，更应该成为我们的首要关注目标。
+
+
+本文介绍我们前段时间看到的一个MaaS类型的loader，它名为PureCrypter，今年非常活跃，先后推广了10多个其它的家族，使用了上百个C2。因为zscaler已经做过详细的样本分析，本文主要从C2和传播链条角度介绍我们看到的PureCrypter传播活动，分析其运作过程。
+
+
+本文要点如下：
+
+
+ * PureCrypter是一款使用C#编写的loader，至少2021年3月便已出现，能传播任意的其它家族。
+ * PureCrypter今年持续活跃，已经传播了包括Formbook、SnakeKeylog</div>
+    </a>
+
+    <footer class="post-card-meta">
+      <ul class="author-list">
+        <li class="author-list-item">
+          <div class="author-name-tooltip">
+            wanghao
+          </div>
+
+          <a href="/author/wanghao/" class="static-avatar author-profile-image"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z" fill="#FFF"/></g></svg>
+</a>
+        </li>
+      </ul>
+      <time class="post-card-meta-date" datetime=" 2022-08-29">Aug 29, 2022</time>
+      <span class="post-card-meta-length">14 min read</span>
+    </footer>
+
+  </div>
+
+</article>
+        </div>
+      </div>
+    </aside>
+
+
+
+    </div>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="https://blog.netlab.360.com">360 Netlab Blog - Network Security Research Lab at 360</a> &copy; 2024</section>
+            <div><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="/assets/built/casper.js?v=16eac6b760"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+
+    // floating-header
+    // Start fitVids
+      var $postContent = $(".gh-content");
+      $postContent.fitVids();
+      // End fitVids
+
+      var progressBar = document.querySelector('#reading-progress');
+      var header = document.querySelector('.floating-header');
+      var title = document.querySelector('.article-title');
+
+      var lastScrollY = window.scrollY;
+      var lastWindowHeight = window.innerHeight;
+      var lastDocumentHeight = $(document).height();
+      var ticking = false;
+
+      function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+      }
+
+      function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+      }
+
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(update);
+        }
+        ticking = true;
+      }
+
+      function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+          header.classList.add('floating-active');
+        } else {
+          header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onResize, false);
+
+      update();
+});
+</script>
+
+
+
+</body>
+</html>

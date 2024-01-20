@@ -1,0 +1,4127 @@
+<!doctype html><html lang="en-us"><head>
+    <meta charset="utf-8">
+    <title>Yet Another Archive Format Smuggling Malware</title>
+    <link rel="shortcut icon" href="https://www.trustwave.com/hubfs/Trustwave_Icon_Color-2.svg">
+    <meta name="description" content="The use of novel disk image files to encapsulate malware distributed via spam has been a theme that we have highlighted over the past couple of years. As anticipated, we have seen more disk image file formats being used, in addition to .ISO, .IMG, and .DAA which we blogged about.">
+    
+		
+		
+    
+    
+    
+    <meta property="og:description" content="The use of novel disk image files to encapsulate malware distributed via spam has been a theme that we have highlighted over the past couple of years. As anticipated, we have seen more disk image file formats being used, in addition to .ISO, .IMG, and .DAA which we blogged about.">
+    <meta property="og:title" content="Yet Another Archive Format Smuggling Malware">
+    <meta name="twitter:description" content="The use of novel disk image files to encapsulate malware distributed via spam has been a theme that we have highlighted over the past couple of years. As anticipated, we have seen more disk image file formats being used, in addition to .ISO, .IMG, and .DAA which we blogged about.">
+    <meta name="twitter:title" content="Yet Another Archive Format Smuggling Malware">
+
+    
+
+    
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/139530684566/1697555754443/Trustwave_Theme_by_CC/templates/blog/css/blog-details-page.min.css">
+<link rel="stylesheet" href="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/81597466170/1703775976967/Trustwave_Theme_by_CC/css/main.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/82152213034/1702302595419/Trustwave_Theme_by_CC/child.min.css">
+
+<style>
+  /*  Fixed   */
+
+  .Fixed .header-section {background-color: #fff !important;}
+  .Fixed .i-content-right p ,.Fixed .i-content-right a {color: #262626 !important;}
+  .Fixed .f-list-items ul>li>a {color: #262626 !important;}
+  .Fixed .header-logo.header-sticky {display: block !important;}
+  .Fixed .header-logo.header-normal {display: none !important;}
+  .Fixed .headernavigation .hs-menu-wrapper>ul>li>a {color: #262626 !important;}
+  .Fixed .search-s svg path {fill: #262626 !important;}
+  .Fixed .header-two-row {background-color: #fff !important;}
+
+  .Fixed .login-section:after {     top: 70px !important; } 
+  .Fixed .incidence-section:after {     top: 70px !important; } 
+  .Fixed #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#262626 !important }
+  .Fixed #hs_cos_wrapper_module_16910398984436 .f-list-items ul>li>a { color:#262626 !important }
+  @media (max-width: 1200px) {
+
+    .Fixed a.expandMenu i { background-color:#262626 !important }
+
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .Fixed #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#262626 !important; }
+
+#hs_cos_wrapper_module_16910398984436 .Fixed .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#262626 !important; }
+
+#hs_cos_wrapper_module_16910398984436 .header-two-row { transition:all ease 0.4s; }
+
+#hs_cos_wrapper_module_16910398984436 .header-section {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  transition:all ease 0.4s;
+  z-index:9;
+}
+
+#hs_cos_wrapper_module_16910398984436 .icon-left-q {
+  width:24px;
+  line-height:0;
+  margin-right:12px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-two-row {
+  background-color:rgba(0,0,0,.3);
+  position:relative;
+  width:100%;
+  border-bottom:1px solid rgba(0,0,0,.125);
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-two-row .container,
+#hs_cos_wrapper_module_16910398984436 .header-second-row .container {
+  max-width:1344px;
+  padding:0 1rem;
+  margin:0 auto;
+}
+
+#hs_cos_wrapper_module_16910398984436 .first-two-col {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-left { width:70%; }
+
+#hs_cos_wrapper_module_16910398984436 .f-right { width:30%; }
+
+#hs_cos_wrapper_module_16910398984436 .icon-two-col {
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:center;
+  align-items:center;
+}
+
+#hs_cos_wrapper_module_16910398984436 .icon-left-q svg { width:22.5px; }
+
+#hs_cos_wrapper_module_16910398984436 .icon-right-q { width:calc(100% - 24px); }
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul {
+  margin:0;
+  padding:0;
+  line-height:normal;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+  list-style-type:none;
+}
+
+#hs_cos_wrapper_module_16910398984436 .i-content-right {
+  font-size:14px;
+  color:#fff;
+}
+
+#hs_cos_wrapper_module_16910398984436 .i-content-right p,
+#hs_cos_wrapper_module_16910398984436 .i-content-right a { color:#fff; }
+
+#hs_cos_wrapper_module_16910398984436 .i-content-right a {
+  text-decoration:underline;
+  text-transform:capitalize;
+  font-weight:500;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul>li>a {
+  color:#fff !important;
+  padding:11.55px 0;
+  display:block;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.78 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul>li { margin:0 16px; }
+
+#hs_cos_wrapper_module_16910398984436 .header-three-col {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-left {
+  width:167px;
+  position:relative;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-right { width:242px; }
+
+#hs_cos_wrapper_module_16910398984436 .header-middle-sec {
+  width:calc(100% - 409px);
+  padding-left:24px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-s {
+  width:24px;
+  line-height:0;
+  cursor:pointer;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-right-sq { width:242px; }
+
+#hs_cos_wrapper_module_16910398984436 .request-two-col {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+}
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  margin:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a {
+  padding:23px 0;
+  color:#fff;
+  font-weight:500;
+}
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#fff !important; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li { margin:0 16px; }
+
+#hs_cos_wrapper_module_16910398984436 .demo-link a {
+  background-color:var(--primary);
+  border:1px solid var(--primary);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+  color:var(--white);
+  transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  font-weight:700;
+  line-height:1.5;
+  font-size:14px;
+  padding:8px 20px;
+  border-radius:4px;
+  display:inline-block;
+  vertical-align:middle;
+  text-align:center;
+}
+
+#hs_cos_wrapper_module_16910398984436 .demo-link a:hover {
+  color:#fff !important;
+  background-color:#c91634;
+  border-color:#be1531;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-left { padding:0 16px; }
+
+#hs_cos_wrapper_module_16910398984436 .i-content-right { line-height:1.79; }
+
+#hs_cos_wrapper_module_16910398984436 .mobile-bottom-s { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .mobile-menu-s { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .open-menu { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .search-s svg { width:20px; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li { position:relative; }
+
+#hs_cos_wrapper_module_16910398984436 .manage-icon {
+  position:relative;
+  top:8px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .megamenuRepeat:after {
+  content:'';
+  position:absolute;
+  width:1000vw;
+  height:100vh;
+  left:-100vw;
+  top:0;
+  background-color:rgb(0 0 0/50%);
+}
+
+#hs_cos_wrapper_module_16910398984436 .overlayclr {
+  position:relative;
+  z-index:9;
+  background-color:#fff;
+  border-top:3px solid #ed1a3d;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul>li { position:relative; }
+
+#hs_cos_wrapper_module_16910398984436 .login-section {
+  position:absolute;
+  top:100%;
+  border-top:3px solid #ed1a3d;
+  border-bottom-left-radius:0.5rem;
+  border-bottom-right-radius:0.5rem;
+  margin-top:20px;
+  box-shadow:0 0.25rem 1.25rem rgba(0,0,0,.075);
+  left:50%;
+  width:352px;
+  transform:translate(-50%,0);
+  transition:all ease 0.4s;
+  background-color:#fff;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-section:before {
+  content:"";
+  position:absolute;
+  top:-11px;
+  left:50%;
+  transform:translate(-50%,0);
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+}
+
+#hs_cos_wrapper_module_16910398984436 .log-logo { padding:32px 64px; }
+
+#hs_cos_wrapper_module_16910398984436 .login-link-buton { padding:0 32px 24px; }
+
+#hs_cos_wrapper_module_16910398984436 .login-link-buton a {
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  color:#fff !important;
+  background-color:#ED1A3C !important;
+  border-color:#ed1a3d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+  display:inline-block;
+  font-weight:700;
+  line-height:1.5;
+  text-align:center;
+  vertical-align:middle;
+  cursor:pointer;
+  user-select:none;
+  padding:0.6875rem 1.25rem;
+  font-size:1rem;
+  border-radius:0.25rem;
+  transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  display:block;
+}
+
+#hs_cos_wrapper_module_16910398984436 .what-link {
+  padding:0 32px 24px;
+  text-align:center;
+}
+
+#hs_cos_wrapper_module_16910398984436 .what-link a {
+  font-size:14px;
+  line-height:.78;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-last-bnt {
+  border-top:1px solid rgba(0,0,0,.125);
+  padding:32px 32px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-last-bnt a {
+  padding:8px 20px;
+  color:#171717;
+  border:1px solid #171717;
+  background-color:transparent;
+  width:100%;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  font-weight:700;
+  border-radius:4px;
+  font-size:14px;
+  text-align:center;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-link-buton a:hover {
+  color:#fff !important;
+  background-color:#c91634 !important;
+  border-color:#be1531 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-last-bnt a:hover {
+  color:#fff !important;
+  background-color:#171717;
+  border-color:#171717;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul>li.active .login-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-section:after {
+  content:'';
+  background-color:rgb(0 0 0/75%);
+  width:1000vw;
+  height:100vh;
+  position:absolute;
+  top:0;
+  left:-90vw;
+  z-index:-1;
+}
+
+#hs_cos_wrapper_module_16910398984436 .login-sec-inr {
+  background-color:#fff;
+  position:relative;
+  z-index:2;
+}
+
+#hs_cos_wrapper_module_16910398984436 .incidence-section {
+  position:absolute;
+  top:100%;
+  border-top:3px solid #ed1a3d;
+  border-bottom-left-radius:0.5rem;
+  border-bottom-right-radius:0.5rem;
+  box-shadow:0 0.25rem 1.25rem rgba(0,0,0,.075);
+  left:50%;
+  width:352px;
+  opacity:0;
+  visibility:hidden;
+  transform:translate(-50%,0);
+  transition:all ease 0.4s;
+  background-color:#fff;
+  margin-top:20px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .incidence-section:before {
+  content:"";
+  position:absolute;
+  top:-11px;
+  left:50%;
+  transform:translate(-50%,0);
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+}
+
+#hs_cos_wrapper_module_16910398984436 .indic-f-row { padding:32px 32px 16px; }
+
+#hs_cos_wrapper_module_16910398984436 .indics-title h6 {
+  font-size:20px;
+  margin-bottom:16px;
+  line-height:1.25;
+  font-weight:500;
+  font-family:'Inter',sans-serif;
+}
+
+#hs_cos_wrapper_module_16910398984436 .indics-content {
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.75;
+}
+
+#hs_cos_wrapper_module_16910398984436 .hotline-title {
+  padding-top:24px;
+  font-size:16px;
+  line-height:1.25;
+  font-weight:700;
+  font-family:'Inter',sans-serif;
+  color:#ed1a3d;
+}
+
+#hs_cos_wrapper_module_16910398984436 .hot-item-link ul>li { width:100% !important; }
+
+#hs_cos_wrapper_module_16910398984436 .hot-item-link ul li {
+  margin:0;
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 32px;
+  border-top:1px solid rgba(0,0,0,.125) !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .hot-item-link ul li:last-child { border-bottom:1px solid rgba(0,0,0,.125) !important; }
+
+#hs_cos_wrapper_module_16910398984436 .indic-last-col { padding:24px 32px; }
+
+#hs_cos_wrapper_module_16910398984436 .indic-last-col a {
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  color:#fff;
+  background-color:#ed1a3d;
+  border-color:#ed1a3d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+  font-weight:700;
+  line-height:1.5;
+  text-align:center;
+  vertical-align:middle;
+  cursor:pointer;
+  user-select:none;
+  font-size:1rem;
+  border-radius:0.25rem;
+  transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  padding:11px 20px;
+  display:block;
+}
+
+#hs_cos_wrapper_module_16910398984436 .f-list-items ul li.active .incidence-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .hot-item-link ul li>span:first-child {
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  color:#262626;
+  font-size:.875rem;
+  font-family:'Inter',sans-serif;
+}
+
+#hs_cos_wrapper_module_16910398984436 .hot-item-link ul li>span a {
+  color:#525252;
+  font-size:16px;
+  line-height:1.75;
+}
+
+#hs_cos_wrapper_module_16910398984436 .incidence-section:after {
+  content:'';
+  background-color:rgb(0 0 0/75%);
+  width:1000vw;
+  height:100vh;
+  position:absolute;
+  top:0;
+  left:-90vw;
+  z-index:-1;
+}
+
+#hs_cos_wrapper_module_16910398984436 .incidence-sec-inr {
+  background-color:#fff;
+  position:relative;
+  z-index:2;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-bg {
+  position:absolute;
+  left:0;
+  top:100%;
+  width:100%;
+  height:100vh;
+  background-color:rgb(0 0 0/30%);
+  margin-top:25px;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-section.search-active .search-bg {
+  margin-top:0;
+  opacity:1;
+  visibility:visible;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-data {
+  position:absolute;
+  top:0;
+  width:800px;
+  margin-right:-186px;
+  left:42.5%;
+  border-top:3px solid #ed1a3d;
+  border-bottom-left-radius:0.5rem;
+  border-bottom-right-radius:0.5rem;
+  box-shadow:0 0.25rem 1.25rem rgba(0,0,0,.075);
+  padding:32px;
+  background-color:#fff;
+  transition:all ease 0.4s;
+  margin-top:25px;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-data input[type="text"] {
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.075);
+  padding:19px 24px 19px 52px !important;
+  border:1px solid #a3a3a3 !important;
+  border-radius:4px !important;
+  font-size:16px !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Layer_1' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 24 24' enable-background='new 0 0 24 24' xml:space='preserve'%3E%3Cpath d='M23.6,21.9l-4.4-4.4c1.5-1.8,2.4-4.2,2.4-6.7c0-6-4.8-10.8-10.8-10.8S0,4.8,0,10.8s4.8,10.8,10.8,10.8 c2.5,0,4.9-0.9,6.7-2.4l4.4,4.4c0.2,0.2,0.5,0.3,0.9,0.3s0.6-0.1,0.9-0.3C24.1,23.2,24.1,22.4,23.6,21.9z M2.4,10.8 c0-4.6,3.8-8.4,8.4-8.4s8.4,3.8,8.4,8.4c0,2.3-0.9,4.3-2.4,5.9c0,0.1-0.1,0.1-0.2,0.2c-1.5,1.5-3.6,2.4-5.9,2.4 C6.2,19.2,2.4,15.4,2.4,10.8z'/%3E%3C/svg%3E");
+  background-position:20px center;
+  background-repeat:no-repeat;
+  background-size:20px auto;
+}
+
+#hs_cos_wrapper_module_16910398984436 .search-data:before {
+  content:"";
+  position:absolute;
+  top:-11px;
+  right:205px;
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+}
+
+#hs_cos_wrapper_module_16910398984436 .header-section.search-active .search-data {
+  margin-top:0;
+  opacity:1;
+  visibility:visible;
+}
+
+#hs_cos_wrapper_module_16910398984436 .download-form .hs-richtext.hs-main-font-element h1 {
+  font-size:30px;
+  font-weight:700;
+  color:#33475B !important;
+  margin:0;
+  height:auto;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch {
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:100%;
+  overflow:auto;
+  z-index:1;
+  padding:20px;
+  box-sizing:border-box;
+  background-color:rgba(0,0,0,0.75);
+  text-align:center;
+  display:none;
+  z-index:999;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .newPopupBoxTableCell {
+  max-width:499px;
+  margin:0 auto;
+  background-color:#ffff;
+  padding:60px 30px 35px;
+  box-shadow:0 0 10px #000;
+  border-radius:8px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+  position:relative;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .popupBoxSearchBox {
+  width:20px;
+  height:20px;
+  position:absolute;
+  right:20px;
+  top:20px;
+  z-index:99;
+  cursor:pointer;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .Casestudy-title h2 {
+  font-size:30px;
+  font-weight:700;
+  color:#33475B !important;
+  margin:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .download-form { padding-top:0; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .download-form h3 { margin:0; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .download-form form label {
+  font-size:13px;
+  font-family:'Inter';
+  color:#171717;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch textarea,
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch input[type="text"],
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch input[type="number"],
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch input[type="email"],
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch input[type="tel"],
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch select {
+  background-color:#F5F8FA !important;
+  outline:none !important;
+  border:1px solid #CBD6E2 !important;
+  border-radius:4px;
+  padding:11px 15px !important;
+  font-size:14px !important;
+  line-height:1 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form .input {
+  margin-right:0 !important;
+  margin-top:8px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset {
+  max-width:inherit !important;
+  margin:0 -10px !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset.form-columns-1 .field { width:100% !important; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset.form-columns-2 .field {
+  width:50% !important;
+  margin:0 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset.form-columns-3 .field { width:33.33% !important; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form .field {
+  padding:0 0 20px;
+  margin:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset .field {
+  padding-left:10px;
+  padding-right:10px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form ul.multi-container { padding-top:10px; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form ul.multi-container li { margin:5px 0; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .inputs-list label { margin-bottom:0; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-error-msgs label {
+  margin-bottom:0;
+  color:#FF002E !important;
+  font-size:14px !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-richtext { text-align:left; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-richtext p a {
+  text-decoration:underline;
+  transition:all ease .3s;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-richtextp a:hover { color:#551A8B !important; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .actions { text-align:left; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch input[type=submit] { padding:12px 24px; }
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="radio"]+span,
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="checkbox"]+span {
+  position:relative;
+  display:block;
+  padding-left:31px;
+  cursor:pointer;
+}
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="radio"]+span:before,
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="checkbox"]+span:before {
+  content:'';
+  color:#ed1a3d;
+  position:absolute;
+  left:4px;
+  top:0;
+  font-size:0;
+  width:18px;
+  height:18px;
+  display:block;
+  border:1px solid #ccc;
+  transition:all ease .3s;
+  -webkit-transition:all ease .3s;
+  text-align:center;
+  line-height:14px;
+  border-radius:4px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:auto;
+}
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="radio"]:checked+span:before {
+  background:#09072E;
+  border-color:#09072e;
+}
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="checkbox"]:checked+span:before {
+  border-color:#ED1A3D;
+  font-size:12px;
+  background-color:#ED1A3D;
+  color:#fff;
+  letter-spacing:inherit;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFF' d='M0 11.522l1.578-1.626 7.734 4.619 13.335-12.526 1.353 1.354-14 18.646z'/%3E%3C/svg%3E");
+}
+
+#hs_cos_wrapper_module_16910398984436 .download-form input[type="checkbox"] { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxTable {
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .partner-section,
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .resource-section { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="radio"]+span,
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="checkbox"]+span { padding-left:0; }
+
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="radio"]+span:before,
+#hs_cos_wrapper_module_16910398984436 .download-form form input[type="checkbox"]+span:before { left:-28px; }
+
+#hs_cos_wrapper_module_16910398984436 .service-section {
+  position:absolute;
+  top:100%;
+  width:800px;
+  background-color:#fff;
+  left:-45px;
+  border-radius:0 0 8px 8px;
+  z-index:9;
+  margin-top:20px;
+  transition:all ease 0.4s;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .megamenu { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li { position:relative; }
+
+#hs_cos_wrapper_module_16910398984436 .service-section:before {
+  content:"";
+  position:absolute;
+  top:-8px;
+  left:50%;
+  transform:translate(-50%,0);
+  width:0;
+  z-index:10;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+  left:77px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .service-box {
+  padding:20px 32px 32px 32px;
+  display:flex;
+  flex-wrap:wrap;
+  margin:0 -16px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .service-box-inr {
+  width:50%;
+  padding:12px 16px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-two-col {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-left {
+  width:64px;
+  padding-right:16px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-right {
+  width:calc(100% - 64px);
+  position:relative;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-title {
+  color:#0096b3;
+  font-size:16px;
+  line-height:1.75;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-content {
+  font-size:14px;
+  line-height:1.78;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-right>a {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
+#hs_cos_wrapper_module_16910398984436 .view-all-s {
+  padding:16px;
+  border-top:1px solid rgba(0,0,0,.125);
+}
+
+#hs_cos_wrapper_module_16910398984436 .view-all-s a {
+  padding:0;
+  text-align:center;
+  font-size:16px;
+  line-height:1.75;
+}
+
+#hs_cos_wrapper_module_16910398984436 .view-all-s a:hover { color:#00788f; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .service-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .manage-content,
+#hs_cos_wrapper_module_16910398984436 .manage-content p { color:#737373; }
+
+#hs_cos_wrapper_module_16910398984436 .back-menu-m { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .solution-section {
+  position:absolute;
+  top:100%;
+  width:928px;
+  background-color:#fff;
+  left:-147px;
+  border-radius:0 0 8px 8px;
+  z-index:9;
+  margin-top:20px;
+  transition:all ease 0.4s;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .solution-section:before {
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:0;
+  height:0;
+  border-style:solid;
+  z-index:10;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+  left:175px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .solution-sec-inr { padding:32px; }
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li>a {
+  padding:6px 0 !important;
+  color:#00788f !important;
+  line-height:1.75;
+  font-weight:400 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul {
+  display:flex !important;
+  flex-wrap:wrap !important;
+  margin-top:6px !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li { width:33.33% !important; }
+
+#hs_cos_wrapper_module_16910398984436 .solution-two-col {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+#hs_cos_wrapper_module_16910398984436 .solution-left {
+  width:60%;
+  padding-right:30px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-fs-title,
+#hs_cos_wrapper_module_16910398984436 .topic-titles {
+  border-bottom:1px solid rgba(0,0,0,.125);
+  padding-bottom:0.5rem !important;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  font-size:14px;
+  color:#262626 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li { margin:0 !important; }
+
+#hs_cos_wrapper_module_16910398984436 .solution-fs+.solution-fs { padding-top:26px; }
+
+#hs_cos_wrapper_module_16910398984436 .topic-title {
+  color:#00788f !important;
+  line-height:1.75;
+  font-weight:400 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .topic-content {
+  font-size:14px;
+  line-height:1.78;
+  color:#737373;
+}
+
+#hs_cos_wrapper_module_16910398984436 .topic-item {
+  position:relative;
+  margin-top:14px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .topic-item>a {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1;
+  height:100%;
+  padding:0 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .solution-right {
+  width:40%;
+  padding-left:4px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .solution-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li>a:hover { color:#00788f !important; }
+
+#hs_cos_wrapper_module_16910398984436 .sol-simp-menus ul>li .trust-section { display:none; }
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu .hs-menu-wrapper>ul>li>a:hover { color:#00788f !important; }
+
+#hs_cos_wrapper_module_16910398984436 .trust-section {
+  position:absolute;
+  top:100%;
+  width:352px;
+  background-color:#fff;
+  left:-105px;
+  border-radius:0 0 8px 8px;
+  z-index:9;
+  margin-top:20px;
+  transition:all ease 0.4s;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .trust-section:before {
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  z-index:10;
+  border-color:transparent transparent #ed1a3d transparent;
+  left:45%;
+  z-index:10;
+}
+
+#hs_cos_wrapper_module_16910398984436 .trust-bottom-cs { padding:32px; }
+
+#hs_cos_wrapper_module_16910398984436 .t-title-s {
+  color:#0096b3;
+  font-size:16px;
+  line-height:1.75;
+  position:relative;
+}
+
+#hs_cos_wrapper_module_16910398984436 .t-link-s {
+  font-size:14px;
+  line-height:1.78;
+  color:#737373;
+}
+
+#hs_cos_wrapper_module_16910398984436 .trust-cls { position:relative; }
+
+#hs_cos_wrapper_module_16910398984436 .trust-cls>a {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  padding:0 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .trust-col-s+.trust-col-s { margin-top:20px; }
+
+#hs_cos_wrapper_module_16910398984436 .trust-cls .t-title-s:hover { color:#00788f; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .trust-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .partner-section {
+  position:absolute;
+  top:100%;
+  width:352px;
+  background-color:#fff;
+  left:-131px;
+  border-radius:0 0 8px 8px;
+  z-index:9;
+  margin-top:20px;
+  transition:all ease 0.4s;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .partner-section:before {
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:0;
+  height:0;
+  border-style:solid;
+  z-index:10;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent #ed1a3d transparent;
+  left:45%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .title-s {
+  color:#0096b3;
+  font-size:16px;
+  line-height:1.75;
+  position:relative;
+}
+
+#hs_cos_wrapper_module_16910398984436 .content-s {
+  font-size:14px;
+  line-height:1.78;
+  color:#737373;
+}
+
+#hs_cos_wrapper_module_16910398984436 .partn-cols:first-child { padding:32px; }
+
+#hs_cos_wrapper_module_16910398984436 .partn-clr { position:relative; }
+
+#hs_cos_wrapper_module_16910398984436 .partn-clr>a {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  padding:0 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .partn-cols:not(:first-child) { padding:0 32px 0 32px; }
+
+#hs_cos_wrapper_module_16910398984436 .btn a { padding:0; }
+
+#hs_cos_wrapper_module_16910398984436 .button-twoc-l {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  padding:24px 32px 32px 32px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .button-left {
+  padding-right:8px;
+  width:50%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .button-right {
+  padding-left:8px;
+  width:50%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .btn-q a {
+  padding:0.5rem 1.25rem;
+  font-size:.875rem;
+  border-radius:0.25rem;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  color:#fff;
+  background-color:#ed1a3d !important;
+  border:1px solid #ed1a3d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+  font-weight:700;
+  line-height:1.5;
+  text-align:center;
+  vertical-align:middle;
+  cursor:pointer;
+  user-select:none;
+  transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  display:block;
+}
+
+#hs_cos_wrapper_module_16910398984436 .btn-q.chgbtn a {
+  background-color:transparent !important;
+  color:#171717;
+  border:1px solid #171717;
+}
+
+#hs_cos_wrapper_module_16910398984436 .btn-q a:hover {
+  color:#fff !important;
+  background-color:#c91634 !important;
+  border-color:#be1531 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .btn-q.chgbtn a:hover {
+  background-color:#171717 !important;
+  color:#fff !important;
+  border-color:#171717 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .partner-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .indic-last-col a:hover {
+  color:#fff !important;
+  background-color:#c91634;
+  border-color:#be1531;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-section {
+  position:absolute;
+  top:100%;
+  width:416px;
+  background-color:#fff;
+  left:-160px;
+  border-radius:0 0 8px 8px;
+  z-index:9;
+  margin-top:20px;
+  transition:all ease 0.4s;
+  opacity:0;
+  visibility:hidden;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-section:before {
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 8px 8px 8px;
+  z-index:10;
+  border-color:transparent transparent #ed1a3d transparent;
+  left:45%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu ul li a {
+  color:#00788f !important;
+  padding:8px 0 !important;
+  font-size:16px !important;
+  line-height:1.75 !important;
+  font-weight:400 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resn-title {
+  border-bottom:1px solid rgba(0,0,0,.125);
+  padding-bottom:0.5rem !important;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.03125rem;
+  font-size:14px;
+  color:#262626 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-sec-tr {
+  display:flex;
+  flex-wrap:wrap;
+  padding:16px 16px 8px 16px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-cols {
+  width:50%;
+  padding:8px 16px;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-cols:nth-child(3) { width:100%; }
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu ul li {
+  margin:0 !important;
+  padding:0 !important;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu ul {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resource-cols:nth-child(3) .resn-menu ul li { width:50%; }
+
+#hs_cos_wrapper_module_16910398984436 .resource-cols:nth-child(3) .resn-menu ul li:nth-child(2n) a { padding-left:16px !important; }
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu ul li a:hover { color:#00788f !important; }
+
+#hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .resource-section {
+  opacity:1;
+  visibility:visible;
+  margin-top:0;
+}
+
+#hs_cos_wrapper_module_16910398984436 .resn-menu ul li {
+  display:block !important;
+  width:100%;
+}
+
+#hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-richtext { padding:0 6px !important; }
+
+#hs_cos_wrapper_module_16910398984436 .manage-right:hover .manage-title,
+#hs_cos_wrapper_module_16910398984436 .topic-item:hover .topic-title,
+#hs_cos_wrapper_module_16910398984436 .partn-clr:hover .title-s,
+#hs_cos_wrapper_module_16910398984436 .trust-cls:hover .t-title-s { color:#00788f !important; }
+
+@media (min-width:1200px) {}
+
+@media (max-width:1560px) {
+  #hs_cos_wrapper_module_16910398984436 .incidence-section { left:-39px; }
+
+  #hs_cos_wrapper_module_16910398984436 .incidence-section:before { left:78%; }
+
+  #hs_cos_wrapper_module_16910398984436 .search-data {
+    width:600px;
+    max-width:100%;
+    margin-right:0;
+    left:48.5%;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .search-data:before { right:211px; }
+}
+
+@media (max-width:1360px) {
+  #hs_cos_wrapper_module_16910398984436 .f-list-items ul>li { margin:0 8px; }
+
+  #hs_cos_wrapper_module_16910398984436 .f-left { width:75%; }
+
+  #hs_cos_wrapper_module_16910398984436 .f-right { width:25%; }
+
+  #hs_cos_wrapper_module_16910398984436 .i-content-right { font-size:13px; }
+}
+
+@media (max-width:1200px) {
+  #hs_cos_wrapper_module_16910398984436 .megamenuRepeat:after { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu {
+    width:24px;
+    height:24px;
+    display:block;
+    cursor:pointer;
+    padding:0;
+    position:absolute;
+    top:24px;
+    right:24px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu i {
+    position:relative;
+    width:22px;
+    left:0;
+    height:2px;
+    opacity:1;
+    display:block;
+    background:#fff;
+    margin:4px 0;
+    transition:all ease 0.3s;
+    -webkit-transition:all ease 0.3s;
+    -moz-transition:all ease 0.3s;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu i:first-child { margin-top:0; }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu.active i:first-child {
+    transform:rotate(135deg);
+    -webkit-transform:rotate(135deg);
+    top:10px;
+    position:relative;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu.active i:nth-child(2) {
+    position:relative;
+    left:-46px;
+    opacity:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 a.expandMenu.active i:last-child {
+    transform:rotate(-135deg);
+    -webkit-transform:rotate(-135deg);
+    top:-6px;
+    position:relative;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .header-right-sq,
+  #hs_cos_wrapper_module_16910398984436 .header-two-row,
+  #hs_cos_wrapper_module_16910398984436 .mobile-menu-s,
+  #hs_cos_wrapper_module_16910398984436 .mobile-bottom-s { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .open-menu { display:block; }
+
+  #hs_cos_wrapper_module_16910398984436 .bodyclass {
+    position:fixed;
+    top:0;
+    right:0;
+    height:100vh;
+    overflow:auto;
+    padding:0;
+    z-index:9999;
+    width:100%;
+    transform:translateX(100vw);
+    overflow:hidden;
+    opacity:0;
+    background-color:rgb(0 0 0/30%);
+    transition:all ease 0.4s;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation {
+    position:static;
+    max-width:320px;
+    margin:0 0 0 auto;
+    transform:none;
+    height:100%;
+    padding:0;
+    background-color:#fff;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .header-section { padding:20px 0; }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a {
+    color:#262626 !important;
+    padding:19px 16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#262626 !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li>a:hover { color:#262626 !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .mobile-menu-s { display:block; }
+
+  #hs_cos_wrapper_module_16910398984436 .m-first-cols {
+    display:flex;
+    flex-wrap:nowrap;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .m-left-u { width:62%; }
+
+  #hs_cos_wrapper_module_16910398984436 .m-close-icon svg path { fill:#000; }
+
+  #hs_cos_wrapper_module_16910398984436 .m-close-icon svg {
+    width:24px;
+    height:auto;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .m-right-u { cursor:pointer; }
+
+  #hs_cos_wrapper_module_16910398984436 .m-close-icon {
+    line-height:0;
+    text-align:right;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .reques-demo {
+    padding:16px;
+    border-bottom:1px solid rgba(0,0,0,.125);
+    border-top:1px solid rgba(0,0,0,.125);
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .reques-demo .demo-link a {
+    width:100%;
+    display:block;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul { display:block; }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li { margin:0; }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li+li { border-top:1px solid rgba(0,0,0,.125); }
+
+  #hs_cos_wrapper_module_16910398984436 .mobile-bottom-s { display:block; }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list ul li a {
+    color:#262626;
+    padding:19px 16px;
+    display:block;
+    border-top:1px solid rgba(0,0,0,.125);
+    font-size:14px;
+    line-height:1.78;
+    font-weight:500;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list ul li.form-s {
+    padding:12px 16px;
+    border-top:1px solid rgba(0,0,0,.125);
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list ul li.form-s form input[type="text"] {
+    padding:11px 20px 11px 52px !important;
+    display:block !important;
+    width:100% !important;
+    font-size:1rem !important;
+    font-weight:400 !important;
+    line-height:1.5 !important;
+    color:#525252 !important;
+    background-color:#fff !important;
+    background-clip:padding-box;
+    border:1px solid #a3a3a3 !important;
+    appearance:none !important;
+    border-radius:0.25rem;
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.075);
+    transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Layer_1' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 24 24' enable-background='new 0 0 24 24' xml:space='preserve'%3E%3Cpath d='M23.6,21.9l-4.4-4.4c1.5-1.8,2.4-4.2,2.4-6.7c0-6-4.8-10.8-10.8-10.8S0,4.8,0,10.8s4.8,10.8,10.8,10.8 c2.5,0,4.9-0.9,6.7-2.4l4.4,4.4c0.2,0.2,0.5,0.3,0.9,0.3s0.6-0.1,0.9-0.3C24.1,23.2,24.1,22.4,23.6,21.9z M2.4,10.8 c0-4.6,3.8-8.4,8.4-8.4s8.4,3.8,8.4,8.4c0,2.3-0.9,4.3-2.4,5.9c0,0.1-0.1,0.1-0.2,0.2c-1.5,1.5-3.6,2.4-5.9,2.4 C6.2,19.2,2.4,15.4,2.4,10.8z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-size:20px auto;
+    background-position:17px center;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .last-cols {
+    padding:12px 15px;
+    background-color:#171717;
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .last-content p { color:#fff; }
+
+  #hs_cos_wrapper_module_16910398984436 .last-content {
+    font-size:14px;
+    line-height:1.78;
+    padding-left:12px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .icon-s { line-height:0; }
+
+  #hs_cos_wrapper_module_16910398984436 .header-section.active .bodyclass {
+    transform:translateX(0) !important;
+    opacity:1 !important;
+    transition:all ease 0.4s;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .partner-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .login-section {
+    top:6%;
+    height:100vh;
+    background-color:#fff;
+    width:320px;
+    opacity:0;
+    position:fixed;
+    transform:translateX(100vw);
+    left:auto;
+    right:0;
+    visibility:hidden;
+    transition:all .4s ease;
+    border:none;
+    border-radius:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .login-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .login-arrow svg {
+    width:24px;
+    height:auto;
+    position:relative;
+    top:6px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .back-to-login {
+    background-color:#171717;
+    padding:16px 16px;
+    font-size:16px;
+    color:#fff;
+    font-weight:700;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .login-arrow {
+    margin-right:16px;
+    line-height:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .login-link-buton { padding:0 16px 24px; }
+
+  #hs_cos_wrapper_module_16910398984436 .login-link-buton a {
+    font-size:16px !important;
+    padding:9px 20px !important;
+    font-weight:700 !important;
+    border:1px solid #ed1a3d !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .what-link a {
+    border:none !important;
+    padding:0 !important;
+    font-size:14px !important;
+    color:#009fd4 !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .what-link { padding:0 16px 24px; }
+
+  #hs_cos_wrapper_module_16910398984436 .login-last-bnt { padding:32px 16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .login-last-bnt a {
+    padding:8px 20px !important;
+    color:#171717 !important;
+    border:1px solid #171717 !important;
+    font-weight:700 !important;
+    font-size:14px !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .login-last-bnt a:hover { color:#fff !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .what-link a:hover { color:#00788f !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .header-section.indices-active .login-section {
+    transform:translateX(0);
+    opacity:1;
+    left:auto;
+    right:0;
+    top:46px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .incidence-section {
+    position:fixed;
+    left:0;
+    display:block;
+    transform:translateX(100vw);
+    transition:all ease 0.4s;
+    opacity:0;
+    left:auto;
+    top:45px;
+    margin-top:0;
+    top:64px;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+    width:320px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .incidence-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .indic-backmenu {
+    background-color:#171717;
+    padding:16px 16px;
+    font-size:16px;
+    color:#fff;
+    font-weight:700;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .indic-f-row { padding:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .hot-item-link ul li>span a {
+    padding:0 !important;
+    border:none !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .hot-item-link ul li { padding:12px 16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .indic-last-col a {
+    color:#fff !important;
+    font-weight:700 !important;
+    line-height:1.5 !important;
+    padding:11px 20px !important;
+    border:1px solid #ed1a3d !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .header-section.indices-active .incidence-section {
+    transform:translateX(0);
+    opacity:1;
+    left:auto;
+    right:0;
+    top:46px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .service-section {
+    position:fixed;
+    transform:translateX(100vw);
+    width:320px;
+    top:65px;
+    opacity:1;
+    visibility:visible;
+    margin:0;
+    left:auto;
+    right:0;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .service-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .back-menu-m {
+    background-color:#171717;
+    padding:16px 16px;
+    font-size:16px;
+    color:#fff;
+    font-weight:700;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:flex;
+    flex-wrap:nowrap;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .arrows-q {
+    margin-right:16px;
+    line-height:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .arrows-q svg {
+    width:24px;
+    height:auto;
+    position:relative;
+    top:1px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .service-box {
+    padding:0;
+    margin:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .service-box-inr {
+    width:100%;
+    padding:8px 16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .manage-left { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .manage-right { width:100%; }
+
+  #hs_cos_wrapper_module_16910398984436 .service-section .manage-right a { padding:0 !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .view-all-s a { text-align:left; }
+
+  #hs_cos_wrapper_module_16910398984436 .service-box-inr:first-child { padding-top:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .service-box-inr:last-child { padding-bottom:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .service-section { transform:translateX(0); }
+
+  #hs_cos_wrapper_module_16910398984436 .back-menu-m { display:flex; }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-section {
+    position:fixed;
+    transform:translateX(100vw);
+    width:320px;
+    top:65px;
+    opacity:1;
+    visibility:visible;
+    margin:0;
+    left:auto;
+    right:0;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-sec-inr { padding:.0; }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-left,
+  #hs_cos_wrapper_module_16910398984436 .solution-right {
+    width:100%;
+    padding:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li>a {
+    border:none !important;
+    padding:0 !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li+li { border:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-left { padding:0 !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-fs-title,
+  #hs_cos_wrapper_module_16910398984436 .topic-titles {
+    border:none;
+    padding:0 !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul {
+    margin:0;
+    display:block;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li { width:100% !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-simp-menus .hs-menu-wrapper>ul>li+li { margin-top:12px !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-fs { padding:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-fs+.solution-fs {
+    border-top:1px solid rgba(0,0,0,.125);
+    padding-top:16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-two-col {
+    max-height:calc(100vh - 22vh);
+    overflow:auto;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .sol-r-inr {
+    border-top:1px solid rgba(0,0,0,.125);
+    padding:16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .solution-section { transform:translate(0); }
+
+  #hs_cos_wrapper_module_16910398984436 .solution-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .trust-section {
+    position:fixed;
+    transform:translateX(100vw);
+    width:320px;
+    top:65px;
+    opacity:1;
+    visibility:visible;
+    margin:0;
+    left:auto;
+    right:0;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .trust-section { transform:translate(0); }
+
+  #hs_cos_wrapper_module_16910398984436 .trust-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .trust-bottom-cs { padding:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .partner-section {
+    position:fixed;
+    transform:translateX(100vw);
+    width:320px;
+    top:65px;
+    opacity:1;
+    visibility:visible;
+    margin:0;
+    left:auto;
+    right:0;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .partner-section { transform:translateX(0); }
+
+  #hs_cos_wrapper_module_16910398984436 .partn-cols:first-child { padding:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .partn-cols:not(:first-child) {
+    padding:16px 16px 0 16px;
+    border-top:1px solid rgba(0,0,0,.125);
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .button-twoc-l { padding:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-section {
+    position:fixed;
+    transform:translateX(100vw);
+    width:320px;
+    top:65px;
+    opacity:1;
+    visibility:visible;
+    margin:0;
+    left:auto;
+    right:0;
+    background-color:#fff;
+    height:100vh;
+    border:none;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .headernavigation .hs-menu-wrapper>ul>li.main-active .resource-section { transform:translateX(0); }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-section:before { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-cols {
+    width:100%;
+    padding:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-sec-tr { padding:0; }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-cols+.resource-cols { border-bottom:1px solid rgba(0,0,0,.125); }
+
+  #hs_cos_wrapper_module_16910398984436 .resn-menu ul li a {
+    padding:6px 16px !important;
+    border:none !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .resn-menu ul li+li { border:none !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .resn-title {
+    border:none;
+    padding:0 16px 0 16px;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-cols+.resource-cols { border:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-cols+.resource-cols { margin-top:20px; }
+
+  #hs_cos_wrapper_module_16910398984436 .resn-menu ul { border-bottom:1px solid rgba(0,0,0,.125); }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-cols:first-child { padding-top:16px; }
+
+  #hs_cos_wrapper_module_16910398984436 .resn-menu ul li:last-child a { padding-bottom:16px !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list>ul>li.main-active .login-section,
+  #hs_cos_wrapper_module_16910398984436 .bottom-list>ul>li.main-active .incidence-section {
+    display:block;
+    opacity:1;
+    visibility:visible;
+    transform:translateX(0);
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .bottom-list>ul>li.main-active .incidence-section,
+  #hs_cos_wrapper_module_16910398984436 .bottom-list>ul>li.main-active .incidence-section {
+    display:block;
+    opacity:1;
+    visibility:visible;
+    transform:translateX(0);
+    margin-top:0;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 li.login-megamenu-u.main-active .login-section {
+    transform:translateX(0) !important;
+    margin-top:10px !important;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .resource-sec-tr {
+    max-height:calc(100vh - 22vh);
+    overflow:auto;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .login-section:after { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .incidence-section:after { display:none; }
+
+  #hs_cos_wrapper_module_16910398984436 .header-main-clswq {
+    max-height:calc(100vh - 19vh);
+    overflow:auto;
+  }
+
+  #hs_cos_wrapper_module_16910398984436 .trust-sec-inr,
+  #hs_cos_wrapper_module_16910398984436 .service-sec-inr {
+    max-height:calc(100vh - 19vh);
+    overflow:auto;
+  }
+}
+
+@media (max-width:480px) {
+  #hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch form fieldset.form-columns-2 .field { width:100% !important; }
+
+  #hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .newPopupBoxTableCell { padding:50px 20px; }
+
+  #hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .hs-richtext { padding:0 6px; }
+
+  #hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .download-form { padding-top:35px; }
+
+  #hs_cos_wrapper_module_16910398984436 .newPopupBoxSecSearch .Casestudy-title h2 { font-size:28px; }
+}
+
+
+</style>
+
+<link rel="stylesheet" href="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/module_assets/128101228672/1701875616297/module_128101228672_Global-Footer.min.css">
+<style>
+  @font-face {
+    font-family: "Inter";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Inter/500.woff2") format("woff2"), url("/_hcms/googlefonts/Inter/500.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Inter";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Inter/regular.woff2") format("woff2"), url("/_hcms/googlefonts/Inter/regular.woff") format("woff");
+  }
+  @font-face {
+    font-family: "Inter";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("/_hcms/googlefonts/Inter/700.woff2") format("woff2"), url("/_hcms/googlefonts/Inter/700.woff") format("woff");
+  }
+</style>
+
+    <script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/"
+  },
+  "author" : {
+    "name" : "Diana Lopera",
+    "url" : "https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/author/diana-lopera",
+    "@type" : "Person"
+  },
+  "headline" : "Yet Another Archive Format Smuggling Malware",
+  "datePublished" : "2021-06-24T07:39:00.000Z",
+  "dateModified" : "2023-09-14T05:27:03.941Z",
+  "publisher" : {
+    "name" : "Trustwave Holdings, Inc.",
+    "logo" : {
+      "url" : "https://www.trustwave.com/hubfs/tw_logo_default.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting"
+}
+</script>
+
+
+    
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-54M2ZJN');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DP8B111F8E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DP8B111F8E');
+</script>
+
+<style>
+/* GDPR Cookie Prompt Personalization */
+@media screen and (max-width: 751px) {
+  #hs-banner-parent div#hs-eu-cookie-confirmation {
+    transform: none !important;
+    left: 0 !important;
+    overflow-x: unset !important;
+    border-radius: 0 !important;
+  }
+}
+@media screen and (min-width: 751px) {
+  #hs-banner-parent div#hs-eu-cookie-confirmation {
+    transform: none !important;
+    left: 32px !important;
+  }
+  div#hs-eu-cookie-confirmation {
+    width: calc(min(55em, 100%)) !important;
+  }
+  div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner {
+    position: relative;
+  }
+  div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner div#hs-eu-header-container {
+    position: absolute;
+    right: 2.2rem;
+    top: 2.2rem;
+  }
+  div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner div#hs-eu-policy-wording {
+    margin-bottom: 1.5rem !important;
+  }
+  div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner button {
+    text-transform: none;
+  }
+}
+/* Remove the outline on Focus */
+#hs-modal #hs-modal-content button {
+    text-transform: none;
+    transition: none !important;
+}
+#hs-eu-cookie-confirmation:focus,
+#hs-eu-cookie-confirmation *:focus,
+#hs-modal #hs-modal-content:focus,
+#hs-modal #hs-modal-content *:focus {
+  outline: 0 !important;
+}
+
+</style>
+
+<link rel="amphtml" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/?hs_amp=true">
+
+<meta property="og:url" content="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/">
+<style>
+  .hs_cos_wrapper .grid a + .p-12 {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.hs_cos_wrapper .grid a + .p-12 .mh-item p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.hs_cos_wrapper .grid a + .p-12 .mh-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+  .hs_cos_wrapper .grid a + .p-12 a.btn.btn-m.btn-primary.btn-solid.text-white {
+    color: #0096b3 !important;
+    background: none !important;
+    padding: 0;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+  .hs_cos_wrapper .grid a + .p-12 a.btn.btn-m.btn-primary.btn-solid.text-white:hover {
+    color: #006F91 !important;
+  }
+  .body-container--blog-index .grid a.block {display:initial;}
+  .hs_cos_wrapper .grid a + .p-12 .mh-item label.text-sm {display: none;}
+  .hs_cos_wrapper .grid a + .p-12 .mh-item h2 {
+    line-height: 1.25;
+    letter-spacing: -0.4px;
+  }
+</style>
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/rss.xml">
+<meta name="twitter:domain" content="www.trustwave.com">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en-us">
+
+
+
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <style>
+    * { font-family: 'Inter', sans-serif; }
+    </style>
+    
+  <meta name="generator" content="HubSpot"></head>
+	
+	
+	
+	
+	
+
+	
+
+	
+	
+	
+	
+
+	
+	
+	  
+	
+	
+		
+  <body class="template-header-default">
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54M2ZJN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <div class="body-wrapper   hs-content-id-131464370755 hs-blog-post hs-blog-id-123670301864">
+		  
+      
+      
+      <div id="hs_cos_wrapper_module_16910398984436" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="header-section">
+  <div class="header-two-row">
+    <div class="container site-content">
+      <div class="header-first-row">
+        <div class="first-two-col">
+          <div class="f-left">
+            <div class="f-left-inr">
+              <div class="icon-two-col">
+                <div class="icon-left-q">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewbox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                    <g>
+                      <path fill="#ED1A3D" d="M12,0c6.6,0,12,5.4,12,12c0,6.6-5.4,12-12,12C5.3,24,0,18.6,0,12C0,5.4,5.4,0,12,0z M21.6,12   c0-5.3-4.3-9.6-9.6-9.6c-5.3,0-9.6,4.3-9.6,9.6c0,5.3,4.3,9.6,9.6,9.6C17.3,21.6,21.6,17.3,21.6,12z" />
+                      <path fill="#ED1A3D" d="M10.8,10.2c0-1,0-2,0-3c0-0.6,0.4-1.1,1.1-1.2c0.6-0.1,1.1,0.3,1.3,0.8c0,0.1,0.1,0.2,0.1,0.4c0,2,0,4,0,6   c0,0.6-0.4,1.1-1,1.2c-0.5,0.1-1.1-0.3-1.3-0.8c-0.1-0.2-0.1-0.3-0.1-0.5C10.8,12.1,10.8,11.2,10.8,10.2   C10.8,10.2,10.8,10.2,10.8,10.2z" />
+                      <path fill="#ED1A3D" d="M13.2,16.8c0,0.7-0.5,1.2-1.2,1.2c-0.7,0-1.2-0.5-1.2-1.2c0-0.7,0.5-1.2,1.2-1.2   C12.7,15.6,13.2,16.1,13.2,16.8z" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="icon-right-q">
+                  
+                  <div class="i-content-right">
+                    <p style="margin-top: 10px;">Trustwave SpiderLabs Uncovers Critical Cybersecurity Vulnerabilities Exposing Manufacturers to Costly Attacks. <a href="https://www.trustwave.com/en-us/company/newsroom/news/trustwave-spiderlabs-uncovers-critical-cybersecurity-vulnerabilities-exposing-manufacturers-to-costly-attacks/" rel="noopener">Learn More</a></p>
+<input id="hippowiz-ass-injected" type="hidden" value="true"><input id="hvmessage-toextension-listener" type="hidden" value="none">
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="f-right">
+            <div class="f-r-inr">
+              <div class="f-list-items">
+                <ul>
+                  
+                  <li>
+                    
+                    
+                    <a href="https://www.trustwave.com/en-us/company/contact/">Contact Us
+                    </a>
+                  </li>
+                  
+                  
+                  <li>
+                    
+                    
+                    <a href="javascript:void(0)">Login
+                    </a>
+                    <div class="login-wrapper">
+                      <div class="login-section">
+                        <div class="login-sec-inr">
+                          <div class="login-two-row">
+                            <div class="login-f-row">
+                              <div class="log-logo">
+                                
+                                
+                                
+                                
+                                
+                                
+                                <img src="https://www.trustwave.com/hubfs/fusion-logo-color-1.svg" alt="fusion-logo-color-1" loading="lazy" width="300" height="96" style="max-width: 100%; height: auto;">
+                                
+                              </div>
+                              <div class="login-link-buton">
+                                
+                                
+                                <a href="https://fusion.trustwave.com/">Fusion Platform Login
+                                </a>
+                              </div>
+                              <div class="what-link">
+                                
+                                
+                                <a href="https://www.trustwave.com/en-us/company/about-us/trustwave-fusion-platform/">What is the Trustwave Fusion Platform?
+                                </a>
+                              </div>
+                            </div>
+                            <div class="login-s-row">
+                              <div class="login-last-bnt">
+                                
+                                
+                                <a href="https://console.us.mailmarshal.cloud/">MailMarshal Cloud Login
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+
+                  </li>
+                  
+                  
+                  <li>
+                    
+                    
+                    <a href="javascript:void(0)">Incident Response
+                    </a>
+                    <div class="incidence-section">
+                      <div class="incidence-sec-inr">
+                        <div class="indic-two-row">
+                          <div class="indic-f-row">
+                            
+                            <div class="indics-title">
+                              <h6>
+                                Experiencing a security breach?
+                              </h6>
+                            </div>
+                            
+                            
+                            <div class="indics-content">
+                              <p>Get access to immediate incident response assistance.</p>
+                            </div>
+                            
+                            
+                            <div class="hotline-title">
+                              24 HOUR HOTLINES
+                            </div>
+                            
+                          </div>
+                          <div class="indic-sec-row">
+                            <div class="hot-item-link">
+                              <ul>
+                                
+                                <li>
+                                  
+                                  <span>
+                                    AMERICAS
+                                  </span>
+                                  
+                                  
+                                  <span>
+                                    
+                                    
+                                    <a href="tel:+1%20855%20438%204305">+1 855 438 4305
+                                    </a>
+                                  </span>
+                                  
+                                </li>
+                                
+                                <li>
+                                  
+                                  <span>
+                                    EMEA
+                                  </span>
+                                  
+                                  
+                                  <span>
+                                    
+                                    
+                                    <a href="tel:+44%208081687370">+44 8081687370
+                                    </a>
+                                  </span>
+                                  
+                                </li>
+                                
+                                <li>
+                                  
+                                  <span>
+                                    AUSTRALIA
+                                  </span>
+                                  
+                                  
+                                  <span>
+                                    
+                                    
+                                    <a href="tel:+61%201300901211">+61 1300901211
+                                    </a>
+                                  </span>
+                                  
+                                </li>
+                                
+                                <li>
+                                  
+                                  <span>
+                                    SINGAPORE
+                                  </span>
+                                  
+                                  
+                                  <span>
+                                    
+                                    
+                                    <a href="tel:+65%2068175019">+65 68175019
+                                    </a>
+                                  </span>
+                                  
+                                </li>
+                                
+                              </ul>
+                            </div>
+                            
+                            <div class="indic-last-col">
+                              
+                              
+                              <a href="https://www.trustwave.com/en-us/company/contact/security-breach/">Recommended Actions
+                              </a>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-second-row">
+    <div class="container site-content">
+      <div class="header-sec-inr">
+        <div class="header-three-col">
+          <div class="header-left">
+            <div class="header-logo header-normal">
+              
+
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><a href="//www.trustwave.com" id="hs-link-module_16910398984436_" style="border-width:0px;border:0px;"><img src="https://www.trustwave.com/hubfs/trustwave-logo-white-2.svg" class="hs-image-widget " height="43" style="height: auto;width:300px;border-width:0px;border:0px;" width="300" alt="trustwave-logo-white-2" title="trustwave-logo-white-2" loading=""></a></span>
+            </div>
+            <div class="header-logo header-sticky" style="display: none;">
+              
+
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><a href="//www.trustwave.com" id="hs-link-module_16910398984436_" style="border-width:0px;border:0px;"><img src="https://www.trustwave.com/hubfs/trustwave-logo-color.svg" class="hs-image-widget " height="330" style="height: auto;width:2287px;border-width:0px;border:0px;" width="2287" alt="trustwave-logo-color" title="trustwave-logo-color" loading=""></a></span>
+            </div>
+          </div>
+          <div class="header-middle-sec">
+            <div class="open-menu">
+              <a href="javascript:%20void(0)" class="expandMenu">
+                <i></i>
+                <i></i>
+                <i></i>
+              </a>
+            </div>
+            <div class="bodyclass">
+              <div class="headernavigation">
+                <div class="header-main-clswq">
+
+
+                  <div class="mobile-menu-s">
+                    <div class="m-first-cols">
+                      <div class="m-left-u">
+                        <div class="m-logo">
+                          
+
+                          <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><a href="//www.trustwave.com" id="hs-link-module_16910398984436_" style="border-width:0px;border:0px;"><img src="https://www.trustwave.com/hubfs/trustwave-logo-color.svg" class="hs-image-widget " height="330" style="height: auto;width:2287px;border-width:0px;border:0px;" width="2287" alt="trustwave-logo-color" title="trustwave-logo-color" loading=""></a></span>
+
+                        </div>
+                      </div>
+                      <div class="m-right-u">
+                        <div class="m-close-icon">
+                          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z" /></svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="reques-demo">
+                      
+                      <div class="search-right">
+                        <div class="demo-link">
+                          
+                          
+                          <a href="#navdemo-form">Request a Demo
+                          </a>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="default" data-menu-id="128102089380" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:;" role="menuitem">Services</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:;" role="menuitem">Solutions</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:;" role="menuitem">Why Trustwave</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:;" role="menuitem">Partners</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="javascript:;" role="menuitem">Resources</a></li>
+ </ul>
+</div></span>
+                  <div class="mobile-bottom-s">
+                    <div class="mobile-indicies">
+                      <div class="bottom-list">
+                        <ul>
+                          
+                          <li>
+                            
+                            
+                            <a href="https://www.trustwave.com/en-us/company/contact/">Contact Us
+                            </a>
+                          </li>
+                          
+                          
+                          <li class="login-megamenu-u">
+                            
+                            
+                            <a href="javascript:void(0)">Login
+                            </a>
+                            <div class="login-section">
+                              <div class="back-to-login">
+                                <span class="login-arrow arrow-global">
+                                  <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero" /></svg>
+                                </span>
+                                <span>login</span>
+                              </div>
+                              <div class="login-sec-inr">
+                                <div class="login-two-row">
+                                  <div class="login-f-row">
+                                    <div class="log-logo">
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      <img src="https://www.trustwave.com/hubfs/fusion-logo-color-1.svg" alt="fusion-logo-color-1" loading="lazy" width="300" height="96" style="max-width: 100%; height: auto;">
+                                      
+                                    </div>
+                                    <div class="login-link-buton">
+                                      
+                                      
+                                      <a href="https://fusion.trustwave.com/">Fusion Platform Login
+                                      </a>
+                                    </div>
+                                    <div class="what-link">
+                                      
+                                      
+                                      <a href="https://www.trustwave.com/en-us/company/about-us/trustwave-fusion-platform/">What is the Trustwave Fusion Platform?
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div class="login-s-row">
+                                    <div class="login-last-bnt">
+                                      
+                                      
+                                      <a href="https://console.us.mailmarshal.cloud/">MailMarshal Cloud Login
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          
+                          
+                          <li class="indices-menu">
+                            
+                            
+                            <a href="javascript:void(0)">Incident Response
+                            </a>
+                            <div class="incidence-section">
+                              <div class="indic-backmenu">
+                                <span class="login-arrow arrow-global">
+                                  <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero" /></svg>
+                                </span>
+                                <span> Incident Response</span>
+                              </div>
+                              <div class="incidence-sec-inr">
+                                <div class="indic-two-row">
+                                  <div class="indic-f-row">
+                                    
+                                    <div class="indics-title">
+                                      <h6>
+                                        Experiencing a security breach?
+                                      </h6>
+                                    </div>
+                                    
+                                    
+                                    <div class="indics-content">
+                                      <p>Get access to immediate incident response assistance.</p>
+                                    </div>
+                                    
+                                    
+                                    <div class="hotline-title">
+                                      24 HOUR HOTLINES
+                                    </div>
+                                    
+                                  </div>
+                                  <div class="indic-sec-row">
+                                    <div class="hot-item-link">
+                                      <ul>
+                                        
+                                        <li>
+                                          
+                                          <span>
+                                            AMERICAS
+                                          </span>
+                                          
+                                          
+                                          <span>
+                                            
+                                            
+                                            <a href="tel:+1%20855%20438%204305">+1 855 438 4305
+                                            </a>
+                                          </span>
+                                          
+                                        </li>
+                                        
+                                        <li>
+                                          
+                                          <span>
+                                            EMEA
+                                          </span>
+                                          
+                                          
+                                          <span>
+                                            
+                                            
+                                            <a href="tel:+44%208081687370">+44 8081687370
+                                            </a>
+                                          </span>
+                                          
+                                        </li>
+                                        
+                                        <li>
+                                          
+                                          <span>
+                                            AUSTRALIA
+                                          </span>
+                                          
+                                          
+                                          <span>
+                                            
+                                            
+                                            <a href="tel:+61%201300901211">+61 1300901211
+                                            </a>
+                                          </span>
+                                          
+                                        </li>
+                                        
+                                        <li>
+                                          
+                                          <span>
+                                            SINGAPORE
+                                          </span>
+                                          
+                                          
+                                          <span>
+                                            
+                                            
+                                            <a href="tel:+65%2068175019">+65 68175019
+                                            </a>
+                                          </span>
+                                          
+                                        </li>
+                                        
+                                      </ul>
+                                    </div>
+                                    
+                                    <div class="indic-last-col">
+                                      
+                                      
+                                      <a href="https://www.trustwave.com/en-us/company/contact/security-breach/">Recommended Actions
+                                      </a>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          
+                          <li class="form-s">
+                            <form action="/hs-search-results">
+                              <input id="search" value="" type="text" class="form-control" name="q" placeholder="Search trustwave.com" autocomplete="off">
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="last-cols">
+                        <div class="icon-s">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewbox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                            <g>
+                              <path fill="#ED1A3D" d="M12,0c6.6,0,12,5.4,12,12c0,6.6-5.4,12-12,12C5.3,24,0,18.6,0,12C0,5.4,5.4,0,12,0z M21.6,12   c0-5.3-4.3-9.6-9.6-9.6c-5.3,0-9.6,4.3-9.6,9.6c0,5.3,4.3,9.6,9.6,9.6C17.3,21.6,21.6,17.3,21.6,12z" />
+                              <path fill="#ED1A3D" d="M10.8,10.2c0-1,0-2,0-3c0-0.6,0.4-1.1,1.1-1.2c0.6-0.1,1.1,0.3,1.3,0.8c0,0.1,0.1,0.2,0.1,0.4c0,2,0,4,0,6   c0,0.6-0.4,1.1-1,1.2c-0.5,0.1-1.1-0.3-1.3-0.8c-0.1-0.2-0.1-0.3-0.1-0.5C10.8,12.1,10.8,11.2,10.8,10.2   C10.8,10.2,10.8,10.2,10.8,10.2z" />
+                              <path fill="#ED1A3D" d="M13.2,16.8c0,0.7-0.5,1.2-1.2,1.2c-0.7,0-1.2-0.5-1.2-1.2c0-0.7,0.5-1.2,1.2-1.2   C12.7,15.6,13.2,16.1,13.2,16.8z" />
+                            </g>
+                          </svg>
+                        </div>
+                        
+                        <div class="last-content">
+                          <p style="margin-top: 10px;">Trustwave SpiderLabs Uncovers Critical Cybersecurity Vulnerabilities Exposing Manufacturers to Costly Attacks. <a href="https://www.trustwave.com/en-us/company/newsroom/news/trustwave-spiderlabs-uncovers-critical-cybersecurity-vulnerabilities-exposing-manufacturers-to-costly-attacks/" rel="noopener">Learn More</a></p>
+<input id="hippowiz-ass-injected" type="hidden" value="true"><input id="hvmessage-toextension-listener" type="hidden" value="none">
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="header-right-sq">
+            <div class="request-two-col">
+              <div class="search-left">
+                <div class="search-s">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewbox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                    <path fill="#fff" d="M23.6,21.9l-4.4-4.4c1.5-1.8,2.4-4.2,2.4-6.7c0-6-4.8-10.8-10.8-10.8S0,4.8,0,10.8s4.8,10.8,10.8,10.8  c2.5,0,4.9-0.9,6.7-2.4l4.4,4.4c0.2,0.2,0.5,0.3,0.9,0.3s0.6-0.1,0.9-0.3C24.1,23.2,24.1,22.4,23.6,21.9z M2.4,10.8  c0-4.6,3.8-8.4,8.4-8.4s8.4,3.8,8.4,8.4c0,2.3-0.9,4.3-2.4,5.9c0,0.1-0.1,0.1-0.2,0.2c-1.5,1.5-3.6,2.4-5.9,2.4  C6.2,19.2,2.4,15.4,2.4,10.8z"></path>
+                  </svg>
+                </div>
+                <div class="search-bg">
+                  <div class="search-data">
+                    <div class="search-d-inr"> 
+                      <form action="/hs-search-results">
+                        <input id="search" value="" type="text" class="form-control" name="q" placeholder="Search trustwave.com" autocomplete="off">
+                      </form>
+                    </div>     
+                  </div>
+                </div>
+
+              </div>
+              
+              <div class="search-right">
+                <div class="demo-link">
+                  
+                  
+                  <a href="#navdemo-form">Request a Demo
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="newPopupBoxSecSearch module_16910398984436" id="popupBox">
+  <div class="newPopupBoxTable">
+    <div class="newPopupBoxTableCell">
+      <div class="popupBoxSearchBox">
+        <a href="javascript:void(0)" class="searchPopClose">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewbox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+            <g>
+              <path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z"></path>
+            </g>
+          </svg>
+        </a>
+      </div>
+      <div class="download-casestudy-in">
+        <div class="casestudy-main-cl">
+          
+          <div class="download-form">
+            <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_form" style="" data-hs-cos-general-type="widget" data-hs-cos-type="form"><h3 id="hs_cos_wrapper_form_404545909_title" class="hs_cos_wrapper form-title" data-hs-cos-general-type="widget_field" data-hs-cos-type="text"></h3>
+
+<div id="hs_form_target_form_404545909"></div>
+
+
+
+
+
+
+
+
+
+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="megamenu">
+  <div class="service-section megamenuRepeat" data-id="1">
+    <div class="service-sec-inr overlayclr">
+      <div class="back-menu-m service-back">
+        <div class="arrows-q">
+          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero"></path></svg>
+        </div>  
+        <span>Services</span>
+      </div>
+      <div class="service-cols">
+        <div class="service-box">
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=36&amp;height=35&amp;name=Capture.webp" alt="Capture" loading="lazy" width="36" height="35" style="max-width: 100%; height: auto;" srcset="https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=18&amp;height=18&amp;name=Capture.webp 18w, https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=36&amp;height=35&amp;name=Capture.webp 36w, https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=54&amp;height=53&amp;name=Capture.webp 54w, https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=72&amp;height=70&amp;name=Capture.webp 72w, https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=90&amp;height=88&amp;name=Capture.webp 90w, https://www.trustwave.com/hs-fs/hubfs/Capture.webp?width=108&amp;height=105&amp;name=Capture.webp 108w" sizes="(max-width: 36px) 100vw, 36px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/managed-detection-and-response/"></a>
+                
+                <div class="manage-title">
+                  Managed Detection &amp; Response
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Eradicate cyberthreats with world-class intel and expertise</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=50&amp;height=37&amp;name=twi-cloud-lock-color-svg.webp" alt="twi-cloud-lock-color-svg" loading="" width="50" height="37" srcset="https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=25&amp;height=19&amp;name=twi-cloud-lock-color-svg.webp 25w, https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=50&amp;height=37&amp;name=twi-cloud-lock-color-svg.webp 50w, https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=75&amp;height=56&amp;name=twi-cloud-lock-color-svg.webp 75w, https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=100&amp;height=74&amp;name=twi-cloud-lock-color-svg.webp 100w, https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=125&amp;height=93&amp;name=twi-cloud-lock-color-svg.webp 125w, https://www.trustwave.com/hs-fs/hubfs/twi-cloud-lock-color-svg.webp?width=150&amp;height=111&amp;name=twi-cloud-lock-color-svg.webp 150w" sizes="(max-width: 50px) 100vw, 50px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/managed-security-services/"></a>
+                
+                <div class="manage-title">
+                  Managed Security Services
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Expand your team’s capabilities and strengthen your security posture</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=50&amp;height=41&amp;name=twi-briefcase-color-svg.webp" alt="twi-briefcase-color-svg" loading="" width="50" height="41" srcset="https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=25&amp;height=21&amp;name=twi-briefcase-color-svg.webp 25w, https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=50&amp;height=41&amp;name=twi-briefcase-color-svg.webp 50w, https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=75&amp;height=62&amp;name=twi-briefcase-color-svg.webp 75w, https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=100&amp;height=82&amp;name=twi-briefcase-color-svg.webp 100w, https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=125&amp;height=103&amp;name=twi-briefcase-color-svg.webp 125w, https://www.trustwave.com/hs-fs/hubfs/twi-briefcase-color-svg.webp?width=150&amp;height=123&amp;name=twi-briefcase-color-svg.webp 150w" sizes="(max-width: 50px) 100vw, 50px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/consulting-and-professional-services/"></a>
+                
+                <div class="manage-title">
+                  Consulting &amp; Professional Services
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Tap into our global team of tenured cybersecurity specialists</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=50&amp;height=44&amp;name=twi-dashboard-color-svg.webp" alt="twi-dashboard-color-svg" loading="" width="50" height="44" srcset="https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=25&amp;height=22&amp;name=twi-dashboard-color-svg.webp 25w, https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=50&amp;height=44&amp;name=twi-dashboard-color-svg.webp 50w, https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=75&amp;height=66&amp;name=twi-dashboard-color-svg.webp 75w, https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=100&amp;height=88&amp;name=twi-dashboard-color-svg.webp 100w, https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=125&amp;height=110&amp;name=twi-dashboard-color-svg.webp 125w, https://www.trustwave.com/hs-fs/hubfs/twi-dashboard-color-svg.webp?width=150&amp;height=132&amp;name=twi-dashboard-color-svg.webp 150w" sizes="(max-width: 50px) 100vw, 50px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/penetration-testing/"></a>
+                
+                <div class="manage-title">
+                  Penetration Testing
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Subscription- or project-based testing, delivered by global experts</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=41&amp;height=46&amp;name=twi-database-color-svg.webp" alt="twi-database-color-svg" loading="" width="41" height="46" srcset="https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=21&amp;height=23&amp;name=twi-database-color-svg.webp 21w, https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=41&amp;height=46&amp;name=twi-database-color-svg.webp 41w, https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=62&amp;height=69&amp;name=twi-database-color-svg.webp 62w, https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=82&amp;height=92&amp;name=twi-database-color-svg.webp 82w, https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=103&amp;height=115&amp;name=twi-database-color-svg.webp 103w, https://www.trustwave.com/hs-fs/hubfs/twi-database-color-svg.webp?width=123&amp;height=138&amp;name=twi-database-color-svg.webp 123w" sizes="(max-width: 41px) 100vw, 41px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/database-security/"></a>
+                
+                <div class="manage-title">
+                  Database Security
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Get ahead of database risk, protect data and exceed compliance requirements</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=50&amp;height=35&amp;name=twi-email-color-svg.webp" alt="twi-email-color-svg" loading="" width="50" height="35" srcset="https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=25&amp;height=18&amp;name=twi-email-color-svg.webp 25w, https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=50&amp;height=35&amp;name=twi-email-color-svg.webp 50w, https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=75&amp;height=53&amp;name=twi-email-color-svg.webp 75w, https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=100&amp;height=70&amp;name=twi-email-color-svg.webp 100w, https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=125&amp;height=88&amp;name=twi-email-color-svg.webp 125w, https://www.trustwave.com/hs-fs/hubfs/twi-email-color-svg.webp?width=150&amp;height=105&amp;name=twi-email-color-svg.webp 150w" sizes="(max-width: 50px) 100vw, 50px">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="https://www.trustwave.com/en-us/services/email-security/"></a>
+                
+                <div class="manage-title">
+                  Email Security &amp; Management
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Catch email threats others miss with layered security &amp; maximum control</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="service-box-inr">
+            <div class="manage-two-col">
+              <div class="manage-left">
+                <div class="manage-icon">
+                  
+                  
+                  
+                  
+                  <img src="https://www.trustwave.com/hubfs/twi-managed-portal-color.svg" alt="twi-managed-portal-color" loading="" width="48" height="48">
+                  
+                </div>
+              </div>
+              <div class="manage-right">
+                <a href="/en-us/services/co-managed-soc/"></a>
+                
+                <div class="manage-title">
+                  Co-Managed SOC (SIEM)
+                </div>
+                
+                
+                <div class="manage-content">
+                  <p>Eliminate alert fatigue, focus your SecOps team, stop threats fast, and reduce cyber risk</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <div class="view-all-s">
+          
+          
+          <a href="https://www.trustwave.com/en-us/services/">View All Trustwave Services
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="solution-section megamenuRepeat" data-id="2">
+    <div class="solution-sec-inr overlayclr">
+      <div class="back-menu-m solution-back">
+        <div class="arrows-q">
+          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero"></path></svg>
+        </div>  
+        <span>Solutions</span>
+      </div>
+      <div class="solution-two-col">
+        <div class="solution-left">
+          <div class="solution-cols">
+            
+            <div class="solution-fs">
+              <div class="solution-fs-inr">
+                
+                <div class="sol-fs-title">
+                  BY INDUSTRY
+                </div>
+                
+                <div class="sol-simp-menus">
+                  <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/education/" role="menuitem" target="_self">Education</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/financial-services/" role="menuitem" target="_self"> Financial Services</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/government/" role="menuitem" target="_self">Government</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/healthcare/" role="menuitem" target="_self">Healthcare</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/hotels/" role="menuitem" target="_self">Hotels</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/legal/" role="menuitem" target="_self">Legal</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/manufacturing/" role="menuitem" target="_self">Manufacturing</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-industry/retail/" role="menuitem" target="_self">Retail</a></li>
+ </ul>
+</div></span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="solution-fs">
+              <div class="solution-fs-inr">
+                
+                <div class="sol-fs-title">
+                  BY REGULATION
+                </div>
+                
+                <div class="sol-simp-menus">
+                  <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/data-privacy/" role="menuitem" target="_self">Data Privacy</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/cybersecurity-maturity-model-certification/" role="menuitem" target="_self">CMMC</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/fisma/" role="menuitem" target="_self">FISMA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/gdpr/" role="menuitem" target="_self">GDPR</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/glba/" role="menuitem" target="_self">GLBA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/hipaa/" role="menuitem" target="_self">HIPAA</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/iso/" role="menuitem" target="_self">ISO</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/capabilities/by-mandate/sox/" role="menuitem" target="_self">SOX</a></li>
+ </ul>
+</div></span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="solution-right">
+          <div class="sol-r-inr">
+            
+            <div class="topic-titles">
+              BY TOPIC
+            </div>
+            
+            <div class="topic-main-s">
+
+              
+              
+              
+              <div class="topic-item">
+                <a href="https://www.trustwave.com/en-us/mitigate-microsoft-exchange-server-attacks/"></a>
+                
+                <div class="topic-title">
+                  Microsoft Exchange Server Attacks
+                </div>
+                
+                
+                <div class="topic-content">
+                  Stay protected against emerging threats
+                </div>
+                
+              </div>
+              
+              
+              
+              <div class="topic-item">
+                <a href="https://www.trustwave.com/en-us/capabilities/by-topic/rapidly-secure-temporary-infrastructures/"></a>
+                
+                <div class="topic-title">
+                  Rapidly Secure New Environments
+                </div>
+                
+                
+                <div class="topic-content">
+                  Security for rapid response situations
+                </div>
+                
+              </div>
+              
+              
+              
+              <div class="topic-item">
+                <a href="https://www.trustwave.com/en-us/capabilities/by-topic/cloud-security/"></a>
+                
+                <div class="topic-title">
+                  Securing the Cloud
+                </div>
+                
+                
+                <div class="topic-content">
+                  Safely navigate and stay protected
+                </div>
+                
+              </div>
+              
+              
+              
+              <div class="topic-item">
+                <a href="https://www.trustwave.com/en-us/capabilities/by-topic/securing-the-iot-landscape/"></a>
+                
+                <div class="topic-title">
+                  Securing the IoT Landscape
+                </div>
+                
+                
+                <div class="topic-content">
+                  Test, monitor and secure network objects
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="trust-section megamenuRepeat" data-id="3">
+    <div class="trust-sec-inr overlayclr">
+      <div class="back-menu-m solution-back">
+        <div class="arrows-q">
+          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero"></path></svg>
+        </div>  
+        <span>Why Trustwave</span>
+      </div>
+      <div class="trust-bottom-cs">
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/"></a>
+            <div class="t-title-s">
+              The Trustwave Approach
+            </div>
+            <div class="t-link-s">
+              A focus on threat detection and response
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/accolades/"></a>
+            <div class="t-title-s">
+              Awards and Accolades
+            </div>
+            <div class="t-link-s">
+              Recognition by analysts and media outlets
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/spiderlabs/"></a>
+            <div class="t-title-s">
+              Trustwave SpiderLabs Team
+            </div>
+            <div class="t-link-s">
+              Researchers, ethical hackers and responders
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/trustwave-fusion-platform/"></a>
+            <div class="t-title-s">
+              Trustwave Fusion Platform
+            </div>
+            <div class="t-link-s">
+              Unprecedented security visibility and control
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/spiderlabs-fusion-center/"></a>
+            <div class="t-title-s">
+              SpiderLabs Fusion Center
+            </div>
+            <div class="t-link-s">
+              Our cybersecurity command center
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="trust-col-s">
+          <div class="trust-cls">
+            <a href="/en-us/company/about-us/security-operations-centers/"></a>
+            <div class="t-title-s">
+              Security Operations Centers
+            </div>
+            <div class="t-link-s">
+              Distributed worldwide defense nodes
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="partner-section megamenuRepeat" data-id="4">
+    <div class="partner-sec-inr overlayclr">
+      <div class="back-menu-m solution-back">
+        <div class="arrows-q">
+          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero"></path></svg>
+        </div>  
+        <span>Partners</span>
+      </div>
+      <div class="partner-bottom-col">
+
+        <div class="partn-br-s">
+          
+          
+          
+          <div class="partn-cols">
+            <div class="partn-clr">
+              <a href="https://www.trustwave.com/en-us/company/alliance-ecosystem/technology-partners/">
+              </a>
+              <div class="title-s">
+                Technology Alliance Partners
+              </div>
+              <div class="content-s">
+                Key alliances who align and support our ecosystem of security offerings
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          <div class="partn-cols">
+            <div class="partn-clr">
+              <a href="https://www.trustwave.com/en-us/partnerone/">
+              </a>
+              <div class="title-s">
+                Trustwave PartnerOne Program
+              </div>
+              <div class="content-s">
+                Join forces with Trustwave to protect against the most advance cybersecurity threats
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="button-twoc-l">
+
+          <div class="button-left">
+            <div class="btn-q">
+              
+              
+              <a href="https://trustwave.ziftone.com/#/page/reg">Register
+              </a>
+            </div>
+          </div>
+
+          <div class="button-right">
+            <div class="btn-q chgbtn">
+              
+              
+              <a href="https://trustwave.ziftone.com/#/page/logged-out-home">Login
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="resource-section megamenuRepeat" data-id="5">
+    <div class="resource-sec-inr overlayclr">
+      <div class="back-menu-m solution-back">
+        <div class="arrows-q">
+          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z" fill-rule="nonzero"></path></svg>
+        </div>  
+        <span>Resources</span>
+      </div>
+      <div class="resource-sec-tr">
+        
+        <div class="resource-cols">
+          <div class="resource-cl-inr">
+            <div class="resn-title">
+              BLOGS
+            </div>
+            <div class="resn-menu">
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/blogs/trustwave-blog/" role="menuitem" target="_self">Trustwave Blog</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/" role="menuitem" target="_self">SpiderLabs Blog</a></li>
+ </ul>
+</div></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resource-cols">
+          <div class="resource-cl-inr">
+            <div class="resn-title">
+              UPCOMING
+            </div>
+            <div class="resn-menu">
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/upcoming/webinars/" role="menuitem" target="_self">Webinars</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/upcoming/events/" role="menuitem" target="_self">Events</a></li>
+ </ul>
+</div></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resource-cols">
+          <div class="resource-cl-inr">
+            <div class="resn-title">
+              MEDIA &amp; ASSETS
+            </div>
+            <div class="resn-menu">
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/library/?filters=.resource-documents" role="menuitem" target="_self">Document Library</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/library/?filters=.resource-videos" role="menuitem" target="_self"> Video Library</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/library?filters=.document-analystreport" role="menuitem" target="_self">Analyst Reports</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/library/?filters=.resource-webinars" role="menuitem" target="_self">Webinar Replays</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/library?filters=.document-casestudy" role="menuitem" target="_self">Case Studies</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/special-offers/" role="menuitem" target="_self">Trials &amp; Evaluations</a></li>
+ </ul>
+</div></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resource-cols">
+          <div class="resource-cl-inr">
+            <div class="resn-title">
+              NOTICES
+            </div>
+            <div class="resn-menu">
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/security-advisories/" role="menuitem" target="_self">Security Advisories</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/software-updates/" role="menuitem" target="_self">Software Updates</a></li>
+ </ul>
+</div></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resource-cols">
+          <div class="resource-cl-inr">
+            <div class="resn-title">
+              HELP
+            </div>
+            <div class="resn-menu">
+              <span id="hs_cos_wrapper_module_16910398984436_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_16910398984436_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/contact/" role="menuitem" target="_self">Contact</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/support/" role="menuitem" target="_self">Support</a></li>
+ </ul>
+</div></span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>
+      
+			
+			<div id="main-content">
+				
+
+<div class="blog-details-page">
+  <div class="dnd-section">
+    <div class="row-fluid mt-4">
+      <div class="tb:flex tb:justify-center -m-4">
+        <div class="tb:w-8/12 p-4">
+          <div class="blog-details-header">
+            
+            
+            <div class="blog-post_eyebrow">
+              
+              <a href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog" class="blog-post_blog-link" title="SpiderLabs Blog">SpiderLabs Blog</a>
+              
+            </div>
+            <h1>Yet Another Archive Format Smuggling Malware</h1>
+            <div class="blog-post_date-author">
+              <span class="date-time">June 24, 2021</span>
+              
+              <span class="minread">
+                
+                
+                
+                
+                
+                  2 minutes read
+                
+              </span>
+              
+              
+              <span class="blog-author">
+                Diana Lopera
+              </span>
+              
+            </div>
+            <div class="block blog-post-social-share">
+              <div id="hs_cos_wrapper_module_16916022918861" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+	
+	
+	
+	
+ 
+
+
+  
+
+
+
+
+	<div class="relative module_16916022918861 ">
+		<div class="social-links-module text-left inherit">
+			<div class="inline-flex items-center flex-row -m-2">
+				
+					<div class="">
+						<a class="social-links-item m-2 icon icon-xs social-facebook prebuilt-hover prebuilt-card p-12 shadow-lg bg-white-500" href="https://www.facebook.com/sharer/sharer.php?u=https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/" target="_blank" rel="noopener" style="">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 264 512" aria-hidden="true"><g id="facebook-f1_layer"><path d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229" /></g></svg>
+						</a>
+					</div>
+				
+				
+					<div class="">
+						<a class="social-links-item m-2 icon icon-xs social-twitter prebuilt-hover prebuilt-card p-12 shadow-lg bg-white-500" href="https://twitter.com/intent/tweet?url=&amp;text=https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/" target="_blank" rel="noopener" style="">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" aria-hidden="true"><g id="twitter2_layer"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" /></g></svg>
+						</a>
+					</div>
+				
+				
+					<div class="">
+						<a class="social-links-item m-2 icon icon-xs social-pinterest prebuilt-hover prebuilt-card p-12 shadow-lg bg-white-500" href="https://pinterest.com/pin/create/button/?url=https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/" target="_blank" rel="noopener" style="">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" aria-hidden="true"><g id="pinterest3_layer"><path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z" /></g></svg>
+						</a>
+					</div>
+				
+				
+					<div class="">
+						<a class="social-links-item m-2 icon icon-xs social-linkedin prebuilt-hover prebuilt-card p-12 shadow-lg bg-white-500" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/yet-another-archive-format-smuggling-malware/" target="_blank" rel="noopener" style="">
+							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" aria-hidden="true"><g id="linkedin-in4_layer"><path d="M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z" /></g></svg>
+						</a>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+            </div>
+          </div>
+          <div class="toc-content content-wrapper">
+            <span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><p style="text-align: justify;">The use of novel disk image files to encapsulate malware distributed via spam has been a theme that we have highlighted over the past couple of years. As anticipated, we have seen more disk image file formats being used, in addition to .ISO, .IMG, and .DAA which we <a href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/leveraging-disk-imaging-tools-to-deliver-rats/">blogged</a> about.</p>
+<!--more-->
+<p style="text-align: justify;">We recently spotted another file format being used. These spams, spoofing courier companies, contain a malicious WIM (Windows Imaging Format) file disguised as an invoice or consignment note. WIM is a file-based disk image format developed by Microsoft. The file format serves to deploy Windows software components and updates ever since Windows Vista. This format uses a ".wim" extension and its content can be extracted using archiving tools like 7Zip, PowerISO, and PeaZip. Below are some samples from this campaign.</p>
+<div id="photo-xid-6a0133f264aa62970b02788030a9c3200d" class="photo-wrap photo-xid-6a0133f264aa62970b02788030a9c3200d" style="display: block; margin-left: auto; margin-right: auto; width: 702px; text-align: center;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030a9c3200d-pi" class="asset-img-link"><img loading="lazy" style="width: 700px; border: 1px solid #ffffff; display: block; margin-left: auto; margin-right: auto;" class="asset  asset-image at-xid-6a0133f264aa62970b02788030a9c3200d img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030a9c3200d-700wi" alt="Figure 1" title="Figure 1"></a><span style="font-size: 14px; font-style: italic; text-align: center;"><strong>Figure 1</strong>: A DHL spam containing a fake invoice attachment</span></div>
+<div class="photo-wrap photo-xid-6a0133f264aa62970b02788030a9c3200d" style="display: block; margin-left: auto; margin-right: auto; width: 702px; text-align: center;">&nbsp;</div>
+<div id="photo-xid-6a0133f264aa62970b026bded8bd05200c" class="photo-wrap photo-xid-6a0133f264aa62970b026bded8bd05200c" style="display: block; margin-left: auto; margin-right: auto; width: 702px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b026bded8bd05200c-pi" class="asset-img-link"><img loading="lazy" style="width: 700px; border: 1px solid #ffffff; display: block; margin-left: auto; margin-right: auto;" class="asset  asset-image at-xid-6a0133f264aa62970b026bded8bd05200c img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b026bded8bd05200c-700wi" alt="Figure 2" title="Figure 2"></a>
+<div id="caption-xid-6a0133f264aa62970b026bded8bd05200c" class="photo-caption caption-xid-6a0133f264aa62970b026bded8bd05200c" style="text-align: center; font-size: 14px;"><em><strong>Figure 2</strong>: A DHL spam containing multiple malicious attachments disguised as consignment documents</em></div>
+<div class="photo-caption caption-xid-6a0133f264aa62970b026bded8bd05200c" style="text-align: center;">&nbsp;</div>
+</div>
+<div id="photo-xid-6a0133f264aa62970b02788030abe0200d" class="photo-wrap photo-xid-6a0133f264aa62970b02788030abe0200d" style="display: block; margin-left: auto; margin-right: auto; width: 702px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030abe0200d-pi" class="asset-img-link"><img loading="lazy" style="width: 700px; border: 1px solid #ffffff; display: block; margin-left: auto; margin-right: auto;" class="asset  asset-image at-xid-6a0133f264aa62970b02788030abe0200d img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030abe0200d-700wi" alt="Figure 3" title="Figure 3"></a>
+<div id="caption-xid-6a0133f264aa62970b02788030abe0200d" class="photo-caption caption-xid-6a0133f264aa62970b02788030abe0200d" style="text-align: center; font-size: 14px;"><em><strong>Figure 3</strong>: A spam spoofing AlphaTrans containing a fake invoice attachment</em></div>
+</div>
+<p>&nbsp;</p>
+<p style="text-align: justify;">The attachments, although they have a ‘.wim.001’ file extension which denotes that they are the first part of a larger WIM file, have the complete file structure of a WIM file. Using the ImageX tool, we verified that all the WIM attachments we collected are not compressed and have one file only.</p>
+<div id="photo-xid-6a0133f264aa62970b026bded8bef0200c" class="photo-wrap photo-xid-6a0133f264aa62970b026bded8bef0200c" style="display: block; margin-left: auto; margin-right: auto; width: 502px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b026bded8bef0200c-pi" class="asset-img-link"><img loading="lazy" style="border: 1px solid #ffffff; display: block; margin-left: auto; margin-right: auto;" class="asset  asset-image at-xid-6a0133f264aa62970b026bded8bef0200c img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b026bded8bef0200c-500wi" alt="Figure 4" title="Figure 4"></a>
+<div id="caption-xid-6a0133f264aa62970b026bded8bef0200c" class="photo-caption caption-xid-6a0133f264aa62970b026bded8bef0200c" style="text-align: center; font-size: 14px;"><em><strong>Figure 4</strong>: The information about the WIM attached in Fig. 1 using the tool ImageX</em></div>
+<div class="photo-caption caption-xid-6a0133f264aa62970b026bded8bef0200c" style="text-align: center;"><span style="font-size: 10px;">&nbsp;</span></div>
+</div>
+<p>&nbsp;</p>
+<p style="text-align: justify;">Opening the WIM files in a hex editor, its immediately noticeable that an executable file is hiding in them. Using the archiving tool 7Zip as displayed in Fig. 3, the EXE file bearing the same name as its WIM container can be extracted.</p>
+<div id="photo-xid-6a0133f264aa62970b0282e109119f200b" class="photo-wrap photo-xid-6a0133f264aa62970b0282e109119f200b" style="display: block; margin-left: auto; margin-right: auto; width: 502px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b0282e109119f200b-pi" class="asset-img-link"><img loading="lazy" style="border: 1px solid #ffffff; display: block; margin-left: auto; margin-right: auto;" class="asset  asset-image at-xid-6a0133f264aa62970b0282e109119f200b img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b0282e109119f200b-500wi" alt="Figure 5" title="Figure 5"></a>
+<div id="caption-xid-6a0133f264aa62970b0282e109119f200b" class="photo-caption caption-xid-6a0133f264aa62970b0282e109119f200b" style="text-align: center;"><em><strong>Figure 5</strong>: The WIM attachment shown in Fig. 1 viewed using the tool Hiew</em></div>
+<div class="photo-caption caption-xid-6a0133f264aa62970b0282e109119f200b" style="text-align: center;">&nbsp;</div>
+</div>
+<p>&nbsp;</p>
+<p style="text-align: justify;">All the WIM files we gathered from our samples contain Agent Tesla malware. This threat is a Remote Access Trojan (RAT) written in .Net which can take full control over a compromised system and can exfiltrate data via HTTP, SMTP, FTP, and Telegram. <a href="https://www.trustwave.com/en-us/resources/blogs/trustwave-blog/trustwave-2021-email-threat-report-highlights-critical-trends-in-email-security-in-the-age-of-advanced-threats/">In 2020</a>, Agent Tesla was one of the predominant RATs and early this year, we <a href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/the-many-roads-leading-to-agent-tesla/">reported</a> that this malware is still actively getting distributed in spam emails.</p>
+<div id="photo-xid-6a0133f264aa62970b02788030ac84200d" class="photo-wrap photo-xid-6a0133f264aa62970b02788030ac84200d" style="display: block; margin-left: auto; margin-right: auto; width: 632px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030ac84200d-pi" class="asset-img-link"><img loading="lazy" style="width: 630px; border: 1px solid #FFFFFF;" class="asset  asset-image at-xid-6a0133f264aa62970b02788030ac84200d img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b02788030ac84200d-640wi" alt="Figure 6" title="Figure 6"></a>
+<div id="caption-xid-6a0133f264aa62970b02788030ac84200d" class="photo-caption caption-xid-6a0133f264aa62970b02788030ac84200d" style="text-align: center;"><em><strong>Figure 6</strong>: The SMTP process of the Agent Tesla malware contained in Fig. 5 using DNSpy</em></div>
+<p>&nbsp;</p>
+<div class="photo-caption caption-xid-6a0133f264aa62970b02788030ac84200d" style="text-align: center;">&nbsp;</div>
+</div>
+<div id="photo-xid-6a0133f264aa62970b0282e10911ca200b" class="photo-wrap photo-xid-6a0133f264aa62970b0282e10911ca200b" style="display: block; margin-left: auto; margin-right: auto; width: 477px;"><a href="https://npercoco.typepad.com/.a/6a0133f264aa62970b0282e10911ca200b-pi" class="asset-img-link"><img loading="lazy" style="width: 475px; border: 1px solid #FFFFFF;" class="asset  asset-image at-xid-6a0133f264aa62970b0282e10911ca200b img-responsive" src="https://npercoco.typepad.com/.a/6a0133f264aa62970b0282e10911ca200b-500wi" alt="Figure 7" title="Figure 7"></a>
+<div id="caption-xid-6a0133f264aa62970b0282e10911ca200b" class="photo-caption caption-xid-6a0133f264aa62970b0282e10911ca200b" style="text-align: center;"><em><strong>Figure 7</strong>: The Agent Tesla malware extracted from the spam seen in this blog</em></div>
+<div class="photo-caption caption-xid-6a0133f264aa62970b0282e10911ca200b" style="text-align: center;">&nbsp;</div>
+</div>
+<p>&nbsp;</p>
+<h3>Summary</h3>
+<p style="text-align: justify;">Encapsulating malware in an unusual archive file format is one of the common ways to bypass gateways and scanners. However, this strategy also poses a hurdle – the target system must recognize the file type or at least have a tool which can unpack and process the file. In contrast to the more popular .IMG and .ISO disk image files, WIM files are not supported by Windows built-in ability to mount disk image files. Moreover, the other popular archive utilities WinRAR and WinZip do not recognize the WIM disk image. WIM files can be processed with the widely used 7Zip.</p>
+<p style="text-align: justify;">In terms of suspiciousness, an inbound email containing a WIM file is not usual and should raise a few flags. Administrators could look to block these outright. Trustwave MailMarshal detects these threats bundled inside unusual disk imaging containers using a combination of its unpacking engine and its multi-layered threat detection technology.</p>
+<h3>IOC</h3>
+<p style="font-size: 14px;"><span style="font-size: 16px;">WIM Files:</span><br>DHL Airway 3426983794.wim.001 (782102 bytes)&nbsp;&nbsp;&nbsp;&nbsp;SHA1: 91E3FE9AF48482484A4AAC9573D1FB13CB428738<br>Invoice_for_part_shipped(Feb 19,2021).wim.001 (634678 bytes)&nbsp;&nbsp;&nbsp;&nbsp;SHA1: D37C13A36A92114A927860B7021EB0C71BE73FBF<br>Monthly Statement.wim.001 (747278 bytes)&nbsp; &nbsp; SHA1: 2498342105E1C196C73960654E751D441925ED5C</p>
+<p style="font-size: 14px;"><span style="font-size: 16px;">Agent Tesla:</span><br>DHL Airway 3426983793.exe (780800 bytes)&nbsp;&nbsp;&nbsp; SHA1: 62FC617343B3D823362C8D9EA89AA676F79CE972<br>DHL Airway 3426983794.exe (780800 bytes)&nbsp;&nbsp;&nbsp;&nbsp;SHA1: 62FC617343B3D823362C8D9EA89AA676F79CE972<br>Invoice_for_part_shipped(Feb 19,2021).exe (633344 bytes)&nbsp;&nbsp;&nbsp;&nbsp;SHA1: F02FAFB08125D877584F73D5077DFCA95D66318C<br>Monthly Statement.exe (745984 bytes) &nbsp;&nbsp;&nbsp;&nbsp;SHA1: 236D1F71EB2EFA0C24E7EBA4390FEFE3691F1C68</p>
+<p style="font-size: 14px;"><span style="font-size: 16px;">Other:</span><br>DHL Airway 3426983793.tar.001 (782336 bytes)&nbsp;&nbsp;&nbsp;&nbsp;SHA1: E31107CCE2AA0DCF8B8C064EFEACAD5508C69D29</p></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="latest-blog-post dnd-section mt-8 pb-24">
+    <div class="row-fluid mb-12">
+      
+      
+      
+      <h2 class="text-center">Latest SpiderLabs Blogs</h2>
+    </div>
+    <div class="latest-blog-content row-fluid flex gap-4">
+      
+      
+      
+      
+      
+      <div class="blog-entry flex-1 p-8">
+        <h3><a href="/en-us/resources/blogs/spiderlabs-blog/2023-top-10-spiderlabs-blog-posts-cyberwarfare-phishing-and-malicious-email-attachments/" class="post-title">2023 Top 10 SpiderLabs Blog Posts: Cyberwarfare, Phishing, and Malicious Email Attachments</a></h3>
+        <p class="mt-4">The Top 10 Trustwave SpiderLabs’ blogs in 2022 reflected the cybersecurity landscape impacting security teams around the world. The Russia-Ukraine conflict and its accompanying cyberwar was top of...</p>
+        <a href="/en-us/resources/blogs/spiderlabs-blog/2023-top-10-spiderlabs-blog-posts-cyberwarfare-phishing-and-malicious-email-attachments/" class="read-more">Read More</a>
+      </div>
+      
+      
+      
+      
+      
+      
+      <div class="blog-entry flex-1 p-8">
+        <h3><a href="/en-us/resources/blogs/spiderlabs-blog/hunting-for-android-privilege-escalation-with-a-32-line-fuzzer/" class="post-title">Hunting for Android Privilege Escalation with a 32 Line Fuzzer</a></h3>
+        <p class="mt-4">Trustwave SpiderLabs tested a couple of Android OS-based mobile devices to conduct the research on privilege escalation scenarios. Specifically, we wanted to show a straightforward process attackers...</p>
+        <a href="/en-us/resources/blogs/spiderlabs-blog/hunting-for-android-privilege-escalation-with-a-32-line-fuzzer/" class="read-more">Read More</a>
+      </div>
+      
+      
+      
+      
+      
+      
+      <div class="blog-entry flex-1 p-8">
+        <h3><a href="/en-us/resources/blogs/spiderlabs-blog/surfing-the-tidal-waves-of-hr-themed-spam-emails/" class="post-title">Surfing the Tidal Waves of HR-Themed Spam Emails</a></h3>
+        <p class="mt-4">Threat actors constantly improve their tactics and are always on the hunt for technical or social vulnerabilities they can exploit. The pandemic-induced Great Resignation, massive layoffs, continuous...</p>
+        <a href="/en-us/resources/blogs/spiderlabs-blog/surfing-the-tidal-waves-of-hr-themed-spam-emails/" class="read-more">Read More</a>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+  </div>
+</div>
+
+			</div>
+      
+			
+      
+      <div id="hs_cos_wrapper_module_169103980660822" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="footer-section" id="module_169103980660822">
+  <div class="container">
+    <div class="footer-sec-inr">
+      <div class="footer-box">
+        <div class="ls-footer">
+          <div class="ls-footer-inr">
+            
+            <div class="ls-title">
+              <div class="ls-title-inr">
+                <h2>
+                  Stay Informed
+                </h2>
+              </div>
+            </div>
+            
+            <div class="footer-content-group">
+              
+              <div class="footer-form-head">
+                <h5>
+                  Sign up to receive the latest <br> security news and trends straight <br> to your inbox from Trustwave.
+                </h5>
+              </div>
+              
+              <div class="footer-form">
+                <span id="hs_cos_wrapper_module_169103980660822_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_form" style="" data-hs-cos-general-type="widget" data-hs-cos-type="form"><h3 id="hs_cos_wrapper_form_329433595_title" class="hs_cos_wrapper form-title" data-hs-cos-general-type="widget_field" data-hs-cos-type="text"></h3>
+
+<div id="hs_form_target_form_329433595"></div>
+
+
+
+
+
+
+
+
+
+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rs-footer">
+          <div class="rs-footer-inr">
+            <div class="menu-box">
+              <div class="menu-box-inr">
+                
+                <div class="menu-col">
+                  <span id="hs_cos_wrapper_module_169103980660822_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_169103980660822_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/about-us/leadership/" role="menuitem" target="_self">Leadership Team</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/about-us/our-history/" role="menuitem" target="_self">Our History</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/newsroom/news/" role="menuitem" target="_self">News Releases</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/newsroom/media/" role="menuitem" target="_self">Media Coverage</a></li>
+ </ul>
+</div></span>
+                </div>
+                
+                <div class="menu-col">
+                  <span id="hs_cos_wrapper_module_169103980660822_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_169103980660822_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/careers/" role="menuitem" target="_self">Careers</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/global-locations/" role="menuitem" target="_self">Global Locations</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/about-us/accolades/" role="menuitem" target="_self">Awards &amp; Accolades</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/special-offers/" role="menuitem" target="_self">Trials &amp; Evaluations</a></li>
+ </ul>
+</div></span>
+                </div>
+                
+                <div class="menu-col">
+                  <span id="hs_cos_wrapper_module_169103980660822_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_169103980660822_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/contact/" role="menuitem" target="_self">Contact</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/company/support/" role="menuitem" target="_self">Support</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/security-advisories/" role="menuitem" target="_self">Security Advisories</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/resources/security-resources/software-updates/" role="menuitem" target="_self">Software Updates</a></li>
+ </ul>
+</div></span>
+                </div>
+                
+              </div>
+            </div>
+            <div class="social-box">
+              <ul>
+                
+                
+                <li>
+                  
+                  
+                  <a href="https://www.linkedin.com/company/trustwave" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="22px" height="21px" viewbox="0 0 22 21" style="enable-background: new 0 0 22 21;" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink"> <path d="M21,21h-4c-0.6,0-1-0.4-1-1v-7c0-0.1,0-0.2-0.1-0.4c0,0,0-0.1-0.1-0.1c0,0,0-0.1-0.2-0.2c-0.1-0.1-0.2-0.2-0.2-0.2  c0,0-0.1,0-0.1-0.1c-0.3-0.1-0.5-0.1-0.7,0c0,0-0.1,0-0.1,0.1c0,0-0.1,0-0.2,0.2c-0.1,0.1-0.2,0.2-0.2,0.2c0,0,0,0.1-0.1,0.1  C14,12.8,14,12.9,14,13v7c0,0.6-0.4,1-1,1H9c-0.6,0-1-0.4-1-1v-7c0-0.9,0.2-1.9,0.6-2.7c0.3-0.8,0.8-1.6,1.5-2.2  c0.6-0.7,1.4-1.2,2.3-1.5c1.6-0.7,3.6-0.8,5.4,0c0.8,0.3,1.6,0.8,2.2,1.5c0.7,0.6,1.2,1.4,1.5,2.3c0.4,0.8,0.6,1.7,0.6,2.6v7  C22,20.6,21.6,21,21,21z M18,19h2v-6c0-0.7-0.1-1.3-0.4-1.9c-0.2-0.7-0.6-1.1-1.1-1.6c0,0-0.1-0.1-0.1-0.1C18,9,17.5,8.7,17,8.4  c-1.4-0.6-2.6-0.6-3.8,0C12.5,8.7,12,9,11.5,9.5c0,0-0.1,0.1-0.1,0.1c-0.5,0.4-0.8,0.9-1,1.5c-0.3,0.7-0.4,1.3-0.4,2v6h2v-6  c0-0.4,0.1-0.8,0.3-1.2c0.1-0.3,0.3-0.6,0.6-0.9c0.3-0.3,0.6-0.5,0.9-0.6c0.8-0.4,1.6-0.4,2.4,0c0.3,0.1,0.6,0.3,0.9,0.6  c0.3,0.3,0.5,0.6,0.6,0.9c0.2,0.4,0.3,0.8,0.3,1.2V19z M10.8,8.8L10.8,8.8L10.8,8.8z"></path> <path d="M5,21H1c-0.6,0-1-0.4-1-1V8c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1v12C6,20.6,5.6,21,5,21z M2,19h2V9H2V19z"></path> <path d="M3,6C1.3,6,0,4.7,0,3s1.3-3,3-3s3,1.3,3,3S4.7,6,3,6z M3,2C2.4,2,2,2.4,2,3s0.4,1,1,1s1-0.4,1-1S3.6,2,3,2z"></path> </svg>
+                  </a>
+                </li>
+                
+                
+                
+                <li>
+                  
+                  
+                  <a href="https://twitter.com/Trustwave" target="_blank" rel="noopener"><svg style="max-width: 24px; max-height: 20px;" width="1200" height="1227" viewbox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"></path> </svg>
+                  </a>
+                </li>
+                
+                
+                
+                <li>
+                  
+                  
+                  <a href="https://www.facebook.com/Trustwave/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="13px" height="22px" viewbox="0 0 13 22" enable-background="new 0 0 13 22" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink"> <path d="M8,22H4c-0.6,0-1-0.4-1-1v-7H1c-0.6,0-1-0.4-1-1V9c0-0.6,0.4-1,1-1h2V6c0-3.3,2.7-6,6-6h3c0.6,0,1,0.4,1,1v4  c0,0.6-0.4,1-1,1H9v2h3c0.3,0,0.6,0.1,0.8,0.4S13,8.9,13,9.2l-1,4c-0.1,0.4-0.5,0.8-1,0.8H9v7C9,21.6,8.6,22,8,22z M5,20h2v-7  c0-0.6,0.4-1,1-1h2.2l0.5-2H8c-0.6,0-1-0.4-1-1V6c0-1.1,0.9-2,2-2h2V2H9C6.8,2,5,3.8,5,6v3c0,0.6-0.4,1-1,1H2v2h2c0.6,0,1,0.4,1,1  V20z"></path> </svg>
+                  </a>
+                </li>
+                
+                
+                
+                <li>
+                  
+                  
+                  <a href="https://www.youtube.com/channel/UC2CCqdrAxD9-Fv83NOdjhqA" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="17.5px" viewbox="0 0 24 17.5" enable-background="new 0 0 24 17.5" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink"> <path d="M12,17.5c-0.7,0-7.1,0-8.9-0.5c-1.3-0.3-2.3-1.3-2.6-2.6C0.1,12.4,0,10.6,0,8.7c0-1.8,0.2-3.7,0.5-5.5  c0.3-1.4,1.4-2.4,2.7-2.8C4.9,0,11.3,0,12,0c0.7,0,7.1,0,8.8,0.4c1.3,0.4,2.3,1.4,2.7,2.7c0,0,0,0,0,0.1C23.9,5.1,24,6.9,24,8.8  c0,1.8-0.2,3.6-0.5,5.4c-0.3,1.4-1.4,2.4-2.7,2.8C19.1,17.4,12.7,17.5,12,17.5z M12,2C9.3,2,4.8,2.1,3.7,2.4  C3.1,2.6,2.6,3.1,2.4,3.7C2.1,5.3,2,7,2,8.7c0,1.7,0.1,3.5,0.4,5.2c0.1,0.5,0.6,1,1.2,1.1c1.2,0.3,5.6,0.4,8.3,0.4s7.2-0.1,8.3-0.4  c0.6-0.2,1.1-0.7,1.2-1.3c0.3-1.6,0.4-3.3,0.4-5c0-1.7-0.1-3.4-0.4-5.1c-0.2-0.6-0.6-1.1-1.2-1.3C19,2.1,13.9,2,12,2z"></path> <path d="M9.8,13c-0.2,0-0.3,0-0.5-0.1c-0.3-0.2-0.5-0.5-0.5-0.9V5.5c0-0.4,0.2-0.7,0.5-0.9s0.7-0.2,1,0L16,7.9  c0.3,0.2,0.5,0.5,0.5,0.9c0,0.4-0.2,0.7-0.5,0.9l-5.8,3.3C10.1,13,9.9,13,9.8,13z M10.8,7.2v3.1l2.7-1.6L10.8,7.2z"></path> </svg>
+                  </a>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="footer-bottom">
+              <div class="footer-bottom-inr">
+                <div class="ls-bottom">
+                  <div class="bottom-menu">
+                    <span id="hs_cos_wrapper_module_169103980660822_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_169103980660822_" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="" data-menu-id="" aria-label="Navigation Menu">
+ <ul role="menu">
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/legal-documents/" role="menuitem" target="_self">Legal</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/legal-documents/terms-of-use/" role="menuitem" target="_self">Terms of Use</a></li>
+  <li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://www.trustwave.com/en-us/legal-documents/privacy-policy/" role="menuitem" target="_self">Privacy Policy</a></li>
+ </ul>
+</div></span>
+                  </div>
+                </div>
+                
+                <div class="cr-footer">
+                  <div class="footer-copyright">
+                    <p>Copyright © 2023 Trustwave Holdings, Inc. All rights reserved.</p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tpBtn">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.2" viewbox="0 0 14 8" width="24" height="14"><path d="m13 8c-0.3 0-0.5-0.1-0.7-0.3l-5.3-5.3-5.3 5.3c-0.4 0.4-1 0.4-1.4 0-0.4-0.4-0.4-1 0-1.4l6-6c0.4-0.4 1-0.4 1.4 0l6 6c0.4 0.4 0.4 1 0 1.4-0.2 0.2-0.4 0.3-0.7 0.3z"></path></svg>
+  </div>
+  
+</div></div>
+      
+      
+			
+    </div>
+
+		
+		
+
+		
+    
+
+		
+    <script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery-migrate/jquery-migrate-1.2.1.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/82153728608/1700159884773/Trustwave_Theme_by_CC/child.min.js"></script>
+
+		  <script defer src="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/81597448358/1703775964236/Trustwave_Theme_by_CC/js/plugins/plugins.min.js"></script>
+		
+<script defer src="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/template_assets/81597439004/1703775967859/Trustwave_Theme_by_CC/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en-us';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+
+    <!--[if lte IE 8]>
+    <script charset="utf-8" src="https://js.hsforms.net/forms/v2-legacy.js"></script>
+    <![endif]-->
+
+<script data-hs-allowed="true" src="/_hcms/forms/v2.js"></script>
+
+    <script data-hs-allowed="true">
+        var options = {
+            portalId: '21158977',
+            formId: '92358282-9e9e-4fe6-a21f-c30c1e55336d',
+            formInstanceId: '7303',
+            pageId: '131464370755',
+            region: 'na1',
+            
+            
+            
+            
+            pageName: "Yet Another Archive Format Smuggling Malware",
+            
+            
+            
+            inlineMessage: "<p style=\"text-align: center;\"><strong>Thank You</strong></p>\n<p style=\"text-align: center;\"><img style=\"height: auto; max-width: 100%; width: 258px;\" src=\"https://21158977.fs1.hubspotusercontent-na1.net/hubfs/21158977/Red%20Line.png\" alt=\"Red Line\" loading=\"lazy\" width=\"258\" height=\"22\"></p>\n<p style=\"text-align: center;\">Browse our latest <span style=\"color: #0096b3;\"><a style=\"color: #0096b3;\" href=\"https://www.trustwave.com/en-us/resources/blogs/trustwave-blog/\" rel=\"noopener\">blogs</a></span> or visit our <span style=\"color: #0096b3;\"><a style=\"color: #0096b3;\" href=\"https://www.trustwave.com/en-us/resources/library/\" rel=\"noopener\">Resource Library</a></span>.</p>",
+            
+            
+            rawInlineMessage: "<p style=\"text-align: center;\"><strong>Thank You</strong></p>\n<p style=\"text-align: center;\"><img style=\"height: auto; max-width: 100%; width: 258px;\" src=\"https://21158977.fs1.hubspotusercontent-na1.net/hubfs/21158977/Red%20Line.png\" alt=\"Red Line\" loading=\"lazy\" width=\"258\" height=\"22\"></p>\n<p style=\"text-align: center;\">Browse our latest <span style=\"color: #0096b3;\"><a style=\"color: #0096b3;\" href=\"https://www.trustwave.com/en-us/resources/blogs/trustwave-blog/\" rel=\"noopener\">blogs</a></span> or visit our <span style=\"color: #0096b3;\"><a style=\"color: #0096b3;\" href=\"https://www.trustwave.com/en-us/resources/library/\" rel=\"noopener\">Resource Library</a></span>.</p>",
+            
+            
+            hsFormKey: "1d7764bd37ca7910ba5af2a0356949e9",
+            
+            
+            css: '',
+            target: '#hs_form_target_form_404545909',
+            
+            
+            
+            
+            
+            contentType: "blog-post",
+            
+            
+            
+            formsBaseUrl: '/_hcms/forms/',
+            
+            
+            
+            formData: {
+                cssClass: 'hs-form stacked hs-custom-form'
+            }
+        };
+
+        options.getExtraMetaDataBeforeSubmit = function() {
+            var metadata = {};
+            
+
+            if (hbspt.targetedContentMetadata) {
+                var count = hbspt.targetedContentMetadata.length;
+                var targetedContentData = [];
+                for (var i = 0; i < count; i++) {
+                    var tc = hbspt.targetedContentMetadata[i];
+                     if ( tc.length !== 3) {
+                        continue;
+                     }
+                     targetedContentData.push({
+                        definitionId: tc[0],
+                        criterionId: tc[1],
+                        smartTypeId: tc[2]
+                     });
+                }
+                metadata["targetedContentMetadata"] = JSON.stringify(targetedContentData);
+            }
+
+            return metadata;
+        };
+
+        hbspt.forms.create(options);
+    </script>
+
+
+<script>
+
+  $(document).ready(function(){
+
+    $('.megamenuRepeat').each(function(){
+      var DataId = $(this).attr('data-id');
+      var dataHtml = $(this)[0].outerHTML ;
+      $('.headernavigation  .hs-menu-wrapper > ul >li:nth-child('+DataId+')').append(dataHtml);
+      $('.headernavigation  .hs-menu-wrapper > ul >li:nth-child('+DataId+')').addClass('mega-list-parent');
+
+    })  
+    if ($(window).scrollTop() > 70) {
+        $('body').addClass('Fixed');
+    } else {
+        $('body').removeClass('Fixed');
+    }
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 70) {
+        $('body').addClass('Fixed');
+      } else {
+        $('body').removeClass('Fixed');
+      }
+    });
+
+    $('a.expandMenu').on('click',function(){
+      $('.header-section').addClass('active');
+    })
+    $('.m-close-icon').on('click',function(){
+      $('.header-section').removeClass('active');
+    })
+
+    $(".f-list-items ul > li").on("click", function() {
+      if($(this).hasClass("active")){
+        $(this).removeClass("active");
+      }else{
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+      }
+    });
+
+    $('.demo-link a').on('click',function(e){
+      e.preventDefault();
+      $('.newPopupBoxSecSearch').fadeIn();
+      $(this).closest(".header").find(".newPopupBoxTableCell").removeClass("fadeOutDown").addClass("fadeInUp");
+      $('body').addClass('nav');
+    })
+    $('.searchPopClose').on('click',function(e){
+      e.preventDefault();
+      $(this).closest(".newPopupBoxTableCell").removeClass("fadeInUp").addClass("fadeOutDown");
+      $('.newPopupBoxSecSearch').fadeOut();
+      $('body').removeClass('nav');
+    })
+    $(".newPopupBoxSecSearch").click(function(e){
+      e.preventDefault();
+      $(this).fadeOut();
+    });
+    // Prevent events from getting pass .popup
+    $(".newPopupBoxTableCell").click(function(e){
+      e.stopPropagation();
+    });
+
+    //     Login megamenu js 
+    //     $('.login-megamenu-u').on('click',function(){
+    //       $('.header-section').addClass('login-active');
+    //     })
+    //     $('.back-to-login').on('click',function(){
+    //       $('.header-section').removeClass('login-active');
+    //     })
+
+    //     $('.indices-menu a').on('click',function(){
+    //       $('.header-section').addClass('indices-active');
+    //     })
+
+
+    $('.search-s').on('click',function(){
+      $('.header-section').addClass('search-active');
+    })
+
+    //     Main Menu js
+
+    //     $(".headernavigation ul > li").on("click", function() {
+    //       if($(this).hasClass("main-active")){
+    //         $(this).removeClass("main-active");
+    //       }else{
+    //         $(this).siblings().removeClass("main-active");
+    //         $(this).addClass("main-active");
+    //       }
+    //     });
+
+
+
+    $(".headernavigation ul > li").on("click", function(){
+      $(this).toggleClass("main-active").siblings().removeClass("main-active");
+    })
+
+    $(".search-bg").on("click", function(){
+      $(".header-section").removeClass("search-active");
+    })
+    //     $(".bottom-list >ul >li").on("click", function(){
+    //       $(this).addClass("main-active").siblings().removeClass("main-active");
+    //     })
+
+    //     $(".back-to-login").on("click", function(){
+    //      $(this).closest(".bottom-list >ul >li").removeClass("main-active");
+    //     })
+    //     $(".indic-backmenu").on("click", function(){
+    //       $(this).closest(".bottom-list >ul >li").removeClass("main-active");
+    //     })
+    // Prevent events from getting pass .popup
+    $(".search-data").click(function(e){
+      e.stopPropagation();
+    });
+
+    $(".bodyclass").on("click", function(){
+      $(".header-section").removeClass("active");
+    })
+    // Prevent events from getting pass .popup
+    $(".headernavigation").click(function(e){
+      e.stopPropagation();
+    });
+
+
+  })
+
+</script>
+
+<script src="https://www.trustwave.com/hs-fs/hub/21158977/hub_generated/module_assets/128101228672/1701875615556/module_128101228672_Global-Footer.min.js"></script>
+
+    <script data-hs-allowed="true">
+        var options = {
+            portalId: '21158977',
+            formId: '68741a11-8e56-4f23-ba7f-b2307e77714c',
+            formInstanceId: '7099',
+            pageId: '131464370755',
+            region: 'na1',
+            
+            
+            
+            
+            pageName: "Yet Another Archive Format Smuggling Malware",
+            
+            
+            
+            inlineMessage: "<p>Thank you for your email! You will soon receive the Trustwave newsletter</p>",
+            
+            
+            rawInlineMessage: "<p>Thank you for your email! You will soon receive the Trustwave newsletter</p>",
+            
+            
+            hsFormKey: "ee22e7e4cdd741374f19ddcbe0fb4afb",
+            
+            
+            css: '',
+            target: '#hs_form_target_form_329433595',
+            
+            
+            
+            
+            
+            contentType: "blog-post",
+            
+            
+            
+            formsBaseUrl: '/_hcms/forms/',
+            
+            
+            
+            formData: {
+                cssClass: 'hs-form stacked hs-custom-form'
+            }
+        };
+
+        options.getExtraMetaDataBeforeSubmit = function() {
+            var metadata = {};
+            
+
+            if (hbspt.targetedContentMetadata) {
+                var count = hbspt.targetedContentMetadata.length;
+                var targetedContentData = [];
+                for (var i = 0; i < count; i++) {
+                    var tc = hbspt.targetedContentMetadata[i];
+                     if ( tc.length !== 3) {
+                        continue;
+                     }
+                     targetedContentData.push({
+                        definitionId: tc[0],
+                        criterionId: tc[1],
+                        smartTypeId: tc[2]
+                     });
+                }
+                metadata["targetedContentMetadata"] = JSON.stringify(targetedContentData);
+            }
+
+            return metadata;
+        };
+
+        hbspt.forms.create(options);
+    </script>
+
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.trustwave.com\/en-us\/resources\/blogs\/spiderlabs-blog\/yet-another-archive-format-smuggling-malware\/"]);
+_hsq.push(["setPageId", "131464370755"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 131464370755,
+    "legacyPageId": "131464370755",
+    "contentFolderId": null,
+    "contentGroupId": 123670301864,
+    "abTestId": null,
+    "languageVariantId": 131464370755,
+    "languageCode": "en-us",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/21158977.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "b9609c10-f03e-4d0d-ac5e-577dd8d77b1d",
+    ticks: 1703811544387,
+    page_id: 131464370755,
+    
+    content_group_id: 123670301864,
+    portal_id: 21158977,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en-us",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "131464370755",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+  
+</body></html>

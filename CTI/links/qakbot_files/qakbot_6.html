@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="en-US"><head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qakbot Botnet Disruption | The Shadowserver Foundation</title>
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css" type="text/css" media="all">
+<style id="classic-theme-styles-inline-css">.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css">body{--wp--preset--color--black:#000;--wp--preset--color--cyan-bluish-gray:#abb8c3;--wp--preset--color--white:#fff;--wp--preset--color--pale-pink:#f78da7;--wp--preset--color--vivid-red:#cf2e2e;--wp--preset--color--luminous-vivid-orange:#ff6900;--wp--preset--color--luminous-vivid-amber:#fcb900;--wp--preset--color--light-green-cyan:#7bdcb5;--wp--preset--color--vivid-green-cyan:#00d084;--wp--preset--color--pale-cyan-blue:#8ed1fc;--wp--preset--color--vivid-cyan-blue:#0693e3;--wp--preset--color--vivid-purple:#9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple:linear-gradient(135deg,rgba(6,147,227,1) 0%,#9b51e0 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan:linear-gradient(135deg,#7adcb4 0%,#00d082 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange:linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red:linear-gradient(135deg,rgba(255,105,0,1) 0%,#cf2e2e 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray:linear-gradient(135deg,#eee 0%,#a9b8c3 100%);--wp--preset--gradient--cool-to-warm-spectrum:linear-gradient(135deg,#4aeadc 0%,#9778d1 20%,#cf2aba 40%,#ee2c82 60%,#fb6962 80%,#fef84c 100%);--wp--preset--gradient--blush-light-purple:linear-gradient(135deg,#ffceec 0%,#9896f0 100%);--wp--preset--gradient--blush-bordeaux:linear-gradient(135deg,#fecda5 0%,#fe2d2d 50%,#6b003e 100%);--wp--preset--gradient--luminous-dusk:linear-gradient(135deg,#ffcb70 0%,#c751c0 50%,#4158d0 100%);--wp--preset--gradient--pale-ocean:linear-gradient(135deg,#fff5cb 0%,#b6e3d4 50%,#33a7b5 100%);--wp--preset--gradient--electric-grass:linear-gradient(135deg,#caf880 0%,#71ce7e 100%);--wp--preset--gradient--midnight:linear-gradient(135deg,#020381 0%,#2874fc 100%);--wp--preset--font-size--small:13px;--wp--preset--font-size--medium:20px;--wp--preset--font-size--large:36px;--wp--preset--font-size--x-large:42px;--wp--preset--spacing--20:.44rem;--wp--preset--spacing--30:.67rem;--wp--preset--spacing--40:1rem;--wp--preset--spacing--50:1.5rem;--wp--preset--spacing--60:2.25rem;--wp--preset--spacing--70:3.38rem;--wp--preset--spacing--80:5.06rem;--wp--preset--shadow--natural:6px 6px 9px rgba(0,0,0,.2);--wp--preset--shadow--deep:12px 12px 50px rgba(0,0,0,.4);--wp--preset--shadow--sharp:6px 6px 0 rgba(0,0,0,.2);--wp--preset--shadow--outlined:6px 6px 0 -3px rgba(255,255,255,1) , 6px 6px rgba(0,0,0,1);--wp--preset--shadow--crisp:6px 6px 0 rgba(0,0,0,1)}:where(.is-layout-flex){gap:.5em}:where(.is-layout-grid){gap:.5em}body .is-layout-flow>.alignleft{float:left;margin-inline-start:0;margin-inline-end:2em}body .is-layout-flow>.alignright{float:right;margin-inline-start:2em;margin-inline-end:0}body .is-layout-flow>.aligncenter{margin-left:auto!important;margin-right:auto!important}body .is-layout-constrained>.alignleft{float:left;margin-inline-start:0;margin-inline-end:2em}body .is-layout-constrained>.alignright{float:right;margin-inline-start:2em;margin-inline-end:0}body .is-layout-constrained>.aligncenter{margin-left:auto!important;margin-right:auto!important}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:var(--wp--style--global--content-size);margin-left:auto!important;margin-right:auto!important}body .is-layout-constrained>.alignwide{max-width:var(--wp--style--global--wide-size)}body .is-layout-flex{display:flex}body .is-layout-flex{flex-wrap:wrap;align-items:center}body .is-layout-flex>*{margin:0}body .is-layout-grid{display:grid}body .is-layout-grid>*{margin:0}:where(.wp-block-columns.is-layout-flex){gap:2em}:where(.wp-block-columns.is-layout-grid){gap:2em}:where(.wp-block-post-template.is-layout-flex){gap:1.25em}:where(.wp-block-post-template.is-layout-grid){gap:1.25em}.has-black-color{color:var(--wp--preset--color--black)!important}.has-cyan-bluish-gray-color{color:var(--wp--preset--color--cyan-bluish-gray)!important}.has-white-color{color:var(--wp--preset--color--white)!important}.has-pale-pink-color{color:var(--wp--preset--color--pale-pink)!important}.has-vivid-red-color{color:var(--wp--preset--color--vivid-red)!important}.has-luminous-vivid-orange-color{color:var(--wp--preset--color--luminous-vivid-orange)!important}.has-luminous-vivid-amber-color{color:var(--wp--preset--color--luminous-vivid-amber)!important}.has-light-green-cyan-color{color:var(--wp--preset--color--light-green-cyan)!important}.has-vivid-green-cyan-color{color:var(--wp--preset--color--vivid-green-cyan)!important}.has-pale-cyan-blue-color{color:var(--wp--preset--color--pale-cyan-blue)!important}.has-vivid-cyan-blue-color{color:var(--wp--preset--color--vivid-cyan-blue)!important}.has-vivid-purple-color{color:var(--wp--preset--color--vivid-purple)!important}.has-black-background-color{background-color:var(--wp--preset--color--black)!important}.has-cyan-bluish-gray-background-color{background-color:var(--wp--preset--color--cyan-bluish-gray)!important}.has-white-background-color{background-color:var(--wp--preset--color--white)!important}.has-pale-pink-background-color{background-color:var(--wp--preset--color--pale-pink)!important}.has-vivid-red-background-color{background-color:var(--wp--preset--color--vivid-red)!important}.has-luminous-vivid-orange-background-color{background-color:var(--wp--preset--color--luminous-vivid-orange)!important}.has-luminous-vivid-amber-background-color{background-color:var(--wp--preset--color--luminous-vivid-amber)!important}.has-light-green-cyan-background-color{background-color:var(--wp--preset--color--light-green-cyan)!important}.has-vivid-green-cyan-background-color{background-color:var(--wp--preset--color--vivid-green-cyan)!important}.has-pale-cyan-blue-background-color{background-color:var(--wp--preset--color--pale-cyan-blue)!important}.has-vivid-cyan-blue-background-color{background-color:var(--wp--preset--color--vivid-cyan-blue)!important}.has-vivid-purple-background-color{background-color:var(--wp--preset--color--vivid-purple)!important}.has-black-border-color{border-color:var(--wp--preset--color--black)!important}.has-cyan-bluish-gray-border-color{border-color:var(--wp--preset--color--cyan-bluish-gray)!important}.has-white-border-color{border-color:var(--wp--preset--color--white)!important}.has-pale-pink-border-color{border-color:var(--wp--preset--color--pale-pink)!important}.has-vivid-red-border-color{border-color:var(--wp--preset--color--vivid-red)!important}.has-luminous-vivid-orange-border-color{border-color:var(--wp--preset--color--luminous-vivid-orange)!important}.has-luminous-vivid-amber-border-color{border-color:var(--wp--preset--color--luminous-vivid-amber)!important}.has-light-green-cyan-border-color{border-color:var(--wp--preset--color--light-green-cyan)!important}.has-vivid-green-cyan-border-color{border-color:var(--wp--preset--color--vivid-green-cyan)!important}.has-pale-cyan-blue-border-color{border-color:var(--wp--preset--color--pale-cyan-blue)!important}.has-vivid-cyan-blue-border-color{border-color:var(--wp--preset--color--vivid-cyan-blue)!important}.has-vivid-purple-border-color{border-color:var(--wp--preset--color--vivid-purple)!important}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background:var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple)!important}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background:var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan)!important}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background:var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange)!important}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background:var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red)!important}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background:var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray)!important}.has-cool-to-warm-spectrum-gradient-background{background:var(--wp--preset--gradient--cool-to-warm-spectrum)!important}.has-blush-light-purple-gradient-background{background:var(--wp--preset--gradient--blush-light-purple)!important}.has-blush-bordeaux-gradient-background{background:var(--wp--preset--gradient--blush-bordeaux)!important}.has-luminous-dusk-gradient-background{background:var(--wp--preset--gradient--luminous-dusk)!important}.has-pale-ocean-gradient-background{background:var(--wp--preset--gradient--pale-ocean)!important}.has-electric-grass-gradient-background{background:var(--wp--preset--gradient--electric-grass)!important}.has-midnight-gradient-background{background:var(--wp--preset--gradient--midnight)!important}.has-small-font-size{font-size:var(--wp--preset--font-size--small)!important}.has-medium-font-size{font-size:var(--wp--preset--font-size--medium)!important}.has-large-font-size{font-size:var(--wp--preset--font-size--large)!important}.has-x-large-font-size{font-size:var(--wp--preset--font-size--x-large)!important}.wp-block-navigation a:where(:not(.wp-element-button)){color:inherit}:where(.wp-block-post-template.is-layout-flex){gap:1.25em}:where(.wp-block-post-template.is-layout-grid){gap:1.25em}:where(.wp-block-columns.is-layout-flex){gap:2em}:where(.wp-block-columns.is-layout-grid){gap:2em}.wp-block-pullquote{font-size:1.5em;line-height:1.6}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="hardypress_search-css" href="/wp-content/plugins/hardypress/search.css" type="text/css" media="all">
+<link rel="stylesheet" id="google/fonts-css" href="https://fonts.googleapis.com/css?family=Anonymous+Pro%3A400%2C400i%2C700%2C700i%7CFira+Sans%3A300%2C300i%2C400%2C400i%2C500%2C500i&amp;ver=1.0.1" type="text/css" media="all">
+<link rel="stylesheet" id="shadowserver/css-css" href="/wp-content/themes/shadowserver/build/css/common.css" type="text/css" media="all">
+<script src="/wp-content/themes/shadowserver/build/js/vendor.js" id="shadowserver/vendor-js"></script>
+<link rel="https://api.w.org/" href="https://api.hardypress.com/wordpress/3d8f4e858415c1c79745f52cd430e6a943a7d7fb/"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/hp-rewrite/b7a8cbdbf548cfebfdc0878a2c9958e1">
+<meta name="generator" content="WordPress 6.4.2">
+<link rel="canonical" href="https://www.shadowserver.org/news/qakbot-botnet-disruption/">
+<link rel="shortlink" href="/hp-rewrite/1206c417669bf3ada00ec5badf011506">
+<link rel="alternate" type="application/json+oembed" href="https://api.hardypress.com/wordpress/3d8f4e858415c1c79745f52cd430e6a943a7d7fb/oembed/1.0/embed?url=%2Fnews%2Fqakbot-botnet-disruption%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://api.hardypress.com/wordpress/3d8f4e858415c1c79745f52cd430e6a943a7d7fb/oembed/1.0/embed?url=%2Fnews%2Fqakbot-botnet-disruption%2F&amp;format=xml">
+<meta name="application-name" content="Shadowserver">
+<meta name="msapplication-config" content="https://www.shadowserver.org/wp-content/themes/shadowserver/https:/abound.college/wp-content/themes/abound/assets/favicons/abound/browserconfig.xml">
+<link rel="manifest" href="/wp-content/themes/shadowserver/build/images/favicons/manifest.json">
+<link rel="apple-touch-icon" sizes="57x57" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/wp-content/themes/shadowserver/build/images/favicons/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" href="/wp-content/themes/shadowserver/https:/abound.college/wp-content/themes/abound/assets/favicons/abound/apple-icon.png">
+<link rel="icon" type="image/png" href="/wp-content/themes/shadowserver/build/images/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/wp-content/themes/shadowserver/build/images/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/wp-content/themes/shadowserver/build/images/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="shortcut icon" href="/wp-content/themes/shadowserver/build/images/favicons/favicon.ico">
+<meta name="description" content="On Tuesday 29th August 2023, the US Department of Justice (DoJ) and US Federal Bureau of Investigations (FBI) - along with law enforcement partners in France, Germany, the Netherlands, and the United Kingdom - announced a disruption action against the very long running Qakbot botnet. The outcomes from the coordinated law enforcement action included deleting the Qakbot malware from infected victim computers (to reduce the risk of further harm), taking down the Qakbot technical infrastructure and seizing $8.6M of alleged illicit cryptocurrency profits. The Shadowserver Foundation is happy to support our law enforcement partners in this major cybercrime disruption operation."> <meta class="shadowserver" property="ss:language" content="en">
+<meta class="shadowserver" property="ss:published" content="1693327328">
+<meta class="shadowserver" property="ss:thumbnail" content="wp-content/uploads/2023/08/20230829_QakBot_Disruption-300x300.jpg">
+<meta class="shadowserver" property="ss:excerpt" content="On Tuesday 29th August 2023, the US Department of Justice (DoJ) and US Federal Bureau of Investigations (FBI) - along with law enforcement partners in France, Germany, the Netherlands, and the United Kingdom - announced a disruption action against the very long running Qakbot botnet. The outcomes from the coordinated law enforcement action included deleting the Qakbot malware from infected victim computers (to reduce the risk of further harm), taking down the Qakbot technical infrastructure and seizing $8.6M of alleged illicit cryptocurrency profits. The Shadowserver Foundation is happy to support our law enforcement partners in this major cybercrime disruption operation.">
+<meta class="shadowserver" property="ss:post-type" content="ss_news">
+<meta class="shadowserver" property="ss:title" content="Qakbot Botnet Disruption">
+<meta class="shadowserver" property="ss:id" content="5369">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-51828365-2"></script>
+<script>(function(){var runCustomCode=function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-51828365-2');}
+function escapeRegExp(x){return x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}var getCookie=function(a){var b=document.cookie.match('(^|[^;]+)\\s*'+escapeRegExp(a)+'\\s*=\\s*([^;]+)')
+return b?b.pop():''}
+if(getCookie('shadowserver--gdpr--accept'))runCustomCode()})()</script>
+</head>
+<body data-hardypress="1" class="ss_news-template-default single single-ss_news postid-5369">
+<div class="container">
+<header id="header-VRpYZ4zdAN6V" class="not-open has-breadcrumbs">
+<link rel="stylesheet" href="/hp-rewrite/40948f29e376a210bd88302d2a7824b8"><script></script>
+<div class="c--nav-mobile">
+<div class="logo">
+<a href="/"><img src="/wp-content/themes/shadowserver/build/images/logo-shadowserver.svg" alt="Shadowserver"></a>
+</div>
+<div class="trigger" id="nav-mobile-trigger-RpXlDqM3QFkj">
+<div class="trigger-inner"></div>
+</div>
+</div>
+<div class="nav-wrapper">
+<link rel="stylesheet" href="/hp-rewrite/4fea21981ab84fab30531629176dbe35"><script></script>
+<div class="c--search-lang-bar">
+<div class="search">
+<form action="/search/">
+<input type="text" name="q" placeholder="Search" aria-label="Search query">
+<button class="icon-button" type="submit" aria-label="Submit"></button>
+<button class="text-button" type="submit">Search</button>
+</form>
+</div>
+</div>
+<div class="main-sub-wrapper">
+<link rel="stylesheet" href="/hp-rewrite/77cd7d7c4170350282bb45a1f4c38abd"><script></script>
+<div class="c--nav-main">
+<div class="logo">
+<a href="/">
+<span class="shadowserver"><img src="/wp-content/themes/shadowserver/build/images/logo-shadowserver.svg" alt="Shadowserver"></span><span class="tagline"><img src="/wp-content/themes/shadowserver/build/images/logo-tagline.svg" alt="Lighting the way to a more secure Internet"></span>
+</a>
+</div>
+<nav>
+<div class="menu-main-navigation-container"><ul id="menu-main-navigation" class="menu"><li id="menu-item-14" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14"><a href="/news-insights/">News &amp; Insights</a></li>
+<li id="menu-item-1054" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1054"><a href="/statistics/">Dashboard</a></li>
+<li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28"><a href="/partner/">Become a Partner</a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="/contact/">Contact Us</a></li>
+<li id="menu-item-26" class="btn-nav-main menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="/what-we-do/network-reporting/get-reports/">Subscribe to Reports</a></li>
+</ul></div> </nav>
+</div>
+<link rel="stylesheet" href="/hp-rewrite/f978171d9b71037e60a3ffa55bb6d1a8"><script></script>
+<nav class="c--nav-sub-main">
+<div class="menu-main-sub-navigation-container"><ul id="menu-main-sub-navigation" class="menu"><li id="menu-item-36" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-36"><a href="/who-we-are/">Who We Are</a></li>
+<li id="menu-item-38" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38"><a href="/what-we-do/">What We Do</a></li>
+<li id="menu-item-37" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37"><a href="/who-we-serve/">Who We Serve</a></li>
+</ul></div></nav>
+</div>
+<link rel="stylesheet" href="/hp-rewrite/592441043ce93c5a1302562482c62217"><script></script>
+<div class="c--nav-main-sticky" id="sticky-nav-vklyDl8n3ncS">
+<div class="logo">
+<a href="/">
+<span class="shadowserver"><img src="/wp-content/themes/shadowserver/build/images/logo-shadowserver.svg" alt="Shadowserver Lighting the way to a more secure Internet"></span>
+</a>
+</div>
+<nav>
+<div class="menu-sticky-main-navigation-container"><ul id="menu-sticky-main-navigation" class="menu"><li id="menu-item-169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-169"><a href="/who-we-are/">Who We Are</a></li>
+<li id="menu-item-171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-171"><a href="/what-we-do/">What We Do</a></li>
+<li id="menu-item-170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-170"><a href="/who-we-serve/">Who We Serve</a></li>
+<li id="menu-item-172" class="btn-nav-main menu-item menu-item-type-post_type menu-item-object-page menu-item-172"><a href="/what-we-do/network-reporting/get-reports/">Subscribe to Reports</a></li>
+</ul></div> </nav>
+</div>
+<script src="/hp-rewrite/8ed457140fd3c84ac4811ed39ec5d32a"></script><script>(function(){if(!window.Shadowserver||!window.Shadowserver.stickyNav)return
+window.Shadowserver.stickyNav(220,document.getElementById('sticky-nav-vklyDl8n3ncS'))})()</script>
+</div>
+</header>
+<script src="/hp-rewrite/5e3e85766f606fe9050232bcade84b0a"></script><script>(function(){if(!window.Shadowserver||!window.Shadowserver.navMobile)return
+window.Shadowserver.navMobile({triggerEl:document.getElementById('nav-mobile-trigger-RpXlDqM3QFkj'),containerEl:document.getElementById('header-VRpYZ4zdAN6V'),openClass:'is-open',closedClass:'not-open',})})()</script>
+<ul class="breadcrumbs"><li class="not-current"><a href="/">Home</a></li><li class="not-current"><a href="/news-insights/">News &amp; Insights</a></li><li class="is-current">Qakbot Botnet Disruption</li></ul>
+<main>
+<link rel="stylesheet" href="/hp-rewrite/61176bcdafb17bcf2cd9b158fb6b9349"><script></script>
+<div class="grid">
+<div class="row">
+<div class="col70">
+<section>
+<div class="article">
+<h1>Qakbot Botnet Disruption</h1>
+<div class="the-date">August 29, 2023</div>
+<div class="content" data-shadowserver-name="ss:content" id="content-Az3rDZ9bdsaK"><p><a href="/wp-content/uploads/2023/08/20230829_QakBot_Disruption.jpg"><img fetchpriority="high" decoding="async" class="size-medium wp-image-5370 alignright" src="/wp-content/uploads/2023/08/20230829_QakBot_Disruption-300x300.jpg" alt="" width="300" height="300"></a></p>
+<p>On Tuesday 29th August 2023, the<a href="https://www.justice.gov/usao-cdca/pr/qakbot-malware-disrupted-international-cyber-takedown"> US Department of Justice (DoJ)</a> and<a href="https://www.fbi.gov/news/stories/fbi-partners-dismantle-qakbot-infrastructure-in-multinational-cyber-takedown"> US Federal Bureau of Investigations (FBI)</a> &#x2013; along with law enforcement partners in France, Germany, <a href="https://www.om.nl/actueel/nieuws/2023/08/29/grootste-wereldwijde-botnet-qakbot-onschadelijk-gemaakt">the Netherlands</a>, and the <a href="https://www.nationalcrimeagency.gov.uk/news/qakbot-cyber-crime-service-taken-out-in-international-operation">United Kingdom</a> &#x2013; announced a disruption action against the very long running <b>Qakbot</b> botnet.</p>
+<p>Qakbot (also known as QBot, Pinkslipbot, Quakbot and Oakbot) has been active since around 2007, having initially been developed as information stealer and banking trojan malware, before later becoming primarily a distribution network for other malware/ransomware. See <a href="https://malpedia.caad.fkie.fraunhofer.de/details/win.qakbot">Malpedia&#x2019;s timeline</a> for more information about its lengthy evolution, and <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-242a">CISA&#x2019;s advisory</a> for Indicators of Compromise (IOCs) and mitigation information.</p>
+<p>In recent years, Qakbot has been used as an initial infection vector by many ransomware groups including Conti, ProLock, Egregor, REvil, MegaCortex, and Black Basta. This has likely enabled significant financial losses globally.</p>
+<p>The outcomes from the coordinated law enforcement action included:</p>
+<ul>
+<li aria-level="1">deleting the Qakbot malware from infected victim computers (to reduce the risk of further harm)</li>
+<li aria-level="1">taking down the Qakbot technical infrastructure</li>
+<li aria-level="1">seizing $8.6M of alleged illicit cryptocurrency profits.</li>
+</ul>
+<p>As part of the takedown, the FBI was able to gain access to Qakbot infrastructure and identify over 700,000 computers worldwide that appear to have been infected with Qakbot, including more than 200,000 in the United States. To disrupt the botnet, the FBI was able to redirect Qakbot botnet traffic to and through servers controlled by the FBI, which in turn instructed infected computers in the United States and elsewhere to download a file created by law enforcement that would uninstall the Qakbot malware &#x2013; thus preventing additional malware from being deployed on victim systems in future.</p>
+<p>More detailed information is available in the <a href="https://www.justice.gov/usao-cdca/divisions/national-security-division/qakbot-resources">DoJ court documents</a>, including the hash of the Qakbot Uninstall file (SHA-256 <em>7cdee5a583eacf24b1f142413aabb4e556ccf4ef3a4764ad084c1526cc90e117</em>) and associated search warrants. Independent technical analysis of observed deletion activity was <a href="https://www.secureworks.com/blog/law-enforcement-takes-down-qakbot">reported by Secureworks</a>.</p>
+<p>The scope of this law enforcement action was limited to information installed on the victim computers by the Qakbot actors. It did not extend to remediating other malware already installed on the victim computers and did not involve access to or modification of the information of the owners and users of the infected computers. <strong>It is therefore important that anyone who is notified that they might have been infected with Qakbot also looks for and remediates other malware infections that are likely also running on the same computer</strong>. Even after the removal of Qakbot, they <strong>may still be infected with other malware and be a part of other botnets, so at risk from cybercriminals</strong>.</p>
+<p>The Shadowserver Foundation is happy to support our law enforcement partners and private sector in this major cybercrime disruption operation. We are currently analyzing the collected data and will soon issue a <strong>Qakbot Special Report</strong> for National CSIRTs and network owners, to help notify and remediate any remaining victims.</p>
+<p>If you do not already subscribe to Shadowserver&#x2019;s <a href="https://www.shadowserver.org/what-we-do/network-reporting/">free daily network reports</a>, which contain many unique cyber threat intelligence data feeds not available elsewhere, <a href="https://www.shadowserver.org/what-we-do/network-reporting/get-reports/">please subscribe here now</a>. In the meantime, you can <a href="https://www.shadowserver.org/contact/">contact us</a> with any questions, follow us on <a href="https://twitter.com/shadowserver">Twitter/X</a>, <a href="https://infosec.exchange/@shadowserver">Mastodon</a>, <a href="https://staging.bsky.app/profile/shadowserver.bsky.social">BlueSky</a> or <a href="https://www.linkedin.com/company/the-shadowserver-foundation/">LinkedIn</a>, and join our <a href="https://mail.shadowserver.org/mailman/listinfo/public">public mailing list</a> to receive further updates.</p>
+</div>
+</div>
+<ul class="topics">
+<li><a href="/topics/botnets/">Botnets</a></li>
+<li><a href="/topics/bots/">Bots</a></li>
+<li><a href="/topics/malware/">Malware</a></li>
+<li><a href="/topics/ransomware/">Ransomware</a></li>
+<li><a href="/topics/takedowns/">Takedowns</a></li>
+</ul>
+<div class="go-back">
+<a class="btn-solid btn-solid-mid btn-solid-dark-gray" href="/news-insights/">&#xAB; Back to News &amp; Insights</a>
+</div>
+</section>
+</div>
+<div class="col30">
+<div class="recent-articles">
+<h3>Recent Articles</h3>
+<ul>
+<li>
+<h4><a href="/news/introducing-report-severity-levels/">Introducing Report Severity Levels</a></h4>
+<div class="the-date">October 12, 2023</div>
+<div class="excerpt">
+To make it easier for organizations to consume and prioritize on our daily reports we are introducing report and event severity<span class'the-ellipsis'="">&#x2026;</span> <a class="standard read-more" href="/news/introducing-report-severity-levels/">Read more <span class="the-arrow">&#xBB;</span></a>
+</div>
+</li>
+<li>
+<h4><a href="/news/qakbot-historical-bot-infections-special-report/">Qakbot Historical Bot Infections Special Report</a></h4>
+<div class="the-date">September 8, 2023</div>
+<div class="excerpt">
+On Tuesday 29th August 2023, the US DoJ and FBI, together with other global law enforcement partners, announced a disruption<span class'the-ellipsis'="">&#x2026;</span> <a class="standard read-more" href="/news/qakbot-historical-bot-infections-special-report/">Read more <span class="the-arrow">&#xBB;</span></a>
+</div>
+</li>
+<li>
+<h4><a href="/news/technical-summary-of-observed-citrix-cve-2023-3519-incidents/">Technical Summary of Observed Citrix CVE-2023-3519 Incidents</a></h4>
+<div class="the-date">August 7, 2023</div>
+<div class="excerpt">
+The Shadowserver Foundation and trusted partners have observed three different malicious campaigns that have exploited<span class'the-ellipsis'="">&#x2026;</span> <a class="standard read-more" href="/news/technical-summary-of-observed-citrix-cve-2023-3519-incidents/">Read more <span class="the-arrow">&#xBB;</span></a>
+</div>
+</li>
+</ul>
+<div class="search">
+<form action="/news/qakbot-botnet-disruption/">
+<input type="hidden" name="pt" value="ss_news">
+<input type="text" name="s" value="" aria-label="Article search query">
+<button type="submit">Search</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="/hp-rewrite/d15845d2fd1b9d10cd5cb2865850da29"></script><script>(()=>{if(!window.Shadowserver||!window.Shadowserver.imageLinks)return
+window.Shadowserver.imageLinks('image-link',document.getElementById('content-Az3rDZ9bdsaK'))})()</script>
+</main>
+<link rel="stylesheet" href="/hp-rewrite/8c56d7a65ef49d6cf0431538caece7f2"><script></script>
+<footer>
+<nav>
+<div class="menu-footer-navigation-container"><ul id="menu-footer-navigation" class="menu"><li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-45"><a href="/">Home</a></li>
+<li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="/who-we-are/">Who We Are</a></li>
+<li id="menu-item-41" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-41"><a href="/what-we-do/">What We Do</a></li>
+<li id="menu-item-40" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-40"><a href="/who-we-serve/">Who We Serve</a></li>
+<li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a href="/news-insights/">News &amp; Insights</a></li>
+<li id="menu-item-1055" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1055"><a href="/statistics/">Dashboard</a></li>
+<li id="menu-item-1059" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1059"><a href="/common-questions/">Common Questions</a></li>
+<li id="menu-item-43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43"><a href="/partner/">Become a Partner</a></li>
+<li id="menu-item-42" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42"><a href="/contact/">Contact Us</a></li>
+</ul></div></nav>
+<div class="copyright-wiki">
+<div class="copyright">
+<span class="icon a-sm">
+<a href="/"><img src="/wp-content/themes/shadowserver/build/images/icons/icon-shadowserver.svg" alt="The Shadowserver Foundation"></a> </span>
+<span class="text">&#xA9; 2023 The Shadowserver Foundation</span>
+<span class="privacy"><a href="/privacy-and-terms/">Privacy &amp; Terms</a></span>
+<span class="icon t-xs">
+<a href="/"><img src="/wp-content/themes/shadowserver/build/images/icons/icon-shadowserver.svg" alt="The Shadowserver Foundation"></a> </span>
+</div>
+<div class="social">
+<div class="item">
+<a href="https://twitter.com/shadowserver"><img src="/wp-content/uploads/2018/02/icon-twitter-circle.svg" alt="Twitter"></a>
+</div>
+<div class="item">
+<a href="https://www.linkedin.com/company/the-shadowserver-foundation/"><img src="/wp-content/uploads/2018/02/icon-linkedin-circle.svg" alt="LinkedIn"></a>
+</div>
+</div>
+<div class="wiki">
+<a href="https://github.com/The-Shadowserver-Foundation" class="btn-solid btn-solid-light-gray btn-solid-mid">The Shadowserver Foundation GitHub &#xBB;</a>
+</div>
+</div>
+<div class="social">
+<div class="item">
+<a href="https://twitter.com/shadowserver"><img src="/wp-content/uploads/2018/02/icon-twitter-circle.svg" alt="Twitter"></a>
+</div>
+<div class="item">
+<a href="https://www.linkedin.com/company/the-shadowserver-foundation/"><img src="/wp-content/uploads/2018/02/icon-linkedin-circle.svg" alt="LinkedIn"></a>
+</div>
+</div>
+</footer>
+<script src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js" id="swv-js"></script>
+<script id="contact-form-7-js-extra">//<![CDATA[
+var wpcf7={"api":{"root":"https:\/\/api.hardypress.com\/wordpress\/3d8f4e858415c1c79745f52cd430e6a943a7d7fb\/","namespace":"contact-form-7\/v1"}};
+//]]></script>
+<script src="/wp-content/plugins/contact-form-7/includes/js/index.js" id="contact-form-7-js"></script>
+<script id="hardypress_search-js-extra">//<![CDATA[
+var hardypressSearch={"searchUrl":"https:\/\/api.hardypress.com\/icy-lake-1830"};
+//]]></script>
+<script src="/wp-content/plugins/hardypress/search.js" id="hardypress_search-js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Ldd-ZUUAAAAAI4uGx0OWVijq_ZphoH70fN-xm5w&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script src="/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js" id="wp-polyfill-inert-js"></script>
+<script src="/wp-includes/js/dist/vendor/regenerator-runtime.min.js" id="regenerator-runtime-js"></script>
+<script src="/wp-includes/js/dist/vendor/wp-polyfill.min.js" id="wp-polyfill-js"></script>
+<script id="wpcf7-recaptcha-js-extra">//<![CDATA[
+var wpcf7_recaptcha={"sitekey":"6Ldd-ZUUAAAAAI4uGx0OWVijq_ZphoH70fN-xm5w","actions":{"homepage":"homepage","contactform":"contactform"}};
+//]]></script>
+<script src="/wp-content/plugins/contact-form-7/modules/recaptcha/index.js" id="wpcf7-recaptcha-js"></script>
+</div>
+<script src="/hp-rewrite/e4db50446e40eb5c7d999ddaa1aede31"></script> <link rel="stylesheet" href="/hp-rewrite/dcc6032976bc239d430c54b64cf7b690"><script></script>
+<div class="c--gdpr-message" id="c--gdpr-message--iCWJfTuX8h9B" style="display: none;">
+<div class="message"><p>Shadowserver uses cookies to gather analytics. This allows us to measure how the site is used and improve the experience for our users. For more information about cookies and how Shadowserver uses them, see our <a href="/privacy-and-terms/">privacy policy</a>. We need your consent to use cookies in this way on your device.</p>
+</div>
+<div class="actions">
+<button class="accept btn-solid btn-solid-dark-gray" id="accept--yLvfhGpCQA1k">Accept</button>
+<button class="decline btn-solid btn-solid-dark-gray" id="decline--M0yFeAnm3bW8">Decline</button>
+</div>
+</div>
+<script>(function(){if(!window.Shadowserver||!window.Shadowserver.gdpr)return
+var acceptCookieKey='shadowserver--gdpr--accept'
+var actedOnLocalStorageKey='shadowserver--gdpr--acted'
+var messageEl=document.getElementById('c--gdpr-message--iCWJfTuX8h9B')
+var acceptEl=document.getElementById('accept--yLvfhGpCQA1k')
+var declineEl=document.getElementById('decline--M0yFeAnm3bW8')
+window.Shadowserver.gdpr.message({acceptCookieKey,actedOnLocalStorageKey,messageEl,acceptEl,declineEl,})})()</script>
+
+
+</body></html>

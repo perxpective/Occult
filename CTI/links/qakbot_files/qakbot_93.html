@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>CIRCL » TR-64 - Exploited Exchange Servers - Mails with links to malware from known/valid senders</title>
+        <link href="../../assets/style-v31.css" media="screen" rel="stylesheet">
+        <link rel="stylesheet" href="../../assets/font-awesome/css/font-awesome.min.css">
+        <link rel="alternate" type="application/atom+xml" title="News" href="../../atom.xml">
+        <link rel="alternate" type="application/rss+xml" title="News" href="../../rss.xml">
+        <meta name="viewport" content="width=device-width" initial-scale="1.0">
+        <meta name="description" content="Exploited Exchange Servers - Mails with links to malware from known/valid senders">
+    </head>
+    <body class="page">
+        <header class="header">
+            <a href="../../" class="logo"></a>
+            <input class="menu-btn" type="checkbox" id="menu-btn">
+            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+            <ul class="menu">
+                <li><a href="../../mission/">About</a></li>
+                <li><a href="../../team/">Team</a></li>
+                <li><a href="../../news/">News</a></li>
+                <li><a href="../../services/">Services</a></li>
+                <li><a href="../../services/training/">Training</a></li>
+                <li><a href="../">Publications</a></li>
+                <li><a href="../../projects/">Projects</a></li>
+                <li><a href="../../contact/">Contact</a></li>
+            </ul>
+                
+            
+        </header>
+
+        <div class="intro">
+            <div class="intro-content">
+                <h1>TR-64 - Exploited Exchange Servers - Mails with links to malware from known/valid senders</h1>
+                
+            </div>
+        </div>
+        <div class="content">
+            <article>
+                <div class="side">
+                    
+                        <div class="details">
+                            <h3>TR-64 - Exploited Exchange Servers - Mails with links to malware from known/valid senders</h3>
+                            <p>↑ <a href="../">Back to Publications and Presentations</a></p>
+                            <ol class="toc">
+<li><a href="#what-have-we-observed">What have we observed?</a></li>
+<li><a href="#root-cause">Root Cause</a></li>
+<li><a href="#fixing-and-mitigation">Fixing and mitigation</a></li>
+<li><a href="#do-i-need-to-patch-internal-and-non-exposed-exchange-server">Do I need to patch internal and non-exposed exchange server?</a></li>
+<li><a href="#have-you-seen-exploited-server-in-luxembourg">Have you seen exploited server in Luxembourg?</a></li>
+<li><a href="#new-wave-of-malspam">New wave of malspam</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#classification-of-this-document">Classification of this document</a></li>
+<li><a href="#revision">Revision</a></li>
+</ol>
+                        </div>
+                    
+                    <div class="report">
+                    <p>You can <a href="../../report/">report incidents</a> via our official contact including <a href="../../contact/">e-mail, phone</a>
+                    or use the <a href="../../contactform/">Anonymous reporting form</a>.</p>
+                    </div>
+                    <div class="accreditation">
+                        <center>
+                                <p>Search</p>
+<form method="get" action="https://search.circl.lu/"><input type="text" name="q" value=""></form>
+                        </center>
+                        <br>
+                        <center>
+                                <img alt="CIRCL is accredited TI" src="../../assets/images/ti.png">
+                                <img alt="CIRCL is a FIRST member" src="../../assets/images/first-member.png">
+                                <img alt="CIRCL is an OASIS member" src="../../assets/images/oasis_member2004.jpg">
+                        </center>
+                    </div>
+                </div>
+                <div class="article-content">
+                    
+<h2 id="what-have-we-observed">What have we observed?</h2>
+
+<p>Several organizations received complaints about the fact that their email accounts are sending spam, phishing and infected emails to their partner organizations.
+The emails are usually replies to ongoing email threads, where an attacker pastes a greeting sentence and URLs above the original mail content.</p>
+
+<p>Attackers/adversaries do that to improve the social acceptance rate of their malspam. Indeed this strategy seems to be very successful.</p>
+
+<p>Here a sample in English: (URLs are disarmed)</p>
+
+<pre><code>Subject: 	Re: Demande de Remboursement
+
+Greetings! I send here a recordwith a thorough description of the recent problem. Please examine it here:
+
+1)hXXps://ooforms[.]com/omnisquod/voluptatummodi-3313010
+2)hXXps://karafarinenovin[.]com/estsit/estsed-3313010
+
+Gudde Moien,
+</code></pre>
+
+<p>Here a sample in French: (URLs are disarmed)</p>
+
+<pre><code>Objet : Re: Nouveau dossier// REFTP 27791
+
+Bonne journée! Dans cette lettre, j'envoie le Doc mentionné avec votre signature. Vous pouvez trouver via le lien ci-dessous.
+
+1)hXXps://catechismo.ravaldino[.]it/quiatemporibus/ideligendi-1590551
+2)hXXps://tradingview.dharwadinternationalschool[.]com/delectusquia/officiisexpedita-1590551
+
+Monsieur,
+</code></pre>
+
+<p>If you receive emails like this, take care. These are links to QBot/QakBot/DanaBot/SquirrelWaffle malware, which is a “Information Stealing” / “Cobalt Strike Loader” malware. An infection will most likely end up in a ransomware case.</p>
+
+<p>If you receive complaints about emails like this being sent from your infrastructure, be prepared to alert your IT team or IT supplier and feel free to contact CIRCL for assistance.</p>
+
+<h2 id="root-cause">Root Cause</h2>
+
+<p>Recently we had to deal with several critical security vulnerabilities in Microsoft Exchange.</p>
+
+<p>In March 2021, CIRCL warned about critical vulnerabilities which were initially exploited by an activity group (called HAFNIUM by Microsoft) starting in late 2020.</p>
+
+<p><a href="https://www.circl.lu/pub/tr-61/">TR-61 - Critical vulnerabilities in Microsoft Exchange</a></p>
+
+<p>In late October CIRCL got notified about MS Exchange servers vulnerable for the recent critical Exchange RCE vulnerabilities CVE-2021-26427.</p>
+
+<p><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26427">Microsoft Exchange Server Remote Code Execution Vulnerability</a>
+<a href="https://cve.circl.lu/cve/CVE-2021-26427">CVE-2021-26427</a></p>
+
+<p>CIRCL immediately worked through the list of vulnerable IP addresses and notified the respective ISPs (service provider) with the request to warn their customers.</p>
+
+<p>Since then, most of the vulnerable MS Exchange servers are patched (updated). But unfortunately sometimes patching alone is not sufficient.</p>
+
+<p>If the server is already compromised before successful patching, the patch will likely close the vulnerability. But the server remains compromised.
+<a href="https://twitter.com/circl_lu/status/1456649440413028353">Patching alone is not sufficient</a></p>
+
+<p>This situation is what we are looking at right now: the infrastructure is compromised, attackers read the emails and inject their malicious content into the mail threads by replying to the mail interaction.</p>
+
+<h2 id="fixing-and-mitigation">Fixing and mitigation</h2>
+
+<p>There is only one single procedure to ensure that you completely fix and mitigate the situation, close all potential backdoors and kick-out the attackers: re-install every compromised server from scratch and then recover and copy the data over.</p>
+
+<p>In all the cases, we recommend to initiate a full incident response process including the security review of the system.</p>
+
+<p>One of the most important questions which must get answered: Did the attackers manage to laterally move within the internal network. If this happens your are at high risk of a crypto ransomware or data exfiltration. This means, you will find back all your data encrypted - or stolen.</p>
+
+<p>If you have no resources for incident response and reinstall the Exchange server from scratch, Microsoft has published guidance for responders.</p>
+
+<p><a href="https://msrc-blog.microsoft.com/2021/03/16/guidance-for-responders-investigating-and-remediating-on-premises-exchange-server-vulnerabilities/">Guidance for responders: Investigating and remediating on-premises Exchange Server vulnerabilities</a></p>
+
+<h2 id="do-i-need-to-patch-internal-and-non-exposed-exchange-server">Do I need to patch internal and non-exposed exchange server?</h2>
+
+<p>Yes.</p>
+
+<h2 id="have-you-seen-exploited-server-in-luxembourg">Have you seen exploited server in Luxembourg?</h2>
+
+<p>Yes.</p>
+
+<h2 id="new-wave-of-malspam">New wave of malspam</h2>
+
+<p>Unfortunately the initial ‘Root Cause’ leads to the next stage of attacks. It seems the compromised Exchange servers not only were abused for spreading malspam by replying to existing email threads. CIRCL recently received evidences that the servers also got abused for data breach.</p>
+
+<p>It seems the attackers exfiltrated a decent amount of emails from the compromised severs. These exfiltrated emails are now traded in the Internet and used to send new waves of malspam by replying to existing email conversations.</p>
+
+<p>Here a sample in German: (URLs are disarmed)</p>
+
+<pre><code>&gt;
+&gt; Objet: H
+&gt;
+&gt; Schönen Tag!
+&gt; Ich traf Komplikationen mit der Übertragung an Ihre Papiere. Deshalb sende ich es noch einmal:
+&gt;
+&gt; hXXps://sade-cgth[.]az/guufiaq/tdtsl-ttarseaiaobsiumtcuto-aemlaoernoi
+&gt; 
+</code></pre>
+
+<p>In case your organization was victim of the ‘Root Cause’ you should expect new waves of malspam sent in your name. Please warn all your contacts to be vigilant and not to click a link.</p>
+
+<p>Since this kind of data leak also contains PII - personally identifiable information - we strongly advise to report to the local data protection agency CNPD, as soon as you learn about your organization being affected:</p>
+
+<ul>
+  <li><a href="https://cnpd.public.lu/fr.html">Commission nationale pour la protection des données</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://www.circl.lu/pub/tr-61/">TR-61 - Critical vulnerabilities in Microsoft Exchange</a></li>
+  <li><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-26427">Microsoft Exchange Server Remote Code Execution Vulnerability</a></li>
+  <li><a href="https://cve.circl.lu/cve/CVE-2021-26427">CVE-2021-26427</a></li>
+  <li><a href="https://twitter.com/circl_lu/status/1456649440413028353">Patching alone is not sufficient</a></li>
+  <li><a href="https://msrc-blog.microsoft.com/2021/03/16/guidance-for-responders-investigating-and-remediating-on-premises-exchange-server-vulnerabilities/">Guidance for responders: Investigating and remediating on-premises Exchange Server vulnerabilities</a></li>
+  <li><a href="https://cnpd.public.lu/fr.html">Commission nationale pour la protection des données</a></li>
+</ul>
+
+<h2 id="classification-of-this-document">Classification of this document</h2>
+
+<p><a href="../traffic-light-protocol/">TLP:WHITE</a> information may be distributed without restriction, subject to copyright controls.</p>
+
+<h2 id="revision">Revision</h2>
+
+<ul>
+  <li>Version 1.0 - TLP:WHITE - First version - 10 November 2021</li>
+  <li>Version 1.1 - TLP:WHITE - New wave of malspam - 16 February 2022</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <nav>
+                    <section class="about">
+                        <h3>About CIRCL</h3>
+                        <ul>
+                            <li><a href="../../mission/">Mission</a></li>
+                            <li><a href="../../news/">News</a></li>
+                            <li><a href="../../mission/rfc2350/">RFC2350</a></li>
+                            <li><a href="../../team/">Team Members</a></li>
+                            <li><a href="../../projects/internships/">Internships</a></li>
+                            <li><a href="../../contact/">Contact</a></li>
+                            <li><a href="../../opendata/statistics/">Statistics</a></li>
+<li>
+                            </li>
+<li><a href="../../opendata/">Opendata</a></li>
+                            <li><a href="../../privacy/">Privacy</a></li>
+                        </ul>
+                    </section>
+                    <section class="services">
+                        <h3>Services, Projects and Software</h3>
+                        <ul>
+                            <li><a href="../../services/">Services</a></li>
+                            <ul>
+                            <li><a href="../../services/dynamic-malware-analysis/"> Dynamic Malware Analysis Platform</a></li>
+                            <li><a href="../../services/misp-malware-information-sharing-platform/">Malware Information Sharing and Threat Sharing Platform</a></li>
+                            </ul>
+                            <li><a href="../../projects/">Projects</a></li>
+                            <li><a href="../../projects/#free-software">Software</a></li>
+                        </ul>
+                    </section>
+                    <section class="publication">
+                        <h3>Publications and Presentations</h3>
+                        <ul>
+                            <li><a href="../">Publications</a></li>
+                            <li><a href="../#the-digital-first-aid-kit">Digital First Aid Kit</a></li>
+                            <li><a href="../#presentations">Presentations</a></li>
+                        </ul>
+                    </section>
+                    <section class="publicservices">
+                        <h3>Public services</h3>
+                        <ul>
+                            <li><a href="../../urlabuse/">Review and report malicious URLs</a></li>
+<li>
+                            </li>
+<li><a href="http://bgpranking.circl.lu/">BGP Ranking</a></li>
+                            <li><a href="http://cve.circl.lu/">Common vulnerability exposure</a></li>
+                            <li><a href="http://pgp.circl.lu/">PGP key server</a></li>
+                            <li><a href="http://github.com/CIRCL">Free software</a></li>
+                        </ul>
+                    </section>
+                </nav>
+                <div class="copyright">
+                        <!-- <img align="left" src="/assets/images/circlb.png"> -->
+                        <div class="copyright-logo">
+                                <img src="../../assets/images/circl-logo.png">
+                        </div>
+                        <div class="social">
+                                <a rel="me" href="https://social.circl.lu/@circl">Mastodon</a>
+                                <a href="https://www.twitter.com/circl_lu"><i class="fa fa-twitter fa-2x"></i></a>
+                                <a href="https://www.github.com/CIRCL/"><i class="fa fa-github fa-2x"></i></a>
+                        </div>
+                        <div class="copyright-text">
+                        <p>CIRCL is the CERT (Computer Emergency Response Team/Computer Security Incident Response Team) for the private sector, communes and non-governmental entities in Luxembourg.</p>
+                    <p>Content from this website is classified as <a href="../traffic-light-protocol/">TLP:CLEAR (previously: TLP:WHITE)</a> information may be distributed without restriction, subject to copyright controls.</p>
+                    <p>Copyright 2008 - 2023 CIRCL Computer Incident Response Center Luxembourg (<a href="https://lhc.lu/#PageHomeAboutLHC">LHC - Luxembourg House of Cybersecurity</a>).</p>
+                    <p><a href="index.html.asc">PGP signature of this page</a> and <a href="../../verify">How to Verify Integrity of CIRCL Web Pages</a></p>
+            </div>
+            </div>
+            </div>
+        </footer>
+    </body>
+</html>

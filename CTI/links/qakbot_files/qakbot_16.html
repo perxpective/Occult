@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Practical Queries for Identifying Malware Infrastructure</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preload" as="style" href="/assets/built/screen.css?v=4b294bb165">
+    <link rel="preload" as="script" href="/assets/built/source.js?v=4b294bb165">
+
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=4b294bb165">
+
+    <style>
+        :root {
+            --background-color: #000000
+        }
+    </style>
+
+    <script>
+        /* The script for calculating the color contrast has been taken from
+        https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/ */
+        var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+        accentColor = accentColor.trim().slice(1);
+        var r = parseInt(accentColor.substr(0, 2), 16);
+        var g = parseInt(accentColor.substr(2, 2), 16);
+        var b = parseInt(accentColor.substr(4, 2), 16);
+        var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        var textColor = (yiq >= 128) ? 'dark' : 'light';
+
+        document.documentElement.className = `has-${textColor}-text`;
+    </script>
+
+    <meta name="description" content="An informal page for storing Censys/Shodan queries">
+    <link rel="icon" href="https://embee-research.ghost.io/content/images/size/w256h256/format/png/2023/11/logo.svg.svg" type="image/png">
+    <link rel="canonical" href="https://embee-research.ghost.io/shodan-censys-queries/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Embee Research">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Practical Queries for Identifying Malware Infrastructure">
+    <meta property="og:description" content="An informal page for storing Censys/Shodan queries">
+    <meta property="og:url" content="https://embee-research.ghost.io/shodan-censys-queries/">
+    <meta property="og:image" content="https://embee-research.ghost.io/content/images/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png">
+    <meta property="article:published_time" content="2023-06-07T06:58:00.000Z">
+    <meta property="article:modified_time" content="2024-01-01T10:52:13.000Z">
+    <meta property="article:tag" content="Intermediate">
+    <meta property="article:tag" content="Threat Intelligence">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Practical Queries for Identifying Malware Infrastructure">
+    <meta name="twitter:description" content="An informal page for storing Censys/Shodan queries">
+    <meta name="twitter:url" content="https://embee-research.ghost.io/shodan-censys-queries/">
+    <meta name="twitter:image" content="https://embee-research.ghost.io/content/images/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Matthew">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Intermediate, Threat Intelligence">
+    <meta name="twitter:site" content="@embee_research">
+    <meta name="twitter:creator" content="@embee_research">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Embee Research",
+        "url": "https://embee-research.ghost.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Matthew",
+        "url": "https://embee-research.ghost.io/author/matthew/",
+        "sameAs": [
+            "https://twitter.com/embee_research"
+        ]
+    },
+    "headline": "Practical Queries for Identifying Malware Infrastructure",
+    "url": "https://embee-research.ghost.io/shodan-censys-queries/",
+    "datePublished": "2023-06-07T06:58:00.000Z",
+    "dateModified": "2024-01-01T10:52:13.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://embee-research.ghost.io/content/images/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png",
+        "width": 1024,
+        "height": 1024
+    },
+    "keywords": "Intermediate, Threat Intelligence",
+    "description": "An informal page for storing Censys/Shodan queries",
+    "mainEntityOfPage": "https://embee-research.ghost.io/shodan-censys-queries/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.75">
+    <link rel="alternate" type="application/rss+xml" title="Embee Research" href="https://embee-research.ghost.io/rss/">
+    <script defer src="https://cdn.jsdelivr.net/ghost/portal@~2.36/umd/portal.min.js" data-i18n="false" data-ghost="https://embee-research.ghost.io/" data-key="5b00360b75171de09d2f740e1c" data-api="https://embee-research.ghost.io/ghost/api/content/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style><script async src="https://js.stripe.com/v3/"></script>
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="5b00360b75171de09d2f740e1c" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://embee-research.ghost.io/" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/ghost/announcement-bar@~1.1/umd/announcement-bar.min.js" data-announcement-bar="https://embee-research.ghost.io/" data-api-url="https://embee-research.ghost.io/members/api/announcement/" crossorigin="anonymous"></script>
+    <link href="https://embee-research.ghost.io/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=4b294bb165"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=4b294bb165">
+    <script defer src="/public/member-attribution.min.js?v=4b294bb165"></script>
+    <script defer data-domain="embee-research.ghost.io" src="https://plausible.io/js/plausible.js"></script>
+<style>:root {--ghost-accent-color: #5b00a6;}</style>
+
+</head>
+<body class="post-template tag-intermediate tag-intel has-sans-title has-sans-body">
+
+<div class="gh-viewport">
+    
+    <header id="gh-navigation" class="gh-navigation is-stacked gh-outer">
+    <div class="gh-navigation-inner gh-inner">
+
+        <div class="gh-navigation-brand">
+            <a class="gh-navigation-logo is-title" href="https://embee-research.ghost.io">
+                    <img src="https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg" alt="Embee Research">
+            </a>
+            <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>            <button class="gh-burger gh-icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>            </button>
+        </div>
+
+        <nav class="gh-navigation-menu">
+            <ul class="nav">
+    <li class="nav-home"><a href="https://embee-research.ghost.io/">Home</a></li>
+    <li class="nav-reverse-engineering"><a href="https://embee-research.ghost.io/tag/reversing/">Reverse Engineering</a></li>
+    <li class="nav-detection-engineering"><a href="https://embee-research.ghost.io/tag/detection/">Detection Engineering</a></li>
+    <li class="nav-threat-intelligence"><a href="https://embee-research.ghost.io/tag/intel/">Threat Intelligence</a></li>
+    <li class="nav-ghidra-tutorials"><a href="https://embee-research.ghost.io/tag/ghidra/">Ghidra Tutorials</a></li>
+    <li class="nav-testimonials"><a href="https://embee-research.ghost.io/testimonials/">Testimonials</a></li>
+</ul>
+
+        </nav>
+
+        <div class="gh-navigation-actions">
+                <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>                <div class="gh-navigation-members">
+                            <a href="#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </div>
+
+    </div>
+</header>
+
+    
+
+<main class="gh-main">
+
+    <article class="gh-article post tag-intermediate tag-intel">
+
+        <header class="gh-article-header gh-canvas">
+
+                <a class="gh-article-tag" href="https://embee-research.ghost.io/tag/intermediate/">Intermediate</a>
+            <h1 class="gh-article-title is-title">Practical Queries for Identifying Malware Infrastructure</h1>
+                <p class="gh-article-excerpt is-body">An informal page for storing Censys/Shodan queries</p>
+
+            <div class="gh-article-meta">
+                <div class="gh-article-author-image">
+                            <a href="/author/matthew/"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z" fill="#FFF"/></g></svg>
+</a>
+                </div>
+                <div class="gh-article-meta-wrapper">
+                    <h4 class="gh-article-author-name"><a href="/author/matthew/">Matthew</a></h4>
+                    <div class="gh-article-meta-content">
+                        <time class="gh-article-meta-date" datetime="2023-06-07">Jun 7, 2023</time>
+                            <span class="gh-article-meta-length"><span class="bull">—</span> 4 min read</span>
+                    </div>
+                </div>
+            </div>
+
+                <figure class="gh-article-image">
+        <img
+            srcset="/content/images/size/w320/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png 320w,
+                    /content/images/size/w600/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png 600w,
+                    /content/images/size/w960/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png 960w,
+                    /content/images/size/w1200/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png 1200w,
+                    /content/images/size/w2000/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png 2000w"
+            src="/content/images/size/w1200/2023/06/DALL-E-2023-05-17-11.40.04---An-toolbox-full-of-magical-items-and-equipment.-The-toolbox-looks-ancient-and-interesting-and-sits-on-top-of-a-large-wooden-table.-digital-art-style.-.png"
+            alt="Practical Queries for Identifying Malware Infrastructure"
+        >
+    </figure>
+
+        </header>
+
+        <section class="gh-content gh-canvas is-body">
+            <p>An informal page for storing Censys/Shodan queries that have returned interesting results. </p><p>Including examples for - </p><ul><li>AsyncRAT, Solarmarker, Amadey, Quasar, Laplas, Sliver, Mythic, Qakbot + more</li></ul><h3 id="asyncratcommon-x509-certificates">AsyncRAT - Common x509 Certificates</h3><p>Hardcoded values in x509 certificates used for TLS communication.</p><ul><li><code>services.tls.certificates.leaf_data.subject.common_name:"AsyncRAT Server" or services.tls.certificates.leaf_data.issuer.common_name:"AsyncRAT Server"</code>(<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.tls.certificates.leaf_data.subject.common_name%3A%22AsyncRAT+Server%22+or+services.tls.certificates.leaf_data.issuer.common_name%3A%22AsyncRAT+Server%22&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="solarmarkerjupyterssh-configuration-commonalities">Solarmarker/Jupyter - SSH Configuration Commonalities</h3><p>Commonalities between ssh host key and running ports. Typically only ports 22 and 80. SSH host key is the primary piece here. </p><ul><li><code>services:(ssh.server_host_key.fingerprint_sha256 = "c655bae831ca57a857b26d76a7c98a56a65d00fdab7d234a64addf8166e3cd09" and port = 22) and services:(service_name:HTTP and port:80) and not services.port:993</code></li></ul><h3 id="qakbot-possibly-pikabotmasquerading-as-slack">Qakbot (Possibly Pikabot) - Masquerading as Slack</h3><p>Qakbot C2's masquerading as a slack-related site. It is also possible that this is Pikabot which uses similar tactics. </p><ul><li><code>not dns.reverse_dns.names:* and services.http.response.html_title:"Slack is your productivity platform | Slack"</code>(<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=not+dns.reverse_dns.names%3A*+and+services.http.response.html_title%3A%22Slack+is+your+productivity+platform+%7C+Slack%22&ref=embee-research.ghost.io">Link</a>)<br></li></ul><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/06/image-2.png" class="kg-image" alt loading="lazy" width="981" height="573" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/06/image-2.png 600w, https://embee-research.ghost.io/content/images/2023/06/image-2.png 981w" sizes="(min-width: 720px) 720px"></figure><h3 id="cobalt-strikedefault-certificate-values"><strong>Cobalt Strike - Default Certificate Values</strong></h3><p>Very generic Cobalt strike indicators based on default certificate values. Likely very unsophisticated actors. </p><ul><li><code>services.tls.certificates.leaf_data.issuer.common_name="Major Cobalt Strike"</code> (<a href="https://search.censys.io/search?q=services.tls.certificates.leaf_data.issuer.common_name%3D%22Major+Cobalt+Strike%22&resource=hosts&ref=embee-research.ghost.io">Link</a>)</li><li><code>services.tls.certificates.leaf_data.issuer.organization="cobaltstrike"</code> (<a href="https://search.censys.io/search?q=services.tls.certificates.leaf_data.issuer.organization%3D%22cobaltstrike%22&resource=hosts&ref=embee-research.ghost.io">Link</a>)</li><li><code>services.tls.certificates.leaf_data.issuer.organizational_unit="AdvancedPenTesting"</code> (<a href="https://search.censys.io/search?q=services.tls.certificates.leaf_data.issuer.organizational_unit%3D%22AdvancedPenTesting%22&resource=hosts&ref=embee-research.ghost.io">Link</a>)</li><li><code>services.tls.certificates.leaf_data.subject.province="Cyberspace" and services.tls.certificates.leaf_data.subject.country="Earth"</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.tls.certificates.leaf_data.subject.province%3D%22Cyberspace%22+and+services.tls.certificates.leaf_data.subject.country%3D%22Earth%22&ref=embee-research.ghost.io">Link</a>)</li><li><code>ssl.cert.subject.cn:"Major Cobalt Strike"</code> (<a href="https://www.shodan.io/search?query=ssl.cert.subject.cn%3A%22Major+Cobalt+Strike%22&ref=embee-research.ghost.io">Link</a>)</li><li><code>ssl.cert.issuer.cn:"Major Cobalt Strike"</code> (<a href="https://www.shodan.io/search?query=ssl.cert.issuer.cn%3A%22Major+Cobalt+Strike%22+&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="remcosre-used-ssh-host-key-and-usage-of-hestia-control-panel">Remcos - Re-Used SSH Host Key and Usage of Hestia Control Panel</h3><p>At least two of these servers are related to Remcos rat. There is a re-used ssh host key that is also related to Jupyter/Solarmarker. </p><ul><li><code>services:(ssh.server_host_key.fingerprint_sha256 = "c655bae831ca57a857b26d76a7c98a56a65d00fdab7d234a64addf8166e3cd09" and port = 22) and  services:(http.response.html_title:hestia)</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28ssh.server_host_key.fingerprint_sha256+%3D+%22c655bae831ca57a857b26d76a7c98a56a65d00fdab7d234a64addf8166e3cd09%22+and+port+%3D+22%29+and++services%3A%28http.response.html_title%3Ahestia%29++%E2%86%A9+&ref=embee-research.ghost.io">Link</a>)</li></ul><p></p><h3 id="amadey-botre-used-certificate-values"><strong>Amadey Bot - Re-used Certificate Values</strong></h3><p>Re-used CN name in TLS certificates, as well as unique and re-used HTTP response body containing Russian swear words. <a href="https://embee-research.ghost.io/amadey-bot-infrastructure/">Full Analysis Here.</a> </p><ul><li><code>services.tls.certificates.leaf_data.subject.common_name:"desas.digital"</code> (<a href="https://www.shodan.io/search?query=ssl.cert.subject.cn%3A%22desas.digital%22&ref=embee-research.ghost.io">Link</a>)</li><li><code>services.http.response.body_hash:"sha1:e084a66d16925abf43390c59d783f7a2fb49752d"</code></li></ul><h3 id="quasar-ratre-used-certificate-values"><strong>Quasar RAT - Re-used Certificate Values</strong></h3><p>Re-used CN name used in TLS certificates. <a href="https://embee-research.ghost.io/hunting-quasar-rat-shodan/">Full Analysis Here</a>. </p><ul><li><code>services.tls.certificates.leaf_data.subject.common_name: "Quasar Server CA"</code> (<a href="https://www.shodan.io/search?query=ssl.cert.subject.cn%3A%22Quasar+Server+CA%22&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="laplas-clipperre-used-certificate-values"><strong>Laplas Clipper - Re-used Certificate Values</strong></h3><p>Re-used CN name used in TLS certificates. <a href="https://embee-research.ghost.io/laplas-clipper-infrastructure/">Full Analysis here</a>. </p><ul><li><code>services.tls.certificates.leaf_data.subject.common_name:"Laplas.app" or services.tls.certificates.leaf_data.issuer.common_name:"Laplas.app"</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.tls.certificates.leaf_data.subject.common_name%3A%22Laplas.app%22+or+services.tls.certificates.leaf_data.issuer.common_name%3A%22Laplas.app%22&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="sliver-c2re-used-certificate-values"><strong>Sliver C2 - Re-used Certificate Values</strong></h3><p>Re-used CN names in tls certificates. <a href="https://twitter.com/embee_research/status/1660922163002757120?s=20&ref=embee-research.ghost.io">Twitter Post</a></p><ul><li><code>services:(tls.certificates.leaf_data.subject.common_name:multiplayer and tls.certificates.leaf_data.issuer.common_name:operators)</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28tls.certificates.leaf_data.subject.common_name%3Amultiplayer+and+tls.certificates.leaf_data.issuer.common_name%3Aoperators%29&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="mythic-c2default-html-title-default-favicon"><strong>Mythic C2 - Default HTML Title + Default Favicon</strong></h3><p>Default HTML Titles, favicon hash and CN name. </p><ul><li><code>(services.http.response.html_title="Mythic") or services.http.response.favicons.md5_hash="6be63470c32ef458926abb198356006c" or services.tls.certificates.leaf_data.subject.common_name="Mythic"</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=%28services.http.response.html_title%3D%22Mythic%22%29+or+services.http.response.favicons.md5_hash%3D%226be63470c32ef458926abb198356006c%22+or+services.tls.certificates.leaf_data.subject.common_name%3D%22Mythic%22&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="viper-serversdefault-string-favicon-hash"><strong>Viper Servers - Default  String + Favicon Hash</strong></h3><p>Queries based on "Viper" string in html title and response. Not 100% sure what viper is. A lot of Viper servers seem to have cobalt strike running on alternate ports. </p><ul><li><code>http.html_hash:-1250764086</code> (<a href="https://www.shodan.io/search?query=http.html_hash%3A-1250764086&ref=embee-research.ghost.io">Link</a>)</li><li><code>+http.title:"viper" +http.html:viper +"Content-Length: 69"</code> (<a href="https://www.shodan.io/search?query=%2Bhttp.title%3A%22viper%22+%2Bhttp.html%3Aviper+%2B%22Content-Length%3A+69%22&ref=embee-research.ghost.io">Link</a>)</li><li><code>services.http.response.favicons.md5_hash="a7469955bff5e489d2270d9b389064e1"</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.http.response.favicons.md5_hash%3D%22a7469955bff5e489d2270d9b389064e1%22&ref=embee-research.ghost.io">Link</a>)</li><li><code>services:(http.response.html_title:"Viper" and http.response.body:Viper and http.response.headers.content_length:69)</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28http.response.html_title%3A%22Viper%22+and+http.response.body%3AViper+and+http.response.headers.content_length%3A69%29&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="cobalt-strikeja3-empty-certificate-values">Cobalt Strike - Ja3 + Empty Certificate Values</h3><p>Overlapping ja3s and lack of issuer/common names in certificate. <br>Unconfirmed if all are cobalt strike but at least a few were sucessful hits. </p><ul><li><code>services:(tls.ja3s:475c9302dc42b2751db9edcac3b74891 and tls.certificates.leaf_data.subject.common_name="" and tls.certificates.leaf_data.issuer.common_name="")</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28tls.ja3s%3A475c9302dc42b2751db9edcac3b74891+and+tls.certificates.leaf_data.subject.common_name%3D%22%22+and+tls.certificates.leaf_data.issuer.common_name%3D%22%22%29&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="open-directoriesexe-files-on-port-8000">Open Directories - .exe files on port 8000</h3><p>Open directories residing on port 8000 and containing at least one .exe file. Reasonable number of false positives, but a lot of interesting results. eg servers containing <code>revshell.exe</code> and similar. </p><ul><li><code>services:(http.response.html_title:"Directory Listing" and http.response.body:*.exe and port:8000) and not services.port:53 and not services.port:[10000 to 65535]</code></li></ul><h3 id="open-directoriesreferencing-netcat">Open Directories - Referencing Netcat</h3><p>Open directories containing references to netcat <code>nc.exe</code></p><ul><li><code>services.http.response.body:"nc.exe" or services.http.response.body:"ncat.exe"</code></li></ul><h3 id="open-directoriesreferencing-common-attack-tooling"><strong>Open  Directories - Referencing  Common Attack Tooling</strong></h3><p>Open Directories Containing references to attack tooling. <code>procdump.exe</code> , <code>nc.exe</code>, <code>ngrok.exe</code> etc. </p><ul><li><code>services.http.response.body:"procdump.exe" or services.http.response.body:"nc.exe" or services.http.response.body:"shell.exe" or services.http.response.body:"revshell.exe" or services.http.response.body:"cs.exe" or services.http.response.body:"chisel.exe" or services.http.response.body:"impacket" or services.http.response.body:ngrok.exe</code></li></ul><h3 id="open-directoriesreferencing-powershell-scripts"><strong>Open Directories - Referencing Powershell Scripts</strong></h3><p>Open directories containing a file with <code>.ps1</code> extension. Most of these contain suspicious Powershell scripts.</p><ul><li><code>services:(http.response.body:*.ps1 and http.response.html_title:"Directory Listing" and banner:Python)</code> (Any .ps1 script)</li><li><code>services:(http.response.html_title:"Directory Listing" and http.response.body:?.ps1)</code> (Single char .ps1 name)</li></ul><h3 id="open-directoriesreferencing-anydesk-remote-access-tooling">Open Directories - Referencing Anydesk Remote Access Tooling</h3><p>Open directories with references to Anydesk (remote access tooling). Typically in the form of <code>anydesk.exe</code> or <code>anydesk.bat</code> and coupled with other suspicious files. </p><ul><li><code>services:((http.response.body:anydesk.*) and http.response.html_title:"Directory listing")</code></li></ul><h3 id="open-directoriesshort-executable-names">Open Directories - Short Executable Names</h3><p>Open directories containing <code>.exe</code> files with single or double character exe names. </p><ul><li><code>services:(http.response.html_title:"Directory Listing" and http.response.body:??.exe)</code></li><li><code>services:(http.response.html_title:"Directory Listing" and http.response.body:?.exe)</code></li></ul><h3 id="open-directoriessingle-char-batch-scripts">Open Directories - Single Char Batch Scripts</h3><p>Suspicious single-character <code>.bat</code> files inside of open directories. eg <code>1.bat</code></p><ul><li><code>services:(http.response.html_title:"Directory Listing" and http.response.body:?.bat)</code></li></ul><h3 id="open-directoriesexecutable-and-script-files">Open Directories - Executable and Script Files. </h3><p>Open directories containing a <code>.exe</code> file and at least one of <code>.vbs,.ps1,.bat</code>. Mostly malicious. </p><ul><li><code>services:(http.response.body:<em>.exe and (http.response.body:</em>.vbs or http.response.body:<em>ps1 or http.response.body:</em>.bat) and http.response.html_title:"Directory Listing")</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28http.response.body%3A.exe+and+%28http.response.body%3A.vbs+or+http.response.body%3Aps1+or+http.response.body%3A*.bat%29+and+http.response.html_title%3A%22Directory+Listing%22%29&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="protonvpn-behind-dynamic-dnsobserved-in-asyncrat">ProtonVPN Behind Dynamic DNS - Observed in AsyncRAT</h3><p>Dynamic dns resolving to protonVPN instances. Observed with AsyncRAT <code>fresh03.ddns[.net]</code> resolving to (VPN) <code>46.166.182[.]34</code>. Difficult to confirm the nature of results as minimal services are running and port forwarding likely used. </p><ul><li><code>services.tls.certificates.leaf_data.subject.common_name:*<em>protonvpn.net and dns.names:*</em>.ddns.net</code> (<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=+services.tls.certificates.leaf_data.subject.common_name%3A*protonvpn.net+and+dns.names%3A*.ddns.net&ref=embee-research.ghost.io">Link</a>)</li></ul><h3 id="whitesnake-stealercommon-patterns-in-http-response">WhiteSnake Stealer - Common Patterns in HTTP Response</h3><p>Common patterns in http responses for WhiteSnake stealer control panels. <br>Original IP that inspired query is from <a href="https://russianpanda.com/2023/07/04/WhiteSnake-Stealer-Malware-Analysis/?ref=embee-research.ghost.io">RussianPanda</a>'s blog. </p><ul><li><code>services:(http.response.body:DutchCoders and http.response.body:keybase and http.response.body:Virustotal)</code>(<a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services%3A%28http.response.body%3ADutchCoders+and+http.response.body%3Akeybase+and+http.response.body%3AVirustotal%29&ref=embee-research.ghost.io">Link</a>)</li></ul>
+        </section>
+
+    </article>
+
+
+</main>
+
+
+        <section class="gh-container is-grid gh-outer">
+            <div class="gh-container-inner gh-inner">
+                <h2 class="gh-container-title">Read more</h2>
+                <div class="gh-feed">
+                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/threat-intel-queries-with-fofabot/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 160w,
+                            /content/images/size/w320/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 320w,
+                            /content/images/size/w600/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 600w,
+                            /content/images/size/w960/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 960w,
+                            /content/images/size/w1200/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 1200w,
+                            /content/images/size/w2000/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png"
+                    alt="Practical Queries for Identifying Malware Infrastructure With FOFA"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Practical Queries for Identifying Malware Infrastructure With FOFA</h3>
+                <p class="gh-card-excerpt is-body">Identifying malware infrastructure with the FOFA scanner.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2024-01-01">Jan 1, 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/ghidra-basics-shellcode-analysis/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 160w,
+                            /content/images/size/w320/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 320w,
+                            /content/images/size/w600/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 600w,
+                            /content/images/size/w960/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 960w,
+                            /content/images/size/w1200/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/11/Shellcode-Analysis-With-Ghidra--1-.png"
+                    alt="Ghidra Basics - Manual Shellcode Analysis and C2 Extraction"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Ghidra Basics - Manual Shellcode Analysis and C2 Extraction</h3>
+                <p class="gh-card-excerpt is-body">Manual analysis of Cobalt Strike Shellcode with Ghidra. Identifying function calls and resolving API hashing.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-12-08">Dec 8, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/ghidra-basics-identifying-and-decoding-encrypted-strings/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 160w,
+                            /content/images/size/w320/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 320w,
+                            /content/images/size/w600/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 600w,
+                            /content/images/size/w960/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 960w,
+                            /content/images/size/w1200/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png"
+                    alt="Ghidra Basics - Identifying, Decoding and Fixing Encrypted Strings"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Ghidra Basics - Identifying, Decoding and Fixing Encrypted Strings</h3>
+                <p class="gh-card-excerpt is-body">Manual identification, decryption and fixing of encrypted strings using Ghidra and x32dbg.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-12-05">Dec 5, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 160w,
+                            /content/images/size/w320/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 320w,
+                            /content/images/size/w600/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 600w,
+                            /content/images/size/w960/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 960w,
+                            /content/images/size/w1200/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png"
+                    alt="Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates</h3>
+                <p class="gh-card-excerpt is-body">Catching 83 Qakbot Servers using Regular Expressions.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-11-30">Nov 30, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                </div>
+            </div>
+        </section>
+
+    
+    <footer class="gh-footer gh-outer">
+    <div class="gh-footer-inner gh-inner">
+
+        <div class="gh-footer-bar">
+            <span class="gh-footer-logo is-title">
+                    <img src="https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg" alt="Embee Research">
+            </span>
+            <nav class="gh-footer-menu">
+                <ul class="nav">
+    <li class="nav-index"><a href="https://embee-research.ghost.io/index/">Index</a></li>
+</ul>
+
+            </nav>
+            <div class="gh-footer-copyright">
+                Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+            </div>
+        </div>
+        
+                <section class="gh-footer-signup">
+                    <h2 class="gh-footer-signup-header is-title">
+                        Free Malware Analysis Tutorials
+                    </h2>
+                    <p class="gh-footer-signup-subhead is-body">
+                        Free Malware Tutorials. No ads. Unsubscribe anytime. 
+                    </p>
+                    <form class="gh-form" data-members-form>
+    <input class="gh-form-input" type="email" placeholder="jamie@example.com" required data-members-email>
+    <button class="gh-button" type="submit">
+        <span><span>Subscribe</span> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"></path></svg></span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
+    <g stroke-linecap="round" stroke-width="2" fill="currentColor" stroke="none" stroke-linejoin="round" class="nc-icon-wrapper">
+        <g class="nc-loop-dots-4-24-icon-o">
+            <circle cx="4" cy="12" r="3"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <circle cx="20" cy="12" r="3"></circle>
+        </g>
+        <style data-cap="butt">
+            .nc-loop-dots-4-24-icon-o{--animation-duration:0.8s}
+            .nc-loop-dots-4-24-icon-o *{opacity:.4;transform:scale(.75);animation:nc-loop-dots-4-anim var(--animation-duration) infinite}
+            .nc-loop-dots-4-24-icon-o :nth-child(1){transform-origin:4px 12px;animation-delay:-.3s;animation-delay:calc(var(--animation-duration)/-2.666)}
+            .nc-loop-dots-4-24-icon-o :nth-child(2){transform-origin:12px 12px;animation-delay:-.15s;animation-delay:calc(var(--animation-duration)/-5.333)}
+            .nc-loop-dots-4-24-icon-o :nth-child(3){transform-origin:20px 12px}
+            @keyframes nc-loop-dots-4-anim{0%,100%{opacity:.4;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
+        </style>
+    </g>
+</svg>        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    <style>
+        .checkmark {
+            width: 40px;
+            height: 40px;
+            display: block;
+            stroke-width: 2.5;
+            stroke: currentColor;
+            stroke-miterlimit: 10;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+    </style>
+</svg>    </button>
+</form>                </section>
+
+    </div>
+</footer>    
+</div>
+
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/built/source.js?v=4b294bb165"></script>
+
+
+
+</body>
+</html>

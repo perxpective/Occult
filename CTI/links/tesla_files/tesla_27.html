@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,maximum-scale=10.0,user-scalable=yes">
+<meta name="keywords" content="情報窃取型マルウェア,AgentTesla,FormBook,XLoader,LokiBot,">
+<meta name="description" content="ソフトウェアに保存された認証情報やキーストローク情報の窃取を主目的とした情報窃取型マルウェア（AgentTesla、FormBook、XLoader、LokiBot）を取り上げます。具体的に情報窃取型マルウェアの種類や動作を解説し、対策についてお伝えします。">
+<title>今さら聞けない！情報窃取型マルウェアの内部動作とJSOCの検知傾向 | LAC WATCH</title>
+<meta property="og:title" content="今さら聞けない！情報窃取型マルウェアの内部動作とJSOCの検知傾向 | LAC WATCH">
+<meta property="og:type" content="article">
+<meta property="og:description" content="ソフトウェアに保存された認証情報やキーストローク情報の窃取を主目的とした情報窃取型マルウェア（AgentTesla、FormBook、XLoader、LokiBot）を取り上げます。具体的に情報窃取型マルウェアの種類や動作を解説し、対策についてお伝えします。">
+<meta property="og:url" content="https://www.lac.co.jp/lacwatch/report/20220307_002893.html">
+<meta property="og:image" content="https://www.lac.co.jp/lacwatch/img/thumb_lacwatch_002893.jpg">
+<meta property="og:site_name" content="株式会社ラック">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="/webclip.png">
+<link rel="stylesheet" href="/common/css/core.css">
+<link rel="stylesheet" href="/common/css/layout.css">
+<link rel="stylesheet" href="/common/css/module.css">
+<link rel="stylesheet" href="/common/css/utility.css">
+<link rel="stylesheet" href="/lacwatch/css/lacwatch.css">
+<link rel="stylesheet" href="/lacwatch/css/editor_lacwatch.css">
+<link rel="stylesheet" href="/common/plugins/google-code-prettify/skins/desert.css">
+<!-- Global site tag (gtag.js) - Google Ads: 521044924 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-521044924"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-521044924');
+</script>
+<!-- Google Tag Manager: LAC-323#60 -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PP4TTC9');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript): LAC-323#60 -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PP4TTC9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="wrapper">
+	<div class="wrapperIn">
+		<header class="lwHeader">
+			<div class="lwHeaderIn">
+				<div class="headerLogo01">
+					<p class="headerLogoImg01"><a href="/lacwatch/"><img src="/common/img/logo_lw01.svg" alt="LAC WATCH"></a></p>
+					<p class="headerTagline01">セキュリティとITの最新情報</p>
+					<p class="headerRss01"><a href="/lacwatch/feed.xml" class="rss"><img src="/common/img/ico_rss01.svg" alt="RSS"></a></p>
+				<!-- /.headerLogo01 --></div>
+				<div class="lwHeaderCont01">
+					<div class="lacLogoImg01"><a href="/"><img src="/common/img/logo01.png" alt="株式会社ラック"></a></div>
+					<div class="headerSearch01">
+						<div class="mt-site-search-container"><div id="mt-site-search" class="mt-site-search" data-fields="keywords" data-language="ja_JP" data-entry-jsons="https://search-1591578436-18678.movabletype.io/5edd935cc140d51dd8bf034d/entry.json" data-search-result-count="100" data-form-action="/search/" data-storage-id="5edd935cc140d51dd8bf034d" data-no-site-fetch="1" data-site-id="23464" data-search-result-container="search-result" data-search-id="5edd935cc140d51dd8bf034d"></div></div>
+					<!-- /.headerSearch01 --></div>
+				<!-- /.lwHeaderCont01 --></div>
+				<div class="lwMenuBtn">
+					<a href="#" class="spMenuBtnLink js_lwMenuBtn">
+						<span class="spMenuBtnIcon"><i></i></span>
+					</a>
+				</div><!-- /.spMenuBtn -->
+			<!-- /.headerIn --></div>
+		</header>
+		<div class="content">
+			<div class="lwWrapper">
+				<div class="lwMenu">
+					<div class="lwMenuIn sticky">
+						<div class="lwMenuList01">
+							<ul class="lwCategoryList01">
+								<li><a href="/lacwatch/alert/">注意喚起</a></li>
+								<li><a href="/lacwatch/report/">テクニカルレポート</a></li>
+								<li><a href="/lacwatch/service/">サービス・製品</a></li>
+								<li><a href="/lacwatch/event/">イベント・セミナー</a></li>
+								<li><a href="/lacwatch/casestudy/">導入事例</a></li>
+								<li><a href="/lacwatch/people/">ラックピープル</a></li>
+								<li><a href="/lacwatch/media/">広報情報</a></li>
+								<li><a href="/lacwatch/announce/">お知らせ</a></li>
+							</ul>
+							<ul class="lwCategoryList02">
+								<li class="tag">
+									<a href="#" class="lwTagToggle js_lacTagOpen">タグ</a>
+									<div class="lacVisualTagList01">
+										<div class="laclMenuClose01">
+											<div class="laclMenuCloseIcon01 js_lacTagClose"></div>
+										</div>
+										<div class="laclMenuHeading01">タグ</div>
+										<ul class="lacTagsList01">
+											<li><a href="/lacwatch/security/">セキュリティ</a></li>
+											<li><a href="/lacwatch/education/">人材開発・教育</a></li>
+											<li><a href="/lacwatch/system/">システム開発</a></li>
+											<li><a href="/lacwatch/app_development/">アプリ開発</a></li>
+											<li><a href="/lacwatch/mobileapp/">モバイルアプリ</a></li>
+											<li><a href="/lacwatch/dx/">DX</a></li>
+											<li><a href="/lacwatch/ai/">AI</a></li>
+											<li><a href="/lacwatch/cyberattack/">サイバー攻撃</a></li>
+											<li><a href="/lacwatch/cybercrime/">サイバー犯罪</a></li>
+											<li><a href="/lacwatch/targeted_attack/">標的型攻撃</a></li>
+											<li><a href="/lacwatch/vulnerability/">脆弱性</a></li>
+											<li><a href="/lacwatch/workstyle/">働き方改革</a></li>
+											<li><a href="/lacwatch/citizenship/">企業市民活動</a></li>
+											<li><a href="/lacwatch/attack_group/">攻撃者グループ</a></li>
+											<li><a href="/lacwatch/jsoc/">JSOC</a></li>
+											<li><a href="/lacwatch/jsoc_insight/">JSOC INSIGHT</a></li>
+											<li><a href="/lacwatch/cyber119/">サイバー救急センター</a></li>
+											<li><a href="/lacwatch/cyber119_report/">サイバー救急センターレポート</a></li>
+											<li><a href="/lacwatch/lsi/">LAC Security Insight</a></li>
+											<li><a href="/lacwatch/security_diagnostic_report/">セキュリティ診断レポート</a></li>
+											<li><a href="/lacwatch/cyber_grid_journal/">CYBER GRID JOURNAL</a></li>
+											<li><a href="/lacwatch/cyber_grid_view/">CYBER GRID VIEW</a></li>
+											<li><a href="/lacwatch/academy/">ラックセキュリティアカデミー</a></li>
+											<li><a href="/lacwatch/sugoude/">すごうで</a></li>
+											<li><a href="/lacwatch/ransomware/">ランサムウェア</a></li>
+											<li><a href="/lacwatch/zerotrust/">ゼロトラスト</a></li>
+											<li><a href="/lacwatch/sase/">SASE</a></li>
+											<li><a href="/lacwatch/digital_identity/">デジタルアイデンティティ</a></li>
+											<li><a href="/lacwatch/informationsystem/">情シス向け</a></li>
+											<li><a href="/lacwatch/talk/">対談</a></li>
+											<li><a href="/lacwatch/tech_crawling/">Tech Crawling</a></li>
+											<li><a href="/lacwatch/lac_advisory/">LAC Advisory</a></li>
+											<li><a href="/lacwatch/jvn/">JVN</a></li>
+											<li><a href="/lacwatch/indicator_of_compromised/">IOC</a></li>
+											<li><a href="/lacwatch/cloud/">クラウド</a></li>
+											<li><a href="/lacwatch/agile/">アジャイル開発</a></li>
+											<li><a href="/lacwatch/devsecops/">DevSecOps</a></li>
+											<li><a href="/lacwatch/owasp/">OWASP</a></li>
+											<li><a href="/lacwatch/ctf/">CTF</a></li>
+											<li><a href="/lacwatch/falconnest/">FalconNest</a></li>
+											<li><a href="/lacwatch/security_diagnosis/">セキュリティ診断</a></li>
+											<li><a href="/lacwatch/supply_chain_risk/">サプライチェーンリスク</a></li>
+											<li><a href="/lacwatch/threat_intelligence/">スレットインテリジェンス</a></li>
+											<li><a href="/lacwatch/telework/">テレワーク</a></li>
+											<li><a href="/lacwatch/remote_desktop/">リモートデスクトップ</a></li>
+											<li><a href="/lacwatch/architect/">アーキテクト</a></li>
+											<li><a href="/lacwatch/plus_security/">プラス・セキュリティ人材</a></li>
+											<li><a href="/lacwatch/cooperation/">官民学・業界連携</a></li>
+											<li><a href="/lacwatch/customer_story/">カスタマーストーリー</a></li>
+											<li><a href="/lacwatch/shirahama/">白浜シンポジウム</a></li>
+											<li><a href="/lacwatch/code_blue/">CODE BLUE</a></li>
+											<li><a href="/lacwatch/moral/">情報モラル</a></li>
+											<li><a href="/lacwatch/club/">クラブ活動</a></li>
+											<li><a href="/lacwatch/beginner/">初心者向け</a></li>
+											<li><a href="/lacwatch/hobby/">趣味</a></li>
+											<li><a href="/lacwatch/culture/">カルチャー</a></li>
+											<li><a href="/lacwatch/life/">子育て、生活</a></li>
+											<li><a href="/lacwatch/marketing/">広報・マーケティング</a></li>
+											<li><a href="/lacwatch/corporate/">コーポレート</a></li>
+											<li><a href="/lacwatch/writer/">ライター紹介</a></li>
+											<li><a href="/lacwatch/ir/">IR</a></li>
+										</ul>
+								<!-- /.lacVisualTagList01 --></div>
+								</li>
+								<li class="authors"><a href="/lacwatch/authors.html">ライター</a></li>
+							</ul>
+						<!-- /.lacVisualMenuList01 --></div>
+						<div class="lwInfo01">
+							<div class="lwInfoIn01">
+								<div class="lwInfoTxt01">
+									<p class="lwInfoHeading02">メールマガジン</p>
+									<p class="lwInfoHeading03">サイバーセキュリティや<br>ラックに関する情報をお届けします。</p>
+									<div class="lwInfoBtn01"><a href="https://cp.lac.co.jp/subscription/lacmag" target="_blank" class="btnMedium01">登録する</a></div>
+									<ul class="lwInfoSns01">
+										<li class="facebook"><a href="https://www.facebook.com/Little.eArth.Corp/" target="_blank" class="btnMedium01 btnFacebook01">LAC Facebook</a></li>
+										<li class="twitter"><a href="https://twitter.com/lac_security" target="_blank" class="btnMedium01 btnTwitter01"><span></span>@lac_security</a></li>
+									</ul>
+								<!-- /.lwInfoTxt01 --></div>
+								<div class="spSearch01"><!-- /.lwMenuSearch01 --></div>
+							<!-- /.lwInfoIn01 --></div>
+						<!-- /.lwInfo01 --></div>
+					<!-- /.lwMenuIn --></div>
+				<!-- /.lwMenu --></div>
+				<div class="lwContent">
+						<div class="lacVisualDetai01 report">
+							<div class="lacVisualDetaiImg01"><img data-pc-image="/lacwatch/img/thumb_lacwatch_002893.jpg" data-sp-image="/lacwatch/assets_c/2022/03/thumb_lacwatch_002893-thumb-750xauto-10617.jpg" class="js_changeImage object-fit-cover" alt=""></div>
+							<div class="lacVisualDetaiTxt01">
+								<div class="lacVisualDetaiTxtIn01">
+									<div class="lacVisualDetaiDate01"><a href="/lacwatch/report/">テクニカルレポート</a>　|　<br class="onlySP"><time datetime="$date_format-time" class="typePublish">2022年3月 7日</time></div>
+									<h1 class="lacVisualDetaiTitle01">今さら聞けない！情報窃取型マルウェアの内部動作とJSOCの検知傾向</h1>
+									<ul class="lacVisualDetailTag01">
+										<li><a href="/lacwatch/cyberattack/">サイバー攻撃</a></li>
+										<li><a href="/lacwatch/cyber119/">サイバー救急センター</a></li>
+									</ul>
+									<div class="lacVisualAuthor01"><a href="/lacwatch/author_cyber_119/"><span class="avatar"><img src="/lacwatch/img/pic_author_cyber119.png" alt="サイバー救急センター"></span><span class="avatarName">サイバー救急センター</span></a></div>
+								<!-- /.lacVisualDetaiTxtIn01 --></div>
+							<!-- /.lacVisualDetaiTxt01 --></div>
+						<!-- lacVisualDetai01 --></div>
+						<div class="lacBody01 has-aside">
+							<div class="lacEntryArea">
+								<div class="lacShare01 onlyPC">
+									<ul>
+										<li><a href="https://twitter.com/share?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html&text=%E4%BB%8A%E3%81%95%E3%82%89%E8%81%9E%E3%81%91%E3%81%AA%E3%81%84%EF%BC%81%E6%83%85%E5%A0%B1%E7%AA%83%E5%8F%96%E5%9E%8B%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E5%86%85%E9%83%A8%E5%8B%95%E4%BD%9C%E3%81%A8JSOC%E3%81%AE%E6%A4%9C%E7%9F%A5%E5%82%BE%E5%90%91%20%7C%20LAC%20WATCH" target="_blank" rel="nofollow"><img src="/common/img/ico_share_twitter01.png" alt="Xでシェア"></a></li>
+										<li><a href="https://www.facebook.com/share.php?u=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_facebook01.png" alt="Facebookでシェア"></a></li>
+										<li><a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_hatebu01.png" alt="はてなブックマークに追加"></a></li>
+										<li class="onlySP"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note01.png" alt="noteで書く"></a></li>
+										<li class="onlyPC"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note02.png" alt="noteで書く"></a></li>
+										<li class="onlyPC"><a href="https://cp.lac.co.jp/subscription/lacmag" class="btnXSmall01 btnMagazine01" target="_blank">メルマガ登録する</a></li>
+									</ul>
+								<!-- lacShare01 --></div>
+								<div class="lacShare02 onlySP">
+									<div class="btnShare01 onlySP js_lacShareToggle"><img src="/common/img/ico_share01.svg" alt="シェアボタンを表示"></div>
+									<ul>
+										<li><a href="https://twitter.com/share?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html&text=%E4%BB%8A%E3%81%95%E3%82%89%E8%81%9E%E3%81%91%E3%81%AA%E3%81%84%EF%BC%81%E6%83%85%E5%A0%B1%E7%AA%83%E5%8F%96%E5%9E%8B%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E5%86%85%E9%83%A8%E5%8B%95%E4%BD%9C%E3%81%A8JSOC%E3%81%AE%E6%A4%9C%E7%9F%A5%E5%82%BE%E5%90%91%20%7C%20LAC%20WATCH" target="_blank" rel="nofollow"><img src="/common/img/ico_share_twitter01.png" alt="Xでシェア"></a></li>
+										<li><a href="https://www.facebook.com/share.php?u=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_facebook01.png" alt="Facebookでシェア"></a></li>
+										<li><a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_hatebu01.png" alt="はてなブックマークに追加"></a></li>
+										<li class="onlySP"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note01.png" alt="noteで書く"></a></li>
+										<li class="onlyPC"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note02.png" alt="noteで書く"></a></li>
+										<li class="onlyPC"><a href="https://cp.lac.co.jp/subscription/lacmag" class="btnXSmall01 btnMagazine01" target="_blank">メルマガ登録する</a></li>
+									</ul>
+								<!-- lacShare02 --></div>
+								<div class="entryArea entryArea--lacwatch">
+                                	<p class="lead01"></p>
+									<div class="sectionType04">
+  <p>サイバー救急センターの脅威分析チームです。<br>
+  根強い脅威である情報窃取型マルウェア（InfoStealer）に関して、JSOCにおける検知傾向とマルウェア動作を調査しました。</p>
+  <p>情報窃取型マルウェアとは、Webブラウザなどのソフトウェアに保存された認証情報やキーストローク情報の窃取を主目的としたマルウェアのことです。もし感染すると、窃取されたユーザの認証情報が悪用されて被害に遭ってしまう恐れがあります。</p>
+  <p>なお、広義にはバンキングマルウェアやEmotetについても情報窃取型マルウェアとして分類されますが、本稿ではこれらを除いた、システムに設定済みの情報の窃取を目的とするマルウェア（AgentTeslaやFormBookなど）を取り上げます。以降では、このようなマルウェアを総称して「情報窃取型マルウェア」と呼びます。</p>
+  <p>情報窃取型マルウェアは継続的に日本国内に届いている一方で、既存の製品によって検知されることが多く、その背景やマルウェアの動作などを詳細に知る機会がないまま対応している方も多いのではないでしょうか。そこで、具体的に情報窃取型マルウェアの種類や動作を解説し、対策についてもお伝えします。</p>
+  <div class="toc open">
+    <div class="tocHeading">目次<span class="tocToggle js_lacTocToggle"></span></div>
+    <ol>
+      <li><a href="#s01">情報窃取型マルウェアの検知傾向</a></li>
+      <li><a href="#s02">感染までの流れ</a></li>
+      <li><a href="#s03">情報窃取型マルウェアの種類</a></li>
+      <li><a href="#s04">被害に遭わないための対策</a></li>
+      <li><a href="#s05">ラックが提供するサービス</a></li>
+      <li><a href="#s06">まとめ</a></li>
+      <li><a href="#s07">IOC（Indicator Of Compromised）</a></li>
+    </ol>
+  </div>
+  <h2 id="s01">情報窃取型マルウェアの検知傾向</h2>
+  <p>まずは、JSOCにおける情報窃取型マルウェアの検知傾向についてです。2021年においてJSOCで検知したマルウェア感染を目的とした攻撃メール（以下、攻撃メール）の割合を集計<sup>※1</sup>すると、図1の通りとなりました。</p>
+  <p class="annotation">※1 検知ルールから判断できなかったマルウェアは集計の対象外としています。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_01.png" alt="「すべての攻撃メール」はAgentTesla31%、FormBook13%、XLoader12%、Emotet11%、LokiBot7%、Qakbot3%、Snake Keylogger3%、BitRAT2%、その他18%　「日本語の件名のみ」はEmotet40%、Qakbot23%、AgentTesla8%、XLoader5%、LokiBot4%、FormBook3%、AsyncRAT1%、SLIVER1%、Snake Keylogger1%、Remcos1%、その他13%">
+    <figcaption class="figcaption01">図1 2021年にJSOCで検知した攻撃メールの割合<br>
+    （左：すべての攻撃メール、右：日本語の件名のみ）</figcaption>
+  </figure>
+  <p>図1の左のグラフは、2021年にJSOCで検知した攻撃メールの割合で、グラフの太字のマルウェアが情報窃取型マルウェアであることを表しています。このグラフでは、AgentTesla、FormBook、XLoaderの順で検知割合が多いことがわかります。LokiBotやSnake Keyloggerなどを含めると、情報窃取型マルウェアは全体で約66%となり、検知の半数以上を占めているといえます。また、2020年後半に新たに報告された情報窃取型マルウェアであるSnake Keyloggerも検知率が3%に上っており、今後も攻撃に使用されることが予想されます。</p>
+  <p>一方、図1の右のグラフは2021年にJSOCで検知した日本語の件名における攻撃メールの割合です。Emotetが最も多く、続いてQakbot、情報窃取型マルウェアの順で検知していました。</p>
+  <p>最多のEmotetは、感染したPCから窃取したメールを攻撃で使用することで次々と感染が拡大し、その結果攻撃メールの検知数が急増するという性質があります。一度テイクダウンされたEmotetですが、2021年11月から活動を再開しており、その攻撃手口からみても今後も日本語のメールでの検知数は多い状況が続くとみられます。Emotetに関してはラックでも注意喚起を行いました。</p>
+  <div class="relatedArticle01">
+    <div class="relatedArticleHeading01">関連記事</div>
+    <ul>
+      <li><a href="/lacwatch/alert/20211119_002801.html">【注意喚起】マルウェアEmotetが10カ月ぶりに活動再開、日本も攻撃対象に</a></li>
+    </ul>
+  <!-- / .relatedArticle01 --></div>
+  <p>二番目に多いQakbotは、Emotetと同様の手法を用いて取引先や同僚を装ったメールを送りつけることで感染拡大を図るマルウェアです。QakbotにPCが感染した場合、インターネットバンキングの認証情報が窃取されたり、メールが窃取されて攻撃に悪用されたりします。Qakbotの攻撃メールの特徴としては、件名が日本語であるものの、本文で英語が使用されていることが多く、Emotetと比べると誤って開封してしまう可能性は低いと推測されます。しかしながら、年間を通して攻撃メールが観測されている点に注意が必要です。</p>
+  <p>三番目に多くの割合を占めるのは、情報窃取型マルウェアです。検知割合でみれば約21%を占めており、日本語メールにおいても無視できない存在であることがわかります。攻撃メールは、請求書や見積もり依頼などを騙ったものが多く、稚拙な文を使用することもあれば、攻撃メールとしての体をなしたものもあり、内容によっては受信者が開いてしまう可能性も十分考えられます。</p>
+  <p>以上のように、情報窃取型マルウェアは軽視できない割合で検知しており、根強い存在であることがわかります。また、感染までの流れが複雑であるため、対策を講じる上で一度全体像を理解しておくことが望ましいです。</p>
+  <h2 id="s02">感染までの流れ</h2>
+  <p>情報窃取型マルウェアに感染する経路のひとつとしてメールがあります。図2に実際に攻撃に使用されたメールの例を示します。メールの文面は英語であることが多いものの、図2のように日本語が使われることもあります。いずれの言語の場合でもメールの文面は請求書や支払いの確認、見積もりの依頼などの内容を装っており、受信者に添付ファイルや本文に記載のURLリンクを開かせようと誘導します。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_02.png" alt="見積もりを装うなどした、攻撃メールの例">
+    <figcaption class="figcaption01">図2 攻撃に使用されたメールの例</figcaption>
+  </figure>
+  <p>添付ファイルの場合は不正なファイルが展開・実行すると感染を引き起こします。また、URLリンクを開いた場合は添付ファイルの場合と同様の不正なファイルがダウンロードされます。不正なファイルの形式としては、実行ファイル（exe）、ドキュメント（docx、xlsxなど）、その他のファイル（js、lnkなど）と、これらのファイルを内包した圧縮ファイル（zip、7-zip、rarなど）やISOイメージなど、様々な種類の形式を確認しています。</p>
+  <p>現在までに多く観測している感染までの流れを整理したものが次の図3です。やや複雑ですが、URLリンクや圧縮ファイル等の場合でも、最終的に実行ファイルもしくはドキュメントを起点として情報窃取型マルウェアに感染することがわかります。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_03.png" alt="攻撃メールを受け取ってから、実行ファイルから直接や、ドキュメントからダウンロードされて、情報窃取型マルウェアに感染するまでの流れ">
+    <figcaption class="figcaption01">図3 情報窃取型マルウェアに感染するまでの流れ</figcaption>
+  </figure>
+  <p>実行ファイルが使用されるケースでは、実行ファイル自体が情報窃取型マルウェア本体である場合と、実行ファイルがGuLoader（別名：CloudEyE）と呼ばれるダウンローダである場合があります。前者は実行すると直接感染を引き起こす一方で、後者はGuLoaderが情報窃取型マルウェアをダウンロードして感染を引き起こします。</p>
+  <p>他方、ドキュメントが使用されるケースでは、マクロ付きのドキュメントとOffice製品の脆弱性（CVE-2017-11822やCVE-2017-0199など）を悪用したドキュメントの2種類が存在します。これらのドキュメントの不正なコードが動作すると、情報窃取型マルウェアがダウンロードされて感染する、または、GuLoaderを経由して多段階で情報窃取型マルウェアがダウンロードされて感染します。</p>
+  <p>情報窃取型マルウェアをダウンロードする通信先は、GoogleドライブやOneDrive、Discordが使われるケースを確認しています。このように正規サービスを悪用することは、検知や遮断を回避する狙いがあるものとみられ、攻撃者たちの手口は巧妙化していることが窺えます。</p>
+  <p>なお、JSOCによる検知としては明確に確認できなかったものの、海外のサンドボックスサービスにおいてGuLoaderの代わりにModiLoaderと呼ばれるダウンローダが使用されるケースがあることを確認しています。脅威分析チームの調査では、ModiLoaderの観測数はGuLoaderと比べると少なく、現在はGuLoaderが主流であるものと考えられます。</p>
+  <h2 id="s03">情報窃取型マルウェアの種類</h2>
+  <p>情報窃取型マルウェアにはさまざまな種類があります。ここではJSOCの検知において多く確認している情報窃取型マルウェアである、AgentTesla、FormBook/XLoader、LokiBotの特徴について解説します。これらのマルウェアは、ハッキングフォーラムなどで安価で販売、または、無料でビルダー等をダウンロードできるため攻撃に使用されやすい傾向があります。</p>
+  <h3>AgentTesla</h3>
+  <p>AgentTeslaは、2014年に発見された情報窃取を主目的とするマルウェアです。このマルウェアに感染すると、Webブラウザやメールクライアント、FTPクライアントなどの認証情報、クリップボードやスクリーンショット、キーストロークなどの情報が攻撃者に窃取される可能性があります。ただし、AgentTeslaは、一般的なRATにあるような高度なコマンド＆コントロール機能を有していないため、通常は感染PCからサーバへの窃取情報の送信のみを行います。</p>
+  <p>AgentTeslaの特徴として、通信方式の多様性が挙げられます。AgentTeslaは、HTTPを使用する方法のほかに、SMTPやFTP、Telegramチャット、Torプロキシを使用して感染PC内の情報を攻撃者のもとへ送ることができます。例えば、FTPを使用してファイルをFTPサーバにアップロードしたり、TelegramボットAPIを使用してチャットにデータを送信したりすることが可能です。なお、AgentTeslaがどの通信方式を用いるかはAgentTeslaの設定値によって変わり、一度に複数の通信方式を使用することはありません。このため、通信方式は検体ごとに確認する必要があります。なお、AgentTeslaの設定値は、HTTPの場合は"0"、SMTPの場合は"1"、FTPの場合は"2"、Telegramの場合は"3"です。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_04.png" alt="AgentTesla v3から窃取データが攻撃者のHTTP or SMTP or FTP or Telegram APIへ">
+    <figcaption class="figcaption01">図4 AgentTeslaの全体像</figcaption>
+  </figure>
+  <p>また、特筆すべき点として、AgentTeslaがv2とv3の2種類に大別できるという点が挙げられます<sup>※2</sup>。AgentTeslaはバージョンによって内部データの保持方法や有する機能が異なります。例えば、v2が通信先情報やデータ送信時に使用する文字列をAESで暗号化した状態で保持しているのに対し、v3ではXORで文字列を暗号化した状態で保持しています（図5）。また、上述したTelegramやTorプロキシを使用した通信方式はv3でのみ実装されている機能です。</p>
+  <p class="annotation">※2 <a href="https://news.sophos.com/en-us/2021/02/02/agent-tesla-amps-up-information-stealing-attacks/" target="_blank">Agent Tesla amps up information stealing attacks</a></p>
+  <figure class="figure01 taCenter">
+    <img src="/lacwatch/img/20220307_002893_05.png" alt="AgentTesla v2の暗号化処理">
+  </figure>
+  <figure class="figure01 taCenter">
+    <img src="/lacwatch/img/20220307_002893_06.png" alt="AgentTesla v3の暗号化処理">
+    <figcaption class="figcaption01">図5 AgentTeslaのv2とv3の暗号化処理の違い<br>
+    （上：AgentTesla v2、下：AgentTesla v3）</figcaption>
+  </figure>
+  <p>以上の観点から、JSOCにおいて検知したAgentTeslaに関して分析すると、v3の使用が多くみられ、通信方式としてはSMTPが多い傾向にあるということがわかりました。その一方で、Telegramなどの他の通信方式が設定されているケースも少なからず存在しており、実際の攻撃においても通信に多様性があるといえます。また、AgentTeslaに関する攻撃メールの検知数は、2021年6月から増加傾向にあり、2022年においても根強く検知している状況です。</p>
+  <p>最後に、最も使用頻度の多い通信方式であるSMTPについて解説します。通信方式がSMTPの場合は、AgentTesla内の暗号化データに含まれるメールアカウント情報（メールアドレス、パスワード、SMTPサーバのドメイン名）を用いて、図6のコードで窃取した情報をメールで送信します。</p>
+  <figure class="figure01 taCenter">
+    <img src="/lacwatch/img/20220307_002893_07.png" alt="窃取データを送信するAgentTesla v3のコード">
+    <figcaption class="figcaption01">図6 窃取データを送信するコード（AgentTesla v3）</figcaption>
+  </figure>
+  <p>また、メール送信時の通信例は図7の通りです。このように送信時の通信では587番ポートを介してSMTP認証を行い、窃取情報をHTML形式のメールで送信します。なお、メールの宛先は、認証したメールアカウントのメールアドレスがそのまま使用されるケースや、認証したメールアカウントとは別に設定された宛先用のメールアドレスが使用されるケースがあることを確認しています。このようにして窃取されたデータが一方向にメールで送信されます。</p>
+  <figure class="figure01 taCenter">
+    <img src="/lacwatch/img/20220307_002893_08.png" alt="窃取データを送信するAgentTesla v3通信例">
+    <figcaption class="figcaption01">図7 窃取データを送信する通信例（AgentTesla v3）</figcaption>
+  </figure>
+  <h3>FormBook/XLoader</h3>
+  <p>FormBookは、2016年に発見された情報窃取を主目的とするマルウェアです。このマルウェアは、Webブラウザやメールクライアント、FTPクライアントの認証情報をはじめ、クリップボード情報やキーストロークの窃取、画面キャプチャ、コマンド＆コントロールの機能を備えています。そのため、感染すると機微な情報が窃取されたり、攻撃者によってPCをリモートコントロールされたりします。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_09.png" alt="FormBook/XLoaderの窃取データがHTTPからGET/POSTで攻撃者のC2サーバへ">
+    <figcaption class="figcaption01">図8 FormBook/XLoaderの全体像</figcaption>
+  </figure>
+  <p>2016年から蔓延するFormBookですが、2020年になって後継のマルウェアと考えられる「XLoader」が登場しました<sup>※3</sup>。XLoaderは、フォーラム上で販売の宣伝が行われ、既に日本組織への攻撃に使用されています。機能面でみれば、コードはFormBookと類似しており、大きな相違はみられません。その一方で、C2通信時に使用する特徴的な文字列やバージョン体系などが異なるという特徴があります（図9）。また、XLoaderはクロスプラットフォームへのサポートを謳っており、macOSでの動作を可能とする種別が存在します。</p>
+  <p class="annotation">※3 <a href="https://research.checkpoint.com/2021/top-prevalent-malware-with-a-thousand-campaigns-migrates-to-macos/" target="_blank">Top prevalent malware with a thousand campaigns migrates to macOS</a></p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_10.png" alt="FormBookとXLoaderの識別箇所">
+    <figcaption class="figcaption01">図9 FormBookとXLoaderの識別箇所<br>
+    （左：FormBook 4.1、右：XLoader 2.3）</figcaption>
+  </figure>
+  <p>FormBookとXLoaderは、いずれも通信をHTTPで行い、GETメソッドとPOSTメソッドを使用します。通常は、最初の通信にGETメソッド、窃取データの送信にPOSTメソッド（図10）を用います。送信されるデータはBase64エンコードとRC4によって暗号化されており、鍵の一部がマルウェア内に保持されています。なお、通信時は、どちらのマルウェアも偽の通信先を複数ハードコードしているため、C2サーバではない通信先への通信が発生します。このためC2通信先が一見分かりづらく、通信先の遮断には注意が必要です。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_11.png" alt="FormBookとXLoaderのC2通信の例">
+    <figcaption class="figcaption01">図10 C2通信の例<br>
+    （左：FormBook、右：XLoader）</figcaption>
+  </figure>
+  <p>上述の通り、FormBookもXLoaderもコマンド＆コントロールの機能を有しています。これにより、通信を行うことでC2サーバからコマンドを受け取るという動作が可能です。マルウェアがサーバから受け取るコマンドを表1に示します。これらのコマンドは、サーバからの「200 OK」のレスポンスにおいてボディに記載されて受け渡されます。C2コマンドの機能として、コマンド実行やダウンロード＆実行の動作が可能なことから、情報窃取以外の目的で使われる可能性も考えられます。</p>
+  <figure class="figure01">
+    <figcaption class="figcaption01">表1 C2コマンド一覧</figcaption>
+    <div class="tableScroll01">
+      <table class="table01 tableSmall mt10">
+        <thead>
+          <tr>
+            <th>コマンド</th>
+            <th>動作概要</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"1" (0x31)</td>
+            <td>ダウンロードと実行</td>
+          </tr>
+          <tr>
+            <td>"2" (0x32)</td>
+            <td>アップデート</td>
+          </tr>
+          <tr>
+            <td>"3" (0x33)</td>
+            <td>アンインストール</td>
+          </tr>
+          <tr>
+            <td>"4" (0x34)</td>
+            <td>コマンド実行</td>
+          </tr>
+          <tr>
+            <td>"5" (0x35)</td>
+            <td>Cookieの削除</td>
+          </tr>
+          <tr>
+            <td>"6" (0x36)</td>
+            <td>OSの再起動</td>
+          </tr>
+          <tr>
+            <td>"7" (0x37)</td>
+            <td>OSのシャットダウン</td>
+          </tr>
+          <tr>
+            <td>"8" (0x38)</td>
+            <td>窃取データの送信</td>
+          </tr>
+          <tr>
+            <td>"9" (0x39)</td>
+            <td>ZIP形式のダウンロードと展開</td>
+          </tr>
+        </tbody>
+      </table>
+    <!-- /.tableScroll01 --></div>
+  </figure>
+  <p>JSOCにおける最近の検知傾向としては、FormBookとXLoader共に日本国内の組織にも届いている状況でFormBookの勢いも未だに落ちていません。国内の攻撃で用いられた検体は、FormBookに関してはバージョン4.1、XLoaderに関しては2021年9月中旬まで2.3が利用され、それ以降は2.5系が利用されている傾向にあります。なお、macOS版のXLoaderは、JSOCでの検知はありませんでした。</p>
+  <h3>LokiBot</h3>
+  <p>LokiBotは、2015年に発見された情報窃取を主目的とするマルウェアです。他の情報窃取型マルウェアと同様に、各種アプリケーションの認証情報の窃取機能や画面キャプチャ機能、キーロガー機能、コマンド&コントロール機能を有すとされており、感染した場合は機微な情報の窃取や感染PCが攻撃者にリモートコントロールされる可能性があります。また、他の情報窃取型マルウェアと比べると窃取対象とするアプリケーションが多いという特徴もあります。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_12.png" alt="LokiBotの窃取データがHTTPからPOSTで攻撃者のC2サーバへ">
+    <figcaption class="figcaption01">図11 LokiBotの全体像</figcaption>
+  </figure>
+  <p>LokiBotのC2通信は、図12の通りHTTPを使用します。通信の特徴として、パスに「fre.php」を使用することや、User-Agentに「Mozilla/4.08 (Charon; Inferno)」を使用することなどが挙げられ、比較的識別しやすいマルウェアといえます。また、詳細は後述しますが、多くの場合はHTTPボディのデータに「ckav[.]ru」が含まれていることも特徴のひとつです。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_13.png" alt="LokiBotの通信例">
+    <figcaption class="figcaption01">図12 通信例</figcaption>
+  </figure>
+  <p>LokiBotが発生させるリクエストには、窃取データの送信とC2コマンド要求の2種類があります。後者のC2コマンド要求の通信はデフォルト設定では10分ごとに発生します。このときC2サーバからの受け取る命令は、表2に示すものがあります。</p>
+  <figure class="figure01">
+    <figcaption class="figcaption01">表2 C2コマンド一覧</figcaption>
+    <div class="tableScroll01">
+      <table class="table01 tableSmall mt10">
+        <thead>
+          <tr>
+            <th>コマンド</th>
+            <th>動作概要</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0x00</td>
+            <td>exeファイルのダウンロードと実行</td>
+          </tr>
+          <tr>
+            <td>0x01</td>
+            <td>dllファイルのダウンロードと実行</td>
+          </tr>
+          <tr>
+            <td>0x02</td>
+            <td>exeファイルのダウンロードと実行（コマンド0x0と同等）</td>
+          </tr>
+          <tr>
+            <td>0x08</td>
+            <td>HDBファイルの削除</td>
+          </tr>
+          <tr>
+            <td>0x09</td>
+            <td>キーロガーの起動（クラック版のLokiBotは実装なし）</td>
+          </tr>
+          <tr>
+            <td>0x0A</td>
+            <td>情報窃取</td>
+          </tr>
+          <tr>
+            <td>0x0E</td>
+            <td>プロセスの終了</td>
+          </tr>
+          <tr>
+            <td>0x0F</td>
+            <td>アップデート</td>
+          </tr>
+          <tr>
+            <td>0x10</td>
+            <td>C2通信間隔の変更</td>
+          </tr>
+          <tr>
+            <td>0x11</td>
+            <td>ファイルの削除とプロセスの終了</td>
+          </tr>
+        </tbody>
+      </table>
+    <!-- /.tableScroll01 --></div>
+  </figure>
+  <p>興味深いことに、世界的に流通するLokiBotの多くはクラック版<sup>※4</sup>であり、日本においてもこの傾向は変わりません。JSOCで検知した日本組織に届いたLokiBotも多くがクラック版でした。クラック版とは、開発者らが販売する元のLokiBotを改変したバイナリのことです。クラック版を用いることで、LokiBotの販売者らに支払う利用料金を支払わずに済むことから攻撃者によって多用されているものと考えられます。</p>
+  <p class="annotation">※4 <a href="https://www.trendmicro.com/en_us/research/17/l/cve-2017-11882-exploited-deliver-cracked-version-loki-infostealer.html" target="_blank">CVE-2017-11882 Exploited to Deliver a Loki Infostealer</a></p>
+  <p>クラック版LokiBotは、フォーラムで出回っている図13のビルダーを用いると任意のC2通信先を指定したものが簡単に生成できます。さらに、C2パネルのソースコードも流出しているため、クラック版でも攻撃を容易に行うことができてしまうのが実情です。</p>
+  <figure class="figure01 taCenter">
+    <img src="/lacwatch/img/20220307_002893_14.png" alt="クラック版LokiBotのビルダー Loki stealer v 1.6 builder Reversed by abbat-v ...">
+    <figcaption class="figcaption01">図13 クラック版LokiBotのビルダー<br>
+    （v1.6のビルダーと表示されるが、実際は1.8のビルダーとみられる）</figcaption>
+  </figure>
+  <p>クラック版のLokiBotはバージョン1.8（0x12）をベースとして生成されているとみられ、オリジナルバージョンには存在しない「.x」セクションが含まれています。「.x」セクションには、C2通信先を上書きするコードが含まれており、このセクションの有無を確認することでクラック版であるか否かの判別が可能です。その他にも開発者が配布する元のLokiBotと相違点があります。例えば、キーロガーに関するC2コマンド（表2の0x09）が実装されておらず、キーロガーの機能を有していないという点や、通信時にバイナリIDとして「ckav[.]ru」が含まれる点が挙げられます。</p>
+  <h2 id="s04">被害に遭わないための対策</h2>
+  <p>攻撃の被害に遭うことがないよう、以下のようなセキュリティ対策が実施できているか今一度ご確認いただくことを推奨します。</p>
+  <ul>
+    <li>Windows OSやOffice製品、Webブラウザなどの各ソフトウェアを常に最新の状態にする</li>
+    <li>ウイルス対策ソフトを導入し、パターンファイルを常に最新の状態に更新する</li>
+    <li>EDR製品を導入し、感染の検知・防御だけでなく、万が一の際の迅速な対応を可能にする</li>
+    <li>身に覚えのないメールの添付ファイルは開かない。メール本文中のURLリンクはクリックしない</li>
+    <li>マクロやセキュリティに関する警告が表示された場合、安易に「マクロを有効にする」「コンテンツの有効化」というボタンはクリックしない</li>
+  </ul>
+  <h2 id="s05">ラックが提供するサービス</h2>
+  <p>情報窃取型マルウェアに対する有効なサービスと、調査時に役立つツールの一部をご紹介します。</p>
+  <h3>マネージドEDRサービス</h3>
+  <p>引き続き、新型コロナウイルスの影響で、テレワークが拡大している背景からも、PCのセキュリティ対策の重要性が増しています。</p>
+  <p>マネージドサービスを提供しているEDR製品（CrowdStrike Falcon／Microsoft Defender ATP）は、PC内の様々な動作痕跡を元に、未知の脅威を「検知」「初期対応」「調査」「復旧」することを可能にする新しいセキュリティソリューションです。</p>
+  <div class="floatLinkBlock01">
+    <a class="learnMoreLink01" href="/operation/medr.html">マネージドEDRサービス</a>
+  </div>
+  <p>AgentTeslaなどの情報窃取型マルウェアにおいても検知、防御が可能であることを確認しており、EDRの導入は有効な対策のひとつとなります。さらにEDRは、感染の検知・防御だけでなく、万が一の際の迅速な一次対処や原因調査を可能にするため、今回紹介した一般的なマルウェアへの対策だけではなく、高度な標的型攻撃への対策としても有効です。</p>
+  <h3>情報漏えいチェックサービス</h3>
+  <p>今回紹介した情報窃取型マルウェアなどが、自組織のネットワーク内のPCに感染していないかを調査できるのが情報漏えいチェックサービスです。</p>
+  <div class="floatLinkBlock01">
+    <a class="learnMoreLink01" href="/consulting/forensic-dlp.html">情報漏えい、マルウェア感染チェック</a>
+  </div>
+  <p>このサービスでは、お客様のネットワーク環境におけるインターネットの出口にトラフィック収集機器を設置して収集したデータや、プロキシサーバのログを、専任のアナリストが情報漏えいの観点で解析します。</p>
+  <p>ラックの独自の知見をもとに調査を行うため、情報窃取型マルウェアやバンキングマルウェアだけでなく、標的型攻撃による不審な通信についても発見・報告した実績がこれまでに多数あります。自組織内のPCにマルウェアの感染がないかを第三者の視点から定期的にチェックするといった「健康診断」としてのご活用をぜひご検討ください。</p>
+  <h3>無料調査ツール「FalconNest」</h3>
+  <p>ラックが無料で提供しているツール「FalconNest」は、不審なファイルを調査する際に役立ちます。</p>
+  <div class="floatLinkBlock01">
+    <a class="learnMoreLink01" href="/solution_product/falconnest.html">無料調査ツール「FalconNest」</a>
+  </div>
+  <p>メールに添付されているファイルがマルウェアか否かを確認したい場合、「マルウェア自動分析機能（Malware Analyzer）」にて調査することができます。</p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_15.png" alt="FalconNestで、Malware Analyzerにて調査を行い、悪性ファイルが検出された画面">
+    <figcaption class="figcaption01">図14 FalconNest（Malware Analyzerの検出例）</figcaption>
+  </figure>
+  <p>また、解析したいファイルをアップロードする際に、「コードインテリジェンス分析を使用する」にチェックを入れることにより、Intezer Analyze<sup>※5</sup>の機能によって、どのマルウェアファミリーに属しているのか分析できます。以下の図15は、解析結果のJSONファイルです。「family」の項目を見ると、AgentTeslaに分類されていることが分かります。</p>
+  <p class="annotation">※5 <a href="https://www.intezer.com/" target="_blank">Intezer - Autonomous Security Operations</a></p>
+  <figure class="figure01">
+    <img src="/lacwatch/img/20220307_002893_16.png" alt="コードインテリジェンス分析の解析結果">
+    <figcaption class="figcaption01">図15 コードインテリジェンス分析の解析結果</figcaption>
+  </figure>
+  <h2 id="s06">まとめ</h2>
+  <p>今回はJSOCの検知傾向に基づいて数種類の情報窃取型マルウェアを解説しましたが、紹介したもの以外にもたくさんの種類があります。XLoaderやSnake Keyloggerなど、比較的新たな情報窃取型マルウェアも登場しており、情報窃取型マルウェアの情勢も変化しつつあります。そのため、これらのマルウェアが既存の製品によって簡単に検知すると油断せず、多層的に対策を行うことが重要です。</p>
+  <p>脅威分析チームは、今後もマルウェアや攻撃キャンペーンについて継続的に調査し、広く情報を提供していきたいと考えていますので、その情報をご活用いただければ幸いです。</p>
+  <p class="taRight">サイバー救急センター　脅威分析チーム<br>
+  （武田 貴寛、松本 拓馬、髙源 武彦）</p>
+  <h2 id="s07">IOC（Indicator Of Compromised）</h2>
+  <h3>AgentTesla（MD5）</h3>
+  <p>d4a2487d6ebebfbfdb0768c990963f3f<br>
+  d1b9a474883c8b76248b2a902b0fff3a<br>
+  480d2cd631b442fcd0ec4dc77076b9b9<br>
+  b4eab6adcac586a4f8c457f121b6e06e<br>
+  bf51a1e00b087a25ec19d22a7ec1a307<br>
+  5d9692630fe462721d302a2f2645aa14<br>
+  a8eff47f0222d50d6c37d6a18ccff543<br>
+  0a3a1385c70ecec991de3baf9ea504e8</p>
+  <h3>FormBook（MD5）</h3>
+  <p>c8d7f9160e60b1db486561b007ab7621<br>
+  14ec4cfb2a55bbd695844c38aec0aabc<br>
+  419b440432ac6a3b9acb14c94c8e63ba<br>
+  57bd2d2933d5c64bca855b90f21887a4<br>
+  9ebbda76067bcea4343c56f37fc8bfc6</p>
+  <h3>XLoader（MD5）</h3>
+  <p>c4832ce0018f0455b27f1b92d1cb3152<br>
+  2281240c80b4635c3e0d17a44142b14a<br>
+  29a2ea2de2e06ff44e764795c83fbba7<br>
+  a0ce2cc7efe495427eb62c4c4ab2d3d2<br>
+  bcde42776b0996bd7ec03be666fbd8c3<br>
+  c9a3d8f7a9dd8083b71ce917f47b3585</p>
+  <h3>LokiBot（MD5）</h3>
+  <p>e6e8630a4ebb748fbff69def4af87869<br>
+  24dd4963d365c33435f58adaebb1ef26<br>
+  ce9243796ed9bb455d7bc29aee7566e9<br>
+  d983e2e5b77b10131ec146dc026f3986<br>
+  573ac4bba0681562c1ed9a00d4aee41e</p>
+<!-- /.sectionType04 --></div>
+<div class="sectionType03">
+  <div class="connectBlock01">
+    <div class="connectIcon01" style="width: 50px"><img src="/common/img/ico_chat01.svg" alt="窓口"></div>
+    <p class="connectHeading01">緊急対応窓口：<br class="onlySP">サイバー救急センター</p>
+<p class="connectTxt taCenter">セキュリティに係るお客様の緊急事態に際し<br>
+迅速にお客様をご支援する緊急対応サービスです。<br>
+緊急事態が発生したら今すぐ「サイバー救急センター」にご相談ください。</p>
+<p class="connectTxt taCenter"><a href="/consulting/cyber119.html" class="linkTxt01">サービスについて</a></p>
+    <p class="connectTxt taCenter"><img src="/consulting/img/cyber119_banner.png" alt="今すぐ「サイバー救急センター」までご連絡ください。TEL:0120-362-119 または メール"></p>
+  <!-- /.connectBlock01 --></div>
+<!-- /.sectionType03 --></div>
+								<!-- /.entryArea --></div>
+								<div class="entryInfoBlock">
+									<div class="entryInfoShare">
+										<div class="entryInfoShareIn">
+											<p class="entryInfoHeading">この記事をシェアする</p>
+											<div class="lacShare01 typeEntryInfo">
+											<ul>
+										<li><a href="https://twitter.com/share?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html&text=%E4%BB%8A%E3%81%95%E3%82%89%E8%81%9E%E3%81%91%E3%81%AA%E3%81%84%EF%BC%81%E6%83%85%E5%A0%B1%E7%AA%83%E5%8F%96%E5%9E%8B%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E5%86%85%E9%83%A8%E5%8B%95%E4%BD%9C%E3%81%A8JSOC%E3%81%AE%E6%A4%9C%E7%9F%A5%E5%82%BE%E5%90%91%20%7C%20LAC%20WATCH" target="_blank" rel="nofollow"><img src="/common/img/ico_share_twitter01.png" alt="Xでシェア"></a></li>
+										<li><a href="https://www.facebook.com/share.php?u=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_facebook01.png" alt="Facebookでシェア"></a></li>
+										<li><a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="nofollow"><img src="/common/img/ico_share_hatebu01.png" alt="はてなブックマークに追加"></a></li>
+										<li class="onlySP"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note01.png" alt="noteで書く"></a></li>
+										<li class="onlyPC"><a href="https://note.com/intent/post?url=https://www.lac.co.jp/lacwatch/report/20220307_002893.html" target="_blank" rel="noopener"><img src="/common/img/ico_share_note02.png" alt="noteで書く"></a></li>
+									</ul>
+											</div>
+										</div>
+									</div>
+									<div class="entryInfoMagazine">
+										<div class="lwInfo01">
+											<div class="lwInfoIn01">
+												<div class="lwInfoTxt01">
+													<p class="lwInfoHeading02">メールマガジン</p>
+													<p class="lwInfoHeading03">サイバーセキュリティや<br>ラックに関する情報を<br class="onlySP">お届けします。</p>
+													<div class="lwInfoBtn01"><a href="https://cp.lac.co.jp/subscription/lacmag" target="_blank" class="btnMedium01">登録する</a></div>
+												<!-- /.topCyberTxt01 --></div>
+											<!-- /.topCyberIn01 --></div>
+										<!-- /.topCyber01 --></div>
+									</div>
+								</div>
+								<div class="sectionType03">
+									<div class="frame01 feedbackBlock">
+										<div class="frameIn01">
+											<p>この記事は役に立ちましたか？</p>
+											<a href="#" class="btnMedium01 gtmIsThisArticleHelpful">はい</a>
+											<a href="#" class="btnMedium01 gtmIsThisArticleHelpful">いいえ</a>
+										<!-- /.frameIn01 --></div>
+									<!-- /.frame01 --></div>
+								<!-- /.sectionType03 --></div>
+								<div class="lacArticleArea02">
+									<div class="lacArticleAreaIn02">
+						<p class="lacArticleHeading02">関連記事</p>
+						<div class="lacRelatedArticle sectionType03">
+							<div class="frame01">
+								<div class="frameIn01">
+									<div class="articleList01">
+										<div class="articleListIn01">
+											<div class="articleListLogo01"><img src="/common/img/logo02.svg" alt="LAC WATCH"></div>
+											<p class="articleListDescription01">関連記事をご紹介します</p>
+											<ul class="articleListList01">
+												<li class="report">
+													<div class="articleListImg01"><a href="/lacwatch/report/20220124_002844.html"><img src="/lacwatch/assets_c/2022/01/thumb_lacwach_002844-thumb-186xauto-10459.jpg" alt=""></a></div>
+													<div class="articleListTxt01">
+														<p class="articleListTitle01">LAC Security Insight 第1号 2021 秋</p>
+														<div class="articleListLink01"><a href="/lacwatch/report/20220124_002844.html">この記事を読む</a></div>
+													</div>
+												</li>
+												<li class="service">
+													<div class="articleListImg01"><a href="/lacwatch/service/20211207_002809.html"><img src="/lacwatch/assets_c/2021/12/thumb_lacwatch_002809-thumb-186xauto-10295.jpg" alt=""></a></div>
+													<div class="articleListTxt01">
+														<p class="articleListTitle01">急増するランサムウェア攻撃、 海外子会社や委託先が標的になるAttack Surfaceとは？</p>
+														<div class="articleListLink01"><a href="/lacwatch/service/20211207_002809.html">この記事を読む</a></div>
+													</div>
+												</li>
+												<li class="alert">
+													<div class="articleListImg01"><a href="/lacwatch/alert/20211119_002801.html"><img src="/lacwatch/assets_c/2021/11/thumb_lacwatch_002801-thumb-186xauto-10243.jpg" alt=""></a></div>
+													<div class="articleListTxt01">
+														<p class="articleListTitle01">【注意喚起】マルウェアEmotetが10カ月ぶりに活動再開、日本も攻撃対象に</p>
+														<div class="articleListLink01"><a href="/lacwatch/alert/20211119_002801.html">この記事を読む</a></div>
+													</div>
+												</li>
+											</ul>
+										<!-- /.articleListIn01 --></div>
+									<!-- /.articleList01 --></div>
+								<!-- /.frameIn01 --></div>
+							<!-- /.frame01 --></div>
+						<!-- /.sectionType03 --></div>
+						<!-- /.lacArticleAreaIn02 --></div>
+									<div class="lacArticleAreaIn02">
+									<p class="lacArticleHeading02">よく読まれている記事</p>
+									<ul class="lacArticleList02">
+										<li class="service">
+											<a href="/lacwatch/service/20231113_003567.html">
+												<div class="lacArticleImg02"><img src="/lacwatch/assets_c/2023/11/thumb_lacwatch_003567-thumb-400xauto-14750.jpg"></div>
+												<div class="lacArticleTxt02">
+													<div class="lacArticleDate02">2023年11月13日　|　サービス・製品</div>
+													<p class="lacArticleTitle02">AWS環境への攻撃シナリオと、脆弱性・脅威の検出に有効なセキュリティ対策</p>
+                                                	<div class="lacArticleAuthor02"><span class="avatar"><img src="/lacwatch/img/pic_author_tarao.jpg" alt="多羅尾 光宣"></span>多羅尾 光宣</div>
+												<!-- /.lacArticleTxt02 --></div>
+											</a>
+										</li>
+										<li class="report">
+											<a href="/lacwatch/report/20231108_003563.html">
+												<div class="lacArticleImg02"><img src="/lacwatch/assets_c/2023/10/thumb_lacwatch_003563-thumb-400xauto-14726.jpg"></div>
+												<div class="lacArticleTxt02">
+													<div class="lacArticleDate02">2023年11月 8日　|　テクニカルレポート</div>
+													<p class="lacArticleTitle02">LAC Security Insight 第6号 2023 秋　止まらないランサムウェアとAPT攻撃</p>
+                                                	<div class="lacArticleAuthor02"><span class="avatar"><img src="/lacwatch/img/pic_author_cyber_security.png" alt="サイバーセキュリティサービス部"></span>サイバーセキュリティサービス部</div>
+												<!-- /.lacArticleTxt02 --></div>
+											</a>
+										</li>
+										<li class="service">
+											<a href="/lacwatch/service/20231030_003551.html">
+												<div class="lacArticleImg02"><img src="/lacwatch/assets_c/2023/10/thumb_lacwatch_003551-thumb-400xauto-14675.jpg"></div>
+												<div class="lacArticleTxt02">
+													<div class="lacArticleDate02">2023年10月30日　|　サービス・製品</div>
+													<p class="lacArticleTitle02">iOSアプリのサイドローディング義務化に適応した、安全なモバイルアプリを開発してみよう！</p>
+                                                	<div class="lacArticleAuthor02"><span class="avatar"><img src="/lacwatch/img/pic_author_yasuda.jpg" alt="安田 良明"></span>安田 良明</div>
+												<!-- /.lacArticleTxt02 --></div>
+											</a>
+										</li>
+									</ul>
+								<!-- /.lacArticleAreaIn02 --></div>
+								<!-- /.lacArticleArea02 --></div>
+							<!-- /.lacEntryArea --></div>
+							<div class="lacAsideArea">
+								<div class="lacAsideAreaIn sticky">
+									<div class="relatedBox">
+										<dl>
+											<dt>関連サービス</dt>
+											<dd><a href="/operation/medr.html">マネージドEDRサービス</a></dd>                  
+											<dd><a href="/consulting/forensic-dlp.html">情報漏えい、マルウェア感染チェック</a></dd>                  
+											<dd><a href="/solution_product/falconnest.html">無料調査ツール「FalconNest」</a></dd>                  
+										</dl>
+									</div>
+								</div>
+							</div>
+						<!-- /.lacBody01 --></div>
+				<!-- /.lwContent --></div>
+			<!-- /.lwWrapper --></div>
+			<div class="lacNavBottom01">
+								<div class="lacNavBottomIn01">
+									<div class="lacNavBottomItem01">
+										<p class="lacNavBottomHeading01">タグ</p>
+                                    	<ul class="lacTagsList01 more">
+											<li class="show"><a href="/lacwatch/security/">セキュリティ</a></li>
+											<li class="show"><a href="/lacwatch/education/">人材開発・教育</a></li>
+											<li class="show"><a href="/lacwatch/system/">システム開発</a></li>
+											<li class="show"><a href="/lacwatch/app_development/">アプリ開発</a></li>
+											<li class="show"><a href="/lacwatch/mobileapp/">モバイルアプリ</a></li>
+											<li class="show"><a href="/lacwatch/dx/">DX</a></li>
+											<li class="show"><a href="/lacwatch/ai/">AI</a></li>
+											<li class="show"><a href="/lacwatch/cyberattack/">サイバー攻撃</a></li>
+											<li class="show"><a href="/lacwatch/cybercrime/">サイバー犯罪</a></li>
+											<li class="show"><a href="/lacwatch/targeted_attack/">標的型攻撃</a></li>
+											<li class="show"><a href="/lacwatch/vulnerability/">脆弱性</a></li>
+											<li class="show"><a href="/lacwatch/workstyle/">働き方改革</a></li>
+											<li class="show"><a href="/lacwatch/citizenship/">企業市民活動</a></li>
+											<li class="show"><a href="/lacwatch/attack_group/">攻撃者グループ</a></li>
+											<li class="show"><a href="/lacwatch/jsoc/">JSOC</a></li>
+											<li class="show more js_lacTagsListMore"><a href="#">もっと見る +</a></li>
+											<li><a href="/lacwatch/jsoc_insight/">JSOC INSIGHT</a></li>
+											<li><a href="/lacwatch/cyber119/">サイバー救急センター</a></li>
+											<li><a href="/lacwatch/cyber119_report/">サイバー救急センターレポート</a></li>
+											<li><a href="/lacwatch/lsi/">LAC Security Insight</a></li>
+											<li><a href="/lacwatch/security_diagnostic_report/">セキュリティ診断レポート</a></li>
+											<li><a href="/lacwatch/cyber_grid_journal/">CYBER GRID JOURNAL</a></li>
+											<li><a href="/lacwatch/cyber_grid_view/">CYBER GRID VIEW</a></li>
+											<li><a href="/lacwatch/academy/">ラックセキュリティアカデミー</a></li>
+											<li><a href="/lacwatch/sugoude/">すごうで</a></li>
+											<li><a href="/lacwatch/ransomware/">ランサムウェア</a></li>
+											<li><a href="/lacwatch/zerotrust/">ゼロトラスト</a></li>
+											<li><a href="/lacwatch/sase/">SASE</a></li>
+											<li><a href="/lacwatch/digital_identity/">デジタルアイデンティティ</a></li>
+											<li><a href="/lacwatch/informationsystem/">情シス向け</a></li>
+											<li><a href="/lacwatch/talk/">対談</a></li>
+											<li><a href="/lacwatch/tech_crawling/">Tech Crawling</a></li>
+											<li><a href="/lacwatch/lac_advisory/">LAC Advisory</a></li>
+											<li><a href="/lacwatch/jvn/">JVN</a></li>
+											<li><a href="/lacwatch/indicator_of_compromised/">IOC</a></li>
+											<li><a href="/lacwatch/cloud/">クラウド</a></li>
+											<li><a href="/lacwatch/agile/">アジャイル開発</a></li>
+											<li><a href="/lacwatch/devsecops/">DevSecOps</a></li>
+											<li><a href="/lacwatch/owasp/">OWASP</a></li>
+											<li><a href="/lacwatch/ctf/">CTF</a></li>
+											<li><a href="/lacwatch/falconnest/">FalconNest</a></li>
+											<li><a href="/lacwatch/security_diagnosis/">セキュリティ診断</a></li>
+											<li><a href="/lacwatch/supply_chain_risk/">サプライチェーンリスク</a></li>
+											<li><a href="/lacwatch/threat_intelligence/">スレットインテリジェンス</a></li>
+											<li><a href="/lacwatch/telework/">テレワーク</a></li>
+											<li><a href="/lacwatch/remote_desktop/">リモートデスクトップ</a></li>
+											<li><a href="/lacwatch/architect/">アーキテクト</a></li>
+											<li><a href="/lacwatch/plus_security/">プラス・セキュリティ人材</a></li>
+											<li><a href="/lacwatch/cooperation/">官民学・業界連携</a></li>
+											<li><a href="/lacwatch/customer_story/">カスタマーストーリー</a></li>
+											<li><a href="/lacwatch/shirahama/">白浜シンポジウム</a></li>
+											<li><a href="/lacwatch/code_blue/">CODE BLUE</a></li>
+											<li><a href="/lacwatch/moral/">情報モラル</a></li>
+											<li><a href="/lacwatch/club/">クラブ活動</a></li>
+											<li><a href="/lacwatch/beginner/">初心者向け</a></li>
+											<li><a href="/lacwatch/hobby/">趣味</a></li>
+											<li><a href="/lacwatch/culture/">カルチャー</a></li>
+											<li><a href="/lacwatch/life/">子育て、生活</a></li>
+											<li><a href="/lacwatch/marketing/">広報・マーケティング</a></li>
+											<li><a href="/lacwatch/corporate/">コーポレート</a></li>
+											<li><a href="/lacwatch/writer/">ライター紹介</a></li>
+											<li><a href="/lacwatch/ir/">IR</a></li>
+										</ul>
+									<!-- /.lacNavBottomItem01 --></div>
+								<!-- /.lacNavBottomIn01 --></div>
+							<!-- /.lacNavBottom01 --></div>
+		<!-- /.content --></div>
+<div class="footerArea">
+			<footer class="footer">
+				<div class="footerTop">
+					<div class="footerIn">
+						<div class="fNavi03">
+							<ul class="fNaviList02 typeLW">
+								<li class="typeImg"><a href="/lacwatch/"><img src="/common/img/logo_lw02.svg" alt="LAC WATCH"></a></li>
+							</ul>
+							<ul class="fNaviList02">
+								<li><a href="/lacwatch/alert/">注意喚起</a></li>
+								<li><a href="/lacwatch/report/">テクニカルレポート</a></li>
+								<li><a href="/lacwatch/service/">サービス・製品</a></li>
+								<li><a href="/lacwatch/event/">イベント・セミナー</a></li>
+								<li><a href="/lacwatch/casestudy/">導入事例</a></li>
+								<li><a href="/lacwatch/people/">ラックピープル</a></li>
+								<li><a href="/lacwatch/media/">広報情報</a></li>
+								<li><a href="/lacwatch/announce/">お知らせ</a></li>
+							</ul>
+							<ul class="fNaviList03">
+								<li><a href="/">企業サイトへ</a></li>
+								<li><a href="/alert_faq.html">注意喚起情報FAQ</a></li>
+								<li><a href="/contact.html">お問い合わせ</a></li>
+							</ul>
+						<!-- /.fNavi02 --></div>
+					<!-- /.footerIn --></div>
+				</div>
+				<div class="footerBottom">
+					<div class="footerIn">
+						<div class="fNavi03">
+							<ul class="fNaviList04">
+                         　　　 <li><a href="/disclaimer.html">免責条項</a></li>
+								<li><a href="/security_info.html">情報セキュリティ基本方針</a></li>
+								<li><a href="/privacy/personal_data_mynumber.html">特定個人情報についての基本方針</a></li>
+								<li><a href="/privacy/">個人情報保護方針</a></li>
+								<li><a href="/privacy/personal_data.html">個人情報の取り扱いについて</a></li>
+								<li><a href="/solicitation.html">勧誘方針</a></li>
+								<li><a href="/environment.html">環境方針</a></li>
+								<li><a href="/trademark.html">当社商標の使用に関するガイドライン</a></li>
+								<li><a href="/notice.html">サイトのご利用条件</a></li>
+								<li><a href="/sitemap.html">サイトマップ</a></li>
+							</ul>
+						<!-- /.fNavi03 --></div>
+						<div class="copyright"><small>&copy; 1995 LAC Co., Ltd.</small></div>
+						<!-- /.footerIn --></div>
+				<!-- /.footerBottom --></div>
+			<!-- /.footer --></footer>
+			<p class="pagetop js-goto-pagetop"><a href="#top"><span>page top</span></a></p>
+		<!-- /.footerArea --></div>
+	<!-- /.wrapperIn --></div>
+<!-- /.wrapper --></div>
+<script src="/common/js/jquery.js"></script>
+<script src="/common/js/jquery.ba-throttle-debounce.min.js"></script>
+<script src="/common/js/jquery.easing.1.3.js"></script>
+<script src="/common/js/js_cookie.js"></script>
+<script src="/common/js/common.js"></script>
+<script src="/common/js/purify.min.js"></script>
+<script src="/common/js/mustache.min.js"></script>
+<script src="/common/js/gdpr_consensus.js"></script>
+<script src="/common/js/ir_news.js"></script>
+<script src="https://ssl4.eir-parts.net/V4Public/EIR/3857/ja/announcement/announcement_14.js"></script>
+<script src="https://site-search.movabletype.net/v1/assets/23464/js/search.js" id="mt-site-search-script" async defer></script>
+<script src="/common/js/slick.min.js"></script>
+<script src="/common/js/ofi.min.js"></script>
+<script src="/common/js/stickyfill.min.js"></script>
+<script>
+    var elem = document.querySelectorAll('.sticky');
+    Stickyfill.add(elem);
+</script>
+<script src="/lacwatch/js/lacwatch.js"></script>
+<script src="/common/plugins/google-code-prettify/prettify.js"></script> 
+<script>
+  window.addEventListener("load", function() {
+    PR.prettyPrint();
+  });
+</script>
+<!-- facebook -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.7";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- twitter -->
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+</body>
+</html>

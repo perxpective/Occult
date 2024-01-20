@@ -1,0 +1,1384 @@
+<!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" > <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en" >        <![endif]--><!--[if IE 8]>    <html class="no-js lt-ie9" lang="en" >               <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Cybereason Global SOC Team">
+    <meta name="description" content="Learn how attackers embed malicious binaries in legitimate Microsoft Windows Installation (.msi). Find out how to detect this sophisticated technique.">
+    <meta name="generator" content="HubSpot">
+    <title>Threat Analysis: MSI - Masquerading as a Software Installer</title>
+    <link rel="shortcut icon" href="https://www.cybereason.com/hubfs/cr-favicon-1.png">
+    
+
+    
+    <meta property="og:description" content="Learn how attackers embed malicious binaries in legitimate Microsoft Windows Installation (.msi). Find out how to detect this sophisticated technique.">
+    <meta property="og:title" content="Threat Analysis: MSI - Masquerading as a Software Installer">
+    <meta name="twitter:description" content="Learn how attackers embed malicious binaries in legitimate Microsoft Windows Installation (.msi). Find out how to detect this sophisticated technique.">
+    <meta name="twitter:title" content="Threat Analysis: MSI - Masquerading as a Software Installer">
+
+    
+
+    
+    <style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41681847227/1644941386203/module_41681847227_CR_-_Malicious_Life_Network_--_Tier_One_Header.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41682410610/1644941443237/module_41682410610_CR_-_Malicious_Life_Network_--_Main_Hero.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/43300360745/1649424828375/module_43300360745_CR_-_Malicious_Life_Network_--_Related_Posts.min.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/1669911113479/module_86933076631_CR_-_Sticky_CTA_Bar.css">
+<link rel="stylesheet" href="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/34473990280/1681829697586/module_34473990280_CR_-_Footer_Full__en_US.min.css">
+    
+
+    
+<!--  Added by GoogleAnalytics integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+_hsp.push(['addPrivacyConsentListener', function(consent) { if (consent.allowed || (consent.categories && consent.categories.analytics)) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create','UA-56367941-1','auto');
+  ga('send','pageview');
+}}]);
+</script>
+
+<!-- /Added by GoogleAnalytics integration -->
+
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-PZ3FE06790');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PZ3FE06790"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TJVVB7C');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+
+<!-- /Added by GoogleTagManager integration -->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://use.typekit.net/vyv2ljd.js"></script>
+<script>try{Typekit.load({ async: false });}catch(e){}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preload" href="/hubfs/__dam/fonts/ionicons.eot" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/criteria/Criteria-CF-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/criteria/Criteria-CF-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/hubfs/dam/fonts/peristyle/Peristyle-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="amphtml" href="https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer?hs_amp=true">
+
+<meta property="og:image" content="https://www.cybereason.com/hubfs/MSI%20Masquerading%20as%20a%20Malicious%20Software%20Installer%20blog.png#keepProtocol">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+
+<meta name="twitter:image" content="https://www.cybereason.com/hubfs/MSI%20Masquerading%20as%20a%20Malicious%20Software%20Installer%20blog.png#keepProtocol">
+
+
+<meta property="og:url" content="https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer">
+
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="https://www.cybereason.com/blog/rss.xml">
+<meta name="twitter:domain" content="www.cybereason.com">
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+
+<meta http-equiv="content-language" content="en">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/7052064/hub_generated/template_assets/1703783682053/hubspot/hubspot_default/shared/responsive/layout.min.css">
+
+
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470223313/1696396395659/__CR_Web_Platform/CSS/cr-master__cta.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470477360/1691993938188/__CR_Web_Platform/CSS/cr-master__main.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/35275979682/1642096258129/__CR_Web_Platform/CSS/ionicons.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42760289143/1663004429410/__CR_Web_Platform/CSS/cr-mln__build.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/34470224480/1635957556830/__CR_Web_Platform/CSS/bulma/cr-framework__bulma-columns.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/35291999472/1696396871390/__CR_Web_Platform/CSS/bulma/cr-framework__bulma.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42363645447/1635957556555/__CR_Web_Platform/CSS/hamburger-animation.min.css">
+<link rel="stylesheet" href="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42507091846/1635957557027/__CR_Web_Platform/CSS/animate.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="/hubfs/dam/plugins/marker-animation.js"></script>
+<script>
+$(document).ready(function() {
+  $('.highlight').markerAnimation({
+    "color":'var(--cr-yellow)',
+    "font_weight":'normal',
+    "background-size": '200% 1.2em'
+  });
+});
+</script>
+
+    <style>
+.cr-mln__blog-post .container-is-blog.cr-mln__blog-post--body .column:first-of-type p img {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px;
+} 
+</style>
+
+</head>
+<body class="   hs-content-id-93542865026 hs-blog-post hs-blog-id-5272851739" style="">
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJVVB7C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- /Added by GoogleTagManager integration -->
+
+    <div class="header-container-wrapper">
+    <div class="header-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1615433790649568" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><section id="cr-malicious-life-network__tier-one-header" class="position-flex">
+  <div class="#">
+    <div id="logo"><a href="https://www.cybereason.com"><img src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-logo-inline--primary-black.png"></a></div>
+    <div id="back-to">
+      <a href="https://www.cybereason.com">Back to <span>Cybereason.com</span></a>
+    </div>
+    <!-- Hamburger Menu -->
+    <button class="hamburger hamburger--collapse" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="cr-mln__hamburger-menu--overlay">
+      <ul>
+        <li><a href="https://www.cybereason.com/blog/all"><span class="underline">All Posts</span></a></li>
+        <li><a href="/blog/category/research"><span class="underline">Research</span></a></li>
+        <li><a href="/blog/category/podcasts"><span class="underline">Podcasts</span></a></li>
+        <li><a href="/blog/category/webinars"><span class="underline">Webinars</span></a></li>
+        <li><a href="/blog/category/resources"><span class="underline">Resources</span></a></li>
+        <li><a href="/blog/category/videos"><span class="underline">Videos</span></a></li>
+        <li><a href="/blog/category/news"><span class="underline">News</span></a></li>
+      </ul>
+      <div class="subscribe">
+        <a href="#blog-subscribe">Subscribe</a>
+      </div>
+    </div>
+    <!-- -->
+  </div>
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget mln-homepage" style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1615433785464566" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><section class="cr-malicious-life-network__hero-main base">
+  <div class="container-is-blog columns hero-content page-center">
+    <div class="column is-5-fullhd is-5-desktop is-12-touch">
+      <a href="/blog"><img class="cr-mln-logo" src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-malicious-life-logo-v2.png"></a>
+    </div>
+    <div class="column is-7-fullhd is-7-desktop is-hidden-mobile is-hidden-tablet-only">
+      <div class="cr-mln__search-subscribe">
+        <div class="cr-mln__search">
+          <a href="#cr-search-modal" class="search-btn"><img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/cr-blog-icon--search-dark-gray.png" alt="Search"></a>
+        </div>
+        <div class="cr-mln__subscribe">
+          <a class="btn-subscribe" href="#blog-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <div class="cr-mln__category-nav">
+        <ul>
+          <li><a href="/blog/category/all"><span class="underline">All</span></a></li>
+          <li><a href="/blog/category/research"><span class="underline">Research</span></a></li>
+          <li><a href="/blog/category/podcasts"><span class="underline">Podcasts</span></a></li>
+          <li><a href="/blog/category/webinars"><span class="underline">Webinars</span></a></li>
+          <li><a href="/blog/category/resources"><span class="underline">Resources</span></a></li>
+          <li><a href="/blog/category/videos"><span class="underline">Videos</span></a></li>
+          <li><a href="/blog/category/news"><span class="underline">News</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+      <!-- MOBILE Search and Subscribe -->
+      <div class="container-is-blog columns is-gapless is-hidden-desktop cr-mln__search-subscribe--mobile">
+        <div class="column">
+          <a class="search-btn">Search</a>
+        </div>
+        <div class="column">
+          <a class="#" href="#blog-subscribe">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- END MOBILE Search and Subscribe -->
+  
+  <!-- SEARCH Modal Wrap -->
+
+  <div id="cr-search-modal">
+        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
+        <div id="btn-close-modal" class="close-cr-search-modal"> 
+            X
+        </div>
+
+        <div class="modal-content">
+            <div class="container columns">
+              <div class="column">
+                <div class="cr-search-modal__search-bar">
+                  <h3>Search</h3>
+                  <form action="/hs-search-results">
+                    <input type="search" class="hs-search-field__input" name="term" autocomplete="on" placeholder="Search...">
+                    <input type="hidden" name="type" value="BLOG_POST">
+                    <input type="hidden" name="type" value="LISTING_PAGE">
+                    <button type="submit" class="arrow"></button>
+                  </form>
+                  
+                </div>
+
+              </div>
+          </div>
+        </div>
+    </div>
+  <!-- END Search Modal Wrap -->
+
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end header -->
+</div><!--end header wrapper -->
+
+<div class="body-container-wrapper">
+    <div class="body-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-blog_content " style="" data-widget-type="blog_content" data-x="0" data-w="12">
+
+
+
+
+
+
+
+<div class="cr-mln__blog-post">
+  <div class="container-is-blog columns is-multiline page-center">
+
+    <div class="column is-8-fullhd is-8-desktop is-offset-2-fullhd is-offset-2-desktop is-10-tablet is-offset-1-tablet">
+      <div class="featured-image"><img src="https://www.cybereason.com/hubfs/MSI%20Masquerading%20as%20a%20Malicious%20Software%20Installer%20blog.png" alt=""></div>
+      <h1><span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">Threat Analysis: MSI - Masquerading as a Software Installer</span></h1>
+      <div class="cr-mln__post-author-share">
+      <div id="hubspot-author_data" class="hubspot-editable cr-mln__post-meta" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+        
+          <span class="descriptor">Written By</span>
+          <p><span class="author">Cybereason Global SOC Team</span></p>
+         
+      </div>
+    </div>
+     
+    </div>
+    
+    <!-- Sticky Author and Social Box -->
+    
+    <!-- END Sticky Author and Social Box -->
+      <div class="container-is-blog columns is-multiline page-center cr-mln__blog-post--body">
+        
+        <div class="column is-7-fullhd is-7-desktop is-10-tablet is-10-mobile is-offset-1-fullhd is-offset-1-desktop is-offset-1-tablet is-offset-1-mobile">
+          <span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><p>The Cybereason Global Security Operations Center (GSOC) issues a Purple Team Series of its Threat Analysis reports to provide a technical overview of the technologies and techniques threat actors use to compromise victims’ machines.&nbsp;</p>
+<!--more-->
+<p>In this Threat Analysis report, the Cybereason GSOC team analyzes a technique that utilizes Microsoft’s Windows Installation file (.msi) to compromise victims’ machines.&nbsp;&nbsp;</p>
+<p>This report is divided into four sections:&nbsp;</p>
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li>
+<p>Introduction: An overview of the MSI file format.</p>
+</li>
+<li>
+<p>Red Team: Offensive approach leveraging MSI files for attacking purposes.</p>
+</li>
+<li>
+<p>Blue Team: Defenders' perspective, studying how MSI files are exploited by threat actors.&nbsp;</p>
+</li>
+<li>
+<p>Purple Team: Detection proposals for possible malicious MSI files and analysis tools.&nbsp;</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2>KEY POINTS</h2>
+<ul>
+<li aria-level="1"><strong>Masquerade as legitimate installer</strong>: Malicious MSI files are sometimes difficult to distinguish from legitimate installers. Threat actors will often masquerade as well-known software updates and manipulate victims into “updating” the software on their machines.&nbsp;&nbsp;</li>
+</ul>
+<ul>
+<li aria-level="1"><strong>Execute with elevated privilege</strong>: MSI allows execution with a LocalSystem account (NT Authority\System). The unauthorized access via LocalSystem privilege can lead to compromise of the system and to further network compromise.&nbsp;</li>
+</ul>
+<ul>
+<li aria-level="1"><span style="font-weight: bold;">Numerous ways to exploit MSI</span>: MSI is based on <a href="https://docs.microsoft.com/en-us/windows/win32/stg/about-structured-storage">COM Structure Storage</a>, which allows threat actors to store malicious files in a MSI file and to control stored files with custom actions. This technology gives threat actors a variety of options for execution patterns they can use to infect victims’ machines.&nbsp;</li>
+</ul>
+<h2>INTRODUCTION</h2>
+<p>This chapter explains the fundamentals of Windows Installer packages (MSI).</p>
+<h3>Overview</h3>
+<p>MSI, formerly known as <a href="https://web.archive.org/web/20090115213653/http://blogs.msdn.com/robmen/archive/2003/11/25/56510.aspx">Microsoft Installer</a>, is a Windows installer package format. MSI allows for the installation and deployment of necessary Windows applications or packages to end-users’ machines. MSI is a standardized installation method that simplifies the installation process for users. The installation process with MSI files is simple and often does not require much user interaction. Usually, the installation process with MSI is similar to running an executable.&nbsp;</p>
+<p>MSI utilizes Microsoft’s technology COM Structured Storage, which allows an MSI file to have a file system structure. This technology is also referred to as OLE documents, components often used by Microsoft Office. This technology is constructed with two types of objects called storage and streams, which are conceptually similar to directories and files. This structure allows MSI components to store multiple files to allow for easy access.</p>
+<p>The ability to store and deploy necessary files with minimal user action makes this technology similar to self-extracting zip files, which are often in the form of executables.&nbsp;&nbsp;</p>
+<p>The installation procedure also allows execution with a LocalSystem account (NT Authority\System). The elevated privilege behavior as well as the COM Structure makes MSI an attractive malware deployment method for threat actors.&nbsp;&nbsp;</p>
+<h3>Structure</h3>
+<p>MSI contains a main stream called a Database stream. This section provides an overview of the Database stream and its relevant components.&nbsp;</p>
+<h4>Database</h4>
+<p>The Database stream consists of tables that form a relational database. These tables are linked with primary and foreign key values. This structure allows MSI to maintain relationships between the different tables and contain basic information required to perform the installation.&nbsp;&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=897&amp;height=544&amp;name=MSI%20Blog%20Image%201%20DB.png" alt="MSI Blog Image 1 DB" width="897" height="544" loading="lazy" style="height: auto; max-width: 100%; width: 897px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=449&amp;height=272&amp;name=MSI%20Blog%20Image%201%20DB.png 449w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=897&amp;height=544&amp;name=MSI%20Blog%20Image%201%20DB.png 897w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=1346&amp;height=816&amp;name=MSI%20Blog%20Image%201%20DB.png 1346w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=1794&amp;height=1088&amp;name=MSI%20Blog%20Image%201%20DB.png 1794w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=2243&amp;height=1360&amp;name=MSI%20Blog%20Image%201%20DB.png 2243w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%201%20DB.png?width=2691&amp;height=1632&amp;name=MSI%20Blog%20Image%201%20DB.png 2691w" sizes="(max-width: 897px) 100vw, 897px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Database stream, representing primary/foreign key relationships</em></span></p>
+<p>The information within each table has important roles for the installation, such as tables storing information on installing software applications.&nbsp;</p>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/file-table">File</a>: Metadata of installing application files.&nbsp;</li>
+</ul>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/registry-table">Registry</a>: Registry key values of installing applications.&nbsp;</li>
+</ul>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/shortcut-table">Shortcut</a>: Shortcuts of relevant installing applications.<br><br></li>
+</ul>
+<p>Other tables include information about package executions of the installation and execution sequences. These tables are crucial for MSI to determine the execution flow, as well as the exact actions needed for the installation. The tables allow developers to manipulate the installation process and allow installation to have complex logic. The installation logic is often manipulated with Actions and Sequences.&nbsp;</p>
+<h4>Actions</h4>
+<p>The MSI contains a set of subroutines to execute the installation. These routines are divided into two types:&nbsp;</p>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/standard-actions">Standard Actions</a>: These are built-in actions that allow developers to perform the installation. Some notable actions include the following–</li>
+<ul>
+<li aria-level="2">Initialize installation directories</li>
+<li aria-level="2">Drop files to the installation directories</li>
+<li aria-level="2">Add a registry value for the installing softwares&nbsp;</li>
+</ul>
+</ul>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-actions">Custom Actions</a>: Standard Actions may not be enough for developers to execute the installation logic. Custom actions allow developers to embed logic outside of Standard Actions by executing specific binary or scripts during the installation. Some notable custom actions include the following–</li>
+</ul>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li aria-level="2">Execute executables stored within the MSI file</li>
+<li aria-level="2">Execute specific exported functions from DLLs&nbsp;</li>
+<li aria-level="2">Execute JavaScript or Visual Basic scripts<br><br></li>
+</ul>
+</li>
+</ul>
+<p>The above actions can be manipulated by utilizing <a href="https://learn.microsoft.com/en-us/windows/win32/msi/properties">Properties</a>, which are similar to environment variables. Properties often contain various data and control parameters required to execute certain actions, including:&nbsp;</p>
+<ul>
+<li aria-level="1">A flag which identifies if reboot is needed</li>
+<li aria-level="1">Installation directory</li>
+<li aria-level="1">System information</li>
+<li aria-level="1">Control information on installation<br><br></li>
+</ul>
+<p>The Property table exists within the Database Stream. However, note that not all properties are stored in the Property table. Since some Properties are set during the installation in specific actions, Properties that are set dynamically may not be in the Property table.&nbsp;</p>
+<h4>Sequences</h4>
+<p>Developers can set the order in which Standard Actions and Custom Actions are executed in the <a href="https://learn.microsoft.com/en-us/windows/win32/msi/using-a-sequence-table">Sequence</a> table. Within the Sequence table, they can assign conditions to control the actions’ behavior.&nbsp;</p>
+<p>There are two main types of sequences:</p>
+<ul>
+<li aria-level="1">Install UI Sequence - This refers to the sequence of actions for installation UI, which includes user interactions with the dialog.</li>
+</ul>
+<ul>
+<li aria-level="1">Install Execute Sequence - This refers to the sequence of actions for actual installation execution, such as dropping files and creating registry entries. When conducting silent installation, the Install UI Sequence is ignored and only the Install Execute Sequence is used.<br><br></li>
+</ul>
+<p>For this report, the focus will be on the Install Execute Sequence, since this table is most relevant to the actual installation behavior.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=1049&amp;height=588&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png" alt="MSI Blog Image 2 Custom Action" width="1049" height="588" loading="lazy" style="height: auto; max-width: 100%; width: 1049px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=525&amp;height=294&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 525w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=1049&amp;height=588&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 1049w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=1574&amp;height=882&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 1574w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=2098&amp;height=1176&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 2098w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=2623&amp;height=1470&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 2623w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%202%20Custom%20Action.png?width=3147&amp;height=1764&amp;name=MSI%20Blog%20Image%202%20Custom%20Action.png 3147w" sizes="(max-width: 1049px) 100vw, 1049px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Example MSI database tables layout and its relations</em></span></p>
+<h2>Red Team</h2>
+<p>This section describes how to reproduce the staging of a malicious MSI file, in order to analyze it and build detections for it. Similar to archived files, an MSI file can contain various malicious binaries or scripts to conduct its malicious actions.&nbsp;</p>
+<p>In this section, the MSI file will reference the MSFVenom template with minor updates. However the section will focus more on the inner workings of MSI file format.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=903&amp;height=633&amp;name=MSI%20Blog%20Image%203.jpg" alt="MSI Blog Image 3" width="903" height="633" loading="lazy" style="height: auto; max-width: 100%; width: 903px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=452&amp;height=317&amp;name=MSI%20Blog%20Image%203.jpg 452w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=903&amp;height=633&amp;name=MSI%20Blog%20Image%203.jpg 903w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=1355&amp;height=950&amp;name=MSI%20Blog%20Image%203.jpg 1355w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=1806&amp;height=1266&amp;name=MSI%20Blog%20Image%203.jpg 1806w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=2258&amp;height=1583&amp;name=MSI%20Blog%20Image%203.jpg 2258w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%203.jpg?width=2709&amp;height=1899&amp;name=MSI%20Blog%20Image%203.jpg 2709w" sizes="(max-width: 903px) 100vw, 903px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Malicious MSI execution flow</em></span></p>
+<p>MSI files can allow attackers to embed malicious binaries or scripts and take over the machine with elevated privileges. To demonstrate this, a malicious stager binary is embedded into an MSI file, which later fetches and executes the payload from the C2 server.&nbsp;</p>
+<p>The overall flow is as follows:&nbsp;</p>
+<ol>
+<li>Execute the MSI file.</li>
+<li>Execute the embedded binary.&nbsp;</li>
+<li>Execute the stager shellcode.&nbsp;</li>
+<li>Fetch and execute the payload from a C2 server.&nbsp;</li>
+<li>Terminate installation.&nbsp;<br><br></li>
+</ol>
+<p>The main usage here is to execute any relevant binary within memory without dropping any files to the disk.&nbsp;</p>
+<h3>Preparation</h3>
+<p>In this section, we show how MSI files can be created using the Windows Installer XML(WiX) toolset. This is free software for building Windows Installer packages from XML files.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=1517&amp;height=287&amp;name=MSI%20Blog%20Image%204.png" alt="MSI Blog Image 4" width="1517" height="287" loading="lazy" style="height: auto; max-width: 100%; width: 1517px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=759&amp;height=144&amp;name=MSI%20Blog%20Image%204.png 759w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=1517&amp;height=287&amp;name=MSI%20Blog%20Image%204.png 1517w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=2276&amp;height=431&amp;name=MSI%20Blog%20Image%204.png 2276w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=3034&amp;height=574&amp;name=MSI%20Blog%20Image%204.png 3034w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=3793&amp;height=718&amp;name=MSI%20Blog%20Image%204.png 3793w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%204.png?width=4551&amp;height=861&amp;name=MSI%20Blog%20Image%204.png 4551w" sizes="(max-width: 1517px) 100vw, 1517px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>WXS file content, showing Stager and ExitInstallation Custom Actions</em></span></p>
+<p>The executable needs to be stored in a table where it can be accessed by the <a href="https://wixtoolset.org/documentation/manual/v3/xsd/wix/customaction.html">CustomAction</a> element prior to its execution. The <a href="https://wixtoolset.org/documentation/manual/v3/xsd/wix/binary.html">Binary</a> table is often used to place animations, bitmaps, and icons; however it also allows the MSI to store relevant binary data needed for CustomAction, even malicious PE files and scripts.</p>
+<p><em>Id</em> assigns unique identifiers to the elements, which developers can call and utilize for specific actions. The MyStager id is assigned to the malicious executable stager.exe. This executable will allocate and execute stager shellcode.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=1410&amp;height=99&amp;name=MSI-Blog-Image%204-cropped.png" alt="MSI-Blog-Image 4-cropped" width="1410" height="99" loading="lazy" style="height: auto; max-width: 100%; width: 1410px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=705&amp;height=50&amp;name=MSI-Blog-Image%204-cropped.png 705w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=1410&amp;height=99&amp;name=MSI-Blog-Image%204-cropped.png 1410w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=2115&amp;height=149&amp;name=MSI-Blog-Image%204-cropped.png 2115w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=2820&amp;height=198&amp;name=MSI-Blog-Image%204-cropped.png 2820w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=3525&amp;height=248&amp;name=MSI-Blog-Image%204-cropped.png 3525w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped.png?width=4230&amp;height=297&amp;name=MSI-Blog-Image%204-cropped.png 4230w" sizes="(max-width: 1410px) 100vw, 1410px"></p>
+<p style="text-align: center;"><em><span style="font-size: 16px; color: #434343;">Binary</span></em><span style="font-size: 16px; color: #434343;"> and <em>CustomAction</em> <em>elements</em></span></p>
+<p>The MyStager binary element is followed by a CustomAction element with Id Stager. This is the key element that will decide the behavior of the MyStager.&nbsp;</p>
+<p>Each attribute from the configuration of CustomAction is described below:</p>
+<ul>
+<li aria-level="1">BinaryKey: Attribute which specifies Binary element ID.</li>
+<li aria-level="1">Impersonate: Attribute which specifies if the installer impersonates the installing user’s context. If attribute is no, then the installer will be executed with elevated privileges (LocalSystem).&nbsp;</li>
+<li aria-level="1">Execute: Attribute which specifies the scheduling of the CustomAction. The parameter “<a href="https://docs.microsoft.com/en-us/windows/win32/msi/deferred-execution-custom-actions">deferred</a>” will delay the execution and allow the developer to control the specific CustomAction. This is the only value that allows the execution to run in elevated privileges.&nbsp;</li>
+<li aria-level="1">Return: Attribute which specifies the return behavior of CustomAction. asyncNoWait value allows the CustomAction to be executed asynchronously from the installer.&nbsp;</li>
+<li aria-level="1">ExeCommand: Attribute which specifies arguments for the executable.&nbsp;</li>
+</ul>
+<p>The CustomAction Stager is set up to execute the malicious executable stored in the Binary table with elevated privileges and to continue executing even after installation is terminated.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=1517&amp;height=197&amp;name=MSI-Blog-Image%204-cropped-b.png" alt="MSI-Blog-Image 4-cropped-b" width="1517" height="197" loading="lazy" style="height: auto; max-width: 100%; width: 1517px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=759&amp;height=99&amp;name=MSI-Blog-Image%204-cropped-b.png 759w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=1517&amp;height=197&amp;name=MSI-Blog-Image%204-cropped-b.png 1517w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=2276&amp;height=296&amp;name=MSI-Blog-Image%204-cropped-b.png 2276w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=3034&amp;height=394&amp;name=MSI-Blog-Image%204-cropped-b.png 3034w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=3793&amp;height=493&amp;name=MSI-Blog-Image%204-cropped-b.png 3793w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI-Blog-Image%204-cropped-b.png?width=4551&amp;height=591&amp;name=MSI-Blog-Image%204-cropped-b.png 4551w" sizes="(max-width: 1517px) 100vw, 1517px"></p>
+<p style="text-align: center;"><em><span style="font-size: 16px; color: #434343;">CustomAction ExitInstallation</span></em></p>
+<p>After the MyStager setup, another CustomAction ExitInstallation is set to attempt executing VBScript. However, this execution will purposely fail and exit since this installation will not contain relevant VBScript. This CustomAction has another purpose which will be explained in the next paragraph.&nbsp;</p>
+<p>Once the CustomActions are set, the element InstallExecuteSequence, an Install Execute Sequence table, is set. For its first action, ResolveSource sets the source location and sourcedir property. This is needed to initialize the installation process. Once initialization is complete, the relevant CustomActions Stager and ExitInstallation will be set for the execution in this order respectively.&nbsp;</p>
+<p>ExitInstallation plays an important role in this execution, which will force the installation to purposely fail and exit. This then forces the MSI to exit with a failure. However, the malicious binary will continue executing since it is set up to run asynchronously. The victim may disregard this error and may not take into account that malicious activities are running in the background.&nbsp;</p>
+<h3>Execution</h3>
+<p>The execution in this section assumes the victim retrieves the MSI file via phishing email. Once the file is deployed onto the victim’s machine, the victim executes the MSI file by simply double-clicking. The execution prompts with a UAC warning, as execution is performed by a high-privilege user. Once the UAC warning is accepted by the user, the execution will proceed with the usual installation process.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=260&amp;height=93&amp;name=MSI%20Blog%20Image%207.png" alt="MSI Blog Image 7" width="260" height="93" loading="lazy" style="height: auto; max-width: 100%; width: 260px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=130&amp;height=47&amp;name=MSI%20Blog%20Image%207.png 130w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=260&amp;height=93&amp;name=MSI%20Blog%20Image%207.png 260w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=390&amp;height=140&amp;name=MSI%20Blog%20Image%207.png 390w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=520&amp;height=186&amp;name=MSI%20Blog%20Image%207.png 520w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=650&amp;height=233&amp;name=MSI%20Blog%20Image%207.png 650w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%207.png?width=780&amp;height=279&amp;name=MSI%20Blog%20Image%207.png 780w" sizes="(max-width: 260px) 100vw, 260px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MSI process tree</em></span></p>
+<p>After MSI execution, the installation fails and exits with the following message:&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=626&amp;height=349&amp;name=MSI%20Blog%20Image%208.png" alt="MSI Blog Image 8" width="626" height="349" loading="lazy" style="height: auto; max-width: 100%; width: 626px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=313&amp;height=175&amp;name=MSI%20Blog%20Image%208.png 313w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=626&amp;height=349&amp;name=MSI%20Blog%20Image%208.png 626w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=939&amp;height=524&amp;name=MSI%20Blog%20Image%208.png 939w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=1252&amp;height=698&amp;name=MSI%20Blog%20Image%208.png 1252w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=1565&amp;height=873&amp;name=MSI%20Blog%20Image%208.png 1565w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%208.png?width=1878&amp;height=1047&amp;name=MSI%20Blog%20Image%208.png 1878w" sizes="(max-width: 626px) 100vw, 626px"><span style="font-size: 12px;"></span></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Error message due to</em> <em>CustomAction ExitInstallation</em></span></p>
+<p>The MSI terminates itself; however, since the Stager is set to execute asynchronously, the malicious binary will continue executing.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=816&amp;height=367&amp;name=MSI%20Blog%20Image%209.png" alt="MSI Blog Image 9" width="816" height="367" loading="lazy" style="height: auto; max-width: 100%; width: 816px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=408&amp;height=184&amp;name=MSI%20Blog%20Image%209.png 408w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=816&amp;height=367&amp;name=MSI%20Blog%20Image%209.png 816w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=1224&amp;height=551&amp;name=MSI%20Blog%20Image%209.png 1224w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=1632&amp;height=734&amp;name=MSI%20Blog%20Image%209.png 1632w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=2040&amp;height=918&amp;name=MSI%20Blog%20Image%209.png 2040w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%209.png?width=2448&amp;height=1101&amp;name=MSI%20Blog%20Image%209.png 2448w" sizes="(max-width: 816px) 100vw, 816px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Attack Tree of MSI execution&nbsp;</em></span></p>
+<p>As soon as MSI starts executing itself, the execution flow enters the malicious executable in the Custom Action, which is msia8a.tmp.&nbsp;</p>
+<p>Msia8a.tmp (the name will vary) proceeds to retrieve the payload from the C2 server and deploy it onto the victim's machine. Once the payload is successfully deployed, the stager continues executing the payload. Successful payload execution leads to successful connection to the C2 server, and it is also evident that the payload is being executed with an elevated privilege account. At this point, the attacker has remote control over the machine.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=1102&amp;height=443&amp;name=MSI%20Blog%20Image%2010.png" alt="MSI Blog Image 10" width="1102" height="443" loading="lazy" style="height: auto; max-width: 100%; width: 1102px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=551&amp;height=222&amp;name=MSI%20Blog%20Image%2010.png 551w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=1102&amp;height=443&amp;name=MSI%20Blog%20Image%2010.png 1102w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=1653&amp;height=665&amp;name=MSI%20Blog%20Image%2010.png 1653w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=2204&amp;height=886&amp;name=MSI%20Blog%20Image%2010.png 2204w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=2755&amp;height=1108&amp;name=MSI%20Blog%20Image%2010.png 2755w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2010.png?width=3306&amp;height=1329&amp;name=MSI%20Blog%20Image%2010.png 3306w" sizes="(max-width: 1102px) 100vw, 1102px"></p>
+<p style="text-align: center;"><span style="font-size: 14px;"><em>Attacker’s terminal, which is a Metasploit listener</em></span></p>
+<p>&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=831&amp;height=807&amp;name=MSI%20Blog%20Image%2011.jpg" alt="MSI Blog Image 11" width="831" height="807" loading="lazy" style="height: auto; max-width: 100%; width: 831px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=416&amp;height=404&amp;name=MSI%20Blog%20Image%2011.jpg 416w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=831&amp;height=807&amp;name=MSI%20Blog%20Image%2011.jpg 831w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=1247&amp;height=1211&amp;name=MSI%20Blog%20Image%2011.jpg 1247w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=1662&amp;height=1614&amp;name=MSI%20Blog%20Image%2011.jpg 1662w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=2078&amp;height=2018&amp;name=MSI%20Blog%20Image%2011.jpg 2078w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2011.jpg?width=2493&amp;height=2421&amp;name=MSI%20Blog%20Image%2011.jpg 2493w" sizes="(max-width: 831px) 100vw, 831px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Execution Flow Chart</em></span></p>
+<h2>Blue Team</h2>
+<p>This section focuses on an analysis of malware that abused MSI files in the past. Technical Analysis dives into MSI file usage by three different malware families seen in the wild. The section ends with Comparative Charts for each sample's MSI file execution.</p>
+<h3>Technical Analysis</h3>
+<p>This section analyzes three different malware families. The analysis focuses on the following Secure Hash Algorithm (SHA)-256 samples.&nbsp;</p>
+<table style="border-width: 1px; border-style: solid; margin-left: auto; margin-right: auto; height: 209.333px;">
+<tbody>
+<tr style="height: 52px;">
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 155.396px;">
+<p><span style="font-size: 16px;">Malware Family</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 451.125px;">
+<p><span style="font-size: 16px;">SHA-256</span></p>
+</td>
+</tr>
+<tr style="height: 52px;">
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 155.396px;">
+<p><span style="font-size: 16px;">Magniber Ransomware</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 451.125px;">
+<p><span style="font-size: 16px;">0e65657740d7f06acda53b7d3190f9728801b984d5bd6ccb0b865d218ae71f66</span></p>
+</td>
+</tr>
+<tr style="height: 52px;">
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 155.396px;">
+<p><span style="font-size: 16px;">MatanBuchus Loader</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 451.125px;">
+<p><span style="font-size: 16px;">face46e6593206867da39e47001f134a00385898a36b8142a21ad54954682666</span></p>
+</td>
+</tr>
+<tr style="height: 52px;">
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 155.396px;">
+<p><span style="font-size: 16px;">Qbot / Qakbot</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; height: 52px; width: 451.125px;">
+<p><span style="font-size: 16px;">c0beb47f629a5debe0e99790d16a4d04afe786d6fb42c5ab6dfcaed84d86e7ad</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>Magniber Ransomware</h4>
+<p>Magniber Ransomware is known to utilize infection methods such as exploiting vulnerabilities and masquerading as a legitimate software update to infect a victim’s machine. The following are known infection methods seen in the past:</p>
+<ul>
+<li aria-level="1">Exploiting the <a href="https://www.cybereason.com/blog/threat-analysis-report-printnightmare-and-magniber-ransomware">PrintNightmare</a> vulnerability.</li>
+<li aria-level="1">Masquerading as a legitimate <a href="https://www.bleepingcomputer.com/news/security/magniber-ransomware-using-signed-appx-files-to-infect-systems/">Google Chrome or Microsoft Edge update</a> by abusing Windows Application Package (.appx) files.&nbsp;</li>
+<li aria-level="1">Masquerading as legitimate <a href="https://asec.ahnlab.com/en/32226/">Windows 10 upgrades</a> by abusing MSI.&nbsp;&nbsp;</li>
+</ul>
+<h5>&nbsp;</h5>
+<h5>MSI Analysis</h5>
+<p>According to file metadata, the MSI file is built with the WiX toolset.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=525&amp;height=121&amp;name=MSI%20Blog%20Image%2012.png" alt="MSI Blog Image 12" width="525" height="121" loading="lazy" style="height: auto; max-width: 100%; width: 525px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=263&amp;height=61&amp;name=MSI%20Blog%20Image%2012.png 263w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=525&amp;height=121&amp;name=MSI%20Blog%20Image%2012.png 525w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=788&amp;height=182&amp;name=MSI%20Blog%20Image%2012.png 788w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=1050&amp;height=242&amp;name=MSI%20Blog%20Image%2012.png 1050w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=1313&amp;height=303&amp;name=MSI%20Blog%20Image%2012.png 1313w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2012.png?width=1575&amp;height=363&amp;name=MSI%20Blog%20Image%2012.png 1575w" sizes="(max-width: 525px) 100vw, 525px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MSI file metadata</em></span></p>
+<p>The presence of CustomAction in the table below provides a better idea of potentially malicious behavior:&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=877&amp;height=604&amp;name=MSI%20Blog%20Image%2013.png" alt="MSI Blog Image 13" width="877" height="604" loading="lazy" style="height: auto; max-width: 100%; width: 877px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=439&amp;height=302&amp;name=MSI%20Blog%20Image%2013.png 439w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=877&amp;height=604&amp;name=MSI%20Blog%20Image%2013.png 877w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=1316&amp;height=906&amp;name=MSI%20Blog%20Image%2013.png 1316w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=1754&amp;height=1208&amp;name=MSI%20Blog%20Image%2013.png 1754w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=2193&amp;height=1510&amp;name=MSI%20Blog%20Image%2013.png 2193w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2013.png?width=2631&amp;height=1812&amp;name=MSI%20Blog%20Image%2013.png 2631w" sizes="(max-width: 877px) 100vw, 877px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Sample’s CustomAction table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p><span style="color: #4a4a4a; font-weight: 400;">The CustomAction table has two actions configured:&nbsp;</span></p>
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li style="list-style-type: none;">
+<ol>
+<li aria-level="1">SetProgramFilesFolder: Set Program Files folder to local appdata folder (C:\Users\UserName\AppData\Local).</li>
+<li aria-level="1">h54pstl1: Fetch binary m21iivix0ds.<br><br></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>SetProgramFilesFolder has Custom Action type 51, which indicates the action will configure the property's value. The Custom Action SetProgramFilesFolder configures the source <a href="https://learn.microsoft.com/en-us/windows/win32/msi/programfilesfolder">ProgramFilesFolder</a> property, which is a placeholder for the Program Files folder. ProgramFilesFolder is set to a value specified by the target <a href="https://learn.microsoft.com/en-us/windows/win32/msi/localappdatafolder">LocalAppDataFolder</a> property, which is a local appdata folder (e.g. C:\Users\UserName\AppData\Local).&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=613&amp;height=187&amp;name=MSI%20Blog%20Image%2014.png" alt="MSI Blog Image 14" width="613" height="187" loading="lazy" style="height: auto; max-width: 100%; width: 613px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=307&amp;height=94&amp;name=MSI%20Blog%20Image%2014.png 307w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=613&amp;height=187&amp;name=MSI%20Blog%20Image%2014.png 613w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=920&amp;height=281&amp;name=MSI%20Blog%20Image%2014.png 920w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=1226&amp;height=374&amp;name=MSI%20Blog%20Image%2014.png 1226w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=1533&amp;height=468&amp;name=MSI%20Blog%20Image%2014.png 1533w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2014.png?width=1839&amp;height=561&amp;name=MSI%20Blog%20Image%2014.png 1839w" sizes="(max-width: 613px) 100vw, 613px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Sample’s Directory table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>The Directory table includes information on the installation’s directory location. As shown in the image, ProgramFilesFolder is seen to have Directory_Parent as the <a href="https://learn.microsoft.com/en-us/windows/win32/msi/targetdir">TARGETDIR</a> property, which is the root installation directory. Based on the Directory and CustomAction tables, the installation directory will be placed under the local appdata directory.</p>
+<p>The Custom Action h54pstl1 has Type 65, which indicates combinations of the type and relevant options.&nbsp;</p>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-action-type-1">Type 1</a>: Indicates the DLL file is stored within the Binary Table.&nbsp;</li>
+<li aria-level="1"><a href="https://docs.microsoft.com/en-us/windows/win32/msi/custom-action-return-processing-options">Optional Constant +64</a>: Indicates that the execution will continue regardless of CustomAction failure.<br><br></li>
+</ul>
+<p>According to the Custom Action Type, m21iivix0ds is a DLL file stored in the Binary Table and is expected to execute the exported function t5thamku.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=875&amp;height=546&amp;name=MSI%20Blog%20Image%2015.png" alt="MSI Blog Image 15" width="875" height="546" loading="lazy" style="height: auto; max-width: 100%; width: 875px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=438&amp;height=273&amp;name=MSI%20Blog%20Image%2015.png 438w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=875&amp;height=546&amp;name=MSI%20Blog%20Image%2015.png 875w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=1313&amp;height=819&amp;name=MSI%20Blog%20Image%2015.png 1313w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=1750&amp;height=1092&amp;name=MSI%20Blog%20Image%2015.png 1750w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=2188&amp;height=1365&amp;name=MSI%20Blog%20Image%2015.png 2188w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2015.png?width=2625&amp;height=1638&amp;name=MSI%20Blog%20Image%2015.png 2625w" sizes="(max-width: 875px) 100vw, 875px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Sample’s Binary Table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>In order to identify at which point in the installation process the Custom Actions are executed, the InstallExecuteSequence table must be analyzed.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=502&amp;height=379&amp;name=MSI%20Blog%20Image%2016.png" alt="MSI Blog Image 16" width="502" height="379" loading="lazy" style="height: auto; max-width: 100%; width: 502px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=251&amp;height=190&amp;name=MSI%20Blog%20Image%2016.png 251w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=502&amp;height=379&amp;name=MSI%20Blog%20Image%2016.png 502w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=753&amp;height=569&amp;name=MSI%20Blog%20Image%2016.png 753w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=1004&amp;height=758&amp;name=MSI%20Blog%20Image%2016.png 1004w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=1255&amp;height=948&amp;name=MSI%20Blog%20Image%2016.png 1255w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2016.png?width=1506&amp;height=1137&amp;name=MSI%20Blog%20Image%2016.png 1506w" sizes="(max-width: 502px) 100vw, 502px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Sample’s InstallExecuteSequence table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>The actions with sequence number 800 to 1000 are related to <a href="https://learn.microsoft.com/en-us/windows/win32/msi/c-gly">costing</a> of the installation, which is an action to calculate the amount of disk space in which relevant files are to be installed or removed. Since the cost of installation files are also related to the installation directory, the relevant directory needs to be configured. As a result, the SetProgramFilesFolder (Sequence number 999) action is within the costing process and the directory resolution configured in the Directory table is configured in the CostFinalize action.</p>
+<p>Custom Action h54pstl1 is executed right after InstallInitialize, which is a sequence for actual installation execution. Anything between InstallInitialize and InstallFinalize is part of the installation activities that will update and change the target system. At this point, the Custom Action h54pstl1 executes the exported function t5thamku with elevated privileges.&nbsp;</p>
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/msi/file-installation">InstallFiles</a> is an action that places the relevant files in the destination location, which in this case is the destination set up by Custom Action SetProgramFilesFolder. This file information is often stored in the Media table, the File table, and the Component table.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=1184&amp;height=472&amp;name=MSI%20Blog%20Image%2017.png" alt="MSI Blog Image 17" width="1184" height="472" loading="lazy" style="height: auto; max-width: 100%; width: 1184px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=592&amp;height=236&amp;name=MSI%20Blog%20Image%2017.png 592w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=1184&amp;height=472&amp;name=MSI%20Blog%20Image%2017.png 1184w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=1776&amp;height=708&amp;name=MSI%20Blog%20Image%2017.png 1776w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=2368&amp;height=944&amp;name=MSI%20Blog%20Image%2017.png 2368w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=2960&amp;height=1180&amp;name=MSI%20Blog%20Image%2017.png 2960w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2017.png?width=3552&amp;height=1416&amp;name=MSI%20Blog%20Image%2017.png 3552w" sizes="(max-width: 1184px) 100vw, 1184px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Sample’s File table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>Reviewing the Media table, the MSI includes the <a href="https://learn.microsoft.com/en-us/windows/win32/msi/cabinet-files">cabinet file</a> Product.cab. However, in the File Table, the file v514749 has a file size of 0. This indicates a cabinet file exists, but it does not drop any files during the installation. Even though the directory was configured via CustomAction and Directory tables, since no files will be dropped, the installation directory becomes irrelevant.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=1121&amp;height=264&amp;name=MSI%20Blog%20Image%2018.png" alt="MSI Blog Image 18" width="1121" height="264" loading="lazy" style="height: auto; max-width: 100%; width: 1121px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=561&amp;height=132&amp;name=MSI%20Blog%20Image%2018.png 561w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=1121&amp;height=264&amp;name=MSI%20Blog%20Image%2018.png 1121w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=1682&amp;height=396&amp;name=MSI%20Blog%20Image%2018.png 1682w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=2242&amp;height=528&amp;name=MSI%20Blog%20Image%2018.png 2242w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=2803&amp;height=660&amp;name=MSI%20Blog%20Image%2018.png 2803w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2018.png?width=3363&amp;height=792&amp;name=MSI%20Blog%20Image%2018.png 3363w" sizes="(max-width: 1121px) 100vw, 1121px"></p>
+<p style="text-align: center;"><em>Magniber MSI execution snippet, as seen from the Cybereason platform</em></p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=572&amp;height=114&amp;name=MSI%20Blog%20Image%2019.jpg" alt="MSI Blog Image 19" width="572" height="114" loading="lazy" style="height: auto; max-width: 100%; width: 572px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=286&amp;height=57&amp;name=MSI%20Blog%20Image%2019.jpg 286w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=572&amp;height=114&amp;name=MSI%20Blog%20Image%2019.jpg 572w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=858&amp;height=171&amp;name=MSI%20Blog%20Image%2019.jpg 858w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=1144&amp;height=228&amp;name=MSI%20Blog%20Image%2019.jpg 1144w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=1430&amp;height=285&amp;name=MSI%20Blog%20Image%2019.jpg 1430w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2019.jpg?width=1716&amp;height=342&amp;name=MSI%20Blog%20Image%2019.jpg 1716w" sizes="(max-width: 572px) 100vw, 572px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Magniber MSI infection flow</em></span></p>
+<h4>MatanBuchus Loader</h4>
+<p>&nbsp;</p>
+<h5>MSI Analysis</h5>
+<p><a href="https://unit42.paloaltonetworks.com/matanbuchus-malware-as-a-service/">MatanBuchus</a> is a Malware-as-a-Service (MaaS) platform developed by the threat actor BelialDemon and identified on Russian cybercrime forums in early 2021. Operating as a second-stage malware loader, MatanBuchus contains functionality to download and execute malicious payloads, run arbitrary PowerShell commands, and conduct stealthy C2 server communications.</p>
+<p>The malware itself has been observed being spread as a ZIP file in phishing emails. This file contains an HTML file which drops another ZIP file when accessed. This second ZIP file contains the MSI file that loads the MatanBuchus payload and initiates downloads from its C2 server.</p>
+<p>The loader for MatanBuchus payload is confirmed as an MSI file created using WiX through file metadata analysis. The file itself appears with the subject “Adobe Font Pack 3.0.12.9” and is signed by “Westeast Tech Consulting, Corp.” in an attempt to masquerade as a legitimate Adobe file. However, it is notable that the certificate has been invalidated.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=915&amp;height=138&amp;name=MSI%20Blog%20Image%2020.png" alt="MSI Blog Image 20" width="915" height="138" loading="lazy" style="height: auto; max-width: 100%; width: 915px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=458&amp;height=69&amp;name=MSI%20Blog%20Image%2020.png 458w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=915&amp;height=138&amp;name=MSI%20Blog%20Image%2020.png 915w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=1373&amp;height=207&amp;name=MSI%20Blog%20Image%2020.png 1373w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=1830&amp;height=276&amp;name=MSI%20Blog%20Image%2020.png 1830w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=2288&amp;height=345&amp;name=MSI%20Blog%20Image%2020.png 2288w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2020.png?width=2745&amp;height=414&amp;name=MSI%20Blog%20Image%2020.png 2745w" sizes="(max-width: 915px) 100vw, 915px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MatanBuchus MSI File Metadata, through the file Unix utility</em></span></p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=381&amp;height=442&amp;name=MSI%20Blog%20Image%2022.png" alt="MSI Blog Image 22" width="381" height="442" loading="lazy" style="height: auto; max-width: 100%; width: 381px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=191&amp;height=221&amp;name=MSI%20Blog%20Image%2022.png 191w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=381&amp;height=442&amp;name=MSI%20Blog%20Image%2022.png 381w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=572&amp;height=663&amp;name=MSI%20Blog%20Image%2022.png 572w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=762&amp;height=884&amp;name=MSI%20Blog%20Image%2022.png 762w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=953&amp;height=1105&amp;name=MSI%20Blog%20Image%2022.png 953w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2022.png?width=1143&amp;height=1326&amp;name=MSI%20Blog%20Image%2022.png 1143w" sizes="(max-width: 381px) 100vw, 381px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MatanBuchus MSI file digital signature information</em></span></p>
+<p>As with Magniber, investigating the file's CustomAction values can give a better understanding of how the file executes. The CustomAction table below contains two actions with the value 226, which is of type <a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-action-type-34">34</a> with option <a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-action-return-processing-options">192</a>. Custom Action Type 34 executes executables with the command line, and option 192 allows this execution to run asynchronously. These values indicate that the files can be executed even if MSI Installer itself fails. Regardless of whether MSI Installer fails or runs, the following Custom Actions will occur:</p>
+<ul>
+<li aria-level="1">regsvr32.exe will install main_dll.</li>
+<li aria-level="1">wscript.exe will execute notify_vbs.</li>
+</ul>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=744&amp;height=198&amp;name=MSI%20Blog%20Image%2023.png" alt="MSI Blog Image 23" width="744" height="198" loading="lazy" style="height: auto; max-width: 100%; width: 744px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=372&amp;height=99&amp;name=MSI%20Blog%20Image%2023.png 372w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=744&amp;height=198&amp;name=MSI%20Blog%20Image%2023.png 744w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=1116&amp;height=297&amp;name=MSI%20Blog%20Image%2023.png 1116w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=1488&amp;height=396&amp;name=MSI%20Blog%20Image%2023.png 1488w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=1860&amp;height=495&amp;name=MSI%20Blog%20Image%2023.png 1860w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2023.png?width=2232&amp;height=594&amp;name=MSI%20Blog%20Image%2023.png 2232w" sizes="(max-width: 744px) 100vw, 744px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MatanBuchus MSI file digital signature information, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>The source is defined as INSTALLLOCATION, which is confirmed through investigation into the Directory to be the LocalAppDataFolder.&nbsp;</p>
+<img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=631&amp;height=156&amp;name=MSI%20Blog%20Image%2024.png" alt="MSI Blog Image 24" width="631" height="156" loading="lazy" style="height: auto; max-width: 100%; width: 631px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=316&amp;height=78&amp;name=MSI%20Blog%20Image%2024.png 316w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=631&amp;height=156&amp;name=MSI%20Blog%20Image%2024.png 631w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=947&amp;height=234&amp;name=MSI%20Blog%20Image%2024.png 947w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=1262&amp;height=312&amp;name=MSI%20Blog%20Image%2024.png 1262w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=1578&amp;height=390&amp;name=MSI%20Blog%20Image%2024.png 1578w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2024.png?width=1893&amp;height=468&amp;name=MSI%20Blog%20Image%2024.png 1893w" sizes="(max-width: 631px) 100vw, 631px">
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Directory Information, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>According to the <em>File</em> table below, two files <em>main.dll</em> and <em><span style="color: #000000;">notify.vbs</span></em><span style="color: #000000;"> will be dropped into the </span><em><span style="color: #000000;">INSTALLLOCATION</span></em> directory. As shown in <em>CustomAction </em>table, the command line will execute each of these files, which replace <span style="color: #ffc628;"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/formatted" style="color: #ffc628;"><em>formatted data types</em></a></span> [#main_dll] and [#notify_vbs] with the actual file path.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=646&amp;height=231&amp;name=MSI%20Blog%20Image%2025.png" alt="MSI Blog Image 25" width="646" height="231" loading="lazy" style="height: auto; max-width: 100%; width: 646px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=323&amp;height=116&amp;name=MSI%20Blog%20Image%2025.png 323w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=646&amp;height=231&amp;name=MSI%20Blog%20Image%2025.png 646w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=969&amp;height=347&amp;name=MSI%20Blog%20Image%2025.png 969w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=1292&amp;height=462&amp;name=MSI%20Blog%20Image%2025.png 1292w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=1615&amp;height=578&amp;name=MSI%20Blog%20Image%2025.png 1615w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2025.png?width=1938&amp;height=693&amp;name=MSI%20Blog%20Image%2025.png 1938w" sizes="(max-width: 646px) 100vw, 646px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>File metadata Information, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>The [#main_dll] and [#notify_vbs] will not be replaced with an actual file path unless the Custom Actions are sequenced after CostInitialize, FileCost, and CostFinalize. The files also need to be dumped to the directory before executing via Custom Actions. Thus, the actions need to be executed after InstallInitialize, InstallFiles, and InstallFinalize actions. Consequently, both RunApplicationQQQ and RunApplicationNotifyVBS are sequenced at the very end of InstallExecuteSequence.&nbsp;</p>
+<p>&nbsp;</p>
+<img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=530&amp;height=444&amp;name=MSI%20Blog%20Image%2026.png" alt="MSI Blog Image 26" width="530" height="444" loading="lazy" style="height: auto; max-width: 100%; width: 530px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=265&amp;height=222&amp;name=MSI%20Blog%20Image%2026.png 265w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=530&amp;height=444&amp;name=MSI%20Blog%20Image%2026.png 530w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=795&amp;height=666&amp;name=MSI%20Blog%20Image%2026.png 795w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=1060&amp;height=888&amp;name=MSI%20Blog%20Image%2026.png 1060w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=1325&amp;height=1110&amp;name=MSI%20Blog%20Image%2026.png 1325w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2026.png?width=1590&amp;height=1332&amp;name=MSI%20Blog%20Image%2026.png 1590w" sizes="(max-width: 530px) 100vw, 530px">
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Custom Actions placed in the very end of </em>InstallExecuteSequence<em>, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>Since MSI files are COM Structured Storage constructs, it is possible to dump the file’s data streams via OLE in order to investigate the file further. While the output for initial analysis is unreadable, several data streams containing significant amounts of data can be observed.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=334&amp;height=409&amp;name=MSI%20Blog%20Image%2027.png" alt="MSI Blog Image 27" width="334" height="409" loading="lazy" style="height: auto; max-width: 100%; width: 334px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=167&amp;height=205&amp;name=MSI%20Blog%20Image%2027.png 167w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=334&amp;height=409&amp;name=MSI%20Blog%20Image%2027.png 334w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=501&amp;height=614&amp;name=MSI%20Blog%20Image%2027.png 501w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=668&amp;height=818&amp;name=MSI%20Blog%20Image%2027.png 668w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=835&amp;height=1023&amp;name=MSI%20Blog%20Image%2027.png 835w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2027.png?width=1002&amp;height=1227&amp;name=MSI%20Blog%20Image%2027.png 1002w" sizes="(max-width: 334px) 100vw, 334px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Matanbuchus MSI file OLE streams</em></span></p>
+<p>Investigating the fourth data stream reveals that it begins with the ASCII characters (MSCF), indicating that this stream is a Cabinet Archive (CAB) file.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=693&amp;height=202&amp;name=MSI%20Blog%20Image%2028.png" alt="MSI Blog Image 28" width="693" height="202" loading="lazy" style="height: auto; max-width: 100%; width: 693px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=347&amp;height=101&amp;name=MSI%20Blog%20Image%2028.png 347w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=693&amp;height=202&amp;name=MSI%20Blog%20Image%2028.png 693w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=1040&amp;height=303&amp;name=MSI%20Blog%20Image%2028.png 1040w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=1386&amp;height=404&amp;name=MSI%20Blog%20Image%2028.png 1386w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=1733&amp;height=505&amp;name=MSI%20Blog%20Image%2028.png 1733w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2028.png?width=2079&amp;height=606&amp;name=MSI%20Blog%20Image%2028.png 2079w" sizes="(max-width: 693px) 100vw, 693px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Fourth OLE stream data</em></span></p>
+<p>By dumping this stream and opening the archive, the files (in this case, main.dll and notify.vbs) are dropped. The file notify.vbs is notable because it contains an error message that appears related to Adobe Acrobat; this is an attempt to fool the user into believing that a legitimate Adobe Acrobat file did not run.&nbsp;</p>
+<p>In reality, while this message is displayed to the user once the MSI file is run, MatanBuchus executes the main.dll file via regsvr32.exe in the background.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=589&amp;height=78&amp;name=MSI%20Blog%20Image%2029.png" alt="MSI Blog Image 29" width="589" height="78" loading="lazy" style="height: auto; max-width: 100%; width: 589px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=295&amp;height=39&amp;name=MSI%20Blog%20Image%2029.png 295w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=589&amp;height=78&amp;name=MSI%20Blog%20Image%2029.png 589w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=884&amp;height=117&amp;name=MSI%20Blog%20Image%2029.png 884w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=1178&amp;height=156&amp;name=MSI%20Blog%20Image%2029.png 1178w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=1473&amp;height=195&amp;name=MSI%20Blog%20Image%2029.png 1473w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2029.png?width=1767&amp;height=234&amp;name=MSI%20Blog%20Image%2029.png 1767w" sizes="(max-width: 589px) 100vw, 589px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Contents of notify.vbs</em></span></p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=282&amp;height=169&amp;name=MSI%20Blog%20Image%2030.png" alt="MSI Blog Image 30" width="282" height="169" loading="lazy" style="height: auto; max-width: 100%; width: 282px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=141&amp;height=85&amp;name=MSI%20Blog%20Image%2030.png 141w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=282&amp;height=169&amp;name=MSI%20Blog%20Image%2030.png 282w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=423&amp;height=254&amp;name=MSI%20Blog%20Image%2030.png 423w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=564&amp;height=338&amp;name=MSI%20Blog%20Image%2030.png 564w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=705&amp;height=423&amp;name=MSI%20Blog%20Image%2030.png 705w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2030.png?width=846&amp;height=507&amp;name=MSI%20Blog%20Image%2030.png 846w" sizes="(max-width: 282px) 100vw, 282px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Fake error message displayed by notify.vbs</em></span></p>
+<p>The file main.dll is used by MatanBuchus to load the payload, create C2 connections, and establish persistence in the exploited system.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=745&amp;height=382&amp;name=MSI%20Blog%20Image%2031.png" alt="MSI Blog Image 31" width="745" height="382" loading="lazy" style="height: auto; max-width: 100%; width: 745px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=373&amp;height=191&amp;name=MSI%20Blog%20Image%2031.png 373w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=745&amp;height=382&amp;name=MSI%20Blog%20Image%2031.png 745w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=1118&amp;height=573&amp;name=MSI%20Blog%20Image%2031.png 1118w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=1490&amp;height=764&amp;name=MSI%20Blog%20Image%2031.png 1490w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=1863&amp;height=955&amp;name=MSI%20Blog%20Image%2031.png 1863w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2031.png?width=2235&amp;height=1146&amp;name=MSI%20Blog%20Image%2031.png 2235w" sizes="(max-width: 745px) 100vw, 745px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Matanbuchus Attack Tree, as seen from the Cybereason platform</em></span></p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=1059&amp;height=583&amp;name=MSI%20Blog%20Image%2032.png" alt="MSI Blog Image 32" width="1059" height="583" loading="lazy" style="height: auto; max-width: 100%; width: 1059px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=530&amp;height=292&amp;name=MSI%20Blog%20Image%2032.png 530w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=1059&amp;height=583&amp;name=MSI%20Blog%20Image%2032.png 1059w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=1589&amp;height=875&amp;name=MSI%20Blog%20Image%2032.png 1589w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=2118&amp;height=1166&amp;name=MSI%20Blog%20Image%2032.png 2118w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=2648&amp;height=1458&amp;name=MSI%20Blog%20Image%2032.png 2648w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2032.png?width=3177&amp;height=1749&amp;name=MSI%20Blog%20Image%2032.png 3177w" sizes="(max-width: 1059px) 100vw, 1059px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>MatanBuchus MSI infection flow</em></span></p>
+<h4>Qbot / Qakbot</h4>
+<p><a href="https://www.cisa.gov/stopransomware/qbotqakbot-malware-report">Qbot</a> (also known as Qakbot, Quakbot, and Pinkslipbot) is a modular Trojan that has been in circulation for over a decade. Its most prevalent campaigns consist of phishing attacks that attach malicious macros in Office documents, in particular Excel 4.0 macros, to evade detection.&nbsp;</p>
+<p>The MSI variants of Qbot started circulating in <a href="https://www.bleepingcomputer.com/news/security/qbot-malware-switches-to-new-windows-installer-infection-vector/">late April 2022</a>, which coincidentally occurred around the time Microsoft implemented the <a href="https://learn.microsoft.com/en-us/deployoffice/security/internet-macros-blocked">VBA macro auto block</a> feature, which made it harder for threat actors to launch successful attacks via macro-enabled malicious documents.</p>
+<h5>MSI Analysis</h5>
+<p>According to the file metadata, the file is signed and verified by P.REGO, s.r.o.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=250&amp;height=250&amp;name=MSI%20Blog%20Image%2033.png" alt="MSI Blog Image 33" width="250" height="250" loading="lazy" style="height: auto; max-width: 100%; width: 250px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=125&amp;height=125&amp;name=MSI%20Blog%20Image%2033.png 125w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=250&amp;height=250&amp;name=MSI%20Blog%20Image%2033.png 250w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=375&amp;height=375&amp;name=MSI%20Blog%20Image%2033.png 375w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=500&amp;height=500&amp;name=MSI%20Blog%20Image%2033.png 500w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=625&amp;height=625&amp;name=MSI%20Blog%20Image%2033.png 625w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2033.png?width=750&amp;height=750&amp;name=MSI%20Blog%20Image%2033.png 750w" sizes="(max-width: 250px) 100vw, 250px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>File Signature</em></span></p>
+<p>Within the Property Table, there were multiple references to VSDNET* properties, which are .NET components utilized by Visual Studio.&nbsp;</p>
+<p>MSI is known to organize an installation around the concepts of <a href="https://learn.microsoft.com/en-us/windows/win32/msi/windows-installer-components">components</a>, which is essentially an installing application or software. The malware is seen to have two components.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=1185&amp;height=158&amp;name=MSI%20Blog%20Image%2034.png" alt="MSI Blog Image 34" width="1185" height="158" loading="lazy" style="height: auto; max-width: 100%; width: 1185px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=593&amp;height=79&amp;name=MSI%20Blog%20Image%2034.png 593w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=1185&amp;height=158&amp;name=MSI%20Blog%20Image%2034.png 1185w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=1778&amp;height=237&amp;name=MSI%20Blog%20Image%2034.png 1778w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=2370&amp;height=316&amp;name=MSI%20Blog%20Image%2034.png 2370w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=2963&amp;height=395&amp;name=MSI%20Blog%20Image%2034.png 2963w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2034.png?width=3555&amp;height=474&amp;name=MSI%20Blog%20Image%2034.png 3555w" sizes="(max-width: 1185px) 100vw, 1185px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Component Table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<ul>
+<li aria-level="1">C__FEAF4022223844D1906F79DF588CDB8A: This component has a value _FEAF4022223844D1906F79DF588CDB8A in KeyPath, which is a primary key into the Registry, ODBCDataSource or File Table. The KeyPath _FEAF4022223844D1906F79DF588CDB8A appears to be a primary key of File (1.dll); this indicates the malware is going to drop a module 1.dll during installation.<br><br></li>
+</ul>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=1107&amp;height=155&amp;name=msi-blog-image-blue-crop.png" alt="msi-blog-image-blue-crop" width="1107" height="155" loading="lazy" style="height: auto; max-width: 100%; width: 1107px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=554&amp;height=78&amp;name=msi-blog-image-blue-crop.png 554w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=1107&amp;height=155&amp;name=msi-blog-image-blue-crop.png 1107w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=1661&amp;height=233&amp;name=msi-blog-image-blue-crop.png 1661w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=2214&amp;height=310&amp;name=msi-blog-image-blue-crop.png 2214w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=2768&amp;height=388&amp;name=msi-blog-image-blue-crop.png 2768w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-blue-crop.png?width=3321&amp;height=465&amp;name=msi-blog-image-blue-crop.png 3321w" sizes="(max-width: 1107px) 100vw, 1107px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;">File Table, as seen from the <a href="#orca" rel="noopener">Orca tool</a></span></p>
+<ul>
+<li aria-level="1">C__653B5566E1394F029FA3A18ACFFE5CC8: Unlike the C__FEAF4022223844D1906F79DF588CDB8A, this component does not have a KeyPath value. When the KeyPath value is NULL, then by default the Directory_ value will be utilized as the KeyPath value, which in this case is TARGETDIR. This component is for CreateFolder, and it contains references to a directory that needs to be created explicitly for a particular component. Once emptied during the installation, any directories created during the installation are removed. This component ensures that the directory set in TARGETDIR exists during and after the installation.&nbsp;<br><br></li>
+</ul>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=547&amp;height=159&amp;name=MSI%20Blog%20Image%2036.png" alt="MSI Blog Image 36" width="547" height="159" loading="lazy" style="height: auto; max-width: 100%; width: 547px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=274&amp;height=80&amp;name=MSI%20Blog%20Image%2036.png 274w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=547&amp;height=159&amp;name=MSI%20Blog%20Image%2036.png 547w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=821&amp;height=239&amp;name=MSI%20Blog%20Image%2036.png 821w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=1094&amp;height=318&amp;name=MSI%20Blog%20Image%2036.png 1094w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=1368&amp;height=398&amp;name=MSI%20Blog%20Image%2036.png 1368w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2036.png?width=1641&amp;height=477&amp;name=MSI%20Blog%20Image%2036.png 1641w" sizes="(max-width: 547px) 100vw, 547px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>CreateFolder Table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>To understand the behavior of this MSI, inspecting Custom Action is necessary. The CustomAction table contains four actions; however, the main actions of this malware are _9BED75AC_30E3_4BB1_9F26_1A4F247F32EF and DIRCA_TARGETDIR.&nbsp;</p>
+<ol>
+<li aria-level="1">_9BED75AC_30E3_4BB1_9F26_1A4F247F32EF: Fetch and execute binary _C212458FE5F810E2D8287472A14C2665</li>
+<li aria-level="1">DIRCA_TARGETDIR: Sets a target directory (<a href="https://learn.microsoft.com/en-us/windows/win32/msi/targetdir">TARGETDIR</a>) to a local appdata directory (<a href="https://learn.microsoft.com/en-us/windows/win32/msi/localappdatafolder">LocalAppDataFolder</a>\<a href="https://learn.microsoft.com/en-us/windows/win32/msi/productname">ProductName</a>)</li>
+</ol>
+<p>&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=952&amp;height=49&amp;name=msi-blog-image-37b.png" alt="msi-blog-image-37b" width="952" height="49" loading="lazy" style="height: auto; max-width: 100%; width: 952px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=476&amp;height=25&amp;name=msi-blog-image-37b.png 476w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=952&amp;height=49&amp;name=msi-blog-image-37b.png 952w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=1428&amp;height=74&amp;name=msi-blog-image-37b.png 1428w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=1904&amp;height=98&amp;name=msi-blog-image-37b.png 1904w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=2380&amp;height=123&amp;name=msi-blog-image-37b.png 2380w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-image-37b.png?width=2856&amp;height=147&amp;name=msi-blog-image-37b.png 2856w" sizes="(max-width: 952px) 100vw, 952px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;">Custom Action Table</span></p>
+<p>The first action (_9BED75AC_30E3_4BB1_9F26_1A4F247F32EF) refers to the source (_C212458FE5F810E2D8287472A14C2665), which is found under the Binary table.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=588&amp;height=49&amp;name=MSI%20Blog%20Image%2038.png" alt="MSI Blog Image 38" width="588" height="49" loading="lazy" style="height: auto; max-width: 100%; width: 588px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=294&amp;height=25&amp;name=MSI%20Blog%20Image%2038.png 294w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=588&amp;height=49&amp;name=MSI%20Blog%20Image%2038.png 588w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=882&amp;height=74&amp;name=MSI%20Blog%20Image%2038.png 882w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=1176&amp;height=98&amp;name=MSI%20Blog%20Image%2038.png 1176w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=1470&amp;height=123&amp;name=MSI%20Blog%20Image%2038.png 1470w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2038.png?width=1764&amp;height=147&amp;name=MSI%20Blog%20Image%2038.png 1764w" sizes="(max-width: 588px) 100vw, 588px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Binary Table, as seen from the </em><a href="#orca" rel="noopener"><em>Orca</em><em> tool</em></a></span></p>
+<p>The Custom Action _9BED75AC_30E3_4BB1_9F26_1A4F247F32EF has Type 3590, which indicates combinations of the type and relevant option.&nbsp;</p>
+<ul>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-action-type-6">Type 6</a>: Indicates VBScript stored within the Binary Table.&nbsp;</li>
+<li aria-level="1"><a href="https://learn.microsoft.com/en-us/windows/win32/msi/custom-action-in-script-execution-options">Optional Term +3584</a>: Indicates a scheduled execution after the successful completion of InstallFinalize action.<br><br></li>
+</ul>
+<p>With further investigation on Custom Action _C212458FE5F810E2D8287472A14C2665, the VBScript appears to execute dropped module (1.dll) from Component C__FEAF4022223844D1906F79DF588CDB8A via regsvr32.exe.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=697&amp;height=242&amp;name=MSI%20Blog%20Image%2039.png" alt="MSI Blog Image 39" width="697" height="242" loading="lazy" style="height: auto; max-width: 100%; width: 697px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=349&amp;height=121&amp;name=MSI%20Blog%20Image%2039.png 349w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=697&amp;height=242&amp;name=MSI%20Blog%20Image%2039.png 697w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=1046&amp;height=363&amp;name=MSI%20Blog%20Image%2039.png 1046w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=1394&amp;height=484&amp;name=MSI%20Blog%20Image%2039.png 1394w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=1743&amp;height=605&amp;name=MSI%20Blog%20Image%2039.png 1743w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2039.png?width=2091&amp;height=726&amp;name=MSI%20Blog%20Image%2039.png 2091w" sizes="(max-width: 697px) 100vw, 697px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>VBScript</em> <em>_C212458FE5F810E2D8287472A14C2665</em></span></p>
+<p>The second Custom Action DIRCA_TARGETDIR configures the installation directory in the designated subdirectory (ProductName) of the local AppData directory (LocalAppDataFolder). The Product Name in this case has been named (SetupTest) as designated in the Property Table. As a result, DIRCA_TARGETDIR action configures the installation directory as&nbsp; (C:\Users\&lt;UserName&gt;\AppData\Local\SetupTest).</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=356&amp;height=149&amp;name=MSI%20Blog%20Image%2040.png" alt="MSI Blog Image 40" width="356" height="149" loading="lazy" style="height: auto; max-width: 100%; width: 356px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=178&amp;height=75&amp;name=MSI%20Blog%20Image%2040.png 178w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=356&amp;height=149&amp;name=MSI%20Blog%20Image%2040.png 356w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=534&amp;height=224&amp;name=MSI%20Blog%20Image%2040.png 534w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=712&amp;height=298&amp;name=MSI%20Blog%20Image%2040.png 712w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=890&amp;height=373&amp;name=MSI%20Blog%20Image%2040.png 890w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2040.png?width=1068&amp;height=447&amp;name=MSI%20Blog%20Image%2040.png 1068w" sizes="(max-width: 356px) 100vw, 356px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Output folder path for installed file(s)</em></span></p>
+<p>From inspecting the MSI, it is evident that the malware drops a module (1.dll) onto the subdirectory (SetupTest) of the local appdata directory, which executes it by calling the VBScript embedded in the Binary table.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=916&amp;height=281&amp;name=MSI%20Blog%20Image%2041.png" alt="MSI Blog Image 41" width="916" height="281" loading="lazy" style="height: auto; max-width: 100%; width: 916px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=458&amp;height=141&amp;name=MSI%20Blog%20Image%2041.png 458w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=916&amp;height=281&amp;name=MSI%20Blog%20Image%2041.png 916w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=1374&amp;height=422&amp;name=MSI%20Blog%20Image%2041.png 1374w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=1832&amp;height=562&amp;name=MSI%20Blog%20Image%2041.png 1832w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=2290&amp;height=703&amp;name=MSI%20Blog%20Image%2041.png 2290w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2041.png?width=2748&amp;height=843&amp;name=MSI%20Blog%20Image%2041.png 2748w" sizes="(max-width: 916px) 100vw, 916px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>QBot Attack Tree, as seen from the Cybereason platform</em></span></p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=1654&amp;height=503&amp;name=MSI%20Blog%20Image%2042.png" alt="MSI Blog Image 42" width="1654" height="503" loading="lazy" style="height: auto; max-width: 100%; width: 1654px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=827&amp;height=252&amp;name=MSI%20Blog%20Image%2042.png 827w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=1654&amp;height=503&amp;name=MSI%20Blog%20Image%2042.png 1654w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=2481&amp;height=755&amp;name=MSI%20Blog%20Image%2042.png 2481w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=3308&amp;height=1006&amp;name=MSI%20Blog%20Image%2042.png 3308w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=4135&amp;height=1258&amp;name=MSI%20Blog%20Image%2042.png 4135w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2042.png?width=4962&amp;height=1509&amp;name=MSI%20Blog%20Image%2042.png 4962w" sizes="(max-width: 1654px) 100vw, 1654px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Qbot MSI infection flow</em></span></p>
+<h3>Comparative Chart</h3>
+<p>The following chart identifies key points seen in each malware’s MSI behavior introduced in this chapter.&nbsp;</p>
+<table style="height: 688.333px; width: 777px; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr style="height: 77px;">
+<td style="border-width: 1px; border-style: solid; background-color: #999999; width: 240.792px; height: 77px;">
+<p><span style="color: #ffffff;">Techniques in-use</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; background-color: #999999; width: 218.75px; height: 77px;">
+<p><span style="color: #ffffff;">Magniber Ransomware</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; background-color: #999999; width: 203.688px; height: 77px;">
+<p><span style="color: #ffffff;">MatanBuchus Loader</span></p>
+</td>
+<td style="border-width: 1px; border-style: solid; background-color: #999999; width: 112.438px; height: 77px;">
+<p><span style="color: #ffffff;">Qbot</span></p>
+</td>
+</tr>
+<tr style="height: 77.3333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 77px;">
+<p>Set installation directory to LocalAppDataFolder</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+</tr>
+<tr style="height: 77.3333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 77px;">
+<p>Dump files to installation directory</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 77px; vertical-align: middle;">&nbsp;</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 77px; vertical-align: middle;">&nbsp;
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+</tr>
+<tr style="height: 105.333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 105px;">
+<p>Custom Action: Execute executable via specified command line&nbsp;</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 105px; vertical-align: middle;">&nbsp;</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 105px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 105px; vertical-align: middle;">&nbsp;</td>
+</tr>
+<tr style="height: 105.333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 105px;">
+<p>Custom Action: Execute PE/script stored in Binary Table</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 105px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 105px; vertical-align: middle;">&nbsp;</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 105px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+</tr>
+<tr style="height: 77.3333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 77px;">
+<p>Execute dumped file in the installation directory</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 77px; vertical-align: middle;">&nbsp;</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 77px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+</tr>
+<tr style="height: 62px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 62px;">
+<p>Fake error message</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 62px; vertical-align: middle;">&nbsp;</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 62px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 62px; vertical-align: middle;">&nbsp;</td>
+</tr>
+<tr style="height: 105.333px;">
+<td style="border-width: 1px; border-style: solid; width: 240.792px; height: 105px;">
+<p>Continuous malicious execution regardless of MSI failure.</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 218.75px; height: 105px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 203.688px; height: 105px; vertical-align: middle;">
+<p style="text-align: center;">✔️</p>
+</td>
+<td style="border-width: 1px; border-style: solid; width: 112.438px; height: 105px; vertical-align: middle;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center;"><em><span style="font-size: 16px;">Comparative Chart</span></em></p>
+<h2>Purple Team</h2>
+<p>This chapter focuses on key points for possibly identifying a malicious MSI, as well as a tool which can assist defenders to analyze the MSI files, which has already been leveraged in the Blue Team section.&nbsp;&nbsp;</p>
+<h3>Suspicious Indicators&nbsp;</h3>
+<p>There are three malicious indicators that can identify suspicious MSI files:&nbsp;</p>
+<ol>
+<li aria-level="1">Mismatch between file detail and digital signature&nbsp;</li>
+<li aria-level="1">Misleading errors</li>
+<li aria-level="1">Suspicious installation path&nbsp;<br><br></li>
+</ol>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=866&amp;height=340&amp;name=MSI%20Blog%20Image%2043.png" alt="MSI Blog Image 43" width="866" height="340" loading="lazy" style="height: auto; max-width: 100%; width: 866px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=433&amp;height=170&amp;name=MSI%20Blog%20Image%2043.png 433w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=866&amp;height=340&amp;name=MSI%20Blog%20Image%2043.png 866w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=1299&amp;height=510&amp;name=MSI%20Blog%20Image%2043.png 1299w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=1732&amp;height=680&amp;name=MSI%20Blog%20Image%2043.png 1732w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=2165&amp;height=850&amp;name=MSI%20Blog%20Image%2043.png 2165w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2043.png?width=2598&amp;height=1020&amp;name=MSI%20Blog%20Image%2043.png 2598w" sizes="(max-width: 866px) 100vw, 866px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Checkpoints</em></span></p>
+<h4>Mismatch in File Detail and Digital Signature</h4>
+<p>MSI files often masquerade as legitimate installation software of well known applications. However, the digital signature for the MSI file does not match with the issuing author, as shown in the images below. Mismatches between the description or origin of an MSI file and the digital signature can indicate the file is actually malicious, especially when it purports to be from a well-known software vendor.&nbsp;</p>
+<p>Magniber Ransomware</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=911&amp;height=300&amp;name=MSI%20Blog%20Image%2044.png" alt="MSI Blog Image 44" width="911" height="300" loading="lazy" style="height: auto; max-width: 100%; width: 911px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=456&amp;height=150&amp;name=MSI%20Blog%20Image%2044.png 456w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=911&amp;height=300&amp;name=MSI%20Blog%20Image%2044.png 911w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=1367&amp;height=450&amp;name=MSI%20Blog%20Image%2044.png 1367w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=1822&amp;height=600&amp;name=MSI%20Blog%20Image%2044.png 1822w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=2278&amp;height=750&amp;name=MSI%20Blog%20Image%2044.png 2278w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2044.png?width=2733&amp;height=900&amp;name=MSI%20Blog%20Image%2044.png 2733w" sizes="(max-width: 911px) 100vw, 911px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Mismatch between the file information and the digital signature</em></span></p>
+<p>MatanBuchus Loader</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=915&amp;height=310&amp;name=MSI%20Blog%20Image%2045.png" alt="MSI Blog Image 45" width="915" height="310" loading="lazy" style="height: auto; max-width: 100%; width: 915px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=458&amp;height=155&amp;name=MSI%20Blog%20Image%2045.png 458w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=915&amp;height=310&amp;name=MSI%20Blog%20Image%2045.png 915w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=1373&amp;height=465&amp;name=MSI%20Blog%20Image%2045.png 1373w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=1830&amp;height=620&amp;name=MSI%20Blog%20Image%2045.png 1830w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=2288&amp;height=775&amp;name=MSI%20Blog%20Image%2045.png 2288w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2045.png?width=2745&amp;height=930&amp;name=MSI%20Blog%20Image%2045.png 2745w" sizes="(max-width: 915px) 100vw, 915px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Mismatch between the file information and the digital signature</em></span></p>
+<h4>Misleading Errors</h4>
+<p>Many different types of malware are known to trick victims in various ways. For malware that utilizes MSI, it is seen to output false error messages either by embedding a script or crashing the installation. The error message is designed to trick victims into thinking the software installation was not successful because the installer or their environment was not configured properly. The false error outputs can indicate malicious activity.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=801&amp;height=240&amp;name=MSI%20Blog%20Image%2046.png" alt="MSI Blog Image 46" width="801" height="240" loading="lazy" style="height: auto; max-width: 100%; width: 801px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=401&amp;height=120&amp;name=MSI%20Blog%20Image%2046.png 401w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=801&amp;height=240&amp;name=MSI%20Blog%20Image%2046.png 801w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=1202&amp;height=360&amp;name=MSI%20Blog%20Image%2046.png 1202w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=1602&amp;height=480&amp;name=MSI%20Blog%20Image%2046.png 1602w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=2003&amp;height=600&amp;name=MSI%20Blog%20Image%2046.png 2003w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2046.png?width=2403&amp;height=720&amp;name=MSI%20Blog%20Image%2046.png 2403w" sizes="(max-width: 801px) 100vw, 801px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Possible error messages</em></span></p>
+<h4>Suspicious Installation Path</h4>
+<p>Often, the purpose of an MSI is to install software and drop relevant applications onto a disk. However, when the root destination directory for the installation is set to the local AppData folder, this can indicate malicious behavior. Legitimate installations usually drop necessary files under C:\Program Files or C:\Program Files (x86).</p>
+<h3><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=624&amp;height=13&amp;name=MSI%20Blog%20Image%2047.png" alt="MSI Blog Image 47" width="624" height="13" loading="lazy" style="height: auto; max-width: 100%; width: 624px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=312&amp;height=7&amp;name=MSI%20Blog%20Image%2047.png 312w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=624&amp;height=13&amp;name=MSI%20Blog%20Image%2047.png 624w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=936&amp;height=20&amp;name=MSI%20Blog%20Image%2047.png 936w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=1248&amp;height=26&amp;name=MSI%20Blog%20Image%2047.png 1248w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=1560&amp;height=33&amp;name=MSI%20Blog%20Image%2047.png 1560w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2047.png?width=1872&amp;height=39&amp;name=MSI%20Blog%20Image%2047.png 1872w" sizes="(max-width: 624px) 100vw, 624px"></h3>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Installation directory configuration</em></span></p>
+<p>In the above image, the malware drops “installation” files into the subfolder (<a href="https://learn.microsoft.com/en-us/windows/win32/msi/productname">ProductName</a>) of the local AppData folder (<a href="https://learn.microsoft.com/en-us/windows/win32/msi/localappdatafolder">LocalAppDataFolder</a>).&nbsp;</p>
+<h3>Tools&nbsp;</h3>
+<p>There are tools defenders can use to analyze MSI files. This section introduces some of the tools and demonstrates their usage.&nbsp;</p>
+<h4>Msitools</h4>
+<p>Msitools are a set of tools that allow developers to create and inspect MSI files. However, the tools can be also used by defenders to analyze malicious MSI files. There are three main Msitools that defenders can use: msiinfo, msidump, and msidiff. These tools are command-line-based, which makes them easier to automate and include in a malware analysis pipeline.</p>
+<h4>Msiinfo</h4>
+<p>Msiinfo is a command-line tool that allows users to list and extract streams or tables stored in the MSI file.</p>
+<p>As an example, an analyst investigates the relevant MSI file 15f4cfd.msi (Qbot) by executing the streams command-line option and identifies a binary stored in the Binary Table. In order to investigate Binary._C212458FE5F810E2D8287472A14C2665, the analyst can dump this binary stream by utilizing the extract command-line option.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=1193&amp;height=458&amp;name=MSI%20Blog%20Image%2048.png" alt="MSI Blog Image 48" width="1193" height="458" loading="lazy" style="height: auto; max-width: 100%; width: 1193px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=597&amp;height=229&amp;name=MSI%20Blog%20Image%2048.png 597w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=1193&amp;height=458&amp;name=MSI%20Blog%20Image%2048.png 1193w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=1790&amp;height=687&amp;name=MSI%20Blog%20Image%2048.png 1790w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=2386&amp;height=916&amp;name=MSI%20Blog%20Image%2048.png 2386w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=2983&amp;height=1145&amp;name=MSI%20Blog%20Image%2048.png 2983w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2048.png?width=3579&amp;height=1374&amp;name=MSI%20Blog%20Image%2048.png 3579w" sizes="(max-width: 1193px) 100vw, 1193px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Output streams with msiinfo&nbsp;</em></span></p>
+<h4>Msidump</h4>
+<p>Msidump is also another command-line tool that dumps relevant tables as idt text and streams stored in an MSI file. The investigative method and use is similar to msiinfo.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=1162&amp;height=450&amp;name=msi-blog-images-fig-49.png" alt="msi-blog-images-fig-49" width="1162" height="450" loading="lazy" style="height: auto; max-width: 100%; width: 1162px;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=581&amp;height=225&amp;name=msi-blog-images-fig-49.png 581w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=1162&amp;height=450&amp;name=msi-blog-images-fig-49.png 1162w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=1743&amp;height=675&amp;name=msi-blog-images-fig-49.png 1743w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=2324&amp;height=900&amp;name=msi-blog-images-fig-49.png 2324w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=2905&amp;height=1125&amp;name=msi-blog-images-fig-49.png 2905w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/msi-blog-images-fig-49.png?width=3486&amp;height=1350&amp;name=msi-blog-images-fig-49.png 3486w" sizes="(max-width: 1162px) 100vw, 1162px"><span style="font-size: 16px;"></span></p>
+<p style="text-align: center;"><span style="font-size: 16px;">Output streams with msidump</span></p>
+<h4>Msidiff</h4>
+<p>Msidiff is a command-line tool that compares two MSI files by diffing each sample. For example, an analyst may compare two different installers for its validity using msidiff. To verify if the two installers are installing and dumping the same files, the analyst can use command-line option -l to list and compare the files likely to be dumped.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=936&amp;height=159&amp;name=MSI%20Blog%20Image%2050.png" alt="MSI Blog Image 50" width="936" height="159" loading="lazy" style="height: auto; max-width: 100%; width: 936px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=468&amp;height=80&amp;name=MSI%20Blog%20Image%2050.png 468w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=936&amp;height=159&amp;name=MSI%20Blog%20Image%2050.png 936w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=1404&amp;height=239&amp;name=MSI%20Blog%20Image%2050.png 1404w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=1872&amp;height=318&amp;name=MSI%20Blog%20Image%2050.png 1872w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=2340&amp;height=398&amp;name=MSI%20Blog%20Image%2050.png 2340w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2050.png?width=2808&amp;height=477&amp;name=MSI%20Blog%20Image%2050.png 2808w" sizes="(max-width: 936px) 100vw, 936px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>List of files from msidiff, from the QBot example</em></span></p>
+<h4>Oledump.py</h4>
+<p><a href="https://blog.didierstevens.com/programs/oledump-py/">Oledump.py</a> is a python script created by Didier Stevens that’s mainly utilized to analyze OLE documents. Since OLE documents are COM Structured Storage, this Python script allows defenders to analyze the MSI file as well.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=739&amp;height=251&amp;name=MSI%20Blog%20Image%2051.png" alt="MSI Blog Image 51" width="739" height="251" loading="lazy" style="height: auto; max-width: 100%; width: 739px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=370&amp;height=126&amp;name=MSI%20Blog%20Image%2051.png 370w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=739&amp;height=251&amp;name=MSI%20Blog%20Image%2051.png 739w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=1109&amp;height=377&amp;name=MSI%20Blog%20Image%2051.png 1109w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=1478&amp;height=502&amp;name=MSI%20Blog%20Image%2051.png 1478w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=1848&amp;height=628&amp;name=MSI%20Blog%20Image%2051.png 1848w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2051.png?width=2217&amp;height=753&amp;name=MSI%20Blog%20Image%2051.png 2217w" sizes="(max-width: 739px) 100vw, 739px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Oledump.py showing streams from 15f4cfd.msi</em></span></p>
+<p>Each row consists of the following three columns:&nbsp;</p>
+<ol>
+<li aria-level="1">Stream Number&nbsp;</li>
+<li aria-level="1">Stream Size</li>
+<li aria-level="1">Stream Name<br><br></li>
+</ol>
+<p>In most cases, when utilizing MSI file with oledump.py, the stream name is usually incomprehensible, as shown in the image above.</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=855&amp;height=257&amp;name=MSI%20Blog%20Image%2052.png" alt="MSI Blog Image 52" width="855" height="257" loading="lazy" style="height: auto; max-width: 100%; width: 855px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=428&amp;height=129&amp;name=MSI%20Blog%20Image%2052.png 428w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=855&amp;height=257&amp;name=MSI%20Blog%20Image%2052.png 855w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=1283&amp;height=386&amp;name=MSI%20Blog%20Image%2052.png 1283w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=1710&amp;height=514&amp;name=MSI%20Blog%20Image%2052.png 1710w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=2138&amp;height=643&amp;name=MSI%20Blog%20Image%2052.png 2138w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2052.png?width=2565&amp;height=771&amp;name=MSI%20Blog%20Image%2052.png 2565w" sizes="(max-width: 855px) 100vw, 855px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Oledump.py showing stream 4 detail</em></span></p>
+<p>By specifying the stream number with “-s” option, the oledump.py dumps the content of the stream. In the image above, the stream 4 has file header MSCF, which is a header for a CAB file.&nbsp;</p>
+<a id="orca" data-hs-anchor="true"></a>
+<h4>ORCA</h4>
+<p>ORCA is a GUI-based Windows SDK component that allows users to edit and view MSI database tables. An analyst can open the MSI file in question and navigate to each table to investigate. The GUI makes the process of investigation simpler since it is visually easier to follow.&nbsp;</p>
+<p><img src="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=1007&amp;height=486&amp;name=MSI%20Blog%20Image%2053.png" alt="MSI Blog Image 53" width="1007" height="486" loading="lazy" style="height: auto; max-width: 100%; width: 1007px; margin-left: auto; margin-right: auto; display: block;" srcset="https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=504&amp;height=243&amp;name=MSI%20Blog%20Image%2053.png 504w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=1007&amp;height=486&amp;name=MSI%20Blog%20Image%2053.png 1007w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=1511&amp;height=729&amp;name=MSI%20Blog%20Image%2053.png 1511w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=2014&amp;height=972&amp;name=MSI%20Blog%20Image%2053.png 2014w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=2518&amp;height=1215&amp;name=MSI%20Blog%20Image%2053.png 2518w, https://www.cybereason.com/hs-fs/hubfs/dam/images/images-web/blog-images/MSI%20Blog%20Image%2053.png?width=3021&amp;height=1458&amp;name=MSI%20Blog%20Image%2053.png 3021w" sizes="(max-width: 1007px) 100vw, 1007px"></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><em>Orca showing CustomAction table</em></span></p>
+<h2>Recommendations</h2>
+<p>The Cybereason GSOC recommends the following actions to detect and respond to malicious MSI attacks:</p>
+<ul>
+<li aria-level="1">In the Cybereason platform, enable both the Signature and Artificial Intelligence modes on the Cybereason NGAV, and enable the Detect and Prevent modes of these features.</li>
+<li aria-level="1">Handle files originating from external sources (email, web browsing) with caution.</li>
+<li aria-level="1"><a href="https://www.cybereason.com/company/contact-us">Contact a Cybereason Defender</a>. The Cybereason MDR team provides custom hunting queries for detecting specific threats. To find out more about threat hunting and managed detection and response with the <a href="https://www.cybereason.com/platform">Cybereason Defense Platform</a>, see <a href="https://www.cybereason.com/services/managed-detection-response-mdr">Managed Detection and Response</a>.</li>
+<li aria-level="1">If you are a Cybereason customer, see the NEST for more information, including custom hunting queries for detecting this threat.</li>
+</ul>
+<p>Cybereason is dedicated to teaming with Defenders to end cyber attacks from endpoints to the enterprise to everywhere. Learn more about <a href="https://www.cybereason.com/platform/xdr">Cybereason XDR</a>, check out our <a href="https://www.cybereason.com/get-the-xdr-toolkit">Extended Detection and Response (XDR) Toolkit</a>, or <a href="https://www.cybereason.com/request-a-demo">schedule a demo</a> today to learn how your organization can benefit from an <a href="https://www.cybereason.com/blog/the-cybereason-malop-achieving-operation-centric-security">operation-centric approach</a> to security.</p>
+<h3><br>About The Researchers&nbsp;</h3>
+<p style="font-weight: bold;"><img class="no-border" src="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=150&amp;height=141&amp;name=Kotaro%20Ogino.jpg" alt="Kotaro Ogino" width="150" height="141" loading="lazy" style="height: auto; max-width: 100%; width: 150px; float: left; margin: 0px 15px 0px 0px;" srcset="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=75&amp;height=71&amp;name=Kotaro%20Ogino.jpg 75w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=150&amp;height=141&amp;name=Kotaro%20Ogino.jpg 150w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=225&amp;height=212&amp;name=Kotaro%20Ogino.jpg 225w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=300&amp;height=282&amp;name=Kotaro%20Ogino.jpg 300w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=375&amp;height=353&amp;name=Kotaro%20Ogino.jpg 375w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Kotaro%20Ogino.jpg?width=450&amp;height=423&amp;name=Kotaro%20Ogino.jpg 450w" sizes="(max-width: 150px) 100vw, 150px">Kotaro Ogino, Principal Security Analyst, Cybereason Global SOC</p>
+<p>Kotaro Ogino is a Principal Security Analyst with the Cybereason Global SOC team. He is involved in threat hunting, administration of Security Orchestration, Automation, and Response (SOAR) systems, and Extended Detection and Response (XDR). Kotaro holds a bachelor of science degree in information and computer science.</p>
+<p style="font-weight: bold;"><img class="no-border" src="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=150&amp;height=202&amp;name=Ralph%20Villanueva.png" alt="Ralph Villanueva" width="150" height="202" loading="lazy" style="height: auto; max-width: 100%; width: 150px; float: left; margin: 0px 15px 0px 0px;" srcset="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=75&amp;height=101&amp;name=Ralph%20Villanueva.png 75w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=150&amp;height=202&amp;name=Ralph%20Villanueva.png 150w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=225&amp;height=303&amp;name=Ralph%20Villanueva.png 225w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=300&amp;height=404&amp;name=Ralph%20Villanueva.png 300w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=375&amp;height=505&amp;name=Ralph%20Villanueva.png 375w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Ralph%20Villanueva.png?width=450&amp;height=606&amp;name=Ralph%20Villanueva.png 450w" sizes="(max-width: 150px) 100vw, 150px">Ralph Villanueva, Senior Security Analyst, Cybereason Global SOC</p>
+<p>Ralph Villanueva is a Senior Security Analyst with the Cybereason Global SOC team. He works hunting and combating emerging threats in the cybersecurity space. His interests include malware reverse engineering, digital forensics, and studying APTs. He earned his Master’s Degree in Network Security from Florida International University.&nbsp;</p>
+<p style="font-weight: bold;"><img class="no-border" src="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=150&amp;height=140&amp;name=Robin%20Plumer.jpg" alt="Robin Plumer" width="150" height="140" loading="lazy" style="height: auto; max-width: 100%; width: 150px; float: left; margin: 0px 15px 0px 0px;" srcset="https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=75&amp;height=70&amp;name=Robin%20Plumer.jpg 75w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=150&amp;height=140&amp;name=Robin%20Plumer.jpg 150w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=225&amp;height=210&amp;name=Robin%20Plumer.jpg 225w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=300&amp;height=280&amp;name=Robin%20Plumer.jpg 300w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=375&amp;height=350&amp;name=Robin%20Plumer.jpg 375w, https://www.cybereason.com/hs-fs/hubfs/Blog%20Author%20Images/Robin%20Plumer.jpg?width=450&amp;height=420&amp;name=Robin%20Plumer.jpg 450w" sizes="(max-width: 150px) 100vw, 150px">Robin Plumer, Security Analyst, Cybereason Global SOC</p>
+<p>Robin Plumer is a Security Analyst with the Cybereason Global SOC team. He analyzes and triages malware operations and researches new and emerging threats. He earned his Bachelor’s degree in cybersecurity management from Bournemouth University, UK.</p></span>
+          
+          <!-- IOC PopUp Modal -->
+          
+          
+          
+          <!-- -->
+          
+          <!-- Social Share -->
+          <div class="cr-blog-post__social-sharing">
+            <span>Share</span>
+            <div id="hs_cos_wrapper_module_161724375084957" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-social_sharing" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+
+
+
+
+
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_social_sharing" data-hs-cos-general-type="widget" data-hs-cos-type="social_sharing">
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="https://twitter.com/intent/tweet?original_referer=https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer&amp;utm_medium=social&amp;utm_source=twitter&amp;url=https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer&amp;utm_medium=social&amp;utm_source=twitter&amp;source=tweetbutton&amp;text=" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/twitter-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on twitter">
+    </a>
+	
+
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="http://www.facebook.com/share.php?u=https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer&amp;utm_medium=social&amp;utm_source=facebook" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/facebook-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on facebook">
+    </a>
+	
+
+  
+	
+  
+    
+    
+    
+			
+		
+
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.cybereason.com/blog/threat-analysis-msi-masquerading-as-software-installer&amp;utm_medium=social&amp;utm_source=linkedin" target="_blank" rel="noopener" style="width:16px;">
+      <img src="https://www.cybereason.com/hubfs/dam/images/images-web/blog-images/template-images/linkedin-gray.svg" class="hs-image-widget hs-image-social-sharing-24" style="height:16px;width:16px;" width="16" hspace="0" alt="Share on linkedin">
+    </a>
+	
+
+</div></div>
+          </div> 
+          
+          
+          <!-- CONDITIONAL Author Box Display -->
+            <div class="container columns cr-mln__author-listing-single">
+              
+                <div class="column headshot is-3-full-hd is-3-desktop is-3-tablet is-12-mobile">
+                  <img class="cr-speaker-headshot" src="https://www.cybereason.com/hubfs/Capture-4.png" alt="Cybereason Global SOC Team">
+                </div>
+              
+              <div class="column is-9-full-hd is-9-desktop is-12-mobile">
+                <span class="descriptor">About the Author</span>
+                <h4>Cybereason Global SOC Team</h4>
+                
+                
+                
+                  <p>The Cybereason Global SOC Team delivers 24/7 Managed Detection and Response services to customers on every continent. Led by cybersecurity experts with experience working for government, the military and multiple industry verticals, the Cybereason Global SOC Team continuously hunts for the most sophisticated and pervasive threats to support our mission to end cyberattacks on the endpoint, across the enterprise, and everywhere the battle moves.</p>
+                
+                
+                  <a class="cr-button cr-button__min" href="https://www.cybereason.com/blog/authors/cybereason-global-soc-team">All Posts by Cybereason Global SOC Team</a>
+                
+              </div>            
+            </div>
+          
+        <!-- CONDITIONAL Post Type Choices -->
+        
+        <!-- Malicious Life Post -->
+        
+        
+        <!-- CISO Stories -->
+        
+        <!-- Webinar -->
+        
+          
+        <!-- CONDITIONAL Transcript -->
+          
+        
+         <!-- Related Posts -->
+        <div id="hs_cos_wrapper_module_1649342860525315" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<section class="cr-section related-posts__wrapper">
+  <div class="container container-is-blog page-center">
+     <h3>Related Posts</h3>
+     <div class="columns is-multiline">
+       
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/threat-analysis-report-all-paths-lead-to-cobalt-strike-icedid-emotet-and-qbot"><img src="https://www.cybereason.com/hubfs/Threat%20Alert%20template%20%284%29%20%281%29.png" alt="THREAT ANALYSIS: Cobalt Strike - IcedID, Emotet and QBot"></a>
+    <h4><a href="https://www.cybereason.com/blog/threat-analysis-report-all-paths-lead-to-cobalt-strike-icedid-emotet-and-qbot"><span class="underline">THREAT ANALYSIS: Cobalt Strike - IcedID, Emotet and QBot</span></a></h4>
+     <p>The Cybereason GSOC delivers details on three recently observed attack scenarios where fast-moving malicious actors used the malware loaders IcedID, QBot and Emotet to deploy the Cobalt Strike framework on the compromised systems...</p>
+   </div>
+ </div>
+
+
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/threat-alert-aggressive-qakbot-campaign-and-the-black-basta-ransomware-group-targeting-u.s.-companies"><img src="https://www.cybereason.com/hubfs/Black%20Basta%20Threat%20Alert.png" alt="THREAT ALERT:&nbsp;Aggressive Qakbot Campaign and the Black Basta Ransomware Group Targeting U.S. Companies"></a>
+    <h4><a href="https://www.cybereason.com/blog/threat-alert-aggressive-qakbot-campaign-and-the-black-basta-ransomware-group-targeting-u.s.-companies"><span class="underline">THREAT ALERT:&nbsp;Aggressive Qakbot Campaign and the Black Basta Ransomware Group Targeting U.S. Companies</span></a></h4>
+     <p>This threat alert describes an aggressive new attack campaign operated by the Black Basta ransomware group. The fast-moving campaign is targeting U.S. companies, and in many cases, is causing serious damage to their IT infrastructures. </p>
+   </div>
+ </div>
+
+
+
+    </div>
+  </div>
+</section></div>
+          
+          
+      </div>
+        
+        <!-- Sidebar -->
+
+      <div class="column is-3-fullhd is-3-desktop is-12-mobile cr-malicious-life-network__sidebar">
+        <div class="cr-ml-sidebar--group">
+        <div class="top-stripe"></div>
+        <div class="sidebar-block search-section">
+          <form action="/hs-search-results">
+            <input type="search" class="hs-search-field__input" name="term" autocomplete="on" placeholder="Search">
+            <input type="hidden" name="type" value="BLOG_POST">
+            <input type="hidden" name="type" value="LISTING_PAGE">
+            <button type="submit" class="arrow"></button>
+          </form>
+        </div>
+        <div class="sidebar-block subscribe">
+          <a href="#blog-subscribe">
+            <h4>Subscribe</h4>
+            <span>Never miss a blog.</span>
+          </a>
+        </div>
+
+        <div class="sidebar-block recent-posts">
+          <h4>Recent Posts</h4>
+          
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/threat-alert-citrixbleed-cve-2023-4966" class="post-name"><span class="underline">THREAT ALERT: CITRIXBLEED (CVE-2023-4966)</span></a>
+                       
+                    </div>
+                </div>
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/threat-alert-djvu-variant-delivered-by-loader-masquerading-as-freeware" class="post-name"><span class="underline">THREAT ALERT: DJvu Variant Delivered by Loader Masquerading as Freeware</span></a>
+                       
+                    </div>
+                </div>
+            
+                <div class="recent-posts__single-post">
+                    <div class="text-content-bundle">
+                        <a href="https://www.cybereason.com/blog/2024-cybersecurity-predictions-generative-ai-reshapes-cybersecurity" class="post-name"><span class="underline">2024 Cybersecurity Predictions - Generative AI Reshapes Cybersecurity</span></a>
+                       
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class="sidebar-block category-listing">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="https://www.cybereason.com/blog/category/research">Research</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/podcasts">Podcasts</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/webinars">Webinars</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/resources">Resources</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/videos">Videos</a></li>
+            <li><a href="https://www.cybereason.com/blog/category/news">News</a></li>
+          </ul>
+
+          <a class="rec-category__single--view-all" href="/blog/category/research">All Posts</a>
+        </div>
+
+        
+      </div><!-- END .rec-categories__all -->
+      
+      
+      
+    </div>
+       
+    </div>
+  </div>
+</div></div>
+
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="display: none;" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1616011887658867" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<section class="cr-section related-posts__wrapper">
+  <div class="container container-is-blog page-center">
+     <h3>Related Posts</h3>
+     <div class="columns is-multiline">
+       
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/threat-analysis-report-all-paths-lead-to-cobalt-strike-icedid-emotet-and-qbot"><img src="https://www.cybereason.com/hubfs/Threat%20Alert%20template%20%284%29%20%281%29.png" alt="THREAT ANALYSIS: Cobalt Strike - IcedID, Emotet and QBot"></a>
+    <h4><a href="https://www.cybereason.com/blog/threat-analysis-report-all-paths-lead-to-cobalt-strike-icedid-emotet-and-qbot"><span class="underline">THREAT ANALYSIS: Cobalt Strike - IcedID, Emotet and QBot</span></a></h4>
+     <p>The Cybereason GSOC delivers details on three recently observed attack scenarios where fast-moving malicious actors used the malware loaders IcedID, QBot and Emotet to deploy the Cobalt Strike framework on the compromised systems...</p>
+   </div>
+ </div>
+
+
+  
+ <div class="column is-6-fullhd is-6-desktop is-full-mobile blog-listing__single-post">
+  <div class="text-content-bundle">
+    <a href="https://www.cybereason.com/blog/threat-alert-aggressive-qakbot-campaign-and-the-black-basta-ransomware-group-targeting-u.s.-companies"><img src="https://www.cybereason.com/hubfs/Black%20Basta%20Threat%20Alert.png" alt="THREAT ALERT:&nbsp;Aggressive Qakbot Campaign and the Black Basta Ransomware Group Targeting U.S. Companies"></a>
+    <h4><a href="https://www.cybereason.com/blog/threat-alert-aggressive-qakbot-campaign-and-the-black-basta-ransomware-group-targeting-u.s.-companies"><span class="underline">THREAT ALERT:&nbsp;Aggressive Qakbot Campaign and the Black Basta Ransomware Group Targeting U.S. Companies</span></a></h4>
+     <p>This threat alert describes an aggressive new attack campaign operated by the Black Basta ransomware group. The fast-moving campaign is targeting U.S. companies, and in many cases, is causing serious damage to their IT infrastructures. </p>
+   </div>
+ </div>
+
+
+
+    </div>
+  </div>
+</section></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_161767462015235" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-blog_subscribe" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="cr-mln__blog-listing-page__subscribe-footer">
+  <div class="container container-is-blog columns page-center">
+    <div class="column is-8-fullhd is-8-desktop is-10-tablet is-12-mobile">
+      <span class="tag">NEWSLETTER</span>
+      <h3>Never miss a blog</h3>
+      <p>Get the latest research, expert insights, and security industry news.</p>
+      <a class="cr-button cr-mln__subscribe" href="#blog-subscribe">Subscribe</a>
+    </div>
+    <!--<div class="column is-5-fullhd is-5-desktop is-half-tablet is-12-mobile is-offset-1-fullhd is-offset-1-desktop">
+      <div class="inputs-wrapper">
+        
+        
+      </div>
+    </div>-->
+  </div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_166508001252918" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div class="cr-sticky-cta-bar bg-black" id="sticky-bar">
+  <div class="content">
+    <span>Want to see the Cybereason Defense Platform in action?</span>
+    <a class="cr-button cr-button__fill-yellow" href="https://www.cybereason.com/request-a-demo" target="_blank">Schedule a Demo</a>
+  </div>
+  <div class="close">X</div>
+</div></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end body -->
+</div><!--end body wrapper -->
+
+<div class="footer-container-wrapper">
+    <div class="footer-container container-fluid">
+
+<div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_16036762394194314" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"><!-- FOOTER -->
+
+<footer class="cr-section cr-footer cr-footer__full">
+    <div class="container page-center">
+      <div class="columns">
+          <div class="column is-6-fullhd is-5-desktop cr-footer__col cr-footer__left">
+            <div class="cr-footer__Left-logo">
+              
+                <a href="https://www.cybereason.com">
+                  
+                <img src="https://www.cybereason.com/hubfs/dam/images/images-web/logos/cr-brand/cr-logo-inline--primary-white.png">
+              </a>
+            </div>
+          </div>
+          <div class="columns column is-6-fullhd is-6-desktop cr-footer__col cr-footer__right">
+            <div class="cr-footer__links-list column">
+              <h4>About</h4>
+              <ul>
+                <li><a href="https://www.cybereason.com/company/who-we-are">Who We Are</a>
+                </li><li><a href="https://www.cybereason.com/company/careers">Careers</a>
+          <!-- </li><li><a href="https://www.cybereason.com/company/leadership">Leadership</a> --->
+                </li><li><a href="https://www.cybereason.com/company/contact-us">Contact</a>
+              </li></ul>
+            </div>
+            <div class="cr-footer__links-list column">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="https://www.cybereason.com/blog">Blog</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/case-study">Case Studies</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/webinars">Webinars</a></li>
+                <li><a href="https://www.cybereason.com/resources/tag/white-papers">White Papers</a></li>
+             </ul>
+            </div>
+            <div class="cr-footer__links-list column">
+              <h4>Platform</h4>
+              <ul>
+                
+                <li><a href="https://www.cybereason.com/platform">Overview</a></li>
+                <li><a href="https://www.cybereason.com/platform/endpoint-prevention">Endpoint Protection</a></li>
+                <li><a href="https://www.cybereason.com/platform/endpoint-detection-response-edr">EDR</a></li>
+                <li><a href="https://www.cybereason.com/platform/managed-detection-response-mdr">MDR</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+    </div>
+  
+    <div class="container page-center">
+      <div class="columns cr-footer__bottom-bar">
+        <div class="column">
+          <p>©Cybereason 2023. All Rights Reserved.</p>
+        </div>
+        <div class="column bottom-bar__links">
+          <ul>
+            <li><a href="https://www.cybereason.com/terms-of-use">Terms of Use</a></li>
+            <li><a href="https://www.cybereason.com/privacy-notice">Privacy Notice</a></li>
+            <li><a href="https://www.cybereason.com/ccpa-privacy-request">Do Not Sell</a></li>
+            <li><a href="https://www.cybereason.com/security">Security</a></li>
+            <!--<li><a href="#">Cookie Policy</a></li>-->
+          </ul>
+        </div>
+
+        <div class="column bottom-bar__social">
+          <ul>
+            <li><a class="facebook" href="https://www.facebook.com/Cybereason/"></a></li>
+            <li><a class="twitter" href="https://twitter.com/cybereason"></a></li>
+            <li><a class="youtube" href="https://www.youtube.com/channel/UCOm7AaB0HiNH4Phe66sK0Ew"></a></li>
+            <li><a class="linkedin" href="https://www.linkedin.com/company/cybereason"></a></li>
+            <li><a class="instagram" href="https://www.instagram.com/cybereason"></a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+
+</footer></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end footer -->
+</div><!--end footer wrapper -->
+
+    
+<!-- HubSpot performance collection script -->
+<script defer src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="//cdn2.hubspot.net/hub/3354902/hub_generated/template_assets/42507089303/1644440411417/__CR_Web_Platform/JS/animatedModal/animatedModal.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41681847227/1644941386128/module_41681847227_CR_-_Malicious_Life_Network_--_Tier_One_Header.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/41682410610/1644941443113/module_41682410610_CR_-_Malicious_Life_Network_--_Main_Hero.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/43300360745/1649424828285/module_43300360745_CR_-_Malicious_Life_Network_--_Related_Posts.min.js"></script>
+<script src="https://cdn2.hubspot.net/hub/3354902/hub_generated/module_assets/86933076631/1669911113440/module_86933076631_CR_-_Sticky_CTA_Bar.min.js"></script>
+
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/www.cybereason.com\/blog\/threat-analysis-msi-masquerading-as-software-installer"]);
+_hsq.push(["setPageId", "93542865026"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 93542865026,
+    "legacyPageId": "93542865026",
+    "contentFolderId": null,
+    "contentGroupId": 5272851739,
+    "abTestId": null,
+    "languageVariantId": 93542865026,
+    "languageCode": "en",
+    
+}]);
+</script>
+
+<script type="text/javascript" id="hs-script-loader" async defer src="/hs/scriptloader/3354902.js"></script>
+<!-- End of HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    render_id: "b7fec81d-7405-4981-bf8d-fda7350ece0e",
+    ticks: 1704072923077,
+    page_id: 93542865026,
+    
+    content_group_id: 5272851739,
+    portal_id: 3354902,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "93542865026",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+
+
+<script defer src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+
+<script>if ($('[id^="hs_form"]').length > 0) {
+  var myInterval = setInterval(
+  function() {
+    var myFields = document.getElementsByClassName('hs-input');
+    if (myFields.length > 0) {
+      clearInterval(myInterval);
+      for (var i = 0; i < myFields.length; i++) {
+        var myField = myFields[i];
+		var myTagName = myField.tagName.toLowerCase();
+        if (myTagName == 'input' || myTagName == 'textarea') {
+          if (myField.placeholder != null) {
+            myField.placeholder = myField.placeholder.replace('*', '');
+          }
+        } else if (myTagName == 'select') {
+          myField.options[0].innerHTML = myField.options[0].innerHTML.replace('*', '');
+        }
+      }
+    }
+  }, 100);
+}
+</script>
+
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+    <script>
+function sticky_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('#sticky-anchor').offset().top;
+  if (window_top > div_top) {
+    $('#sticky').addClass('stick');
+  } else {
+    $('#sticky').removeClass('stick');
+  }
+}
+
+$(function() {
+  $(window).scroll(sticky_relocate);
+  sticky_relocate();
+});
+</script>
+    <!-- Generated by the HubSpot Template Builder - template version 1.03 -->
+
+<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=4&cb=24447613" async></script></body></html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="Keywords" content="qakbot, botnet, takedown, compromise, email"/>
+		<title>Qakbot - the takedown and the remediation</title>
+		<link rel="stylesheet" href="/styles/sh.css" type="text/css"/>
+	</head>
+
+	<body>
+		<div align="center">
+			<br/>
+			
+			<!--header start-->
+			<table width="960" border="0" cellspacing="20" cellpadding="0">
+				<tr>
+					<td valign="top">
+						<table width="920" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<table width="920" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td height="35" valign="top" width="460"><img src="/images/sh_logo1.jpg" alt="" height="32" width="260" border="0"></td>
+											<td height="35" valign="top" width="460">
+												<div align="right">
+													<img src="/images/sh_logo2.jpg" alt="" height="32" width="260" border="0"></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table bgcolor="#dcdcdc" width="920" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="92" height="28"><a title="Home" href="/"><img src="/images/shbn_home.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="SBL" href="/sbl/"><img src="/images/shbn_sbl.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="XBL" href="/xbl/"><img src="/images/shbn_xbl.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="PBL" href="/pbl/"><img src="/images/shbn_pbl.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="DBL" href="/dbl/"><img src="/images/shbn_dbl.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="DROP" href="/drop/"><img src="/images/shbn_drop.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><a title="ROKSO" href="/rokso/"><img src="/images/shbn_rokso.gif" alt="" height="28" width="92" border="0"></a></td>
+											<td width="92" height="28"><img src="/images/shbn_blank.gif" alt="" height="28" width="92" border="0"></td>
+											<td width="92" height="28"><img src="/images/shbn_blank.gif" alt="" height="28" width="92" border="0"></td>
+											<td width="92" height="28"><img src="/images/shbn_blank.gif" alt="" height="28" width="92" border="0"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td bgcolor="#ffcc00">
+									<table width="920" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td height="30" width="320">&nbsp;&nbsp;&nbsp;<span class="body"><a href="/news/rss/"><img src="/images/rss_icon1.gif" alt="" width="12" height="12" align="absmiddle" border="0"></a> </span><a class="topmenu" href="/news/rss/"><span class="topmenu">Subscribe to RSS News Feed</span></a></td>
+											<td height="30" width="600">
+												<div align="right">
+													<span class="topmenu"><a class="topmenu" a href="/organization/">About Spamhaus</a> &nbsp;|&nbsp; <a class="topmenu" href="/organization/pressoffice/">Press Office</a> &nbsp;|&nbsp; <a class="topmenu" href="/faq/">FAQs</a> &nbsp;&nbsp;</span></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td bgcolor="#000063">
+									<table width="920" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td height="30" width="320"><img src="/images/shnewsbar.jpg" alt="" height="30" width="920" border="0"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><img src="/images/shad02.gif" alt="" width="920" height="15" border="0"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<!--header end-->
+			
+			<table width="960" border="0" cellspacing="20" cellpadding="0">
+				<tr>
+				
+					<td valign="bottom" width="215" height="55">
+					
+					<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+<a href="https://twitter.com/spamhaus" class="twitter-follow-button" data-show-count="false">Follow @spamhaus</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					
+					</td>
+
+				
+					<td valign="top" width="685" height="55">
+						<table width="685" border="0" cellspacing="0" cellpadding="0">
+					
+							<tr>
+								<td><h1>Qakbot - the takedown and the remediation</h1></td>
+							</tr>
+							<tr>
+								<td><span class="smallgrey"><span class="small">2023-08-29 20:28:17 UTC &nbsp; | &nbsp;  by Spamhaus Team &nbsp; | &nbsp;
+Category:&nbsp;
+<a href="/news/tags/qakbot/">qakbot</a>, <a href="/news/tags/botnet/">botnet</a>, <a href="/news/tags/takedown/">takedown</a>, <a href="/news/tags/compromise/">compromise</a>, <a href="/news/tags/email/">email</a></span></span></td>		
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+				
+					<td valign="top" width="215">
+						<table width="215" border="0" cellspacing="0" cellpadding="3" height="24">
+							<tr>
+								<td bgcolor="#ffcc00"><span class="body"><span class="body"><span><b>Recent News Articles</b></span></span></span></td>
+							</tr>
+						</table>
+						<span class="body"><img src="/images/shad02.gif" alt="" width="215" height="15" border="0"><br/>
+						</span>
+					
+						<span class="body"><a class="listmenu" href="/news/article/823/qname-minimization-and-spamhaus-dnsbls">QNAME Minimization and  Spamhaus DNSBLs</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/822/the-beta-nature-of-the-threat-intel-community-portal">The beta nature of the Threat Intel Community Portal</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/821/want-to-submit-data-be-our-guest">Want to submit data? Be our guest!</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/820/the-return-of-the-asn-drop">The return of the ASN-DROP</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/819/qakbot-the-takedown-and-the-remediation">Qakbot - the takedown and the remediation</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/818/poor-sending-practices-trigger-a-tidal-wave-of-informational-listings">Poor sending practices trigger a tidal wave of informational listings</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/817/spamhaus-botnet-threat-update-q4-2021">Spamhaus Botnet Threat Update: Q4-2021</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+					
+						<span class="body"><a class="listmenu" href="/news/article/816/service-update-spamhaus-dnsbl-users-who-query-via-cloudflare-dns-need-to-make-changes-to-email-set-up">SERVICE UPDATE | Spamhaus DNSBL users who query via Cloudflare DNS need to make changes to email set-up</a></span><br/>
+						<hr color="#e0e0e0" noshade size="1">
+							<br/>
+						<span class="body"><span class="body"><span>Older News Articles:</span></span><span><br/>
+							</span></span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="/news/">Spamhaus News INDEX</a><br/>
+							<br/>
+							<a href="/news/rss/"><img src="/images/rss_icon2.jpg" alt="" width="28" height="16" border="0"></a></span></td>
+					<td valign="top" width="685"><span class="body body-blog"><p>Writing "Qakbot" and "takedown" in the same sentence is quite something. Usually, Spamhaus is bemoaning the ever-growing numbers of compromised IPs associated with this malware. But, on Tuesday, August 29th, 2023, the Federal Bureau of Investigation (FBI) announced that it coordinated an international group of law enforcement authorities in Operation 'Duck Hunt' to take control of the Qakbot infrastructure. Working together with the relevant authorities, the Spamhaus Project is assisting with remediation efforts.</p>
+
+
+<h2>Qakbot email accounts victim remediation</h2>
+<p>Before diving into the nitty gritty of Qakbot and the takedown tale, we want to outline what assistance we will provide to owners and operators of Qakbot compromised email accounts.
+<ul>
+    <li>Qakbot relied on compromised accounts to spread its malicious emails. If a receiver interacted with one of these emails, it is highly likely that their device became infected. As a result, they would have become part of the Qakbot botnet.</li>
+    <li>The authorities have provided Spamhaus with data pertaining to these compromised accounts to assist with the remediation effort.</li>
+    <li>Over the coming days, Spamhaus will notify email service providers, hosting companies, and other parties responsible for these accounts.</li>
+    <li>We request that all those organizations contacted secure the accounts in question via a simple password reset.</li>
+</ul>
+
+<p>For more information see our <a href="/qakbot/">dedicated Qakbot remediation page</a>.</p>
+
+
+<h2>The takedown tale</h2>
+<p>We've previously reported on takedowns, for example, <a href="https://www.spamhaus.org/news/article/806/emotet-is-disrupted-but-the-malware-it-installed-lives-on#:~:text=What%20does%20Spamhaus%20do%3F,Stay%20alert%2C%20stay%20safe">Emotet, when its infrastructure was disrupted in January 2021</a>. Similar to the takedown of Qakbot, it resulted from a highly coordinated effort between multiple countries. This time, the United States, France, Germany, The Netherlands, The United Kingdom, Romania, and Latvia all worked together, led by the FBI, to disrupt the Qakbot botnet infrastructure used by cybercriminals.</p>
+
+<p>However, one notable difference between the Emotet and Qakbot takedown is the novel method employed to "disrupt the duck". Through Bureau-controlled servers, the FBI instructed infected computers to download an uninstaller file. This uninstaller, specifically created to remove Qakbot malware, untethered infected computers from the botnet and prevented the installation of any additional malware. We won't lie - we think this is genius.</p>
+
+<p>To be honest, we think the entire operation is to be hugely applauded, and it once again illustrates that in the World Wide Web era, a World Wide Community is required to keep its users safe.</p>
+
+<h2>Want to know more about Qakbot?</h2>
+<p>Anyone who has read the <a href="https://info.spamhaus.com/botnet-threat-updates">Botnet Updates</a> or <a href="https://info.spamhaus.com/monthly-malware-digests?">Malware Digests</a> will have heard about this malware. Qakbot, around since 2008, has been one of the most significant malware threats for corporate networks. To understand the size of this malware, here's a data point: In 2022, every fourth malware site shared by abuse.ch's URLHaus was related to Qakbot.</p>
+
+<p>Often acting as <a href="https://check.spamhaus.org/faqs/?id=What_is_access_broker">Initial Access</a>, Qakbot has been used by many prolific ransomware groups in recent years, including Conti, ProLock, Egregor, REvil, MegaCortex, and Black Basta. Subsequently, these ransomware actors extort their victims, seeking ransom payments in bitcoin before returning access to the victim's computer networks.</p>
+
+<p>These ransomware groups have caused significant harm to businesses, healthcare providers, and government agencies worldwide. Investigators have found evidence that, between October 2021 and April 2023, Qakbot administrators received fees corresponding to approximately $58 million in ransoms paid by victims.</p>
+
+<p>Over the past year, our researchers have observed increased activity; in Q4 2022, Qakbot botnet command and controllers (C&Cs) were associated with 379% more IP addresses than in the previous quarter. Meanwhile, in February 2023, the largest number of Indicators of Compromise (IOCs) reported via abuse.ch's <a href="https://threatfox.abuse.ch/">ThreatFox platform</a> were associated with Qakbot.</p>
+
+<p>The disruption of this malware cannot have come soon enough. We are deeply grateful to all those concerned, and look forward to contributing to the remediation efforts.</p>
+
+<h2>Press releases & announcements</h2>
+<p>
+FBI: <a href="https://www.fbi.gov/news/stories/fbi-partners-dismantle-qakbot-infrastructure-in-multinational-cyber-takedown">FBI, Partners Dismantle Qakbot Infrastructure in Multinational Cyber Takedown</a><br>
+US Attorney's Office: <a href="https://www.justice.gov/usao-cdca/pr/qakbot-malware-disrupted-international-cyber-takedown">Qakbot Malware Disrupted in International Cyber Takedown</a><br>
+Netherlands Public Prosecution Service: <a href="https://www.om.nl/actueel/nieuws/2023/08/29/grootste-wereldwijde-botnet-qakbot-onschadelijk-gemaakt">Grootste wereldwijde botnet Qakbot onschadelijk gemaakt</a><br>
+UK National Crime Agency: <a href="https://www.nationalcrimeagency.gov.uk/news/qakbot-cyber-crime-service-taken-out-in-international-operation">Qakbot: cyber crime service taken out in international operation </a><br>
+</p><br/>
+							<br/>
+						</span></td>
+
+
+				</tr>
+				
+				
+			</table>
+			<table width="960" border="0" cellspacing="20" cellpadding="0">
+				<tr>
+					<td valign="top" width="215">
+						<table width="215" border="0" cellspacing="0" cellpadding="3" height="24">
+							<tr>
+								<td bgcolor="#ffcc00"><font color="#000099"><span class="body"><b>Spamhaus Information</b></span></font></td>
+							</tr>
+						</table>
+						<span class="body"><img src="/images/shad02.gif" alt="" width="215" height="15" border="0"><br/>
+						</span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="/organization/pressoffice/">Press Office</a><br/>
+						</span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="/news/">Spamhaus News Index<br/>
+							</a></span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="http://news.google.com/news?q=spamhaus&num=100&hl=en&lr=&ie=UTF-8&output=search&edition=usa&scoring=d" target="_blank">Spamhaus in the media<br/>
+							</a></span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="/organization/">About Spamhaus</a><br/>
+						</span><img src="/images/pointer.gif" alt="" height="10" width="10" border="0"><span class="body"><a class="listmenu" href="/organization/statements/">Spamhaus Official Statements</a><br/>
+						</span></td>
+					<td valign="top" width="450">
+						<table width="450" border="0" cellspacing="0" cellpadding="3" height="24">
+							<tr>
+								<td bgcolor="#ffcc00"><font color="#000099"><span class="body"><b>Article Information</b></span></font></td>
+							</tr>
+						</table>
+						<span class="body"><img src="/images/shad02.gif" alt="" width="450" height="15" border="0"><br/>
+							Permanent link to this news article:<br/>
+							<b>Qakbot - the takedown and the remediation</b><br/>
+							<a class="body" href="/news/article/819/qakbot-the-takedown-and-the-remediation">http://www.spamhaus.org/news/article/819/qakbot-the-takedown-and-the-remediation</a><br/>
+							<br/>
+							<a href="/news/rss/"><img src="/images/rss_icon1.gif" alt="" width="12" height="12" align="absmiddle" border="0"></a> <a class="listmenu" href="/news/rss/">Subscribe to RSS News Feed</a></span></td>
+					<td valign="top" width="215">
+						<table width="215" border="0" cellspacing="0" cellpadding="3" height="24">
+							<tr>
+								<td bgcolor="#ffcc00"><font color="#000099"><span class="body"><b>Spamhaus News Quotes</b></span></font></td>
+							</tr>
+						</table>
+						<span class="body"><img src="/images/shad02.gif" alt="" width="215" height="15" border="0"><br/>
+								Permission to quote from or reproduce Spamhaus News articles is granted automatically providing you state the source as Spamhaus and link to the news record.<br/>
+						</span></td>
+				</tr>
+			</table>
+			
+			<!--footer start-->
+			<table width="960" border="0" cellspacing="20" cellpadding="0">
+				<tr>
+					<td valign="top">
+						<table width="920" border="0" cellspacing="0" cellpadding="0" class="footertable">
+							<tr>
+								<td height="20" width="460"><span class="smallgrey"><a class="smallgrey" href="/organization/notices/#copyright">&copy; 1998-2024 The Spamhaus Project SLU. All rights reserved.</a></span></td>
+								<td height="20" width="460">
+									<div align="right">
+										<span class="smallgrey"><span class="menu"><a class="smallgrey" href="/organization/notices/">Legal</a> &nbsp;|&nbsp; <a class="smallgrey" href="/organization/privacy/">Privacy</a></span></span></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j
+.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K9S544M');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K9S544M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+			<!--footer end-->
+
+		</div>
+	</body>
+
+</html>

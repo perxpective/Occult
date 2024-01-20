@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preload" as="style" href="/assets/built/screen.css?v=4b294bb165">
+    <link rel="preload" as="script" href="/assets/built/source.js?v=4b294bb165">
+
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=4b294bb165">
+
+    <style>
+        :root {
+            --background-color: #000000
+        }
+    </style>
+
+    <script>
+        /* The script for calculating the color contrast has been taken from
+        https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/ */
+        var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+        accentColor = accentColor.trim().slice(1);
+        var r = parseInt(accentColor.substr(0, 2), 16);
+        var g = parseInt(accentColor.substr(2, 2), 16);
+        var b = parseInt(accentColor.substr(4, 2), 16);
+        var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        var textColor = (yiq >= 128) ? 'dark' : 'light';
+
+        document.documentElement.className = `has-${textColor}-text`;
+    </script>
+
+    <meta name="description" content="Catching 83 Qakbot Servers using Regular Expressions.">
+    <link rel="icon" href="https://embee-research.ghost.io/content/images/size/w256h256/format/png/2023/11/logo.svg.svg" type="image/png">
+    <link rel="canonical" href="https://embee-research.ghost.io/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Embee Research">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates">
+    <meta property="og:description" content="Catching 83 Qakbot Servers using Regular Expressions.">
+    <meta property="og:url" content="https://embee-research.ghost.io/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/">
+    <meta property="og:image" content="https://embee-research.ghost.io/content/images/size/w1200/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png">
+    <meta property="article:published_time" content="2023-11-30T10:25:47.000Z">
+    <meta property="article:modified_time" content="2023-11-30T11:02:11.000Z">
+    <meta property="article:tag" content="Advanced">
+    <meta property="article:tag" content="Threat Intelligence">
+    <meta property="article:tag" content="Censys">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates">
+    <meta name="twitter:description" content="Catching 83 Qakbot Servers using Regular Expressions.">
+    <meta name="twitter:url" content="https://embee-research.ghost.io/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/">
+    <meta name="twitter:image" content="https://embee-research.ghost.io/content/images/size/w1200/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Matthew">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Advanced, Threat Intelligence, Censys">
+    <meta name="twitter:site" content="@embee_research">
+    <meta name="twitter:creator" content="@embee_research">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Embee Research",
+        "url": "https://embee-research.ghost.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Matthew",
+        "url": "https://embee-research.ghost.io/author/matthew/",
+        "sameAs": [
+            "https://twitter.com/embee_research"
+        ]
+    },
+    "headline": "Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates",
+    "url": "https://embee-research.ghost.io/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/",
+    "datePublished": "2023-11-30T10:25:47.000Z",
+    "dateModified": "2023-11-30T11:02:11.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://embee-research.ghost.io/content/images/size/w1200/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png",
+        "width": 1200,
+        "height": 675
+    },
+    "keywords": "Advanced, Threat Intelligence, Censys",
+    "description": "Catching 83 Qakbot Servers using Regular Expressions. ",
+    "mainEntityOfPage": "https://embee-research.ghost.io/advanced-threat-intel-queries-catching-83-qakbot-servers-with-regex-censys-and-tls-certificates/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.75">
+    <link rel="alternate" type="application/rss+xml" title="Embee Research" href="https://embee-research.ghost.io/rss/">
+    <script defer src="https://cdn.jsdelivr.net/ghost/portal@~2.36/umd/portal.min.js" data-i18n="false" data-ghost="https://embee-research.ghost.io/" data-key="5b00360b75171de09d2f740e1c" data-api="https://embee-research.ghost.io/ghost/api/content/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style><script async src="https://js.stripe.com/v3/"></script>
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="5b00360b75171de09d2f740e1c" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://embee-research.ghost.io/" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/ghost/announcement-bar@~1.1/umd/announcement-bar.min.js" data-announcement-bar="https://embee-research.ghost.io/" data-api-url="https://embee-research.ghost.io/members/api/announcement/" crossorigin="anonymous"></script>
+    <link href="https://embee-research.ghost.io/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=4b294bb165"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=4b294bb165">
+    <script defer src="/public/member-attribution.min.js?v=4b294bb165"></script>
+    <script defer data-domain="embee-research.ghost.io" src="https://plausible.io/js/plausible.js"></script>
+<style>:root {--ghost-accent-color: #5b00a6;}</style>
+
+</head>
+<body class="post-template tag-advanced tag-intel tag-censys has-sans-title has-sans-body">
+
+<div class="gh-viewport">
+    
+    <header id="gh-navigation" class="gh-navigation is-stacked gh-outer">
+    <div class="gh-navigation-inner gh-inner">
+
+        <div class="gh-navigation-brand">
+            <a class="gh-navigation-logo is-title" href="https://embee-research.ghost.io">
+                    <img src="https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg" alt="Embee Research">
+            </a>
+            <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>            <button class="gh-burger gh-icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>            </button>
+        </div>
+
+        <nav class="gh-navigation-menu">
+            <ul class="nav">
+    <li class="nav-home"><a href="https://embee-research.ghost.io/">Home</a></li>
+    <li class="nav-reverse-engineering"><a href="https://embee-research.ghost.io/tag/reversing/">Reverse Engineering</a></li>
+    <li class="nav-detection-engineering"><a href="https://embee-research.ghost.io/tag/detection/">Detection Engineering</a></li>
+    <li class="nav-threat-intelligence"><a href="https://embee-research.ghost.io/tag/intel/">Threat Intelligence</a></li>
+    <li class="nav-ghidra-tutorials"><a href="https://embee-research.ghost.io/tag/ghidra/">Ghidra Tutorials</a></li>
+    <li class="nav-testimonials"><a href="https://embee-research.ghost.io/testimonials/">Testimonials</a></li>
+</ul>
+
+        </nav>
+
+        <div class="gh-navigation-actions">
+                <button class="gh-search gh-icon-button" aria-label="Search this site" data-ghost-search>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>                <div class="gh-navigation-members">
+                            <a href="#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                </div>
+        </div>
+
+    </div>
+</header>
+
+    
+
+<main class="gh-main">
+
+    <article class="gh-article post tag-advanced tag-intel tag-censys">
+
+        <header class="gh-article-header gh-canvas">
+
+                <a class="gh-article-tag" href="https://embee-research.ghost.io/tag/advanced/">Advanced</a>
+            <h1 class="gh-article-title is-title">Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates</h1>
+                <p class="gh-article-excerpt is-body">Catching 83 Qakbot Servers using Regular Expressions. </p>
+
+            <div class="gh-article-meta">
+                <div class="gh-article-author-image">
+                            <a href="/author/matthew/"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z" fill="#FFF"/></g></svg>
+</a>
+                </div>
+                <div class="gh-article-meta-wrapper">
+                    <h4 class="gh-article-author-name"><a href="/author/matthew/">Matthew</a></h4>
+                    <div class="gh-article-meta-content">
+                        <time class="gh-article-meta-date" datetime="2023-11-30">Nov 30, 2023</time>
+                            <span class="gh-article-meta-length"><span class="bull">—</span> 9 min read</span>
+                    </div>
+                </div>
+            </div>
+
+                <figure class="gh-article-image">
+        <img
+            srcset="/content/images/size/w320/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 320w,
+                    /content/images/size/w600/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 600w,
+                    /content/images/size/w960/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 960w,
+                    /content/images/size/w1200/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 1200w,
+                    /content/images/size/w2000/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png 2000w"
+            src="/content/images/size/w1200/2023/11/Advanced-Threat-Intel-Queries-With-Regular-Expressions.png"
+            alt="Advanced Threat Intel Queries - Catching 83 Qakbot Servers with Regex, Censys and TLS Certificates"
+        >
+    </figure>
+
+        </header>
+
+        <section class="gh-content gh-canvas is-body">
+            <p>In this post we will leverage regular expressions and TLS certificates to capture 83 dispersed Qakbot servers. </p><p>These servers are well made and there are minimal traditional patterns (ports, service names, ASN's) that can be used for signaturing. Instead we will focus on commonalities within the <code>subject_dn</code> and <code>issuer_dn</code> fields to identify servers. </p><blockquote>This is a relatively advanced technique that will require a basic understanding of regular expressions, and also a paid/researcher license for Censys. </blockquote><p>The final query is shown below. <a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.tls.certificates.leaf_data.subject_dn%3D%2FC%3D%5Cw%5Cw%2C+OU%3D%5Ba-zA-Z0-9+%5C.%5D%2B%2C+CN%3D%5Ba-z%5D%2B%5C.%5Ba-z%5D%2B%2F+and+services.tls.certificates.leaf_data.issuer_dn%3D%2FC%3D%5Cw%5Cw%2C+ST%3D%5Cw%5Cw%2C+L%3D%5Ba-zA-Z%5D%2B%2C+O%3D%5Ba-zA-Z0-9%5C.+%5D%2B%2C+CN%3D%5Ba-z%5D%2B%5C.%5Ba-z%5D%2B%2F+%E2%86%A9+&ref=embee-research.ghost.io">A link can be found here</a>. </p><pre><code>services.tls.certificates.leaf_data.subject_dn=/C=\w\w, OU=[a-zA-Z0-9 \.]+, CN=[a-z]+\.[a-z]+/ and services.tls.certificates.leaf_data.issuer_dn=/C=\w\w, ST=\w\w, L=[a-zA-Z]+, O=[a-zA-Z0-9\. ]+, CN=[a-z]+\.[a-z]+/
+</code></pre><blockquote>Note that this post is primarily a demonstration of technical concepts that can be used to identify malware.  We have not 100% validated that all results are Qakbot (although most appear to be), and we are relying on the initial ThreatFox tag being accurate.</blockquote><h2 id="initial-server-from-threatfox">Initial Server From ThreatFox</h2><p>The initial server IP of <code>74.12.147[.]243:2222</code> was obtained from ThreatFox. Initially shared by the Twitter user @<a href="https://twitter.com/drb_ra?ref=embee-research.ghost.io">drb_ra</a>. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-338.png" class="kg-image" alt loading="lazy" width="1418" height="893" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-338.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-338.png 1000w, https://embee-research.ghost.io/content/images/2023/11/image-338.png 1418w" sizes="(min-width: 720px) 720px"></figure><h2 id="performing-an-initial-search">Performing an Initial Search</h2><p>Searching the IP Address on Censys, we can quickly identify a suspicious certificate running on the reported <code>2222</code> port. </p><p>This certificate contains seemingly random text. With long values and only alphabetical characters. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-339.png" class="kg-image" alt loading="lazy" width="1595" height="1050" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-339.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-339.png 1000w, https://embee-research.ghost.io/content/images/2023/11/image-339.png 1595w" sizes="(min-width: 720px) 720px"></figure><p>Using "View All Data", we can gather more information about the service running on 2222. </p><p>This reveals an empty service banner that can be later used as a pivot point or as a field to narrow down search results. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-340.png" class="kg-image" alt loading="lazy" width="2000" height="469" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-340.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-340.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-340.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-340.png 2366w" sizes="(min-width: 720px) 720px"></figure><p>The exact structure of the TLS Certificate can be established with this view. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-341.png" class="kg-image" alt loading="lazy" width="2000" height="352" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-341.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-341.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-341.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-341.png 2294w" sizes="(min-width: 720px) 720px"></figure><p>The search box next to <code>services.tls.certificates.leaf_data.subject_dn</code> can be used to pre-build an exact query. </p><p>We will use this pre-built query as a base for our regular expression. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-342.png" class="kg-image" alt loading="lazy" width="1836" height="858" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-342.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-342.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-342.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-342.png 1836w" sizes="(min-width: 720px) 720px"></figure><h2 id="converting-hardcoded-values-into-regular-expressions">Converting Hardcoded Values Into Regular Expressions</h2><p>We can go ahead and modify the search parameter to a regular expression. </p><p>A summary of the changes can be found below. </p><ul><li><code>C=US</code> -&gt; <code>C=\w\w</code> - We will let the <code>C</code> field match on any two characters</li><li><code>OU=Vzbxanrbu Eivhtmjiabe Qjihwitl</code> -&gt; <code>OU=[a-zA-Z0-9 ]+</code> - We can let the <code>OU</code> field match any sequence of alphabetical characters, allowing for a space inbetween. </li><li><code>CN=motnooz.biz</code> -&gt; <code>CN=[a-z]+\.[a-z]+</code> - we will let the <code>CN</code> field match on any domain containing only lowercase letters. </li></ul><p>After modifying the query as above, we can also add a filter for our original IP. This ensures that the same IP is matched and hasn't been lost. This is a means of quickly verifying that a regex is working as intended.</p><p>We can see below that the same Initial IP is matched, meaning that the regex probably works. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-343.png" class="kg-image" alt loading="lazy" width="1826" height="913" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-343.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-343.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-343.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-343.png 1826w" sizes="(min-width: 720px) 720px"></figure><p>With the Regex validated, We can now go ahead and remove the IP Address, leaving only the <code>subject_dn</code> field. </p><p>This modified search results in 778 servers, many of which don't completely follow the certificate structure that we want. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-344.png" class="kg-image" alt loading="lazy" width="1846" height="1004" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-344.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-344.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-344.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-344.png 1846w" sizes="(min-width: 720px) 720px"></figure><h2 id="validating-search-results">Validating Search Results</h2><p>If we inspect the first returned result of <code>75.98.168[.]215</code>, we can see that the <code>subject_dn</code> matches our regular expression structure, but the <code>issuer_dn</code> is different to our initial Qakbot. </p><p>Below is the first returned result (Which does not match our pattern). Note that it contains the <code>-</code> character in the <code>CN</code> and <code>O</code> fields. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-345.png" class="kg-image" alt loading="lazy" width="1631" height="681" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-345.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-345.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-345.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-345.png 1631w" sizes="(min-width: 720px) 720px"></figure><p>Below is the original Qakbot C2. Note the lack of special characters and numerical values. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-339.png" class="kg-image" alt loading="lazy"></figure><h2 id="refining-with-extra-fields">Refining with Extra Fields</h2><p>The initial search returns results that match our <code>subject_dn</code> regular expression. </p><p></p><p>But there are results with a completely different (and not matching) structure on the <code>issuer_dn</code>. </p><p>We can go back to our initial Qakbot C2, and follow the same process as before to build a regular expression on the <code>issuer_dn</code> field. </p><p>We can then validate the regular expression by including the initial IP address. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-346.png" class="kg-image" alt loading="lazy" width="1813" height="893" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-346.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-346.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-346.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-346.png 1813w" sizes="(min-width: 720px) 720px"></figure><p>Since the <code>issuer_dn</code> field has not been validated, We can now go ahead and add the <code>issuer_dn</code> query to the initial <code>subject_dn</code> search. We can also include the initial IP for validation. </p><p>At this point, we have a total query of </p><pre><code>services.tls.certificates.leaf_data.subject_dn=/C=\w\w, OU=[a-zA-Z0-9 \.]+, CN=[a-z]+\.[a-z]+/ and services.tls.certificates.leaf_data.issuer_dn=/C=\w\w, ST=\w\w, L=[a-zA-Z]+, O=[a-zA-Z0-9\. ]+, CN=[a-z]+\.[a-z]+/ and ip:70.27.15.38</code></pre><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-347.png" class="kg-image" alt loading="lazy" width="1816" height="879" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-347.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-347.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-347.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-347.png 1816w" sizes="(min-width: 720px) 720px"></figure><p>The above search confirms that we haven't lost our initial hit, meaning the regex is valid and the initial IP can be removed. </p><p>By removing the Initial IP Address and including only the <code>subject_dn</code> and <code>issuer_dn</code>, we're now down to a manageable number of 83 results. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-348.png" class="kg-image" alt loading="lazy" width="1882" height="1016" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-348.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-348.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-348.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-348.png 1882w" sizes="(min-width: 720px) 720px"></figure><p>Inspecting the first two hits, we can confirm that we have matches on our intended certificate structure. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-349.png" class="kg-image" alt loading="lazy" width="1621" height="537" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-349.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-349.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-349.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-349.png 1621w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-350.png" class="kg-image" alt loading="lazy" width="1614" height="434" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-350.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-350.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-350.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-350.png 1614w" sizes="(min-width: 720px) 720px"></figure><h2 id="further-validation-with-report-building">Further Validation With Report Building</h2><p>To save time validating every result individually, we use the "build report" function of Censys to hone in on the <code>subject_dn</code> or <code>issuer_dn</code> fields. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-352.png" class="kg-image" alt loading="lazy" width="2000" height="535" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-352.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-352.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-352.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-352.png 2391w" sizes="(min-width: 720px) 720px"></figure><p>This confirms that most of the returned servers are matching our intended structure. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-351.png" class="kg-image" alt loading="lazy" width="2000" height="1135" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-351.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-351.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-351.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-351.png 2357w" sizes="(min-width: 720px) 720px"></figure><h2 id="honing-in-on-domainhost-names">Honing in on Domain/Host Names</h2><p>We can also use the "build report" function to hone in on <code>common_name</code> fields used in the TLS certificates. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-354.png" class="kg-image" alt loading="lazy" width="2000" height="595" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-354.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-354.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-354.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-354.png 2333w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-353.png" class="kg-image" alt loading="lazy" width="1781" height="1305" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-353.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-353.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-353.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-353.png 1781w" sizes="(min-width: 720px) 720px"></figure><h2 id="query-refinement">Query Refinement</h2><p>There are potentially some false positives within the 83 returned results, so if we like, we can go ahead and add the empty banner hash from the initial IP. </p><p>This will reduce the hits down to 49. But it's possible that this may remove some malicious results. I did not validate this as it's very time-consuming, and the majority of servers seem to be malicious either way. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-355.png" class="kg-image" alt loading="lazy" width="1870" height="947" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-355.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-355.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-355.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-355.png 1870w" sizes="(min-width: 720px) 720px"></figure><h2 id="validating-results-with-virustotal">Validating Results With Virustotal</h2><p>Performing a quick search on some of the returned hits on Virustotal. </p><p>The majority seem to be related to Qakbot, although we did not confirm this 100%. The full list of IOC's can be found below. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-356.png" class="kg-image" alt loading="lazy" width="1303" height="820" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-356.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-356.png 1000w, https://embee-research.ghost.io/content/images/2023/11/image-356.png 1303w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-358.png" class="kg-image" alt loading="lazy" width="1281" height="798" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-358.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-358.png 1000w, https://embee-research.ghost.io/content/images/2023/11/image-358.png 1281w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-359.png" class="kg-image" alt loading="lazy" width="1321" height="726" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-359.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-359.png 1000w, https://embee-research.ghost.io/content/images/2023/11/image-359.png 1321w" sizes="(min-width: 720px) 720px"></figure><h2 id="conclusion">Conclusion</h2><p>At this stage, we now have a <a href="https://search.censys.io/search?resource=hosts&sort=RELEVANCE&per_page=25&virtual_hosts=EXCLUDE&q=services.tls.certificates.leaf_data.subject_dn%3D%2FC%3D%5Cw%5Cw%2C+OU%3D%5Ba-zA-Z0-9+%5C.%5D%2B%2C+CN%3D%5Ba-z%5D%2B%5C.%5Ba-z%5D%2B%2F+and+services.tls.certificates.leaf_data.issuer_dn%3D%2FC%3D%5Cw%5Cw%2C+ST%3D%5Cw%5Cw%2C+L%3D%5Ba-zA-Z%5D%2B%2C+O%3D%5Ba-zA-Z0-9%5C.+%5D%2B%2C+CN%3D%5Ba-z%5D%2B%5C.%5Ba-z%5D%2B%2F+%E2%86%A9+&ref=embee-research.ghost.io">functioning query</a> that capture 83 servers. We have not had to rely on port numbers, port ranges, or ASN locations to hone in. </p><p>Here is another copy of our final query. </p><pre><code>services.tls.certificates.leaf_data.subject_dn=/C=\w\w, OU=[a-zA-Z0-9 \.]+, CN=[a-z]+\.[a-z]+/ and services.tls.certificates.leaf_data.issuer_dn=/C=\w\w, ST=\w\w, L=[a-zA-Z]+, O=[a-zA-Z0-9\. ]+, CN=[a-z]+\.[a-z]+/
+</code></pre><p>If we observe the returned results below, we can see that the ASN's and port numbers vary greatly between the results. Meaning that many traditional query styles will not work. </p><figure class="kg-card kg-image-card"><img src="https://embee-research.ghost.io/content/images/2023/11/image-360.png" class="kg-image" alt loading="lazy" width="1722" height="1198" srcset="https://embee-research.ghost.io/content/images/size/w600/2023/11/image-360.png 600w, https://embee-research.ghost.io/content/images/size/w1000/2023/11/image-360.png 1000w, https://embee-research.ghost.io/content/images/size/w1600/2023/11/image-360.png 1600w, https://embee-research.ghost.io/content/images/2023/11/image-360.png 1722w" sizes="(min-width: 720px) 720px"></figure><h2 id="related-content">Related Content</h2><p>If you found this content useful, check out some other related posts over in the free <a href="https://embee-research.ghost.io/tag/intel/">Threat Intelligence</a> Section. </p><ul><li><a href="https://embee-research.ghost.io/building-advanced-censys-queries-utilising-regex-bianlian/">Advanced Regex Queries - BianLian</a></li><li><a href="https://embee-research.ghost.io/practical-queries-for-malware-infrastructure-part-3/">Practical Queries for Identifying Malware - Part 3</a></li><li><a href="https://embee-research.ghost.io/combining-pivot-points-to-identify-malware-infrastructure-redline-smokeloader-and-cobalt-strike/">Combining Simple Pivot Points to Identify Infrastructure</a></li></ul><h2 id="malware-analysis-content">Malware Analysis Content</h2><p>If you're interested in learning simple and advanced workflows for manually analysing Malware. Consider checking out the <a href="https://embee-research.ghost.io/tag/members/">paid content</a> section. </p><p>This section includes tutorials for extracting C2 addresses from real malware samples. Manual C2 extraction is a great way to grab c2's for pivoting, prior to them being identified by other services. </p><ul><li><a href="https://embee-research.ghost.io/ghidra-xrefs-from-strings/">Ghidra Analysis - Using X-refs to Establish Context From Strings </a></li><li><a href="https://embee-research.ghost.io/ghidra-basics-shellcode-analysis/">Ghidra Basics - How to Analyse Shellcode, Resolve Functions and Obtain C2's.</a> </li><li><a href="https://embee-research.ghost.io/ghidra-basics-cross-references-from-imported-functions/">Ghidra Basics - Using X-refs to Establish Context on Imported Functions</a></li></ul><div class="kg-card kg-signup-card kg-width-regular " data-lexical-signup-form style="background-color: #2c0050; display: none;">
+            
+            <div class="kg-signup-card-content">
+                
+                <div class="kg-signup-card-text ">
+                    <h2 class="kg-signup-card-heading"><span style="white-space: pre-wrap;">Free Email Updates</span></h2>
+                    <p class="kg-signup-card-subheading"><span style="white-space: pre-wrap;">Malware Analysis, Detection Engineering and Threat Intelligence</span></p>
+                    
+        <form class="kg-signup-card-form" data-members-form="signup">
+            
+            <div class="kg-signup-card-fields">
+                <input class="kg-signup-card-input" id="email" data-members-email type="email" required="true" placeholder="Your email">
+                <button class="kg-signup-card-button kg-style-accent" style="color: #FFFFFF;" type="submit">
+                    <span class="kg-signup-card-button-default">Subscribe</span>
+                    <span class="kg-signup-card-button-loading"><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewbox="0 0 24 24">
+        <g stroke-linecap="round" stroke-width="2" fill="currentColor" stroke="none" stroke-linejoin="round" class="nc-icon-wrapper">
+            <g class="nc-loop-dots-4-24-icon-o">
+                <circle cx="4" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="20" cy="12" r="3"/>
+            </g>
+            <style data-cap="butt">
+                .nc-loop-dots-4-24-icon-o{--animation-duration:0.8s}
+                .nc-loop-dots-4-24-icon-o *{opacity:.4;transform:scale(.75);animation:nc-loop-dots-4-anim var(--animation-duration) infinite}
+                .nc-loop-dots-4-24-icon-o :nth-child(1){transform-origin:4px 12px;animation-delay:-.3s;animation-delay:calc(var(--animation-duration)/-2.666)}
+                .nc-loop-dots-4-24-icon-o :nth-child(2){transform-origin:12px 12px;animation-delay:-.15s;animation-delay:calc(var(--animation-duration)/-5.333)}
+                .nc-loop-dots-4-24-icon-o :nth-child(3){transform-origin:20px 12px}
+                @keyframes nc-loop-dots-4-anim{0%,100%{opacity:.4;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
+            </style>
+        </g>
+    </svg></span>
+                </button>
+            </div>
+            <div class="kg-signup-card-success">
+                Email sent! Check your inbox to complete your signup.
+            </div>
+            <div class="kg-signup-card-error" data-members-error></div>
+        </form>
+        
+                    <p class="kg-signup-card-disclaimer"><span style="white-space: pre-wrap;">No spam. Unsubscribe anytime.</span></p>
+                </div>
+            </div>
+        </div><h2 id="ioc-lists">IOC Lists</h2><div class="kg-card kg-toggle-card" data-kg-toggle-state="close">
+            <div class="kg-toggle-heading">
+                <h4 class="kg-toggle-heading-text"><span style="white-space: pre-wrap;">IP Addresses</span></h4>
+                <button class="kg-toggle-card-icon" aria-label="Expand toggle to read content">
+                    <svg id="Regular" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                        <path class="cls-1" d="M23.25,7.311,12.53,18.03a.749.749,0,0,1-1.06,0L.75,7.311"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="kg-toggle-content"><p><span style="white-space: pre-wrap;">2[.]50[.]137[.]133</span><br><span style="white-space: pre-wrap;">23[.]93[.]65[.]180</span><br><span style="white-space: pre-wrap;">24[.]187[.]255[.]114</span><br><span style="white-space: pre-wrap;">24[.]187[.]255[.]116</span><br><span style="white-space: pre-wrap;">24[.]187[.]255[.]117</span><br><span style="white-space: pre-wrap;">24[.]255[.]174[.]187</span><br><span style="white-space: pre-wrap;">31[.]117[.]63[.]201</span><br><span style="white-space: pre-wrap;">35[.]134[.]202[.]121</span><br><span style="white-space: pre-wrap;">37[.]210[.]162[.]30</span><br><span style="white-space: pre-wrap;">39[.]40[.]144[.]179</span><br><span style="white-space: pre-wrap;">41[.]38[.]97[.]237</span><br><span style="white-space: pre-wrap;">41[.]99[.]46[.]66</span><br><span style="white-space: pre-wrap;">45[.]65[.]51[.]130</span><br><span style="white-space: pre-wrap;">46[.]251[.]130[.]164</span><br><span style="white-space: pre-wrap;">47[.]16[.]64[.]215</span><br><span style="white-space: pre-wrap;">47[.]149[.]234[.]6</span><br><span style="white-space: pre-wrap;">50[.]99[.]8[.]5</span><br><span style="white-space: pre-wrap;">60[.]48[.]77[.]48</span><br><span style="white-space: pre-wrap;">64[.]46[.]22[.]26</span><br><span style="white-space: pre-wrap;">64[.]229[.]117[.]137</span><br><span style="white-space: pre-wrap;">67[.]60[.]147[.]240</span><br><span style="white-space: pre-wrap;">68[.]160[.]236[.]23</span><br><span style="white-space: pre-wrap;">68[.]163[.]65[.]72</span><br><span style="white-space: pre-wrap;">70[.]27[.]15[.]38</span><br><span style="white-space: pre-wrap;">70[.]29[.]135[.]118</span><br><span style="white-space: pre-wrap;">70[.]49[.]34[.]218</span><br><span style="white-space: pre-wrap;">70[.]52[.]230[.]48</span><br><span style="white-space: pre-wrap;">70[.]121[.]156[.]34</span><br><span style="white-space: pre-wrap;">72[.]190[.]100[.]201</span><br><span style="white-space: pre-wrap;">74[.]12[.]145[.]202</span><br><span style="white-space: pre-wrap;">74[.]12[.]145[.]207</span><br><span style="white-space: pre-wrap;">74[.]12[.]147[.]243</span><br><span style="white-space: pre-wrap;">76[.]142[.]13[.]8</span><br><span style="white-space: pre-wrap;">77[.]124[.]85[.]166</span><br><span style="white-space: pre-wrap;">78[.]97[.]123[.]229</span><br><span style="white-space: pre-wrap;">79[.]130[.]51[.]242</span><br><span style="white-space: pre-wrap;">80[.]192[.]52[.]128</span><br><span style="white-space: pre-wrap;">81[.]151[.]251[.]196</span><br><span style="white-space: pre-wrap;">82[.]76[.]99[.]171</span><br><span style="white-space: pre-wrap;">83[.]110[.]196[.]111</span><br><span style="white-space: pre-wrap;">83[.]110[.]223[.]89</span><br><span style="white-space: pre-wrap;">84[.]155[.]8[.]44</span><br><span style="white-space: pre-wrap;">84[.]215[.]202[.]8</span><br><span style="white-space: pre-wrap;">85[.]49[.]243[.]230</span><br><span style="white-space: pre-wrap;">85[.]243[.]247[.]137</span><br><span style="white-space: pre-wrap;">86[.]97[.]84[.]192</span><br><span style="white-space: pre-wrap;">86[.]207[.]26[.]60</span><br><span style="white-space: pre-wrap;">86[.]236[.]11[.]235</span><br><span style="white-space: pre-wrap;">87[.]223[.]92[.]180</span><br><span style="white-space: pre-wrap;">88[.]249[.]231[.]161</span><br><span style="white-space: pre-wrap;">90[.]4[.]74[.]222</span><br><span style="white-space: pre-wrap;">95[.]76[.]193[.]223</span><br><span style="white-space: pre-wrap;">95[.]149[.]166[.]38</span><br><span style="white-space: pre-wrap;">96[.]43[.]115[.]158</span><br><span style="white-space: pre-wrap;">96[.]248[.]1[.]183</span><br><span style="white-space: pre-wrap;">97[.]118[.]24[.]246</span><br><span style="white-space: pre-wrap;">100[.]2[.]41[.]26</span><br><span style="white-space: pre-wrap;">102[.]157[.]101[.]136</span><br><span style="white-space: pre-wrap;">102[.]157[.]244[.]251</span><br><span style="white-space: pre-wrap;">104[.]157[.]102[.]161</span><br><span style="white-space: pre-wrap;">108[.]4[.]77[.]65</span><br><span style="white-space: pre-wrap;">108[.]49[.]159[.]2</span><br><span style="white-space: pre-wrap;">109[.]48[.]28[.]129</span><br><span style="white-space: pre-wrap;">121[.]121[.]101[.]31</span><br><span style="white-space: pre-wrap;">124[.]13[.]232[.]162</span><br><span style="white-space: pre-wrap;">125[.]209[.]114[.]181</span><br><span style="white-space: pre-wrap;">136[.]232[.]179[.]26</span><br><span style="white-space: pre-wrap;">141[.]164[.]249[.]90</span><br><span style="white-space: pre-wrap;">149[.]75[.]147[.]46</span><br><span style="white-space: pre-wrap;">151[.]48[.]137[.]184</span><br><span style="white-space: pre-wrap;">161[.]142[.]99[.]88</span><br><span style="white-space: pre-wrap;">168[.]149[.]47[.]164</span><br><span style="white-space: pre-wrap;">172[.]77[.]204[.]25</span><br><span style="white-space: pre-wrap;">172[.]91[.]3[.]194</span><br><span style="white-space: pre-wrap;">173[.]30[.]189[.]100</span><br><span style="white-space: pre-wrap;">174[.]164[.]68[.]180</span><br><span style="white-space: pre-wrap;">179[.]158[.]101[.]198</span><br><span style="white-space: pre-wrap;">186[.]182[.]15[.]91</span><br><span style="white-space: pre-wrap;">187[.]147[.]137[.]67</span><br><span style="white-space: pre-wrap;">188[.]48[.]72[.]229</span><br><span style="white-space: pre-wrap;">189[.]253[.]235[.]140</span><br><span style="white-space: pre-wrap;">190[.]134[.]148[.]34</span><br><span style="white-space: pre-wrap;">197[.]2[.]11[.]142</span><br><span style="white-space: pre-wrap;">201[.]103[.]222[.]151</span><br><span style="white-space: pre-wrap;">201[.]244[.]108[.]183</span><br><span style="white-space: pre-wrap;">217[.]165[.]233[.]123</span></p></div>
+        </div><div class="kg-card kg-toggle-card" data-kg-toggle-state="close">
+            <div class="kg-toggle-heading">
+                <h4 class="kg-toggle-heading-text"><span style="white-space: pre-wrap;">Subject Common Names</span></h4>
+                <button class="kg-toggle-card-icon" aria-label="Expand toggle to read content">
+                    <svg id="Regular" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                        <path class="cls-1" d="M23.25,7.311,12.53,18.03a.749.749,0,0,1-1.06,0L.75,7.311"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="kg-toggle-content"><p><span style="white-space: pre-wrap;">epyhm[.]net</span><br><span style="white-space: pre-wrap;">twmbelz[.]org</span><br><span style="white-space: pre-wrap;">iene[.]info</span><br><span style="white-space: pre-wrap;">ctxehfdug[.]net</span><br><span style="white-space: pre-wrap;">utip[.]biz</span><br><span style="white-space: pre-wrap;">jaonioi[.]org</span><br><span style="white-space: pre-wrap;">vcivoqeqfh[.]us</span><br><span style="white-space: pre-wrap;">ineieutzvt[.]mobi</span><br><span style="white-space: pre-wrap;">tuayjhrdwg[.]mobi</span><br><span style="white-space: pre-wrap;">oxouy[.]mobi</span><br><span style="white-space: pre-wrap;">iemjmedtey[.]biz</span><br><span style="white-space: pre-wrap;">ouxtetbtn[.]biz</span><br><span style="white-space: pre-wrap;">ghoaetksiwo[.]net</span><br><span style="white-space: pre-wrap;">fwoht[.]org</span><br><span style="white-space: pre-wrap;">tqouhdk[.]mobi</span><br><span style="white-space: pre-wrap;">pidewaeetbu[.]us</span><br><span style="white-space: pre-wrap;">aihpe[.]mobi</span><br><span style="white-space: pre-wrap;">zemureisir[.]info</span><br><span style="white-space: pre-wrap;">oialk[.]com</span><br><span style="white-space: pre-wrap;">ihaknpq[.]us</span><br><span style="white-space: pre-wrap;">jqseote[.]us</span><br><span style="white-space: pre-wrap;">gzfjtyr[.]com</span><br><span style="white-space: pre-wrap;">aeztfeq[.]net</span><br><span style="white-space: pre-wrap;">qbez[.]info</span><br><span style="white-space: pre-wrap;">omloeceqiu[.]biz</span><br><span style="white-space: pre-wrap;">ztiorhvb[.]net</span><br><span style="white-space: pre-wrap;">lfad[.]mobi</span><br><span style="white-space: pre-wrap;">egatcwojan[.]us</span><br><span style="white-space: pre-wrap;">zcstobno[.]us</span><br><span style="white-space: pre-wrap;">faexgkbimwe[.]org</span><br><span style="white-space: pre-wrap;">bdae[.]info</span><br><span style="white-space: pre-wrap;">xoehdsoeao[.]org</span><br><span style="white-space: pre-wrap;">iekztmiw[.]com</span><br><span style="white-space: pre-wrap;">oojfkdbgiec[.]info</span><br><span style="white-space: pre-wrap;">ioiu[.]us</span><br><span style="white-space: pre-wrap;">jaouem[.]info</span><br><span style="white-space: pre-wrap;">xocsuioij[.]biz</span><br><span style="white-space: pre-wrap;">euydxykaie[.]org</span><br><span style="white-space: pre-wrap;">ipzc[.]net</span><br><span style="white-space: pre-wrap;">lmatetu[.]mobi</span><br><span style="white-space: pre-wrap;">woaitgja[.]info</span><br><span style="white-space: pre-wrap;">kmeyihr[.]org</span><br><span style="white-space: pre-wrap;">bvgfkdinjla[.]net</span><br><span style="white-space: pre-wrap;">mrokouejcei[.]mobi</span><br><span style="white-space: pre-wrap;">ztmt[.]org</span><br><span style="white-space: pre-wrap;">epmsxuv[.]info</span><br><span style="white-space: pre-wrap;">vsasikavjed[.]biz</span><br><span style="white-space: pre-wrap;">yieziqg[.]biz</span><br><span style="white-space: pre-wrap;">zvtilriljat[.]net</span><br><span style="white-space: pre-wrap;">vzxei[.]net</span><br><span style="white-space: pre-wrap;">fbiafxq[.]info</span><br><span style="white-space: pre-wrap;">pmeooxard[.]org</span><br><span style="white-space: pre-wrap;">gimcyeeoof[.]org</span><br><span style="white-space: pre-wrap;">qocu[.]org</span><br><span style="white-space: pre-wrap;">eeapissopx[.]biz</span><br><span style="white-space: pre-wrap;">otihelb[.]biz</span><br><span style="white-space: pre-wrap;">ewaguarw[.]org</span><br><span style="white-space: pre-wrap;">haeoieee[.]info</span><br><span style="white-space: pre-wrap;">gokeokaut[.]biz</span><br><span style="white-space: pre-wrap;">czqphiwowf[.]biz</span><br><span style="white-space: pre-wrap;">ieaorbuq[.]net</span><br><span style="white-space: pre-wrap;">tcnzewxk[.]us</span><br><span style="white-space: pre-wrap;">lynle[.]biz</span><br><span style="white-space: pre-wrap;">hzlfitjo[.]net</span><br><span style="white-space: pre-wrap;">alcvi[.]info</span><br><span style="white-space: pre-wrap;">wcyoloy[.]mobi</span><br><span style="white-space: pre-wrap;">temthdmeo[.]org</span><br><span style="white-space: pre-wrap;">zufmpz[.]mobi</span><br><span style="white-space: pre-wrap;">lijivtamo[.]mobi</span><br><span style="white-space: pre-wrap;">kouxe[.]org</span><br><span style="white-space: pre-wrap;">aidoxovuncx[.]mobi</span><br><span style="white-space: pre-wrap;">rtouaxye[.]biz</span><br><span style="white-space: pre-wrap;">zevjeo[.]mobi</span><br><span style="white-space: pre-wrap;">aispzwot[.]biz</span><br><span style="white-space: pre-wrap;">paod[.]org</span><br><span style="white-space: pre-wrap;">iqtfotoe[.]mobi</span><br><span style="white-space: pre-wrap;">twdifusycee[.]biz</span><br><span style="white-space: pre-wrap;">frkneeatb[.]info</span><br><span style="white-space: pre-wrap;">eehpeplhr[.]us</span><br><span style="white-space: pre-wrap;">aodkhtecx[.]net</span><br><span style="white-space: pre-wrap;">efpohwf[.]net</span><br><span style="white-space: pre-wrap;">oesyahoixic[.]us</span><br><span style="white-space: pre-wrap;">motnooz[.]biz</span></p></div>
+        </div>
+        </section>
+
+    </article>
+
+
+</main>
+
+
+        <section class="gh-container is-grid gh-outer">
+            <div class="gh-container-inner gh-inner">
+                <h2 class="gh-container-title">Read more</h2>
+                <div class="gh-feed">
+                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/threat-intel-queries-with-fofabot/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 160w,
+                            /content/images/size/w320/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 320w,
+                            /content/images/size/w600/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 600w,
+                            /content/images/size/w960/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 960w,
+                            /content/images/size/w1200/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 1200w,
+                            /content/images/size/w2000/format/webp/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2024/01/2024-01-01-22_11_37-FOFA-Search-Engine.png"
+                    alt="Practical Queries for Identifying Malware Infrastructure With FOFA"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Practical Queries for Identifying Malware Infrastructure With FOFA</h3>
+                <p class="gh-card-excerpt is-body">Identifying malware infrastructure with the FOFA scanner.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2024-01-01">Jan 1, 2024</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/ghidra-basics-shellcode-analysis/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 160w,
+                            /content/images/size/w320/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 320w,
+                            /content/images/size/w600/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 600w,
+                            /content/images/size/w960/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 960w,
+                            /content/images/size/w1200/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/11/Shellcode-Analysis-With-Ghidra--1-.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/11/Shellcode-Analysis-With-Ghidra--1-.png"
+                    alt="Ghidra Basics - Manual Shellcode Analysis and C2 Extraction"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Ghidra Basics - Manual Shellcode Analysis and C2 Extraction</h3>
+                <p class="gh-card-excerpt is-body">Manual analysis of Cobalt Strike Shellcode with Ghidra. Identifying function calls and resolving API hashing.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-12-08">Dec 8, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/ghidra-basics-identifying-and-decoding-encrypted-strings/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 160w,
+                            /content/images/size/w320/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 320w,
+                            /content/images/size/w600/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 600w,
+                            /content/images/size/w960/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 960w,
+                            /content/images/size/w1200/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/12/Dealing-With-Encrypted-Strings-In-Ghidra.png"
+                    alt="Ghidra Basics - Identifying, Decoding and Fixing Encrypted Strings"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Ghidra Basics - Identifying, Decoding and Fixing Encrypted Strings</h3>
+                <p class="gh-card-excerpt is-body">Manual identification, decryption and fixing of encrypted strings using Ghidra and x32dbg.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-12-05">Dec 5, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                        <article class="gh-card post no-image">
+    <a class="gh-card-link" href="/building-advanced-censys-queries-utilising-regex-bianlian/">
+            <figure class="gh-card-image">
+                <img
+                    srcset="/content/images/size/w160/format/webp/2023/11/tls-certs-censys-canva.png 160w,
+                            /content/images/size/w320/format/webp/2023/11/tls-certs-censys-canva.png 320w,
+                            /content/images/size/w600/format/webp/2023/11/tls-certs-censys-canva.png 600w,
+                            /content/images/size/w960/format/webp/2023/11/tls-certs-censys-canva.png 960w,
+                            /content/images/size/w1200/format/webp/2023/11/tls-certs-censys-canva.png 1200w,
+                            /content/images/size/w2000/format/webp/2023/11/tls-certs-censys-canva.png 2000w"
+                    sizes="320px"
+                    src="/content/images/size/w600/2023/11/tls-certs-censys-canva.png"
+                    alt="Building Advanced Threat Intel Queries Utilising Regex and TLS Certificates - (BianLian)"
+                    loading="lazy"
+                >
+            </figure>
+        <div class="gh-card-wrapper">
+            <h3 class="gh-card-title is-title">Building Advanced Threat Intel Queries Utilising Regex and TLS Certificates - (BianLian)</h3>
+                <p class="gh-card-excerpt is-body">Creating Regex Signatures on TLS Certificates with Censys.</p>
+            <footer class="gh-card-meta"><!--
+             -->                    <time class="gh-card-date" datetime="2023-11-27">Nov 27, 2023</time>
+                <!--
+         --></footer>
+        </div>
+    </a>
+</article>                </div>
+            </div>
+        </section>
+
+    
+    <footer class="gh-footer gh-outer">
+    <div class="gh-footer-inner gh-inner">
+
+        <div class="gh-footer-bar">
+            <span class="gh-footer-logo is-title">
+                    <img src="https://embee-research.ghost.io/content/images/2023/11/logo.svg-1.svg" alt="Embee Research">
+            </span>
+            <nav class="gh-footer-menu">
+                <ul class="nav">
+    <li class="nav-index"><a href="https://embee-research.ghost.io/index/">Index</a></li>
+</ul>
+
+            </nav>
+            <div class="gh-footer-copyright">
+                Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+            </div>
+        </div>
+        
+                <section class="gh-footer-signup">
+                    <h2 class="gh-footer-signup-header is-title">
+                        Free Malware Analysis Tutorials
+                    </h2>
+                    <p class="gh-footer-signup-subhead is-body">
+                        Free Malware Tutorials. No ads. Unsubscribe anytime. 
+                    </p>
+                    <form class="gh-form" data-members-form>
+    <input class="gh-form-input" type="email" placeholder="jamie@example.com" required data-members-email>
+    <button class="gh-button" type="submit">
+        <span><span>Subscribe</span> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"></path></svg></span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
+    <g stroke-linecap="round" stroke-width="2" fill="currentColor" stroke="none" stroke-linejoin="round" class="nc-icon-wrapper">
+        <g class="nc-loop-dots-4-24-icon-o">
+            <circle cx="4" cy="12" r="3"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <circle cx="20" cy="12" r="3"></circle>
+        </g>
+        <style data-cap="butt">
+            .nc-loop-dots-4-24-icon-o{--animation-duration:0.8s}
+            .nc-loop-dots-4-24-icon-o *{opacity:.4;transform:scale(.75);animation:nc-loop-dots-4-anim var(--animation-duration) infinite}
+            .nc-loop-dots-4-24-icon-o :nth-child(1){transform-origin:4px 12px;animation-delay:-.3s;animation-delay:calc(var(--animation-duration)/-2.666)}
+            .nc-loop-dots-4-24-icon-o :nth-child(2){transform-origin:12px 12px;animation-delay:-.15s;animation-delay:calc(var(--animation-duration)/-5.333)}
+            .nc-loop-dots-4-24-icon-o :nth-child(3){transform-origin:20px 12px}
+            @keyframes nc-loop-dots-4-anim{0%,100%{opacity:.4;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
+        </style>
+    </g>
+</svg>        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    <style>
+        .checkmark {
+            width: 40px;
+            height: 40px;
+            display: block;
+            stroke-width: 2.5;
+            stroke: currentColor;
+            stroke-miterlimit: 10;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+    </style>
+</svg>    </button>
+</form>                </section>
+
+    </div>
+</footer>    
+</div>
+
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/built/source.js?v=4b294bb165"></script>
+
+
+
+</body>
+</html>

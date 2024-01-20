@@ -1,0 +1,383 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OAR@UM: Memory forensics of Qakbot</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="Generator" content="DSpace 6.3" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.7">
+        <link rel="shortcut icon" href="/library/oar/favicon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="/library/oar/static/css/jquery-ui-1.10.3.custom/redmond/jquery-ui-1.10.3.custom.css" type="text/css" />
+        <link rel="stylesheet" href="/library/oar/static/css/bootstrap/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/library/oar/static/css/bootstrap/bootstrap-theme.min.css" type="text/css" />
+        <link rel="stylesheet" href="/library/oar/static/css/bootstrap/dspace-theme.css" type="text/css" />
+        <link rel="preload" href="/library/oar/static/css/bootstrap/lato.css" type="text/css" />
+
+        <link rel="search" type="application/opensearchdescription+xml" href="/library/oar/open-search/description.xml" title="DSpace"/>
+
+
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DCTERMS.dateAccepted" content="2021-06-03T09:08:04Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.available" content="2021-06-03T09:08:04Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.issued" content="2020" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.bibliographicCitation" content="Borg, S. (2020). Memory forensics of Qakbot (Bachelor's dissertation)." xml:lang="en_GB" />
+<meta name="DC.identifier" content="https://www.um.edu.mt/library/oar/handle/123456789/76802" scheme="DCTERMS.URI" />
+<meta name="DC.description" content="B.Sc. IT (Hons)(Melit.)" xml:lang="en_GB" />
+<meta name="DCTERMS.abstract" content="As malware is continuously evolving, a common technique used by malware authors is process&#xD;&#xA;injection, whereby malicious code is injected into benign processes with escalated privileges. In the&#xD;&#xA;past, signature-based detection may have been considered as a sufficient approach to malware&#xD;&#xA;detection. However, with the advent of polymorphism becoming one of the most prevalent detection&#xD;&#xA;evasion techniques, antivirus signatures are no longer effective due to malware’s ability to change its&#xD;&#xA;appearance at will. Qakbot malware is a prime example where despite several signatures have been&#xD;&#xA;written throughout the years, it has still managed to evolve and evade detection. Therefore, one&#xD;&#xA;would most likely have a late detection of the Qakbot Sample, making the use of digital investigation&#xD;&#xA;tools central for Incident Response. This malware has evolved and managed to blend into regular&#xD;&#xA;Windows processes, emphasising the importance of Memory Forensics to identify the exact workings&#xD;&#xA;of Qakbot and be able to reconstruct the timeline of events that occurred since the malware infection.&#xD;&#xA;A prominent obstacle to the analysis of the Qakbot malware is that it includes a packing layer, where&#xD;&#xA;parts of the malware are compressed to avoid detection and hinder analysis. In this dissertation,&#xD;&#xA;Reverse Software Engineering (RSE) and Dynamic Binary Instrumentation (DBI) techniques were used&#xD;&#xA;to produce forensic tools that will aid Incident Responders to identify exactly which processes are&#xD;&#xA;being created and potentially injected. The first two tools that were developed are based on state-ofthe-&#xD;&#xA;art system logs and memory forensics. The third and final tool that was developed, is a custom&#xD;&#xA;tool based on DBI and which through partial but timely memory dumps manages to get to that elusive&#xD;&#xA;infection evidence. The complete mobsync.exe misuse picture comes at the expense of computer&#xD;&#xA;memory and storage overheads." xml:lang="en_GB" />
+<meta name="DC.language" content="en" xml:lang="en_GB" scheme="DCTERMS.RFC1766" />
+<meta name="DC.rights" content="info:eu-repo/semantics/restrictedAccess" xml:lang="en_GB" />
+<meta name="DC.subject" content="Malware (Computer software)" xml:lang="en_GB" />
+<meta name="DC.subject" content="Computer security" xml:lang="en_GB" />
+<meta name="DC.subject" content="Digital forensic science" xml:lang="en_GB" />
+<meta name="DC.title" content="Memory forensics of Qakbot" xml:lang="en_GB" />
+<meta name="DC.type" content="bachelorThesis" xml:lang="en_GB" />
+<meta name="DC.rights" content="The copyright of this work belongs to the author(s)/publisher. The rights of this work are as defined by the appropriate Copyright Legislation or as modified by any successive legislation. Users may access this work and can make use of the information contained in accordance with the Copyright Legislation provided that the author must be properly acknowledged. Further distribution or reproduction in any format is prohibited without the prior permission of the copyright holder." xml:lang="en_GB" />
+<meta name="DC.publisher" content="University of Malta" xml:lang="en_GB" />
+<meta name="DC.publisher" content="Faculty of Information and Communication Technology. Department of Computer Information Systems" xml:lang="en_GB" />
+<meta name="DC.description" content="N/A" xml:lang="en_GB" />
+<meta name="DC.contributor" content="Borg, Steve (2020)" />
+
+<meta name="citation_keywords" content="Malware (Computer software); Computer security; Digital forensic science; bachelorThesis" />
+<meta name="citation_title" content="Memory forensics of Qakbot" />
+<meta name="citation_language" content="en" />
+<meta name="citation_date" content="2020" />
+<meta name="citation_abstract_html_url" content="https://www.um.edu.mt/library/oar/handle/123456789/76802" />
+
+
+        
+        <script type='text/javascript' src="/library/oar/static/js/jquery/jquery-1.10.2.min.js"></script>
+        <script type='text/javascript' src='/library/oar/static/js/jquery/jquery-ui-1.10.3.custom.min.js'></script>
+        <script type='text/javascript' src='/library/oar/static/js/bootstrap/bootstrap.min.js'></script>
+        <script type='text/javascript' src='/library/oar/static/js/holder.js'></script>
+        <script type="text/javascript" src="/library/oar/utils.js"></script>
+        <script type="text/javascript" src="/library/oar/static/js/choice-support.js"> </script>
+        
+
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-213508416-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-213508416-1');
+        </script>
+        -->
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z20RZWT97Q"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'G-Z20RZWT97Q');
+	</script>
+    
+
+
+    
+    
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="/library/oar/static/js/html5shiv.js"></script>
+  <script src="/library/oar/static/js/respond.min.js"></script>
+<![endif]-->
+    </head>
+
+    
+    
+    <body class="undernavigation">
+<a class="sr-only" href="#content">Skip navigation</a>
+<header class="navbar navbar-inverse navbar-fixed-top" style="box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);">    
+    
+            <div class="container">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+          <a class="navbar-brand" href="https://www.um.edu.mt/"><img height="59px" src="https://www.um.edu.mt/library/oar/image/library-logo.png" alt="UM logo" /></a>
+        <!-- <a class="navbar-brand" href="/library/oar/"><img height="25" src="/library/oar/image/dspace-logo-only.png" alt="DSpace logo" /></a>-->
+
+       </div>
+       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+         <ul class="nav navbar-nav">
+           <li class=""><a href="/library/oar/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
+             <ul class="dropdown-menu">
+               <li><a href="/library/oar/community-list">Communities<br/>&amp;&nbsp;Collections</a></li>
+				<li class="divider"></li>
+        <li class="dropdown-header">Browse Items by:</li>
+				
+				
+			
+				<li><a href="/library/oar/browse?type=author">Author</a></li>
+				
+				<li><a href="/library/oar/browse?type=title">Title</a></li>
+				
+				<li><a href="/library/oar/browse?type=subject">Subject</a></li>
+				
+				<li><a href="/library/oar/browse?type=dateissued">Issue Date</a></li>
+				
+				<li><a href="/library/oar/browse?type=type">Material Type</a></li>
+				
+				<li><a href="/library/oar/browse?type=iso">Language</a></li>
+				
+				<li><a href="/library/oar/browse?type=rights">Access Rights</a></li>
+				
+			    
+			
+
+    </ul>
+  </li>
+
+  
+
+<li class="dropdown">
+     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+     <ul class="dropdown-menu">
+      
+       <li><a target="_blank" href="https://www.um.edu.mt/library/oar/bitstream/123456789/111997/3/OAR%40UM_help.pdf">OAR@UM Help</a></li>
+	     
+       <li><a target="_blank" href="https://www.um.edu.mt/library/openscience/oa/openaccessfaqs/">FAQs</a></li>
+			
+       <li><a target="_blank" href="https://www.um.edu.mt/library/help_az/oarpolicies/">OAR@UM Policies</a></li>
+
+       <li><a target="_blank" href="https://www.um.edu.mt/library/help_az/oarpolicies/oarforms/">Submission Forms</a></li>
+
+     </ul>
+</li>
+
+
+
+</ul>
+
+
+ 
+       <div class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+         
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Sign on to: <b class="caret"></b></a>
+	             
+             <ul class="dropdown-menu">
+               <li><a href="/library/oar/mydspace">My OAR@UM</a></li>
+               
+
+		
+             </ul>
+           </li>
+          </ul>
+          
+	
+	<form method="get" action="/library/oar/simple-search" class="navbar-form navbar-right">
+	    <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search OAR@UM" name="query" id="tequery" size="25"/>
+        </div>
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+
+	</form></div>
+    </nav>
+
+            </div>
+
+</header>
+
+<main id="content" role="main">
+<div class="container banner">
+	
+    
+           
+	
+       
+</div>
+
+                
+
+<div class="container">
+    
+
+
+
+  
+
+<ol class="breadcrumb btn-normal">
+
+  <li><a href="/library/oar/">OAR@UM</a></li>
+
+  <li><a href="/library/oar/handle/123456789/2068">Faculty of Information and Communication Technology</a></li>
+
+  <li><a href="/library/oar/handle/123456789/5626">Department of Computer Information Systems</a></li>
+
+  <li><a href="/library/oar/handle/123456789/14102">Dissertations - FacICTCIS</a></li>
+
+  <li><a href="/library/oar/handle/123456789/76579">Dissertations - FacICTCIS - 2020</a></li>
+
+</ol>
+
+</div>                
+
+
+
+        
+<div class="container">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+
+                
+                <div class="well">Please use this identifier to cite or link to this item:
+                <code>https://www.um.edu.mt/library/oar/handle/123456789/76802</code></div>
+
+
+
+    
+    <table class="table itemDisplayTable">
+<tr><td class="metadataFieldLabel dc_title">Title:&nbsp;</td><td class="metadataFieldValue dc_title">Memory&#x20;forensics&#x20;of&#x20;Qakbot</td></tr>
+<tr><td class="metadataFieldLabel dc_contributor_creator">Authors:&nbsp;</td><td class="metadataFieldValue dc_contributor_creator"><a class="author"href="/library/oar/browse?type=author&amp;value=Borg%2C+Steve+%282020%29">Borg,&#x20;Steve&#x20;(2020)</a></td></tr>
+<tr><td class="metadataFieldLabel dc_subject">Keywords:&nbsp;</td><td class="metadataFieldValue dc_subject"><a class="subject"href="/library/oar/browse?type=subject&amp;value=Malware+%28Computer+software%29">Malware&#x20;(Computer&#x20;software)</a><br /><a class="subject"href="/library/oar/browse?type=subject&amp;value=Computer+security">Computer&#x20;security</a><br /><a class="subject"href="/library/oar/browse?type=subject&amp;value=Digital+forensic+science">Digital&#x20;forensic&#x20;science</a></td></tr>
+<tr><td class="metadataFieldLabel dc_date_issued">Issue Date:&nbsp;</td><td class="metadataFieldValue dc_date_issued">2020</td></tr>
+<tr><td class="metadataFieldLabel dc_identifier_citation">Citation:&nbsp;</td><td class="metadataFieldValue dc_identifier_citation">Borg,&#x20;S.&#x20;(2020).&#x20;Memory&#x20;forensics&#x20;of&#x20;Qakbot&#x20;(Bachelor&#39;s&#x20;dissertation).</td></tr>
+<tr><td class="metadataFieldLabel dc_description_abstract">Abstract:&nbsp;</td><td class="metadataFieldValue dc_description_abstract">As&#x20;malware&#x20;is&#x20;continuously&#x20;evolving,&#x20;a&#x20;common&#x20;technique&#x20;used&#x20;by&#x20;malware&#x20;authors&#x20;is&#x20;process&#x0D;&#x0A;injection,&#x20;whereby&#x20;malicious&#x20;code&#x20;is&#x20;injected&#x20;into&#x20;benign&#x20;processes&#x20;with&#x20;escalated&#x20;privileges.&#x20;In&#x20;the&#x0D;&#x0A;past,&#x20;signature-based&#x20;detection&#x20;may&#x20;have&#x20;been&#x20;considered&#x20;as&#x20;a&#x20;sufficient&#x20;approach&#x20;to&#x20;malware&#x0D;&#x0A;detection.&#x20;However,&#x20;with&#x20;the&#x20;advent&#x20;of&#x20;polymorphism&#x20;becoming&#x20;one&#x20;of&#x20;the&#x20;most&#x20;prevalent&#x20;detection&#x0D;&#x0A;evasion&#x20;techniques,&#x20;antivirus&#x20;signatures&#x20;are&#x20;no&#x20;longer&#x20;effective&#x20;due&#x20;to&#x20;malware’s&#x20;ability&#x20;to&#x20;change&#x20;its&#x0D;&#x0A;appearance&#x20;at&#x20;will.&#x20;Qakbot&#x20;malware&#x20;is&#x20;a&#x20;prime&#x20;example&#x20;where&#x20;despite&#x20;several&#x20;signatures&#x20;have&#x20;been&#x0D;&#x0A;written&#x20;throughout&#x20;the&#x20;years,&#x20;it&#x20;has&#x20;still&#x20;managed&#x20;to&#x20;evolve&#x20;and&#x20;evade&#x20;detection.&#x20;Therefore,&#x20;one&#x0D;&#x0A;would&#x20;most&#x20;likely&#x20;have&#x20;a&#x20;late&#x20;detection&#x20;of&#x20;the&#x20;Qakbot&#x20;Sample,&#x20;making&#x20;the&#x20;use&#x20;of&#x20;digital&#x20;investigation&#x0D;&#x0A;tools&#x20;central&#x20;for&#x20;Incident&#x20;Response.&#x20;This&#x20;malware&#x20;has&#x20;evolved&#x20;and&#x20;managed&#x20;to&#x20;blend&#x20;into&#x20;regular&#x0D;&#x0A;Windows&#x20;processes,&#x20;emphasising&#x20;the&#x20;importance&#x20;of&#x20;Memory&#x20;Forensics&#x20;to&#x20;identify&#x20;the&#x20;exact&#x20;workings&#x0D;&#x0A;of&#x20;Qakbot&#x20;and&#x20;be&#x20;able&#x20;to&#x20;reconstruct&#x20;the&#x20;timeline&#x20;of&#x20;events&#x20;that&#x20;occurred&#x20;since&#x20;the&#x20;malware&#x20;infection.&#x0D;&#x0A;A&#x20;prominent&#x20;obstacle&#x20;to&#x20;the&#x20;analysis&#x20;of&#x20;the&#x20;Qakbot&#x20;malware&#x20;is&#x20;that&#x20;it&#x20;includes&#x20;a&#x20;packing&#x20;layer,&#x20;where&#x0D;&#x0A;parts&#x20;of&#x20;the&#x20;malware&#x20;are&#x20;compressed&#x20;to&#x20;avoid&#x20;detection&#x20;and&#x20;hinder&#x20;analysis.&#x20;In&#x20;this&#x20;dissertation,&#x0D;&#x0A;Reverse&#x20;Software&#x20;Engineering&#x20;(RSE)&#x20;and&#x20;Dynamic&#x20;Binary&#x20;Instrumentation&#x20;(DBI)&#x20;techniques&#x20;were&#x20;used&#x0D;&#x0A;to&#x20;produce&#x20;forensic&#x20;tools&#x20;that&#x20;will&#x20;aid&#x20;Incident&#x20;Responders&#x20;to&#x20;identify&#x20;exactly&#x20;which&#x20;processes&#x20;are&#x0D;&#x0A;being&#x20;created&#x20;and&#x20;potentially&#x20;injected.&#x20;The&#x20;first&#x20;two&#x20;tools&#x20;that&#x20;were&#x20;developed&#x20;are&#x20;based&#x20;on&#x20;state-ofthe-&#x0D;&#x0A;art&#x20;system&#x20;logs&#x20;and&#x20;memory&#x20;forensics.&#x20;The&#x20;third&#x20;and&#x20;final&#x20;tool&#x20;that&#x20;was&#x20;developed,&#x20;is&#x20;a&#x20;custom&#x0D;&#x0A;tool&#x20;based&#x20;on&#x20;DBI&#x20;and&#x20;which&#x20;through&#x20;partial&#x20;but&#x20;timely&#x20;memory&#x20;dumps&#x20;manages&#x20;to&#x20;get&#x20;to&#x20;that&#x20;elusive&#x0D;&#x0A;infection&#x20;evidence.&#x20;The&#x20;complete&#x20;mobsync.exe&#x20;misuse&#x20;picture&#x20;comes&#x20;at&#x20;the&#x20;expense&#x20;of&#x20;computer&#x0D;&#x0A;memory&#x20;and&#x20;storage&#x20;overheads.</td></tr>
+<tr><td class="metadataFieldLabel dc_description">Description:&nbsp;</td><td class="metadataFieldValue dc_description">B.Sc.&#x20;IT&#x20;(Hons)(Melit.)</td></tr>
+<tr><td class="metadataFieldLabel dc_identifier_uri">URI:&nbsp;</td><td class="metadataFieldValue dc_identifier_uri"><a href="https://www.um.edu.mt/library/oar/handle/123456789/76802">https:&#x2F;&#x2F;www.um.edu.mt&#x2F;library&#x2F;oar&#x2F;handle&#x2F;123456789&#x2F;76802</a></td></tr>
+<tr><td class="metadataFieldLabel">Appears in Collections:</td><td class="metadataFieldValue"><a href="/library/oar/handle/123456789/62485">Dissertations - FacICT - 2020</a><br/><a href="/library/oar/handle/123456789/76579">Dissertations - FacICTCIS - 2020</a><br/></td></tr>
+</table><br/>
+<div class="panel panel-info"><div class="panel-heading">Files in This Item:</div>
+<table class="table panel-body"><tr><th id="t1" class="standard">File</th>
+<th id="t2" class="standard">Description</th>
+<th id="t3" class="standard">Size</th><th id="t4" class="standard">Format</th><th>&nbsp;</th></tr>
+<tr><td headers="t1" class="standard break-all"><a target="_blank" href="/library/oar/bitstream/123456789/76802/1/20BITSD002.pdf">20BITSD002.pdf</a><br /><i class="label label-info"><span class="glyphicon glyphicon-lock"> </span>&nbsp; Restricted Access</i></td><td headers="t2" class="standard break-all"></td><td headers="t3" class="standard">2.02 MB</td><td headers="t4" class="standard">Adobe PDF</td><td class="standard" align="center"><a class="btn btn-primary" target="_blank" href="/library/oar/bitstream/123456789/76802/1/20BITSD002.pdf">View/Open</a>&nbsp;<a class="btn btn-success" href="/library/oar/request-item?handle=123456789/76802&bitstream-id=ca4d5919-ef62-4170-8df3-d552cea7a485">Request a copy</a></td></tr></table>
+</div>
+
+<div class="container row">
+
+
+    <a class="btn btn-default" href="/library/oar/handle/123456789/76802?mode=full">
+        Show full item record
+    </a>
+
+    <a class="statisticsLink  btn btn-primary" href="/library/oar/handle/123456789/76802/statistics"><span class="glyphicon glyphicon-stats"></span> Statistics</a>
+
+    
+
+</div>
+<br/>
+    
+
+<br/>
+    
+
+    <p class="submitFormHelp alert alert-info">Items in OAR@UM are protected by copyright, with all rights reserved, unless otherwise indicated.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+</div>
+</main>
+            
+    </body>
+</html>
+
