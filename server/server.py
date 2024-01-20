@@ -49,7 +49,7 @@ vector_store = Chroma(persist_directory="./../database", embedding_function=embe
 lang_chain = RetrievalQA.from_chain_type(
     llm=llm, 
     retriever=vector_store.as_retriever()
-    )
+)
 
 # Prompt Template
 # You are an AI network security pcap analyzer named Occult. You will be given a network capture (pcap) in CSV format.
@@ -150,6 +150,7 @@ async def upload_pcap(file: UploadFile = File(...)):
     print(f"CSV files found in data folder: {csv_files}")
 
     global vector_store
+    print("Ingesting data into vector store...")
     for csv_file in csv_files:
         vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
 

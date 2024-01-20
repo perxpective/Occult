@@ -98,6 +98,7 @@ else:
             - Ports
             - Packets
             - Packet Length
+            - Protocol
         """)
 
     # Tabs (Charts or dataframes)
@@ -120,63 +121,64 @@ else:
 
     # Charts Tab Contents
     with chart_tab:
-        # Display data visualisation for each PCAP file
-        for filename, data in zip(csv_filenames, csv_datas):
-            smart_df = SmartDataframe(
-                data, 
-                config={
-                    "llm": llm,
-                    "verbose": True,
-                    "open_charts": True,
-                    "use_error_correction_framework": True,
-                }
-            )
+        with st.spinner("Generating charts..."):
+            # Display data visualisation for each PCAP file
+            for filename, data in zip(csv_filenames, csv_datas):
+                smart_df = SmartDataframe(
+                    data, 
+                    config={
+                        "llm": llm,
+                        "verbose": True,
+                        "open_charts": True,
+                        "use_error_correction_framework": True,
+                    }
+                )
 
-            df = pd.DataFrame(data)
-            st.markdown(f"### {filename}")
-            st.markdown("#### Occult's Summary!")
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric("Packets found", smart_df.chat("How many packets are there in the dataframe altogether?"))
-                st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets? Round the value to the nearest whole number."))
-            with col2:
-                st.metric("Unique IP Addresses", smart_df.chat("How many unique IP addresses are there in the dataframe?"))
-                st.metric("Average Packet Length", smart_df.chat("What is the average packet length? Round the value to the nearest whole number."))
-            with col3:
-                st.metric("Unique MAC Addresses", smart_df.chat("How many unique MAC addresses are there in the dataframe?"))
-                st.metric("Largest Packet Length", smart_df.chat("What is the largest packet length?"))
-            with col4:
-                st.metric("Unique Ports", smart_df.chat("How many unique ports are there in the dataframe?"))
+                df = pd.DataFrame(data)
+                st.markdown(f"### {filename}")
+                st.markdown("#### Occult's Summary!")
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    st.metric("Packets found", smart_df.chat("How many packets are there in the dataframe altogether?"))
+                    st.metric("Average TTL", smart_df.chat("What is the average time to live (TTL) of the packets? Round the value to the nearest whole number."))
+                with col2:
+                    st.metric("Unique IP Addresses", smart_df.chat("How many unique IP addresses are there in the dataframe?"))
+                    st.metric("Average Packet Length", smart_df.chat("What is the average packet length? Round the value to the nearest whole number."))
+                with col3:
+                    st.metric("Unique MAC Addresses", smart_df.chat("How many unique MAC addresses are there in the dataframe?"))
+                    st.metric("Largest Packet Length", smart_df.chat("What is the largest packet length?"))
+                with col4:
+                    st.metric("Unique Ports", smart_df.chat("How many unique ports are there in the dataframe?"))
 
-            # Bar graph
-            st.markdown("### Display a Bar Graph!")
-            variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_proto","ip_ttl","src_port","dst_port","packet_time","packet_length"), key="0") 
-            st.bar_chart(df[variable].value_counts())
+                # Bar graph
+                st.markdown("### Display a Bar Graph!")
+                variable = st.selectbox("Select a variable to plot a bar graph", ("src_mac","dst_mac","eth_type","src_ip","dst_ip","ip_ttl","src_port","dst_port","packet_time","packet_length", "protocol_name"), key="0") 
+                st.bar_chart(df[variable].value_counts())
 
-            # Generate diagram
-            st.markdown("### Generate a Diagram")
-            st.markdown("Not enough diagrams for your information? Ask Occult to generate a diagram for you! Generate a bar graph, pie chart, histogram, line chart, scatter plot, you name it!")
-            st.info("Be sure to be specific in your prompts so that Occult can generate a diagram to your liking!")
+                # Generate diagram
+                st.markdown("### Generate a Diagram! 📉")
+                st.markdown("Not enough diagrams for your information? Ask Occult to generate a diagram for you! Generate a bar graph, pie chart, histogram, line chart, scatter plot, you name it!")
+                st.info("Be sure to be specific in your prompts so that Occult can generate a diagram to your liking!")
 
-            # User prompt to generate diagram
-            chart_prompt = st.text_input("Tell Occult what you want to generate!", placeholder="Generate a bar graph/pie chart/histogram of...")
-            if st.button("Generate Diagram! 📊"):
-                for file in os.listdir("exports/charts"):
-                    os.remove(os.path.join("exports/charts", file))
-                with st.spinner("Generating diagram..."):
-                    print("Generating diagram...")
-                    # If image exists, generate diagram 
-                    result = pandas_ai(df, prompt=chart_prompt)
-                    find_file = False
+                # User prompt to generate diagram
+                chart_prompt = st.text_input("Tell Occult what you want to generate!", placeholder="Generate a bar graph/pie chart/histogram of...")
+                if st.button("Generate Diagram! 📊"):
                     for file in os.listdir("exports/charts"):
-                        if file.endswith(".png"):
-                            filename = file
-                            find_file = True
-                            break
-                    if find_file:
-                        print("Diagram generated")
-                        st.image(f"exports/charts/{file}")
-                        Image.open(f"exports/charts/{file}").show()
-                    else:
-                        st.warning("Occult cannot produce a graph! Try to rephrase your prompt to be clearer for Occult!")
-                        st.error(result)
+                        os.remove(os.path.join("exports/charts", file))
+                    with st.spinner("Generating diagram..."):
+                        print("Generating diagram...")
+                        # If image exists, generate diagram 
+                        result = pandas_ai(df, prompt=chart_prompt)
+                        find_file = False
+                        for file in os.listdir("exports/charts"):
+                            if file.endswith(".png"):
+                                filename = file
+                                find_file = True
+                                break
+                        if find_file:
+                            print("Diagram generated")
+                            st.image(f"exports/charts/{file}")
+                            Image.open(f"exports/charts/{file}").show()
+                        else:
+                            st.warning("Occult cannot produce a graph! Try to rephrase your prompt to be clearer for Occult!")
+                            st.error(result)
