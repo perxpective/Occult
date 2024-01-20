@@ -1,9 +1,9 @@
-.env
+*.env
 server/data
 server/uploads
 server/chain_test.py
 server/__pycache__
-app/pandasai.log
-app/cache
-app/exports/*
 database
+cache
+exports
+app/pandasai.log

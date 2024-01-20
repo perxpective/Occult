@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
-from langchain.prompts   import PromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.vectorstores import Chroma
@@ -11,9 +11,14 @@ from langchain.llms import DeepInfra
 from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 import os
+<<<<<<< HEAD
 from langchain.vectorstores import Chroma
 import chromadb.utils.embedding_functions as embedding_functions
 import time
+=======
+import pandas as pd
+import numpy as np
+>>>>>>> dde660a578ae40f1d103d4e974cc56375d4272e1
 
 # Import functions from chain.py
 import chain
@@ -148,11 +153,11 @@ async def upload_pcap(file: UploadFile = File(...)):
     print(f"CSV files found in data folder: {csv_files}")
 
     global vector_store
-    
     for csv_file in csv_files:
         vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
 
     global lang_chain
+    # Check if lang_chain is initialized
     lang_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
@@ -177,7 +182,19 @@ async def receive_prompt(chat_prompt: ChatPrompt):
     print("Initializing chain...")
 
     # Process chat message with LLM
+    global vector_store
+    if vector_store is None:
+        for csv_file in Path("data").glob("*.csv"):
+            vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
+
     global lang_chain
+    # Check if lang_chain is initialized
+    if lang_chain is None:
+        lang_chain = RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",
+            retriever=vector_store.as_retriever()
+        )
     response_message = lang_chain.run(prompt_template.format(query=received_message))
     print("Response Messsage Sent:", response_message)
 
@@ -216,4 +233,23 @@ async def clear_uploads():
 
     return {
         "message": "Cleared uploads and data folder successfully!"
+    }
+
+# API to retrieve CSV data from data folder
+@app.get("/data/csv")
+async def get_csv_data():
+    # Get all CSV files in data folder
+    csv_filenames = []
+    csv_data = []
+    for file in os.listdir("data"):
+        if file.endswith(".csv"):
+            filename = file.replace(".csv", "")
+            csv_filenames.append(filename)
+            df = pd.read_csv(os.path.join("data", file))
+            data = df.to_dict("records")
+            csv_data.append(data)
+    return {
+        "message": "Retrieved CSV data successfully!",
+        "csv_filenames": csv_filenames,
+        "csv_data": csv_data
     }

@@ -6,6 +6,7 @@ import time
 from PIL import Image
 load_dotenv()
 
+# Base URL
 BASE_URL = os.getenv("BASE_URL")
 
 # Load favicon
@@ -29,6 +30,7 @@ with st.expander("Instructions 📜"):
         - If you want to upload new PCAP files or give Occult some new context, click the "Reset Occult!" button to clear Occult's memory. 🔄
     """)
 
+# Display PCAP files stored in the back-end
 with st.expander("PCAP Files in Memory 🧠"):
     # Iterate through all CSV files in uploads folder
     response = requests.get(BASE_URL + "uploads")
@@ -65,7 +67,7 @@ with st.expander("Upload PCAP Files 📁"):
 # Upload file to the server
 if submit_button:
     if len(uploaded_files) == 0:
-        st.error("Please upload your PCAP files first!")
+        st.error("No PCAP files have been uploaded yet! Please upload your PCAP files first!")
     else:
         for uploaded_file in uploaded_files:
             file = {"file": uploaded_file}
@@ -158,7 +160,7 @@ if prompt := st.chat_input():
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Let Occult Cook..."):
-            if not uploaded_files:
+            if len(uploaded_files) or len(file_uploads) == 0:
                 response = "Please upload your PCAP files first!"
                 st.markdown(response)
             else:
