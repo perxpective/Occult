@@ -11,14 +11,11 @@ from langchain.llms import DeepInfra
 from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 import os
-<<<<<<< HEAD
 from langchain.vectorstores import Chroma
 import chromadb.utils.embedding_functions as embedding_functions
 import time
-=======
 import pandas as pd
 import numpy as np
->>>>>>> dde660a578ae40f1d103d4e974cc56375d4272e1
 
 # Import functions from chain.py
 import chain
