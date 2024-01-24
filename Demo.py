@@ -49,7 +49,7 @@ embeddings = HuggingFaceEmbeddings()
 
 # Initialize chain and vector store
 vector_store = Chroma(
-    persist_directory="./../database", embedding_function=embeddings
+    persist_directory="././database", embedding_function=embeddings
 )
 
 lang_chain = RetrievalQA.from_chain_type(
@@ -145,7 +145,7 @@ if submit_button:
             bar.progress(progress, f"Ingesting data into vector store...")
 
             for csv_file in csv_files:
-                vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="./../database")
+                vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings, persist_directory="././database")
 
             print("Upload completed!")
             # Check if lang_chain is initialized
