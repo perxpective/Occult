@@ -10,3 +10,4 @@ numpy
 sentence-transformers
 faiss-gpu
 faiss-cpu
+chromadb
