@@ -8,6 +8,5 @@ pandas
 scapy
 numpy
 sentence-transformers
-CSV
 faiss-gpu
 faiss-cpu
