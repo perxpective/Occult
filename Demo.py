@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from PIL import Image
 from langchain.prompts import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
 from langchain.vectorstores import Chroma
 from langchain.llms import DeepInfra
 from langchain.chains import RetrievalQA
@@ -57,7 +56,8 @@ lang_chain = RetrievalQA.from_chain_type(
     retriever=vector_store.as_retriever()
 )
 
-prompt_template = """
+
+template = """
 Answer the questions asked about the uploaded PCAP file in CSV format.
 You are an Network Security Analyst that only conducts analysis on pcap files.
 The PCAP file has been processed for you in a CSV format for easier analysis, it contains some fields that can be found in a PCAP file
@@ -71,6 +71,11 @@ Question: {query}
 
 Answer:
 """
+
+prompt_template = PromptTemplate(
+    input_variables=["query"],
+    template=template
+)
 
 # Page title
 st.title("Chat with Occult! 🕵️")
