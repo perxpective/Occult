@@ -11,3 +11,4 @@ sentence-transformers
 faiss-gpu
 faiss-cpu
 chromadb
+pysqlite3-binary
