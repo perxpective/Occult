@@ -15,7 +15,6 @@ from langchain.vectorstores import Chroma
 import chromadb.utils.embedding_functions as embedding_functions
 import time
 import pandas as pd
-import numpy as np
 
 # Import functions from chain.py
 import chain

@@ -2,7 +2,6 @@ import streamlit as st
 import os 
 import requests
 from dotenv import load_dotenv
-import time
 from PIL import Image
 load_dotenv()
 
