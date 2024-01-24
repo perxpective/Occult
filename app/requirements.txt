@@ -1,6 +1,6 @@
 streamlit
 pandas
-pandasai
+pandasai==1.4.10
 numpy
 requests
 google.generativeai

@@ -30,8 +30,6 @@ HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 # Embeddings
 embeddings = HuggingFaceEmbeddings()
 
-
-
 # Initialize FastAPI
 app = FastAPI(title="Occult", version="0.1.0")
 
@@ -45,7 +43,10 @@ llm.model_kwargs = {
 }
 
 # Initialize chain and vector store
-vector_store = Chroma(persist_directory="./../database", embedding_function=embeddings)
+vector_store = Chroma(
+    persist_directory="./../database", embedding_function=embeddings
+)
+
 lang_chain = RetrievalQA.from_chain_type(
     llm=llm, 
     retriever=vector_store.as_retriever()
