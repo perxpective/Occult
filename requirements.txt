@@ -8,8 +8,5 @@ pandas
 scapy
 numpy
 sentence-transformers
-faiss-gpu
-faiss-cpu
-streamlit==1.28.1
 chromadb==0.4.17
 pysqlite3-binary
