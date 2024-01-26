@@ -7,3 +7,5 @@ database
 cache
 exports
 app/pandasai.log
+uploads
+data
