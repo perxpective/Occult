@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from langchain.prompts import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
 from langchain.vectorstores import Chroma
 from langchain.llms import DeepInfra
 from langchain.chains import RetrievalQA
@@ -184,7 +183,7 @@ async def receive_prompt(chat_prompt: ChatPrompt):
     global vector_store
     if vector_store is None:
         for csv_file in Path("data").glob("*.csv"):
-            vector_store = FAISS.from_documents(chain.split_csv(csv_file), embedding=embeddings)
+            vector_store = Chroma.from_documents(chain.split_csv(csv_file), embedding=embeddings)
 
     global lang_chain
     # Check if lang_chain is initialized
