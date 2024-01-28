@@ -131,6 +131,18 @@ with st.sidebar:
         st.toast("Chat history has been cleared! 🗑️")
     st.button(label="Clear my chat history! 🗑️", on_click=clear_chat)
 
+    # Download text file of conversations with Occult
+    # Create text file
+    with open("../conversations/chat_history.txt", "w") as f:
+        for message in st.session_state.messages:
+            f.write(f"{message['role']}: {message['message']}\n")
+
+    with open("../conversations/chat_history.txt", "r") as f:
+        chat_history = f.read()
+
+    # Download text file
+    st.download_button(label="Download chat history! 📜", data=chat_history, file_name="chat_history.txt", mime="text/plain")
+
 # Chat (Starting message)
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{
