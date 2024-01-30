@@ -58,6 +58,13 @@ with st.expander("PCAP Files in Memory 🧠"):
 # Chat input
 prompt = st.chat_input("Ask away!")
 
+# Chat (Starting message)
+if "messages" not in st.session_state.keys():
+    st.session_state.messages = [{
+        "role": "assistant", 
+        "message": "Ask away and let Occult help you!"
+    }]
+
 # File upload form
 with st.expander("Upload PCAP Files 📁"):
     with st.form("FileUpload"):
@@ -95,6 +102,7 @@ with st.sidebar:
     # Model settings
     temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5, step=0.01, key="temperature")
     top_p = st.slider(label="Top P", min_value=0.0, max_value=1.0, value=0.9, step=0.01, key="top_p")
+    top_k = st.slider(label="Top K", min_value=0, max_value=100, value=0, step=1, key="top_k")
 
     update_button = st.button(label="Update settings! 🎛️")
 
@@ -103,7 +111,8 @@ with st.sidebar:
         # Initialise settings JSON for API request
         settings = {
             "temperature": temperature,
-            "top_p": top_p
+            "top_p": top_p,
+            "top_k": top_k
         }
 
         # Send settings to FastAPI server
@@ -113,6 +122,7 @@ with st.sidebar:
                 st.toast("Settings updated! 🎉")
                 temperature = response.json()["temperature"]
                 top_p = response.json()["top_p"]
+                top_k = response.json()["top_k"]
             else:
                 st.toast("Failed to send settings to Occult! 😢")
         except requests.exceptions.RequestException as e:
@@ -133,22 +143,23 @@ with st.sidebar:
 
     # Download text file of conversations with Occult
     # Create text file
-    with open("../conversations/chat_history.txt", "w") as f:
-        for message in st.session_state.messages:
-            f.write(f"{message['role']}: {message['message']}\n")
-
-    with open("../conversations/chat_history.txt", "r") as f:
+    def update_conversation():
+        with open("../chat_history.txt", "w") as f:
+            for file in file_uploads:
+                f.write(f"Files: {file}\n")
+            for message in st.session_state.messages:
+                if message["role"] == "assistant":
+                    f.write(f"Occult: {message['message']}\n\n")
+                elif message["role"] == "user":
+                    f.write(f"You: {message['message']}\n\n")
+        with open("../chat_history.txt", "r") as f:
+                chat_history = f.read()
+            
+    with open("../chat_history.txt", "r") as f:
         chat_history = f.read()
 
     # Download text file
     st.download_button(label="Download chat history! 📜", data=chat_history, file_name="chat_history.txt", mime="text/plain")
-
-# Chat (Starting message)
-if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{
-        "role": "assistant", 
-        "message": "Ask away and let Occult help you!"
-    }]
 
 # Display or clear chat messages
 for message in st.session_state.messages:
@@ -193,3 +204,6 @@ if st.session_state.messages[-1]["role"] != "assistant":
                 "role": "assistant", 
                 "message": response
             })
+
+            # Update conversation
+            update_conversation()

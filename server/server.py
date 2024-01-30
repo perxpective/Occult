@@ -37,8 +37,9 @@ llm = DeepInfra(model_id="meta-llama/Llama-2-70b-chat-hf")
 llm.model_kwargs = {
     "temperature": 0.5,
     "repetition_penalty": 1.2,
-    "max_new_tokens": 250,
+    "max_new_tokens": 1000,
     "top_p": 0.9,
+    "top_k": 0,
 }
 
 # Initialize chain and vector store
@@ -90,6 +91,7 @@ class ChatPrompt(BaseModel):
 class LLMSettings(BaseModel):
     temperature: float
     top_p: float
+    top_k: float
 
 # API for retrieving file uploads
 @app.get("/uploads")
@@ -210,6 +212,7 @@ async def configure_llm(settings: LLMSettings):
     llm.model_kwargs = {
         "temperature": settings.temperature,
         "top_p": settings.top_p,
+        "top_k": settings.top_k,
         "repetition_penalty": 1.2,
         "max_new_tokens": 250,
     }
@@ -217,7 +220,8 @@ async def configure_llm(settings: LLMSettings):
     return {
         "message": "Updated LLM settings successfully!",
         "temperature": settings.temperature,
-        "top_p": settings.top_p
+        "top_p": settings.top_p,
+        "top_k": settings.top_k
     }
 
 # API to clear uploads and data folder
