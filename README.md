@@ -12,7 +12,8 @@
   - [Why Occult? 🤷‍♂️](#why-occult-️)
   - [How Occult Works 🛠️](#how-occult-works-️)
   - [How was Occult Made? 🧑‍🍳](#how-was-occult-made-)
-  - [Occult's Features](#occults-features)
+  - [Occult's Features 🤖](#occults-features-)
+  - [Occult Architecture 🔨](#occult-architecture-)
 
 ## What's Occult? 🤔
 Occult is a proof-of-concept AI application developed by Diploma in Infocomm Security Management (DISM) students from Singapore Polytechnic (SP). The aim of this project is to explore how the growing power of Large Language Models (LLMs) can be harnessed to assist security analysts in resource-intensive tasks like network log analysis.
@@ -50,9 +51,12 @@ To give Occult the ability to detect suspicious packets in network logs, the gro
 - **Integration** -> LangChain 🦜🔗
 - **Embedding** -> HuggingFace 🤗
 
-## Occult's Features
+## Occult's Features 🤖
 - 🦜 User-friendly chat interface
 - 📂 PCAP file upload support
 - 📊 Data visualisations of PCAP file data
 - 📚 Knowledge base of malware articles and IOCs
 - 💬 Prompt-based chart generation
+
+## Occult Architecture 🔨
+![Alt text](app/assets/architecture.png)
