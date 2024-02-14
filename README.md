@@ -1,8 +1,9 @@
-![Alt text](app\assets\Occult.png)
+![Occult Logo](app/assets/Occult.png)
+
 # Occult 🕵️
 > A question-and-answer (Q&A) AI system 🤖 that helps security analysts uncover the stories behind their PCAP files. 📄
 
-![Alt text](app\assets\Chat.png)
+![Alt text](app/assets/Chat.png)
 
 ## Table of Contents
 - [Occult 🕵️](#occult-️)
