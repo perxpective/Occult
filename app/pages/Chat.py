@@ -68,7 +68,7 @@ if "messages" not in st.session_state.keys():
 # File upload form
 with st.expander("Upload PCAP Files 📁"):
     with st.form("FileUpload"):
-        uploaded_files = st.file_uploader("Upload your PCAP files here...", type=["pcap", "pcapng"], accept_multiple_files=True)
+        uploaded_files = st.file_uploader("Upload your PCAP files here..", type=["pcap", "pcapng"], accept_multiple_files=True)
         submit_button = st.form_submit_button(label="Submit files to Occult! 📁", help="This is where you can upload your PCAP files. You can upload multiple files at once!")
 
 # Upload file to the server
@@ -78,7 +78,7 @@ if submit_button:
     else:
         for uploaded_file in uploaded_files:
             file = {"file": uploaded_file}
-            with st.spinner("Uploading file..."):
+            with st.spinner("Uploading file.."):
                 try:
                     response = requests.post(BASE_URL + "uploads/pcap", files=file)
                     filename = response.json()["filename"]
@@ -95,7 +95,7 @@ with st.sidebar:
     st.header("Chat with Occult! 🕵️‍♂️")
 
     # API 🔑 
-    # api_key = st.text_input(label="API Key", placeholder="Enter your API key here...", type="password")
+    # api_key = st.text_input(label="API Key", placeholder="Enter your API key here..", type="password")
     # if api_key:
     #     st.success("API key accepted! 🎉")
 
@@ -182,7 +182,7 @@ if prompt := st.chat_input():
 # Generate LLM response by checking if last message was sent by AI
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
-        with st.spinner("Let Occult Cook..."):
+        with st.spinner("Let Occult Cook.."):
             if len(uploaded_files) == 0 and len(file_uploads) == 0:
                 response = "Please upload your PCAP files first!"
                 st.markdown(response)

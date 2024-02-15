@@ -8,7 +8,6 @@ from pandasai.llm import GooglePalm
 from pandasai import PandasAI
 from pandasai import SmartDataframe
 from pandasai.middlewares.streamlit import StreamlitMiddleware
-import matplotlib.pyplot as plt
 
 load_dotenv()
 

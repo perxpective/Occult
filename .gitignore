@@ -8,3 +8,4 @@ cache
 exports
 app/pandasai.log
 app/conversations
+.streamlit
