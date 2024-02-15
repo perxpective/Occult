@@ -1,0 +1,14 @@
+Occult: Ask away and let Occult help you!
+
+You: hihihi
+
+Occult: Please upload your PCAP files first!
+
+You: yo
+
+Occult: Please upload your PCAP files first!
+
+You: hi
+
+Occult: Please upload your PCAP files first!
+

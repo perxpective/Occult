@@ -2,7 +2,6 @@ import streamlit as st
 import os 
 import requests
 from dotenv import load_dotenv
-import time
 from PIL import Image
 load_dotenv()
 
@@ -142,24 +141,27 @@ with st.sidebar:
     st.button(label="Clear my chat history! 🗑️", on_click=clear_chat)
 
     # Download text file of conversations with Occult
-    # Create text file
-    def update_conversation():
-        with open("./chat_history.txt", "w") as f:
-            for file in file_uploads:
-                f.write(f"Files: {file}\n")
-            for message in st.session_state.messages:
-                if message["role"] == "assistant":
-                    f.write(f"Occult: {message['message']}\n\n")
-                elif message["role"] == "user":
-                    f.write(f"You: {message['message']}\n\n")
-        with open("./chat_history.txt", "r") as f:
-                chat_history = f.read()
-            
-    with open("./chat_history.txt", "r") as f:
-        chat_history = f.read()
+    def save_conversation_to_file():
+        # Save the conversation to a text file
+        conversation = st.session_state.get("messages", [])
+        filename = "conversation.txt"
+        with open(filename, "w") as f:
+            for line in conversation:
+                if line["role"] == "user":
+                    f.write(f"You: {line['message']}\n\n")
+                else:
+                    f.write(f"Occult: {line['message']}\n\n")
 
-    # Download text file
-    st.download_button(label="Download chat history! 📜", data=chat_history, file_name="chat_history.txt", mime="text/plain")
+        # Display the download button
+        with open(filename, "r") as file:
+            st.download_button(
+                label="Download Conversation",
+                data=file,
+                file_name="conversation.txt",
+                mime="text/plain"
+            )
+    
+    save_conversation_to_file()
 
 # Display or clear chat messages
 for message in st.session_state.messages:
@@ -205,5 +207,3 @@ if st.session_state.messages[-1]["role"] != "assistant":
                 "message": response
             })
 
-            # Update conversation
-            update_conversation()

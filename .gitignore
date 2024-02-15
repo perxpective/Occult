@@ -9,3 +9,4 @@ exports
 app/pandasai.log
 app/conversations
 .streamlit
+app/chat_history.txt
