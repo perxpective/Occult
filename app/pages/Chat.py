@@ -144,7 +144,7 @@ with st.sidebar:
     # Download text file of conversations with Occult
     # Create text file
     def update_conversation():
-        with open("../chat_history.txt", "w") as f:
+        with open("./chat_history.txt", "w") as f:
             for file in file_uploads:
                 f.write(f"Files: {file}\n")
             for message in st.session_state.messages:
@@ -152,10 +152,10 @@ with st.sidebar:
                     f.write(f"Occult: {message['message']}\n\n")
                 elif message["role"] == "user":
                     f.write(f"You: {message['message']}\n\n")
-        with open("../chat_history.txt", "r") as f:
+        with open("./chat_history.txt", "r") as f:
                 chat_history = f.read()
             
-    with open("../chat_history.txt", "r") as f:
+    with open("./chat_history.txt", "r") as f:
         chat_history = f.read()
 
     # Download text file

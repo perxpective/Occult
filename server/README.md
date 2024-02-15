@@ -9,6 +9,7 @@ This is the backend server for Occult built with [FastAPI](https://fastapi.tiang
     - [Receiving Messages and Sending Message Replies](#receiving-messages-and-sending-message-replies)
     - [Configuring LLM Settings](#configuring-llm-settings)
     - [Clearing Occult's Memory](#clearing-occults-memory)
+    - [Retrieving CSV Data From the `data` Folder](#retrieving-csv-data-from-the-data-folder)
 
 ## API Documentation
 
@@ -97,5 +98,20 @@ Clears the `uploads` and `data` directories in the backend server. This is so th
 ```json
 {
   "message": "Cleared uploads and data folder successfully!"
+}
+```
+
+### Retrieving CSV Data From the `data` Folder
+```python
+@app.get("/data/csv")
+```
+Retrieves the CSV data from the `data` directory and sends it to the Streamlit frontend interface in a dictionary format.
+
+**Response Body**
+```json
+{
+  "message": "Retrieved CSV data successfully!",
+  "csv_filenames": csv_filenames,
+  "csv_data": csv_data
 }
 ```
